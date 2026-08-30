@@ -1,0 +1,201 @@
+@namespace WebForm2Blazor.Components
+@inherits WebFormsControlBase
+
+@if (Visible && _containers.Count > 0)
+{
+    @* WebForms DataList renders a table grid. RepeatDirection=Vertical (default) fills
+       column-major (items flow down, then to the next column); Horizontal fills row-major. *@
+    <table @attributes="ExtraAttributes" style="@TableStyle" id="@ClientID" class="@CssClass"
+           cellspacing="@CellSpacing"
+           cellpadding="@(CellPadding >= 0 ? CellPadding : (int?)null)">
+        <tbody>
+            @if (HeaderTemplate is not null)
+            {
+                <tr>
+                    <td colspan="@(ColumnCount > 1 ? ColumnCount : (int?)null)">@HeaderTemplate</td>
+                </tr>
+            }
+            @for (var rowIndex = 0; rowIndex < RowCount; rowIndex++)
+            {
+                <tr>
+                    @for (var columnIndex = 0; columnIndex < ColumnCount; columnIndex++)
+                    {
+                        var itemIndex = IsHorizontal
+                            ? rowIndex * ColumnCount + columnIndex
+                            : columnIndex * RowCount + rowIndex;
+                        <td align="@ItemAlignAttribute" valign="@ItemVAlignAttribute" class="@ItemStyleCssClass">
+                            @if (itemIndex < _containers.Count)
+                            {
+                                var container = _containers[itemIndex];
+                                var commandContext = new DataListCommandContext(this, container);
+                                <CascadingValue TValue="RepeaterItem" Value="container" IsFixed="true">
+                                    <CascadingValue TValue="ICommandSink" Value="commandContext" IsFixed="true">
+                                        @(SelectTemplate(itemIndex)?.Invoke(container))
+                                    </CascadingValue>
+                                </CascadingValue>
+                            }
+                        </td>
+                    }
+                </tr>
+            }
+            @if (FooterTemplate is not null)
+            {
+                <tr>
+                    <td colspan="@(ColumnCount > 1 ? ColumnCount : (int?)null)">@FooterTemplate</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private readonly List<RepeaterItem> _containers = new();
+    private bool _pendingItemDataBound;
+
+    [Parameter] public RenderFragment HeaderTemplate { get; set; }
+    [Parameter] public RenderFragment<RepeaterItem> ItemTemplate { get; set; }
+    [Parameter] public RenderFragment<RepeaterItem> AlternatingItemTemplate { get; set; }
+    [Parameter] public RenderFragment<RepeaterItem> EditItemTemplate { get; set; }
+    [Parameter] public RenderFragment<RepeaterItem> SelectedItemTemplate { get; set; }
+    [Parameter] public RenderFragment FooterTemplate { get; set; }
+
+    /// <summary>WebForms EditItemIndex / SelectedIndex (-1 = none, the default).</summary>
+    [Parameter] public int EditItemIndex { get; set; } = -1;
+    [Parameter] public int SelectedIndex { get; set; } = -1;
+
+    /// <summary>0 (the WebForms default) lays out a single column.</summary>
+    [Parameter] public int RepeatColumns { get; set; }
+
+    /// <summary>Vertical (default) / Horizontal.</summary>
+    [Parameter] public string RepeatDirection { get; set; } = "Vertical";
+
+    [Parameter] public int CellPadding { get; set; } = -1;
+    [Parameter] public int CellSpacing { get; set; }
+
+    /// <summary>WebForms ItemStyle equivalent, applied to the item cells.</summary>
+    [Parameter] public string ItemStyleCssClass { get; set; }
+    [Parameter] public string ItemStyleHorizontalAlign { get; set; }
+    [Parameter] public string ItemStyleVerticalAlign { get; set; }
+
+    /// <summary>
+    /// WebForms ItemCommand event equivalent. Commands from Button / LinkButton inside the
+    /// templates bubble here ((object source, DataListCommandEventArgs e)).
+    /// </summary>
+    [Parameter] public DataListCommandEventHandler OnItemCommand { get; set; }
+
+    /// <summary>
+    /// WebForms ItemCommand as a CLR event: code-behind wires handlers imperatively
+    /// (control.ItemCommand += Handler), which a markup-only parameter cannot express.
+    /// The accessors chain onto the parameter so the existing raise site fires both.
+    /// </summary>
+    public event DataListCommandEventHandler ItemCommand
+    {
+        add => OnItemCommand += value;
+        remove => OnItemCommand -= value;
+    }
+
+    /// <summary>
+    /// WebForms ItemDataBound equivalent. Fires right after the first render following
+    /// DataBind (see Repeater.OnItemDataBound for the timing note). Data items only.
+    /// </summary>
+    [Parameter] public DataListItemEventHandler OnItemDataBound { get; set; }
+
+    /// <summary>
+    /// WebForms ItemDataBound as a CLR event: code-behind wires handlers imperatively
+    /// (control.ItemDataBound += Handler), which a markup-only parameter cannot express.
+    /// The accessors chain onto the parameter so the existing raise site fires both.
+    /// </summary>
+    public event DataListItemEventHandler ItemDataBound
+    {
+        add => OnItemDataBound += value;
+        remove => OnItemDataBound -= value;
+    }
+
+    /// <summary>WebForms DataSource equivalent. Applied by DataBind().</summary>
+    public object DataSource { get; set; }
+
+    public IReadOnlyList<object> Items => _containers.Select(container => container.DataItem).ToList();
+
+    /// <summary>
+    /// WebForms DataKeyField equivalent: names the single key column whose value each
+    /// row contributes to <see cref="DataKeys"/>. The classic idiom reads the id of the
+    /// clicked row out of it in an ItemCommand handler.
+    /// </summary>
+    [Parameter] public string DataKeyField { get; set; }
+
+    /// <summary>WebForms DataList.DataKeys equivalent (aligned with the bound items).</summary>
+    public DataKeyValueCollection DataKeys
+        => new(string.IsNullOrEmpty(DataKeyField)
+            ? []
+            : Items.Select(item => DataBinder.Eval(item, DataKeyField)).ToList());
+
+    private bool IsHorizontal
+        => string.Equals(RepeatDirection, "Horizontal", StringComparison.OrdinalIgnoreCase);
+
+    /// <summary>CellSpacing=0 (the WebForms default) also renders border-collapse (measured on 4.8).</summary>
+    private string TableStyle
+    {
+        get
+        {
+            var style = ComputedStyle ?? string.Empty;
+            if (CellSpacing == 0)
+            {
+                style += "border-collapse:collapse;";
+            }
+            return style.Length == 0 ? null : style;
+        }
+    }
+
+    private string ItemAlignAttribute
+        => string.IsNullOrEmpty(ItemStyleHorizontalAlign)
+           || ItemStyleHorizontalAlign.Equals("NotSet", StringComparison.OrdinalIgnoreCase)
+            ? null
+            : ItemStyleHorizontalAlign.ToLowerInvariant();
+
+    private string ItemVAlignAttribute
+        => string.IsNullOrEmpty(ItemStyleVerticalAlign)
+           || ItemStyleVerticalAlign.Equals("NotSet", StringComparison.OrdinalIgnoreCase)
+            ? null
+            : ItemStyleVerticalAlign.ToLowerInvariant();
+
+    private int ColumnCount => Math.Max(1, RepeatColumns);
+
+    private int RowCount => (_containers.Count + ColumnCount - 1) / ColumnCount;
+
+    internal void RaiseItemCommand(object commandSource, RepeaterItem item, CommandEventArgs args)
+        => OnItemCommand?.Invoke(this, new DataListCommandEventArgs(item, commandSource, args));
+
+    /// <summary>WebForms template precedence: edit, then selected, then alternating.</summary>
+    private RenderFragment<RepeaterItem> SelectTemplate(int index)
+    {
+        if (index == EditItemIndex && EditItemTemplate is not null)
+        {
+            return EditItemTemplate;
+        }
+        if (index == SelectedIndex && SelectedItemTemplate is not null)
+        {
+            return SelectedItemTemplate;
+        }
+        return index % 2 == 1 && AlternatingItemTemplate is not null ? AlternatingItemTemplate : ItemTemplate;
+    }
+
+    /// <summary>WebForms DataBind() equivalent.</summary>
+    public void DataBind()
+    {
+        RowContainers.Rebind(_containers, DataSourceHelper.Materialize(DataSource), namingContainerId: ID);
+        _pendingItemDataBound = OnItemDataBound is not null;
+        StateHasChanged();
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (_pendingItemDataBound)
+        {
+            _pendingItemDataBound = false;
+            foreach (var container in _containers)
+            {
+                OnItemDataBound?.Invoke(this, new DataListItemEventArgs(container));
+            }
+        }
+    }
+}

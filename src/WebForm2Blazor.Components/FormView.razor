@@ -1,0 +1,65 @@
+﻿@namespace WebForm2Blazor.Components
+@inherits WebFormsControlBase
+
+@* Wrapped in a table like the WebForms FormView (matching structure keeps parity comparison valid).
+   RenderOuterTable="false" drops the wrapper and emits the template alone, as in WebForms 4.0+. *@
+@if (Visible && _dataItem is not null && ItemTemplate is not null)
+{
+    @if (RenderOuterTable)
+    {
+        <table @attributes="ExtraAttributes" style="@TableStyle" cellspacing="0" id="@ClientID" class="@CssClass">
+            <tbody>
+                <tr>
+                    <td colspan="2">@ItemTemplate(new RepeaterItem(_dataItem, 0))</td>
+                </tr>
+            </tbody>
+        </table>
+    }
+    else
+    {
+        @ItemTemplate(new RepeaterItem(_dataItem, 0))
+    }
+}
+
+@code {
+    private object _dataItem;
+
+    /// <summary>The WebForms FormView has cellspacing=0, so it renders with border-collapse.</summary>
+    private string TableStyle => (ComputedStyle ?? string.Empty) + "border-collapse:collapse;";
+
+    [Parameter] public RenderFragment<RepeaterItem> ItemTemplate { get; set; }
+
+    /// <summary>
+    /// WebForms RenderOuterTable equivalent (default true). When false the FormView emits
+    /// only its template - the CSS-friendly rendering introduced in 4.0 - so the id and
+    /// the style properties have no element to land on, exactly as in WebForms.
+    /// </summary>
+    [Parameter] public bool RenderOuterTable { get; set; } = true;
+
+    /// <summary>WebForms 4.5 model binding: the item type (informational here).</summary>
+    [Parameter] public string ItemType { get; set; }
+
+    /// <summary>WebForms 4.5 model binding: parameterless page method invoked for the data.</summary>
+    [Parameter] public string SelectMethod { get; set; }
+
+    /// <summary>WebForms DataSource equivalent. Displays the first row.</summary>
+    public object DataSource { get; set; }
+
+    public object DataItem => _dataItem;
+
+    /// <summary>WebForms DataBind() equivalent.</summary>
+    public void DataBind()
+    {
+        _dataItem = DataSourceHelper.Materialize(DataSource).FirstOrDefault();
+        StateHasChanged();
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender && DataSource is null && !string.IsNullOrEmpty(SelectMethod))
+        {
+            DataSource = ModelBinding.InvokeSelectMethod(Host, SelectMethod);
+            DataBind();
+        }
+    }
+}

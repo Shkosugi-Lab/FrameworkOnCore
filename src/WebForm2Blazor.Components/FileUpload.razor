@@ -1,0 +1,82 @@
+@namespace WebForm2Blazor.Components
+@inherits WebFormsControlBase
+@using Microsoft.AspNetCore.Components.Forms
+
+@if (Visible)
+{
+    @* InputFile renders <input type="file">. The selected file is buffered on change so
+       the WebForms synchronous API surface (HasFile / FileName / FileBytes / SaveAs)
+       keeps working from code-behind without async changes. *@
+    <InputFile OnChange="HandleChange" AdditionalAttributes="@InputAttributes" />
+}
+
+@code {
+    private byte[] _fileBytes;
+    private string _fileName;
+    private string _contentType;
+
+    /// <summary>
+    /// Upper bound for the buffered file (not a WebForms property; Blazor streams need an
+    /// explicit limit). Files beyond the limit throw on selection.
+    /// </summary>
+    [Parameter] public long MaxFileSize { get; set; } = 32 * 1024 * 1024;
+
+    public bool HasFile => _fileBytes is { Length: > 0 };
+
+    public string FileName => _fileName ?? string.Empty;
+
+    public byte[] FileBytes => _fileBytes ?? [];
+
+    public Stream FileContent => new MemoryStream(FileBytes, writable: false);
+
+    /// <summary>WebForms FileUpload.PostedFile (HttpPostedFile) equivalent.</summary>
+    public HttpPostedFileShim PostedFile => new(FileName, FileBytes, _contentType ?? string.Empty);
+
+    /// <summary>WebForms FileUpload.SaveAs equivalent.</summary>
+    public void SaveAs(string filename) => File.WriteAllBytes(filename, FileBytes);
+
+    private Dictionary<string, object> InputAttributes
+    {
+        get
+        {
+            var attributes = new Dictionary<string, object>(ExtraAttributes, StringComparer.OrdinalIgnoreCase);
+            if (!string.IsNullOrEmpty(ID))
+            {
+                attributes["id"] = ID;
+            }
+            if (!string.IsNullOrEmpty(CssClass))
+            {
+                attributes["class"] = CssClass;
+            }
+            var style = ComputedStyle;
+            if (!string.IsNullOrEmpty(style))
+            {
+                attributes["style"] = style;
+            }
+            if (!Enabled)
+            {
+                attributes["disabled"] = true;
+            }
+            return attributes;
+        }
+    }
+
+    private async Task HandleChange(InputFileChangeEventArgs e)
+    {
+        var file = e.File;
+        if (file is null)
+        {
+            return;
+        }
+
+        using var buffer = new MemoryStream();
+        await using (var stream = file.OpenReadStream(MaxFileSize))
+        {
+            await stream.CopyToAsync(buffer);
+        }
+        _fileBytes = buffer.ToArray();
+        _fileName = file.Name;
+        _contentType = file.ContentType;
+        MarkStateTouched();
+    }
+}

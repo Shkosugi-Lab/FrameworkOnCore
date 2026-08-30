@@ -1,0 +1,50 @@
+{
+  "ignorePatterns": [],
+  "steps": [
+    { "action": "goto", "path": "/" },
+    { "action": "snapshot", "name": "一覧-初期表示" },
+
+    { "action": "select", "target": "ddlCategory", "value": "文具" },
+    { "action": "snapshot", "name": "一覧-文具で絞り込み" },
+
+    { "action": "select", "target": "ddlCategory", "value": "" },
+    { "action": "check", "target": "chkInStockOnly" },
+    { "action": "snapshot", "name": "一覧-在庫ありのみ" },
+
+    { "action": "uncheck", "target": "chkInStockOnly" },
+    { "action": "click", "target": "btnSort" },
+    { "action": "snapshot", "name": "一覧-価格降順" },
+
+    { "action": "goto", "path": "/Edit" },
+    { "action": "snapshot", "name": "編集-初期表示" },
+
+    { "action": "click", "target": "btnSave" },
+    { "action": "snapshot", "name": "編集-未入力で保存エラー" },
+
+    { "action": "fill", "target": "txtName", "value": "モニター" },
+    { "action": "fill", "target": "txtPrice", "value": "12800" },
+    { "action": "select", "target": "ddlCategory", "value": "家電" },
+    { "action": "check", "target": "chkInStock" },
+    { "action": "click", "target": "btnSave" },
+    { "action": "waitMs", "ms": 1500 },
+    { "action": "snapshot", "name": "一覧-保存後" },
+
+    { "action": "click", "target": "lnkDelete" },
+    { "action": "snapshot", "name": "一覧-最近追加の先頭を削除後" },
+
+    { "action": "goto", "path": "/Edit" },
+    { "action": "fill", "target": "txtName", "value": "レンジテスト" },
+    { "action": "fill", "target": "txtPrice", "value": "0" },
+    { "action": "click", "target": "btnSave" },
+    { "action": "snapshot", "name": "編集-価格範囲エラー" },
+
+    { "action": "goto", "path": "/Catalog" },
+    { "action": "snapshot", "name": "カタログ-初期表示" },
+    { "action": "clickText", "value": "2" },
+    { "action": "snapshot", "name": "カタログ-2ページ目" },
+    { "action": "clickText", "value": "価格" },
+    { "action": "snapshot", "name": "カタログ-価格昇順" },
+    { "action": "clickText", "value": "価格" },
+    { "action": "snapshot", "name": "カタログ-価格降順" }
+  ]
+}

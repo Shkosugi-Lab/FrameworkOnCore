@@ -1,0 +1,11 @@
+﻿@namespace WebForm2Blazor.Components
+@inherits WebFormsControlBase
+
+@if (Visible)
+{
+    <tr @attributes="ExtraAttributes" style="@ComputedStyle" id="@ClientID" class="@CssClass">@ChildContent</tr>
+}
+
+@code {
+    [Parameter] public RenderFragment ChildContent { get; set; }
+}

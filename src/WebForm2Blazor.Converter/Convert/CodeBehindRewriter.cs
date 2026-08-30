@@ -1,0 +1,635 @@
+using System.Text;
+using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+using WebForm2Blazor.Converter.Project;
+
+namespace WebForm2Blazor.Converter.Convert;
+
+/// <summary>
+/// Converts code-behind (.aspx.cs) into a Blazor component partial class (.razor.cs).
+/// Working on the Roslyn syntax tree, only usings / namespace / base class / generated
+/// members are replaced - method bodies are never touched.
+/// </summary>
+public static class CodeBehindRewriter
+{
+    private static readonly HashSet<string> WebFormsBaseTypes = new(StringComparer.Ordinal)
+    {
+        "Page", "System.Web.UI.Page", "global::System.Web.UI.Page",
+        "MasterPage", "System.Web.UI.MasterPage", "global::System.Web.UI.MasterPage",
+        "UserControl", "System.Web.UI.UserControl", "global::System.Web.UI.UserControl",
+    };
+
+    /// <summary>Lifecycle events that cannot be converted automatically (Init / Load / PreRender are supported).</summary>
+    private static readonly HashSet<string> UnsupportedLifecycleMethods = new(StringComparer.Ordinal)
+    {
+        "Page_PreInit", "Page_InitComplete", "Page_PreLoad", "Page_LoadComplete",
+        "Page_PreRenderComplete", "Page_SaveStateComplete", "Page_Unload",
+        "Page_Error", "Page_AbortTransaction",
+    };
+
+    private static readonly string[] RequiredUsings =
+    [
+        "System",
+        "Microsoft.AspNetCore.Components",
+        "WebForm2Blazor.Components",
+    ];
+
+    // WebForms projects are conventionally built as Debug during development; parsing
+    // without the symbol makes #if DEBUG classes invisible (found via YAF's TestData page)
+    private static readonly CSharpParseOptions ParseOptions =
+        CSharpParseOptions.Default.WithPreprocessorSymbols("DEBUG");
+
+    /// <summary>Parses a source file with the converter's standard parse options.</summary>
+    internal static CompilationUnitSyntax ParseUnit(string source)
+        => (CompilationUnitSyntax)CSharpSyntaxTree.ParseText(source, ParseOptions).GetRoot();
+
+    public static string Rewrite(
+        string source,
+        ConvertedComponent component,
+        string sourceName,
+        ConversionReport report,
+        IEnumerable<string>? additionalUsings = null,
+        BaseClassRegistry? baseRegistry = null)
+    {
+        var root = ParseUnit(source);
+
+        // The namespace rewrite severs same-namespace references to types that stay in
+        // the original namespace (business classes in plain code files). C# also resolves
+        // short names through the ENCLOSING namespace chain (a class in ...Web.Admin.Modules
+        // sees types in ...Web), so every ancestor namespace that still holds ported types
+        // is bridged with a using.
+        var originalNamespace = root.DescendantNodes()
+            .OfType<BaseNamespaceDeclarationSyntax>()
+            .FirstOrDefault()?.Name.ToString();
+        var namespaceBridge = new List<string>();
+        if (originalNamespace is not null)
+        {
+            for (var ns = originalNamespace; !string.IsNullOrEmpty(ns);)
+            {
+                if (ns != component.TargetNamespace && baseRegistry?.HasNamespace(ns) == true)
+                {
+                    namespaceBridge.Add(ns);
+                }
+                var lastDot = ns.LastIndexOf('.');
+                ns = lastDot < 0 ? null : ns[..lastDot];
+            }
+        }
+
+        root = RewriteUsings(root, [.. RequiredUsings, .. additionalUsings ?? [], .. namespaceBridge]);
+        root = RewriteNamespace(root, component.TargetNamespace);
+
+        // The class is looked up by the name the SOURCE declares, not by the component
+        // name: they differ by more than casing when the name-collision suffix applied
+        // (class post -> component PostComponent), and matching only on the component
+        // name silently left the two partial halves in different classes.
+        var candidates = root.DescendantNodes().OfType<ClassDeclarationSyntax>().ToList();
+        var classDeclaration =
+            candidates.FirstOrDefault(candidate => candidate.Identifier.Text == component.SourceClassName)
+            ?? candidates.FirstOrDefault(candidate => candidate.Identifier.Text == component.ComponentName)
+            ?? candidates.FirstOrDefault(candidate => candidate.Identifier.Text.Equals(
+                component.SourceClassName, StringComparison.OrdinalIgnoreCase))
+            ?? candidates.FirstOrDefault(candidate => candidate.Identifier.Text.Equals(
+                component.ComponentName, StringComparison.OrdinalIgnoreCase));
+
+        if (classDeclaration is null)
+        {
+            report.Error(sourceName, $"コードビハインドに partial class {component.ComponentName} が見つかりません。");
+            return RewriteQualifiedFrameworkTypes(root.ToFullString());
+        }
+
+        // Component names must start uppercase in Razor; a lowercase WebForms class
+        // (class root : Page) is renamed so the partial halves line up
+        if (classDeclaration.Identifier.Text != component.ComponentName)
+        {
+            var renamed = classDeclaration.WithIdentifier(
+                SyntaxFactory.Identifier(component.ComponentName)
+                    .WithTriviaFrom(classDeclaration.Identifier));
+            var renamedConstructors = renamed.Members.OfType<ConstructorDeclarationSyntax>()
+                .Where(ctor => ctor.Identifier.Text == classDeclaration.Identifier.Text)
+                .ToList();
+            renamed = renamed.ReplaceNodes(renamedConstructors, (ctor, _) =>
+                ctor.WithIdentifier(SyntaxFactory.Identifier(component.ComponentName)
+                    .WithTriviaFrom(ctor.Identifier)));
+            root = root.ReplaceNode(classDeclaration, renamed);
+            classDeclaration = root.DescendantNodes()
+                .OfType<ClassDeclarationSyntax>()
+                .First(candidate => candidate.Identifier.Text == component.ComponentName);
+            report.Info(sourceName,
+                $"クラス名を {component.ComponentName} に変更しました(Razor コンポーネント名は大文字始まりが必須)。");
+        }
+
+        ReportUnsupportedLifecycle(classDeclaration, sourceName, report);
+        CodeBehindUsageAnalyzer.Analyze(classDeclaration, component.Fields, sourceName, report);
+
+        // Classes deriving from a custom base defined in the project (BaseNopPage etc.)
+        // keep it - the razor side emits the same base in @inherits, and the custom
+        // base's own chain root is rewritten to the compatibility base
+        var keepsCustomBase = HasCustomProjectBase(classDeclaration, baseRegistry);
+
+        var updated = keepsCustomBase ? classDeclaration : RemoveWebFormsBaseType(classDeclaration);
+        updated = AddParameterAttributes(updated, component, sourceName, report);
+        updated = InsertGeneratedMembers(updated, component, sourceName, report);
+
+        root = root.ReplaceNode(classDeclaration, updated);
+        return RewriteQualifiedFrameworkTypes(root.ToFullString());
+    }
+
+    private static bool HasCustomProjectBase(ClassDeclarationSyntax classDeclaration, BaseClassRegistry? registry)
+    {
+        if (registry is null)
+        {
+            return false;
+        }
+        var baseName = classDeclaration.BaseList?.Types.FirstOrDefault()?.Type.ToString();
+        return baseName is not null && registry.TryResolve(baseName, out _);
+    }
+
+    private static readonly Dictionary<string, string> CompatBaseReplacements = new(StringComparer.Ordinal)
+    {
+        ["Page"] = "WebFormsPage",
+        ["MasterPage"] = "WebFormsLayout",
+        ["UserControl"] = "WebFormsUserControl",
+        // Render-based custom controls run under LegacyRenderHost
+        ["WebControl"] = "LegacyWebControl",
+        ["Control"] = "LegacyWebControl",
+        ["Panel"] = "LegacyPanel",
+        ["Label"] = "LegacyLabel",
+        ["Literal"] = "LegacyLiteral",
+        ["HyperLink"] = "LegacyHyperLink",
+        // Interactive-control bases: the derived custom controls are stubbed in markup
+        // (interactivity is manual-migration territory), but their ported source must
+        // still compile - LegacyWebControl carries the lifecycle/render virtuals
+        ["CheckBox"] = "LegacyWebControl",
+        ["RadioButton"] = "LegacyWebControl",
+        ["TextBox"] = "LegacyWebControl",
+        ["Button"] = "LegacyWebControl",
+        ["LinkButton"] = "LegacyWebControl",
+        ["ImageButton"] = "LegacyWebControl",
+        ["DropDownList"] = "LegacyWebControl",
+        ["ListBox"] = "LegacyWebControl",
+        ["GridView"] = "LegacyWebControl",
+        ["DataGrid"] = "LegacyWebControl",
+        ["Repeater"] = "LegacyWebControl",
+        ["DataList"] = "LegacyWebControl",
+        ["CompositeControl"] = "LegacyWebControl",
+        ["PlaceHolder"] = "LegacyWebControl",
+        ["Image"] = "LegacyWebControl",
+    };
+
+    /// <summary>
+    /// Non-code-behind .cs files (business logic etc.). Usings are replaced; namespace and
+    /// classes are ported as-is - except that classes deriving directly from
+    /// System.Web.UI.Page / MasterPage / UserControl (= custom base classes such as
+    /// BaseNopPage) get that base swapped for the compatibility base, so the whole
+    /// inheritance chain of converted pages lands on the compat runtime.
+    /// </summary>
+    public static string RewritePlainCodeFile(string source, string? sourceName = null, ConversionReport? report = null)
+    {
+        var root = ParseUnit(source);
+
+        var replacedAny = false;
+        var targets = new Dictionary<BaseTypeSyntax, BaseTypeSyntax>();
+        foreach (var classDeclaration in root.DescendantNodes().OfType<ClassDeclarationSyntax>())
+        {
+            var baseType = classDeclaration.BaseList?.Types.FirstOrDefault();
+            if (baseType is null)
+            {
+                continue;
+            }
+            var baseName = baseType.Type.ToString().Trim();
+            var lastDot = baseName.LastIndexOf('.');
+            var shortName = lastDot >= 0 ? baseName[(lastDot + 1)..] : baseName;
+
+            // A bare short name (WebControl, Control, Page, ...) in a WebForms project
+            // refers to System.Web.UI; qualified names must actually point there
+            var isSystemWebBase = baseName == shortName
+                                  || baseName.Contains("System.Web.UI", StringComparison.Ordinal);
+            if (!isSystemWebBase || !CompatBaseReplacements.TryGetValue(shortName, out var replacement))
+            {
+                continue;
+            }
+
+            targets[baseType] = SyntaxFactory.SimpleBaseType(
+                SyntaxFactory.ParseTypeName(replacement).WithTriviaFrom(baseType.Type));
+            replacedAny = true;
+            report?.Info(sourceName ?? string.Empty,
+                $"独自基底クラス {classDeclaration.Identifier.Text} の基底 {baseName} を {replacement} に差し替えました。");
+        }
+
+        if (replacedAny)
+        {
+            root = root.ReplaceNodes(targets.Keys, (original, _) => targets[original]);
+        }
+
+        // Dropped System.Web usings mean the file references that API surface
+        // (HttpContext, HttpUtility, ...) - the compatibility namespace supplies it
+        var needsCompatNamespace = replacedAny || AllUsings(root).Any(directive =>
+        {
+            var usingName = directive.Name?.ToString() ?? string.Empty;
+            return usingName == "System.Web"
+                   || usingName.StartsWith("System.Web.", StringComparison.Ordinal);
+        });
+
+        var rewritten = RewriteUsings(root, needsCompatNamespace ? ["WebForm2Blazor.Components"] : []).ToFullString();
+        return RewriteQualifiedFrameworkTypes(rewritten);
+    }
+
+    /// <summary>
+    /// Fully qualified Framework type references written inline (System.Web.UI.HtmlTextWriter
+    /// in a method signature, EF4 ObjectContext namespaces in EDMX designer code) are not
+    /// touched by the using rewrite; a text pass maps them onto the compat / EF6 types.
+    /// </summary>
+    /// <summary>Applies a step in the middle of a Replace chain.</summary>
+    private static string Pipe(this string value, Func<string, string> step) => step(value);
+
+    private static string RewriteQualifiedFrameworkTypes(string code)
+        => code
+            .Replace("System.Data.Objects", "System.Data.Entity.Core.Objects")
+            .Replace("System.Data.EntityClient", "System.Data.Entity.Core.EntityClient")
+            .Replace("System.Data.Metadata.Edm", "System.Data.Entity.Core.Metadata.Edm")
+            // Targeted, not blanket: only types with a compat counterpart of the same name.
+            // Helper libraries write these fully qualified in signatures
+            // (Utils.AddJavaScriptInclude(System.Web.UI.Page page, ...)), where a using
+            // rewrite never reaches them.
+            .Replace("System.Web.UI.HtmlTextWriter", "WebForm2Blazor.Components.HtmlTextWriter")
+            .Replace("System.Web.UI.AttributeCollection", "WebForm2Blazor.Components.AttributeCollection")
+            .Replace("System.Web.UI.WebControls.", "WebForm2Blazor.Components.")
+            .Replace("System.Web.UI.HtmlControls.", "WebForm2Blazor.Components.")
+            .Replace("System.Web.UI.Page", "WebForm2Blazor.Components.Page")
+            .Replace("System.Web.UI.Control", "WebForm2Blazor.Components.Control")
+            // The remaining System.Web sub-namespaces map onto the flat compat namespace.
+            // Order matters: the specific System.Web.UI entries above run first, so what
+            // is left here is Security / Caching / Configuration / Hosting / Profile and
+            // finally the root itself (HttpContext, HttpRuntime, ...).
+            .Replace("System.Web.UI.", "WebForm2Blazor.Components.")
+            .Replace("System.Web.Script.Serialization.", "WebForm2Blazor.Components.")
+            .Replace("System.Web.Security.", "WebForm2Blazor.Components.")
+            .Replace("System.Web.Caching.", "WebForm2Blazor.Components.")
+            .Replace("System.Web.Configuration.", "WebForm2Blazor.Components.")
+            .Replace("System.Web.Hosting.", "WebForm2Blazor.Components.")
+            .Replace("System.Web.Profile.", "WebForm2Blazor.Components.")
+            .Replace("System.Web.HttpContext", "WebForm2Blazor.Components.HttpContext")
+            .Replace("System.Web.HttpRuntime", "WebForm2Blazor.Components.HttpRuntime")
+            .Replace("System.Web.VirtualPathUtility", "WebForm2Blazor.Components.VirtualPathUtility")
+            .Replace("System.Web.HttpUtility", "WebForm2Blazor.Components.HttpUtility")
+            .Replace("System.Web.HttpCacheability", "WebForm2Blazor.Components.HttpCacheability")
+            // WebForms controls are components here, and Blazor requires a component to
+            // have exactly one constructor - so the tag goes through the property instead
+            .Pipe(code => System.Text.RegularExpressions.Regex.Replace(
+                code,
+                @"new\s+(?:WebForm2Blazor\.Components\.)?HtmlGenericControl\s*\(\s*(""[^""]*""|[A-Za-z_][\w.]*)\s*\)",
+                "new WebForm2Blazor.Components.HtmlGenericControl { TagName = $1 }"));
+
+    /// <summary>
+    /// Every using in the file, including the ones written INSIDE the namespace. That
+    /// layout is a StyleCop convention and a whole corpus (BlogEngine) is written that
+    /// way; looking only at the file-level list left every System.Web import in place
+    /// and the compatibility namespace unimported, so nothing in those files resolved.
+    /// </summary>
+    private static List<UsingDirectiveSyntax> AllUsings(CompilationUnitSyntax root)
+        => [.. root.Usings,
+            .. root.DescendantNodes().OfType<BaseNamespaceDeclarationSyntax>().SelectMany(ns => ns.Usings)];
+
+    /// <summary>
+    /// Namespaces with no .NET counterpart. System.Web is supplied by the compatibility
+    /// library instead; AjaxControlToolkit / FCKeditor have no .NET build at all and are
+    /// usually only imported, not used.
+    /// </summary>
+    private static bool IsDroppedNamespace(string name)
+        => name == "System.Web" || name.StartsWith("System.Web.", StringComparison.Ordinal)
+           || name == "AjaxControlToolkit" || name.StartsWith("AjaxControlToolkit.", StringComparison.Ordinal)
+           || name == "FredCK" || name.StartsWith("FredCK.", StringComparison.Ordinal);
+
+    private static CompilationUnitSyntax RewriteUsings(CompilationUnitSyntax root, string[] requiredUsings)
+    {
+        var aliasUsings = new List<string>();
+        var removals = new List<UsingDirectiveSyntax>();
+
+        // Duplicates are tracked per CONTAINER: one file may hold several namespaces, each
+        // with its own import list, and a file-wide set would strip the second "using
+        // System;" and leave that namespace unable to resolve anything.
+        var duplicates = new Dictionary<SyntaxNode, HashSet<string>>();
+
+        foreach (var directive in AllUsings(root))
+        {
+            var name = directive.Name?.ToString() ?? string.Empty;
+
+            // An alias ("using Page = System.Web.UI.Page;") names ONE type and outranks
+            // every namespace import, so dropping it silently changes what that name means
+            // in the file. It is kept; the qualified-type pass retargets it to the compat
+            // type, and an alias with no counterpart fails loudly instead.
+            if (directive.Alias is not null)
+            {
+                continue;
+            }
+
+            if (IsDroppedNamespace(name))
+            {
+                // The compat shims keep the "Shim" suffix so they never shadow a real
+                // .NET type, so code declaring System.Web parameter types needs an alias
+                if (name == "System.Web")
+                {
+                    aliasUsings.Add("using HttpRequest = WebForm2Blazor.Components.HttpRequestShim;");
+                    aliasUsings.Add("using HttpResponse = WebForm2Blazor.Components.HttpResponseShim;");
+                }
+                removals.Add(directive);
+                continue;
+            }
+
+            // ConfigurationManager is replaced by the compatibility shim, but the rest of
+            // the namespace (ConfigurationPropertyAttribute, StringValidatorAttribute, ...)
+            // is genuinely used by ported provider code, so the import stays and only the
+            // one type is redirected - an alias outranks a namespace import.
+            if (name == "System.Configuration")
+            {
+                aliasUsings.Add("using ConfigurationManager = WebForm2Blazor.Components.Compat.ConfigurationManager;");
+                continue;
+            }
+
+            if (directive.Alias is not null || directive.Parent is null)
+            {
+                continue;
+            }
+
+            if (!duplicates.TryGetValue(directive.Parent, out var namesInScope))
+            {
+                duplicates[directive.Parent] = namesInScope = new HashSet<string>(StringComparer.Ordinal);
+            }
+            if (!namesInScope.Add(name))
+            {
+                removals.Add(directive);
+            }
+        }
+
+        if (removals.Count > 0)
+        {
+            root = root.RemoveNodes(removals, SyntaxRemoveOptions.KeepUnbalancedDirectives)!;
+        }
+
+        // Added at file level: these are fully qualified, so they mean the same wherever
+        // the file's own usings happen to live
+        var kept = new List<UsingDirectiveSyntax>(root.Usings);
+        var seen = new HashSet<string>(
+            AllUsings(root).Select(directive => directive.Name?.ToString() ?? string.Empty),
+            StringComparer.Ordinal);
+
+        foreach (var name in requiredUsings)
+        {
+            if (seen.Add(name))
+            {
+                kept.Add(MakeUsing($"using {name};"));
+            }
+        }
+
+        foreach (var aliasUsing in aliasUsings.Distinct())
+        {
+            if (seen.Add(aliasUsing))
+            {
+                kept.Add(MakeUsing(aliasUsing));
+            }
+        }
+
+        return root.WithUsings(SyntaxFactory.List(kept));
+    }
+
+    private static UsingDirectiveSyntax MakeUsing(string usingStatement)
+        => SyntaxFactory.ParseCompilationUnit(usingStatement + Environment.NewLine).Usings[0];
+
+    private static CompilationUnitSyntax RewriteNamespace(CompilationUnitSyntax root, string targetNamespace)
+    {
+        var declaration = root.DescendantNodes().OfType<BaseNamespaceDeclarationSyntax>().FirstOrDefault();
+        if (declaration is not null)
+        {
+            var newName = SyntaxFactory.ParseName(targetNamespace).WithTriviaFrom(declaration.Name);
+            return root.ReplaceNode(declaration.Name, newName);
+        }
+
+        // Code-behind written in the global namespace (legal in WebForms) would leave its
+        // partial half outside the component's namespace - the .razor always declares
+        // @namespace - so the two halves never join and every base member goes missing
+        if (root.Members.Count == 0)
+        {
+            return root;
+        }
+
+        // Tokens built by the factory carry no trivia, so the separators are explicit -
+        // otherwise the output reads "namespaceX{" and no longer parses
+        var wrapper = SyntaxFactory.NamespaceDeclaration(
+                SyntaxFactory.ParseName(targetNamespace).WithTrailingTrivia(SyntaxFactory.LineFeed))
+            .WithNamespaceKeyword(
+                SyntaxFactory.Token(SyntaxKind.NamespaceKeyword).WithTrailingTrivia(SyntaxFactory.Space))
+            .WithOpenBraceToken(
+                SyntaxFactory.Token(SyntaxKind.OpenBraceToken).WithTrailingTrivia(SyntaxFactory.LineFeed))
+            .WithCloseBraceToken(
+                SyntaxFactory.Token(SyntaxKind.CloseBraceToken).WithTrailingTrivia(SyntaxFactory.LineFeed))
+            .WithMembers(root.Members);
+        return root.WithMembers(SyntaxFactory.SingletonList<MemberDeclarationSyntax>(wrapper));
+    }
+
+    private static ClassDeclarationSyntax RemoveWebFormsBaseType(ClassDeclarationSyntax classDeclaration)
+    {
+        if (classDeclaration.BaseList is null)
+        {
+            return classDeclaration;
+        }
+
+        var remaining = classDeclaration.BaseList.Types
+            .Where(baseType => !WebFormsBaseTypes.Contains(baseType.Type.ToString().Trim()))
+            .ToList();
+
+        if (remaining.Count == classDeclaration.BaseList.Types.Count)
+        {
+            return classDeclaration;
+        }
+
+        if (remaining.Count == 0)
+        {
+            // Remove ": System.Web.UI.Page" entirely and move its trailing newline to the identifier
+            return classDeclaration
+                .WithBaseList(null)
+                .WithIdentifier(classDeclaration.Identifier
+                    .WithTrailingTrivia(classDeclaration.BaseList.GetTrailingTrivia()));
+        }
+
+        return classDeclaration.WithBaseList(
+            classDeclaration.BaseList.WithTypes(SyntaxFactory.SeparatedList(remaining)));
+    }
+
+    /// <summary>Public properties of a user control become Blazor [Parameter]s.</summary>
+    private static ClassDeclarationSyntax AddParameterAttributes(
+        ClassDeclarationSyntax classDeclaration,
+        ConvertedComponent component,
+        string sourceName,
+        ConversionReport report)
+    {
+        if (component.Kind != CodeBehindKind.UserControl)
+        {
+            return classDeclaration;
+        }
+
+        var properties = classDeclaration.Members
+            .OfType<PropertyDeclarationSyntax>()
+            .Where(property => property.Modifiers.Any(SyntaxKind.PublicKeyword))
+            .Where(property => !property.AttributeLists
+                .SelectMany(list => list.Attributes)
+                .Any(attribute => attribute.Name.ToString().Contains("Parameter", StringComparison.Ordinal)))
+            .ToList();
+
+        if (properties.Count == 0)
+        {
+            return classDeclaration;
+        }
+
+        foreach (var property in properties)
+        {
+            report.Info(sourceName,
+                $"公開プロパティ {property.Identifier.Text} に [Parameter] を付与しました(ユーザーコントロールのプロパティ → コンポーネントパラメータ)。");
+        }
+
+        return classDeclaration.ReplaceNodes(properties, (original, _) =>
+        {
+            var rewritten = (PropertyDeclarationSyntax)SyntaxFactory.ParseMemberDeclaration(
+                "[Parameter] " + original.ToString())!;
+            return rewritten.WithTriviaFrom(original);
+        });
+    }
+
+    private static ClassDeclarationSyntax InsertGeneratedMembers(
+        ClassDeclarationSyntax classDeclaration,
+        ConvertedComponent component,
+        string sourceName,
+        ConversionReport report)
+    {
+        var indent = GetMemberIndent(classDeclaration);
+        var generated = new StringBuilder();
+
+        if (component.Fields.Count > 0)
+        {
+            generated.Append($"{indent}// Server controls from the .aspx (the WebForms designer.cs equivalent).\r\n");
+            generated.Append($"{indent}// Instances are assigned via @ref on the .razor side.\r\n");
+            // The same ID can appear more than once in markup (mutually exclusive
+            // branches, tab panels); the field is declared once, as the designer did
+            foreach (var field in component.Fields.DistinctBy(f => f.Name))
+            {
+                generated.Append($"{indent}protected {field.Type} {field.Name};\r\n");
+            }
+            generated.Append("\r\n");
+        }
+
+        var methodNames = classDeclaration.Members
+            .OfType<MethodDeclarationSyntax>()
+            .Select(method => method.Identifier.Text)
+            .ToHashSet(StringComparer.Ordinal);
+
+        var hasInit = methodNames.Contains("Page_Init");
+        var hasLoad = methodNames.Contains("Page_Load");
+        var hasPreRender = methodNames.Contains("Page_PreRender");
+
+        if (hasInit || hasLoad || hasPreRender)
+        {
+            generated.Append($"{indent}// Equivalent of the WebForms page lifecycle (Init -> Load -> PreRender).\r\n");
+            generated.Append($"{indent}// In Blazor, child-component @ref values are assigned only after the first\r\n");
+            generated.Append($"{indent}// render, so this is called from OnAfterRender(firstRender), not OnInitialized.\r\n");
+            generated.Append($"{indent}protected override void OnAfterRender(bool firstRender)\r\n");
+            generated.Append($"{indent}{{\r\n");
+            generated.Append($"{indent}    if (!firstRender)\r\n");
+            generated.Append($"{indent}    {{\r\n");
+            generated.Append($"{indent}        return;\r\n");
+            generated.Append($"{indent}    }}\r\n");
+            generated.Append("\r\n");
+            if (hasInit)
+            {
+                generated.Append($"{indent}    Page_Init(this, EventArgs.Empty);\r\n");
+            }
+            if (hasLoad)
+            {
+                generated.Append($"{indent}    Page_Load(this, EventArgs.Empty);\r\n");
+            }
+            generated.Append($"{indent}    MarkPageLoaded();\r\n");
+            if (hasPreRender)
+            {
+                generated.Append($"{indent}    Page_PreRender(this, EventArgs.Empty);\r\n");
+            }
+            generated.Append($"{indent}    StateHasChanged();\r\n");
+            generated.Append($"{indent}}}\r\n");
+            generated.Append("\r\n");
+
+            report.Info(sourceName,
+                $"ライフサイクル({string.Join(" → ", new[] { hasInit ? "Page_Init" : null, hasLoad ? "Page_Load" : null, hasPreRender ? "Page_PreRender" : null }.Where(n => n != null))})"
+                + " を OnAfterRender(firstRender) から呼び出すよう生成しました(メソッド本体は無変更)。");
+        }
+
+        if (hasPreRender)
+        {
+            // WebForms runs Page_PreRender after event processing, before rendering, on
+            // every request. The compatibility base class calls OnPreRenderCompat when an
+            // event completes.
+            generated.Append($"{indent}protected override void OnPreRenderCompat()\r\n");
+            generated.Append($"{indent}{{\r\n");
+            generated.Append($"{indent}    Page_PreRender(this, EventArgs.Empty);\r\n");
+            generated.Append($"{indent}}}\r\n");
+            generated.Append("\r\n");
+
+            report.Info(sourceName,
+                "Page_PreRender をイベント処理後にも実行するよう OnPreRenderCompat を生成しました。");
+        }
+
+        if (generated.Length == 0)
+        {
+            return classDeclaration;
+        }
+
+        // C# 12 body-less form ("class X : Base;") cannot receive members; give it braces
+        if (classDeclaration.OpenBraceToken.IsKind(SyntaxKind.None))
+        {
+            classDeclaration = classDeclaration
+                .WithSemicolonToken(default)
+                .WithOpenBraceToken(SyntaxFactory.Token(SyntaxKind.OpenBraceToken)
+                    .WithLeadingTrivia(SyntaxFactory.CarriageReturnLineFeed)
+                    .WithTrailingTrivia(SyntaxFactory.CarriageReturnLineFeed))
+                .WithCloseBraceToken(SyntaxFactory.Token(SyntaxKind.CloseBraceToken)
+                    .WithTrailingTrivia(SyntaxFactory.CarriageReturnLineFeed));
+        }
+
+        var wrapper = SyntaxFactory.ParseCompilationUnit(
+            $"class __GeneratedMembers\r\n{{\r\n{generated}}}\r\n");
+        var generatedMembers = ((ClassDeclarationSyntax)wrapper.Members[0]).Members.ToList();
+
+        var existingMembers = classDeclaration.Members.ToList();
+        if (existingMembers.Count > 0)
+        {
+            // Insert a blank line between generated members and the original code for readability
+            existingMembers[0] = existingMembers[0].WithLeadingTrivia(
+                existingMembers[0].GetLeadingTrivia().Insert(0, SyntaxFactory.CarriageReturnLineFeed));
+        }
+
+        return classDeclaration.WithMembers(SyntaxFactory.List(generatedMembers.Concat(existingMembers)));
+    }
+
+    private static void ReportUnsupportedLifecycle(
+        ClassDeclarationSyntax classDeclaration,
+        string sourceName,
+        ConversionReport report)
+    {
+        foreach (var method in classDeclaration.Members.OfType<MethodDeclarationSyntax>())
+        {
+            if (UnsupportedLifecycleMethods.Contains(method.Identifier.Text))
+            {
+                report.Residual(sourceName, ResidualKind.PageLifecycle,
+                    $"{method.Identifier.Text} は自動変換の対象外です(呼び出し元が生成されないため、そのまま残しました)。");
+            }
+        }
+    }
+
+    private static string GetMemberIndent(ClassDeclarationSyntax classDeclaration)
+    {
+        var classIndent = classDeclaration.GetLeadingTrivia()
+            .Reverse()
+            .TakeWhile(trivia => trivia.IsKind(SyntaxKind.WhitespaceTrivia))
+            .Select(trivia => trivia.ToString())
+            .FirstOrDefault() ?? string.Empty;
+
+        return classIndent + "    ";
+    }
+}

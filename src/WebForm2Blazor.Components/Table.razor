@@ -1,0 +1,19 @@
+﻿@namespace WebForm2Blazor.Components
+@inherits WebFormsControlBase
+
+@* WebForms Table family (declarative usage; code-behind Rows.Add is the dynamic-control
+   domain and out of scope). TableRow / TableCell / TableHeaderCell render inside. *@
+@if (Visible)
+{
+    <table @attributes="ExtraAttributes" style="@ComputedStyle" id="@ClientID" class="@CssClass"
+           cellspacing="@(CellSpacing >= 0 ? CellSpacing : (int?)null)"
+           cellpadding="@(CellPadding >= 0 ? CellPadding : (int?)null)">
+        <tbody>@ChildContent</tbody>
+    </table>
+}
+
+@code {
+    [Parameter] public RenderFragment ChildContent { get; set; }
+    [Parameter] public int CellPadding { get; set; } = -1;
+    [Parameter] public int CellSpacing { get; set; } = -1;
+}

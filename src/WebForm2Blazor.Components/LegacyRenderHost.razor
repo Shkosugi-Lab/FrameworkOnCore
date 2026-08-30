@@ -1,0 +1,134 @@
+@namespace WebForm2Blazor.Components
+@implements IWebFormsControl
+
+@* Runs a ported legacy custom control (Render(HtmlTextWriter) style) unchanged and
+   injects its buffered markup. Controls with markup children render as
+   "legacy begin tag + Blazor child content + legacy end tag" (the WebControl
+   protocol split). Display-only: postback events inside the legacy control do not
+   work here - interactive controls need a hand-ported component via --control-map. *@
+@((MarkupString)(_beginHtml ?? string.Empty))@if (ChildContent is not null)
+{
+    @ChildContent
+}
+@((MarkupString)(_endHtml ?? string.Empty))
+
+@code {
+    private string _beginHtml;
+    private string _endHtml;
+
+    [Parameter] public string ID { get; set; }
+
+    /// <summary>Full type name of the ported legacy control class.</summary>
+    [Parameter] public string TypeName { get; set; }
+
+    /// <summary>Markup attribute values, applied to same-named properties with type conversion.</summary>
+    [Parameter] public Dictionary<string, object> PropertyValues { get; set; }
+
+    /// <summary>Markup children, rendered by Blazor between the legacy begin/end tags.</summary>
+    [Parameter] public RenderFragment ChildContent { get; set; }
+
+    [CascadingParameter] protected IWebFormsHost Host { get; set; }
+
+    /// <summary>The instantiated legacy control (code-behind can inspect it via FindControl).</summary>
+    public object ControlInstance { get; private set; }
+
+    protected override void OnInitialized() => Host?.HostCore.RegisterControl(this);
+
+    protected override void OnParametersSet()
+    {
+        try
+        {
+            RenderLegacyControl();
+        }
+        catch (Exception exception)
+        {
+            var message = System.Net.WebUtility.HtmlEncode(
+                (exception.InnerException ?? exception).Message);
+            _beginHtml = $"<span class=\"w2b-legacyrender-error\" title=\"{message}\">[{TypeName}: render error]</span>";
+            _endHtml = null;
+        }
+    }
+
+    private void RenderLegacyControl()
+    {
+        var type = ResolveType(TypeName)
+            ?? throw new InvalidOperationException($"型 '{TypeName}' が見つかりません。");
+        var instance = Activator.CreateInstance(type);
+        ControlInstance = instance;
+
+        SetProperty(type, instance, "ID", ID);
+        foreach (var pair in PropertyValues ?? [])
+        {
+            SetProperty(type, instance, pair.Key, pair.Value?.ToString());
+        }
+
+        using var buffer = new StringWriter();
+        var writer = new HtmlTextWriter(buffer);
+
+        if (ChildContent is not null && instance is LegacyWebControl wrapper)
+        {
+            // WebForms order: Init -> Load -> PreRender before rendering
+            wrapper.RunLifecycle();
+
+            // Same writer across both halves keeps the tag stack intact
+            wrapper.RenderBeginTag(writer);
+            _beginHtml = buffer.ToString();
+            buffer.GetStringBuilder().Clear();
+            wrapper.RenderEndTag(writer);
+            _endHtml = buffer.ToString();
+            return;
+        }
+
+        if (instance is LegacyWebControl legacyControl)
+        {
+            legacyControl.RunLifecycle();
+            legacyControl.RenderControl(writer);
+        }
+        else
+        {
+            var render = type.GetMethod("RenderControl", [typeof(HtmlTextWriter)])
+                ?? throw new InvalidOperationException($"'{TypeName}' に RenderControl(HtmlTextWriter) がありません。");
+            render.Invoke(instance, [writer]);
+        }
+        _beginHtml = buffer.ToString();
+        _endHtml = null;
+    }
+
+    private static void SetProperty(Type type, object instance, string name, string value)
+    {
+        if (value is null)
+        {
+            return;
+        }
+        var property = type.GetProperty(name,
+            System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance
+            | System.Reflection.BindingFlags.IgnoreCase);
+        if (property is null || !property.CanWrite)
+        {
+            return;
+        }
+
+        object converted = property.PropertyType.IsEnum
+            ? Enum.Parse(property.PropertyType, value, ignoreCase: true)
+            : Convert.ChangeType(value, property.PropertyType, System.Globalization.CultureInfo.InvariantCulture);
+        property.SetValue(instance, converted);
+    }
+
+    private static Type ResolveType(string typeName)
+    {
+        var direct = Type.GetType(typeName);
+        if (direct is not null)
+        {
+            return direct;
+        }
+        foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
+        {
+            var type = assembly.GetType(typeName);
+            if (type is not null)
+            {
+                return type;
+            }
+        }
+        return null;
+    }
+}

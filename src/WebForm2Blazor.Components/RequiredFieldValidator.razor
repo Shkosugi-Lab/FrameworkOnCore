@@ -1,0 +1,15 @@
+﻿@namespace WebForm2Blazor.Components
+@inherits ValidatorBase
+
+@if (ShowError)
+{
+    <span @attributes="ExtraAttributes" style="@SpanStyle" id="@ClientID" class="@ResolvedCssClass">@DisplayText</span>
+}
+
+@code {
+    /// <summary>Values equal to this count as empty (the WebForms default is the empty string).</summary>
+    [Parameter] public string InitialValue { get; set; } = "";
+
+    protected override bool EvaluateIsValid(string value, WebFormsHostCore host)
+        => !string.Equals(value.Trim(), (InitialValue ?? string.Empty).Trim(), StringComparison.Ordinal);
+}

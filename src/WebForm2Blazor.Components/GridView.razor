@@ -1,0 +1,747 @@
+@namespace WebForm2Blazor.Components
+@inherits WebFormsControlBase
+@implements IColumnContainer
+@implements ICommandSink
+@using System.Collections.Specialized
+
+@* Collects the <BoundField> / <TemplateField> declared inside <Columns>. The fields render nothing themselves. *@
+<CascadingValue Value="(IColumnContainer)this" IsFixed="true">@Columns</CascadingValue>
+
+@if (Visible)
+{
+    @if (_rowContainers.Count == 0 && EmptyDataTemplate is not null)
+    {
+        @EmptyDataTemplate
+    }
+    else if (_rowContainers.Count == 0 && !string.IsNullOrEmpty(EmptyDataText))
+    {
+        <span @attributes="ExtraAttributes" style="@ComputedStyle" id="@ClientID" class="@CssClass">@EmptyDataText</span>
+    }
+    else
+    {
+        @* Reproduces the WebForms default rendering: GridLines=Both renders border="1"
+           rules="all", and CellSpacing=0 renders cellspacing="0" + border-collapse:collapse.
+           These are defaults that never appear in markup - without them the grid lines vanish. *@
+        <table @attributes="ExtraAttributes" style="@TableStyle" id="@ClientID" class="@CssClass"
+               cellspacing="@CellSpacing"
+               cellpadding="@(CellPadding >= 0 ? CellPadding : (int?)null)"
+               border="@(IsGridLinesNone ? 0 : 1)" rules="@RulesValue">
+            @if (!string.IsNullOrEmpty(Caption))
+            {
+                <caption>@Caption</caption>
+            }
+            @if (ShowHeader && !DataGridMode)
+            {
+            <thead>
+                <tr @attributes="_headerRow?.AttributeBag"
+                    class="@(_headerRow?.CssClass ?? HeaderStyleCssClass)"
+                    style="@ComposeRowStyle(HeaderStyleBackColor, HeaderStyleForeColor, HeaderStyleFontBold)">
+                    @foreach (var column in _columns)
+                    {
+                        <th scope="col" align="@column.HeaderAlignAttribute" class="@column.HeaderStyleCssClass" style="@column.HeaderCellStyle">
+                            @if (column is TemplateField { HeaderTemplate: not null } headerTemplateField)
+                            {
+                                @headerTemplateField.HeaderTemplate
+                            }
+                            else if (AllowSorting && !string.IsNullOrEmpty(column.SortExpression))
+                            {
+                                var expression = column.SortExpression;
+                                <a href="javascript:void(0)" @onclick="() => HandleSort(expression)">@column.HeaderText</a>
+                            }
+                            else
+                            {
+                                @column.HeaderText
+                            }
+                        </th>
+                    }
+                </tr>
+            </thead>
+            }
+            <tbody>
+                @if (ShowHeader && DataGridMode)
+                {
+                    @* The legacy DataGrid renders its header as a plain td row inside the
+                       body - no thead / th / scope (measured on 4.8). UseAccessibleHeader
+                       is what turns those cells into th, and it is off by default. *@
+                    <tr @attributes="_headerRow?.AttributeBag"
+                        class="@(_headerRow?.CssClass ?? HeaderStyleCssClass)"
+                        style="@ComposeRowStyle(HeaderStyleBackColor, HeaderStyleForeColor, HeaderStyleFontBold)">
+                        @foreach (var column in _columns)
+                        {
+                            @if (UseAccessibleHeader)
+                            {
+                                <th scope="col" class="@column.HeaderStyleCssClass" style="@column.HeaderCellStyle">
+                                    @LegacyHeaderContent(column)
+                                </th>
+                            }
+                            else
+                            {
+                                <td class="@column.HeaderStyleCssClass" style="@column.HeaderCellStyle">
+                                    @LegacyHeaderContent(column)
+                                </td>
+                            }
+                        }
+                    </tr>
+                }
+                @for (var rowIndex = 0; rowIndex < _gridRows.Count; rowIndex++)
+                {
+                    var gridRow = _gridRows[rowIndex];
+                    var container = gridRow.Container;
+                    var commandContext = new GridViewRowCommandContext(this, rowIndex);
+                    <tr @attributes="gridRow.AttributeBag"
+                        class="@(gridRow.CssClass ?? RowClass(rowIndex))" style="@RowInlineStyle(rowIndex)">
+                        @foreach (var column in _columns)
+                        {
+                            <td align="@column.ItemAlignAttribute" class="@column.ItemStyleCssClass" style="@column.ItemCellStyle">
+                                @if (column is TemplateField templateField && SelectRowTemplate(templateField, rowIndex) is { } rowTemplate)
+                                {
+                                    @* Commands raised inside a TemplateField bubble to RowCommand
+                                       (and RowDeleting / RowEditing for the standard command names) *@
+                                    <CascadingValue TValue="RepeaterItem" Value="container" IsFixed="true">
+                                        <CascadingValue TValue="ICommandSink" Value="(ICommandSink)commandContext" IsFixed="true">
+                                            @rowTemplate(container)
+                                        </CascadingValue>
+                                    </CascadingValue>
+                                }
+                                else if (column is BoundField boundField)
+                                {
+                                    @boundField.GetCellText(container.DataItem)
+                                }
+                            </td>
+                        }
+                    </tr>
+                }
+                @if (ShowFooter && DataGridMode)
+                {
+                    @* The legacy DataGrid keeps its footer inside tbody, like its header *@
+                    <tr class="@FooterStyleCssClass">
+                        @foreach (var column in _columns)
+                        {
+                            <td class="@column.FooterStyleCssClass">@FooterContent(column)</td>
+                        }
+                    </tr>
+                }
+                @if (AllowPaging && PageCount > 1)
+                {
+                    @* Same DOM structure as the WebForms Numeric pager (a nested table inside a td).
+                       Matching the structure is what makes the parity comparison with the
+                       pre-conversion app hold. *@
+                    <tr class="@PagerStyleCssClass">
+                        <td colspan="@_columns.Count">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        @for (var pagerIndex = 0; pagerIndex < PageCount; pagerIndex++)
+                                        {
+                                            var targetPage = pagerIndex;
+                                            <td>
+                                                @if (targetPage == PageIndex)
+                                                {
+                                                    <span>@(targetPage + 1)</span>
+                                                }
+                                                else
+                                                {
+                                                    <a href="javascript:void(0)" @onclick="() => HandlePageClick(targetPage)">@(targetPage + 1)</a>
+                                                }
+                                            </td>
+                                        }
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+            @if (ShowFooter && !DataGridMode)
+            {
+                @* WebForms puts the footer row in its own tfoot, after tbody (measured on 4.8) *@
+                <tfoot>
+                    <tr class="@FooterStyleCssClass">
+                        @foreach (var column in _columns)
+                        {
+                            <td class="@column.FooterStyleCssClass">@FooterContent(column)</td>
+                        }
+                    </tr>
+                </tfoot>
+            }
+        </table>
+    }
+}
+
+@code {
+    private readonly List<DataControlField> _columns = new();
+    private List<object> _allRows = new();
+    private readonly List<RepeaterItem> _rowContainers = new();
+    private readonly List<GridViewRow> _gridRows = new();
+    private GridViewRow _headerRow;
+    private bool _columnsChanged;
+    private bool _pendingRowDataBound;
+    private int _pageIndex;
+    private string _sortExpression;
+    private SortDirection _sortDirection = SortDirection.Ascending;
+
+    [Parameter] public RenderFragment Columns { get; set; }
+    [Parameter] public bool AutoGenerateColumns { get; set; } = true;
+    [Parameter] public string EmptyDataText { get; set; }
+
+    /// <summary>Rendered instead of EmptyDataText when the grid has no rows.</summary>
+    [Parameter] public RenderFragment EmptyDataTemplate { get; set; }
+
+    /// <summary>Accepted for markup compatibility; the numeric pager renders instead.</summary>
+    [Parameter] public RenderFragment PagerTemplate { get; set; }
+
+    /// <summary>Rendered as a &lt;caption&gt; (WebForms Caption equivalent).</summary>
+    [Parameter] public string Caption { get; set; }
+
+    [Parameter] public bool ShowHeader { get; set; } = true;
+
+    /// <summary>
+    /// Legacy DataGrid rendering (the converter maps asp:DataGrid onto this component
+    /// with this flag fixed): the header renders as a plain td row inside the body.
+    /// </summary>
+    [Parameter] public bool DataGridMode { get; set; }
+
+    /// <summary>Comma-separated key column names. After DataBind, DataKeys exposes the key values per row.</summary>
+    [Parameter] public string DataKeyNames { get; set; }
+
+    /// <summary>
+    /// WebForms UseAccessibleHeader equivalent. Only the legacy DataGrid rendering is
+    /// affected: it emits td header cells by default and th when this is on. A GridView
+    /// already renders th, so the flag makes no difference there (measured on 4.8).
+    /// </summary>
+    [Parameter] public bool UseAccessibleHeader { get; set; }
+
+    /// <summary>
+    /// WebForms EnableModelValidation equivalent. It controls how a data-source exception
+    /// is surfaced during two-way binding; the compat GridView does no model binding of
+    /// its own, so the flag is accepted and does nothing.
+    /// </summary>
+    [Parameter] public bool EnableModelValidation { get; set; }
+
+    /// <summary>
+    /// WebForms ShowFooter equivalent (default false). The footer cells take their content
+    /// from a TemplateField's FooterTemplate, otherwise from the field's FooterText.
+    /// </summary>
+    [Parameter] public bool ShowFooter { get; set; }
+
+    /// <summary>WebForms FooterStyle-CssClass equivalent (flattened by the converter, like the other row styles).</summary>
+    [Parameter] public string FooterStyleCssClass { get; set; }
+
+    private RenderFragment FooterContent(DataControlField column) => builder =>
+    {
+        if (column is TemplateField { FooterTemplate: not null } templateField)
+        {
+            builder.AddContent(0, templateField.FooterTemplate);
+        }
+        else
+        {
+            builder.AddContent(1, column.FooterText);
+        }
+    };
+
+    private RenderFragment LegacyHeaderContent(DataControlField column) => builder =>
+    {
+        if (column is TemplateField { HeaderTemplate: not null } templateField)
+        {
+            builder.AddContent(0, templateField.HeaderTemplate);
+        }
+        else
+        {
+            builder.AddContent(1, column.HeaderText);
+        }
+    };
+
+    // --- Row styles (WebForms HeaderStyle / RowStyle / AlternatingRowStyle equivalent).
+    //     The converter flattens both markup forms - the "HeaderStyle-CssClass" attribute
+    //     and the <HeaderStyle CssClass=.../> child element - onto these parameters. ---
+    [Parameter] public string HeaderStyleCssClass { get; set; }
+    [Parameter] public string HeaderStyleBackColor { get; set; }
+    [Parameter] public string HeaderStyleForeColor { get; set; }
+    [Parameter] public bool HeaderStyleFontBold { get; set; }
+    [Parameter] public string RowStyleCssClass { get; set; }
+    [Parameter] public string RowStyleBackColor { get; set; }
+    [Parameter] public string RowStyleForeColor { get; set; }
+    [Parameter] public bool RowStyleFontBold { get; set; }
+    [Parameter] public string AlternatingRowStyleCssClass { get; set; }
+    [Parameter] public string AlternatingRowStyleBackColor { get; set; }
+    [Parameter] public string AlternatingRowStyleForeColor { get; set; }
+    [Parameter] public bool AlternatingRowStyleFontBold { get; set; }
+
+    /// <summary>WebForms DataKeys equivalent (aligned with the rows of the current page).</summary>
+    public DataKeyCollection DataKeys { get; private set; } = new(new List<DataKey>());
+
+    // --- Grid lines and spacing (reproducing the WebForms defaults verbatim) ---
+
+    /// <summary>None / Horizontal / Vertical / Both (the WebForms default is Both).</summary>
+    [Parameter] public string GridLines { get; set; } = "Both";
+
+    [Parameter] public int CellPadding { get; set; } = -1;
+    [Parameter] public int CellSpacing { get; set; }
+
+    private bool IsGridLinesNone
+        => string.Equals(GridLines, "None", StringComparison.OrdinalIgnoreCase);
+
+    private string RulesValue => (GridLines ?? "Both").Trim().ToLowerInvariant() switch
+    {
+        "horizontal" => "rows",
+        "vertical" => "cols",
+        "none" => null,
+        _ => "all",
+    };
+
+    private string TableStyle
+    {
+        get
+        {
+            var style = ComputedStyle ?? string.Empty;
+            if (CellSpacing == 0)
+            {
+                style += "border-collapse:collapse;";
+            }
+            return style.Length == 0 ? null : style;
+        }
+    }
+
+    // --- Paging (WebForms compatible) ---
+    [Parameter] public bool AllowPaging { get; set; }
+    [Parameter] public int PageSize { get; set; } = 10;
+    [Parameter] public string PagerStyleCssClass { get; set; }
+    [Parameter] public GridViewPageEventHandler OnPageIndexChanging { get; set; }
+
+    /// <summary>
+    /// WebForms PageIndexChanging as a CLR event: code-behind wires handlers imperatively
+    /// (control.PageIndexChanging += Handler), which a markup-only parameter cannot express.
+    /// The accessors chain onto the parameter so the existing raise site fires both.
+    /// </summary>
+    public event GridViewPageEventHandler PageIndexChanging
+    {
+        add => OnPageIndexChanging += value;
+        remove => OnPageIndexChanging -= value;
+    }
+
+    /// <summary>
+    /// WebForms declarative binding: resolves the named ObjectDataSource via the host and
+    /// binds automatically on first render (WebForms binds during PreRender).
+    /// </summary>
+    [Parameter] public string DataSourceID { get; set; }
+
+    /// <summary>WebForms 4.5 model binding: the template item type (informational here).</summary>
+    [Parameter] public string ItemType { get; set; }
+
+    /// <summary>WebForms 4.5 model binding: parameterless page method invoked for the data.</summary>
+    [Parameter] public string SelectMethod { get; set; }
+
+    // --- Sorting (WebForms compatible) ---
+    [Parameter] public bool AllowSorting { get; set; }
+    [Parameter] public GridViewSortEventHandler OnSorting { get; set; }
+
+    /// <summary>
+    /// WebForms Sorting as a CLR event: code-behind wires handlers imperatively
+    /// (control.Sorting += Handler), which a markup-only parameter cannot express.
+    /// The accessors chain onto the parameter so the existing raise site fires both.
+    /// </summary>
+    public event GridViewSortEventHandler Sorting
+    {
+        add => OnSorting += value;
+        remove => OnSorting -= value;
+    }
+
+    // --- Row commands and row events (WebForms compatible) ---
+    [Parameter] public GridViewCommandEventHandler OnRowCommand { get; set; }
+
+    /// <summary>
+    /// WebForms RowCommand as a CLR event: code-behind wires handlers imperatively
+    /// (control.RowCommand += Handler), which a markup-only parameter cannot express.
+    /// The accessors chain onto the parameter so the existing raise site fires both.
+    /// </summary>
+    public event GridViewCommandEventHandler RowCommand
+    {
+        add => OnRowCommand += value;
+        remove => OnRowCommand -= value;
+    }
+
+    /// <summary>
+    /// WebForms RowDataBound equivalent. In WebForms it fires during DataBind; here the
+    /// row's controls exist only after the row has rendered, so it fires right after the
+    /// first render following DataBind. Fires for the header row and each data row.
+    /// </summary>
+    [Parameter] public GridViewRowEventHandler OnRowDataBound { get; set; }
+
+    /// <summary>
+    /// WebForms RowDataBound as a CLR event: code-behind wires handlers imperatively
+    /// (control.RowDataBound += Handler), which a markup-only parameter cannot express.
+    /// The accessors chain onto the parameter so the existing raise site fires both.
+    /// </summary>
+    public event GridViewRowEventHandler RowDataBound
+    {
+        add => OnRowDataBound += value;
+        remove => OnRowDataBound -= value;
+    }
+
+    /// <summary>Fired when a command named "Delete" is raised inside a row.</summary>
+    [Parameter] public GridViewDeleteEventHandler OnRowDeleting { get; set; }
+
+    /// <summary>
+    /// WebForms RowDeleting as a CLR event: code-behind wires handlers imperatively
+    /// (control.RowDeleting += Handler), which a markup-only parameter cannot express.
+    /// The accessors chain onto the parameter so the existing raise site fires both.
+    /// </summary>
+    public event GridViewDeleteEventHandler RowDeleting
+    {
+        add => OnRowDeleting += value;
+        remove => OnRowDeleting -= value;
+    }
+
+    /// <summary>Fired when a command named "Edit" is raised inside a row.</summary>
+    [Parameter] public GridViewEditEventHandler OnRowEditing { get; set; }
+
+    /// <summary>WebForms RowUpdating: the "Update" command of a row in edit mode.</summary>
+    [Parameter] public GridViewUpdateEventHandler OnRowUpdating { get; set; }
+
+    /// <summary>
+    /// WebForms RowUpdating as a CLR event: code-behind wires handlers imperatively
+    /// (control.RowUpdating += Handler), which a markup-only parameter cannot express.
+    /// The accessors chain onto the parameter so the existing raise site fires both.
+    /// </summary>
+    public event GridViewUpdateEventHandler RowUpdating
+    {
+        add => OnRowUpdating += value;
+        remove => OnRowUpdating -= value;
+    }
+
+    /// <summary>WebForms RowCancelingEdit: the "Cancel" command of a row in edit mode.</summary>
+    [Parameter] public GridViewCancelEditEventHandler OnRowCancelingEdit { get; set; }
+
+    /// <summary>
+    /// WebForms RowCancelingEdit as a CLR event: code-behind wires handlers imperatively
+    /// (control.RowCancelingEdit += Handler), which a markup-only parameter cannot express.
+    /// The accessors chain onto the parameter so the existing raise site fires both.
+    /// </summary>
+    public event GridViewCancelEditEventHandler RowCancelingEdit
+    {
+        add => OnRowCancelingEdit += value;
+        remove => OnRowCancelingEdit -= value;
+    }
+
+    /// <summary>
+    /// WebForms RowCreated. Blazor builds the row as part of rendering rather than in a
+    /// separate creation phase, so this fires together with RowDataBound.
+    /// </summary>
+    [Parameter] public GridViewRowEventHandler OnRowCreated { get; set; }
+
+    /// <summary>
+    /// WebForms RowCreated as a CLR event: code-behind wires handlers imperatively
+    /// (control.RowCreated += Handler), which a markup-only parameter cannot express.
+    /// The accessors chain onto the parameter so the existing raise site fires both.
+    /// </summary>
+    public event GridViewRowEventHandler RowCreated
+    {
+        add => OnRowCreated += value;
+        remove => OnRowCreated -= value;
+    }
+
+    /// <summary>
+    /// WebForms RowEditing as a CLR event: code-behind wires handlers imperatively
+    /// (control.RowEditing += Handler), which a markup-only parameter cannot express.
+    /// The accessors chain onto the parameter so the existing raise site fires both.
+    /// </summary>
+    public event GridViewEditEventHandler RowEditing
+    {
+        add => OnRowEditing += value;
+        remove => OnRowEditing -= value;
+    }
+
+    /// <summary>WebForms DataSource equivalent. Applied by DataBind().</summary>
+    public object DataSource { get; set; }
+
+    /// <summary>The current page (zero-based). Assigning from code-behind re-renders.</summary>
+    public int PageIndex
+    {
+        get => _pageIndex;
+        set
+        {
+            if (_pageIndex != value)
+            {
+                _pageIndex = Math.Max(0, value);
+                RefreshView();
+                StateHasChanged();
+            }
+        }
+    }
+
+    public int PageCount
+        => !AllowPaging || PageSize <= 0 ? 1 : Math.Max(1, (_allRows.Count + PageSize - 1) / PageSize);
+
+    /// <summary>WebForms Rows equivalent (the rows of the current page, with FindControl).</summary>
+    public IReadOnlyList<GridViewRow> Rows => _gridRows;
+
+    void IColumnContainer.AddColumn(DataControlField column)
+    {
+        _columns.Add(column);
+        _columnsChanged = true;
+    }
+
+    void ICommandSink.RaiseCommand(object commandSource, CommandEventArgs args)
+        => OnRowCommand?.Invoke(this, new GridViewCommandEventArgs(commandSource, args));
+
+    /// <summary>
+    /// Receives commands bubbled from inside a row. Raises RowCommand, plus
+    /// RowDeleting / RowEditing for the standard WebForms command names.
+    /// </summary>
+    internal void HandleRowCommand(object commandSource, CommandEventArgs args, int rowIndex)
+    {
+        OnRowCommand?.Invoke(this, new GridViewCommandEventArgs(commandSource, args));
+
+        // The WebForms edit flow: Edit / Update / Cancel raise their events and the
+        // handler decides what EditIndex becomes. Nothing is assumed here - a page that
+        // cancels the event (e.Cancel) or edits a different row stays in control.
+        if (string.Equals(args.CommandName, "Delete", StringComparison.Ordinal))
+        {
+            OnRowDeleting?.Invoke(this, new GridViewDeleteEventArgs(rowIndex, BuildKeys(rowIndex)));
+        }
+        else if (string.Equals(args.CommandName, "Edit", StringComparison.Ordinal))
+        {
+            OnRowEditing?.Invoke(this, new GridViewEditEventArgs(rowIndex));
+        }
+        else if (string.Equals(args.CommandName, "Update", StringComparison.Ordinal))
+        {
+            OnRowUpdating?.Invoke(this, new GridViewUpdateEventArgs(rowIndex, BuildKeys(rowIndex)));
+        }
+        else if (string.Equals(args.CommandName, "Cancel", StringComparison.Ordinal))
+        {
+            OnRowCancelingEdit?.Invoke(this, new GridViewCancelEditEventArgs(rowIndex));
+        }
+    }
+
+    /// <summary>
+    /// WebForms EditIndex: the row rendered with EditItemTemplate (-1 = none). Assigning
+    /// it from a RowEditing / RowCancelingEdit handler re-renders, as a postback would.
+    /// </summary>
+    public int EditIndex
+    {
+        get => _editIndex;
+        set
+        {
+            if (_editIndex != value)
+            {
+                _editIndex = value;
+                StateHasChanged();
+            }
+        }
+    }
+
+    private int _editIndex = -1;
+
+    /// <summary>WebForms template precedence for a row: edit, then alternating, then item.</summary>
+    private RenderFragment<RepeaterItem> SelectRowTemplate(TemplateField field, int rowIndex)
+    {
+        if (rowIndex == EditIndex && field.EditItemTemplate is not null)
+        {
+            return field.EditItemTemplate;
+        }
+        return rowIndex % 2 == 1 && field.AlternatingItemTemplate is not null
+            ? field.AlternatingItemTemplate
+            : field.ItemTemplate;
+    }
+
+    private OrderedDictionary BuildKeys(int rowIndex)
+    {
+        var keys = new OrderedDictionary();
+        var dataKey = DataKeys[rowIndex];
+        if (dataKey is not null)
+        {
+            foreach (var pair in dataKey.All)
+            {
+                keys[pair.Key] = pair.Value;
+            }
+        }
+        return keys;
+    }
+
+    /// <summary>WebForms DataBind() equivalent.</summary>
+    public void DataBind()
+    {
+        _allRows = DataSourceHelper.Materialize(DataSource);
+
+        if (AutoGenerateColumns && _columns.Count == 0 && _allRows.Count > 0)
+        {
+            // DataTable rows auto-generate from the table's columns, as in WebForms
+            if (_allRows[0] is System.Data.DataRowView rowView)
+            {
+                foreach (System.Data.DataColumn column in rowView.Row.Table.Columns)
+                {
+                    _columns.Add(new BoundField { DataField = column.ColumnName, HeaderText = column.ColumnName });
+                }
+            }
+            else
+            {
+                foreach (var property in _allRows[0].GetType().GetProperties())
+                {
+                    _columns.Add(new BoundField { DataField = property.Name, HeaderText = property.Name });
+                }
+            }
+        }
+
+        if (_pageIndex >= PageCount)
+        {
+            _pageIndex = PageCount - 1;
+        }
+
+        RefreshView();
+        _pendingRowDataBound = OnRowDataBound is not null;
+        StateHasChanged();
+    }
+
+    private void RefreshView()
+    {
+        var viewRows = AllowPaging && PageSize > 0
+            ? _allRows.Skip(_pageIndex * PageSize).Take(PageSize).ToList()
+            : _allRows;
+
+        // Containers stay index-stable across binds so FindControl keeps resolving;
+        // ItemIndex is absolute (page offset included), matching WebForms templates
+        RowContainers.Rebind(_rowContainers, viewRows, AllowPaging && PageSize > 0 ? _pageIndex * PageSize : 0, ID);
+
+        _gridRows.Clear();
+        for (var i = 0; i < _rowContainers.Count; i++)
+        {
+            _gridRows.Add(new GridViewRow(DataControlRowType.DataRow, i, _rowContainers[i]) { Fields = _columns });
+        }
+        _headerRow = ShowHeader ? new GridViewRow(DataControlRowType.Header, -1, null) : null;
+
+        // As in WebForms, DataKeys corresponds to the rows of the current page
+        var keyNames = (DataKeyNames ?? string.Empty)
+            .Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+        var keys = new List<DataKey>();
+        if (keyNames.Length > 0)
+        {
+            foreach (var row in viewRows)
+            {
+                var values = new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase);
+                foreach (var name in keyNames)
+                {
+                    values[name] = DataBinder.Eval(row, name);
+                }
+                keys.Add(new DataKey(values));
+            }
+        }
+        DataKeys = new DataKeyCollection(keys);
+    }
+
+    private string RowClass(int rowIndex)
+        => rowIndex % 2 == 1 && !string.IsNullOrEmpty(AlternatingRowStyleCssClass)
+            ? AlternatingRowStyleCssClass
+            : RowStyleCssClass;
+
+    private string RowInlineStyle(int rowIndex)
+        => rowIndex % 2 == 1 && (AlternatingRowStyleBackColor != null || AlternatingRowStyleForeColor != null || AlternatingRowStyleFontBold)
+            ? ComposeRowStyle(AlternatingRowStyleBackColor ?? RowStyleBackColor, AlternatingRowStyleForeColor ?? RowStyleForeColor, AlternatingRowStyleFontBold)
+            : ComposeRowStyle(RowStyleBackColor, RowStyleForeColor, RowStyleFontBold);
+
+    private static string ComposeRowStyle(string backColor, string foreColor, bool fontBold)
+    {
+        var style = string.Empty;
+        if (!string.IsNullOrEmpty(backColor))
+        {
+            style += $"background-color:{backColor};";
+        }
+        if (!string.IsNullOrEmpty(foreColor))
+        {
+            style += $"color:{foreColor};";
+        }
+        if (fontBold)
+        {
+            style += "font-weight:bold;";
+        }
+        return style.Length == 0 ? null : style;
+    }
+
+    private void HandlePageClick(int newPageIndex)
+    {
+        var args = new GridViewPageEventArgs(newPageIndex);
+        if (OnPageIndexChanging is not null)
+        {
+            // The canonical pattern: the handler does gv.PageIndex = e.NewPageIndex; BindGrid();
+            OnPageIndexChanging(this, args);
+        }
+        else
+        {
+            // Without a handler, page ourselves (WebForms throws here; we are more forgiving)
+            PageIndex = args.NewPageIndex;
+        }
+
+        Host?.HostCore.NotifyPostBackEvent();
+    }
+
+    private void HandleSort(string sortExpression)
+    {
+        // As in WebForms, clicking the same column again toggles ascending/descending
+        _sortDirection = sortExpression == _sortExpression && _sortDirection == SortDirection.Ascending
+            ? SortDirection.Descending
+            : SortDirection.Ascending;
+        _sortExpression = sortExpression;
+
+        var args = new GridViewSortEventArgs(sortExpression, _sortDirection);
+        if (OnSorting is not null)
+        {
+            // The canonical pattern: the handler sorts and re-binds
+            OnSorting(this, args);
+        }
+        else
+        {
+            // Without a handler, sort ourselves via DataBinder.Eval
+            var ordered = _allRows.OrderBy(row => DataBinder.Eval(row, sortExpression)).ToList();
+            if (_sortDirection == SortDirection.Descending)
+            {
+                ordered.Reverse();
+            }
+            _allRows = ordered;
+            _pageIndex = 0;
+            RefreshView();
+            StateHasChanged();
+        }
+
+        Host?.HostCore.NotifyPostBackEvent();
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender && DataSource is null && !string.IsNullOrEmpty(DataSourceID)
+            && Host?.HostCore.FindControl(DataSourceID) is ObjectDataSource dataSourceControl)
+        {
+            DataSource = dataSourceControl.Select();
+            DataBind();
+        }
+        else if (firstRender && DataSource is null && !string.IsNullOrEmpty(SelectMethod))
+        {
+            DataSource = ModelBinding.InvokeSelectMethod(Host, SelectMethod);
+            DataBind();
+        }
+
+        if (_columnsChanged)
+        {
+            _columnsChanged = false;
+            StateHasChanged();
+        }
+
+        // The row controls have initialized by now; fire RowDataBound once per DataBind
+        if (_pendingRowDataBound)
+        {
+            _pendingRowDataBound = false;
+
+            // WebForms raised RowCreated during control creation and RowDataBound after
+            // binding. Blazor builds the row while rendering, so the two coincide; both
+            // fire, RowCreated first, keeping handler order the same as WebForms.
+            if (_headerRow is not null)
+            {
+                OnRowCreated?.Invoke(this, new GridViewRowEventArgs(_headerRow));
+                OnRowDataBound?.Invoke(this, new GridViewRowEventArgs(_headerRow));
+            }
+            foreach (var gridRow in _gridRows)
+            {
+                OnRowCreated?.Invoke(this, new GridViewRowEventArgs(gridRow));
+                OnRowDataBound?.Invoke(this, new GridViewRowEventArgs(gridRow));
+            }
+        }
+    }
+}

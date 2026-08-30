@@ -1,0 +1,124 @@
+@namespace WebForm2Blazor.Components
+@inherits WebFormsControlBase
+
+@* Like the WebForms Repeater, Header/Footer are not rendered when there is no data *@
+@if (Visible && _containers.Count > 0)
+{
+    if (WrapperTemplate is not null)
+    {
+        @WrapperTemplate(RenderItems)
+    }
+    else
+    {
+        @HeaderTemplate
+        @RenderItems
+        @FooterTemplate
+    }
+}
+
+@code {
+    private readonly List<RepeaterItem> _containers = new();
+    private bool _pendingItemDataBound;
+
+    [Parameter] public RenderFragment HeaderTemplate { get; set; }
+    [Parameter] public RenderFragment<RepeaterItem> ItemTemplate { get; set; }
+    [Parameter] public RenderFragment<RepeaterItem> AlternatingItemTemplate { get; set; }
+    [Parameter] public RenderFragment SeparatorTemplate { get; set; }
+    [Parameter] public RenderFragment FooterTemplate { get; set; }
+
+    /// <summary>
+    /// The WebForms pattern of opening a tag in HeaderTemplate and closing it in
+    /// FooterTemplate, merged by the converter into a single template. Receives the
+    /// rendered items as its context.
+    /// </summary>
+    [Parameter] public RenderFragment<RenderFragment> WrapperTemplate { get; set; }
+
+    /// <summary>
+    /// WebForms ItemCommand event equivalent. Commands from Button / LinkButton inside the
+    /// templates bubble here ((object source, RepeaterCommandEventArgs e)).
+    /// </summary>
+    [Parameter] public RepeaterCommandEventHandler OnItemCommand { get; set; }
+
+    /// <summary>
+    /// WebForms ItemCommand as a CLR event: code-behind wires handlers imperatively
+    /// (control.ItemCommand += Handler), which a markup-only parameter cannot express.
+    /// The accessors chain onto the parameter so the existing raise site fires both.
+    /// </summary>
+    public event RepeaterCommandEventHandler ItemCommand
+    {
+        add => OnItemCommand += value;
+        remove => OnItemCommand -= value;
+    }
+
+    /// <summary>
+    /// WebForms ItemDataBound equivalent. In WebForms it fires during DataBind; here the
+    /// row's controls exist only after the row has rendered, so it fires right after the
+    /// first render following DataBind (handlers using e.Item.FindControl see the row's
+    /// controls either way). Fires for data items only - Header/Footer items are not
+    /// separate items in this runtime.
+    /// </summary>
+    [Parameter] public RepeaterItemEventHandler OnItemDataBound { get; set; }
+
+    /// <summary>
+    /// WebForms ItemDataBound as a CLR event: code-behind wires handlers imperatively
+    /// (control.ItemDataBound += Handler), which a markup-only parameter cannot express.
+    /// The accessors chain onto the parameter so the existing raise site fires both.
+    /// </summary>
+    public event RepeaterItemEventHandler ItemDataBound
+    {
+        add => OnItemDataBound += value;
+        remove => OnItemDataBound -= value;
+    }
+
+    /// <summary>WebForms DataSource equivalent. Applied by DataBind().</summary>
+    public object DataSource { get; set; }
+
+    public IReadOnlyList<object> Items => _containers.Select(container => container.DataItem).ToList();
+
+    internal void RaiseItemCommand(object commandSource, RepeaterItem item, CommandEventArgs args)
+        => OnItemCommand?.Invoke(this, new RepeaterCommandEventArgs(item, commandSource, args));
+
+    private RenderFragment RenderItems => __builder =>
+    {
+        for (var index = 0; index < _containers.Count; index++)
+        {
+            var container = _containers[index];
+            var commandContext = new RepeaterCommandContext(this, container);
+
+            if (index > 0 && SeparatorTemplate is not null)
+            {
+                @SeparatorTemplate
+            }
+
+            <CascadingValue TValue="RepeaterItem" Value="container" IsFixed="true">
+                <CascadingValue TValue="ICommandSink" Value="commandContext" IsFixed="true">
+                    @(SelectTemplate(index)?.Invoke(container))
+                </CascadingValue>
+            </CascadingValue>
+        }
+    };
+
+    private RenderFragment<RepeaterItem> SelectTemplate(int index)
+        => index % 2 == 1 && AlternatingItemTemplate is not null ? AlternatingItemTemplate : ItemTemplate;
+
+    /// <summary>WebForms DataBind() equivalent.</summary>
+    public void DataBind()
+    {
+        RowContainers.Rebind(_containers, DataSourceHelper.Materialize(DataSource), namingContainerId: ID);
+        _pendingItemDataBound = OnItemDataBound is not null;
+        StateHasChanged();
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        // The row controls have initialized by now; fire ItemDataBound once per DataBind
+        if (_pendingItemDataBound)
+        {
+            _pendingItemDataBound = false;
+            foreach (var container in _containers)
+            {
+                OnItemDataBound?.Invoke(this, new RepeaterItemEventArgs(container));
+            }
+        }
+    }
+}

@@ -1,0 +1,19 @@
+@namespace WebForm2Blazor.Components
+@inherits WebFormsControlBase
+
+@if (Visible)
+{
+    @* WebForms Literal emits Text as raw HTML without any wrapping tag *@
+    @((MarkupString)(Text ?? string.Empty))
+}
+
+@code {
+    private string _text = string.Empty;
+
+    [Parameter]
+    public string Text
+    {
+        get => _text;
+        set => SetAndRefresh(ref _text, value ?? string.Empty);
+    }
+}

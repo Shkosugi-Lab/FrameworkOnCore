@@ -1,0 +1,102 @@
+﻿@namespace WebForm2Blazor.Components
+@inherits WebFormsControlBase
+@implements IDisposable
+@inject IJSRuntime JSRuntime
+
+@if (Visible && ShowSummary && _messages.Count > 0)
+{
+    <div @attributes="ExtraAttributes" style="@ComputedStyle" id="@ClientID" class="@CssClass">
+        @if (!string.IsNullOrEmpty(HeaderText))
+        {
+            @((MarkupString)HeaderText)
+            @if (!IsMode("BulletList"))
+            {
+                @* WebForms inserts a <br> after the header in List / SingleParagraph mode *@
+                <br />
+            }
+        }
+        @if (IsMode("List"))
+        {
+            @foreach (var message in _messages)
+            {
+                @message<br />
+            }
+        }
+        else if (IsMode("SingleParagraph"))
+        {
+            @(string.Join(" ", _messages))<br />
+        }
+        else
+        {
+            @* Default BulletList: the same <ul><li> DOM as WebForms *@
+            <ul>
+                @foreach (var message in _messages)
+                {
+                    <li>@message</li>
+                }
+            </ul>
+        }
+    </div>
+}
+
+@code {
+    private List<string> _messages = new();
+    private WebFormsHostCore _core;
+
+    /// <summary>The validation group this summary displays (unset = default group).</summary>
+    [Parameter] public string ValidationGroup { get; set; }
+
+    /// <summary>Heading shown before the list (treated as HTML, same as WebForms).</summary>
+    [Parameter] public string HeaderText { get; set; }
+
+    /// <summary>BulletList (default) / List / SingleParagraph.</summary>
+    [Parameter] public string DisplayMode { get; set; } = "BulletList";
+
+    [Parameter] public bool ShowSummary { get; set; } = true;
+
+    /// <summary>When true, validation failures are also shown via a browser alert (WebForms compatible).</summary>
+    [Parameter] public bool ShowMessageBox { get; set; }
+
+    /// <summary>WebForms 4.5 model binding (ModelState) is out of scope; accepted as a no-op.</summary>
+    [Parameter] public bool ShowModelStateErrors { get; set; }
+
+    private bool IsMode(string mode)
+        => string.Equals(DisplayMode, mode, StringComparison.OrdinalIgnoreCase);
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        _core = Host?.HostCore;
+        if (_core is not null)
+        {
+            _core.ValidationStateChanged += HandleValidationStateChanged;
+        }
+    }
+
+    private void HandleValidationStateChanged()
+    {
+        var group = ValidationGroup ?? string.Empty;
+        _messages = _core.Validators
+            .Where(validator => string.Equals(validator.ValidationGroup ?? string.Empty, group, StringComparison.Ordinal))
+            .Where(validator => !validator.IsValidState)
+            .Select(validator => validator.ErrorMessage)
+            .Where(message => !string.IsNullOrEmpty(message))
+            .ToList();
+        StateHasChanged();
+
+        if (ShowMessageBox && _messages.Count > 0)
+        {
+            var text = (string.IsNullOrEmpty(HeaderText) ? "" : HeaderText + "\n")
+                       + string.Join("\n", _messages.Select(message => "- " + message));
+            _ = JSRuntime.InvokeVoidAsync("alert", text);
+        }
+    }
+
+    public void Dispose()
+    {
+        if (_core is not null)
+        {
+            _core.ValidationStateChanged -= HandleValidationStateChanged;
+        }
+    }
+}

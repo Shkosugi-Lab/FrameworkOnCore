@@ -1,0 +1,20 @@
+@namespace WebForm2Blazor.Components
+
+@* A ContentPlaceHolder is a WebForms naming container: its ID is prefixed onto the
+   ClientID of every server control rendered through it, however deep the master chain
+   goes ("cphMain_cphSide_pLabel").
+
+   The prefix is ABSOLUTE rather than accumulated from an ambient one, because the
+   converter knows the whole master chain statically while the runtime does not: a
+   <SectionContent> is written in one component and rendered in another, and cascading
+   values reach it from where it is DECLARED (measured), not from the outlet. *@
+<CascadingValue Name="NamingContainerPrefix" Value="@Prefix" IsFixed="true">
+    @ChildContent
+</CascadingValue>
+
+@code {
+    /// <summary>The joined naming-container IDs, ending with "_".</summary>
+    [Parameter] public string Prefix { get; set; }
+
+    [Parameter] public RenderFragment ChildContent { get; set; }
+}

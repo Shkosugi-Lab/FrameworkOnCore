@@ -1,0 +1,75 @@
+﻿@namespace WebForm2Blazor.Components
+@inherits WebFormsControlBase
+@implements IValueControl
+
+@if (Visible)
+{
+    @if (TextMode == "MultiLine")
+    {
+        @* MultiLine renders cols="20" even when Columns is unset (WebForms default rendering) *@
+        <textarea @attributes="ExtraAttributes" style="@ComputedStyle" id="@ClientID" class="@CssClass"
+                  rows="@Rows" cols="@(Columns > 0 ? Columns : 20)" wrap="@(Wrap ? null : "off")"
+                  disabled="@(!Enabled)" readonly="@ReadOnly"
+                  @oninput="HandleInput">@Text</textarea>
+    }
+    else
+    {
+        <input @attributes="ExtraAttributes" style="@ComputedStyle" type="@HtmlInputType" id="@ClientID"
+               class="@CssClass" value="@EffectiveValue" disabled="@(!Enabled)"
+               readonly="@ReadOnly" maxlength="@(MaxLength > 0 ? MaxLength : (int?)null)"
+               @oninput="HandleInput" />
+    }
+}
+
+@code {
+    private string _text = string.Empty;
+
+    /// <summary>WebForms TextBox.Text equivalent. Readable and writable from code-behind.</summary>
+    [Parameter]
+    public string Text
+    {
+        get => _text;
+        set => SetAndRefresh(ref _text, value ?? string.Empty);
+    }
+
+    [Parameter] public bool ReadOnly { get; set; }
+    [Parameter] public int MaxLength { get; set; }
+    [Parameter] public int Rows { get; set; } = 2;
+    [Parameter] public int Columns { get; set; }
+
+    /// <summary>MultiLine wrapping (false renders wrap="off", WebForms compatible).</summary>
+    [Parameter] public bool Wrap { get; set; } = true;
+
+    /// <summary>SingleLine / MultiLine / Password.</summary>
+    [Parameter] public string TextMode { get; set; } = "SingleLine";
+
+    /// <summary>
+    /// WebForms TextBox.ValidationGroup equivalent. Only meaningful with AutoPostBack
+    /// validation in WebForms; accepted here so markup ports unchanged (no behavior).
+    /// </summary>
+    [Parameter] public string ValidationGroup { get; set; }
+
+    /// <summary>WebForms AutoCompleteType equivalent. No effect in modern browsers; accepted as a no-op.</summary>
+    public string AutoCompleteType { get; set; }
+
+    private string HtmlInputType => TextMode == "Password" ? "password" : "text";
+
+    /// <summary>
+    /// WebForms renders no value attribute when Text is empty, letting an expando
+    /// value attribute (Value='<%# ... %>' with no Text property set) supply the
+    /// input's value. The explicit attribute here overrides the @attributes splat,
+    /// so reproduce that precedence explicitly.
+    /// </summary>
+    private string EffectiveValue
+        => _text.Length == 0 && ExtraAttributes.TryGetValue("value", out var expando)
+            ? expando?.ToString()
+            : _text;
+
+    private void HandleInput(ChangeEventArgs e)
+    {
+        _text = e.Value?.ToString() ?? string.Empty;
+        MarkStateTouched(); // after user input, never roll back to the markup initial value
+    }
+
+    public string GetControlValue() => _text;
+}

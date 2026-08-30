@@ -1,0 +1,27 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.Master.cs" Inherits="ProductAdmin.SiteMaster" %>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>商品管理システム</title>
+    <asp:ContentPlaceHolder ID="head" runat="server" />
+</head>
+<body>
+    <form id="form1" runat="server">
+        <header class="site-header">
+            <h1><asp:Literal ID="litSiteTitle" runat="server" /></h1>
+            <nav>
+                <asp:HyperLink ID="lnkList" runat="server" NavigateUrl="~/Default.aspx" Text="商品一覧" />
+                <asp:HyperLink ID="lnkNew" runat="server" NavigateUrl="~/Edit.aspx" Text="新規登録" />
+                <asp:HyperLink ID="lnkCatalog" runat="server" NavigateUrl="~/Catalog.aspx" Text="カタログ" />
+            </nav>
+        </header>
+        <main>
+            <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+        </main>
+        <footer class="site-footer">
+            <asp:Label ID="lblFooter" runat="server" />
+        </footer>
+    </form>
+</body>
+</html>

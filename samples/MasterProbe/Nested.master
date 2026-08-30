@@ -1,0 +1,24 @@
+<%@ Master Language="C#" MasterPageFile="~/Root.master" AutoEventWireup="true" CodeBehind="Nested.master.cs" Inherits="MasterProbe.Nested" %>
+<%@ Register TagPrefix="probe" TagName="Widget" Src="~/Widget.ascx" %>
+
+<%-- 入れ子マスター: 親のプレースホルダーを <asp:Content> で埋めつつ、
+     自分のプレースホルダーを子ページへ開く。cphSide は既定コンテンツ付き
+     (子ページが差し込まなければ、これが描画される)。 --%>
+
+<asp:Content ID="ncHead" ContentPlaceHolderID="cphHead" runat="server">
+    <meta id="nestedMeta" name="probe-nested" content="nested-head" />
+</asp:Content>
+
+<asp:Content ID="ncMain" ContentPlaceHolderID="cphMain" runat="server">
+    <div id="nestedShell">
+        <div id="nestedSide">
+            <asp:ContentPlaceHolder ID="cphSide" runat="server">
+                <asp:Label ID="pSideDefault" runat="server" Text="既定サイドバー" />
+                <probe:Widget ID="ctrlSideWidget" runat="server" />
+            </asp:ContentPlaceHolder>
+        </div>
+        <div id="nestedBody">
+            <asp:ContentPlaceHolder ID="cphBody" runat="server" />
+        </div>
+    </div>
+</asp:Content>

@@ -1,0 +1,419 @@
+using System.Globalization;
+using System.Text;
+using Microsoft.AspNetCore.Components;
+
+namespace WebForm2Blazor.Components;
+
+/// <summary>
+/// Common base class for the compatibility controls. Provides:
+/// - self-registration with the owning host (page, user control, layout)
+/// - the common WebControl properties of WebForms (Width / ToolTip / BackColor / Font-* etc.)
+/// - the Attributes / Style collections
+/// Properties re-render the control when assigned from code-behind
+/// (the equivalent of a WebForms postback re-render).
+/// </summary>
+public abstract class WebFormsControlBase : ComponentBase, IWebFormsControl, IDisposable
+{
+    /// <summary>
+    /// System.Web.UI.Control implements IDisposable, so ported code creates controls
+    /// inside a using block. A Blazor component's lifetime is the renderer's, and there
+    /// is nothing unmanaged here, so disposing is a no-op - the using block just scopes
+    /// the variable, as it effectively did in WebForms.
+    /// </summary>
+    public virtual void Dispose() => GC.SuppressFinalize(this);
+
+    private bool _stateTouched;
+    private bool _applyingParameters;
+
+    /// <summary>
+    /// Whether the render handle has been assigned (true from the first SetParametersAsync).
+    /// Guards against calling StateHasChanged while setting defaults in a constructor.
+    /// </summary>
+    private bool _renderHandleReady;
+
+    private string _id;
+    private string _cssClass;
+    private bool _visible = true;
+    private bool _enabled = true;
+    private string _toolTip;
+    private string _accessKey;
+    private int _tabIndex;
+    private string _width;
+    private string _height;
+    private string _backColor;
+    private string _foreColor;
+    private string _borderColor;
+    private string _borderWidth;
+    private string _borderStyle;
+    private bool _fontBold;
+    private bool _fontItalic;
+    private bool _fontUnderline;
+    private string _fontSize;
+    private string _fontName;
+
+    protected WebFormsControlBase()
+    {
+        Attributes = new AttributeCollection(MarkTouchedAndRefresh);
+        Style = new CssStyleCollection(MarkTouchedAndRefresh);
+    }
+
+    private void MarkTouchedAndRefresh()
+    {
+        _stateTouched = true;
+        if (_renderHandleReady)
+        {
+            StateHasChanged();
+        }
+    }
+
+    [Parameter] public string ID { get => _id; set => SetAndRefresh(ref _id, value); }
+    [Parameter] public string CssClass { get => _cssClass; set => SetAndRefresh(ref _cssClass, value); }
+
+    /// <summary>WebForms Visible equivalent. Renders nothing when false.</summary>
+    [Parameter] public bool Visible { get => _visible; set => SetAndRefresh(ref _visible, value); }
+
+    /// <summary>WebForms Enabled equivalent.</summary>
+    [Parameter] public bool Enabled { get => _enabled; set => SetAndRefresh(ref _enabled, value); }
+
+    // --- Common WebControl properties (presentation) ---
+
+    /// <summary>Rendered as the title attribute.</summary>
+    [Parameter] public string ToolTip { get => _toolTip; set => SetAndRefresh(ref _toolTip, value); }
+
+    [Parameter] public string AccessKey { get => _accessKey; set => SetAndRefresh(ref _accessKey, value); }
+
+    /// <summary>When 0 (the WebForms default), tabindex is not rendered.</summary>
+    [Parameter] public int TabIndex { get => _tabIndex; set => SetAndRefresh(ref _tabIndex, value); }
+
+    /// <summary>"100" is treated as px, matching the WebForms Unit; "50%" etc. pass through.</summary>
+    [Parameter] public string Width { get => _width; set => SetAndRefresh(ref _width, value); }
+    [Parameter] public string Height { get => _height; set => SetAndRefresh(ref _height, value); }
+
+    /// <summary>Rendered as a CSS color ("Red" / "#cc0000" etc.).</summary>
+    [Parameter] public string BackColor { get => _backColor; set => SetAndRefresh(ref _backColor, value); }
+    [Parameter] public string ForeColor { get => _foreColor; set => SetAndRefresh(ref _foreColor, value); }
+
+    [Parameter] public string BorderColor { get => _borderColor; set => SetAndRefresh(ref _borderColor, value); }
+    [Parameter] public string BorderWidth { get => _borderWidth; set => SetAndRefresh(ref _borderWidth, value); }
+    [Parameter] public string BorderStyle { get => _borderStyle; set => SetAndRefresh(ref _borderStyle, value); }
+
+    /// <summary>Correspond to Font-Bold / Font-Italic / Font-Underline / Font-Size / Font-Names in markup.</summary>
+    [Parameter] public bool FontBold { get => _fontBold; set => SetAndRefresh(ref _fontBold, value); }
+    [Parameter] public bool FontItalic { get => _fontItalic; set => SetAndRefresh(ref _fontItalic, value); }
+    [Parameter] public bool FontUnderline { get => _fontUnderline; set => SetAndRefresh(ref _fontUnderline, value); }
+    [Parameter] public string FontSize { get => _fontSize; set => SetAndRefresh(ref _fontSize, value); }
+    [Parameter] public string FontName { get => _fontName; set => SetAndRefresh(ref _fontName, value); }
+
+    /// <summary>
+    /// WebForms Control.ClientID equivalent (ClientIDMode=Predictable, the .NET 4.0+
+    /// default). Every naming container the control sits in contributes its ID:
+    /// "cphMain_cphSide_ctrlWidget_pLabel" - content placeholders and user controls
+    /// through <see cref="NamingContainerPrefix"/>, a data-bound row through
+    /// <see cref="RowContainer"/>. Plain HTML ids in the markup are NOT prefixed
+    /// (measured against 4.8), so only server controls pass through here.
+    /// </summary>
+    public string ClientID
+        => RowContainer is null || string.IsNullOrEmpty(ID) || string.IsNullOrEmpty(RowContainer.NamingContainerId)
+            ? ClientIdFor(ID)
+            : ClientIdFor($"{RowContainer.NamingContainerId}_{ID}_{RowContainer.ClientIndex}");
+
+    /// <summary>
+    /// The DOM id of a control named by its SERVER id from this one (Label's
+    /// AssociatedControlID etc.): the sibling lives in the same naming container.
+    /// </summary>
+    protected string ClientIdFor(string serverId)
+        => string.IsNullOrEmpty(NamingContainerPrefix) || string.IsNullOrEmpty(serverId)
+            ? serverId
+            : NamingContainerPrefix + serverId;
+
+    /// <summary>
+    /// IDs of the enclosing naming containers, already joined and ending with "_"
+    /// (empty at the top level). Supplied by WebFormsScope / WebFormsNamingContainer.
+    /// </summary>
+    [CascadingParameter(Name = "NamingContainerPrefix")]
+    protected string NamingContainerPrefix { get; set; }
+
+    /// <summary>WebForms SkinID equivalent. Themes are not supported; accepted as a no-op.</summary>
+    public string SkinID { get; set; }
+
+    /// <summary>
+    /// WebForms Control.UniqueID equivalent. In WebForms this is the postback name
+    /// ("ctl00$cphMain$pLabel"); Blazor has no postback name mangling, so the DOM-unique
+    /// <see cref="ClientID"/> stands in. Code-behind uses UniqueID to identify a control
+    /// uniquely within the page, and that property is preserved.
+    /// </summary>
+    public string UniqueID => ClientID;
+
+    /// <summary>
+    /// WebForms EnableViewState / ViewStateMode equivalents. A Blazor component's fields
+    /// ARE its state - there is no separate round-trip store to switch off - so both are
+    /// accepted and do nothing. Ported code that turns ViewState off for payload size
+    /// keeps compiling and keeps behaving, because the payload never existed.
+    /// </summary>
+    public bool EnableViewState { get; set; } = true;
+
+    /// <inheritdoc cref="EnableViewState"/>
+    public ViewStateMode ViewStateMode { get; set; } = ViewStateMode.Inherit;
+
+    /// <summary>WebForms Control.Attributes equivalent (arbitrary HTML attributes).</summary>
+    public AttributeCollection Attributes { get; }
+
+    /// <summary>WebForms Control.Style equivalent (inline CSS).</summary>
+    public CssStyleCollection Style { get; }
+
+    /// <summary>
+    /// WebForms Control.Controls equivalent. Blazor builds the child tree from markup,
+    /// so this collection only carries controls added programmatically (dynamic control
+    /// creation is manual-migration territory and does not render).
+    /// </summary>
+    public ControlCollection Controls { get; } = [];
+
+    /// <summary>
+    /// WebForms Control.Focus equivalent. Focus is a client concern in Blazor
+    /// (ElementReference.FocusAsync), so ported calls are accepted and do nothing.
+    /// </summary>
+    public void Focus()
+    {
+    }
+
+    /// <summary>WebForms Control.ResolveUrl equivalent.</summary>
+    public string ResolveUrl(string relativeUrl) => UrlMapper.ResolveUrl(relativeUrl);
+
+    public string ResolveClientUrl(string relativeUrl) => UrlMapper.ResolveUrl(relativeUrl);
+
+    /// <summary>
+    /// WebForms Control.FindControl equivalent. Resolves through the owning host's
+    /// registry (Blazor has no per-control child tree to walk).
+    /// </summary>
+    public IWebFormsControl FindControl(string id)
+        => RowContainer?.FindControl(id) ?? Host?.HostCore.FindControl(id);
+
+    [CascadingParameter] protected IWebFormsHost Host { get; set; }
+
+    /// <summary>
+    /// The row this control lives in when rendered inside a data-bound template
+    /// (Repeater / DataList / GridView / ListView). Registration here makes
+    /// e.Item.FindControl / e.Row.FindControl work in ItemDataBound handlers.
+    /// </summary>
+    [CascadingParameter] protected RepeaterItem RowContainer { get; set; }
+
+    /// <summary>
+    /// Expando attributes the converter passes through from markup (WebForms
+    /// IAttributeAccessor semantics: attributes that match no server property render
+    /// verbatim). "style" and "class" entries merge into ComputedStyle / CssClass.
+    /// </summary>
+    [Parameter] public Dictionary<string, object> PassthroughAttributes { get; set; }
+
+    /// <summary>
+    /// WebForms semantics: markup attributes are "initial values"; once code-behind or
+    /// user input changes the control's state, that state (the ViewState equivalent) wins.
+    ///
+    /// Blazor re-applies parameters every time the parent re-renders. Applying them
+    /// unconditionally would roll programmatic values (lblResult.Text = ...) back to the
+    /// initial value; freezing them unconditionally would leave row-template controls in
+    /// GridView / Repeater holding parameters of the old row (CommandArgument etc.)
+    /// after a re-bind.
+    ///
+    /// Therefore parameters are applied until the state is changed programmatically or by
+    /// user interaction, and frozen afterwards - the exact WebForms precedence.
+    /// </summary>
+    public override Task SetParametersAsync(ParameterView parameters)
+    {
+        _renderHandleReady = true;
+
+        if (_stateTouched)
+        {
+            return Task.CompletedTask;
+        }
+
+        _applyingParameters = true;
+        try
+        {
+            return base.SetParametersAsync(parameters);
+        }
+        finally
+        {
+            _applyingParameters = false;
+        }
+    }
+
+    protected override void OnInitialized()
+    {
+        Host?.HostCore.RegisterControl(this);
+        RowContainer?.RegisterControl(this);
+    }
+
+    protected override void OnParametersSet()
+    {
+        // A passthrough class attribute fills CssClass when the property itself is unset
+        // (WebForms renders class="..." written directly in markup the same way)
+        if (string.IsNullOrEmpty(_cssClass)
+            && PassthroughAttributes is not null
+            && PassthroughAttributes.TryGetValue("class", out var cssClass))
+        {
+            _cssClass = cssClass?.ToString();
+        }
+    }
+
+    /// <summary>Records a state change caused by user input (oninput etc.). Parameters are no longer applied.</summary>
+    protected void MarkStateTouched() => _stateTouched = true;
+
+    /// <summary>
+    /// Called by derived classes after setting WebForms defaults in their constructor
+    /// (e.g. a validator's ForeColor=Red). Prevents the default assignment from being
+    /// treated as a programmatic change.
+    /// </summary>
+    protected void ResetStateTouched() => _stateTouched = false;
+
+    /// <summary>
+    /// Re-renders only when the value actually changes (the WebForms postback re-render).
+    /// A change made outside parameter application (= an assignment from code-behind)
+    /// is recorded as a state change.
+    /// </summary>
+    protected void SetAndRefresh<T>(ref T field, T value)
+    {
+        if (!EqualityComparer<T>.Default.Equals(field, value))
+        {
+            field = value;
+            if (!_applyingParameters)
+            {
+                _stateTouched = true;
+            }
+            if (_renderHandleReady)
+            {
+                StateHasChanged();
+            }
+        }
+    }
+
+    /// <summary>
+    /// Combines the presentation properties, the Style collection, and Attributes["style"]
+    /// into a single style attribute value. Returns null when empty (attribute omitted).
+    /// </summary>
+    protected string ComputedStyle
+    {
+        get
+        {
+            var builder = new StringBuilder();
+
+            void Append(string property, string value)
+            {
+                if (!string.IsNullOrEmpty(value))
+                {
+                    builder.Append(property).Append(':').Append(value).Append(';');
+                }
+            }
+
+            Append("width", CssSize(Width));
+            Append("height", CssSize(Height));
+            Append("background-color", BackColor);
+            Append("color", ForeColor);
+            Append("border-color", BorderColor);
+            Append("border-width", CssSize(BorderWidth));
+            Append("border-style", BorderStyle?.ToLowerInvariant());
+            if (FontBold)
+            {
+                builder.Append("font-weight:bold;");
+            }
+            if (FontItalic)
+            {
+                builder.Append("font-style:italic;");
+            }
+            if (FontUnderline)
+            {
+                builder.Append("text-decoration:underline;");
+            }
+            Append("font-size", NormalizeFontSize(FontSize));
+            Append("font-family", FontName);
+
+            foreach (var pair in Style.Items)
+            {
+                Append(pair.Key, pair.Value);
+            }
+
+            if (PassthroughAttributes is not null
+                && PassthroughAttributes.TryGetValue("style", out var passthroughStyle)
+                && passthroughStyle?.ToString() is { Length: > 0 } passthrough)
+            {
+                builder.Append(passthrough.EndsWith(";", StringComparison.Ordinal) ? passthrough : passthrough + ";");
+            }
+
+            var rawStyle = Attributes["style"];
+            if (!string.IsNullOrEmpty(rawStyle))
+            {
+                builder.Append(rawStyle.EndsWith(";", StringComparison.Ordinal) ? rawStyle : rawStyle + ";");
+            }
+
+            return builder.Length == 0 ? null : builder.ToString();
+        }
+    }
+
+    /// <summary>
+    /// Collects ToolTip / TabIndex / AccessKey and the Attributes collection into a
+    /// dictionary splatted (@attributes) onto the root element.
+    /// Explicit attributes (id, class, ...) written after the splat take precedence.
+    /// </summary>
+    protected IReadOnlyDictionary<string, object> ExtraAttributes
+    {
+        get
+        {
+            var attributes = new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase);
+
+            if (!string.IsNullOrEmpty(ToolTip))
+            {
+                attributes["title"] = ToolTip;
+            }
+            if (TabIndex != 0)
+            {
+                attributes["tabindex"] = TabIndex;
+            }
+            if (!string.IsNullOrEmpty(AccessKey))
+            {
+                attributes["accesskey"] = AccessKey;
+            }
+
+            if (PassthroughAttributes is not null)
+            {
+                foreach (var pair in PassthroughAttributes)
+                {
+                    if (!pair.Key.Equals("style", StringComparison.OrdinalIgnoreCase)
+                        && !pair.Key.Equals("class", StringComparison.OrdinalIgnoreCase)
+                        && !pair.Key.Equals("id", StringComparison.OrdinalIgnoreCase))
+                    {
+                        attributes[pair.Key] = pair.Value;
+                    }
+                }
+            }
+
+            foreach (var pair in Attributes.Items)
+            {
+                if (!pair.Key.Equals("style", StringComparison.OrdinalIgnoreCase))
+                {
+                    attributes[pair.Key] = pair.Value;
+                }
+            }
+
+            return attributes;
+        }
+    }
+
+    /// <summary>WebForms Unit equivalent: appends px when the value is purely numeric.</summary>
+    private static string CssSize(string value)
+        => !string.IsNullOrEmpty(value) && double.TryParse(value, NumberStyles.Any, CultureInfo.InvariantCulture, out _)
+            ? value + "px"
+            : value;
+
+    /// <summary>WebForms FontUnit equivalent: numeric values get pt; keywords like "Large" are lower-cased.</summary>
+    private static string NormalizeFontSize(string value)
+    {
+        if (string.IsNullOrEmpty(value))
+        {
+            return value;
+        }
+        if (double.TryParse(value, NumberStyles.Any, CultureInfo.InvariantCulture, out _))
+        {
+            return value + "pt";
+        }
+        return value.ToLowerInvariant();
+    }
+}

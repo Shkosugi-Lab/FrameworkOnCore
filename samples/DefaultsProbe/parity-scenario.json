@@ -1,0 +1,17 @@
+{
+  "ignorePatterns": [],
+  "steps": [
+    { "action": "goto", "path": "/" },
+    { "action": "snapshot", "name": "既定レンダリング-初期表示" },
+
+    { "action": "click", "target": "pRadioBtn1" },
+    { "action": "check", "target": "pCheckList_0" },
+    { "action": "snapshot", "name": "既定レンダリング-単体ラジオとチェックリスト操作後" },
+
+    { "action": "clicktext", "value": "削除" },
+    { "action": "snapshot", "name": "既定レンダリング-行削除後(RowDeleting)" },
+
+    { "action": "click", "target": "btnValidate" },
+    { "action": "snapshot", "name": "既定レンダリング-検証エラー表示" }
+  ]
+}

@@ -1,0 +1,63 @@
+# ---- Build output ----
+bin/
+obj/
+[Bb]uild/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+*.dll
+*.exe
+*.pdb
+*.cache
+
+# ---- NuGet ----
+packages/
+*.nupkg
+*.snupkg
+
+# ---- Visual Studio / Rider / VS Code ----
+.vs/
+.idea/
+*.user
+*.suo
+*.userprefs
+*.sln.docstates
+*.DotSettings.user
+
+# ---- Test / tool output ----
+TestResults/
+[Tt]est[Rr]esult*/
+coverage*.xml
+*.trx
+BenchmarkDotNet.Artifacts/
+
+# ---- Playwright (parity / smoke harness) ----
+.playwright/
+playwright-report/
+test-results/
+
+# ---- Converter output ----
+# `tools/verify-all.ps1` regenerates every converted app under output/ from
+# samples/ on each run, so the generated Razor is never committed - the
+# converter plus the sample is the source of truth, not its output.
+output/
+
+# Reports the converter writes next to its output
+CONVERSION-REPORT.md
+AI-TASKS.json
+
+# ---- Vendored conversion corpora ----
+# The corpora used to measure conversion coverage (nopCommerce, BlogEngine,
+# DNN, mojoPortal, YAF, WingtipToys) are third-party source trees, each with
+# its own license, downloaded to a scratch directory and pointed at via
+# --input. Five of the six already live outside this repository; nopCommerce
+# is excluded here for the same reason. See HANDOVER.md, "コーパス".
+samples/nopCommerce3.8/
+
+# ---- OS ----
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+.DS_Store

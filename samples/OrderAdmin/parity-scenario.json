@@ -1,0 +1,46 @@
+{
+  "ignorePatterns": [],
+  "steps": [
+    { "action": "goto", "path": "/" },
+    { "action": "snapshot", "name": "一覧-初期表示" },
+
+    { "action": "clickText", "value": "2" },
+    { "action": "snapshot", "name": "一覧-2ページ目" },
+
+    { "action": "click", "target": "rblStatus_1" },
+    { "action": "snapshot", "name": "一覧-受付のみ" },
+
+    { "action": "clickText", "value": "金額" },
+    { "action": "snapshot", "name": "一覧-金額昇順" },
+
+    { "action": "clickText", "value": "選択" },
+    { "action": "snapshot", "name": "一覧-選択後(サイドバー更新)" },
+
+    { "action": "goto", "path": "/Detail?id=2" },
+    { "action": "snapshot", "name": "詳細-受付の受注" },
+
+    { "action": "click", "target": "btnShip" },
+    { "action": "snapshot", "name": "詳細-出荷済にした後" },
+
+    { "action": "goto", "path": "/Entry" },
+    { "action": "fill", "target": "txtCustomer", "value": "新規テスト商会" },
+    { "action": "fill", "target": "txtQuantity", "value": "5" },
+    { "action": "select", "target": "ddlProduct", "value": "電子辞書" },
+    { "action": "fill", "target": "txtEmail", "value": "abc" },
+    { "action": "fill", "target": "txtEmailConfirm", "value": "def" },
+    { "action": "click", "target": "btnSubmit" },
+    { "action": "snapshot", "name": "入力-形式と不一致のエラー" },
+
+    { "action": "fill", "target": "txtEmail", "value": "test@example.com" },
+    { "action": "fill", "target": "txtEmailConfirm", "value": "test@example.com" },
+    { "action": "fill", "target": "txtQuantity", "value": "50" },
+    { "action": "click", "target": "btnSubmit" },
+    { "action": "snapshot", "name": "入力-在庫不足エラー(サーバー検証)" },
+
+    { "action": "fill", "target": "txtQuantity", "value": "5" },
+    { "action": "fill", "target": "txtNote", "value": "至急対応\nよろしくお願いします" },
+    { "action": "click", "target": "btnSubmit" },
+    { "action": "waitMs", "ms": 1500 },
+    { "action": "snapshot", "name": "一覧-受注追加後(全8件)" }
+  ]
+}

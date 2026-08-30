@@ -1,0 +1,89 @@
+@namespace WebForm2Blazor.Components
+@inherits WebFormsControlBase
+@inject IJSRuntime JSRuntime
+
+@if (Visible)
+{
+    @* WebForms ImageButton renders <input type="image" src alt>. The event pipeline
+       mirrors Button (client click / validation / Click / Command). *@
+    <input @attributes="ExtraAttributes" style="@ComputedStyle" type="image" id="@ClientID" class="@CssClass"
+           src="@UrlMapper.ResolveUrl(ImageUrl)"
+           alt="@(string.IsNullOrEmpty(AlternateText) ? null : AlternateText)"
+           disabled="@(!Enabled)" @onclick="HandleClick" @onclick:preventDefault />
+}
+
+@code {
+    private string _imageUrl;
+
+    [Parameter]
+    public string ImageUrl
+    {
+        get => _imageUrl;
+        set => SetAndRefresh(ref _imageUrl, value);
+    }
+
+    [Parameter] public string AlternateText { get; set; }
+
+    /// <summary>WebForms ImageButton.Click equivalent ((object, ImageClickEventArgs)).</summary>
+    [Parameter] public ImageClickEventHandler OnClick { get; set; }
+
+    /// <summary>
+    /// WebForms Click as a CLR event: code-behind wires handlers imperatively
+    /// (control.Click += Handler), which a markup-only parameter cannot express.
+    /// The accessors chain onto the parameter so the existing raise site fires both.
+    /// </summary>
+    public event ImageClickEventHandler Click
+    {
+        add => OnClick += value;
+        remove => OnClick -= value;
+    }
+
+    [Parameter] public bool CausesValidation { get; set; } = true;
+    [Parameter] public string ValidationGroup { get; set; }
+    [Parameter] public string OnClientClick { get; set; }
+    [Parameter] public string CommandName { get; set; }
+    [Parameter] public string CommandArgument { get; set; }
+    [Parameter] public CommandEventHandler OnCommand { get; set; }
+
+    /// <summary>
+    /// WebForms Command as a CLR event: code-behind wires handlers imperatively
+    /// (control.Command += Handler), which a markup-only parameter cannot express.
+    /// The accessors chain onto the parameter so the existing raise site fires both.
+    /// </summary>
+    public event CommandEventHandler Command
+    {
+        add => OnCommand += value;
+        remove => OnCommand -= value;
+    }
+
+    [CascadingParameter] protected ICommandSink CommandSink { get; set; }
+
+    private async Task HandleClick(MouseEventArgs e)
+    {
+        if (!string.IsNullOrWhiteSpace(OnClientClick))
+        {
+            var result = await JSRuntime.InvokeAsync<bool?>("eval", $"(function() {{ {OnClientClick} }})()");
+            if (result == false)
+            {
+                return;
+            }
+        }
+
+        if (CausesValidation)
+        {
+            Host?.HostCore.Validate(ValidationGroup ?? "");
+        }
+        else if (Host is not null)
+        {
+            Host.HostCore.IsValid = true;
+        }
+
+        OnClick?.Invoke(this, new ImageClickEventArgs((int)e.OffsetX, (int)e.OffsetY));
+
+        var args = new CommandEventArgs(CommandName ?? "", CommandArgument);
+        OnCommand?.Invoke(this, args);
+        CommandSink?.RaiseCommand(this, args);
+
+        Host?.HostCore.NotifyPostBackEvent();
+    }
+}

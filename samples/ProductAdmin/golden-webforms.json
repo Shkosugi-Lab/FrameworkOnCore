@@ -1,0 +1,1721 @@
+{
+  "SourceUrl": "http://localhost:8091",
+  "Snapshots": [
+    {
+      "Name": "一覧-初期表示",
+      "Path": "/",
+      "Title": "商品一覧",
+      "Text": [
+        "商品管理システム",
+        "商品一覧 新規登録 カタログ",
+        "商品一覧",
+        "在庫サマリー",
+        "登録商品数: 4 件 / 在庫あり: 3 件",
+        "カテゴリ:",
+        "すべて",
+        "文具",
+        "家電",
+        "在庫ありのみ",
+        "商品名 カテゴリ 価格",
+        "ボールペン 文具 150 円",
+        "ノート 文具 320 円",
+        "デスクライト 家電 4,980 円",
+        "電子辞書 家電 18,800 円",
+        "4 件を表示中",
+        "最近追加された商品",
+        "デスクライト(家電) 削除",
+        "電子辞書(家電) 削除",
+        "ノート(文具) 削除",
+        "新規登録",
+        "© 2026 Shkosugi Lab"
+      ],
+      "Tables": [
+        [
+          [
+            "商品名",
+            "カテゴリ",
+            "価格"
+          ],
+          [
+            "ボールペン",
+            "文具",
+            "150 円"
+          ],
+          [
+            "ノート",
+            "文具",
+            "320 円"
+          ],
+          [
+            "デスクライト",
+            "家電",
+            "4,980 円"
+          ],
+          [
+            "電子辞書",
+            "家電",
+            "18,800 円"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "MainContent_ddlCategory": "",
+        "MainContent_chkInStockOnly": "false"
+      },
+      "Elements": {
+        "lnkList": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lnkNew": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lnkCatalog": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_ucSummary_lblTotal": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_ucSummary_lblInStock": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_ddlCategory": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_chkInStockOnly": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "MainContent_btnSort": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "MainContent_gvProducts": {
+          "Tag": "table",
+          "Attributes": {
+            "class": "grid",
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "MainContent_lblCount": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_rptRecent_lnkDelete_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_rptRecent_lnkDelete_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_rptRecent_lnkDelete_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_lnkNew": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblFooter": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "一覧-文具で絞り込み",
+      "Path": "/",
+      "Title": "商品一覧",
+      "Text": [
+        "商品管理システム",
+        "商品一覧 新規登録 カタログ",
+        "商品一覧",
+        "在庫サマリー",
+        "登録商品数: 4 件 / 在庫あり: 3 件",
+        "カテゴリ:",
+        "すべて",
+        "文具",
+        "家電",
+        "在庫ありのみ",
+        "商品名 カテゴリ 価格",
+        "ボールペン 文具 150 円",
+        "ノート 文具 320 円",
+        "2 件を表示中",
+        "最近追加された商品",
+        "デスクライト(家電) 削除",
+        "電子辞書(家電) 削除",
+        "ノート(文具) 削除",
+        "新規登録",
+        "© 2026 Shkosugi Lab"
+      ],
+      "Tables": [
+        [
+          [
+            "商品名",
+            "カテゴリ",
+            "価格"
+          ],
+          [
+            "ボールペン",
+            "文具",
+            "150 円"
+          ],
+          [
+            "ノート",
+            "文具",
+            "320 円"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "MainContent_ddlCategory": "文具",
+        "MainContent_chkInStockOnly": "false"
+      },
+      "Elements": {
+        "lnkList": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lnkNew": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lnkCatalog": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_ucSummary_lblTotal": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_ucSummary_lblInStock": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_ddlCategory": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_chkInStockOnly": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "MainContent_btnSort": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "MainContent_gvProducts": {
+          "Tag": "table",
+          "Attributes": {
+            "class": "grid",
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "MainContent_lblCount": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_rptRecent_lnkDelete_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_rptRecent_lnkDelete_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_rptRecent_lnkDelete_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_lnkNew": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblFooter": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "一覧-在庫ありのみ",
+      "Path": "/",
+      "Title": "商品一覧",
+      "Text": [
+        "商品管理システム",
+        "商品一覧 新規登録 カタログ",
+        "商品一覧",
+        "在庫サマリー",
+        "登録商品数: 4 件 / 在庫あり: 3 件",
+        "カテゴリ:",
+        "すべて",
+        "文具",
+        "家電",
+        "在庫ありのみ",
+        "商品名 カテゴリ 価格",
+        "ボールペン 文具 150 円",
+        "ノート 文具 320 円",
+        "デスクライト 家電 4,980 円",
+        "3 件を表示中",
+        "最近追加された商品",
+        "デスクライト(家電) 削除",
+        "電子辞書(家電) 削除",
+        "ノート(文具) 削除",
+        "新規登録",
+        "© 2026 Shkosugi Lab"
+      ],
+      "Tables": [
+        [
+          [
+            "商品名",
+            "カテゴリ",
+            "価格"
+          ],
+          [
+            "ボールペン",
+            "文具",
+            "150 円"
+          ],
+          [
+            "ノート",
+            "文具",
+            "320 円"
+          ],
+          [
+            "デスクライト",
+            "家電",
+            "4,980 円"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "MainContent_ddlCategory": "",
+        "MainContent_chkInStockOnly": "true"
+      },
+      "Elements": {
+        "lnkList": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lnkNew": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lnkCatalog": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_ucSummary_lblTotal": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_ucSummary_lblInStock": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_ddlCategory": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_chkInStockOnly": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "MainContent_btnSort": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "MainContent_gvProducts": {
+          "Tag": "table",
+          "Attributes": {
+            "class": "grid",
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "MainContent_lblCount": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_rptRecent_lnkDelete_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_rptRecent_lnkDelete_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_rptRecent_lnkDelete_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_lnkNew": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblFooter": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "一覧-価格降順",
+      "Path": "/",
+      "Title": "商品一覧",
+      "Text": [
+        "商品管理システム",
+        "商品一覧 新規登録 カタログ",
+        "商品一覧",
+        "在庫サマリー",
+        "登録商品数: 4 件 / 在庫あり: 3 件",
+        "カテゴリ:",
+        "すべて",
+        "文具",
+        "家電",
+        "在庫ありのみ",
+        "商品名 カテゴリ 価格",
+        "電子辞書 家電 18,800 円",
+        "デスクライト 家電 4,980 円",
+        "ノート 文具 320 円",
+        "ボールペン 文具 150 円",
+        "4 件を表示中",
+        "最近追加された商品",
+        "デスクライト(家電) 削除",
+        "電子辞書(家電) 削除",
+        "ノート(文具) 削除",
+        "新規登録",
+        "© 2026 Shkosugi Lab"
+      ],
+      "Tables": [
+        [
+          [
+            "商品名",
+            "カテゴリ",
+            "価格"
+          ],
+          [
+            "電子辞書",
+            "家電",
+            "18,800 円"
+          ],
+          [
+            "デスクライト",
+            "家電",
+            "4,980 円"
+          ],
+          [
+            "ノート",
+            "文具",
+            "320 円"
+          ],
+          [
+            "ボールペン",
+            "文具",
+            "150 円"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "MainContent_ddlCategory": "",
+        "MainContent_chkInStockOnly": "false"
+      },
+      "Elements": {
+        "lnkList": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lnkNew": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lnkCatalog": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_ucSummary_lblTotal": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_ucSummary_lblInStock": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_ddlCategory": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_chkInStockOnly": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "MainContent_btnSort": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "MainContent_gvProducts": {
+          "Tag": "table",
+          "Attributes": {
+            "class": "grid",
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "MainContent_lblCount": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_rptRecent_lnkDelete_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_rptRecent_lnkDelete_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_rptRecent_lnkDelete_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_lnkNew": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblFooter": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "編集-初期表示",
+      "Path": "/edit",
+      "Title": "商品編集",
+      "Text": [
+        "商品管理システム",
+        "商品一覧 新規登録 カタログ",
+        "商品登録",
+        "商品名:",
+        "価格:",
+        "カテゴリ:",
+        "家電",
+        "文具",
+        "在庫あり",
+        "© 2026 Shkosugi Lab"
+      ],
+      "Tables": [],
+      "Inputs": {
+        "MainContent_txtName": "",
+        "MainContent_txtPrice": "",
+        "MainContent_ddlCategory": "家電",
+        "MainContent_chkInStock": "false"
+      },
+      "Elements": {
+        "lnkList": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lnkNew": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lnkCatalog": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_pnlForm": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "edit-form"
+          },
+          "Style": {
+            "max-width": "480px"
+          }
+        },
+        "MainContent_txtName": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text",
+            "tabindex": "1"
+          },
+          "Style": {
+            "width": "240px"
+          }
+        },
+        "MainContent_rfvName": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {
+            "color": "red",
+            "font-weight": "bold"
+          }
+        },
+        "MainContent_txtPrice": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text",
+            "tabindex": "2",
+            "title": "税込価格を入力してください"
+          },
+          "Style": {
+            "width": "120px"
+          }
+        },
+        "MainContent_rfvPrice": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {
+            "color": "red",
+            "font-weight": "bold"
+          }
+        },
+        "MainContent_rvPrice": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {
+            "color": "red",
+            "font-weight": "bold"
+          }
+        },
+        "MainContent_ddlCategory": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_chkInStock": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "MainContent_vsMain": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_lblError": {
+          "Tag": "span",
+          "Attributes": {
+            "class": "error"
+          },
+          "Style": {}
+        },
+        "MainContent_btnSave": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button",
+            "title": "入力内容を保存します"
+          },
+          "Style": {}
+        },
+        "MainContent_btnCancel": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "lblFooter": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "編集-未入力で保存エラー",
+      "Path": "/edit",
+      "Title": "商品編集",
+      "Text": [
+        "商品管理システム",
+        "商品一覧 新規登録 カタログ",
+        "商品登録",
+        "商品名: *",
+        "価格: *",
+        "カテゴリ:",
+        "家電",
+        "文具",
+        "在庫あり",
+        "商品名は必須です。",
+        "価格は必須です。",
+        "© 2026 Shkosugi Lab"
+      ],
+      "Tables": [],
+      "Inputs": {
+        "MainContent_txtName": "",
+        "MainContent_txtPrice": "",
+        "MainContent_ddlCategory": "家電",
+        "MainContent_chkInStock": "false"
+      },
+      "Elements": {
+        "lnkList": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lnkNew": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lnkCatalog": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_pnlForm": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "edit-form"
+          },
+          "Style": {
+            "max-width": "480px"
+          }
+        },
+        "MainContent_txtName": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text",
+            "tabindex": "1"
+          },
+          "Style": {
+            "width": "240px"
+          }
+        },
+        "MainContent_rfvName": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {
+            "color": "red",
+            "font-weight": "bold"
+          }
+        },
+        "MainContent_txtPrice": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text",
+            "tabindex": "2",
+            "title": "税込価格を入力してください"
+          },
+          "Style": {
+            "width": "120px"
+          }
+        },
+        "MainContent_rfvPrice": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {
+            "color": "red",
+            "font-weight": "bold"
+          }
+        },
+        "MainContent_rvPrice": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {
+            "color": "red",
+            "font-weight": "bold"
+          }
+        },
+        "MainContent_ddlCategory": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_chkInStock": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "MainContent_vsMain": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_lblError": {
+          "Tag": "span",
+          "Attributes": {
+            "class": "error"
+          },
+          "Style": {}
+        },
+        "MainContent_btnSave": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button",
+            "title": "入力内容を保存します"
+          },
+          "Style": {}
+        },
+        "MainContent_btnCancel": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "lblFooter": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "一覧-保存後",
+      "Path": "/",
+      "Title": "商品一覧",
+      "Text": [
+        "商品管理システム",
+        "商品一覧 新規登録 カタログ",
+        "商品一覧",
+        "在庫サマリー",
+        "登録商品数: 5 件 / 在庫あり: 4 件",
+        "カテゴリ:",
+        "すべて",
+        "文具",
+        "家電",
+        "在庫ありのみ",
+        "商品名 カテゴリ 価格",
+        "ボールペン 文具 150 円",
+        "ノート 文具 320 円",
+        "デスクライト 家電 4,980 円",
+        "モニター 家電 12,800 円",
+        "電子辞書 家電 18,800 円",
+        "5 件を表示中",
+        "最近追加された商品",
+        "モニター(家電) 削除",
+        "デスクライト(家電) 削除",
+        "電子辞書(家電) 削除",
+        "新規登録",
+        "© 2026 Shkosugi Lab"
+      ],
+      "Tables": [
+        [
+          [
+            "商品名",
+            "カテゴリ",
+            "価格"
+          ],
+          [
+            "ボールペン",
+            "文具",
+            "150 円"
+          ],
+          [
+            "ノート",
+            "文具",
+            "320 円"
+          ],
+          [
+            "デスクライト",
+            "家電",
+            "4,980 円"
+          ],
+          [
+            "モニター",
+            "家電",
+            "12,800 円"
+          ],
+          [
+            "電子辞書",
+            "家電",
+            "18,800 円"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "MainContent_ddlCategory": "",
+        "MainContent_chkInStockOnly": "false"
+      },
+      "Elements": {
+        "lnkList": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lnkNew": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lnkCatalog": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_ucSummary_lblTotal": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_ucSummary_lblInStock": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_ddlCategory": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_chkInStockOnly": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "MainContent_btnSort": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "MainContent_gvProducts": {
+          "Tag": "table",
+          "Attributes": {
+            "class": "grid",
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "MainContent_lblCount": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_rptRecent_lnkDelete_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_rptRecent_lnkDelete_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_rptRecent_lnkDelete_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_lnkNew": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblFooter": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "一覧-最近追加の先頭を削除後",
+      "Path": "/",
+      "Title": "商品一覧",
+      "Text": [
+        "商品管理システム",
+        "商品一覧 新規登録 カタログ",
+        "商品一覧",
+        "在庫サマリー",
+        "登録商品数: 5 件 / 在庫あり: 4 件",
+        "カテゴリ:",
+        "すべて",
+        "文具",
+        "家電",
+        "在庫ありのみ",
+        "商品名 カテゴリ 価格",
+        "ボールペン 文具 150 円",
+        "ノート 文具 320 円",
+        "デスクライト 家電 4,980 円",
+        "電子辞書 家電 18,800 円",
+        "4 件を表示中",
+        "最近追加された商品",
+        "デスクライト(家電) 削除",
+        "電子辞書(家電) 削除",
+        "ノート(文具) 削除",
+        "新規登録",
+        "© 2026 Shkosugi Lab"
+      ],
+      "Tables": [
+        [
+          [
+            "商品名",
+            "カテゴリ",
+            "価格"
+          ],
+          [
+            "ボールペン",
+            "文具",
+            "150 円"
+          ],
+          [
+            "ノート",
+            "文具",
+            "320 円"
+          ],
+          [
+            "デスクライト",
+            "家電",
+            "4,980 円"
+          ],
+          [
+            "電子辞書",
+            "家電",
+            "18,800 円"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "MainContent_ddlCategory": "",
+        "MainContent_chkInStockOnly": "false"
+      },
+      "Elements": {
+        "lnkList": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lnkNew": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lnkCatalog": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_ucSummary_lblTotal": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_ucSummary_lblInStock": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_ddlCategory": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_chkInStockOnly": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "MainContent_btnSort": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "MainContent_gvProducts": {
+          "Tag": "table",
+          "Attributes": {
+            "class": "grid",
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "MainContent_lblCount": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_rptRecent_lnkDelete_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_rptRecent_lnkDelete_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_rptRecent_lnkDelete_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_lnkNew": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblFooter": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "編集-価格範囲エラー",
+      "Path": "/edit",
+      "Title": "商品編集",
+      "Text": [
+        "商品管理システム",
+        "商品一覧 新規登録 カタログ",
+        "商品登録",
+        "商品名:",
+        "価格: *",
+        "カテゴリ:",
+        "家電",
+        "文具",
+        "在庫あり",
+        "価格は 1〜999999 の範囲で入力してください。",
+        "© 2026 Shkosugi Lab"
+      ],
+      "Tables": [],
+      "Inputs": {
+        "MainContent_txtName": "レンジテスト",
+        "MainContent_txtPrice": "0",
+        "MainContent_ddlCategory": "家電",
+        "MainContent_chkInStock": "false"
+      },
+      "Elements": {
+        "lnkList": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lnkNew": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lnkCatalog": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_pnlForm": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "edit-form"
+          },
+          "Style": {
+            "max-width": "480px"
+          }
+        },
+        "MainContent_txtName": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text",
+            "tabindex": "1"
+          },
+          "Style": {
+            "width": "240px"
+          }
+        },
+        "MainContent_rfvName": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {
+            "color": "red",
+            "font-weight": "bold"
+          }
+        },
+        "MainContent_txtPrice": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text",
+            "tabindex": "2",
+            "title": "税込価格を入力してください"
+          },
+          "Style": {
+            "width": "120px"
+          }
+        },
+        "MainContent_rfvPrice": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {
+            "color": "red",
+            "font-weight": "bold"
+          }
+        },
+        "MainContent_rvPrice": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {
+            "color": "red",
+            "font-weight": "bold"
+          }
+        },
+        "MainContent_ddlCategory": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_chkInStock": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "MainContent_vsMain": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_lblError": {
+          "Tag": "span",
+          "Attributes": {
+            "class": "error"
+          },
+          "Style": {}
+        },
+        "MainContent_btnSave": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button",
+            "title": "入力内容を保存します"
+          },
+          "Style": {}
+        },
+        "MainContent_btnCancel": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "lblFooter": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "カタログ-初期表示",
+      "Path": "/catalog",
+      "Title": "カタログ",
+      "Text": [
+        "商品管理システム",
+        "商品一覧 新規登録 カタログ",
+        "商品カタログ",
+        "商品名 カテゴリ 価格",
+        "デスクライト 家電 4,980 円",
+        "ノート 文具 320 円",
+        "ボールペン 文具 150 円",
+        "1 2",
+        "価格一覧",
+        "ボールペン: 150 円",
+        "ノート: 320 円",
+        "電子辞書: 18,800 円",
+        "デスクライト: 4,980 円",
+        "注目商品",
+        "電子辞書(家電)- 18,800 円",
+        "© 2026 Shkosugi Lab"
+      ],
+      "Tables": [
+        [
+          [
+            "商品名",
+            "カテゴリ",
+            "価格"
+          ],
+          [
+            "デスクライト",
+            "家電",
+            "4,980 円"
+          ],
+          [
+            "ノート",
+            "文具",
+            "320 円"
+          ],
+          [
+            "ボールペン",
+            "文具",
+            "150 円"
+          ],
+          [
+            "1\t2"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2"
+          ]
+        ],
+        [
+          [
+            "電子辞書(家電)- 18,800 円"
+          ]
+        ]
+      ],
+      "Inputs": {},
+      "Elements": {
+        "lnkList": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lnkNew": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lnkCatalog": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_gvCatalog": {
+          "Tag": "table",
+          "Attributes": {
+            "class": "grid",
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "MainContent_fvFeatured": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "lblFooter": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "カタログ-2ページ目",
+      "Path": "/catalog",
+      "Title": "カタログ",
+      "Text": [
+        "商品管理システム",
+        "商品一覧 新規登録 カタログ",
+        "商品カタログ",
+        "商品名 カテゴリ 価格",
+        "電子辞書 家電 18,800 円",
+        "1 2",
+        "価格一覧",
+        "ボールペン: 150 円",
+        "ノート: 320 円",
+        "電子辞書: 18,800 円",
+        "デスクライト: 4,980 円",
+        "注目商品",
+        "電子辞書(家電)- 18,800 円",
+        "© 2026 Shkosugi Lab"
+      ],
+      "Tables": [
+        [
+          [
+            "商品名",
+            "カテゴリ",
+            "価格"
+          ],
+          [
+            "電子辞書",
+            "家電",
+            "18,800 円"
+          ],
+          [
+            "1\t2"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2"
+          ]
+        ],
+        [
+          [
+            "電子辞書(家電)- 18,800 円"
+          ]
+        ]
+      ],
+      "Inputs": {},
+      "Elements": {
+        "lnkList": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lnkNew": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lnkCatalog": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_gvCatalog": {
+          "Tag": "table",
+          "Attributes": {
+            "class": "grid",
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "MainContent_fvFeatured": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "lblFooter": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "カタログ-価格昇順",
+      "Path": "/catalog",
+      "Title": "カタログ",
+      "Text": [
+        "商品管理システム",
+        "商品一覧 新規登録 カタログ",
+        "商品カタログ",
+        "商品名 カテゴリ 価格",
+        "ボールペン 文具 150 円",
+        "ノート 文具 320 円",
+        "デスクライト 家電 4,980 円",
+        "1 2",
+        "価格一覧",
+        "ボールペン: 150 円",
+        "ノート: 320 円",
+        "電子辞書: 18,800 円",
+        "デスクライト: 4,980 円",
+        "注目商品",
+        "電子辞書(家電)- 18,800 円",
+        "© 2026 Shkosugi Lab"
+      ],
+      "Tables": [
+        [
+          [
+            "商品名",
+            "カテゴリ",
+            "価格"
+          ],
+          [
+            "ボールペン",
+            "文具",
+            "150 円"
+          ],
+          [
+            "ノート",
+            "文具",
+            "320 円"
+          ],
+          [
+            "デスクライト",
+            "家電",
+            "4,980 円"
+          ],
+          [
+            "1\t2"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2"
+          ]
+        ],
+        [
+          [
+            "電子辞書(家電)- 18,800 円"
+          ]
+        ]
+      ],
+      "Inputs": {},
+      "Elements": {
+        "lnkList": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lnkNew": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lnkCatalog": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_gvCatalog": {
+          "Tag": "table",
+          "Attributes": {
+            "class": "grid",
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "MainContent_fvFeatured": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "lblFooter": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "カタログ-価格降順",
+      "Path": "/catalog",
+      "Title": "カタログ",
+      "Text": [
+        "商品管理システム",
+        "商品一覧 新規登録 カタログ",
+        "商品カタログ",
+        "商品名 カテゴリ 価格",
+        "電子辞書 家電 18,800 円",
+        "デスクライト 家電 4,980 円",
+        "ノート 文具 320 円",
+        "1 2",
+        "価格一覧",
+        "ボールペン: 150 円",
+        "ノート: 320 円",
+        "電子辞書: 18,800 円",
+        "デスクライト: 4,980 円",
+        "注目商品",
+        "電子辞書(家電)- 18,800 円",
+        "© 2026 Shkosugi Lab"
+      ],
+      "Tables": [
+        [
+          [
+            "商品名",
+            "カテゴリ",
+            "価格"
+          ],
+          [
+            "電子辞書",
+            "家電",
+            "18,800 円"
+          ],
+          [
+            "デスクライト",
+            "家電",
+            "4,980 円"
+          ],
+          [
+            "ノート",
+            "文具",
+            "320 円"
+          ],
+          [
+            "1\t2"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2"
+          ]
+        ],
+        [
+          [
+            "電子辞書(家電)- 18,800 円"
+          ]
+        ]
+      ],
+      "Inputs": {},
+      "Elements": {
+        "lnkList": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lnkNew": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lnkCatalog": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_gvCatalog": {
+          "Tag": "table",
+          "Attributes": {
+            "class": "grid",
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "MainContent_fvFeatured": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "lblFooter": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    }
+  ]
+}

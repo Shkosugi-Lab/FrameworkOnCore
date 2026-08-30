@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="bunit" Version="1.*" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="10.0.*" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.*" />
+    <PackageReference Include="xunit" Version="2.9.*" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.8.*" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- The converter's output is the test target. Run the converter first. -->
+    <ProjectReference Include="..\..\output\HelloBlazor\HelloBlazor.csproj" />
+    <ProjectReference Include="..\..\output\ProductAdminBlazor\ProductAdminBlazor.csproj" />
+    <ProjectReference Include="..\..\output\OrderAdminBlazor\OrderAdminBlazor.csproj" />
+    <ProjectReference Include="..\..\output\DefaultsProbeBlazor\DefaultsProbeBlazor.csproj" />
+  </ItemGroup>
+
+</Project>

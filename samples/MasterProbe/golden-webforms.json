@@ -1,0 +1,478 @@
+{
+  "SourceUrl": "http://localhost:8094",
+  "Snapshots": [
+    {
+      "Name": "レイアウト-入れ子マスター初期表示",
+      "Path": "/",
+      "Title": "マスターページ検証",
+      "Text": [
+        "ルートヘッダー",
+        "既定サイドバー",
+        "ウィジェット",
+        "既定ページ本文",
+        "ウィジェット",
+        "あ",
+        "い",
+        "う",
+        "見出し",
+        "あ",
+        "い",
+        "う",
+        "あ",
+        "い",
+        "う",
+        "値",
+        "あ",
+        "い",
+        "う",
+        "ルートフッター"
+      ],
+      "Tables": [
+        [
+          [
+            "あ"
+          ],
+          [
+            "い"
+          ],
+          [
+            "う"
+          ]
+        ],
+        [
+          [
+            "値"
+          ],
+          [
+            "あ"
+          ],
+          [
+            "い"
+          ],
+          [
+            "う"
+          ]
+        ]
+      ],
+      "Inputs": {},
+      "Elements": {
+        "nestedMeta": {
+          "Tag": "meta",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rootHeader": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "nestedShell": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "nestedSide": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cphMain_cphSide_pSideDefault": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "widgetShell": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cphMain_cphSide_ctrlSideWidget_pWidgetLabel": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "nestedBody": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cphMain_cphBody_pPageLabel": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cphMain_cphBody_pPageButton": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "cphMain_cphBody_pClickResult": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cphMain_cphBody_ctrlBodyWidget_pWidgetLabel": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cphMain_cphBody_pRepeat_pRowLabel_0": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cphMain_cphBody_pRepeat_pRowLabel_1": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cphMain_cphBody_pRepeat_pRowLabel_2": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "repeatHeader": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cphMain_cphBody_pRepeatHdr_pHdrRowLabel_0": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cphMain_cphBody_pRepeatHdr_pHdrRowLabel_1": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cphMain_cphBody_pRepeatHdr_pHdrRowLabel_2": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cphMain_cphBody_pList": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "cphMain_cphBody_pList_pListLabel_0": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cphMain_cphBody_pList_pListLabel_1": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cphMain_cphBody_pList_pListLabel_2": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cphMain_cphBody_pGrid": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "cphMain_cphBody_pGrid_pGridLabel_0": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cphMain_cphBody_pGrid_pGridLabel_1": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cphMain_cphBody_pGrid_pGridLabel_2": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rootFooter": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "レイアウト-ポストバック後",
+      "Path": "/",
+      "Title": "マスターページ検証",
+      "Text": [
+        "ルートヘッダー",
+        "既定サイドバー",
+        "ウィジェット",
+        "既定ページ本文 クリック済み",
+        "ウィジェット",
+        "あ",
+        "い",
+        "う",
+        "見出し",
+        "あ",
+        "い",
+        "う",
+        "あ",
+        "い",
+        "う",
+        "値",
+        "あ",
+        "い",
+        "う",
+        "ルートフッター"
+      ],
+      "Tables": [
+        [
+          [
+            "あ"
+          ],
+          [
+            "い"
+          ],
+          [
+            "う"
+          ]
+        ],
+        [
+          [
+            "値"
+          ],
+          [
+            "あ"
+          ],
+          [
+            "い"
+          ],
+          [
+            "う"
+          ]
+        ]
+      ],
+      "Inputs": {},
+      "Elements": {
+        "nestedMeta": {
+          "Tag": "meta",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rootHeader": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "nestedShell": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "nestedSide": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cphMain_cphSide_pSideDefault": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "widgetShell": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cphMain_cphSide_ctrlSideWidget_pWidgetLabel": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "nestedBody": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cphMain_cphBody_pPageLabel": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cphMain_cphBody_pPageButton": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "cphMain_cphBody_pClickResult": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cphMain_cphBody_ctrlBodyWidget_pWidgetLabel": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cphMain_cphBody_pRepeat_pRowLabel_0": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cphMain_cphBody_pRepeat_pRowLabel_1": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cphMain_cphBody_pRepeat_pRowLabel_2": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "repeatHeader": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cphMain_cphBody_pRepeatHdr_pHdrRowLabel_0": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cphMain_cphBody_pRepeatHdr_pHdrRowLabel_1": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cphMain_cphBody_pRepeatHdr_pHdrRowLabel_2": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cphMain_cphBody_pList": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "cphMain_cphBody_pList_pListLabel_0": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cphMain_cphBody_pList_pListLabel_1": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cphMain_cphBody_pList_pListLabel_2": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cphMain_cphBody_pGrid": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "cphMain_cphBody_pGrid_pGridLabel_0": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cphMain_cphBody_pGrid_pGridLabel_1": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cphMain_cphBody_pGrid_pGridLabel_2": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rootFooter": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "レイアウト-既定コンテンツを上書き",
+      "Path": "/sideoverride",
+      "Title": "マスターページ検証",
+      "Text": [
+        "ルートヘッダー",
+        "上書きサイドバー",
+        "上書きページ本文",
+        "ルートフッター"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "nestedMeta": {
+          "Tag": "meta",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rootHeader": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "nestedShell": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "nestedSide": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cphMain_cphSide_pSideOverride": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "nestedBody": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cphMain_cphBody_pOverrideLabel": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rootFooter": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    }
+  ]
+}

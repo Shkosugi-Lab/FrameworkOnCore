@@ -1,0 +1,42 @@
+@namespace WebForm2Blazor.Components
+@inherits ValidatorBase
+
+@if (ShowError)
+{
+    <span @attributes="ExtraAttributes" style="@SpanStyle" id="@ClientID" class="@ResolvedCssClass">@DisplayText</span>
+}
+
+@code {
+    /// <summary>WebForms ServerValidate equivalent. The handler sets args.IsValid.</summary>
+    [Parameter] public ServerValidateEventHandler OnServerValidate { get; set; }
+
+    /// <summary>
+    /// WebForms ServerValidate as a CLR event: code-behind wires handlers imperatively
+    /// (control.ServerValidate += Handler), which a markup-only parameter cannot express.
+    /// The accessors chain onto the parameter so the existing raise site fires both.
+    /// </summary>
+    public event ServerValidateEventHandler ServerValidate
+    {
+        add => OnServerValidate += value;
+        remove => OnServerValidate -= value;
+    }
+
+    /// <summary>When true, ServerValidate is called even for empty input (WebForms default is false).</summary>
+    [Parameter] public bool ValidateEmptyText { get; set; }
+
+    protected override bool EvaluateIsValid(string value, WebFormsHostCore host)
+    {
+        if (string.IsNullOrEmpty(value.Trim()) && !ValidateEmptyText && !string.IsNullOrEmpty(ControlToValidate))
+        {
+            return true;
+        }
+        if (OnServerValidate is null)
+        {
+            return true;
+        }
+
+        var args = new ServerValidateEventArgs(value, true);
+        OnServerValidate(this, args);
+        return args.IsValid;
+    }
+}

@@ -1,0 +1,82 @@
+@namespace WebForm2Blazor.Components
+@inherits WebFormsControlBase
+@inject IJSRuntime JSRuntime
+
+@if (Visible)
+{
+    <a @attributes="ExtraAttributes" style="@ComputedStyle" id="@ClientID" class="@CssClass"
+       href="javascript:void(0)" @onclick="HandleClick">
+        @if (ChildContent is not null)
+        {
+            @ChildContent
+        }
+        else
+        {
+            @Text
+        }
+    </a>
+}
+
+@code {
+    [Parameter] public string Text { get; set; }
+    [Parameter] public RenderFragment ChildContent { get; set; }
+    [Parameter] public EventHandler OnClick { get; set; }
+
+    /// <summary>
+    /// WebForms Click as a CLR event: code-behind wires handlers imperatively
+    /// (control.Click += Handler), which a markup-only parameter cannot express.
+    /// The accessors chain onto the parameter so the existing raise site fires both.
+    /// </summary>
+    public event EventHandler Click
+    {
+        add => OnClick += value;
+        remove => OnClick -= value;
+    }
+    [Parameter] public bool CausesValidation { get; set; } = true;
+    [Parameter] public string ValidationGroup { get; set; }
+    [Parameter] public string OnClientClick { get; set; }
+    [Parameter] public string CommandName { get; set; }
+    [Parameter] public string CommandArgument { get; set; }
+
+    /// <summary>WebForms Command event equivalent. Fires after Click.</summary>
+    [Parameter] public CommandEventHandler OnCommand { get; set; }
+
+    /// <summary>
+    /// WebForms Command as a CLR event: code-behind wires handlers imperatively
+    /// (control.Command += Handler), which a markup-only parameter cannot express.
+    /// The accessors chain onto the parameter so the existing raise site fires both.
+    /// </summary>
+    public event CommandEventHandler Command
+    {
+        add => OnCommand += value;
+        remove => OnCommand -= value;
+    }
+
+    /// <summary>The bubbling target when inside a Repeater / GridView template.</summary>
+    [CascadingParameter] protected ICommandSink CommandSink { get; set; }
+
+    private async Task HandleClick(MouseEventArgs _)
+    {
+        if (!string.IsNullOrWhiteSpace(OnClientClick))
+        {
+            var result = await JSRuntime.InvokeAsync<bool?>("eval", $"(function() {{ {OnClientClick} }})()");
+            if (result == false)
+            {
+                return;
+            }
+        }
+
+        if (CausesValidation)
+        {
+            Host?.HostCore.Validate(ValidationGroup ?? "");
+        }
+
+        OnClick?.Invoke(this, EventArgs.Empty);
+
+        var args = new CommandEventArgs(CommandName ?? "", CommandArgument);
+        OnCommand?.Invoke(this, args);
+        CommandSink?.RaiseCommand(this, args);
+
+        Host?.HostCore.NotifyPostBackEvent();
+    }
+}

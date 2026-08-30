@@ -1,0 +1,30 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.Master.cs" Inherits="OrderAdmin.SiteMaster" %>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>受注管理システム</title>
+    <asp:ContentPlaceHolder ID="head" runat="server" />
+</head>
+<body>
+    <form id="form1" runat="server">
+        <asp:ScriptManager ID="smMain" runat="server" />
+        <header class="site-header">
+            <h1><asp:Literal ID="litSiteTitle" runat="server" /></h1>
+            <nav>
+                <asp:HyperLink ID="lnkList" runat="server" NavigateUrl="~/Default.aspx" Text="受注一覧" />
+                <asp:HyperLink ID="lnkEntry" runat="server" NavigateUrl="~/Entry.aspx" Text="新規受注" />
+            </nav>
+        </header>
+        <main>
+            <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+        </main>
+        <aside class="side-panel">
+            <asp:ContentPlaceHolder ID="SidePanel" runat="server" />
+        </aside>
+        <footer class="site-footer">
+            <asp:Label ID="lblFooter" runat="server" />
+        </footer>
+    </form>
+</body>
+</html>

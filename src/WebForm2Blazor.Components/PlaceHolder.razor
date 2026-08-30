@@ -1,0 +1,12 @@
+@namespace WebForm2Blazor.Components
+@inherits WebFormsControlBase
+
+@* WebForms PlaceHolder equivalent. Renders nothing itself; the child content passes through. *@
+@if (Visible)
+{
+    @ChildContent
+}
+
+@code {
+    [Parameter] public RenderFragment ChildContent { get; set; }
+}

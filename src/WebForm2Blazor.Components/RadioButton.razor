@@ -1,0 +1,99 @@
+@namespace WebForm2Blazor.Components
+@inherits WebFormsControlBase
+@implements IValueControl
+
+@if (Visible)
+{
+    @* Mirrors the CheckBox structure. The name attribute carries the GroupName so the
+       browser gives native mutual exclusion; state on the other group members is kept
+       in sync via the host's control registry (each RadioButton is its own component). *@
+    <span @attributes="ExtraAttributes" style="@ComputedStyle" class="@CssClass">
+        @if (IsTextLeft && !string.IsNullOrEmpty(Text))
+        {
+            <label for="@ClientID">@Text</label>
+        }
+        <input type="radio" id="@ClientID" name="@(string.IsNullOrEmpty(GroupName) ? ID : GroupName)"
+               value="@ID" checked="@Checked" disabled="@(!Enabled)" @onchange="HandleChange" />
+        @if (!IsTextLeft && !string.IsNullOrEmpty(Text))
+        {
+            <label for="@ClientID">@Text</label>
+        }
+    </span>
+}
+
+@code {
+    private bool _checked;
+
+    [Parameter]
+    public bool Checked
+    {
+        get => _checked;
+        set => SetAndRefresh(ref _checked, value);
+    }
+
+    [Parameter] public string Text { get; set; }
+
+    /// <summary>Radio buttons sharing a GroupName are mutually exclusive, as in WebForms.</summary>
+    [Parameter] public string GroupName { get; set; }
+
+    /// <summary>Right (default) / Left. Left renders the label before the input.</summary>
+    [Parameter] public string TextAlign { get; set; } = "Right";
+
+    [Parameter] public EventHandler OnCheckedChanged { get; set; }
+
+    /// <summary>
+    /// WebForms CheckedChanged as a CLR event: code-behind wires handlers imperatively
+    /// (control.CheckedChanged += Handler), which a markup-only parameter cannot express.
+    /// The accessors chain onto the parameter so the existing raise site fires both.
+    /// </summary>
+    public event EventHandler CheckedChanged
+    {
+        add => OnCheckedChanged += value;
+        remove => OnCheckedChanged -= value;
+    }
+
+    /// <summary>WebForms ValidationGroup equivalent; accepted as a no-op (see TextBox.ValidationGroup).</summary>
+    [Parameter] public string ValidationGroup { get; set; }
+
+    private bool IsTextLeft => string.Equals(TextAlign, "Left", StringComparison.OrdinalIgnoreCase);
+
+    private void HandleChange(ChangeEventArgs e)
+    {
+        _checked = true;
+        MarkStateTouched();
+        ClearGroupSiblings();
+        OnCheckedChanged?.Invoke(this, EventArgs.Empty);
+        Host?.HostCore.NotifyPostBackEvent();
+    }
+
+    /// <summary>The browser already unchecked the siblings visually; sync their component state.</summary>
+    private void ClearGroupSiblings()
+    {
+        if (string.IsNullOrEmpty(GroupName) || Host is null)
+        {
+            return;
+        }
+
+        foreach (var control in Host.HostCore.RegisteredControls)
+        {
+            if (control is RadioButton other
+                && !ReferenceEquals(other, this)
+                && string.Equals(other.GroupName, GroupName, StringComparison.Ordinal))
+            {
+                other.UncheckFromGroup();
+            }
+        }
+    }
+
+    internal void UncheckFromGroup()
+    {
+        if (_checked)
+        {
+            // Checked = false marks the state as touched inside SetAndRefresh
+            Checked = false;
+            MarkStateTouched();
+        }
+    }
+
+    public string GetControlValue() => _checked.ToString();
+}

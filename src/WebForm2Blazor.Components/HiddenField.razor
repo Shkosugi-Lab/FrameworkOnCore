@@ -1,0 +1,22 @@
+﻿@namespace WebForm2Blazor.Components
+@inherits WebFormsControlBase
+@implements IValueControl
+
+@if (Visible)
+{
+    <input @attributes="ExtraAttributes" type="hidden" id="@ClientID" value="@(Value ?? string.Empty)" />
+}
+
+@code {
+    private string _value;
+
+    /// <summary>WebForms HiddenField.Value equivalent. Round-trips like ViewState did.</summary>
+    [Parameter]
+    public string Value
+    {
+        get => _value;
+        set => SetAndRefresh(ref _value, value);
+    }
+
+    public string GetControlValue() => Value ?? string.Empty;
+}

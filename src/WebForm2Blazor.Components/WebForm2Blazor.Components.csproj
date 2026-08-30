@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <!-- Nullable is disabled to match the semantics of the conversion source (.NET Framework WebForms) -->
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <!-- BL0007: the compatibility controls intentionally rewrite parameter properties from
+         code-behind (WebForms style), so parameters cannot be auto-properties.
+         BL0005: GridView assembles BoundField columns for AutoGenerateColumns etc.,
+         intentionally setting parameters from outside for WebForms compatibility. -->
+    <NoWarn>$(NoWarn);BL0007;BL0005</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+</Project>

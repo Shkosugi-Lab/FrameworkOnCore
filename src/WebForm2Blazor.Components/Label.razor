@@ -1,0 +1,35 @@
+﻿@namespace WebForm2Blazor.Components
+@inherits WebFormsControlBase
+
+@if (Visible)
+{
+    @if (!string.IsNullOrEmpty(AssociatedControlID))
+    {
+        @* WebForms AssociatedControlID equivalent: renders as <label for> *@
+        <label @attributes="ExtraAttributes" style="@ComputedStyle" id="@ClientID" class="@CssClass"
+               for="@ClientIdFor(AssociatedControlID)">@Text</label>
+    }
+    else
+    {
+        <span @attributes="ExtraAttributes" style="@ComputedStyle" id="@ClientID" class="@CssClass">@Text</span>
+    }
+}
+
+@code {
+    private string _text = string.Empty;
+
+    /// <summary>When set, renders as &lt;label for="..."&gt;.</summary>
+    [Parameter] public string AssociatedControlID { get; set; }
+
+    /// <summary>
+    /// WebForms Label.Text equivalent.
+    /// (WebForms emits Text as raw HTML; this control encodes it to avoid XSS.
+    ///  Use Literal when raw HTML output is required.)
+    /// </summary>
+    [Parameter]
+    public string Text
+    {
+        get => _text;
+        set => SetAndRefresh(ref _text, value ?? string.Empty);
+    }
+}

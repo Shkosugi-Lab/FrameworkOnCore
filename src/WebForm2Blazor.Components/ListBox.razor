@@ -1,0 +1,135 @@
+@namespace WebForm2Blazor.Components
+@inherits WebFormsControlBase
+@implements IValueControl
+@implements IListItemContainer
+
+@* Collects the declarative <ListItem> children. The ListItem itself renders nothing. *@
+<CascadingValue Value="(IListItemContainer)this" IsFixed="true">@ChildContent</CascadingValue>
+
+@if (Visible)
+{
+    <select @attributes="ExtraAttributes" style="@ComputedStyle" id="@ClientID" class="@CssClass"
+            size="@(Rows > 0 ? Rows : 4)" multiple="@IsMultiple"
+            value="@SelectedValue" disabled="@(!Enabled)" @onchange="HandleChange">
+        @foreach (var item in Items)
+        {
+            <option value="@item.ResolvedValue" selected="@item.Selected">@item.ResolvedText</option>
+        }
+    </select>
+}
+
+@code {
+    private string _selectedValue;
+    private bool _itemsChanged;
+
+    [Parameter] public RenderFragment ChildContent { get; set; }
+    [Parameter] public string DataTextField { get; set; }
+    [Parameter] public string DataValueField { get; set; }
+    [Parameter] public EventHandler OnSelectedIndexChanged { get; set; }
+
+    /// <summary>
+    /// WebForms SelectedIndexChanged as a CLR event: code-behind wires handlers imperatively
+    /// (control.SelectedIndexChanged += Handler), which a markup-only parameter cannot express.
+    /// The accessors chain onto the parameter so the existing raise site fires both.
+    /// </summary>
+    public event EventHandler SelectedIndexChanged
+    {
+        add => OnSelectedIndexChanged += value;
+        remove => OnSelectedIndexChanged -= value;
+    }
+
+    /// <summary>WebForms ListBox.Rows equivalent (the size attribute; WebForms defaults to 4).</summary>
+    [Parameter] public int Rows { get; set; }
+
+    /// <summary>Single (default) / Multiple.</summary>
+    [Parameter] public string SelectionMode { get; set; } = "Single";
+
+    public ListItemCollection Items { get; } = new();
+
+    public object DataSource { get; set; }
+
+    private bool IsMultiple
+        => string.Equals(SelectionMode, "Multiple", StringComparison.OrdinalIgnoreCase);
+
+    public string SelectedValue
+    {
+        get => _selectedValue ?? Items.FirstOrDefault(item => item.Selected)?.ResolvedValue ?? string.Empty;
+        set => SetAndRefresh(ref _selectedValue, value);
+    }
+
+    public int SelectedIndex
+    {
+        get => Items.FindIndex(item => item.ResolvedValue == SelectedValue);
+        set
+        {
+            if (value >= 0 && value < Items.Count)
+            {
+                SelectedValue = Items[value].ResolvedValue;
+            }
+        }
+    }
+
+    public ListItem SelectedItem => Items.FirstOrDefault(item => item.ResolvedValue == SelectedValue);
+
+    /// <summary>
+    /// WebForms ListControl.ClearSelection equivalent. Code-behind calls it before
+    /// selecting a new item; in Multiple mode the per-item flags carry the selection,
+    /// so both they and the single-selection value are cleared.
+    /// </summary>
+    public void ClearSelection()
+    {
+        foreach (var item in Items)
+        {
+            item.Selected = false;
+        }
+        SelectedValue = string.Empty;
+    }
+
+    void IListItemContainer.AddItem(ListItem item)
+    {
+        Items.Add(item);
+        _itemsChanged = true;
+    }
+
+    /// <summary>When true, DataBind keeps declarative ListItems and appends (WebForms compatible).</summary>
+    [Parameter] public bool AppendDataBoundItems { get; set; }
+
+    /// <summary>WebForms DataBind() equivalent.</summary>
+    public void DataBind()
+    {
+        if (!AppendDataBoundItems)
+        {
+            Items.Clear();
+        }
+        foreach (var row in DataSourceHelper.Materialize(DataSource))
+        {
+            var text = string.IsNullOrEmpty(DataTextField)
+                ? row?.ToString()
+                : DataBinder.Eval(row, DataTextField)?.ToString();
+            var value = string.IsNullOrEmpty(DataValueField)
+                ? text
+                : DataBinder.Eval(row, DataValueField)?.ToString();
+            Items.Add(new ListItem(text, value));
+        }
+        StateHasChanged();
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (_itemsChanged)
+        {
+            _itemsChanged = false;
+            StateHasChanged();
+        }
+    }
+
+    private void HandleChange(ChangeEventArgs e)
+    {
+        _selectedValue = e.Value?.ToString() ?? string.Empty;
+        MarkStateTouched();
+        OnSelectedIndexChanged?.Invoke(this, EventArgs.Empty);
+        Host?.HostCore.NotifyPostBackEvent();
+    }
+
+    public string GetControlValue() => SelectedValue;
+}

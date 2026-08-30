@@ -1,0 +1,3921 @@
+{
+  "SourceUrl": "http://localhost:8093",
+  "Snapshots": [
+    {
+      "Name": "既定レンダリング-初期表示",
+      "Path": "/",
+      "Title": "既定レンダリング検証",
+      "Text": [
+        "既定レンダリング検証",
+        "ラベル",
+        "リンクボタン",
+        "リンク",
+        "チェック",
+        "パネル",
+        "項目A",
+        "項目B",
+        "縦A",
+        "縦B",
+        "横A 横B",
+        "単体A 単体B",
+        "選甲",
+        "選乙",
+        "選丙",
+        "甲",
+        "乙",
+        "甲 乙",
+        "クラス素通し",
+        "設定値AB",
+        "条件付き表示(true 側)",
+        "甲",
+        "乙",
+        "Name Price",
+        "頁一 1",
+        "頁二 2",
+        "1 2",
+        "列甲 列乙",
+        "列丙",
+        "Name Price",
+        "表 1",
+        "裏 2",
+        "項目 値",
+        "あ 10",
+        "い 20",
+        "名前 価格",
+        "甲 100",
+        "乙 2,500",
+        "太字断片",
+        "バッジ (3)",
+        "中身テキスト 内側ラベル",
+        "表=1",
+        "裏=2",
+        "サーバーDIV div内",
+        "サーバー行",
+        "コメント後も表示",
+        "リソース文字列",
+        "ラッパー内容",
+        "LB甲",
+        "LB乙",
+        "見出しセル 内容セル",
+        "継承リンク",
+        "名前 甲",
+        "価格 100",
+        "甲特",
+        "乙特",
+        "名前 操作",
+        "イ 行0 削除",
+        "ロ 行1 削除",
+        "ハ 行2 削除",
+        "Name Price",
+        "甲 100",
+        "乙 2500",
+        "名前 価格",
+        "甲 100",
+        "乙 2,500",
+        "甲",
+        "明示指定の描画",
+        "スタイル付きグリッド",
+        "名前 価格",
+        "甲 100",
+        "乙 2,500",
+        "名前 価格",
+        "甲 100",
+        "乙 2,500",
+        "グループ見出し",
+        "関連ラベル",
+        "小文字style",
+        "大文字Style",
+        "ローカルリソースの文字列",
+        "左ラベル",
+        "(選択してください)",
+        "甲",
+        "乙"
+      ],
+      "Tables": [
+        [
+          [
+            "縦A"
+          ],
+          [
+            "縦B"
+          ]
+        ],
+        [
+          [
+            "横A",
+            "横B"
+          ]
+        ],
+        [
+          [
+            "選甲"
+          ],
+          [
+            "選乙"
+          ],
+          [
+            "選丙"
+          ]
+        ],
+        [
+          [
+            "甲"
+          ],
+          [
+            "乙"
+          ]
+        ],
+        [
+          [
+            "甲",
+            "乙"
+          ]
+        ],
+        [
+          [
+            "甲"
+          ],
+          [
+            "乙"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Price"
+          ],
+          [
+            "頁一",
+            "1"
+          ],
+          [
+            "頁二",
+            "2"
+          ],
+          [
+            "1\t2"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2"
+          ]
+        ],
+        [
+          [
+            "列甲",
+            "列乙"
+          ],
+          [
+            "列丙",
+            ""
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Price"
+          ],
+          [
+            "表",
+            "1"
+          ],
+          [
+            "裏",
+            "2"
+          ]
+        ],
+        [
+          [
+            "項目",
+            "値"
+          ],
+          [
+            "あ",
+            "10"
+          ],
+          [
+            "い",
+            "20"
+          ]
+        ],
+        [
+          [
+            "名前",
+            "価格"
+          ],
+          [
+            "甲",
+            "100"
+          ],
+          [
+            "乙",
+            "2,500"
+          ]
+        ],
+        [
+          [
+            "サーバー行"
+          ]
+        ],
+        [
+          [
+            "見出しセル",
+            "内容セル"
+          ]
+        ],
+        [
+          [
+            "名前",
+            "甲"
+          ],
+          [
+            "価格",
+            "100"
+          ]
+        ],
+        [
+          [
+            "甲特"
+          ],
+          [
+            "乙特"
+          ]
+        ],
+        [
+          [
+            "名前",
+            "操作"
+          ],
+          [
+            "イ",
+            "行0 削除"
+          ],
+          [
+            "ロ",
+            "行1 削除"
+          ],
+          [
+            "ハ",
+            "行2 削除"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Price"
+          ],
+          [
+            "甲",
+            "100"
+          ],
+          [
+            "乙",
+            "2500"
+          ]
+        ],
+        [
+          [
+            "名前",
+            "価格"
+          ],
+          [
+            "甲",
+            "100"
+          ],
+          [
+            "乙",
+            "2,500"
+          ]
+        ],
+        [
+          [
+            "甲"
+          ]
+        ],
+        [
+          [
+            "名前",
+            "価格"
+          ],
+          [
+            "甲",
+            "100"
+          ],
+          [
+            "乙",
+            "2,500"
+          ]
+        ],
+        [
+          [
+            "名前",
+            "価格"
+          ],
+          [
+            "甲",
+            "100"
+          ],
+          [
+            "乙",
+            "2,500"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "pTextBox": "",
+        "pTextArea": "",
+        "pPassword": "",
+        "pCheckBox": "false",
+        "pDropDown": "a",
+        "pRadioV_0": "a",
+        "pRadioV_1": "b",
+        "pRadioH_0": "a",
+        "pRadioH_1": "b",
+        "pRadioBtn1": "pRadioBtn1",
+        "pRadioBtn2": "pRadioBtn2",
+        "pCheckList_0": "false",
+        "pCheckList_1": "true",
+        "pCheckList_2": "false",
+        "pFile": "",
+        "pExpando": "",
+        "pCheckCols_0": "false",
+        "pCheckCols_1": "false",
+        "pCheckCols_2": "false",
+        "pImgBtn": "",
+        "pListBox": "2",
+        "pDataListEvt_txtEvtVal_0": "甲",
+        "pDataListEvt_txtEvtVal_1": "乙",
+        "pReqTarget": "",
+        "pRangeTarget": "99",
+        "pNoWrap": "",
+        "pCheckLeft": "false",
+        "pAppend": "",
+        "pDynTarget": ""
+      },
+      "Elements": {
+        "pLabel": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pTextBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "pTextArea": {
+          "Tag": "textarea",
+          "Attributes": {
+            "rows": "2",
+            "cols": "20"
+          },
+          "Style": {}
+        },
+        "pPassword": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "password"
+          },
+          "Style": {}
+        },
+        "pButton": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "pLinkButton": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pHyperLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pCheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "pPanel": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pDropDown": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pRadioV": {
+          "Tag": "table",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pRadioV_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "pRadioV_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "pRadioH": {
+          "Tag": "table",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pRadioH_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "pRadioH_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "pImage": {
+          "Tag": "img",
+          "Attributes": {
+            "src": "/probe.png"
+          },
+          "Style": {}
+        },
+        "pImageAlt": {
+          "Tag": "img",
+          "Attributes": {
+            "src": "/probe.png",
+            "alt": "代替テキスト"
+          },
+          "Style": {}
+        },
+        "pRadioBtn1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "pRadioBtn2": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "pCheckList": {
+          "Tag": "table",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pCheckList_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "pCheckList_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "pCheckList_2": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "pFile": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "file"
+          },
+          "Style": {}
+        },
+        "pDataListV": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "pDataListH": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "pExpando": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text",
+            "autocomplete": "off",
+            "data-probe": "x"
+          },
+          "Style": {}
+        },
+        "pClassPanel": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "raw-class"
+          },
+          "Style": {}
+        },
+        "pStyleBtn": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {
+            "margin-left": "5px"
+          }
+        },
+        "pExprSetting": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pIfShown": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pDataListVA": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "pGridPager": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "pHlImage": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pCheckCols": {
+          "Tag": "table",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pCheckCols_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "pCheckCols_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "pCheckCols_2": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "pGridOds": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "pGridDt": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "pDataGrid": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "pRawExpr": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pBadge": {
+          "Tag": "span",
+          "Attributes": {
+            "class": "badge"
+          },
+          "Style": {}
+        },
+        "pFancyPanel": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "fp"
+          },
+          "Style": {}
+        },
+        "pInnerLabel": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "model-list": {
+          "Tag": "ul",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pServerDiv": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "sd"
+          },
+          "Style": {}
+        },
+        "pDivLabel": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pServerRow": {
+          "Tag": "tr",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pAfterComment": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pResource": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pWrapped": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pImgBtn": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "image",
+            "src": "/probe.png",
+            "alt": "画像ボタン"
+          },
+          "Style": {}
+        },
+        "pListBox": {
+          "Tag": "select",
+          "Attributes": {
+            "size": "3"
+          },
+          "Style": {}
+        },
+        "pTable": {
+          "Tag": "table",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pFancyLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pDetails": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "pDataListEvt": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "pDataListEvt_hlItem_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pDataListEvt_txtEvtVal_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "pDataListEvt_hlItem_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pDataListEvt_txtEvtVal_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "pGridEvt": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "pGridEvt_lblEvt_0": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pGridEvt_lnkDel_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pGridEvt_lblEvt_1": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pGridEvt_lnkDel_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pGridEvt_lblEvt_2": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pGridEvt_lnkDel_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pGridAuto": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "pGridColumns": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "pFormView": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "pReqTarget": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "pRequired": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pRangeTarget": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "pRange": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pSummary": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnValidate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "pGridStyled": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "pGridFieldStyles": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "pFieldset": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pLabelFor": {
+          "Tag": "label",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pStyleLower": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {
+            "color": "#c00",
+            "font-weight": "bold"
+          }
+        },
+        "pStyleUpper": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "border": "1px solid #00c"
+          }
+        },
+        "pLocalized": {
+          "Tag": "span",
+          "Attributes": {
+            "title": "ローカルリソースの説明"
+          },
+          "Style": {}
+        },
+        "pNoWrap": {
+          "Tag": "textarea",
+          "Attributes": {
+            "rows": "2",
+            "cols": "20"
+          },
+          "Style": {}
+        },
+        "pCheckLeft": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "pAppend": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pDynTarget": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "pRequiredDyn": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pSummaryList": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "既定レンダリング-単体ラジオとチェックリスト操作後",
+      "Path": "/",
+      "Title": "既定レンダリング検証",
+      "Text": [
+        "既定レンダリング検証",
+        "ラベル",
+        "リンクボタン",
+        "リンク",
+        "チェック",
+        "パネル",
+        "項目A",
+        "項目B",
+        "縦A",
+        "縦B",
+        "横A 横B",
+        "単体A 単体B",
+        "選甲",
+        "選乙",
+        "選丙",
+        "甲",
+        "乙",
+        "甲 乙",
+        "クラス素通し",
+        "設定値AB",
+        "条件付き表示(true 側)",
+        "甲",
+        "乙",
+        "Name Price",
+        "頁一 1",
+        "頁二 2",
+        "1 2",
+        "列甲 列乙",
+        "列丙",
+        "Name Price",
+        "表 1",
+        "裏 2",
+        "項目 値",
+        "あ 10",
+        "い 20",
+        "名前 価格",
+        "甲 100",
+        "乙 2,500",
+        "太字断片",
+        "バッジ (3)",
+        "中身テキスト 内側ラベル",
+        "表=1",
+        "裏=2",
+        "サーバーDIV div内",
+        "サーバー行",
+        "コメント後も表示",
+        "リソース文字列",
+        "ラッパー内容",
+        "LB甲",
+        "LB乙",
+        "見出しセル 内容セル",
+        "継承リンク",
+        "名前 甲",
+        "価格 100",
+        "甲特",
+        "乙特",
+        "名前 操作",
+        "イ 行0 削除",
+        "ロ 行1 削除",
+        "ハ 行2 削除",
+        "Name Price",
+        "甲 100",
+        "乙 2500",
+        "名前 価格",
+        "甲 100",
+        "乙 2,500",
+        "甲",
+        "明示指定の描画",
+        "スタイル付きグリッド",
+        "名前 価格",
+        "甲 100",
+        "乙 2,500",
+        "名前 価格",
+        "甲 100",
+        "乙 2,500",
+        "グループ見出し",
+        "関連ラベル",
+        "小文字style",
+        "大文字Style",
+        "ローカルリソースの文字列",
+        "左ラベル",
+        "(選択してください)",
+        "甲",
+        "乙"
+      ],
+      "Tables": [
+        [
+          [
+            "縦A"
+          ],
+          [
+            "縦B"
+          ]
+        ],
+        [
+          [
+            "横A",
+            "横B"
+          ]
+        ],
+        [
+          [
+            "選甲"
+          ],
+          [
+            "選乙"
+          ],
+          [
+            "選丙"
+          ]
+        ],
+        [
+          [
+            "甲"
+          ],
+          [
+            "乙"
+          ]
+        ],
+        [
+          [
+            "甲",
+            "乙"
+          ]
+        ],
+        [
+          [
+            "甲"
+          ],
+          [
+            "乙"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Price"
+          ],
+          [
+            "頁一",
+            "1"
+          ],
+          [
+            "頁二",
+            "2"
+          ],
+          [
+            "1\t2"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2"
+          ]
+        ],
+        [
+          [
+            "列甲",
+            "列乙"
+          ],
+          [
+            "列丙",
+            ""
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Price"
+          ],
+          [
+            "表",
+            "1"
+          ],
+          [
+            "裏",
+            "2"
+          ]
+        ],
+        [
+          [
+            "項目",
+            "値"
+          ],
+          [
+            "あ",
+            "10"
+          ],
+          [
+            "い",
+            "20"
+          ]
+        ],
+        [
+          [
+            "名前",
+            "価格"
+          ],
+          [
+            "甲",
+            "100"
+          ],
+          [
+            "乙",
+            "2,500"
+          ]
+        ],
+        [
+          [
+            "サーバー行"
+          ]
+        ],
+        [
+          [
+            "見出しセル",
+            "内容セル"
+          ]
+        ],
+        [
+          [
+            "名前",
+            "甲"
+          ],
+          [
+            "価格",
+            "100"
+          ]
+        ],
+        [
+          [
+            "甲特"
+          ],
+          [
+            "乙特"
+          ]
+        ],
+        [
+          [
+            "名前",
+            "操作"
+          ],
+          [
+            "イ",
+            "行0 削除"
+          ],
+          [
+            "ロ",
+            "行1 削除"
+          ],
+          [
+            "ハ",
+            "行2 削除"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Price"
+          ],
+          [
+            "甲",
+            "100"
+          ],
+          [
+            "乙",
+            "2500"
+          ]
+        ],
+        [
+          [
+            "名前",
+            "価格"
+          ],
+          [
+            "甲",
+            "100"
+          ],
+          [
+            "乙",
+            "2,500"
+          ]
+        ],
+        [
+          [
+            "甲"
+          ]
+        ],
+        [
+          [
+            "名前",
+            "価格"
+          ],
+          [
+            "甲",
+            "100"
+          ],
+          [
+            "乙",
+            "2,500"
+          ]
+        ],
+        [
+          [
+            "名前",
+            "価格"
+          ],
+          [
+            "甲",
+            "100"
+          ],
+          [
+            "乙",
+            "2,500"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "pTextBox": "",
+        "pTextArea": "",
+        "pPassword": "",
+        "pCheckBox": "false",
+        "pDropDown": "a",
+        "pRadioV_0": "a",
+        "pRadioV_1": "b",
+        "pRadioH_0": "a",
+        "pRadioH_1": "b",
+        "pRadioBtn1": "pRadioBtn1",
+        "pRadioBtn2": "pRadioBtn2",
+        "pCheckList_0": "true",
+        "pCheckList_1": "true",
+        "pCheckList_2": "false",
+        "pFile": "",
+        "pExpando": "",
+        "pCheckCols_0": "false",
+        "pCheckCols_1": "false",
+        "pCheckCols_2": "false",
+        "pImgBtn": "",
+        "pListBox": "2",
+        "pDataListEvt_txtEvtVal_0": "甲",
+        "pDataListEvt_txtEvtVal_1": "乙",
+        "pReqTarget": "",
+        "pRangeTarget": "99",
+        "pNoWrap": "",
+        "pCheckLeft": "false",
+        "pAppend": "",
+        "pDynTarget": ""
+      },
+      "Elements": {
+        "pLabel": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pTextBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "pTextArea": {
+          "Tag": "textarea",
+          "Attributes": {
+            "rows": "2",
+            "cols": "20"
+          },
+          "Style": {}
+        },
+        "pPassword": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "password"
+          },
+          "Style": {}
+        },
+        "pButton": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "pLinkButton": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pHyperLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pCheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "pPanel": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pDropDown": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pRadioV": {
+          "Tag": "table",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pRadioV_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "pRadioV_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "pRadioH": {
+          "Tag": "table",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pRadioH_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "pRadioH_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "pImage": {
+          "Tag": "img",
+          "Attributes": {
+            "src": "/probe.png"
+          },
+          "Style": {}
+        },
+        "pImageAlt": {
+          "Tag": "img",
+          "Attributes": {
+            "src": "/probe.png",
+            "alt": "代替テキスト"
+          },
+          "Style": {}
+        },
+        "pRadioBtn1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "pRadioBtn2": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "pCheckList": {
+          "Tag": "table",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pCheckList_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "pCheckList_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "pCheckList_2": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "pFile": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "file"
+          },
+          "Style": {}
+        },
+        "pDataListV": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "pDataListH": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "pExpando": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text",
+            "autocomplete": "off",
+            "data-probe": "x"
+          },
+          "Style": {}
+        },
+        "pClassPanel": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "raw-class"
+          },
+          "Style": {}
+        },
+        "pStyleBtn": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {
+            "margin-left": "5px"
+          }
+        },
+        "pExprSetting": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pIfShown": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pDataListVA": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "pGridPager": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "pHlImage": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pCheckCols": {
+          "Tag": "table",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pCheckCols_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "pCheckCols_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "pCheckCols_2": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "pGridOds": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "pGridDt": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "pDataGrid": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "pRawExpr": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pBadge": {
+          "Tag": "span",
+          "Attributes": {
+            "class": "badge"
+          },
+          "Style": {}
+        },
+        "pFancyPanel": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "fp"
+          },
+          "Style": {}
+        },
+        "pInnerLabel": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "model-list": {
+          "Tag": "ul",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pServerDiv": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "sd"
+          },
+          "Style": {}
+        },
+        "pDivLabel": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pServerRow": {
+          "Tag": "tr",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pAfterComment": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pResource": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pWrapped": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pImgBtn": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "image",
+            "src": "/probe.png",
+            "alt": "画像ボタン"
+          },
+          "Style": {}
+        },
+        "pListBox": {
+          "Tag": "select",
+          "Attributes": {
+            "size": "3"
+          },
+          "Style": {}
+        },
+        "pTable": {
+          "Tag": "table",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pFancyLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pDetails": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "pDataListEvt": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "pDataListEvt_hlItem_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pDataListEvt_txtEvtVal_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "pDataListEvt_hlItem_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pDataListEvt_txtEvtVal_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "pGridEvt": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "pGridEvt_lblEvt_0": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pGridEvt_lnkDel_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pGridEvt_lblEvt_1": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pGridEvt_lnkDel_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pGridEvt_lblEvt_2": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pGridEvt_lnkDel_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pGridAuto": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "pGridColumns": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "pFormView": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "pReqTarget": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "pRequired": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pRangeTarget": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "pRange": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pSummary": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnValidate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "pGridStyled": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "pGridFieldStyles": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "pFieldset": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pLabelFor": {
+          "Tag": "label",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pStyleLower": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {
+            "color": "#c00",
+            "font-weight": "bold"
+          }
+        },
+        "pStyleUpper": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "border": "1px solid #00c"
+          }
+        },
+        "pLocalized": {
+          "Tag": "span",
+          "Attributes": {
+            "title": "ローカルリソースの説明"
+          },
+          "Style": {}
+        },
+        "pNoWrap": {
+          "Tag": "textarea",
+          "Attributes": {
+            "rows": "2",
+            "cols": "20"
+          },
+          "Style": {}
+        },
+        "pCheckLeft": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "pAppend": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pDynTarget": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "pRequiredDyn": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pSummaryList": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "既定レンダリング-行削除後(RowDeleting)",
+      "Path": "/",
+      "Title": "既定レンダリング検証",
+      "Text": [
+        "既定レンダリング検証",
+        "ラベル",
+        "リンクボタン",
+        "リンク",
+        "チェック",
+        "パネル",
+        "項目A",
+        "項目B",
+        "縦A",
+        "縦B",
+        "横A 横B",
+        "単体A 単体B",
+        "選甲",
+        "選乙",
+        "選丙",
+        "甲",
+        "乙",
+        "甲 乙",
+        "クラス素通し",
+        "設定値AB",
+        "条件付き表示(true 側)",
+        "甲",
+        "乙",
+        "Name Price",
+        "頁一 1",
+        "頁二 2",
+        "1 2",
+        "列甲 列乙",
+        "列丙",
+        "Name Price",
+        "表 1",
+        "裏 2",
+        "項目 値",
+        "あ 10",
+        "い 20",
+        "名前 価格",
+        "甲 100",
+        "乙 2,500",
+        "太字断片",
+        "バッジ (3)",
+        "中身テキスト 内側ラベル",
+        "表=1",
+        "裏=2",
+        "サーバーDIV div内",
+        "サーバー行",
+        "コメント後も表示",
+        "リソース文字列",
+        "ラッパー内容",
+        "LB甲",
+        "LB乙",
+        "見出しセル 内容セル",
+        "継承リンク",
+        "名前 甲",
+        "価格 100",
+        "甲特",
+        "乙特",
+        "名前 操作",
+        "ロ 行0 削除",
+        "ハ 行1 削除",
+        "Name Price",
+        "甲 100",
+        "乙 2500",
+        "名前 価格",
+        "甲 100",
+        "乙 2,500",
+        "甲",
+        "明示指定の描画",
+        "スタイル付きグリッド",
+        "名前 価格",
+        "甲 100",
+        "乙 2,500",
+        "名前 価格",
+        "甲 100",
+        "乙 2,500",
+        "グループ見出し",
+        "関連ラベル",
+        "小文字style",
+        "大文字Style",
+        "ローカルリソースの文字列",
+        "左ラベル",
+        "(選択してください)",
+        "甲",
+        "乙"
+      ],
+      "Tables": [
+        [
+          [
+            "縦A"
+          ],
+          [
+            "縦B"
+          ]
+        ],
+        [
+          [
+            "横A",
+            "横B"
+          ]
+        ],
+        [
+          [
+            "選甲"
+          ],
+          [
+            "選乙"
+          ],
+          [
+            "選丙"
+          ]
+        ],
+        [
+          [
+            "甲"
+          ],
+          [
+            "乙"
+          ]
+        ],
+        [
+          [
+            "甲",
+            "乙"
+          ]
+        ],
+        [
+          [
+            "甲"
+          ],
+          [
+            "乙"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Price"
+          ],
+          [
+            "頁一",
+            "1"
+          ],
+          [
+            "頁二",
+            "2"
+          ],
+          [
+            "1\t2"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2"
+          ]
+        ],
+        [
+          [
+            "列甲",
+            "列乙"
+          ],
+          [
+            "列丙",
+            ""
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Price"
+          ],
+          [
+            "表",
+            "1"
+          ],
+          [
+            "裏",
+            "2"
+          ]
+        ],
+        [
+          [
+            "項目",
+            "値"
+          ],
+          [
+            "あ",
+            "10"
+          ],
+          [
+            "い",
+            "20"
+          ]
+        ],
+        [
+          [
+            "名前",
+            "価格"
+          ],
+          [
+            "甲",
+            "100"
+          ],
+          [
+            "乙",
+            "2,500"
+          ]
+        ],
+        [
+          [
+            "サーバー行"
+          ]
+        ],
+        [
+          [
+            "見出しセル",
+            "内容セル"
+          ]
+        ],
+        [
+          [
+            "名前",
+            "甲"
+          ],
+          [
+            "価格",
+            "100"
+          ]
+        ],
+        [
+          [
+            "甲特"
+          ],
+          [
+            "乙特"
+          ]
+        ],
+        [
+          [
+            "名前",
+            "操作"
+          ],
+          [
+            "ロ",
+            "行0 削除"
+          ],
+          [
+            "ハ",
+            "行1 削除"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Price"
+          ],
+          [
+            "甲",
+            "100"
+          ],
+          [
+            "乙",
+            "2500"
+          ]
+        ],
+        [
+          [
+            "名前",
+            "価格"
+          ],
+          [
+            "甲",
+            "100"
+          ],
+          [
+            "乙",
+            "2,500"
+          ]
+        ],
+        [
+          [
+            "甲"
+          ]
+        ],
+        [
+          [
+            "名前",
+            "価格"
+          ],
+          [
+            "甲",
+            "100"
+          ],
+          [
+            "乙",
+            "2,500"
+          ]
+        ],
+        [
+          [
+            "名前",
+            "価格"
+          ],
+          [
+            "甲",
+            "100"
+          ],
+          [
+            "乙",
+            "2,500"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "pTextBox": "",
+        "pTextArea": "",
+        "pPassword": "",
+        "pCheckBox": "false",
+        "pDropDown": "a",
+        "pRadioV_0": "a",
+        "pRadioV_1": "b",
+        "pRadioH_0": "a",
+        "pRadioH_1": "b",
+        "pRadioBtn1": "pRadioBtn1",
+        "pRadioBtn2": "pRadioBtn2",
+        "pCheckList_0": "true",
+        "pCheckList_1": "true",
+        "pCheckList_2": "false",
+        "pFile": "",
+        "pExpando": "",
+        "pCheckCols_0": "false",
+        "pCheckCols_1": "false",
+        "pCheckCols_2": "false",
+        "pImgBtn": "",
+        "pListBox": "2",
+        "pDataListEvt_txtEvtVal_0": "甲",
+        "pDataListEvt_txtEvtVal_1": "乙",
+        "pReqTarget": "",
+        "pRangeTarget": "99",
+        "pNoWrap": "",
+        "pCheckLeft": "false",
+        "pAppend": "",
+        "pDynTarget": ""
+      },
+      "Elements": {
+        "pLabel": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pTextBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "pTextArea": {
+          "Tag": "textarea",
+          "Attributes": {
+            "rows": "2",
+            "cols": "20"
+          },
+          "Style": {}
+        },
+        "pPassword": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "password"
+          },
+          "Style": {}
+        },
+        "pButton": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "pLinkButton": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pHyperLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pCheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "pPanel": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pDropDown": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pRadioV": {
+          "Tag": "table",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pRadioV_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "pRadioV_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "pRadioH": {
+          "Tag": "table",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pRadioH_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "pRadioH_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "pImage": {
+          "Tag": "img",
+          "Attributes": {
+            "src": "/probe.png"
+          },
+          "Style": {}
+        },
+        "pImageAlt": {
+          "Tag": "img",
+          "Attributes": {
+            "src": "/probe.png",
+            "alt": "代替テキスト"
+          },
+          "Style": {}
+        },
+        "pRadioBtn1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "pRadioBtn2": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "pCheckList": {
+          "Tag": "table",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pCheckList_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "pCheckList_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "pCheckList_2": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "pFile": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "file"
+          },
+          "Style": {}
+        },
+        "pDataListV": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "pDataListH": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "pExpando": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text",
+            "autocomplete": "off",
+            "data-probe": "x"
+          },
+          "Style": {}
+        },
+        "pClassPanel": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "raw-class"
+          },
+          "Style": {}
+        },
+        "pStyleBtn": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {
+            "margin-left": "5px"
+          }
+        },
+        "pExprSetting": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pIfShown": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pDataListVA": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "pGridPager": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "pHlImage": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pCheckCols": {
+          "Tag": "table",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pCheckCols_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "pCheckCols_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "pCheckCols_2": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "pGridOds": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "pGridDt": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "pDataGrid": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "pRawExpr": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pBadge": {
+          "Tag": "span",
+          "Attributes": {
+            "class": "badge"
+          },
+          "Style": {}
+        },
+        "pFancyPanel": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "fp"
+          },
+          "Style": {}
+        },
+        "pInnerLabel": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "model-list": {
+          "Tag": "ul",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pServerDiv": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "sd"
+          },
+          "Style": {}
+        },
+        "pDivLabel": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pServerRow": {
+          "Tag": "tr",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pAfterComment": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pResource": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pWrapped": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pImgBtn": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "image",
+            "src": "/probe.png",
+            "alt": "画像ボタン"
+          },
+          "Style": {}
+        },
+        "pListBox": {
+          "Tag": "select",
+          "Attributes": {
+            "size": "3"
+          },
+          "Style": {}
+        },
+        "pTable": {
+          "Tag": "table",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pFancyLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pDetails": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "pDataListEvt": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "pDataListEvt_hlItem_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pDataListEvt_txtEvtVal_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "pDataListEvt_hlItem_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pDataListEvt_txtEvtVal_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "pGridEvt": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "pGridEvt_lblEvt_0": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pGridEvt_lnkDel_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pGridEvt_lblEvt_1": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pGridEvt_lnkDel_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pGridAuto": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "pGridColumns": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "pFormView": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "pReqTarget": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "pRequired": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pRangeTarget": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "pRange": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pSummary": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnValidate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "pGridStyled": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "pGridFieldStyles": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "pFieldset": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pLabelFor": {
+          "Tag": "label",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pStyleLower": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {
+            "color": "#c00",
+            "font-weight": "bold"
+          }
+        },
+        "pStyleUpper": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "border": "1px solid #00c"
+          }
+        },
+        "pLocalized": {
+          "Tag": "span",
+          "Attributes": {
+            "title": "ローカルリソースの説明"
+          },
+          "Style": {}
+        },
+        "pNoWrap": {
+          "Tag": "textarea",
+          "Attributes": {
+            "rows": "2",
+            "cols": "20"
+          },
+          "Style": {}
+        },
+        "pCheckLeft": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "pAppend": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pDynTarget": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "pRequiredDyn": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pSummaryList": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "既定レンダリング-検証エラー表示",
+      "Path": "/",
+      "Title": "既定レンダリング検証",
+      "Text": [
+        "既定レンダリング検証",
+        "ラベル",
+        "リンクボタン",
+        "リンク",
+        "チェック",
+        "パネル",
+        "項目A",
+        "項目B",
+        "縦A",
+        "縦B",
+        "横A 横B",
+        "単体A 単体B",
+        "選甲",
+        "選乙",
+        "選丙",
+        "甲",
+        "乙",
+        "甲 乙",
+        "クラス素通し",
+        "設定値AB",
+        "条件付き表示(true 側)",
+        "甲",
+        "乙",
+        "Name Price",
+        "頁一 1",
+        "頁二 2",
+        "1 2",
+        "列甲 列乙",
+        "列丙",
+        "Name Price",
+        "表 1",
+        "裏 2",
+        "項目 値",
+        "あ 10",
+        "い 20",
+        "名前 価格",
+        "甲 100",
+        "乙 2,500",
+        "太字断片",
+        "バッジ (3)",
+        "中身テキスト 内側ラベル",
+        "表=1",
+        "裏=2",
+        "サーバーDIV div内",
+        "サーバー行",
+        "コメント後も表示",
+        "リソース文字列",
+        "ラッパー内容",
+        "LB甲",
+        "LB乙",
+        "見出しセル 内容セル",
+        "継承リンク",
+        "名前 甲",
+        "価格 100",
+        "甲特",
+        "乙特",
+        "名前 操作",
+        "ロ 行0 削除",
+        "ハ 行1 削除",
+        "Name Price",
+        "甲 100",
+        "乙 2500",
+        "名前 価格",
+        "甲 100",
+        "乙 2,500",
+        "甲",
+        "必須エラーの既定表示",
+        "範囲エラーの既定表示",
+        "必須エラーの既定表示",
+        "範囲エラーの既定表示",
+        "Dynamic 表示の必須エラー",
+        "明示指定の描画",
+        "スタイル付きグリッド",
+        "名前 価格",
+        "甲 100",
+        "乙 2,500",
+        "名前 価格",
+        "甲 100",
+        "乙 2,500",
+        "グループ見出し",
+        "関連ラベル",
+        "小文字style",
+        "大文字Style",
+        "ローカルリソースの文字列",
+        "左ラベル",
+        "(選択してください)",
+        "甲",
+        "乙",
+        "Dynamic 表示の必須エラー",
+        "入力エラー:",
+        "必須エラーの既定表示",
+        "範囲エラーの既定表示",
+        "Dynamic 表示の必須エラー"
+      ],
+      "Tables": [
+        [
+          [
+            "縦A"
+          ],
+          [
+            "縦B"
+          ]
+        ],
+        [
+          [
+            "横A",
+            "横B"
+          ]
+        ],
+        [
+          [
+            "選甲"
+          ],
+          [
+            "選乙"
+          ],
+          [
+            "選丙"
+          ]
+        ],
+        [
+          [
+            "甲"
+          ],
+          [
+            "乙"
+          ]
+        ],
+        [
+          [
+            "甲",
+            "乙"
+          ]
+        ],
+        [
+          [
+            "甲"
+          ],
+          [
+            "乙"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Price"
+          ],
+          [
+            "頁一",
+            "1"
+          ],
+          [
+            "頁二",
+            "2"
+          ],
+          [
+            "1\t2"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2"
+          ]
+        ],
+        [
+          [
+            "列甲",
+            "列乙"
+          ],
+          [
+            "列丙",
+            ""
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Price"
+          ],
+          [
+            "表",
+            "1"
+          ],
+          [
+            "裏",
+            "2"
+          ]
+        ],
+        [
+          [
+            "項目",
+            "値"
+          ],
+          [
+            "あ",
+            "10"
+          ],
+          [
+            "い",
+            "20"
+          ]
+        ],
+        [
+          [
+            "名前",
+            "価格"
+          ],
+          [
+            "甲",
+            "100"
+          ],
+          [
+            "乙",
+            "2,500"
+          ]
+        ],
+        [
+          [
+            "サーバー行"
+          ]
+        ],
+        [
+          [
+            "見出しセル",
+            "内容セル"
+          ]
+        ],
+        [
+          [
+            "名前",
+            "甲"
+          ],
+          [
+            "価格",
+            "100"
+          ]
+        ],
+        [
+          [
+            "甲特"
+          ],
+          [
+            "乙特"
+          ]
+        ],
+        [
+          [
+            "名前",
+            "操作"
+          ],
+          [
+            "ロ",
+            "行0 削除"
+          ],
+          [
+            "ハ",
+            "行1 削除"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Price"
+          ],
+          [
+            "甲",
+            "100"
+          ],
+          [
+            "乙",
+            "2500"
+          ]
+        ],
+        [
+          [
+            "名前",
+            "価格"
+          ],
+          [
+            "甲",
+            "100"
+          ],
+          [
+            "乙",
+            "2,500"
+          ]
+        ],
+        [
+          [
+            "甲"
+          ]
+        ],
+        [
+          [
+            "名前",
+            "価格"
+          ],
+          [
+            "甲",
+            "100"
+          ],
+          [
+            "乙",
+            "2,500"
+          ]
+        ],
+        [
+          [
+            "名前",
+            "価格"
+          ],
+          [
+            "甲",
+            "100"
+          ],
+          [
+            "乙",
+            "2,500"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "pTextBox": "",
+        "pTextArea": "",
+        "pPassword": "",
+        "pCheckBox": "false",
+        "pDropDown": "a",
+        "pRadioV_0": "a",
+        "pRadioV_1": "b",
+        "pRadioH_0": "a",
+        "pRadioH_1": "b",
+        "pRadioBtn1": "pRadioBtn1",
+        "pRadioBtn2": "pRadioBtn2",
+        "pCheckList_0": "true",
+        "pCheckList_1": "true",
+        "pCheckList_2": "false",
+        "pFile": "",
+        "pExpando": "",
+        "pCheckCols_0": "false",
+        "pCheckCols_1": "false",
+        "pCheckCols_2": "false",
+        "pImgBtn": "",
+        "pListBox": "2",
+        "pDataListEvt_txtEvtVal_0": "甲",
+        "pDataListEvt_txtEvtVal_1": "乙",
+        "pReqTarget": "",
+        "pRangeTarget": "99",
+        "pNoWrap": "",
+        "pCheckLeft": "false",
+        "pAppend": "",
+        "pDynTarget": ""
+      },
+      "Elements": {
+        "pLabel": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pTextBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "pTextArea": {
+          "Tag": "textarea",
+          "Attributes": {
+            "rows": "2",
+            "cols": "20"
+          },
+          "Style": {}
+        },
+        "pPassword": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "password"
+          },
+          "Style": {}
+        },
+        "pButton": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "pLinkButton": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pHyperLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pCheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "pPanel": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pDropDown": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pRadioV": {
+          "Tag": "table",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pRadioV_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "pRadioV_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "pRadioH": {
+          "Tag": "table",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pRadioH_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "pRadioH_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "pImage": {
+          "Tag": "img",
+          "Attributes": {
+            "src": "/probe.png"
+          },
+          "Style": {}
+        },
+        "pImageAlt": {
+          "Tag": "img",
+          "Attributes": {
+            "src": "/probe.png",
+            "alt": "代替テキスト"
+          },
+          "Style": {}
+        },
+        "pRadioBtn1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "pRadioBtn2": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "pCheckList": {
+          "Tag": "table",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pCheckList_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "pCheckList_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "pCheckList_2": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "pFile": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "file"
+          },
+          "Style": {}
+        },
+        "pDataListV": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "pDataListH": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "pExpando": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text",
+            "autocomplete": "off",
+            "data-probe": "x"
+          },
+          "Style": {}
+        },
+        "pClassPanel": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "raw-class"
+          },
+          "Style": {}
+        },
+        "pStyleBtn": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {
+            "margin-left": "5px"
+          }
+        },
+        "pExprSetting": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pIfShown": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pDataListVA": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "pGridPager": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "pHlImage": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pCheckCols": {
+          "Tag": "table",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pCheckCols_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "pCheckCols_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "pCheckCols_2": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "pGridOds": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "pGridDt": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "pDataGrid": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "pRawExpr": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pBadge": {
+          "Tag": "span",
+          "Attributes": {
+            "class": "badge"
+          },
+          "Style": {}
+        },
+        "pFancyPanel": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "fp"
+          },
+          "Style": {}
+        },
+        "pInnerLabel": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "model-list": {
+          "Tag": "ul",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pServerDiv": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "sd"
+          },
+          "Style": {}
+        },
+        "pDivLabel": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pServerRow": {
+          "Tag": "tr",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pAfterComment": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pResource": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pWrapped": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pImgBtn": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "image",
+            "src": "/probe.png",
+            "alt": "画像ボタン"
+          },
+          "Style": {}
+        },
+        "pListBox": {
+          "Tag": "select",
+          "Attributes": {
+            "size": "3"
+          },
+          "Style": {}
+        },
+        "pTable": {
+          "Tag": "table",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pFancyLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pDetails": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "pDataListEvt": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "pDataListEvt_hlItem_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pDataListEvt_txtEvtVal_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "pDataListEvt_hlItem_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pDataListEvt_txtEvtVal_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "pGridEvt": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "pGridEvt_lblEvt_0": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pGridEvt_lnkDel_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pGridEvt_lblEvt_1": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pGridEvt_lnkDel_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pGridAuto": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "pGridColumns": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "pFormView": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "pReqTarget": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "pRequired": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pRangeTarget": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "pRange": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pSummary": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnValidate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "pGridStyled": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "pGridFieldStyles": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "pFieldset": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pLabelFor": {
+          "Tag": "label",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pStyleLower": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {
+            "color": "#c00",
+            "font-weight": "bold"
+          }
+        },
+        "pStyleUpper": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "border": "1px solid #00c"
+          }
+        },
+        "pLocalized": {
+          "Tag": "span",
+          "Attributes": {
+            "title": "ローカルリソースの説明"
+          },
+          "Style": {}
+        },
+        "pNoWrap": {
+          "Tag": "textarea",
+          "Attributes": {
+            "rows": "2",
+            "cols": "20"
+          },
+          "Style": {}
+        },
+        "pCheckLeft": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "pAppend": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pDynTarget": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "pRequiredDyn": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pSummaryList": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    }
+  ]
+}

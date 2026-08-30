@@ -1,0 +1,33 @@
+﻿@namespace WebForm2Blazor.Components
+@inherits WebFormsControlBase
+
+@if (Visible)
+{
+    @* WebForms asp:Image renders <img src alt />; "~/" URLs resolve against the app root.
+       alt is omitted when AlternateText is unset (measured on the 4.8 runtime). *@
+    <img @attributes="ExtraAttributes" style="@ComputedStyle" id="@ClientID" class="@CssClass"
+         src="@UrlMapper.ResolveUrl(ImageUrl)"
+         alt="@(string.IsNullOrEmpty(AlternateText) ? null : AlternateText)"
+         align="@AlignAttribute" />
+}
+
+@code {
+    private string _imageUrl;
+
+    [Parameter]
+    public string ImageUrl
+    {
+        get => _imageUrl;
+        set => SetAndRefresh(ref _imageUrl, value);
+    }
+
+    [Parameter] public string AlternateText { get; set; }
+
+    /// <summary>WebForms ImageAlign; rendered as the legacy align attribute.</summary>
+    [Parameter] public string ImageAlign { get; set; }
+
+    private string AlignAttribute
+        => string.IsNullOrEmpty(ImageAlign) || ImageAlign.Equals("NotSet", StringComparison.OrdinalIgnoreCase)
+            ? null
+            : ImageAlign.ToLowerInvariant();
+}

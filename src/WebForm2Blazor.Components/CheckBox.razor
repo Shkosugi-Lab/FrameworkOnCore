@@ -1,0 +1,64 @@
+@namespace WebForm2Blazor.Components
+@inherits WebFormsControlBase
+@implements IValueControl
+
+@if (Visible)
+{
+    @* As in WebForms, styles and extra attributes go on the wrapping span.
+       With TextAlign="Left" the label is rendered before the input (WebForms compatible). *@
+    <span @attributes="ExtraAttributes" style="@ComputedStyle" class="@CssClass">
+        @if (IsTextLeft && !string.IsNullOrEmpty(Text))
+        {
+            <label for="@ClientID">@Text</label>
+        }
+        <input type="checkbox" id="@ClientID" checked="@Checked" disabled="@(!Enabled)" @onchange="HandleChange" />
+        @if (!IsTextLeft && !string.IsNullOrEmpty(Text))
+        {
+            <label for="@ClientID">@Text</label>
+        }
+    </span>
+}
+
+@code {
+    private bool _checked;
+
+    [Parameter]
+    public bool Checked
+    {
+        get => _checked;
+        set => SetAndRefresh(ref _checked, value);
+    }
+
+    [Parameter] public string Text { get; set; }
+
+    /// <summary>Right (default) / Left. Left renders the label before the checkbox.</summary>
+    [Parameter] public string TextAlign { get; set; } = "Right";
+
+    [Parameter] public EventHandler OnCheckedChanged { get; set; }
+
+    /// <summary>
+    /// WebForms CheckedChanged as a CLR event: code-behind wires handlers imperatively
+    /// (control.CheckedChanged += Handler), which a markup-only parameter cannot express.
+    /// The accessors chain onto the parameter so the existing raise site fires both.
+    /// </summary>
+    public event EventHandler CheckedChanged
+    {
+        add => OnCheckedChanged += value;
+        remove => OnCheckedChanged -= value;
+    }
+
+    /// <summary>WebForms ValidationGroup equivalent; accepted as a no-op (see TextBox.ValidationGroup).</summary>
+    [Parameter] public string ValidationGroup { get; set; }
+
+    private bool IsTextLeft => string.Equals(TextAlign, "Left", StringComparison.OrdinalIgnoreCase);
+
+    private void HandleChange(ChangeEventArgs e)
+    {
+        _checked = e.Value is bool boolValue && boolValue;
+        MarkStateTouched();
+        OnCheckedChanged?.Invoke(this, EventArgs.Empty);
+        Host?.HostCore.NotifyPostBackEvent();
+    }
+
+    public string GetControlValue() => _checked.ToString();
+}

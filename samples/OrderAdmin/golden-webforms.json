@@ -1,0 +1,1698 @@
+{
+  "SourceUrl": "http://localhost:8092",
+  "Snapshots": [
+    {
+      "Name": "一覧-初期表示",
+      "Path": "/",
+      "Title": "受注一覧",
+      "Text": [
+        "受注管理システム",
+        "受注一覧 新規受注",
+        "受注一覧",
+        "全 7 件",
+        "状態:",
+        "すべて 受付 出荷済 キャンセル",
+        "番号 顧客 商品 金額 状態 操作",
+        "1 田中商事 ボールペン 15,000 円 出荷済 詳細 選択",
+        "2 佐藤物産 ノート 16,000 円 受付 詳細 選択",
+        "3 鈴木工業 電子辞書 37,600 円 受付 詳細 選択",
+        "4 高橋店舗 デスクライト 24,900 円 キャンセル 詳細 選択",
+        "1 2",
+        "表示中 4 件",
+        "選択中の受注",
+        "未選択",
+        "© 2026 OrderAdmin"
+      ],
+      "Tables": [
+        [
+          [
+            "すべて",
+            "受付",
+            "出荷済",
+            "キャンセル"
+          ]
+        ],
+        [
+          [
+            "番号",
+            "顧客",
+            "商品",
+            "金額",
+            "状態",
+            "操作"
+          ],
+          [
+            "1",
+            "田中商事",
+            "ボールペン",
+            "15,000 円",
+            "出荷済",
+            "詳細 選択"
+          ],
+          [
+            "2",
+            "佐藤物産",
+            "ノート",
+            "16,000 円",
+            "受付",
+            "詳細 選択"
+          ],
+          [
+            "3",
+            "鈴木工業",
+            "電子辞書",
+            "37,600 円",
+            "受付",
+            "詳細 選択"
+          ],
+          [
+            "4",
+            "高橋店舗",
+            "デスクライト",
+            "24,900 円",
+            "キャンセル",
+            "詳細 選択"
+          ],
+          [
+            "1\t2"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "MainContent_rblStatus_0": "",
+        "MainContent_rblStatus_1": "受付",
+        "MainContent_rblStatus_2": "出荷済",
+        "MainContent_rblStatus_3": "キャンセル"
+      },
+      "Elements": {
+        "lnkList": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lnkEntry": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_upList": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_rblStatus": {
+          "Tag": "table",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_rblStatus_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "MainContent_rblStatus_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "MainContent_rblStatus_2": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "MainContent_rblStatus_3": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "MainContent_gvOrders": {
+          "Tag": "table",
+          "Attributes": {
+            "class": "grid",
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "MainContent_gvOrders_lnkDetail_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_gvOrders_lnkPick_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_gvOrders_lnkDetail_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_gvOrders_lnkPick_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_gvOrders_lnkDetail_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_gvOrders_lnkPick_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_gvOrders_lnkDetail_3": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_gvOrders_lnkPick_3": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_lblSummary": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "SidePanel_upSide": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "SidePanel_lblPicked": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblFooter": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "一覧-2ページ目",
+      "Path": "/",
+      "Title": "受注一覧",
+      "Text": [
+        "受注管理システム",
+        "受注一覧 新規受注",
+        "受注一覧",
+        "全 7 件",
+        "状態:",
+        "すべて 受付 出荷済 キャンセル",
+        "番号 顧客 商品 金額 状態 操作",
+        "5 伊藤製作所 ボールペン 30,000 円 受付 詳細 選択",
+        "6 渡辺書店 ノート 96,000 円 出荷済 詳細 選択",
+        "7 山本商店 電子辞書 18,800 円 受付 詳細 選択",
+        "1 2",
+        "表示中 3 件",
+        "選択中の受注",
+        "未選択",
+        "© 2026 OrderAdmin"
+      ],
+      "Tables": [
+        [
+          [
+            "すべて",
+            "受付",
+            "出荷済",
+            "キャンセル"
+          ]
+        ],
+        [
+          [
+            "番号",
+            "顧客",
+            "商品",
+            "金額",
+            "状態",
+            "操作"
+          ],
+          [
+            "5",
+            "伊藤製作所",
+            "ボールペン",
+            "30,000 円",
+            "受付",
+            "詳細 選択"
+          ],
+          [
+            "6",
+            "渡辺書店",
+            "ノート",
+            "96,000 円",
+            "出荷済",
+            "詳細 選択"
+          ],
+          [
+            "7",
+            "山本商店",
+            "電子辞書",
+            "18,800 円",
+            "受付",
+            "詳細 選択"
+          ],
+          [
+            "1\t2"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "MainContent_rblStatus_0": "",
+        "MainContent_rblStatus_1": "受付",
+        "MainContent_rblStatus_2": "出荷済",
+        "MainContent_rblStatus_3": "キャンセル"
+      },
+      "Elements": {
+        "lnkList": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lnkEntry": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_upList": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_rblStatus": {
+          "Tag": "table",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_rblStatus_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "MainContent_rblStatus_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "MainContent_rblStatus_2": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "MainContent_rblStatus_3": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "MainContent_gvOrders": {
+          "Tag": "table",
+          "Attributes": {
+            "class": "grid",
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "MainContent_gvOrders_lnkDetail_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_gvOrders_lnkPick_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_gvOrders_lnkDetail_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_gvOrders_lnkPick_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_gvOrders_lnkDetail_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_gvOrders_lnkPick_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_lblSummary": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "SidePanel_upSide": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "SidePanel_lblPicked": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblFooter": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "一覧-受付のみ",
+      "Path": "/",
+      "Title": "受注一覧",
+      "Text": [
+        "受注管理システム",
+        "受注一覧 新規受注",
+        "受注一覧",
+        "全 7 件",
+        "状態:",
+        "すべて 受付 出荷済 キャンセル",
+        "番号 顧客 商品 金額 状態 操作",
+        "2 佐藤物産 ノート 16,000 円 受付 詳細 選択",
+        "3 鈴木工業 電子辞書 37,600 円 受付 詳細 選択",
+        "5 伊藤製作所 ボールペン 30,000 円 受付 詳細 選択",
+        "7 山本商店 電子辞書 18,800 円 受付 詳細 選択",
+        "表示中 4 件",
+        "選択中の受注",
+        "未選択",
+        "© 2026 OrderAdmin"
+      ],
+      "Tables": [
+        [
+          [
+            "すべて",
+            "受付",
+            "出荷済",
+            "キャンセル"
+          ]
+        ],
+        [
+          [
+            "番号",
+            "顧客",
+            "商品",
+            "金額",
+            "状態",
+            "操作"
+          ],
+          [
+            "2",
+            "佐藤物産",
+            "ノート",
+            "16,000 円",
+            "受付",
+            "詳細 選択"
+          ],
+          [
+            "3",
+            "鈴木工業",
+            "電子辞書",
+            "37,600 円",
+            "受付",
+            "詳細 選択"
+          ],
+          [
+            "5",
+            "伊藤製作所",
+            "ボールペン",
+            "30,000 円",
+            "受付",
+            "詳細 選択"
+          ],
+          [
+            "7",
+            "山本商店",
+            "電子辞書",
+            "18,800 円",
+            "受付",
+            "詳細 選択"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "MainContent_rblStatus_0": "",
+        "MainContent_rblStatus_1": "受付",
+        "MainContent_rblStatus_2": "出荷済",
+        "MainContent_rblStatus_3": "キャンセル"
+      },
+      "Elements": {
+        "lnkList": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lnkEntry": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_upList": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_rblStatus": {
+          "Tag": "table",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_rblStatus_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "MainContent_rblStatus_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "MainContent_rblStatus_2": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "MainContent_rblStatus_3": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "MainContent_gvOrders": {
+          "Tag": "table",
+          "Attributes": {
+            "class": "grid",
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "MainContent_gvOrders_lnkDetail_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_gvOrders_lnkPick_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_gvOrders_lnkDetail_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_gvOrders_lnkPick_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_gvOrders_lnkDetail_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_gvOrders_lnkPick_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_gvOrders_lnkDetail_3": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_gvOrders_lnkPick_3": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_lblSummary": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "SidePanel_upSide": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "SidePanel_lblPicked": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblFooter": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "一覧-金額昇順",
+      "Path": "/",
+      "Title": "受注一覧",
+      "Text": [
+        "受注管理システム",
+        "受注一覧 新規受注",
+        "受注一覧",
+        "全 7 件",
+        "状態:",
+        "すべて 受付 出荷済 キャンセル",
+        "番号 顧客 商品 金額 状態 操作",
+        "2 佐藤物産 ノート 16,000 円 受付 詳細 選択",
+        "7 山本商店 電子辞書 18,800 円 受付 詳細 選択",
+        "5 伊藤製作所 ボールペン 30,000 円 受付 詳細 選択",
+        "3 鈴木工業 電子辞書 37,600 円 受付 詳細 選択",
+        "表示中 4 件",
+        "選択中の受注",
+        "未選択",
+        "© 2026 OrderAdmin"
+      ],
+      "Tables": [
+        [
+          [
+            "すべて",
+            "受付",
+            "出荷済",
+            "キャンセル"
+          ]
+        ],
+        [
+          [
+            "番号",
+            "顧客",
+            "商品",
+            "金額",
+            "状態",
+            "操作"
+          ],
+          [
+            "2",
+            "佐藤物産",
+            "ノート",
+            "16,000 円",
+            "受付",
+            "詳細 選択"
+          ],
+          [
+            "7",
+            "山本商店",
+            "電子辞書",
+            "18,800 円",
+            "受付",
+            "詳細 選択"
+          ],
+          [
+            "5",
+            "伊藤製作所",
+            "ボールペン",
+            "30,000 円",
+            "受付",
+            "詳細 選択"
+          ],
+          [
+            "3",
+            "鈴木工業",
+            "電子辞書",
+            "37,600 円",
+            "受付",
+            "詳細 選択"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "MainContent_rblStatus_0": "",
+        "MainContent_rblStatus_1": "受付",
+        "MainContent_rblStatus_2": "出荷済",
+        "MainContent_rblStatus_3": "キャンセル"
+      },
+      "Elements": {
+        "lnkList": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lnkEntry": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_upList": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_rblStatus": {
+          "Tag": "table",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_rblStatus_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "MainContent_rblStatus_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "MainContent_rblStatus_2": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "MainContent_rblStatus_3": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "MainContent_gvOrders": {
+          "Tag": "table",
+          "Attributes": {
+            "class": "grid",
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "MainContent_gvOrders_lnkDetail_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_gvOrders_lnkPick_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_gvOrders_lnkDetail_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_gvOrders_lnkPick_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_gvOrders_lnkDetail_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_gvOrders_lnkPick_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_gvOrders_lnkDetail_3": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_gvOrders_lnkPick_3": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_lblSummary": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "SidePanel_upSide": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "SidePanel_lblPicked": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblFooter": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "一覧-選択後(サイドバー更新)",
+      "Path": "/",
+      "Title": "受注一覧",
+      "Text": [
+        "受注管理システム",
+        "受注一覧 新規受注",
+        "受注一覧",
+        "全 7 件",
+        "状態:",
+        "すべて 受付 出荷済 キャンセル",
+        "番号 顧客 商品 金額 状態 操作",
+        "2 佐藤物産 ノート 16,000 円 受付 詳細 選択",
+        "7 山本商店 電子辞書 18,800 円 受付 詳細 選択",
+        "5 伊藤製作所 ボールペン 30,000 円 受付 詳細 選択",
+        "3 鈴木工業 電子辞書 37,600 円 受付 詳細 選択",
+        "表示中 4 件",
+        "選択中の受注",
+        "佐藤物産 / ノート",
+        "© 2026 OrderAdmin"
+      ],
+      "Tables": [
+        [
+          [
+            "すべて",
+            "受付",
+            "出荷済",
+            "キャンセル"
+          ]
+        ],
+        [
+          [
+            "番号",
+            "顧客",
+            "商品",
+            "金額",
+            "状態",
+            "操作"
+          ],
+          [
+            "2",
+            "佐藤物産",
+            "ノート",
+            "16,000 円",
+            "受付",
+            "詳細 選択"
+          ],
+          [
+            "7",
+            "山本商店",
+            "電子辞書",
+            "18,800 円",
+            "受付",
+            "詳細 選択"
+          ],
+          [
+            "5",
+            "伊藤製作所",
+            "ボールペン",
+            "30,000 円",
+            "受付",
+            "詳細 選択"
+          ],
+          [
+            "3",
+            "鈴木工業",
+            "電子辞書",
+            "37,600 円",
+            "受付",
+            "詳細 選択"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "MainContent_rblStatus_0": "",
+        "MainContent_rblStatus_1": "受付",
+        "MainContent_rblStatus_2": "出荷済",
+        "MainContent_rblStatus_3": "キャンセル"
+      },
+      "Elements": {
+        "lnkList": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lnkEntry": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_upList": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_rblStatus": {
+          "Tag": "table",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_rblStatus_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "MainContent_rblStatus_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "MainContent_rblStatus_2": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "MainContent_rblStatus_3": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "MainContent_gvOrders": {
+          "Tag": "table",
+          "Attributes": {
+            "class": "grid",
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "MainContent_gvOrders_lnkDetail_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_gvOrders_lnkPick_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_gvOrders_lnkDetail_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_gvOrders_lnkPick_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_gvOrders_lnkDetail_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_gvOrders_lnkPick_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_gvOrders_lnkDetail_3": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_gvOrders_lnkPick_3": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_lblSummary": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "SidePanel_upSide": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "SidePanel_lblPicked": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblFooter": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "詳細-受付の受注",
+      "Path": "/detail",
+      "Title": "受注詳細",
+      "Text": [
+        "受注管理システム",
+        "受注一覧 新規受注",
+        "受注詳細",
+        "顧客",
+        "佐藤物産",
+        "商品",
+        "ノート",
+        "数量",
+        "50",
+        "金額",
+        "16,000 円",
+        "状態",
+        "受付",
+        "備考",
+        "分納可",
+        "一覧へ戻る",
+        "© 2026 OrderAdmin"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "lnkList": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lnkEntry": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_lblCustomer": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_lblProduct": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_lblQuantity": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_lblTotal": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_lblStatus": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_lblNote": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_btnShip": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "MainContent_lnkBack": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblFooter": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "詳細-出荷済にした後",
+      "Path": "/detail",
+      "Title": "受注詳細",
+      "Text": [
+        "受注管理システム",
+        "受注一覧 新規受注",
+        "受注詳細",
+        "顧客",
+        "佐藤物産",
+        "商品",
+        "ノート",
+        "数量",
+        "50",
+        "金額",
+        "16,000 円",
+        "状態",
+        "出荷済",
+        "備考",
+        "分納可",
+        "一覧へ戻る",
+        "© 2026 OrderAdmin"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "lnkList": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lnkEntry": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_lblCustomer": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_lblProduct": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_lblQuantity": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_lblTotal": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_lblStatus": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_lblNote": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_lnkBack": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblFooter": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "入力-形式と不一致のエラー",
+      "Path": "/entry",
+      "Title": "新規受注",
+      "Text": [
+        "受注管理システム",
+        "受注一覧 新規受注",
+        "新規受注",
+        "顧客名:",
+        "商品:",
+        "ボールペン",
+        "ノート",
+        "電子辞書",
+        "デスクライト",
+        "数量:",
+        "メール: *",
+        "メール(確認): *",
+        "備考:",
+        "メールアドレスの形式が正しくありません。",
+        "メールアドレスが一致しません。",
+        "© 2026 OrderAdmin"
+      ],
+      "Tables": [],
+      "Inputs": {
+        "MainContent_txtCustomer": "新規テスト商会",
+        "MainContent_ddlProduct": "電子辞書",
+        "MainContent_txtQuantity": "5",
+        "MainContent_txtEmail": "abc",
+        "MainContent_txtEmailConfirm": "def",
+        "MainContent_txtNote": ""
+      },
+      "Elements": {
+        "lnkList": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lnkEntry": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_txtCustomer": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {
+            "width": "240px"
+          }
+        },
+        "MainContent_rfvCustomer": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {
+            "color": "red"
+          }
+        },
+        "MainContent_ddlProduct": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_txtQuantity": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {
+            "width": "80px"
+          }
+        },
+        "MainContent_rfvQuantity": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {
+            "color": "red"
+          }
+        },
+        "MainContent_rvQuantity": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {
+            "color": "red"
+          }
+        },
+        "MainContent_cvStock": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {
+            "color": "red"
+          }
+        },
+        "MainContent_txtEmail": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {
+            "width": "240px"
+          }
+        },
+        "MainContent_revEmail": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {
+            "color": "red"
+          }
+        },
+        "MainContent_txtEmailConfirm": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {
+            "width": "240px"
+          }
+        },
+        "MainContent_cvEmail": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {
+            "color": "red"
+          }
+        },
+        "MainContent_txtNote": {
+          "Tag": "textarea",
+          "Attributes": {
+            "rows": "3",
+            "cols": "20"
+          },
+          "Style": {
+            "width": "320px"
+          }
+        },
+        "MainContent_vsEntry": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "lblFooter": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "入力-在庫不足エラー(サーバー検証)",
+      "Path": "/entry",
+      "Title": "新規受注",
+      "Text": [
+        "受注管理システム",
+        "受注一覧 新規受注",
+        "新規受注",
+        "顧客名:",
+        "商品:",
+        "ボールペン",
+        "ノート",
+        "電子辞書",
+        "デスクライト",
+        "数量: *",
+        "メール:",
+        "メール(確認):",
+        "備考:",
+        "在庫が不足しています。",
+        "© 2026 OrderAdmin"
+      ],
+      "Tables": [],
+      "Inputs": {
+        "MainContent_txtCustomer": "新規テスト商会",
+        "MainContent_ddlProduct": "電子辞書",
+        "MainContent_txtQuantity": "50",
+        "MainContent_txtEmail": "test@example.com",
+        "MainContent_txtEmailConfirm": "test@example.com",
+        "MainContent_txtNote": ""
+      },
+      "Elements": {
+        "lnkList": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lnkEntry": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_txtCustomer": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {
+            "width": "240px"
+          }
+        },
+        "MainContent_rfvCustomer": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {
+            "color": "red"
+          }
+        },
+        "MainContent_ddlProduct": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_txtQuantity": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {
+            "width": "80px"
+          }
+        },
+        "MainContent_rfvQuantity": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {
+            "color": "red"
+          }
+        },
+        "MainContent_rvQuantity": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {
+            "color": "red"
+          }
+        },
+        "MainContent_cvStock": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {
+            "color": "red"
+          }
+        },
+        "MainContent_txtEmail": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {
+            "width": "240px"
+          }
+        },
+        "MainContent_revEmail": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {
+            "color": "red"
+          }
+        },
+        "MainContent_txtEmailConfirm": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {
+            "width": "240px"
+          }
+        },
+        "MainContent_cvEmail": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {
+            "color": "red"
+          }
+        },
+        "MainContent_txtNote": {
+          "Tag": "textarea",
+          "Attributes": {
+            "rows": "3",
+            "cols": "20"
+          },
+          "Style": {
+            "width": "320px"
+          }
+        },
+        "MainContent_vsEntry": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "lblFooter": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "一覧-受注追加後(全8件)",
+      "Path": "/",
+      "Title": "受注一覧",
+      "Text": [
+        "受注管理システム",
+        "受注一覧 新規受注",
+        "受注一覧",
+        "全 8 件",
+        "状態:",
+        "すべて 受付 出荷済 キャンセル",
+        "番号 顧客 商品 金額 状態 操作",
+        "1 田中商事 ボールペン 15,000 円 出荷済 詳細 選択",
+        "2 佐藤物産 ノート 16,000 円 出荷済 詳細 選択",
+        "3 鈴木工業 電子辞書 37,600 円 受付 詳細 選択",
+        "4 高橋店舗 デスクライト 24,900 円 キャンセル 詳細 選択",
+        "1 2",
+        "表示中 4 件",
+        "選択中の受注",
+        "佐藤物産 / ノート",
+        "© 2026 OrderAdmin"
+      ],
+      "Tables": [
+        [
+          [
+            "すべて",
+            "受付",
+            "出荷済",
+            "キャンセル"
+          ]
+        ],
+        [
+          [
+            "番号",
+            "顧客",
+            "商品",
+            "金額",
+            "状態",
+            "操作"
+          ],
+          [
+            "1",
+            "田中商事",
+            "ボールペン",
+            "15,000 円",
+            "出荷済",
+            "詳細 選択"
+          ],
+          [
+            "2",
+            "佐藤物産",
+            "ノート",
+            "16,000 円",
+            "出荷済",
+            "詳細 選択"
+          ],
+          [
+            "3",
+            "鈴木工業",
+            "電子辞書",
+            "37,600 円",
+            "受付",
+            "詳細 選択"
+          ],
+          [
+            "4",
+            "高橋店舗",
+            "デスクライト",
+            "24,900 円",
+            "キャンセル",
+            "詳細 選択"
+          ],
+          [
+            "1\t2"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "MainContent_rblStatus_0": "",
+        "MainContent_rblStatus_1": "受付",
+        "MainContent_rblStatus_2": "出荷済",
+        "MainContent_rblStatus_3": "キャンセル"
+      },
+      "Elements": {
+        "lnkList": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lnkEntry": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_upList": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_rblStatus": {
+          "Tag": "table",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_rblStatus_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "MainContent_rblStatus_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "MainContent_rblStatus_2": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "MainContent_rblStatus_3": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "MainContent_gvOrders": {
+          "Tag": "table",
+          "Attributes": {
+            "class": "grid",
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "MainContent_gvOrders_lnkDetail_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_gvOrders_lnkPick_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_gvOrders_lnkDetail_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_gvOrders_lnkPick_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_gvOrders_lnkDetail_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_gvOrders_lnkPick_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_gvOrders_lnkDetail_3": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_gvOrders_lnkPick_3": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_lblSummary": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "SidePanel_upSide": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "SidePanel_lblPicked": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblFooter": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    }
+  ]
+}

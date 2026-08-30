@@ -1,0 +1,14 @@
+{
+  "ignorePatterns": [],
+
+  "steps": [
+    { "action": "goto", "path": "/" },
+    { "action": "snapshot", "name": "レイアウト-入れ子マスター初期表示" },
+
+    { "action": "click", "target": "pPageButton" },
+    { "action": "snapshot", "name": "レイアウト-ポストバック後" },
+
+    { "action": "goto", "path": "/SideOverride" },
+    { "action": "snapshot", "name": "レイアウト-既定コンテンツを上書き" }
+  ]
+}

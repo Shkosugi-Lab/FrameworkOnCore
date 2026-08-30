@@ -1,0 +1,165 @@
+@namespace WebForm2Blazor.Components
+@inherits WebFormsControlBase
+
+@* Like the WebForms ListView, no wrapper element is rendered.
+   The LayoutTemplate defines the outer markup and the items expand at the
+   itemPlaceholder position (the converter replaces the placeholder with
+   @ItemsPlaceholder). *@
+@if (Visible)
+{
+    @if (_containers.Count > 0)
+    {
+        @if (LayoutTemplate is not null)
+        {
+            @LayoutTemplate(RenderItems)
+        }
+        else
+        {
+            @RenderItems
+        }
+    }
+    else if (EmptyDataTemplate is not null)
+    {
+        @EmptyDataTemplate
+    }
+}
+
+@code {
+    private readonly List<RepeaterItem> _containers = new();
+    private bool _pendingItemDataBound;
+
+    /// <summary>The outer markup. The items render at the context (ItemsPlaceholder) position.</summary>
+    [Parameter] public RenderFragment<RenderFragment> LayoutTemplate { get; set; }
+
+    [Parameter] public RenderFragment<RepeaterItem> ItemTemplate { get; set; }
+    [Parameter] public RenderFragment<RepeaterItem> AlternatingItemTemplate { get; set; }
+    [Parameter] public RenderFragment ItemSeparatorTemplate { get; set; }
+    [Parameter] public RenderFragment EmptyDataTemplate { get; set; }
+
+    /// <summary>
+    /// WebForms grouping: repeats per group of GroupItemCount items; the items expand at
+    /// the context (ItemsPlaceholder) position, mirroring LayoutTemplate's contract.
+    /// </summary>
+    [Parameter] public RenderFragment<RenderFragment> GroupTemplate { get; set; }
+
+    /// <summary>Pads the last group up to GroupItemCount, as in WebForms.</summary>
+    [Parameter] public RenderFragment EmptyItemTemplate { get; set; }
+
+    [Parameter] public int GroupItemCount { get; set; } = 1;
+
+    /// <summary>
+    /// WebForms ItemDataBound equivalent. Fires right after the first render following
+    /// DataBind (see Repeater.OnItemDataBound for the timing note). Data items only.
+    /// </summary>
+    [Parameter] public ListViewItemEventHandler OnItemDataBound { get; set; }
+
+    /// <summary>
+    /// WebForms ItemDataBound as a CLR event: code-behind wires handlers imperatively
+    /// (control.ItemDataBound += Handler), which a markup-only parameter cannot express.
+    /// The accessors chain onto the parameter so the existing raise site fires both.
+    /// </summary>
+    public event ListViewItemEventHandler ItemDataBound
+    {
+        add => OnItemDataBound += value;
+        remove => OnItemDataBound -= value;
+    }
+
+    /// <summary>WebForms DataSource equivalent. Applied by DataBind().</summary>
+    public object DataSource { get; set; }
+
+    /// <summary>WebForms declarative binding (see GridView.DataSourceID).</summary>
+    [Parameter] public string DataSourceID { get; set; }
+
+    /// <summary>WebForms 4.5 model binding: the template item type (informational here;
+    /// the converter uses it to type Item references).</summary>
+    [Parameter] public string ItemType { get; set; }
+
+    /// <summary>WebForms 4.5 model binding: parameterless page method invoked for the data.</summary>
+    [Parameter] public string SelectMethod { get; set; }
+
+    /// <summary>Accepted for markup compatibility (ListView keys are not exposed here).</summary>
+    [Parameter] public string DataKeyNames { get; set; }
+
+    public IReadOnlyList<object> Items => _containers.Select(container => container.DataItem).ToList();
+
+    private RenderFragment RenderItems => __builder =>
+    {
+        if (GroupTemplate is not null)
+        {
+            var size = Math.Max(1, GroupItemCount);
+            for (var start = 0; start < _containers.Count; start += size)
+            {
+                @GroupTemplate(RenderGroup(start, size))
+            }
+            return;
+        }
+
+        for (var index = 0; index < _containers.Count; index++)
+        {
+            @RenderItem(index, index > 0)
+        }
+    };
+
+    private RenderFragment RenderGroup(int start, int size) => __builder =>
+    {
+        for (var offset = 0; offset < size; offset++)
+        {
+            var index = start + offset;
+            if (index >= _containers.Count)
+            {
+                @EmptyItemTemplate
+                continue;
+            }
+            @RenderItem(index, offset > 0)
+        }
+    };
+
+    private RenderFragment RenderItem(int index, bool separatorBefore) => __builder =>
+    {
+        var container = _containers[index];
+
+        if (separatorBefore && ItemSeparatorTemplate is not null)
+        {
+            @ItemSeparatorTemplate
+        }
+
+        <CascadingValue TValue="RepeaterItem" Value="container" IsFixed="true">
+            @(SelectTemplate(index)?.Invoke(container))
+        </CascadingValue>
+    };
+
+    private RenderFragment<RepeaterItem> SelectTemplate(int index)
+        => index % 2 == 1 && AlternatingItemTemplate is not null ? AlternatingItemTemplate : ItemTemplate;
+
+    /// <summary>WebForms DataBind() equivalent.</summary>
+    public void DataBind()
+    {
+        RowContainers.Rebind(_containers, DataSourceHelper.Materialize(DataSource), namingContainerId: ID);
+        _pendingItemDataBound = OnItemDataBound is not null;
+        StateHasChanged();
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender && DataSource is null && !string.IsNullOrEmpty(DataSourceID)
+            && Host?.HostCore.FindControl(DataSourceID) is ObjectDataSource dataSourceControl)
+        {
+            DataSource = dataSourceControl.Select();
+            DataBind();
+        }
+        else if (firstRender && DataSource is null && !string.IsNullOrEmpty(SelectMethod))
+        {
+            DataSource = ModelBinding.InvokeSelectMethod(Host, SelectMethod);
+            DataBind();
+        }
+
+        if (_pendingItemDataBound)
+        {
+            _pendingItemDataBound = false;
+            foreach (var container in _containers)
+            {
+                OnItemDataBound?.Invoke(this, new ListViewItemEventArgs(container));
+            }
+        }
+    }
+}

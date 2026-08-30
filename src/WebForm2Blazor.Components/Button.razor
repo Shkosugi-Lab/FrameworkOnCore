@@ -1,0 +1,116 @@
+﻿@namespace WebForm2Blazor.Components
+@inherits WebFormsControlBase
+@inject IJSRuntime JSRuntime
+
+@if (Visible)
+{
+    @* WebForms asp:Button renders <input type="submit" value="...">. We use <input> instead
+       of <button> to keep the DOM and innerText aligned with the legacy app (a button
+       element would put the label into the body innerText and break parity comparison). *@
+    <input @attributes="ExtraAttributes" style="@ComputedStyle" type="button" id="@ClientID" class="@CssClass"
+           value="@Text" disabled="@(!Enabled)" @onclick="HandleClick" />
+}
+
+@code {
+    [Parameter] public string Text { get; set; }
+
+    /// <summary>
+    /// WebForms Button.Click equivalent. Uses EventHandler instead of EventCallback so
+    /// handlers with the (object sender, EventArgs e) signature attach unchanged.
+    /// </summary>
+    [Parameter] public EventHandler OnClick { get; set; }
+
+    /// <summary>
+    /// WebForms Button.Click as a CLR event. Code-behind attaches handlers imperatively
+    /// (btn.Click += Handler), which markup-only parameters cannot express.
+    ///
+    /// The accessors chain onto the parameter rather than keeping a second delegate, so
+    /// the existing raise site fires both routes and no call site can be forgotten.
+    /// (A handler added this way is lost if MARKUP also supplies OnClick, because Blazor
+    /// re-assigns supplied parameters on every render - wiring one event from both places
+    /// is ambiguous in the first place.)
+    /// </summary>
+    public event EventHandler Click
+    {
+        add => OnClick += value;
+        remove => OnClick -= value;
+    }
+
+    /// <summary>WebForms Command as a CLR event (see Click).</summary>
+    public event CommandEventHandler Command
+    {
+        add => OnCommand += value;
+        remove => OnCommand -= value;
+    }
+
+    /// <summary>Runs validation on click by default, as in WebForms.</summary>
+    [Parameter] public bool CausesValidation { get; set; } = true;
+
+    /// <summary>The validation group this button validates (unset = default group).</summary>
+    [Parameter] public string ValidationGroup { get; set; }
+
+    /// <summary>
+    /// WebForms OnClientClick equivalent - JavaScript run in the browser on click.
+    /// If "return confirm('...')" returns false, the server-side processing
+    /// (validation, Click, Command) is skipped, matching WebForms.
+    /// </summary>
+    [Parameter] public string OnClientClick { get; set; }
+
+    [Parameter] public string CommandName { get; set; }
+    [Parameter] public string CommandArgument { get; set; }
+
+    /// <summary>WebForms Command event equivalent. Fires after Click.</summary>
+    [Parameter] public CommandEventHandler OnCommand { get; set; }
+
+    /// <summary>The bubbling target when inside a Repeater / GridView template.</summary>
+    [CascadingParameter] protected ICommandSink CommandSink { get; set; }
+
+    private async Task HandleClick(MouseEventArgs _)
+    {
+        if (!await RunClientClickAsync())
+        {
+            return;
+        }
+
+        if (CausesValidation)
+        {
+            // As on the WebForms server side, the handler still runs when validation
+            // fails; callers check Page.IsValid and return early themselves.
+            Host?.HostCore.Validate(ValidationGroup ?? "");
+        }
+        else
+        {
+            if (Host is not null)
+            {
+                Host.HostCore.IsValid = true;
+            }
+        }
+
+        OnClick?.Invoke(this, EventArgs.Empty);
+        RaiseCommand();
+
+        // Trigger the WebForms Page_PreRender equivalent (runs after every event)
+        Host?.HostCore.NotifyPostBackEvent();
+    }
+
+    private async Task<bool> RunClientClickAsync()
+    {
+        if (string.IsNullOrWhiteSpace(OnClientClick))
+        {
+            return true;
+        }
+
+        // WebForms embeds the script directly into the onclick attribute. Here it is
+        // wrapped in a function and evaluated; only an explicit false cancels the rest
+        // (scripts without a return statement continue).
+        var result = await JSRuntime.InvokeAsync<bool?>("eval", $"(function() {{ {OnClientClick} }})()");
+        return result != false;
+    }
+
+    private void RaiseCommand()
+    {
+        var args = new CommandEventArgs(CommandName ?? "", CommandArgument);
+        OnCommand?.Invoke(this, args);
+        CommandSink?.RaiseCommand(this, args);
+    }
+}

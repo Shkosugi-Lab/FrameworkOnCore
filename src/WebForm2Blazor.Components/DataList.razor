@@ -67,7 +67,7 @@
     [Parameter] public int RepeatColumns { get; set; }
 
     /// <summary>Vertical (default) / Horizontal.</summary>
-    [Parameter] public string RepeatDirection { get; set; } = "Vertical";
+    [Parameter] public RepeatDirection RepeatDirection { get; set; } = RepeatDirection.Vertical;
 
     [Parameter] public int CellPadding { get; set; } = -1;
     [Parameter] public int CellSpacing { get; set; }
@@ -130,7 +130,7 @@
             : Items.Select(item => DataBinder.Eval(item, DataKeyField)).ToList());
 
     private bool IsHorizontal
-        => string.Equals(RepeatDirection, "Horizontal", StringComparison.OrdinalIgnoreCase);
+        => RepeatDirection == RepeatDirection.Horizontal;
 
     /// <summary>CellSpacing=0 (the WebForms default) also renders border-collapse (measured on 4.8).</summary>
     private string TableStyle

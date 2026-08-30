@@ -25,12 +25,20 @@ public sealed class BaseClassRegistry
     // Markup tags are case-insensitive; map any casing to the canonical type name
     private readonly Dictionary<string, string> _canonicalClassNames = new(StringComparer.OrdinalIgnoreCase);
     private readonly HashSet<string> _allClassFullNames;
+    // Short names of every type the sources declare (classes, interfaces, enums, ...),
+    // used to detect component-name collisions. Case-sensitive on purpose: the collision
+    // only exists because uppercasing the component name erased a case difference.
+    private readonly HashSet<string> _allShortTypeNames;
     private Dictionary<string, (string Namespace, string? BaseName)> _declarations = new(StringComparer.Ordinal);
 
-    private BaseClassRegistry(Dictionary<string, Entry> byShortName, HashSet<string> allClassFullNames)
+    private BaseClassRegistry(
+        Dictionary<string, Entry> byShortName,
+        HashSet<string> allClassFullNames,
+        HashSet<string> allShortTypeNames)
     {
         _byShortName = byShortName;
         _allClassFullNames = allClassFullNames;
+        _allShortTypeNames = allShortTypeNames;
     }
 
     /// <summary>
@@ -77,6 +85,19 @@ public sealed class BaseClassRegistry
     /// (used to decide whether a code-behind keeps a using of its original namespace).</summary>
     public bool HasNamespace(string ns) => _namespaces.Contains(ns);
 
+    /// <summary>
+    /// True when the scanned sources declare a class with this exact short name.
+    ///
+    /// Used to keep a generated component name from shadowing a project type. Razor
+    /// requires component names to start uppercase, so "class search" becomes "Search" -
+    /// and if the project also declares "Search" (BlogEngine.Core.Search does), every
+    /// page in the generated namespace suddenly resolves "Search" to the page instead of
+    /// the real type. The original compiled precisely because the two differed in case.
+    /// Code-behind files are not scanned into this registry, so a page never matches
+    /// against itself.
+    /// </summary>
+    public bool DeclaresTypeNamed(string shortName) => _allShortTypeNames.Contains(shortName);
+
     /// <summary>Resolves a base-type name as written (possibly qualified) to a registered custom base.</summary>
     public bool TryResolve(string baseTypeName, out Entry entry)
     {
@@ -94,6 +115,7 @@ public sealed class BaseClassRegistry
         // Pass 1: class short name -> (namespace, first base type as written)
         var declarations = new Dictionary<string, (string Namespace, string? BaseName)>(StringComparer.Ordinal);
         var allClassFullNames = new HashSet<string>(StringComparer.Ordinal);
+        var allShortTypeNames = new HashSet<string>(StringComparer.Ordinal);
         foreach (var path in plainCodeFiles)
         {
             CompilationUnitSyntax root;
@@ -131,6 +153,7 @@ public sealed class BaseClassRegistry
                 {
                     allClassFullNames.Add($"{namespaceName}.{typeDeclaration.Identifier.Text}");
                 }
+                allShortTypeNames.Add(typeDeclaration.Identifier.Text);
             }
         }
 
@@ -145,7 +168,7 @@ public sealed class BaseClassRegistry
             }
         }
 
-        var result = new BaseClassRegistry(registry, allClassFullNames) { _declarations = declarations };
+        var result = new BaseClassRegistry(registry, allClassFullNames, allShortTypeNames) { _declarations = declarations };
         foreach (var fullName in allClassFullNames)
         {
             result._canonicalClassNames.TryAdd(fullName, fullName);

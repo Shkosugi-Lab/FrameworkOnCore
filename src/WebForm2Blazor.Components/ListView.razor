@@ -78,7 +78,7 @@
     [Parameter] public string SelectMethod { get; set; }
 
     /// <summary>Accepted for markup compatibility (ListView keys are not exposed here).</summary>
-    [Parameter] public string DataKeyNames { get; set; }
+    [Parameter] public string[] DataKeyNames { get; set; }
 
     public IReadOnlyList<object> Items => _containers.Select(container => container.DataItem).ToList();
 

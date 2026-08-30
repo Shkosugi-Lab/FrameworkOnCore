@@ -145,7 +145,7 @@ if (baseRegistry.Count > 0)
     report.Info("(project)", $"独自基底クラスを {baseRegistry.Count} 個検出しました(基底連鎖を互換基底クラスへ組み替えます)。");
 }
 
-var userControlRegistry = AspxConverters.BuildUserControlRegistry(project, appName);
+var userControlRegistry = AspxConverters.BuildUserControlRegistry(project, appName, baseRegistry);
 var components = new List<ConvertedComponent>();
 var masters = new Dictionary<string, MasterInfo>(StringComparer.OrdinalIgnoreCase);
 
@@ -458,11 +458,20 @@ foreach (var component in components)
     if (component.CodeBehindSourcePath is not null)
     {
         var sourceName = project.RelativePath(component.CodeBehindSourcePath);
+        var codeBehindSource = File.ReadAllText(component.CodeBehindSourcePath);
         // Page code-behind holds fields of user controls, so add the namespaces of the
-        // user controls this component actually references to the usings
+        // user controls this component actually references to the usings. Markup is only
+        // half the story: code-behind also names a user control's type without placing it
+        // in markup - (UserControlSettings)Page.LoadControl("Settings.ascx") - so the
+        // namespaces of controls NAMED IN THE CODE are added too. Only names the file
+        // actually mentions, to avoid dragging in same-named controls from other folders.
+        var controlUsings = component.UsedControlNamespaces
+            .Concat(UserControlNamespacesNamedIn(codeBehindSource, userControlRegistry, baseRegistry))
+            .Distinct(StringComparer.Ordinal)
+            .ToList();
         var rewritten = CodeBehindRewriter.Rewrite(
-            File.ReadAllText(component.CodeBehindSourcePath), component, sourceName, report,
-            component.UsedControlNamespaces, baseRegistry);
+            codeBehindSource, component, sourceName, report,
+            controlUsings, baseRegistry);
         File.WriteAllText(Path.Combine(directory, component.ComponentName + ".razor.cs"),
             ApplyNamespaceMap(rewritten));
     }
@@ -489,6 +498,17 @@ for (var i = 0; i < candidateNamespaces.Count; i++)
     File.WriteAllText(destination,
         ApplyNamespaceMap(CodeBehindRewriter.RewritePlainCodeFile(candidate.Source, candidate.ReportName, report)));
     report.CopiedCodeFiles++;
+
+    // BinaryFormatter still compiles (the generated project suppresses SYSLIB0011) but the
+    // runtime removed it, so the call throws the first time it runs. Report it rather than
+    // let a build that succeeds imply the code works.
+    if (candidate.Source.Contains("BinaryFormatter", StringComparison.Ordinal))
+    {
+        report.Residual(candidate.ReportName, ResidualKind.CodeBehind,
+            "BinaryFormatter は .NET から削除されています。ビルドは通りますが実行時に "
+            + "PlatformNotSupportedException になります。別のシリアライザへの移行が必要です。",
+            disposition: ResidualDisposition.ManualMigration);
+    }
     if (!candidate.Included)
     {
         report.Info(candidate.ReportName, "業務ロジックとしてそのまま移植しました(using のみ差し替え)。");
@@ -1054,64 +1074,274 @@ static string GenerateExcludedTypeStubs(
     typeCount = 0;
 
     var surviving = new HashSet<string>(StringComparer.Ordinal);
+    var survivingNames = new HashSet<string>(StringComparer.Ordinal);
     foreach (var source in survivingSources)
     {
         foreach (var declaration in EnumerateTopLevelTypes(source))
         {
             surviving.Add(declaration.Key);
+            survivingNames.Add(QualifiedName(declaration.Namespace, declaration.Name));
         }
     }
 
-    var stubs = new SortedDictionary<string, SortedDictionary<string, string>>(StringComparer.Ordinal);
+    // Pass 1: which types need a stub. Their names are needed before rendering, because a
+    // member is only emitted when every type in its signature can actually be resolved.
+    var pending = new SortedDictionary<string, List<StubType>>(StringComparer.Ordinal);
+    var stubNames = new HashSet<string>(StringComparer.Ordinal);
+    var seen = new HashSet<string>(StringComparer.Ordinal);
     foreach (var source in excludedSources)
     {
         foreach (var declaration in EnumerateTopLevelTypes(source))
         {
-            if (surviving.Contains(declaration.Key) || string.IsNullOrEmpty(declaration.Namespace))
+            if (surviving.Contains(declaration.Key) || !seen.Add(declaration.Key))
             {
                 continue;
             }
-            if (!stubs.TryGetValue(declaration.Namespace, out var members))
+            if (!pending.TryGetValue(declaration.Namespace, out var members))
             {
-                stubs[declaration.Namespace] = members = new SortedDictionary<string, string>(StringComparer.Ordinal);
+                pending[declaration.Namespace] = members = [];
             }
-            members.TryAdd(declaration.Key, declaration.Text);
+            members.Add(declaration);
+            stubNames.Add(QualifiedName(declaration.Namespace, declaration.Name));
         }
     }
+
+    var known = new HashSet<string>(survivingNames, StringComparer.Ordinal);
+    known.UnionWith(stubNames);
 
     var builder = new StringBuilder();
     builder.AppendLine("// Generated by WebForm2Blazor.");
     builder.AppendLine("// Declarations of types whose only source files were excluded from the port");
     builder.AppendLine("// (see the residual report). They exist so the rest of the application still");
-    builder.AppendLine("// compiles; every member is missing on purpose.");
+    builder.AppendLine("// compiles.");
+    builder.AppendLine("//");
+    builder.AppendLine("// Members are reproduced only where every type in the signature still resolves;");
+    builder.AppendLine("// the rest are dropped, because a stub that does not compile helps no one.");
+    builder.AppendLine("// Constants keep their original literal value - code branches on them. Methods");
+    builder.AppendLine("// throw: the implementation did not come across, and failing loudly at the call");
+    builder.AppendLine("// site beats returning a plausible default.");
+    builder.AppendLine();
+    builder.AppendLine("using System;");
+    builder.AppendLine("using System.Collections.Generic;");
     builder.AppendLine();
 
-    foreach (var (declaredNamespace, members) in stubs)
+    foreach (var (declaredNamespace, members) in pending)
     {
-        builder.AppendLine($"namespace {declaredNamespace}");
-        builder.AppendLine("{");
-        foreach (var text in members.Values)
+        var indent = string.IsNullOrEmpty(declaredNamespace) ? string.Empty : "    ";
+        if (!string.IsNullOrEmpty(declaredNamespace))
         {
-            builder.AppendLine(text);
+            builder.AppendLine($"namespace {declaredNamespace}");
+            builder.AppendLine("{");
+        }
+        foreach (var stub in members.OrderBy(member => member.Name, StringComparer.Ordinal))
+        {
+            builder.AppendLine(RenderStubType(stub, known, indent, declaredNamespace));
             typeCount++;
         }
-        builder.AppendLine("}");
+        if (!string.IsNullOrEmpty(declaredNamespace))
+        {
+            builder.AppendLine("}");
+        }
         builder.AppendLine();
     }
 
     return builder.ToString();
 }
 
-/// <summary>Top-level type declarations of a file, with the text of an empty stub for each.</summary>
-static List<(string Key, string Namespace, string Text)> EnumerateTopLevelTypes(string source)
+/// <summary>Renders one stubbed type, keeping the members whose signatures still resolve.</summary>
+static string RenderStubType(StubType stub, HashSet<string> known, string indent, string declaredNamespace)
 {
-    var result = new List<(string, string, string)>();
+    var declaration = stub.Declaration;
+
+    if (declaration is Microsoft.CodeAnalysis.CSharp.Syntax.EnumDeclarationSyntax enumDeclaration)
+    {
+        var names = string.Join(", ", enumDeclaration.Members.Select(member => member.Identifier.Text));
+        return $"{indent}public enum {stub.Name} {{ {names} }}";
+    }
+
+    var typeDeclaration = declaration as Microsoft.CodeAnalysis.CSharp.Syntax.TypeDeclarationSyntax;
+    var typeParameters = typeDeclaration?.TypeParameterList?.ToString() ?? string.Empty;
+    var keyword = declaration switch
+    {
+        Microsoft.CodeAnalysis.CSharp.Syntax.InterfaceDeclarationSyntax => "interface",
+        Microsoft.CodeAnalysis.CSharp.Syntax.StructDeclarationSyntax => "struct",
+        Microsoft.CodeAnalysis.CSharp.Syntax.RecordDeclarationSyntax => "record",
+        _ => "class",
+    };
+
+    // A static class cannot hold instance members; keeping the modifier also keeps the
+    // call syntax at the use site identical (RazorHelpers.ParseRazor(...)).
+    var isStatic = typeDeclaration is not null
+                   && typeDeclaration.Modifiers.Any(modifier => Microsoft.CodeAnalysis.CSharpExtensions.IsKind(modifier, Microsoft.CodeAnalysis.CSharp.SyntaxKind.StaticKeyword));
+    var modifiers = isStatic ? "public static" : "public";
+    var isInterface = keyword == "interface";
+
+    var lines = new List<string>();
+    if (typeDeclaration is not null)
+    {
+        foreach (var member in typeDeclaration.Members)
+        {
+            var text = RenderStubMember(member, known, isStatic, isInterface, declaredNamespace);
+            if (text is not null)
+            {
+                lines.Add($"{indent}    {text}");
+            }
+        }
+    }
+
+    if (lines.Count == 0)
+    {
+        return $"{indent}{modifiers} {keyword} {stub.Name}{typeParameters} {{ }}";
+    }
+
+    var body = new StringBuilder();
+    body.AppendLine($"{indent}{modifiers} {keyword} {stub.Name}{typeParameters}");
+    body.AppendLine($"{indent}{{");
+    foreach (var line in lines)
+    {
+        body.AppendLine(line);
+    }
+    body.Append($"{indent}}}");
+    return body.ToString();
+}
+
+/// <summary>
+/// One stubbed member, or null when it cannot be reproduced faithfully enough to compile
+/// (a type in the signature was itself excluded, or the shape needs a real body).
+/// </summary>
+static string? RenderStubMember(
+    Microsoft.CodeAnalysis.CSharp.Syntax.MemberDeclarationSyntax member,
+    HashSet<string> known,
+    bool containerIsStatic,
+    bool containerIsInterface,
+    string declaredNamespace)
+{
+    bool IsPublic(Microsoft.CodeAnalysis.SyntaxTokenList modifiers)
+        => modifiers.Any(modifier => Microsoft.CodeAnalysis.CSharpExtensions.IsKind(modifier, Microsoft.CodeAnalysis.CSharp.SyntaxKind.PublicKeyword))
+           || modifiers.Any(modifier => Microsoft.CodeAnalysis.CSharpExtensions.IsKind(modifier, Microsoft.CodeAnalysis.CSharp.SyntaxKind.InternalKeyword));
+
+    string Prefix(Microsoft.CodeAnalysis.SyntaxTokenList modifiers)
+    {
+        if (containerIsInterface)
+        {
+            return string.Empty;
+        }
+        var isStatic = containerIsStatic
+                       || modifiers.Any(modifier => Microsoft.CodeAnalysis.CSharpExtensions.IsKind(modifier, Microsoft.CodeAnalysis.CSharp.SyntaxKind.StaticKeyword));
+        return isStatic ? "public static " : "public ";
+    }
+
+    switch (member)
+    {
+        case Microsoft.CodeAnalysis.CSharp.Syntax.MethodDeclarationSyntax method:
+        {
+            if (!IsPublic(method.Modifiers)
+                || method.TypeParameterList is not null
+                || !Resolves(method.ReturnType, known, declaredNamespace)
+                || method.ParameterList.Parameters.Any(parameter =>
+                    parameter.Modifiers.Count > 0 || !Resolves(parameter.Type, known, declaredNamespace)))
+            {
+                return null;
+            }
+            var parameters = string.Join(", ", method.ParameterList.Parameters
+                .Select(parameter => $"{parameter.Type} {parameter.Identifier.Text}"));
+            var message = $"{method.Identifier.Text} は変換対象外です(元の実装は移植されていません)。";
+            return $"{Prefix(method.Modifiers)}{method.ReturnType} {method.Identifier.Text}({parameters})"
+                   + $" => throw new global::System.NotSupportedException(\"{message}\");";
+        }
+
+        case Microsoft.CodeAnalysis.CSharp.Syntax.PropertyDeclarationSyntax property:
+        {
+            if (!IsPublic(property.Modifiers) || !Resolves(property.Type, known, declaredNamespace))
+            {
+                return null;
+            }
+            // An auto-property rather than a throwing accessor: properties read as data,
+            // and a control-tree walk that touches one should not bring the page down.
+            return $"{Prefix(property.Modifiers)}{property.Type} {property.Identifier.Text} {{ get; set; }}";
+        }
+
+        case Microsoft.CodeAnalysis.CSharp.Syntax.FieldDeclarationSyntax field:
+        {
+            if (!IsPublic(field.Modifiers) || !Resolves(field.Declaration.Type, known, declaredNamespace))
+            {
+                return null;
+            }
+            var isConst = field.Modifiers.Any(modifier => Microsoft.CodeAnalysis.CSharpExtensions.IsKind(modifier, Microsoft.CodeAnalysis.CSharp.SyntaxKind.ConstKeyword));
+            var variable = field.Declaration.Variables.FirstOrDefault();
+            if (variable is null)
+            {
+                return null;
+            }
+            // Constants keep their literal: callers compare and measure against them
+            // (RazorHelpers.PAGE_BODY_MARKER.Length), so an empty value changes behaviour.
+            if (isConst)
+            {
+                return variable.Initializer?.Value is Microsoft.CodeAnalysis.CSharp.Syntax.LiteralExpressionSyntax literal
+                    ? $"public const {field.Declaration.Type} {variable.Identifier.Text} = {literal};"
+                    : null;
+            }
+            return $"{Prefix(field.Modifiers)}{field.Declaration.Type} {variable.Identifier.Text};";
+        }
+
+        default:
+            return null;
+    }
+}
+
+/// <summary>
+/// True when every name in a type reference resolves after the port: a predefined C# type,
+/// a common BCL type, or a project type that survived or is itself stubbed.
+/// Generic arguments are checked too, so List&lt;ExcludedThing&gt; is rejected.
+/// </summary>
+static bool Resolves(Microsoft.CodeAnalysis.CSharp.Syntax.TypeSyntax? type, HashSet<string> known, string declaredNamespace)
+{
+    switch (type)
+    {
+        case null:
+            return false;
+        case Microsoft.CodeAnalysis.CSharp.Syntax.PredefinedTypeSyntax:
+            return true;
+        case Microsoft.CodeAnalysis.CSharp.Syntax.NullableTypeSyntax nullable:
+            return Resolves(nullable.ElementType, known, declaredNamespace);
+        case Microsoft.CodeAnalysis.CSharp.Syntax.ArrayTypeSyntax array:
+            return Resolves(array.ElementType, known, declaredNamespace);
+        case Microsoft.CodeAnalysis.CSharp.Syntax.GenericNameSyntax generic:
+            return IsKnownSimpleType(generic.Identifier.Text)
+                   && generic.TypeArgumentList.Arguments.All(argument => Resolves(argument, known, declaredNamespace));
+        case Microsoft.CodeAnalysis.CSharp.Syntax.IdentifierNameSyntax identifier:
+            return IsKnownSimpleType(identifier.Identifier.Text)
+                   || known.Contains(QualifiedName(declaredNamespace, identifier.Identifier.Text));
+        default:
+            // Qualified names (System.Web.X) would need real resolution; leave them out.
+            return false;
+    }
+}
+
+/// <summary>Namespace-qualified type key ("Ns.Name", or just "Name" in the global namespace).</summary>
+static string QualifiedName(string declaredNamespace, string name)
+    => string.IsNullOrEmpty(declaredNamespace) ? name : declaredNamespace + "." + name;
+
+/// <summary>BCL type names that are safe to name in a stub signature without resolving anything.</summary>
+static bool IsKnownSimpleType(string name) => name switch
+{
+    "String" or "Object" or "Boolean" or "Int32" or "Int64" or "Double" or "Decimal"
+        or "DateTime" or "Guid" or "TimeSpan" or "Uri" or "Exception" or "Type" or "Stream"
+        or "List" or "IList" or "IEnumerable" or "ICollection" or "Dictionary" or "IDictionary"
+        or "KeyValuePair" or "Nullable" or "IReadOnlyList" or "IReadOnlyCollection" => true,
+    _ => false,
+};
+
+/// <summary>Top-level type declarations of a file.</summary>
+static List<StubType> EnumerateTopLevelTypes(string source)
+{
+    var result = new List<StubType>();
 
     foreach (var declaration in CodeBehindRewriter.ParseUnit(source)
                  .DescendantNodes()
                  .OfType<Microsoft.CodeAnalysis.CSharp.Syntax.BaseTypeDeclarationSyntax>())
     {
-        // Nested types would need their container; the container itself is stubbed empty
+        // Nested types would need their container; the container itself is stubbed
         if (declaration.Parent is Microsoft.CodeAnalysis.CSharp.Syntax.TypeDeclarationSyntax)
         {
             continue;
@@ -1125,21 +1355,8 @@ static List<(string Key, string Namespace, string Text)> EnumerateTopLevelTypes(
         var typeParameters = (declaration as Microsoft.CodeAnalysis.CSharp.Syntax.TypeDeclarationSyntax)
             ?.TypeParameterList?.ToString() ?? string.Empty;
 
-        var keyword = declaration switch
-        {
-            Microsoft.CodeAnalysis.CSharp.Syntax.EnumDeclarationSyntax => "enum",
-            Microsoft.CodeAnalysis.CSharp.Syntax.InterfaceDeclarationSyntax => "interface",
-            Microsoft.CodeAnalysis.CSharp.Syntax.StructDeclarationSyntax => "struct",
-            Microsoft.CodeAnalysis.CSharp.Syntax.RecordDeclarationSyntax => "record",
-            _ => "class",
-        };
-
-        var body = declaration is Microsoft.CodeAnalysis.CSharp.Syntax.EnumDeclarationSyntax enumDeclaration
-            ? string.Join(", ", enumDeclaration.Members.Select(member => member.Identifier.Text))
-            : string.Empty;
-
-        var text = $"    public {keyword} {name}{typeParameters} {{ {body} }}";
-        result.Add(($"{declaredNamespace}.{name}`{typeParameters.Length}", declaredNamespace, text));
+        result.Add(new StubType(
+            $"{declaredNamespace}.{name}`{typeParameters.Length}", declaredNamespace, name, declaration));
     }
 
     return result;
@@ -1270,3 +1487,51 @@ static string GenerateFieldOnlyCodeBehind(ConvertedComponent component)
     _ = baseClass;
     return builder.ToString();
 }
+
+
+/// <summary>
+/// Namespaces of the user controls a code-behind file names directly. WebForms code
+/// reaches a user control's type without it being in markup - the LoadControl cast is the
+/// common shape - and the generated component lives in a different namespace, so the
+/// using has to be added or the cast will not resolve.
+/// Matching is on identifiers actually present in the source, so unrelated controls that
+/// merely share a short name elsewhere in the app are not imported.
+/// </summary>
+static IEnumerable<string> UserControlNamespacesNamedIn(
+    string source,
+    IReadOnlyDictionary<string, UserControlRef> registry,
+    BaseClassRegistry baseRegistry)
+{
+    if (registry.Count == 0)
+    {
+        yield break;
+    }
+
+    var identifiers = CodeBehindRewriter.ParseUnit(source)
+        .DescendantNodes()
+        .OfType<Microsoft.CodeAnalysis.CSharp.Syntax.IdentifierNameSyntax>()
+        .Select(name => name.Identifier.Text)
+        .ToHashSet(StringComparer.Ordinal);
+
+    // A short name is only safe to import when exactly one user control answers to it and
+    // no ported class shares it. BlogEngine has both a PostViewBase user control and a
+    // PostViewBase class in BlogEngine.Core; importing the control's namespace there makes
+    // every mention of the name ambiguous instead of resolving it.
+    foreach (var group in registry.Values.GroupBy(control => control.ComponentName, StringComparer.Ordinal))
+    {
+        if (!identifiers.Contains(group.Key)
+            || group.Select(control => control.Namespace).Distinct(StringComparer.Ordinal).Count() != 1
+            || baseRegistry.DeclaresTypeNamed(group.Key))
+        {
+            continue;
+        }
+        yield return group.First().Namespace;
+    }
+}
+
+/// <summary>A top-level type declaration that needs a stub.</summary>
+sealed record StubType(
+    string Key,
+    string Namespace,
+    string Name,
+    Microsoft.CodeAnalysis.CSharp.Syntax.BaseTypeDeclarationSyntax Declaration);

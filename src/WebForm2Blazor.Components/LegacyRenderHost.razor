@@ -6,17 +6,40 @@
    "legacy begin tag + Blazor child content + legacy end tag" (the WebControl
    protocol split). Display-only: postback events inside the legacy control do not
    work here - interactive controls need a hand-ported component via --control-map. *@
+@* Visible=false renders nothing, as WebForms does. The begin tag, children and end tag
+   stay glued together exactly as before so no whitespace is introduced between them. *@
+@if (Visible)
+{
 @((MarkupString)(_beginHtml ?? string.Empty))@if (ChildContent is not null)
 {
     @ChildContent
 }
 @((MarkupString)(_endHtml ?? string.Empty))
+}
 
 @code {
     private string _beginHtml;
     private string _endHtml;
 
     [Parameter] public string ID { get; set; }
+
+    // The rest of the IWebFormsControl surface. This host stands in for a WebForms
+    // control, so ported code that walks a control tree can read and set these.
+    public string ClientID => ID;
+
+    [Parameter] public bool Visible { get; set; } = true;
+
+    [Parameter] public bool Enabled { get; set; } = true;
+
+    [Parameter] public string CssClass { get; set; }
+
+    public AttributeCollection Attributes { get; } = new(() => { });
+
+    /// <summary>Programmatically added children. The legacy control renders its own; these do not.</summary>
+    public ControlCollection Controls { get; } = [];
+
+    /// <summary>The hosting page, or null outside one.</summary>
+    public Page Page => Host as Page;
 
     /// <summary>Full type name of the ported legacy control class.</summary>
     [Parameter] public string TypeName { get; set; }

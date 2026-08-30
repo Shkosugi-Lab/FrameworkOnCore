@@ -38,8 +38,8 @@ public abstract class WebFormsControlBase : ComponentBase, IWebFormsControl, IDi
     private string _toolTip;
     private string _accessKey;
     private int _tabIndex;
-    private string _width;
-    private string _height;
+    private Unit _width;
+    private Unit _height;
     private string _backColor;
     private string _foreColor;
     private string _borderColor;
@@ -86,8 +86,8 @@ public abstract class WebFormsControlBase : ComponentBase, IWebFormsControl, IDi
     [Parameter] public int TabIndex { get => _tabIndex; set => SetAndRefresh(ref _tabIndex, value); }
 
     /// <summary>"100" is treated as px, matching the WebForms Unit; "50%" etc. pass through.</summary>
-    [Parameter] public string Width { get => _width; set => SetAndRefresh(ref _width, value); }
-    [Parameter] public string Height { get => _height; set => SetAndRefresh(ref _height, value); }
+    [Parameter] public Unit Width { get => _width; set => SetAndRefresh(ref _width, value); }
+    [Parameter] public Unit Height { get => _height; set => SetAndRefresh(ref _height, value); }
 
     /// <summary>Rendered as a CSS color ("Red" / "#cc0000" etc.).</summary>
     [Parameter] public string BackColor { get => _backColor; set => SetAndRefresh(ref _backColor, value); }
@@ -175,6 +175,22 @@ public abstract class WebFormsControlBase : ComponentBase, IWebFormsControl, IDi
     public void Focus()
     {
     }
+
+    /// <summary>
+    /// WebForms Control.RenderControl equivalent. A compat component is rendered by the
+    /// Blazor renderer, not by writing to a text writer, so nothing is emitted here.
+    /// Ported code that renders a control into a buffer needs the control placed in
+    /// markup instead.
+    /// </summary>
+    public virtual void RenderControl(HtmlTextWriter writer)
+    {
+    }
+
+    /// <summary>
+    /// WebForms Control.Page equivalent - the page hosting this control, or null when it
+    /// sits in a layout or user control that is not itself a page.
+    /// </summary>
+    public Page Page => Host as Page;
 
     /// <summary>WebForms Control.ResolveUrl equivalent.</summary>
     public string ResolveUrl(string relativeUrl) => UrlMapper.ResolveUrl(relativeUrl);

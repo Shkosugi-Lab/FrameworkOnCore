@@ -1,27 +1,27 @@
 {
-  "be": {
-    "portedCs": 252,
-    "residuals": 82,
-    "convertible": 6
-  },
-  "mojo": {
-    "portedCs": 569,
-    "residuals": 274,
-    "convertible": 20
-  },
-  "yaf": {
-    "portedCs": 662,
-    "residuals": 77,
-    "convertible": 5
-  },
-  "dnn": {
-    "portedCs": 1308,
-    "residuals": 346,
-    "convertible": 12
-  },
-  "wt": {
-    "portedCs": 12,
-    "residuals": 38,
-    "convertible": 3
-  }
+    "be":  {
+               "convertible":  6,
+               "portedCs":  252,
+               "residuals":  83
+           },
+    "mojo":  {
+                 "convertible":  20,
+                 "portedCs":  569,
+                 "residuals":  274
+             },
+    "yaf":  {
+                "convertible":  5,
+                "portedCs":  662,
+                "residuals":  77
+            },
+    "dnn":  {
+                "convertible":  12,
+                "portedCs":  1308,
+                "residuals":  346
+            },
+    "wt":  {
+               "convertible":  3,
+               "portedCs":  12,
+               "residuals":  39
+           }
 }

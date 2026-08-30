@@ -75,7 +75,12 @@ public sealed class BlazorScaffolder(ScaffoldOptions options)
                  properties written directly from code-behind (lblResult.Text = ... etc.) -->
             <!-- BL0001: converted code-behind exposes ported properties as [Parameter];
                  some have custom getters/setters the analyzer would reject -->
-            <NoWarn>$(NoWarn);BL0005;BL0001</NoWarn>
+            <!-- SYSLIB0011: BinaryFormatter is obsolete-as-error and removed from the
+                 runtime. Ported code that uses it is left compiling on purpose: the call
+                 throws PlatformNotSupportedException the moment it runs, which points at
+                 the exact line to migrate. Blocking the whole build instead would hide
+                 every other problem behind one line, and a residual already records it. -->
+            <NoWarn>$(NoWarn);BL0005;BL0001;SYSLIB0011</NoWarn>
           </PropertyGroup>
 
           <ItemGroup>

@@ -155,12 +155,12 @@ ID を正規化して比較すると naming container の実装ミスを取り�
 
 | コーパス | 移植 .cs | 総残差 | うち Convertible |
 |---|---:|---:|---:|
-| BlogEngine 3.3.8 | 252 | 82 | 6 |
+| BlogEngine 3.3.8 | 252 | 83 | 6 |
 | mojoPortal 3.1.6 | 569 | 274 | 20 |
 | YAF.NET 3.2.15 | 662 | 77 | 5 |
 | DNN Platform 9.13.10 | 1,308 | 346 | 12 |
-| WingtipToys | 12 | 38 | 3 |
-| **計** | | **817** | **46** |
+| WingtipToys | 12 | 39 | 3 |
+| **計** | | **819** | **46** |
 
 直前の計測は総残差 880 / Convertible 110 だったので、
 **Convertible を 110 → 46 に削減**しています。
@@ -168,13 +168,23 @@ ID を正規化して比較すると naming container の実装ミスを取り�
 
 nopCommerce 3.8 は Convertible 32 件でしたが、今回は再計測していません(下記 4.3)。
 
-### 3.4 BlogEngine の実ビルド
+### 3.4 BlogEngine の実ビルドと起動
 
 コーパスの中で唯一「変換出力を実際にビルドして起動まで持っていく」対象にしています。
 
-**ビルドエラー 230 件 → 66 件**(クリーンビルド、`--no-incremental`)。変換エラーは 0 件。
+**ビルドエラー 230 件 → 0 件。変換出力がビルドでき、アプリが起動します。**
 
-大きかった修正 2 つ:
+```
+info: Microsoft.Hosting.Lifetime[14]
+      Now listening on: http://localhost:5099
+info: Microsoft.Hosting.Lifetime[0]
+      Application started.
+```
+
+`/archive` は HTTP 200 で描画され、`blazor.web.js` も配信されています。
+ただし `/`・`/post`・`/search`・`/contact` は **HTTP 500** です(下記 4.1)。
+
+**ビルドエラーを 0 にした主な修正**(いずれも変換器・互換層側の一般的な穴):
 
 1. **partial クラスの分断(約 130 件)。** `post.aspx` は `Inherits="post"` で、
    コードビハインドが `Post` 型のメンバを持つため、変換器はコンポーネント名を
@@ -193,24 +203,71 @@ nopCommerce 3.8 は Convertible 32 件でしたが、今回は再計測してい
    明示 Include だけを見ると逆にほぼ全滅します(YAF で 662 → 17 件に激減させた)。
    SDK 形式・ワイルドカード・csproj が一意でない場合は走査にフォールバックします。
 
+3. **コンポーネント名がプロジェクトの型を覆い隠す(5 件 + 波及)。** Razor はコンポーネント名の
+   先頭大文字を要求するので `class search` は `Search` になります。BlogEngine には
+   `BlogEngine.Core.Search` があり、**元は大文字小文字が違うだけで共存していた**ものが
+   衝突しました。しかも影響はその 1 ページに留まらず、同じ名前空間の全ページで
+   `Search` がページを指すようになります。
+   → `BaseClassRegistry.DeclaresTypeNamed` で衝突を検出し、`SearchComponent` に退避。
+
+4. **`System.Web.UI.Control` の型参照(約 20 件)。** WebForms は単一のコントロール基底を
+   持つので `foreach (Control c in ...)` と書いて後で `(TextBox)c` にキャストします。
+   互換層はコンポーネント系とレガシー描画系が**兄弟型**なので、このキャストは
+   コンパイル不能でした。
+   → `CodeBehindRewriter.RewriteControlReferences` が**型参照位置の** `Control` だけを
+   `IWebFormsControl` に写します(基底リスト・`new`・`typeof` は対象外)。
+   インターフェース経由なら両系統へダウンキャストでき、元コードの意図どおりになります。
+
+5. **除外型のスタブが空だった。** 除外した型のスタブは `class X { }` だけだったので、
+   そのメンバを参照する側が壊れていました。
+   → **シグネチャが解決できるメンバだけ**を再現するようにしました。const は元のリテラルを
+   保持し(`RazorHelpers.PAGE_BODY_MARKER.Length` のように値に依存するコードがある)、
+   メソッドは `NotSupportedException` を投げます。解決できない型を含むメンバは出しません
+   (コンパイルできないスタブは誰の役にも立たない)。
+
+6. **`<head runat="server">` 内のサーバーコントロールが丸ごと捨てられていた。**
+   コードビハインドがそれを参照していてもフィールドが生成されず、参照が壊れました。
+   → Blazor の `<HeadContent>` に出力します。副作用として、これまで黙って捨てていた
+   未対応コントロールが残差として見えるようになりました(wt +1)。
+
+7. 型忠実性の修正: `Width`/`Height` を `Unit`、`RepeatDirection` を enum、
+   `DataKeyNames` を `string[]`、`HttpContext.User` を `IPrincipal`、
+   `HtmlTextWriter` を `TextWriter` 派生に。いずれも WebForms 本来の型に合わせたもので、
+   ported code がそのままコンパイルできるようになります。
+
+8. `GridView.Columns` をマークアップ用(`ColumnsContent`)と、コードが触るコレクション
+   (`Columns`)に分離しました。`grid.Columns.Add(col)` が動きます。
+
 ---
 
 ## 4. 未解決の問題
 
-### 4.1 BlogEngine の残り 66 件は性質が違う
+### 4.1 BlogEngine はビルド・起動するが、データ層が動かない
 
-上位は `UserControlSettings.razor.cs` 17 / `_default.razor.cs` 5 /
-`RazorHostSite.razor.cs` 4 / `CommentList.razor.cs` 4 / `WidgetContainer.cs` 4。
+ビルドエラーは 0 件で、アプリは起動し `/archive` は描画されます。
+一方 `/`・`/post`・`/search`・`/contact` は HTTP 500 で、原因は 1 か所です。
 
-いずれも**実行時にコントロールツリーを走査・組み立てる**コードで、`(TextBox)ctl` のような
-キャストが `Control`(レガシー描画系)と `TextBox`(コンポーネント系)という
-**別の型階層をまたぐ**ために落ちています。互換メンバを足しても埋まりません。
-Blazor は子ツリーをマークアップが持つので、`@foreach` などマークアップ側への書き換えが要ります。
+```
+System.TypeInitializationException: The type initializer for 'BlogEngine.Core.Right' threw
+ ---> System.NullReferenceException
+   at BlogEngine.Core.Providers.BlogService.LoadProviders()   BlogService.cs:940
+```
 
-残りは BlogEngine 自身が除外した型(`RazorHelpers`、`Search.Hits`、`BlogSettings.StorageLocation`)への参照です。
+```csharp
+ProvidersHelper.InstantiateProviders(section.Providers, _providers, typeof(BlogProvider));
+```
 
-**つまり機械的に潰せる分はほぼ出し切っています。** 起動到達には手動移行を書くか、
-該当ページを一時的に除外する判断が必要です。
+`section` は `ConfigurationManager.GetSection("BlogEngine")` の戻り値で、互換層は
+**null を返します**。プロバイダモデルの設定は Web.config のカスタムセクションにあり、
+移行対象外だからです。BlogEngine 側はセクションが存在する前提で `section.Providers` を
+読むので、そこで落ちます。
+
+**これは変換器の穴ではなく、設計判断が要る手動移行です。** 埋めるには
+`XmlBlogProvider` をどう供給するか(DI 登録にするか、設定を appsettings に移すか)を
+決める必要があります。互換層が適当なプロバイダをでっち上げるのは 2.6 の方針に反します。
+
+次の一歩としては、`BlogService` にプロバイダを注入する薄いブートストラップを
+`Program.cs` 側に書くのが現実的です。それができれば残りのページも描画されるはずです。
 
 ### 4.2 残り 46 件の Convertible 残差
 
@@ -298,11 +355,12 @@ ListView / FormView / DetailsView / パリティテストは**実装済み**で�
 
 nopCommerce 1.90 のみ自動取得できません(4.3 参照)。
 
-### 5.2 BlogEngine を起動まで到達させる
+### 5.2 BlogEngine のデータ層を通す — **ビルドと起動は完了**
 
-4.1 の 66 件。コントロールツリー走査コードの手動移行が本体です。
-「変換ツールが吐いた Blazor アプリが実際に起動してブラウザで動く」という
-最初の実例になるので、価値は高いです。
+ビルドエラー 0、起動 OK、`/archive` は描画。残るのは 4.1 のプロバイダ供給だけです。
+`BlogService` にプロバイダを渡すブートストラップを書けば、残りのページも動くはずです。
+そこまで行けば「変換ツールが吐いた Blazor アプリが実際にブラウザで動く」最初の実例に
+なるので、価値は高いです。実ブラウザでの確認は 4.4 のとおり `BrowserSmokeTest` で。
 
 ### 5.3 AI 残差層を実運用する
 

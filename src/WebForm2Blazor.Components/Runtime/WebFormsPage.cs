@@ -24,7 +24,7 @@ public abstract class Page : ComponentBase, IWebFormsHost
     protected StateBag ViewState => HostCore.ViewState;
     public bool IsPostBack => HostCore.IsPostBack;
     protected HttpResponseShim Response => _response ??= new HttpResponseShim(NavigationManager);
-    protected HttpRequestShim Request => _request ??= new HttpRequestShim(NavigationManager);
+    public HttpRequestShim Request => _request ??= new HttpRequestShim(NavigationManager);
 
     /// <summary>WebForms Control.ResolveUrl equivalent ("~/x" onto an app-root path).</summary>
     public string ResolveUrl(string relativeUrl) => UrlMapper.ResolveUrl(relativeUrl);
@@ -82,7 +82,7 @@ public abstract class Page : ComponentBase, IWebFormsHost
     /// WebForms Page.User equivalent. Public like the original: user controls and master
     /// pages reach it through Page.User, which a protected member does not allow.
     /// </summary>
-    public System.Security.Claims.ClaimsPrincipal User => HttpContext.Current.User;
+    public System.Security.Principal.IPrincipal User => HttpContext.Current.User;
 
     /// <summary>
     /// WebForms GetRouteUrl equivalent. Route tables (RouteConfig / friendly URLs) are
@@ -169,9 +169,9 @@ public abstract class Page : ComponentBase, IWebFormsHost
     /// from markup, so one cannot be materialised from a virtual path at runtime; ported
     /// code that does this needs the control placed in markup instead.
     /// </summary>
-    public object LoadControl(string virtualPath) => null;
+    public IWebFormsControl LoadControl(string virtualPath) => null;
 
-    public object LoadControl(Type type, object[] parameters) => null;
+    public IWebFormsControl LoadControl(Type type, object[] parameters) => null;
 
     /// <summary>
     /// WebForms Page.OnError override point. Never raised: Blazor surfaces exceptions
@@ -207,7 +207,7 @@ public abstract class Page : ComponentBase, IWebFormsHost
 public abstract class WebFormsPage : Page
 {
     /// <summary>WebForms Page property equivalent (for Page.IsValid / Page.FindControl).</summary>
-    protected Page Page => this;
+    public Page Page => this;
 }
 
 /// <summary>
@@ -229,6 +229,14 @@ public sealed class PageHeaderShim
     public AttributeCollection Attributes { get; } = new(() => { });
 
     public ControlCollection Controls { get; } = [];
+
+    /// <summary>
+    /// WebForms Control.DataBind equivalent. The head is assembled from markup and
+    /// HeadContent in Blazor, so there is no deferred binding to resolve here.
+    /// </summary>
+    public void DataBind()
+    {
+    }
 }
 
 /// <summary>
@@ -302,6 +310,11 @@ public abstract class WebFormsUserControl : ComponentBase, IWebFormsHost, IWebFo
     /// <inheritdoc cref="WebFormsPage.Master"/>
     public dynamic Master => null;
 
+    /// <inheritdoc cref="WebFormsControlBase.RenderControl"/>
+    public virtual void RenderControl(HtmlTextWriter writer)
+    {
+    }
+
     private bool _visible = true;
 
     /// <summary>
@@ -326,6 +339,15 @@ public abstract class WebFormsUserControl : ComponentBase, IWebFormsHost, IWebFo
     /// <summary>WebForms Control.ClientID equivalent (no naming containers here).</summary>
     public string ClientID => ID;
 
+    // The rest of the IWebFormsControl surface, so a user control walked as a
+    // System.Web.UI.Control reads the same as any other control.
+    [Parameter] public bool Enabled { get; set; } = true;
+    [Parameter] public string CssClass { get; set; }
+    public AttributeCollection Attributes { get; } = new(() => { });
+
+    /// <summary>Programmatically added children (markup children are Blazor's, not this list).</summary>
+    public ControlCollection Controls { get; } = [];
+
     /// <summary>
     /// WebForms Control.UniqueID equivalent. Blazor has no postback name mangling
     /// ("ctl00$..."), so the DOM-unique ClientID stands in - the property's purpose,
@@ -343,20 +365,20 @@ public abstract class WebFormsUserControl : ComponentBase, IWebFormsHost, IWebFo
     protected StateBag ViewState => HostCore.ViewState;
     public bool IsPostBack => HostCore.IsPostBack;
     protected HttpResponseShim Response => _response ??= new HttpResponseShim(NavigationManager);
-    protected HttpRequestShim Request => _request ??= new HttpRequestShim(NavigationManager);
+    public HttpRequestShim Request => _request ??= new HttpRequestShim(NavigationManager);
 
     /// <summary>WebForms Control.Context equivalent.</summary>
     protected HttpContext Context => HttpContext.Current;
 
     /// <summary>WebForms Server (HttpServerUtility) equivalent.</summary>
-    protected ServerUtilityShim Server => _server ??= new ServerUtilityShim(NavigationManager);
+    public ServerUtilityShim Server => _server ??= new ServerUtilityShim(NavigationManager);
     private ServerUtilityShim _server;
 
     /// <summary>
     /// WebForms UserControl.Page equivalent. Resolves to the owning page when there is
     /// one; otherwise a detached stand-in keeps the accesses inert.
     /// </summary>
-    protected Page Page => ParentHost as Page ?? (_detachedPage ??= new DetachedPage());
+    public Page Page => ParentHost as Page ?? (_detachedPage ??= new DetachedPage());
     private Page _detachedPage;
 
     /// <summary>WebForms Control.ResolveUrl equivalent.</summary>
@@ -448,20 +470,20 @@ public abstract class WebFormsLayout : LayoutComponentBase, IWebFormsHost
     protected StateBag ViewState => HostCore.ViewState;
     public bool IsPostBack => HostCore.IsPostBack;
     protected HttpResponseShim Response => _response ??= new HttpResponseShim(NavigationManager);
-    protected HttpRequestShim Request => _request ??= new HttpRequestShim(NavigationManager);
+    public HttpRequestShim Request => _request ??= new HttpRequestShim(NavigationManager);
 
     /// <summary>WebForms Control.Context equivalent.</summary>
     protected HttpContext Context => HttpContext.Current;
 
     /// <summary>WebForms Server (HttpServerUtility) equivalent.</summary>
-    protected ServerUtilityShim Server => _server ??= new ServerUtilityShim(NavigationManager);
+    public ServerUtilityShim Server => _server ??= new ServerUtilityShim(NavigationManager);
     private ServerUtilityShim _server;
 
     /// <summary>
     /// WebForms MasterPage.Page equivalent. A layout is not a page, so accesses land on
     /// a detached stand-in (the AntiXsrf boilerplate is inert here by design).
     /// </summary>
-    protected Page Page => _detachedPage ??= new DetachedPage();
+    public Page Page => _detachedPage ??= new DetachedPage();
     private Page _detachedPage;
 
     /// <summary>WebForms Control.ResolveUrl equivalent.</summary>

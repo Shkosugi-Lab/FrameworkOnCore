@@ -15,7 +15,7 @@ public class FrequentPropertyTests : WebFormsTestContext
     public async Task GridViewのDataKeysが主キー値を返す()
     {
         var cut = RenderComponent<WebForm2Blazor.Components.GridView>(parameters => parameters
-            .Add(grid => grid.DataKeyNames, "Name"));
+            .Add(grid => grid.DataKeyNames, ["Name"]));
 
         await cut.InvokeAsync(() =>
         {

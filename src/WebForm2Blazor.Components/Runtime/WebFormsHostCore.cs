@@ -1,9 +1,47 @@
 namespace WebForm2Blazor.Components;
 
-/// <summary>A WebForms-compatible control that has an ID. Used by FindControl / validation target resolution.</summary>
+/// <summary>
+/// What System.Web.UI.Control means here.
+///
+/// WebForms had one universal control base, so code declares variables, parameters and
+/// loop variables as Control and casts down from there. This library has two families
+/// instead - Blazor components (<see cref="WebFormsControlBase"/>) and render-based
+/// legacy controls (<see cref="LegacyWebControl"/>) - which are siblings, not a chain.
+/// This interface is the common ground both implement, so the converter maps
+/// System.Web.UI.Control type REFERENCES onto it: an interface-typed value casts down to
+/// either family, which is exactly what the original code does.
+/// </summary>
 public interface IWebFormsControl
 {
     string ID { get; }
+
+    /// <summary>The rendered DOM id (naming containers already applied).</summary>
+    string ClientID { get; }
+
+    bool Visible { get; set; }
+
+    bool Enabled { get; set; }
+
+    string CssClass { get; set; }
+
+    /// <summary>Arbitrary HTML attributes (WebForms Control.Attributes).</summary>
+    AttributeCollection Attributes { get; }
+
+    /// <summary>
+    /// Children added programmatically. Blazor builds the real child tree from markup, so
+    /// this holds only what code put there - enough for the add-then-read-back idiom, but
+    /// those controls do not render.
+    /// </summary>
+    ControlCollection Controls { get; }
+
+    /// <summary>
+    /// WebForms Control.RenderControl equivalent. Blazor owns rendering, so the default
+    /// writes nothing; render-based legacy controls override it to emit their markup.
+    /// </summary>
+    void RenderControl(HtmlTextWriter writer) { }
+
+    /// <summary>The hosting page, or null outside one.</summary>
+    Page Page { get; }
 }
 
 /// <summary>A control holding an input value (can be the target of a validator).</summary>

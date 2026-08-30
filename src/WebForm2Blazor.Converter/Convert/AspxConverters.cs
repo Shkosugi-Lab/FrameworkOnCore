@@ -29,7 +29,7 @@ public static partial class AspxConverters
         var source = File.ReadAllText(path);
         var parsed = ParseWithPrefixes(source, path, project);
 
-        var (componentName, sourceClassName) = ResolveNames(parsed, path);
+        var (componentName, sourceClassName) = ResolveNames(parsed, path, baseRegistry);
         var (outputDirectory, targetNamespace) = ResolveTarget(appNamespace, "Components/Layout", sourceName);
 
         // A master may itself sit under another master (nested master pages). Such a file
@@ -40,6 +40,7 @@ public static partial class AspxConverters
 
         HashSet<string> headPlaceholders;
         List<AspxNode> bodyNodes;
+        List<ElementNode> headControls = [];
 
         if (parent is not null)
         {
@@ -54,6 +55,15 @@ public static partial class AspxConverters
                 : headElement.Descendants().Where(IsContentPlaceHolder)
                     .Select(element => element.Id ?? string.Empty)
                     .ToHashSet(StringComparer.OrdinalIgnoreCase);
+
+            // Server controls the head holds beyond its placeholders (a PlaceHolder the
+            // code-behind fills with <link>/<meta>) were dropped with the rest of the head,
+            // which left the code-behind referencing a field that was never generated.
+            // Blazor renders head markup through <HeadContent>, so they are emitted there.
+            headControls = headElement?.Children
+                .OfType<ElementNode>()
+                .Where(child => !string.IsNullOrEmpty(child.Prefix) && !IsContentPlaceHolder(child))
+                .ToList() ?? [];
 
             var formElement = FindServerHtmlElement(parsed, "form");
             bodyNodes = formElement?.Children ?? parsed.Nodes;
@@ -184,6 +194,14 @@ public static partial class AspxConverters
         razor.AppendLine($"@inherits {inheritsName}");
         AppendControlUsings(razor, context, parsed, targetNamespace, codeBehindPath, baseRegistry, project);
         razor.AppendLine();
+        if (headControls.Count > 0)
+        {
+            report.Info(sourceName,
+                $"<head runat=\"server\"> 内のサーバーコントロール {headControls.Count} 個を <HeadContent> に出力しました。");
+            razor.AppendLine("<HeadContent>");
+            razor.AppendLine(Trim(emitter.EmitNodes([.. headControls])));
+            razor.AppendLine("</HeadContent>");
+        }
         razor.AppendLine("<WebFormsScope Owner=\"this\">");
         razor.AppendLine(Trim(markup));
         razor.AppendLine("</WebFormsScope>");
@@ -219,7 +237,7 @@ public static partial class AspxConverters
         var sourceName = project.RelativePath(path);
         var source = File.ReadAllText(path);
         var parsed = ParseWithPrefixes(source, path, project);
-        var (componentName, sourceClassName) = ResolveNames(parsed, path);
+        var (componentName, sourceClassName) = ResolveNames(parsed, path, baseRegistry);
         var (outputDirectory, targetNamespace) = ResolveTarget(appNamespace, "Components/Controls", sourceName);
 
         var context = new EmitContext
@@ -286,7 +304,7 @@ public static partial class AspxConverters
         var sourceName = project.RelativePath(path);
         var source = File.ReadAllText(path);
         var parsed = ParseWithPrefixes(source, path, project);
-        var (componentName, sourceClassName) = ResolveNames(parsed, path);
+        var (componentName, sourceClassName) = ResolveNames(parsed, path, baseRegistry);
         var (outputDirectory, targetNamespace) = ResolveTarget(appNamespace, "Components/Pages", sourceName);
 
         var directive = parsed.MainDirective;
@@ -408,7 +426,8 @@ public static partial class AspxConverters
     }
 
     /// <summary>Makes .ascx files resolvable by "normalized relative path -> component + namespace".</summary>
-    public static Dictionary<string, UserControlRef> BuildUserControlRegistry(WebFormsProject project, string appNamespace)
+    public static Dictionary<string, UserControlRef> BuildUserControlRegistry(
+        WebFormsProject project, string appNamespace, BaseClassRegistry? baseRegistry = null)
     {
         var registry = new Dictionary<string, UserControlRef>(StringComparer.OrdinalIgnoreCase);
         foreach (var path in project.UserControls)
@@ -416,7 +435,7 @@ public static partial class AspxConverters
             var relative = project.RelativePath(path);
             var parsed = ParseWithPrefixes(File.ReadAllText(path), path, project);
             var (_, targetNamespace) = ResolveTarget(appNamespace, "Components/Controls", relative);
-            registry[relative] = new UserControlRef(ResolveComponentName(parsed, path), targetNamespace)
+            registry[relative] = new UserControlRef(ResolveComponentName(parsed, path, baseRegistry), targetNamespace)
             {
                 PropertyTypes = CollectPublicPropertyTypes(FindCodeBehind(path)),
             };
@@ -799,15 +818,16 @@ public static partial class AspxConverters
         return AspxParser.Parse(source, prefixes);
     }
 
-    private static string ResolveComponentName(ParsedAspx parsed, string path)
-        => ResolveNames(parsed, path).Component;
+    private static string ResolveComponentName(ParsedAspx parsed, string path, BaseClassRegistry? baseRegistry = null)
+        => ResolveNames(parsed, path, baseRegistry).Component;
 
     /// <summary>
     /// The Razor component name and the class name the code-behind declares. They differ
     /// by more than casing when the collision suffix applies, so both are needed: the
     /// rewriter looks the class up by the source name and renames it to the component name.
     /// </summary>
-    private static (string Component, string SourceClass) ResolveNames(ParsedAspx parsed, string path)
+    private static (string Component, string SourceClass) ResolveNames(
+        ParsedAspx parsed, string path, BaseClassRegistry? baseRegistry = null)
     {
         var inherits = parsed.MainDirective?.Get("Inherits");
         var sourceClass = !string.IsNullOrWhiteSpace(inherits)
@@ -821,11 +841,18 @@ public static partial class AspxConverters
             ? char.ToUpperInvariant(sourceClass[0]) + sourceClass[1..]
             : sourceClass;
 
-        // C# forbids a member with the enclosing type's name. WebForms allowed
-        // "class post { public Post Post; }" because the case differed, and uppercasing
-        // the class turns that into an error - so the component takes a suffix instead.
-        // Routes come from the file path, so they are unaffected.
-        return (DeclaresMemberNamed(FindCodeBehind(path), name) ? name + "Component" : name, sourceClass);
+        // Uppercasing can collide two ways, and both were legal in WebForms only because
+        // C# is case-sensitive:
+        //   1. with a member of the same class - "class post { public Post Post; }"
+        //   2. with another project type - "class search" next to BlogEngine.Core.Search,
+        //      which would otherwise shadow the real type for every page in the generated
+        //      namespace, not just this one.
+        // Either way the component takes a suffix. Routes come from the file path, so
+        // they are unaffected.
+        var collides = DeclaresMemberNamed(FindCodeBehind(path), name)
+            || (baseRegistry is not null && !string.Equals(name, sourceClass, StringComparison.Ordinal)
+                && baseRegistry.DeclaresTypeNamed(name));
+        return (collides ? name + "Component" : name, sourceClass);
     }
 
     /// <summary>

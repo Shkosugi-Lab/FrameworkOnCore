@@ -13,6 +13,11 @@ public enum ParameterKind
     /// <summary>WebForms Unit ("50px"); converts implicitly from a string.</summary>
     Unit,
     Enum,
+    /// <summary>
+    /// string[] (WebForms DataKeyNames etc.). Markup writes a comma-separated list, which
+    /// is rendered as an array literal.
+    /// </summary>
+    StringArray,
     /// <summary>Delegates / RenderFragment / anything else: leave the existing handling alone.</summary>
     Other,
 }
@@ -100,6 +105,10 @@ public static class ComponentParameterTypes
         if (effective.IsEnum)
         {
             return new ParameterTypeInfo(ParameterKind.Enum, "global::" + effective.FullName!.Replace('+', '.'));
+        }
+        if (effective == typeof(string[]))
+        {
+            return new ParameterTypeInfo(ParameterKind.StringArray, "string[]");
         }
         if (effective.Name == "Unit" && effective.Namespace == "WebForm2Blazor.Components")
         {

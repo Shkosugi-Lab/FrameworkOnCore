@@ -33,6 +33,22 @@ public class XmlSiteMapProvider : SiteMapProvider
 {
 }
 
+/// <summary>
+/// System.Web.SiteMap equivalent. The sitemap providers were configured in Web.config,
+/// which is not carried over, so the collection is empty and RootNode is null - ported
+/// code takes its "no sitemap configured" branch rather than seeing invented nodes.
+/// </summary>
+public static class SiteMap
+{
+    public static SiteMapProvider Provider => null;
+
+    public static Dictionary<string, SiteMapProvider> Providers { get; } = new(StringComparer.OrdinalIgnoreCase);
+
+    public static SiteMapNode RootNode => null;
+
+    public static SiteMapNode CurrentNode => null;
+}
+
 /// <summary>System.Web.SiteMapNodeCollection equivalent.</summary>
 public class SiteMapNodeCollection : List<SiteMapNode>
 {
@@ -239,4 +255,11 @@ public class AuthenticateEventArgs : EventArgs
 /// </summary>
 public class Html32TextWriter(System.IO.TextWriter inner) : HtmlTextWriter(inner)
 {
+    /// <summary>
+    /// WebForms lets one writer wrap another (Render(new MyWriter(writer))). The inner
+    /// writer's own target is reused so both halves write to the same buffer.
+    /// </summary>
+    public Html32TextWriter(HtmlTextWriter writer) : this(writer?.InnerWriter)
+    {
+    }
 }

@@ -16,6 +16,20 @@ namespace WebForm2Blazor.Components;
 public class ObjectDataSource : ComponentBase, IWebFormsControl
 {
     [Parameter] public string ID { get; set; }
+
+    // The rest of the IWebFormsControl surface. An ObjectDataSource is non-visual - it
+    // renders nothing in WebForms either - so the presentation members are accepted and
+    // have no effect; they exist so control-tree walking code can read them uniformly.
+    public string ClientID => ID;
+    [Parameter] public bool Visible { get; set; } = true;
+    [Parameter] public bool Enabled { get; set; } = true;
+    [Parameter] public string CssClass { get; set; }
+    public AttributeCollection Attributes { get; } = new(() => { });
+    public ControlCollection Controls { get; } = [];
+
+    /// <summary>The hosting page, or null outside one.</summary>
+    public Page Page => Host as Page;
+
     [Parameter] public string TypeName { get; set; }
     [Parameter] public string SelectMethod { get; set; }
 

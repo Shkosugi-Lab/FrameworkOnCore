@@ -70,6 +70,17 @@ public static class ControlMappings
         "InsertItemTemplate", "SelectedItemTemplate",
     };
 
+    /// <summary>
+    /// Template child elements whose WebForms name is also the name of a COLLECTION that
+    /// code-behind mutates (grid.Columns.Add(...)). The markup half is emitted under a
+    /// different parameter so the collection can keep the original name.
+    /// </summary>
+    public static readonly Dictionary<string, string> TemplateParameterNames =
+        new(StringComparer.OrdinalIgnoreCase)
+        {
+            ["Columns"] = "ColumnsContent",
+        };
+
     /// <summary>Templates / child elements that take no context.</summary>
     public static readonly HashSet<string> PlainTemplates = new(StringComparer.OrdinalIgnoreCase)
     {

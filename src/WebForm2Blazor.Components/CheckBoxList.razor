@@ -43,7 +43,7 @@
     [Parameter] public string DataValueField { get; set; }
 
     /// <summary>Vertical (default) / Horizontal.</summary>
-    [Parameter] public string RepeatDirection { get; set; } = "Vertical";
+    [Parameter] public RepeatDirection RepeatDirection { get; set; } = RepeatDirection.Vertical;
 
     /// <summary>
     /// WebForms RepeatLayout equivalent. Only Table (the WebForms default) is rendered,
@@ -77,7 +77,7 @@
     [Parameter] public int RepeatColumns { get; set; }
 
     private bool IsHorizontal
-        => string.Equals(RepeatDirection, "Horizontal", StringComparison.OrdinalIgnoreCase);
+        => RepeatDirection == RepeatDirection.Horizontal;
 
     private int ColumnCount
         => RepeatColumns > 0 ? RepeatColumns : (IsHorizontal ? Math.Max(1, Items.Count) : 1);

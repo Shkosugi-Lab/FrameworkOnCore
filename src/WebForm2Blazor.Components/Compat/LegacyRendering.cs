@@ -5,10 +5,15 @@ namespace WebForm2Blazor.Components;
 /// <summary>System.Web.UI.HtmlTextWriterTag equivalent (the commonly used members).</summary>
 public enum HtmlTextWriterTag
 {
-    Unknown, A, B, Br, Button, Col, Div, Em, Fieldset, Form, H1, H2, H3, H4, H5, H6,
-    Hr, I, Img, Input, Label, Legend, Li, Link, Nav, Ol, Option, P, Pre, Section,
-    Select, Small, Span, Strong, Sub, Sup, Table, Tbody, Td, Textarea, Tfoot, Th,
-    Thead, Tr, U, Ul,
+    Unknown, A, Acronym, Address, Area, B, Base, Basefont, Bdo, Bgsound, Big,
+    Blockquote, Body, Br, Button, Caption, Center, Cite, Code, Col, Colgroup,
+    Dd, Del, Dfn, Dir, Div, Dl, Dt, Em, Embed, Fieldset, Font, Form, Frame,
+    Frameset, H1, H2, H3, H4, H5, H6, Head, Hr, Html, I, Iframe, Img, Input,
+    Ins, Isindex, Kbd, Label, Legend, Li, Link, Map, Marquee, Menu, Meta, Nav,
+    Nobr, Noframes, Noscript, Object, Ol, Option, P, Param, Pre, Q, Rt, Ruby,
+    S, Samp, Script, Section, Select, Small, Span, Strike, Strong, Style, Sub,
+    Sup, Table, Tbody, Td, Textarea, Tfoot, Th, Thead, Title, Tr, Tt, U, Ul,
+    Var, Wbr, Xml,
 }
 
 /// <summary>System.Web.UI.HtmlTextWriterAttribute equivalent (the commonly used members).</summary>
@@ -33,7 +38,7 @@ public enum HtmlTextWriterStyle
 /// Lets legacy custom controls (Render(HtmlTextWriter) overrides) run unchanged;
 /// LegacyRenderHost feeds the buffered markup into the Blazor render tree.
 /// </summary>
-public class HtmlTextWriter(TextWriter inner) : IDisposable
+public class HtmlTextWriter(TextWriter inner) : TextWriter
 {
     public const char TagRightChar = '>';
     public const string SelfClosingTagEnd = " />";
@@ -55,26 +60,21 @@ public class HtmlTextWriter(TextWriter inner) : IDisposable
         set => inner = value;
     }
 
-    /// <summary>
-    /// System.Web.UI.HtmlTextWriter derived from TextWriter, so ported code wraps it in
-    /// using. Disposing here flushes and does NOT close the inner writer, which the
-    /// caller owns (LegacyRenderHost reads the buffer afterwards).
-    /// </summary>
-    public void Dispose()
-    {
-        inner?.Flush();
-        GC.SuppressFinalize(this);
-    }
+    // System.Web.UI.HtmlTextWriter derives from TextWriter, and ported code relies on it:
+    // a writer whose constructor takes a TextWriter is handed an HtmlTextWriter
+    // (BlogEngine's RewriteFormHtmlTextWriter does exactly that), and `using` blocks
+    // around a writer expect IDisposable. Deriving here reproduces both.
+    public override Encoding Encoding => inner?.Encoding ?? Encoding.UTF8;
 
-    public void Write(string value) => inner.Write(value);
-    public void Write(char value) => inner.Write(value);
-    public void Write(object value) => inner.Write(value);
-    public void Write(string format, params object[] args) => inner.Write(format, args);
-    public void WriteLine() => inner.WriteLine();
-    public void WriteLine(string value) => inner.WriteLine(value);
-    public void WriteLine(string format, params object[] args) => inner.WriteLine(format, args);
-    public void WriteLine(char value) => inner.WriteLine(value);
-    public void WriteLine(object value) => inner.WriteLine(value);
+    public override void Write(string value) => inner.Write(value);
+    public override void Write(char value) => inner.Write(value);
+    public override void Write(object value) => inner.Write(value);
+    public override void Write(string format, params object[] args) => inner.Write(format, args);
+    public override void WriteLine() => inner.WriteLine();
+    public override void WriteLine(string value) => inner.WriteLine(value);
+    public override void WriteLine(string format, params object[] args) => inner.WriteLine(format, args);
+    public override void WriteLine(char value) => inner.WriteLine(value);
+    public override void WriteLine(object value) => inner.WriteLine(value);
 
     public void WriteBeginTag(string tagName) => inner.Write('<' + tagName);
     public void WriteFullBeginTag(string tagName) => inner.Write('<' + tagName + '>');
@@ -176,6 +176,9 @@ public abstract class LegacyWebControl : IWebFormsControl, IDisposable
     public virtual bool Enabled { get; set; } = true;
 
     public virtual string ToolTip { get; set; }
+
+    /// <summary>WebForms WebControl.TabIndex equivalent. Rendered by the control's own Render override.</summary>
+    public virtual short TabIndex { get; set; }
 
     protected bool DesignMode => false;
 

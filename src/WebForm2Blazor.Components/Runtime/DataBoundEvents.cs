@@ -124,6 +124,13 @@ public sealed class GridViewRow
 
     public IWebFormsControl FindControl(string id) => Container?.FindControl(id);
 
+    /// <summary>
+    /// WebForms TableRow.Controls equivalent: a row's children are its cells.
+    /// WebForms code walks row.Controls to reach the cells, so this exposes the same
+    /// sequence Cells does.
+    /// </summary>
+    public IReadOnlyList<DataControlFieldCell> Controls => Cells;
+
     /// <summary>Applied to the rendered tr (handlers set e.Row.CssClass = ...).</summary>
     public string CssClass { get; set; }
 
@@ -171,6 +178,8 @@ public sealed class DataControlFieldCell
         Row = row;
     }
 
+    private string _text;
+
     public DataControlField ContainingField { get; }
 
     /// <summary>The owning row (used by ExtractValuesFromCell to reach the DataItem).</summary>
@@ -178,6 +187,38 @@ public sealed class DataControlFieldCell
 
     /// <summary>Accepted for WebForms code that checks cell visibility; always true here.</summary>
     public bool Visible { get; set; } = true;
+
+    /// <summary>
+    /// WebForms TableCell.Text equivalent. In WebForms this is the rendered cell content;
+    /// for a BoundField it is derivable from the row's data item, which is what the
+    /// getter returns. Cells of a TemplateField render components rather than text, so
+    /// they read as empty - the templated values are reached through FindControl, the
+    /// same idiom WebForms uses there.
+    /// </summary>
+    public string Text
+    {
+        get
+        {
+            if (_text is not null)
+            {
+                return _text;
+            }
+            if (ContainingField is BoundField bound && Row?.Container?.DataItem is { } item)
+            {
+                return bound.GetCellText(item) ?? string.Empty;
+            }
+            return string.Empty;
+        }
+        set => _text = value;
+    }
+
+    /// <summary>
+    /// WebForms TableCell.Controls equivalent. Blazor builds cell content from the
+    /// column's template at render time, so there is no per-cell control list to hand
+    /// back and this is always empty. Code that walks cells to read edited values has to
+    /// go through FindControl on the row instead.
+    /// </summary>
+    public ControlCollection Controls { get; } = [];
 }
 
 /// <summary>WebForms GridViewRowEventArgs equivalent (RowDataBound).</summary>

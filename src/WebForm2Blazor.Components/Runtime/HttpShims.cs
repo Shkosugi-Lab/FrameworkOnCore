@@ -343,6 +343,27 @@ public sealed class HttpRequestShim(NavigationManager navigation)
     /// <summary>WebForms Request.HttpMethod equivalent ("GET" when there is no live request).</summary>
     public string HttpMethod => EffectiveAspNetContext?.Request.Method ?? "GET";
 
+    /// <summary>
+    /// WebForms Request.UserLanguages equivalent: the Accept-Language values in
+    /// preference order, quality factors stripped (as the original reports them).
+    /// </summary>
+    public string[] UserLanguages
+    {
+        get
+        {
+            var header = EffectiveAspNetContext?.Request.Headers.AcceptLanguage.ToString();
+            if (string.IsNullOrEmpty(header))
+            {
+                return [];
+            }
+            return header
+                .Split(',', StringSplitOptions.RemoveEmptyEntries)
+                .Select(part => part.Split(';')[0].Trim())
+                .Where(part => part.Length > 0)
+                .ToArray();
+        }
+    }
+
     /// <summary>WebForms Request.PhysicalPath equivalent: the requested path under the content root.</summary>
     public string PhysicalPath
         => Path_Combine(PhysicalApplicationPath, CurrentUri.AbsolutePath.TrimStart('/'));

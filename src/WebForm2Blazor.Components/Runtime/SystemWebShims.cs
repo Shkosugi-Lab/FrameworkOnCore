@@ -16,6 +16,60 @@ public static class HttpUtility
     public static string UrlPathEncode(string value)
         => value is null ? null : string.Join("/", value.Split('/').Select(Uri.EscapeDataString));
 
+    /// <summary>
+    /// System.Web.HttpUtility.JavaScriptStringEncode equivalent: escapes a string so it
+    /// can be embedded in a JavaScript literal. Matches the original's escape set,
+    /// including the HTML-significant '&lt;' (which the original encodes to stop a
+    /// literal from closing the surrounding script element).
+    /// </summary>
+    public static string JavaScriptStringEncode(string value) => JavaScriptStringEncode(value, false);
+
+    /// <inheritdoc cref="JavaScriptStringEncode(string)"/>
+    public static string JavaScriptStringEncode(string value, bool addDoubleQuotes)
+    {
+        if (string.IsNullOrEmpty(value))
+        {
+            return addDoubleQuotes ? "\"\"" : string.Empty;
+        }
+
+        var builder = new System.Text.StringBuilder(value.Length + 8);
+        if (addDoubleQuotes)
+        {
+            builder.Append('"');
+        }
+
+        foreach (var c in value)
+        {
+            switch (c)
+            {
+                case '"': builder.Append("\\\""); break;
+                case '\\': builder.Append("\\\\"); break;
+                case '\n': builder.Append("\\n"); break;
+                case '\r': builder.Append("\\r"); break;
+                case '\t': builder.Append("\\t"); break;
+                case '\b': builder.Append("\\b"); break;
+                case '\f': builder.Append("\\f"); break;
+                case '<': builder.Append("\\u003c"); break;
+                default:
+                    if (c < ' ')
+                    {
+                        builder.Append("\\u").Append(((int)c).ToString("x4", System.Globalization.CultureInfo.InvariantCulture));
+                    }
+                    else
+                    {
+                        builder.Append(c);
+                    }
+                    break;
+            }
+        }
+
+        if (addDoubleQuotes)
+        {
+            builder.Append('"');
+        }
+        return builder.ToString();
+    }
+
     public static System.Collections.Specialized.NameValueCollection ParseQueryString(string query)
     {
         var values = new System.Collections.Specialized.NameValueCollection(StringComparer.OrdinalIgnoreCase);
@@ -150,13 +204,13 @@ public sealed class HttpContext
     /// context instance only - ASP.NET Core owns authentication, so it does not sign
     /// anyone in.
     /// </summary>
-    public ClaimsPrincipal User
+    public System.Security.Principal.IPrincipal User
     {
         get => _user ?? _aspNetContext?.User ?? new ClaimsPrincipal(new ClaimsIdentity());
         set => _user = value;
     }
 
-    private ClaimsPrincipal _user;
+    private System.Security.Principal.IPrincipal _user;
 
     public WebFormsSession Session
     {
@@ -173,8 +227,42 @@ public sealed class HttpContext
         }
     }
 
-    public IDictionary<object, object> Items => _aspNetContext?.Items
-        ?? new Dictionary<object, object>();
+    /// <summary>
+    /// WebForms HttpContext.Items equivalent. Typed as the NON-generic IDictionary the
+    /// original exposes, so ported code keeps compiling: Contains(key) takes an object
+    /// there, while the generic ASP.NET Core dictionary would demand a KeyValuePair.
+    /// Backed by the live per-request store when there is one.
+    /// </summary>
+    public System.Collections.IDictionary Items
+        => _aspNetContext?.Items is { } items
+            ? new ItemsAdapter(items)
+            : new System.Collections.Hashtable();
+
+    /// <summary>Presents the request's generic item store through the non-generic contract.</summary>
+    private sealed class ItemsAdapter(IDictionary<object, object> inner) : System.Collections.IDictionary
+    {
+        public object this[object key]
+        {
+            get => key is not null && inner.TryGetValue(key, out var value) ? value : null;
+            set => inner[key] = value;
+        }
+
+        public bool Contains(object key) => key is not null && inner.ContainsKey(key);
+        public void Add(object key, object value) => inner[key] = value;
+        public void Remove(object key) => inner.Remove(key);
+        public void Clear() => inner.Clear();
+        public int Count => inner.Count;
+        public bool IsFixedSize => false;
+        public bool IsReadOnly => false;
+        public bool IsSynchronized => false;
+        public object SyncRoot => inner;
+        public System.Collections.ICollection Keys => inner.Keys.ToList();
+        public System.Collections.ICollection Values => inner.Values.ToList();
+        public void CopyTo(Array array, int index) => ((System.Collections.ICollection)inner.ToList()).CopyTo(array, index);
+        public System.Collections.IDictionaryEnumerator GetEnumerator()
+            => new System.Collections.Hashtable(inner.ToDictionary(pair => pair.Key, pair => pair.Value)).GetEnumerator();
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
+    }
 
     /// <summary>System.Web HttpContext.Request equivalent (connection-sourced).</summary>
     public HttpRequestShim Request => new(_aspNetContext);
@@ -268,6 +356,15 @@ public readonly struct Unit
     {
     }
 
+    /// <summary>
+    /// WebForms Unit(string) equivalent. Code-behind writes new Unit("250"), so the text
+    /// form has to be a constructor and not only Parse.
+    /// </summary>
+    public Unit(string value) : this(Parse(value).Value, Parse(value).Type)
+    {
+        _hasValue = !string.IsNullOrWhiteSpace(value);
+    }
+
     public Unit(double value, string type)
     {
         Value = value;
@@ -296,10 +393,24 @@ public readonly struct Unit
             return Empty;
         }
         text = text.Trim();
-        var suffix = text.EndsWith("%", StringComparison.Ordinal) ? "%"
-            : text.EndsWith("pt", StringComparison.OrdinalIgnoreCase) ? "pt"
-            : "px";
-        var numberText = text.TrimEnd('%', 'p', 't', 'x', 'P', 'T', 'X');
+
+        // Split at the first non-numeric character rather than trimming a fixed set of
+        // letters: WebForms Unit accepts px / pt / % / em / ex / cm / mm / in / pc, and
+        // trimming characters mangled anything outside px / pt / % ("3em" became "3e").
+        var split = 0;
+        while (split < text.Length && (char.IsDigit(text[split]) || text[split] is '.' or '-' or '+'))
+        {
+            split++;
+        }
+
+        var numberText = text[..split];
+        var suffix = text[split..].Trim();
+        if (suffix.Length == 0)
+        {
+            // A bare number means pixels, as it does in WebForms
+            suffix = "px";
+        }
+
         return double.TryParse(numberText, System.Globalization.NumberStyles.Any,
             System.Globalization.CultureInfo.InvariantCulture, out var number)
             ? new Unit(number, suffix)
@@ -459,6 +570,14 @@ public class MembershipUser
 /// <summary>System.Web.Security.MembershipUserCollection equivalent.</summary>
 public class MembershipUserCollection : List<MembershipUser>
 {
+    /// <summary>
+    /// WebForms MembershipUserCollection is keyed by user name, not by position.
+    /// Returns null when absent, as the original does.
+    /// </summary>
+    public MembershipUser this[string userName]
+        => Find(user => string.Equals(user?.UserName, userName, StringComparison.OrdinalIgnoreCase));
+
+    public void Add(MembershipUser user, bool _) => Add(user);
 }
 
 /// <summary>System.Web.Security.MembershipPasswordFormat equivalent.</summary>
@@ -555,7 +674,7 @@ public class HttpApplication
 
     public ServerUtilityShim Server => HttpContext.Current.Server;
 
-    public ClaimsPrincipal User => HttpContext.Current.User;
+    public System.Security.Principal.IPrincipal User => HttpContext.Current.User;
 
     /// <summary>
     /// The pipeline events an HttpModule subscribes to in Init(context). Modules do not
@@ -677,6 +796,8 @@ public class SiteMapNode
         set => Attributes[attributeName] = value;
     }
 
+    /// <summary>WebForms SiteMapNode.IsAccessibleToUser equivalent (no provider is configured, so nothing is trimmed).</summary>
+    public bool IsAccessibleToUser(HttpContext context) => true;
     public Dictionary<string, string> Attributes { get; } = new(StringComparer.OrdinalIgnoreCase);
 }
 

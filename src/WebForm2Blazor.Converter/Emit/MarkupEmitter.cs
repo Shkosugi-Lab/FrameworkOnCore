@@ -1213,7 +1213,8 @@ public sealed partial class MarkupEmitter(EmitContext context)
             : isLayout || isGroup
                 ? " Context=\"ItemsPlaceholder\""
                 : string.Empty;
-        return $"<{element.Name}{contextAttribute}>{inner}</{element.Name}>";
+        var tagName = ControlMappings.TemplateParameterNames.GetValueOrDefault(element.Name, element.Name);
+        return $"<{tagName}{contextAttribute}>{inner}</{tagName}>";
     }
 
     /// <summary>
@@ -1448,6 +1449,16 @@ public sealed partial class MarkupEmitter(EmitContext context)
             // Unit-typed sizes ("50px") convert implicitly from the string
             case ParameterKind.Unit:
                 return $"@(@\"{normalized.Replace("\"", "\"\"")}\")";
+
+            // WebForms writes a comma-separated list for a string[] property
+            // (DataKeyNames="Id,Name"); an empty value means an empty array, not null.
+            case ParameterKind.StringArray:
+            {
+                var items = normalized
+                    .Split(',', StringSplitOptions.RemoveEmptyEntries)
+                    .Select(item => $"@\"{item.Trim().Replace("\"", "\"\"")}\"");
+                return $"@(new string[] {{ {string.Join(", ", items)} }})";
+            }
 
             // WebForms writes the bare member name (RepeatDirection="Horizontal")
             case ParameterKind.Enum:

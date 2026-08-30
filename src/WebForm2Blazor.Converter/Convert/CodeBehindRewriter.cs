@@ -95,7 +95,7 @@ public static class CodeBehindRewriter
         if (classDeclaration is null)
         {
             report.Error(sourceName, $"コードビハインドに partial class {component.ComponentName} が見つかりません。");
-            return RewriteQualifiedFrameworkTypes(root.ToFullString());
+            return RewriteQualifiedFrameworkTypes(RewriteControlReferences(root).ToFullString());
         }
 
         // Component names must start uppercase in Razor; a lowercase WebForms class
@@ -132,7 +132,7 @@ public static class CodeBehindRewriter
         updated = InsertGeneratedMembers(updated, component, sourceName, report);
 
         root = root.ReplaceNode(classDeclaration, updated);
-        return RewriteQualifiedFrameworkTypes(root.ToFullString());
+        return RewriteQualifiedFrameworkTypes(RewriteControlReferences(root).ToFullString());
     }
 
     private static bool HasCustomProjectBase(ClassDeclarationSyntax classDeclaration, BaseClassRegistry? registry)
@@ -228,11 +228,90 @@ public static class CodeBehindRewriter
         {
             var usingName = directive.Name?.ToString() ?? string.Empty;
             return usingName == "System.Web"
-                   || usingName.StartsWith("System.Web.", StringComparison.Ordinal);
+                   || usingName.StartsWith("System.Web.", StringComparison.Ordinal)
+                   // Dropped above, so the compat FileIOPermission must be importable
+                   || usingName == "System.Security.Permissions";
         });
 
-        var rewritten = RewriteUsings(root, needsCompatNamespace ? ["WebForm2Blazor.Components"] : []).ToFullString();
+        var rewritten = RewriteControlReferences(
+            RewriteUsings(root, needsCompatNamespace ? ["WebForm2Blazor.Components"] : [])).ToFullString();
         return RewriteQualifiedFrameworkTypes(rewritten);
+    }
+
+    /// <summary>
+    /// Maps System.Web.UI.Control REFERENCES onto IWebFormsControl.
+    ///
+    /// WebForms had one universal control base, so code writes
+    /// "foreach (Control c in panel.Controls)" and then casts c down to TextBox. Here the
+    /// compat components and the legacy render-based controls are two sibling families,
+    /// so a Control-typed value cannot be cast to either - the C# compiler rejects a cast
+    /// between unrelated classes outright. Typing those references as the interface both
+    /// families implement restores the downcast, which is what the original code means.
+    ///
+    /// Declaration positions are left alone: "class MyControl : Control" still needs a
+    /// class to derive from, "new Control()" still needs something instantiable, and
+    /// typeof(Control) must keep denoting the same thing it compares against.
+    /// </summary>
+    private static CompilationUnitSyntax RewriteControlReferences(CompilationUnitSyntax root)
+        => (CompilationUnitSyntax)new ControlReferenceRewriter().Visit(root);
+
+    private sealed class ControlReferenceRewriter : CSharpSyntaxRewriter
+    {
+        private static readonly SyntaxAnnotation Rewritten = new();
+
+        public override SyntaxNode? VisitQualifiedName(QualifiedNameSyntax node)
+        {
+            // System.Web.UI.Control -> IWebFormsControl (the qualifier proves the origin)
+            if (node.Right.Identifier.Text == "Control"
+                && node.Left.ToString() == "System.Web.UI"
+                && IsReferencePosition(node))
+            {
+                return Replacement(node);
+            }
+            return base.VisitQualifiedName(node);
+        }
+
+        public override SyntaxNode? VisitIdentifierName(IdentifierNameSyntax node)
+        {
+            if (node.Identifier.Text == "Control" && IsReferencePosition(node))
+            {
+                return Replacement(node);
+            }
+            return base.VisitIdentifierName(node);
+        }
+
+        private static SyntaxNode Replacement(SyntaxNode node)
+            => SyntaxFactory.IdentifierName("IWebFormsControl")
+                .WithTriviaFrom(node)
+                .WithAdditionalAnnotations(Rewritten);
+
+        /// <summary>
+        /// True when the node names a type in a position that only needs the common
+        /// surface - a variable, parameter, return type, cast or generic argument.
+        /// </summary>
+        private static bool IsReferencePosition(SyntaxNode node)
+        {
+            // "class X : Control" - a base must stay a class. The base list can nest the
+            // name (generic arguments), so this one is checked across ancestors.
+            if (node.Ancestors().OfType<BaseListSyntax>().Any())
+            {
+                return false;
+            }
+
+            var parent = node.Parent;
+            return parent switch
+            {
+                // "new Control()" - an interface cannot be instantiated
+                ObjectCreationExpressionSyntax creation => creation.Type != node,
+                // "typeof(Control)" - compared against other typeof values
+                TypeOfExpressionSyntax typeOf => typeOf.Type != node,
+                // "Control.StaticMember": only the LEFT side is a static type reference.
+                // A type ARGUMENT is not - dcf.Controls.Cast<Control>() sits under the
+                // same member access and does need rewriting.
+                MemberAccessExpressionSyntax access => access.Expression != node,
+                _ => true,
+            };
+        }
     }
 
     /// <summary>
@@ -264,6 +343,10 @@ public static class CodeBehindRewriter
             // finally the root itself (HttpContext, HttpRuntime, ...).
             .Replace("System.Web.UI.", "WebForm2Blazor.Components.")
             .Replace("System.Web.Script.Serialization.", "WebForm2Blazor.Components.")
+            .Replace("System.Configuration.ConnectionStringSettings", "WebForm2Blazor.Components.Compat.ConnectionStringSettings")
+            .Replace("System.Security.Permissions.", "WebForm2Blazor.Components.")
+            .Replace("System.Web.HttpBrowserCapabilities", "WebForm2Blazor.Components.HttpBrowserCapabilitiesShim")
+            .Replace("HttpCapabilitiesBase", "HttpBrowserCapabilitiesShim")
             .Replace("System.Web.Security.", "WebForm2Blazor.Components.")
             .Replace("System.Web.Caching.", "WebForm2Blazor.Components.")
             .Replace("System.Web.Configuration.", "WebForm2Blazor.Components.")
@@ -298,6 +381,10 @@ public static class CodeBehindRewriter
     /// </summary>
     private static bool IsDroppedNamespace(string name)
         => name == "System.Web" || name.StartsWith("System.Web.", StringComparison.Ordinal)
+           // Code Access Security was removed in .NET Core: the namespace still exists, so
+           // the using resolves and then the TYPE does not. Dropping it lets the inert
+           // FileIOPermission in the compatibility library bind instead.
+           || name == "System.Security.Permissions"
            || name == "AjaxControlToolkit" || name.StartsWith("AjaxControlToolkit.", StringComparison.Ordinal)
            || name == "FredCK" || name.StartsWith("FredCK.", StringComparison.Ordinal);
 
@@ -305,6 +392,7 @@ public static class CodeBehindRewriter
     {
         var aliasUsings = new List<string>();
         var removals = new List<UsingDirectiveSyntax>();
+        var configurationAliasScope = ConfigurationAliasScope.None;
 
         // Duplicates are tracked per CONTAINER: one file may hold several namespaces, each
         // with its own import list, and a file-wide set would strip the second "using
@@ -343,7 +431,14 @@ public static class CodeBehindRewriter
             // one type is redirected - an alias outranks a namespace import.
             if (name == "System.Configuration")
             {
-                aliasUsings.Add("using ConfigurationManager = WebForm2Blazor.Components.Compat.ConfigurationManager;");
+                // An alias only outranks a namespace import in the SAME scope. Ported
+                // provider code puts its imports INSIDE the namespace, so a file-level
+                // alias loses to the nearer "using System.Configuration;" and the name
+                // silently binds to the framework type again. The aliases therefore go
+                // wherever this import lives.
+                var target = directive.Parent is BaseNamespaceDeclarationSyntax ? ConfigurationAliasScope.Namespace
+                    : ConfigurationAliasScope.File;
+                configurationAliasScope = target;
                 continue;
             }
 
@@ -390,7 +485,53 @@ public static class CodeBehindRewriter
             }
         }
 
-        return root.WithUsings(SyntaxFactory.List(kept));
+        if (configurationAliasScope == ConfigurationAliasScope.File)
+        {
+            kept.AddRange(ConfigurationAliases.Select(MakeUsing));
+        }
+
+        root = root.WithUsings(SyntaxFactory.List(kept));
+        return configurationAliasScope == ConfigurationAliasScope.Namespace
+            ? AddNamespaceUsings(root, ConfigurationAliases)
+            : root;
+    }
+
+    /// <summary>Where the System.Configuration aliases have to go to win name lookup.</summary>
+    private enum ConfigurationAliasScope
+    {
+        None,
+        File,
+        Namespace,
+    }
+
+    /// <summary>
+    /// ConfigurationManager and ConnectionStringSettings come from the compatibility layer;
+    /// the rest of System.Configuration (ConfigurationPropertyAttribute, validators) is
+    /// genuinely used by ported provider code, so the import stays and only these two
+    /// names are redirected.
+    /// </summary>
+    private static readonly string[] ConfigurationAliases =
+    [
+        "using ConfigurationManager = WebForm2Blazor.Components.Compat.ConfigurationManager;",
+        "using ConnectionStringSettings = WebForm2Blazor.Components.Compat.ConnectionStringSettings;",
+    ];
+
+    /// <summary>Adds usings inside every namespace declaration of the file.</summary>
+    private static CompilationUnitSyntax AddNamespaceUsings(CompilationUnitSyntax root, string[] usings)
+    {
+        var namespaces = root.DescendantNodes().OfType<BaseNamespaceDeclarationSyntax>().ToList();
+        if (namespaces.Count == 0)
+        {
+            return root;
+        }
+        return root.ReplaceNodes(namespaces, (original, _) =>
+        {
+            var present = original.Usings
+                .Select(directive => directive.ToString().Trim())
+                .ToHashSet(StringComparer.Ordinal);
+            var added = usings.Where(text => present.Add(text.Trim())).Select(MakeUsing);
+            return original.WithUsings(original.Usings.AddRange(added));
+        });
     }
 
     private static UsingDirectiveSyntax MakeUsing(string usingStatement)

@@ -1,0 +1,39 @@
+[
+  {
+    "tag": "mp:mojoGridView",
+    "component": "GridView",
+    "createsField": true,
+    "attributes": {
+      "ID": "ID",
+      "CssClass": "CssClass",
+      "Visible": "Visible",
+      "Enabled": "Enabled",
+      "AllowPaging": "AllowPaging",
+      "AllowSorting": "AllowSorting",
+      "AutoGenerateColumns": "AutoGenerateColumns",
+      "DataKeyNames": "DataKeyNames",
+      "EmptyDataText": "EmptyDataText",
+      "PageSize": "PageSize",
+      "PageIndex": "PageIndex",
+      "GridLines": "GridLines",
+      "CellPadding": "CellPadding",
+      "CellSpacing": "CellSpacing",
+      "Caption": "Caption",
+      "ShowHeader": "ShowHeader",
+      "ShowFooter": "ShowFooter",
+      "UseAccessibleHeader": "UseAccessibleHeader",
+      "EnableModelValidation": "EnableModelValidation",
+      "OnRowCommand": "OnRowCommand",
+      "OnRowDataBound": "OnRowDataBound",
+      "OnRowDeleting": "OnRowDeleting",
+      "OnRowEditing": "OnRowEditing",
+      "OnSorting": "OnSorting",
+      "OnPageIndexChanging": "OnPageIndexChanging",
+      "HeaderStyle-CssClass": "HeaderStyleCssClass",
+      "RowStyle-CssClass": "RowStyleCssClass",
+      "AlternatingRowStyle-CssClass": "AlternatingRowStyleCssClass",
+      "FooterStyle-CssClass": "FooterStyleCssClass",
+      "PagerStyle-CssClass": "PagerStyleCssClass"
+    }
+  }
+]

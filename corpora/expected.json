@@ -1,0 +1,27 @@
+{
+  "be": {
+    "portedCs": 252,
+    "residuals": 82,
+    "convertible": 6
+  },
+  "mojo": {
+    "portedCs": 569,
+    "residuals": 274,
+    "convertible": 20
+  },
+  "yaf": {
+    "portedCs": 662,
+    "residuals": 77,
+    "convertible": 5
+  },
+  "dnn": {
+    "portedCs": 1308,
+    "residuals": 346,
+    "convertible": 12
+  },
+  "wt": {
+    "portedCs": 12,
+    "residuals": 38,
+    "convertible": 3
+  }
+}

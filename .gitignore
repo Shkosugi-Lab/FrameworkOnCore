@@ -55,6 +55,10 @@ AI-TASKS.json
 # is excluded here for the same reason. See HANDOVER.md, "コーパス".
 samples/nopCommerce3.8/
 
+# corpora/fetch.ps1 が取得する第三者ソースと、convert-all.ps1 の変換出力
+corpora/work/
+corpora/out/
+
 # ---- OS ----
 Thumbs.db
 ehthumbs.db

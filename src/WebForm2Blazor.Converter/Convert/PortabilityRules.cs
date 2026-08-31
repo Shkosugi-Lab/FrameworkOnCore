@@ -43,8 +43,46 @@ public static class PortabilityRules
     /// source. Only the namespaces above are looked for, and they are specific enough
     /// that a mention means a real dependency.
     /// </summary>
+    /// <summary>
+    /// Looks for a fully qualified reference to a Framework-only namespace.
+    ///
+    /// The match has to look like code, not like prose. A plain substring search for
+    /// "PayPal." also matches the end of an English sentence, and WingtipToys has exactly
+    /// one - "//Retrieve the Response returned from the NVP API call to PayPal." - which
+    /// excluded the file that defines NVPAPICaller and NVPCodec and produced every one of
+    /// that corpus's 16 build errors. Excluding a file breaks everything referencing its
+    /// types, so the test for doing it has to be stricter than a word appearing anywhere.
+    ///
+    /// A qualified reference continues with an identifier, and .NET namespaces and types
+    /// are Pascal-cased; requiring that rejects sentence-ending periods, decimals and
+    /// file names. The prefix must also start a name rather than end one, so
+    /// "MyPayPal.Helper" does not count.
+    /// </summary>
     public static string? FindQualifiedFrameworkReference(string source)
-        => Prefixes.FirstOrDefault(prefix => source.Contains(prefix + ".", StringComparison.Ordinal));
+        => Prefixes.FirstOrDefault(prefix => HasQualifiedReference(source, prefix));
+
+    private static bool HasQualifiedReference(string source, string prefix)
+    {
+        var needle = prefix + ".";
+        for (var index = source.IndexOf(needle, StringComparison.Ordinal);
+             index >= 0;
+             index = source.IndexOf(needle, index + 1, StringComparison.Ordinal))
+        {
+            var before = index == 0 ? '\0' : source[index - 1];
+            if (before == '_' || char.IsLetterOrDigit(before))
+            {
+                continue;
+            }
+
+            var after = index + needle.Length;
+            if (after < source.Length && (char.IsUpper(source[after]) || source[after] == '_'))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
 
     /// <summary>
     /// A namespace segment named after a Framework-only third-party library

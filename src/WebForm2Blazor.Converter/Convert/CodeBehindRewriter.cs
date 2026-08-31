@@ -684,13 +684,21 @@ public static class CodeBehindRewriter
             AllUsings(root).Select(directive => directive.Name?.ToString() ?? string.Empty),
             StringComparer.Ordinal);
 
+        // A GlobalUsings.cs holds "global using" directives that serve the WHOLE project.
+        // Injecting the compat imports there as plain file-scoped usings makes them apply
+        // to that one (otherwise empty) file and to nothing else, so every file that was
+        // relying on "global using System.Web.UI;" - which this pass just removed - loses
+        // the type with no import of its own to fall back on. YAF.NET is built this way and
+        // that is where its HtmlTextWriter and HttpContext failures came from.
+        var isGlobal = root.Usings.Any(directive => directive.GlobalKeyword.IsKind(SyntaxKind.GlobalKeyword));
+
         foreach (var name in requiredUsings)
         {
             // Also accepts an alias written out in full ("Items = N2.Addons.X.Items"),
             // which "using {name};" renders correctly either way.
             if (seen.Add(name))
             {
-                kept.Add(MakeUsing($"using {name};"));
+                kept.Add(MakeUsing($"using {name};", isGlobal));
             }
         }
 
@@ -698,13 +706,13 @@ public static class CodeBehindRewriter
         {
             if (seen.Add(aliasUsing))
             {
-                kept.Add(MakeUsing(aliasUsing));
+                kept.Add(MakeUsing(aliasUsing, isGlobal));
             }
         }
 
         if (configurationAliasScope == ConfigurationAliasScope.File)
         {
-            kept.AddRange(ConfigurationAliases.Select(MakeUsing));
+            kept.AddRange(ConfigurationAliases.Select(alias => MakeUsing(alias, isGlobal)));
         }
 
         root = root.WithUsings(SyntaxFactory.List(kept));
@@ -746,13 +754,29 @@ public static class CodeBehindRewriter
             var present = original.Usings
                 .Select(directive => directive.ToString().Trim())
                 .ToHashSet(StringComparer.Ordinal);
-            var added = usings.Where(text => present.Add(text.Trim())).Select(MakeUsing);
+            // Namespace-level usings are never global (C# forbids it), so no flag here.
+            var added = usings.Where(text => present.Add(text.Trim())).Select(text => MakeUsing(text));
             return original.WithUsings(original.Usings.AddRange(added));
         });
     }
 
-    private static UsingDirectiveSyntax MakeUsing(string usingStatement)
-        => SyntaxFactory.ParseCompilationUnit(usingStatement + Environment.NewLine).Usings[0];
+    /// <summary>
+    /// Builds a using directive. <paramref name="global"/> emits "global using", which is
+    /// required when the directive is being added to a file whose imports are global -
+    /// mixing the two there would scope the new import to that file alone.
+    ///
+    /// The leading newline matters only for reading the output: without it the directive is
+    /// appended to the last existing line ("global using X;using WebForm2Blazor.Components;").
+    /// </summary>
+    private static UsingDirectiveSyntax MakeUsing(string usingStatement, bool global = false)
+    {
+        var text = global && !usingStatement.StartsWith("global ", StringComparison.Ordinal)
+            ? "global " + usingStatement
+            : usingStatement;
+
+        return SyntaxFactory.ParseCompilationUnit(text + Environment.NewLine).Usings[0]
+            .WithLeadingTrivia(SyntaxFactory.ElasticCarriageReturnLineFeed);
+    }
 
     private static CompilationUnitSyntax RewriteNamespace(CompilationUnitSyntax root, string targetNamespace)
     {

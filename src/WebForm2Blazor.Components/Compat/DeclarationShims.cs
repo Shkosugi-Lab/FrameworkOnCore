@@ -1104,3 +1104,115 @@ public enum ProfileAuthenticationOption
     Authenticated,
     All,
 }
+
+/// <summary>System.Web.UI.HtmlControls.HtmlContainerControl equivalent.</summary>
+public class HtmlContainerControl : LegacyWebControl
+{
+    public virtual string InnerHtml { get; set; } = string.Empty;
+
+    public virtual string InnerText { get; set; } = string.Empty;
+
+    protected override string TagName => "span";
+}
+
+/// <summary>
+/// System.Web.UI.HtmlControls.HtmlHead equivalent. Code-behind reaches Page.Header to add
+/// a stylesheet or set the title; Blazor does that with HeadContent, so the values are
+/// carried and the markup side emits HeadContent instead.
+/// </summary>
+public class HtmlHead : HtmlContainerControl
+{
+    public string Title { get; set; } = string.Empty;
+
+    public ControlCollection StyleSheet { get; } = [];
+
+    protected override string TagName => "head";
+}
+
+/// <summary>System.Web.UI.WebControls.MultiView equivalent (state only).</summary>
+public class MultiView : LegacyWebControl
+{
+    public int ActiveViewIndex { get; set; } = -1;
+
+    public ControlCollection Views => Controls;
+
+    public event EventHandler ActiveViewChanged;
+
+    public View GetActiveView()
+        => ActiveViewIndex >= 0 && ActiveViewIndex < Controls.Count
+            ? Controls[ActiveViewIndex] as View
+            : null;
+
+    public void SetActiveView(View view)
+    {
+        ActiveViewIndex = Controls.IndexOf(view);
+        ActiveViewChanged?.Invoke(this, EventArgs.Empty);
+    }
+
+    protected override string TagName => "div";
+}
+
+/// <summary>System.Web.UI.ITextControl equivalent.</summary>
+public interface ITextControl
+{
+    string Text { get; set; }
+}
+
+/// <summary>System.Web.UI.IDataSource equivalent.</summary>
+public interface IDataSource
+{
+    object GetView(string viewName);
+
+    System.Collections.ICollection GetViewNames();
+}
+
+/// <summary>
+/// System.Web.Hosting.VirtualFile / VirtualDirectory equivalents. Returned by a ported
+/// VirtualPathProvider; inert for the same reason it is.
+/// </summary>
+public abstract class VirtualFileBase
+{
+    public virtual string Name { get; set; } = string.Empty;
+
+    public virtual string VirtualPath { get; set; } = string.Empty;
+}
+
+public abstract class VirtualFile(string virtualPath) : VirtualFileBase
+{
+    public override string VirtualPath { get; set; } = virtualPath;
+
+    public abstract Stream Open();
+}
+
+public abstract class VirtualDirectory(string virtualPath) : VirtualFileBase
+{
+    public override string VirtualPath { get; set; } = virtualPath;
+
+    public abstract System.Collections.IEnumerable Children { get; }
+
+    public abstract System.Collections.IEnumerable Directories { get; }
+
+    public abstract System.Collections.IEnumerable Files { get; }
+}
+
+/// <summary>
+/// System.Web.Profile.ProfileInfo / ProfileInfoCollection equivalents. The compatibility
+/// profile store keeps nothing, so a query always comes back empty.
+/// </summary>
+public class ProfileInfo(string userName)
+{
+    public string UserName { get; } = userName;
+
+    public DateTime LastActivityDate { get; set; }
+
+    public DateTime LastUpdatedDate { get; set; }
+
+    public bool IsAnonymous { get; set; }
+
+    public int Size { get; set; }
+}
+
+public class ProfileInfoCollection : System.Collections.ObjectModel.KeyedCollection<string, ProfileInfo>
+{
+    protected override string GetKeyForItem(ProfileInfo item) => item?.UserName ?? string.Empty;
+}

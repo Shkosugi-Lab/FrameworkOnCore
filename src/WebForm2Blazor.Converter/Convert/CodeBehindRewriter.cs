@@ -862,13 +862,31 @@ public static class CodeBehindRewriter
         var indent = GetMemberIndent(classDeclaration);
         var generated = new StringBuilder();
 
-        if (component.Fields.Count > 0)
+        // Not every project keeps its control fields in a designer file. Where the
+        // code-behind declares them itself, generating them again is a duplicate member,
+        // and the declaration that loses is the hand-written one carrying the real type -
+        // "protected dynamic rc" beside "protected Repeater rc". The source wins.
+        var declaredMembers = classDeclaration.Members
+            .SelectMany(member => member switch
+            {
+                FieldDeclarationSyntax field => field.Declaration.Variables.Select(v => v.Identifier.Text),
+                PropertyDeclarationSyntax property => [property.Identifier.Text],
+                _ => Enumerable.Empty<string>(),
+            })
+            .ToHashSet(StringComparer.Ordinal);
+
+        // The same ID can appear more than once in markup (mutually exclusive branches,
+        // tab panels); the field is declared once, as the designer did.
+        var emittedFields = component.Fields
+            .DistinctBy(field => field.Name)
+            .Where(field => !declaredMembers.Contains(field.Name))
+            .ToList();
+
+        if (emittedFields.Count > 0)
         {
             generated.Append($"{indent}// Server controls from the .aspx (the WebForms designer.cs equivalent).\r\n");
             generated.Append($"{indent}// Instances are assigned via @ref on the .razor side.\r\n");
-            // The same ID can appear more than once in markup (mutually exclusive
-            // branches, tab panels); the field is declared once, as the designer did
-            foreach (var field in component.Fields.DistinctBy(f => f.Name))
+            foreach (var field in emittedFields)
             {
                 generated.Append($"{indent}protected {field.Type} {field.Name};\r\n");
             }

@@ -175,27 +175,38 @@ dotnet ...\WebForm2Blazor.Converter.dll --input ... --output ... `
 で固定した SDK** が要り(DNN は 9.0.202)、コーパス計測が追加の SDK に依存してしまうためです。
 `--analyzer` はオプトインで、渡さなければ従来どおり残差として報告します。
 
-## BlogEngine が全ルート 200 にならない理由(未解決・設計判断)
-
-現状 `/archive` と `/search` は 200、`/`・`/contact`・`/post` はプロセスごと落ちます。
-カスタム構成セクション対応でプロバイダは生成・初期化され、データも読めるようになりましたが、
-最後に**スタックオーバーフロー**が残ります。
+## BlogEngine の稼働状況
 
 ```
-32x BlogEngine.Core.Right.RefreshAllRights
-31x BlogEngine.Core.Providers.BlogService.SaveRights
+/          200
+/archive   200
+/search    200
+/contact   500   (生成 Razor 内の NullReferenceException)
+/post      500   (同上)
 ```
 
-原因は互換層の `Roles.GetAllRoles()` が空配列を返すことです。BlogEngine は
-「ロールが 1 つも無い = 権限テーブルが未設定」と判断して既定値を追加し、保存し、
-再読込し、また空を見て…と無限に繰り返します。4.8 ではロールプロバイダが
-Administrators / Editors / Anonymous を返すため 1 巡で収束します。
+**変換出力がロールデータを実際に読んで動いています。** ロールは `App_Data/roles.xml` から
+`Administrators / Editors / Anonymous` が読み込まれ、移植された `XmlRoleProvider` が
+そのまま供給しています。
 
-**これは HANDOVER 2.4 の fail closed 方針が意図どおり効いている結果です。**
-`Roles.IsUserInRole` も `GetAllRoles` も、ロールストアが無い状態で「ロールがある」と
-答えないよう作られています。ここで互換層にロールを捏造させるのは、
-半分移行したサイトに誰でも入れる状態を作ることと同じです。
+ここに至るまでに解いた 5 段階(いずれも汎用の仕組みとして実装):
 
-**したがってこれは変換器の穴ではなく、手動移行の判断です。** BlogEngine を全ルート
-動かすには、ASP.NET Core Identity なり独自実装なりの**ロールストアをアプリ側で供給**する
-必要があります。HANDOVER 5.2 が「設計判断が要る」と書いていたのは、まさにこの地点です。
+| 症状 | 原因 |
+|---|---|
+| `GetSection` が null | カスタム構成セクションが引き継がれていなかった |
+| `Could not resolve type` | 型のアセンブリ修飾が旧アセンブリのままだった |
+| `Unable to load default provider` | `ProvidersHelper.InstantiateProviders` が空実装 |
+| `DirectoryNotFound` | `App_Data` 未コピー / `AppDomainAppPath` が bin を指していた |
+| **スタックオーバーフロー** | **`Roles` がロールプロバイダに委譲していなかった** |
+
+最後の 1 つは `Right.RefreshAllRights` ↔ `SaveRights` の無限再帰として現れました。
+`GetAllRoles()` が空を返すと BlogEngine は「権限テーブル未設定」と判断して既定値を
+書き込み、読み直し、また空を見る、を繰り返します。
+
+**fail closed の方針(HANDOVER 2.4)は維持しています。** ロールストアが**無い**ときは
+従来どおり空を返し、`IsUserInRole` も false です。変わったのは、**アプリ自身のロール
+プロバイダとそのデータが変換出力に揃っているときに、それを使うようになった**点だけで、
+ロールを捏造してはいません。
+
+残る `/contact` と `/post` は生成 Razor 内の `NullReferenceException` で、インフラでは
+なく個別ページの変換残差です。

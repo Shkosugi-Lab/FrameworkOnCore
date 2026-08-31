@@ -470,23 +470,113 @@ public static class Membership
 /// </summary>
 public static class Roles
 {
-    public static bool Enabled => false;
+    // Resolved once from WebFormsRoleProvider in appsettings.json, which the converter
+    // fills in from <roleManager> in Web.config.
+    private static RoleProvider _provider;
+    private static bool _resolved;
+    private static readonly object ProviderLock = new();
+
+    /// <summary>
+    /// The application's own role provider, or null when the conversion carried none.
+    ///
+    /// The provider class and its data both survive the conversion - a file-backed provider
+    /// is ordinary ported code reading ported App_Data - so once it is wired up the answers
+    /// here are the application's real answers, not an approximation.
+    ///
+    /// Null keeps the previous behaviour: every member below reports "no roles". That is
+    /// the honest answer when there is no store, and it is what keeps a half-migrated site
+    /// from letting anyone in (HANDOVER 2.4). It is not the honest answer when the store is
+    /// sitting right there, which is what this resolves.
+    /// </summary>
+    public static RoleProvider Provider
+    {
+        get
+        {
+            if (_resolved)
+            {
+                return _provider;
+            }
+            lock (ProviderLock)
+            {
+                if (!_resolved)
+                {
+                    _provider = ResolveProvider();
+                    _resolved = true;
+                }
+            }
+            return _provider;
+        }
+    }
+
+    private static RoleProvider ResolveProvider()
+    {
+        Microsoft.Extensions.Configuration.IConfigurationSection section;
+        try
+        {
+            section = Compat.ConfigurationManager.Configuration?.GetSection("WebFormsRoleProvider");
+        }
+        catch (InvalidOperationException)
+        {
+            // Configuration is not wired yet (a static initialiser running before startup
+            // finished). No store visible means no roles, same as having none.
+            return null;
+        }
+        var typeName = section?["Type"];
+        if (string.IsNullOrWhiteSpace(typeName))
+        {
+            return null;
+        }
+
+        var type = Type.GetType(typeName, throwOnError: false)
+                   ?? AppDomain.CurrentDomain.GetAssemblies()
+                       .Select(assembly => assembly.GetType(typeName, throwOnError: false))
+                       .FirstOrDefault(found => found is not null);
+        if (type is null || !typeof(RoleProvider).IsAssignableFrom(type))
+        {
+            return null;
+        }
+
+        try
+        {
+            var provider = (RoleProvider)Activator.CreateInstance(type);
+            var parameters = new System.Collections.Specialized.NameValueCollection();
+            foreach (var entry in section.GetSection("Parameters").GetChildren())
+            {
+                parameters[entry.Key] = entry.Value;
+            }
+            provider.Initialize(section["Name"] ?? type.Name, parameters);
+            return provider;
+        }
+        catch (Exception)
+        {
+            // A provider that cannot start is treated as absent rather than allowed to
+            // take down every request: the members below go back to reporting no roles.
+            return null;
+        }
+    }
+
+    public static bool Enabled => Provider is not null;
 
     public static string ApplicationName { get; set; } = "/";
 
-    public static bool IsUserInRole(string roleName) => false;
+    public static bool IsUserInRole(string roleName)
+        => IsUserInRole(HttpContext.Current?.User?.Identity?.Name, roleName);
 
-    public static bool IsUserInRole(string username, string roleName) => false;
+    public static bool IsUserInRole(string username, string roleName)
+        => !string.IsNullOrEmpty(username)
+           && Provider?.IsUserInRole(username, roleName) == true;
 
-    public static string[] GetRolesForUser() => [];
+    public static string[] GetRolesForUser()
+        => GetRolesForUser(HttpContext.Current?.User?.Identity?.Name);
 
-    public static string[] GetRolesForUser(string username) => [];
+    public static string[] GetRolesForUser(string username)
+        => string.IsNullOrEmpty(username) ? [] : Provider?.GetRolesForUser(username) ?? [];
 
-    public static string[] GetAllRoles() => [];
+    public static string[] GetAllRoles() => Provider?.GetAllRoles() ?? [];
 
-    public static string[] GetUsersInRole(string roleName) => [];
+    public static string[] GetUsersInRole(string roleName) => Provider?.GetUsersInRole(roleName) ?? [];
 
-    public static bool RoleExists(string roleName) => false;
+    public static bool RoleExists(string roleName) => Provider?.RoleExists(roleName) == true;
 
     public static void CreateRole(string roleName)
     {

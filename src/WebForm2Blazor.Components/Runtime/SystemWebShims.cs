@@ -655,9 +655,17 @@ public abstract class MembershipProvider
 
     public virtual string Description => string.Empty;
 
+    /// <summary>
+    /// ProviderBase.Initialize equivalent. It CONSUMES the provider-model attributes: the
+    /// real one reads "description" and removes it from the collection.
+    ///
+    /// Providers depend on that. A correctly written Initialize ends with
+    /// "if (config.Count > 0) throw Unrecognized attribute", so leaving the key in place
+    /// makes the provider reject its own configuration - BlogEngine's XmlRoleProvider even
+    /// adds the key itself when it is missing, and then throws on it.
+    /// </summary>
     public virtual void Initialize(string name, System.Collections.Specialized.NameValueCollection config)
-    {
-    }
+        => config?.Remove("description");
 
     public abstract string ApplicationName { get; set; }
     public abstract bool EnablePasswordReset { get; }
@@ -694,9 +702,17 @@ public abstract class RoleProvider
 {
     public virtual string Name => GetType().Name;
 
+    /// <summary>
+    /// ProviderBase.Initialize equivalent. It CONSUMES the provider-model attributes: the
+    /// real one reads "description" and removes it from the collection.
+    ///
+    /// Providers depend on that. A correctly written Initialize ends with
+    /// "if (config.Count > 0) throw Unrecognized attribute", so leaving the key in place
+    /// makes the provider reject its own configuration - BlogEngine's XmlRoleProvider even
+    /// adds the key itself when it is missing, and then throws on it.
+    /// </summary>
     public virtual void Initialize(string name, System.Collections.Specialized.NameValueCollection config)
-    {
-    }
+        => config?.Remove("description");
 
     public abstract string ApplicationName { get; set; }
 

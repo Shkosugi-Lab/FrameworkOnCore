@@ -91,6 +91,44 @@ public static class WebConfigConverter
             report.Info(sourceName, $"connectionStrings {connectionStrings.Count} 件を appsettings.json へ変換しました。");
         }
 
+        // The role provider is the application's OWN class and its data is ported with the
+        // rest of App_Data, so the store survives the conversion - only the wiring is
+        // Framework-specific. Carrying the provider's type across lets the compatibility
+        // Roles facade delegate to it instead of answering "no roles", which is the honest
+        // answer only while there is genuinely no store.
+        var roleManager = root?.Element("system.web")?.Element("roleManager");
+        var roleProvider = roleManager?.Element("providers")?.Elements("add").FirstOrDefault(add =>
+            roleManager.Attribute("defaultProvider") is null
+            || add.Attribute("name")?.Value == roleManager.Attribute("defaultProvider")!.Value);
+        if (roleProvider is not null
+            && roleProvider.Attribute("type")?.Value is { Length: > 0 } roleProviderType)
+        {
+            // "name", "type" and "description" are the provider MODEL's own attributes -
+            // System.Configuration consumes them before the provider ever sees the
+            // collection. A provider's Initialize typically removes the keys it knows and
+            // throws on whatever is left, so passing these through makes a correctly
+            // written provider reject its own configuration: BlogEngine answers
+            // "Unrecognized attribute: description".
+            var parameters = new JsonObject();
+            foreach (var attribute in roleProvider.Attributes()
+                         .Where(a => a.Name.LocalName is not ("name" or "type" or "description")))
+            {
+                parameters[attribute.Name.LocalName] = attribute.Value;
+            }
+
+            settings["WebFormsRoleProvider"] = new JsonObject
+            {
+                ["Name"] = roleProvider.Attribute("name")?.Value ?? "RoleProvider",
+                // Assembly qualifier dropped: the converted application is one assembly and
+                // the compatibility layer searches loaded assemblies by full name.
+                ["Type"] = roleProviderType.Split(',')[0].Trim(),
+                ["Parameters"] = parameters,
+            };
+            report.Info(sourceName,
+                $"<roleManager> のロールプロバイダ {roleProvider.Attribute("name")?.Value} を引き継ぎました"
+                + "(ロールデータは移植済みの実装がそのまま読みます)。");
+        }
+
         var systemWeb = root?.Element("system.web");
         if (systemWeb is not null)
         {

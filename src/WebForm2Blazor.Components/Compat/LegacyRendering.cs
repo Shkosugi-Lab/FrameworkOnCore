@@ -211,6 +211,62 @@ public abstract class LegacyWebControl : IWebFormsControl, IDisposable
     public virtual Control FindControl(string id)
         => Controls.FirstOrDefault(child => string.Equals(child.ID, id, StringComparison.Ordinal)) as Control;
 
+    // ---------------------------------------------------------------------------------
+    // Postback and view-state extension points.
+    //
+    // The lifecycle hooks (OnInit / OnLoad / OnPreRender / CreateChildControls) are
+    // declared further down; these are the rest of what a ported custom control overrides.
+    // Without something to override, none of those files compile, and the resulting CS0115
+    // storm points at the control's own source rather than at the missing base.
+    //
+    // Declared, not driven: nothing here raises them, because these controls render through
+    // LegacyRenderHost rather than taking part in the Blazor lifecycle. An override that is
+    // never called stays visible in the source; a control that silently skipped its own
+    // state handling would not be.
+    // ---------------------------------------------------------------------------------
+
+    /// <summary>WebForms Control.ChildControlsCreated equivalent.</summary>
+    protected bool ChildControlsCreated { get; set; }
+
+    /// <summary>
+    /// WebForms IPostBackDataHandler.LoadPostData equivalent. Always false: there is no
+    /// postback, so no control ever reports a changed value.
+    /// </summary>
+    public virtual bool LoadPostData(string postDataKey, System.Collections.Specialized.NameValueCollection postCollection)
+        => false;
+
+    /// <summary>WebForms IPostBackDataHandler.RaisePostDataChangedEvent equivalent.</summary>
+    public virtual void RaisePostDataChangedEvent() => OnDataChanged(EventArgs.Empty);
+
+    protected virtual void OnDataChanged(EventArgs e)
+    {
+    }
+
+    /// <summary>WebForms IPostBackEventHandler.RaisePostBackEvent equivalent.</summary>
+    public virtual void RaisePostBackEvent(string eventArgument)
+    {
+    }
+
+    /// <summary>
+    /// WebForms Control.LoadViewState / SaveViewState equivalents. ViewState here is a
+    /// per-instance bag with no round trip, so a saved state is never handed back.
+    /// </summary>
+    protected virtual void LoadViewState(object savedState)
+    {
+    }
+
+    protected virtual object SaveViewState() => null;
+
+    protected virtual void TrackViewState()
+    {
+    }
+
+    /// <summary>WebForms Control.OnBubbleEvent equivalent.</summary>
+    protected virtual bool OnBubbleEvent(object source, EventArgs args) => false;
+
+    /// <summary>WebForms Control.RaiseBubbleEvent equivalent.</summary>
+    protected void RaiseBubbleEvent(object source, EventArgs args) => OnBubbleEvent(source, args);
+
     /// <summary>The element the default rendering wraps (WebControl defaults to span).</summary>
     protected virtual string TagName => "span";
 

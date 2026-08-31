@@ -47,9 +47,15 @@ $corpora = @(
        # これを渡さないと tagPrefix が読めず YAF: が全部未対応コントロールになる。
        WebConfig = 'YAFNET-3.2.15\yafsrc\YetAnotherForum.NET\recommended.web.config' },
 
+    # Library alone is not the application's own code: the interfaces and attributes the
+    # Website and Library are written against live in separate projects. Without them
+    # DnnDeprecatedAttribute, INavigationManager, IPortalSettings and ILog do not resolve,
+    # which alone accounted for ~1,100 build errors in the converted output.
     @{ Name = 'dnn'
        Input = 'Dnn.Platform-9.13.10\DNN Platform\Website'
-       Include = @('Dnn.Platform-9.13.10\DNN Platform\Library') },
+       Include = @('Dnn.Platform-9.13.10\DNN Platform\Library',
+                   'Dnn.Platform-9.13.10\DNN Platform\DotNetNuke.Abstractions',
+                   'Dnn.Platform-9.13.10\DNN Platform\DotNetNuke.Instrumentation') },
 
     # 入力ルートが 1 階層深い(リポジトリ名 / ソリューション名 / プロジェクト名)。
     @{ Name = 'wt'

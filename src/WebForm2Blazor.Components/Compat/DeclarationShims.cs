@@ -641,3 +641,222 @@ public class Menu : LegacyWebControl
         _ = MenuItemDataBound;
     }
 }
+
+// ---------------------------------------------------------------------------------------
+// Code Access Security.
+//
+// CAS was removed in .NET Core: a demand cannot fail because there is nothing to demand
+// against, and the real access control happens a line later in the file system or the
+// database. These exist so ported code that declares or asserts a permission still
+// compiles, following the same rule as the FileIOPermission shim already in
+// SystemWebStatics - inert, and said so out loud rather than approximated.
+// ---------------------------------------------------------------------------------------
+
+/// <summary>System.Security.Permissions.SecurityAction equivalent.</summary>
+public enum SecurityAction
+{
+    Demand = 2,
+    Assert = 3,
+    Deny = 4,
+    PermitOnly = 5,
+    LinkDemand = 6,
+    InheritanceDemand = 7,
+    RequestMinimum = 8,
+    RequestOptional = 9,
+    RequestRefuse = 10,
+}
+
+/// <summary>System.Security.Permissions.SecurityPermissionFlag equivalent.</summary>
+[Flags]
+public enum SecurityPermissionFlag
+{
+    NoFlags = 0,
+    Assertion = 1,
+    UnmanagedCode = 2,
+    SkipVerification = 4,
+    Execution = 8,
+    ControlThread = 16,
+    ControlEvidence = 32,
+    ControlPolicy = 64,
+    SerializationFormatter = 128,
+    ControlDomainPolicy = 256,
+    ControlPrincipal = 512,
+    ControlAppDomain = 1024,
+    RemotingConfiguration = 2048,
+    Infrastructure = 4096,
+    BindingRedirects = 8192,
+    AllFlags = 16383,
+}
+
+/// <summary>System.Security.Permissions.SecurityPermission equivalent (inert).</summary>
+public class SecurityPermission(SecurityPermissionFlag flag)
+{
+    public SecurityPermissionFlag Flags { get; set; } = flag;
+
+    public void Demand()
+    {
+    }
+
+    public void Assert()
+    {
+    }
+
+    public void Deny()
+    {
+    }
+
+    public void PermitOnly()
+    {
+    }
+}
+
+/// <summary>System.Security.Permissions.SecurityPermissionAttribute equivalent (inert).</summary>
+[AttributeUsage(AttributeTargets.All, AllowMultiple = true)]
+public sealed class SecurityPermissionAttribute(SecurityAction action) : Attribute
+{
+    public SecurityAction Action { get; } = action;
+
+    public SecurityPermissionFlag Flags { get; set; }
+
+    public bool UnmanagedCode { get; set; }
+
+    public bool ControlPrincipal { get; set; }
+
+    public bool ControlThread { get; set; }
+
+    public bool SerializationFormatter { get; set; }
+
+    public bool Infrastructure { get; set; }
+}
+
+/// <summary>System.Web.AspNetHostingPermissionLevel equivalent.</summary>
+public enum AspNetHostingPermissionLevel
+{
+    None = 100,
+    Minimal = 200,
+    Low = 300,
+    Medium = 400,
+    High = 500,
+    Unrestricted = 600,
+}
+
+/// <summary>System.Web.AspNetHostingPermission equivalent (inert).</summary>
+public class AspNetHostingPermission(AspNetHostingPermissionLevel level)
+{
+    public AspNetHostingPermissionLevel Level { get; set; } = level;
+
+    public void Demand()
+    {
+    }
+
+    public void Assert()
+    {
+    }
+}
+
+/// <summary>System.Web.AspNetHostingPermissionAttribute equivalent (inert).</summary>
+[AttributeUsage(AttributeTargets.All, AllowMultiple = true)]
+public sealed class AspNetHostingPermissionAttribute(SecurityAction action) : Attribute
+{
+    public SecurityAction Action { get; } = action;
+
+    public AspNetHostingPermissionLevel Level { get; set; }
+}
+
+// ---------------------------------------------------------------------------------------
+// Hierarchical data binding contracts.
+//
+// Implemented by ported site-map and tree providers so a TreeView could bind to them.
+// Nothing binds here - the controls that would consume them do not render - but the
+// provider classes are ordinary business code that has to compile.
+// ---------------------------------------------------------------------------------------
+
+/// <summary>System.Web.UI.IHierarchyData equivalent.</summary>
+public interface IHierarchyData
+{
+    bool HasChildren { get; }
+
+    string Path { get; }
+
+    object Item { get; }
+
+    string Type { get; }
+
+    IHierarchicalEnumerable GetChildren();
+
+    IHierarchyData GetParent();
+}
+
+/// <summary>System.Web.UI.IHierarchicalEnumerable equivalent.</summary>
+public interface IHierarchicalEnumerable : System.Collections.IEnumerable
+{
+    IHierarchyData GetHierarchyData(object enumeratedItem);
+}
+
+/// <summary>System.Web.UI.IHierarchicalDataSource equivalent.</summary>
+public interface IHierarchicalDataSource
+{
+    object GetHierarchicalView(string viewPath);
+}
+
+/// <summary>System.Web.UI.IDataItemContainer equivalent.</summary>
+public interface IDataItemContainer
+{
+    object DataItem { get; }
+
+    int DataItemIndex { get; }
+
+    int DisplayIndex { get; }
+}
+
+/// <summary>
+/// System.Web.UI.ValidationPropertyAttribute equivalent (metadata only). Named the
+/// property a validator reads when it targets a custom control.
+/// </summary>
+[AttributeUsage(AttributeTargets.Class)]
+public sealed class ValidationPropertyAttribute(string name) : Attribute
+{
+    public string Name { get; } = name;
+}
+
+/// <summary>
+/// System.Web.UI.HtmlControls.HtmlForm equivalent. Code-behind reaches for the form to
+/// set its action or default button ("Page.Form.DefaultButton = btnGo.UniqueID"); Blazor
+/// has no server-side form object, so the values are carried and nothing reads them.
+/// </summary>
+public class HtmlForm : LegacyWebControl
+{
+    public string Action { get; set; } = string.Empty;
+
+    public string Method { get; set; } = "post";
+
+    public string Enctype { get; set; } = string.Empty;
+
+    public string Target { get; set; } = string.Empty;
+
+    public string DefaultButton { get; set; } = string.Empty;
+
+    public string DefaultFocus { get; set; } = string.Empty;
+
+    public string Name => ID ?? string.Empty;
+
+    public bool SubmitDisabledControls { get; set; }
+
+    protected override string TagName => "form";
+}
+
+/// <summary>
+/// System.Web.UI.WebControls.ContentPlaceHolder equivalent. The markup side becomes a
+/// Blazor layout section; this exists for code-behind that looks one up by ID
+/// ("(ContentPlaceHolder)Master.FindControl(\"cphMain\")") to decide what to show.
+/// </summary>
+public class ContentPlaceHolder : LegacyWebControl
+{
+    protected override string TagName => "div";
+}
+
+/// <summary>System.Web.UI.WebControls.View equivalent (a MultiView pane).</summary>
+public class View : LegacyWebControl
+{
+    protected override string TagName => "div";
+}

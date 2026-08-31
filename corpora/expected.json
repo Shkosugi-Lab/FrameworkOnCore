@@ -1,27 +1,32 @@
-{
+﻿{
     "be":  {
                "convertible":  6,
                "portedCs":  252,
-               "residuals":  83
+               "residuals":  83,
+               "buildErrors":  0
            },
     "mojo":  {
                  "convertible":  20,
                  "portedCs":  729,
-                 "residuals":  265
+                 "residuals":  265,
+                 "buildErrors":  599
              },
     "yaf":  {
                 "convertible":  5,
                 "portedCs":  2722,
-                "residuals":  80
+                "residuals":  80,
+                "buildErrors":  188
             },
     "dnn":  {
                 "convertible":  12,
                 "portedCs":  1944,
-                "residuals":  392
+                "residuals":  392,
+                "buildErrors":  1086
             },
     "wt":  {
                "convertible":  3,
                "portedCs":  12,
-               "residuals":  39
+               "residuals":  39,
+               "buildErrors":  16
            }
 }

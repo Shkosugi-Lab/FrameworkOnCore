@@ -58,11 +58,20 @@ GitHub の `nopSolutions/nopCommerce` に 1.x のタグが無く、ミラーも�
 
 | コーパス | 必要なオプション | 落とすとどうなるか |
 |---|---|---|
-| `be` | `--include BlogEngine.Core` | 基底クラスが解決できない |
-| `mojo` | `--include` ×4、`--control-map` | `<mp:mojoGridView>` が未対応コントロール扱いになる |
-| `yaf` | `--include` ×3、`--web-config recommended.web.config` | 移植 .cs が 662→17 に激減し、`<YAF:LocalizedLabel>` などが解決されず UnmappedControl が 2,000 件超に爆発する |
-| `dnn` | `--include Library` | 基底クラスが解決できない |
+| `be` | なし | — |
+| `mojo` | `--include mojoPortal.Data.MSSQL`、`--control-map` | プロバイダ未指定ではデータ層が移植されない / `<mp:mojoGridView>` が未対応コントロール扱いになる |
+| `yaf` | `--project YAF-SqlServer.csproj`、`--web-config recommended.web.config` | `.csproj` が 4 つあり自動導出されない / `tagPrefix` が読めず `<YAF:LocalizedLabel>` などが UnmappedControl に爆発する |
+| `dnn` | なし | — |
 | `wt` | なし(入力ルートが 1 階層深い) | — |
+
+**参照ライブラリの `--include` は不要になりました。** 変換器が入力アプリの `.csproj` から
+`ProjectReference` を推移的に辿って自動で移植対象にします。ここに残っているのは
+機械が決められない 2 種類だけです。
+
+- `--project` — `.csproj` が複数あるとき。データベースごとにビルド構成を分ける実装が該当し、
+  推測せず何も導出しません
+- `--include` — 同じ型を宣言する排他プロジェクト群(`mojoPortal.Data.*`)から 1 つ選ぶとき。
+  どれも自動採用しません
 
 YAF はサイトルートに `Web.config` が無く、配布時に `recommended.web.config` を
 リネームする前提になっています。これを渡さないと `tagPrefix` が読めません。
@@ -75,22 +84,31 @@ YAF はサイトルートに `Web.config` が無く、配布時に `recommended.
 ## ベースライン(`expected.json`)
 
 ```
-コーパス  移植 .cs  総残差  変換可能
-be            252      82         6
-mojo          569     274        20
-yaf           662      77         5
-dnn          1308     346        12
-wt             12      38         3
-合計                  817        46
+コーパス  移植 .cs  総残差  変換可能  ビルドエラー
+be            252      83         6             0
+mojo          729     265        20           599
+yaf          2722      80         5           188
+dnn          1944     392        12          1086
+wt             12      39         3            16
+合計                  859        46          1889
 ```
 
-**追うべきは「変換可能」の数だけです。** 総残差の大半は `ManualMigration`
+**追うべきは「変換可能」と「ビルドエラー」です。** 総残差の大半は `ManualMigration`
 (設計判断・外部依存)で、コーパスが持ち込む依存の量を測っているにすぎません。
 分類の定義は `ResidualDisposition`(`src/WebForm2Blazor.Converter/ConversionReport.cs`)と
 [../HANDOVER.md](../HANDOVER.md) の 2.3 を参照してください。
 
-「変換可能」が減るのは改善なので `convert-all.ps1` は成功扱いにしますが、
-**総残差や移植 .cs が動いた場合は理由を確認するまで失敗扱い**にします。
+**残差とビルドの通りやすさは別の指標です。** 除外型スタブの変更で BlogEngine が
+0 → 17 エラーに退行したとき、残差の数値は 3 つとも一切動きませんでした。
+そのため `convert-all.ps1` は変換のたびに `--verify-build` を回し、ビルドエラー数も
+ベースラインとして固定します(`-SkipVerifyBuild` で省略可。所要時間は数分増えます)。
+
+「変換可能」やビルドエラーが減るのは改善なので成功扱いにしますが、
+**増加した場合や、総残差・移植 .cs が動いた場合は理由を確認するまで失敗扱い**にします。
+
+なお構文エラーがあるとコンパイラは意味解析を行わないため、**ビルドエラー数は総数ではなく
+下限**になります(YAF で構文エラー 1 個が 1,628 件を隠していた実例があります)。
+その状態を検出したら `convert-all.ps1` は警告して失敗扱いにします。
 
 ## 既知の注意点
 

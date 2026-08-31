@@ -17,6 +17,7 @@ param(
     [string]$Out = (Join-Path $PSScriptRoot 'out'),
     [string[]]$Only,
     [switch]$SkipBuild,
+    [switch]$SkipVerifyBuild,
     [switch]$UpdateBaseline
 )
 
@@ -154,11 +155,26 @@ foreach ($c in $corpora) {
         continue
     }
 
+    # Residual count and "does it compile" are different claims, and only the second one
+    # would have caught the day an excluded-type stub change took BlogEngine from 0 build
+    # errors to 17 while every residual number stayed identical.
+    $buildErrors = -1
+    if (-not $SkipVerifyBuild) {
+        $verifyOutput = & dotnet $converter --verify-build $outDir 2>&1 | Out-String
+        $verifyLine = ($verifyOutput -split "`r?`n" | Where-Object { $_ -match '^エラー\s+(\d+)\s+件' } | Select-Object -First 1)
+        if ($verifyLine -match '^エラー\s+(\d+)\s+件') { $buildErrors = [int]$Matches[1] }
+        if ($verifyOutput -match '警告: 構文エラー') {
+            # A parse error stops semantic analysis, so the count is a floor, not a total.
+            $problems += "$($c.Name): 構文エラーによりビルドエラー数が下限値です"
+        }
+    }
+
     $s = Read-Summary -ReportPath $report
     $measured[$c.Name] = @{
         portedCs    = $s.PortedCs
         residuals   = $s.Residuals
         convertible = $s.Convertible
+        buildErrors = $buildErrors
     }
 
     $expected = $baseline[$c.Name]
@@ -175,15 +191,26 @@ foreach ($c in $corpora) {
         if ($s.Residuals -ne $expected.residuals) {
             $diffs += ("総残差 {0}->{1}" -f $expected.residuals, $s.Residuals)
         }
+        # Only an INCREASE is a problem. Fewer build errors is the whole point of most
+        # changes here, and stopping to update the baseline for every improvement would
+        # train people to update it without reading it.
+        if ($buildErrors -ge 0 -and $null -ne $expected.buildErrors -and $expected.buildErrors -ge 0 `
+            -and $buildErrors -ne $expected.buildErrors) {
+            $diffs += ("ビルドエラー {0}->{1}" -f $expected.buildErrors, $buildErrors)
+        }
 
         if ($diffs.Count -eq 0) {
             $verdict = '一致'
         }
         else {
             $verdict = ($diffs -join ' / ')
-            # 変換可能残差が減るのは改善。それ以外の変化は必ず理由を確認すること。
-            $improved = ($s.Convertible -lt $expected.convertible) -and
-                        ($s.PortedCs -eq $expected.portedCs)
+            # 変換可能残差とビルドエラーが減るのは改善。それ以外の変化は必ず理由を確認すること。
+            $buildImproved = $buildErrors -lt 0 -or $null -eq $expected.buildErrors `
+                             -or $expected.buildErrors -lt 0 -or $buildErrors -le $expected.buildErrors
+            $improved = $buildImproved -and
+                        ($s.PortedCs -eq $expected.portedCs) -and
+                        ($s.Convertible -le $expected.convertible) -and
+                        (($s.Convertible -lt $expected.convertible) -or ($buildErrors -lt $expected.buildErrors))
             if ($improved) { $verdict = "改善: $verdict" }
             else           { $problems += "$($c.Name): $verdict" }
         }
@@ -192,15 +219,17 @@ foreach ($c in $corpora) {
     if ($s.Errors -gt 0) { $problems += "$($c.Name): 変換エラー $($s.Errors) 件" }
 
     $rows += [PSCustomObject]@{
-        コーパス    = $c.Name
-        '移植 .cs'  = $s.PortedCs
-        総残差      = $s.Residuals
-        変換可能    = $s.Convertible
-        エラー      = $s.Errors
-        判定        = $verdict
+        コーパス      = $c.Name
+        '移植 .cs'    = $s.PortedCs
+        総残差        = $s.Residuals
+        変換可能      = $s.Convertible
+        ビルドエラー  = $(if ($buildErrors -ge 0) { $buildErrors } else { '-' })
+        エラー        = $s.Errors
+        判定          = $verdict
     }
-    Write-Host ("  移植 .cs {0} / 総残差 {1} / 変換可能 {2} / エラー {3} — {4}" -f `
-        $s.PortedCs, $s.Residuals, $s.Convertible, $s.Errors, $verdict)
+    Write-Host ("  移植 .cs {0} / 総残差 {1} / 変換可能 {2} / ビルドエラー {3} / エラー {4} — {5}" -f `
+        $s.PortedCs, $s.Residuals, $s.Convertible,
+        $(if ($buildErrors -ge 0) { $buildErrors } else { '未計測' }), $s.Errors, $verdict)
 }
 
 Write-Host ""
@@ -210,7 +239,12 @@ $rows | Format-Table -AutoSize
 if ($rows.Count -gt 0) {
     $totalResiduals = ($rows | Measure-Object -Property 総残差 -Sum).Sum
     $totalConvertible = ($rows | Measure-Object -Property 変換可能 -Sum).Sum
-    Write-Host ("合計: 総残差 {0} / 変換可能 {1}" -f $totalResiduals, $totalConvertible)
+    $measuredBuilds = @($rows | Where-Object { $_.ビルドエラー -ne '-' })
+    $totalBuild = if ($measuredBuilds.Count -gt 0) {
+        ($measuredBuilds | Measure-Object -Property ビルドエラー -Sum).Sum
+    } else { '未計測' }
+    Write-Host ("合計: 総残差 {0} / 変換可能 {1} / ビルドエラー {2}" -f `
+        $totalResiduals, $totalConvertible, $totalBuild)
 }
 
 if ($UpdateBaseline) {

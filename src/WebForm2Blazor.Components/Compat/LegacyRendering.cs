@@ -247,6 +247,18 @@ public abstract class LegacyWebControl : IWebFormsControl, IDisposable
     {
     }
 
+    /// <summary>WebForms WebControl.OnAttributesChanged equivalent.</summary>
+    protected virtual void OnAttributesChanged()
+    {
+    }
+
+    /// <summary>
+    /// WebForms WebControl.TagKey equivalent. Rendering here goes through
+    /// <see cref="TagName"/>; TagKey exists because ported controls override it to pick
+    /// their element.
+    /// </summary>
+    protected virtual HtmlTextWriterTag TagKey => HtmlTextWriterTag.Span;
+
     /// <summary>
     /// WebForms Control.LoadViewState / SaveViewState equivalents. ViewState here is a
     /// per-instance bag with no round trip, so a saved state is never handed back.

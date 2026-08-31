@@ -240,6 +240,35 @@ public static class CodeBehindRewriter
             ? compat
             : null;
 
+    /// <summary>
+    /// WebForms control bases that the compatibility layer models as Blazor COMPONENTS.
+    /// A plain class - an excluded-type stub - cannot usefully derive from one of those,
+    /// so it derives from LegacyWebControl instead, which is the same surface as a plain
+    /// class.
+    ///
+    /// Without this the stub gets no base at all, and then every class deriving FROM the
+    /// stub fails on each lifecycle override it declares. DNN's DnnDropDownList is a
+    /// Panel; losing that took out OnInit, OnPreRender and CreateChildControls across all
+    /// of its subclasses, and the errors pointed at the subclasses.
+    /// </summary>
+    private static readonly HashSet<string> ControlBaseNames = new(StringComparer.Ordinal)
+    {
+        "WebControl", "CompositeControl", "Panel", "PlaceHolder", "Literal", "Label",
+        "TextBox", "Button", "LinkButton", "ImageButton", "HyperLink", "Image",
+        "CheckBox", "RadioButton", "ListControl", "DropDownList", "ListBox",
+        "CheckBoxList", "RadioButtonList", "Repeater", "DataList", "GridView",
+        "DetailsView", "FormView", "BaseValidator", "HtmlGenericControl",
+        "DataBoundControl", "CompositeDataBoundControl", "BaseDataBoundControl",
+        "HierarchicalDataBoundControl", "TemplateControl", "WebPart",
+    };
+
+    /// <summary>
+    /// The compat class an excluded stub should derive from so that lifecycle overrides in
+    /// its subclasses resolve, or null when the base is not a WebForms control.
+    /// </summary>
+    internal static string? ResolveControlBase(string baseName)
+        => ControlBaseNames.Contains(baseName) ? "LegacyWebControl" : null;
+
     private static readonly Dictionary<string, string> CompatBaseReplacements = new(StringComparer.Ordinal)
     {
         ["Page"] = "WebFormsPage",

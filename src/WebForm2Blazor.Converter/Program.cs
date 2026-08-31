@@ -1517,6 +1517,10 @@ static string RenderStubType(
             {
                 resolvedBase = "WebForm2Blazor.Components." + compatBase;
             }
+            else if (CodeBehindRewriter.ResolveControlBase(baseName) is { } controlBase)
+            {
+                resolvedBase = "WebForm2Blazor.Components." + controlBase;
+            }
 
             if (resolvedBase is not null)
             {

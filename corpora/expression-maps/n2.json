@@ -1,0 +1,20 @@
+[
+  {
+    "_comment": "n2cms registers these via [ExpressionPrefix] in src/Framework/N2/Web/Compilation. Each builder declares the C# it compiles to in its own ExpressionFormat property; these are those strings, with {0} written as {value}. The static methods they call are ported with the rest of N2, so nothing new has to be implemented.",
+    "prefix": "CurrentItem",
+    "expression": "N2.Web.Compilation.CurrentItemExpressionBuilder.GetCurrentItemValue(\"{value}\")"
+  },
+  {
+    "prefix": "CurrentPage",
+    "expression": "N2.Web.Compilation.CurrentPageExpressionBuilder.GetCurrentPageValue(\"{value}\")"
+  },
+  {
+    "prefix": "StartPage",
+    "expression": "N2.Web.Compilation.StartPageExpressionBuilder.GetStartPageValue(\"{value}\")"
+  },
+  {
+    "prefix": "HasValue",
+    "expression": "N2.Web.Compilation.HasValueExpressionBuilder.HasValue(\"{value}\")"
+  }
+]
+

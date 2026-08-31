@@ -71,7 +71,32 @@ GitHub の `nopSolutions/nopCommerce` に 1.x のタグが無く、ミラーも�
 | `mojo` | `--include mojoPortal.Data.MSSQL`、`--control-map` | プロバイダ未指定ではデータ層が移植されない / `<mp:mojoGridView>` が未対応コントロール扱いになる |
 | `yaf` | `--project YAF-SqlServer.csproj`、`--web-config recommended.web.config` | `.csproj` が 4 つあり自動導出されない / `tagPrefix` が読めず `<YAF:LocalizedLabel>` などが UnmappedControl に爆発する |
 | `dnn` | なし | — |
+| `n2` | `--project N2.Templates.csproj`、`--expression-map` | `.csproj` が 7 つある / 独自の式ビルダーが全て残差になる |
 | `wt` | なし(入力ルートが 1 階層深い) | — |
+
+### 式ビルダーの対応表(`--expression-map`)
+
+n2 の「変換可能」残差 59 件のうち **23 件は独自の式ビルダー**でした
+(`<%$ CurrentItem: Title %>` など)。AI 残差層のタスクを生成させると 17 件全部が
+これで、**AI に投げる前に決定的層で片が付く**種類のものでした。
+
+対応表は推測ではありません。各ビルダーが**変換先の C# 式を自分で宣言しています**。
+
+```csharp
+// src/Framework/N2/Web/Compilation/CurrentItemExpressionBuilder.cs
+get { return @"N2.Web.Compilation.CurrentItemExpressionBuilder.GetCurrentItemValue(""{0}"")"; }
+```
+
+`corpora/expression-maps/n2.json` はこの文字列を `{0}` → `{value}` に置き換えただけです。
+呼び先の静的メソッドは N2 本体と一緒に移植されるので、新しい実装は要りません。
+
+**`Code` プレフィックスは意図的に外してあります。** `CodeExpressionBuilder` は式を
+そのまま埋め込む(`CodeSnippetExpression`)ので対応表は `{value}` になりますが、
+値が文字列リテラルを含むと(`<%$ Code: "AutoZone2" %>`)エミッタが属性値として
+エスケープし、`@(\"AutoZone2\")` という**不正な Razor** になります。実際に n2 の
+UITests TemplatePage.aspx で構文解析が止まり、ビルドエラーが 2 件増えました。
+対応するにはエミッタ側で「生コード」と「文字列値」のテンプレートを区別する必要があります。
+それまでは残差のままにしてあります。
 
 **参照ライブラリの `--include` は不要になりました。** 変換器が入力アプリの `.csproj` から
 `ProjectReference` を推移的に辿って自動で移植対象にします。ここに残っているのは
@@ -95,12 +120,12 @@ YAF はサイトルートに `Web.config` が無く、配布時に `recommended.
 ```
 コーパス  移植 .cs  総残差  変換可能  ビルドエラー
 be            253      82         6             0
-n2           1661     258        59           109
+n2           1661     235        36           109
 mojo          731     262        20           237
 yaf          2722      80         5           179
 dnn          1944     392        12           941
 wt             13      38         3             1
-合計                 1112       105          1467
+合計                 1089        82          1467
 ```
 
 **追うべきは「変換可能」と「ビルドエラー」です。** 総残差の大半は `ManualMigration`

@@ -61,6 +61,9 @@ $corpora = @(
     @{ Name = 'n2'
        Input = 'n2cms-master\src\WebForms\WebFormsTemplates'
        Project = 'n2cms-master\src\WebForms\WebFormsTemplates\N2.Templates.csproj'
+       # n2 registers five expression builders of its own; without the map every
+       # "<%$ CurrentItem: Title %>" is dropped as a residual.
+       ExpressionMap = 'expression-maps\n2.json'
        Include = @() },
 
     # 入力ルートが 1 階層深い(リポジトリ名 / ソリューション名 / プロジェクト名)。
@@ -149,6 +152,7 @@ foreach ($c in $corpora) {
     if ($c.Project) { $arguments += @('--project', (Join-Path $Root $c.Project)) }
     if ($c.WebConfig)  { $arguments += @('--web-config',  (Join-Path $Root $c.WebConfig)) }
     if ($c.ControlMap) { $arguments += @('--control-map', (Join-Path $PSScriptRoot $c.ControlMap)) }
+    if ($c.ExpressionMap) { $arguments += @('--expression-map', (Join-Path $PSScriptRoot $c.ExpressionMap)) }
 
     & dotnet $converter @arguments | Out-Null
     if ($LASTEXITCODE -ne 0) {

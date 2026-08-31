@@ -762,6 +762,23 @@ var appSettingsJson = project.WebConfigPath is not null
       """;
 File.WriteAllText(Path.Combine(output, "appsettings.json"), appSettingsJson);
 
+// Custom configuration sections travel as App.config, not appsettings.json. Their handler
+// is the application's own ConfigurationSection subclass - ordinary code, ported with
+// everything else - and System.Configuration on .NET can still bind one, but only from a
+// .config file. appsettings.json cannot carry them: it has no schema for a typed section.
+//
+// Only <configSections> and the sections it declares come across. The rest of Web.config
+// (<system.web>, <system.webServer>) is Framework-only and is converted or reported
+// separately; copying it would put settings into App.config that nothing reads.
+if (project.WebConfigPath is not null)
+{
+    var appConfig = WebConfigConverter.ExtractCustomSections(project.WebConfigPath, report);
+    if (appConfig is not null)
+    {
+        File.WriteAllText(Path.Combine(output, "App.config"), appConfig);
+    }
+}
+
 // Smoke-scenario auto-generation (verification layer 2).
 // The converter knows every route, control ID, and event presence from the syntax
 // tree, so it can deterministically emit a scenario that "opens every page, asserts

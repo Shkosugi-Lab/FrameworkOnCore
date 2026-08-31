@@ -260,8 +260,13 @@ public static class WebConfigurationManager
     public static Compat.ConfigurationManager.ConnectionStringsSection ConnectionStrings
         => Compat.ConfigurationManager.ConnectionStrings;
 
-    /// <summary>Config sections are not modelled; ported code null-checks the result.</summary>
-    public static object GetSection(string sectionName) => null;
+    /// <summary>
+    /// System.Web.Configuration.WebConfigurationManager.GetSection equivalent. Same source
+    /// as <see cref="Compat.ConfigurationManager.GetSection"/>: the App.config the
+    /// converter carries over from Web.config.
+    /// </summary>
+    public static object GetSection(string sectionName)
+        => Compat.ConfigurationManager.GetSection(sectionName);
 
     public static object GetWebApplicationSection(string sectionName) => null;
 

@@ -123,4 +123,107 @@ public static class WebConfigConverter
             Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
         });
     }
+
+    /// <summary>
+    /// The &lt;configSections&gt; declarations and the sections they declare, as an App.config.
+    /// Null when the Web.config declares no custom sections.
+    ///
+    /// These cannot travel in appsettings.json: a custom section is materialised by the
+    /// application's OWN ConfigurationSection subclass, which is ported like any other
+    /// class, and System.Configuration binds one only from a .config file. Once the XML is
+    /// there the section resolves exactly as it did on 4.8.
+    /// </summary>
+    public static string? ExtractCustomSections(string webConfigPath, ConversionReport report)
+    {
+        XDocument document;
+        try
+        {
+            document = XDocument.Load(webConfigPath);
+        }
+        catch (System.Xml.XmlException)
+        {
+            return null;
+        }
+
+        var configSections = document.Root?.Element("configSections");
+        if (configSections is null || document.Root is null)
+        {
+            return null;
+        }
+
+        // Sections are declared as <section name="x"> at the top level, or nested one level
+        // inside <sectionGroup name="g">, which the config system then addresses as "g/x".
+        var names = new List<string>();
+        foreach (var declared in configSections.Descendants()
+                     .Where(element => element.Name.LocalName == "section"))
+        {
+            var name = declared.Attribute("name")?.Value;
+            if (string.IsNullOrEmpty(name))
+            {
+                continue;
+            }
+            var group = declared.Parent?.Name.LocalName == "sectionGroup"
+                ? declared.Parent.Attribute("name")?.Value
+                : null;
+            names.Add(string.IsNullOrEmpty(group) ? name : group + "/" + name);
+        }
+
+        if (names.Count == 0)
+        {
+            return null;
+        }
+
+        var carried = new List<XElement>();
+        foreach (var name in names)
+        {
+            XElement? current = document.Root;
+            foreach (var segment in name.Split('/'))
+            {
+                current = current?.Element(segment);
+            }
+            if (current is not null)
+            {
+                carried.Add(current);
+            }
+        }
+
+        if (carried.Count == 0)
+        {
+            return null;
+        }
+
+        var root = new XElement("configuration", new XElement(configSections));
+        // A grouped section has to keep its group element, or the name it is addressed by
+        // ("BlogEngine/blogProvider") no longer resolves.
+        foreach (var group in carried
+                     .Select(element => element.Parent)
+                     .Where(parent => parent is not null && parent != document.Root)
+                     .Distinct())
+        {
+            root.Add(new XElement(group!));
+        }
+        foreach (var element in carried.Where(element => element.Parent == document.Root))
+        {
+            root.Add(new XElement(element));
+        }
+
+        // Every "type" in the original names an assembly that no longer exists: the
+        // conversion flattens the whole application into one. Dropping the qualifier lets
+        // the type resolve out of the converted assembly, which is where it now lives.
+        // A qualified name that fails to load surfaces as a ConfigurationErrorsException,
+        // which the compatibility GetSection turns back into a null section - the exact
+        // failure this change exists to remove.
+        foreach (var typeAttribute in root.Descendants()
+                     .Select(element => element.Attribute("type"))
+                     .Where(attribute => attribute is not null && attribute.Value.Contains(',')))
+        {
+            typeAttribute!.Value = typeAttribute.Value.Split(',')[0].Trim();
+        }
+
+        report.Info("(project)",
+            $"カスタム構成セクション {carried.Count} 件を App.config へ引き継ぎました"
+            + "(移植されたセクションハンドラがそのまま読み込みます): " + string.Join(", ", names));
+
+        return new XDocument(new XDeclaration("1.0", "utf-8", null), root).ToString();
+    }
 }

@@ -139,8 +139,27 @@ public static partial class BuildVerifier
         return new BuildOutcome(diagnostics.Count, StoppedAtParse(diagnostics));
     }
 
+    /// <summary>
+    /// True when the count cannot be read as a total. Two ways that happens:
+    ///
+    /// 1. The sources did not parse, so semantic analysis never ran (see
+    ///    <see cref="ParseErrorCodes"/>).
+    /// 2. The build failed OUTSIDE the compiler and so never reached it. An SDK or MSBuild
+    ///    error (NETSDK1022 from a duplicate item, a missing reference, an analyzer that
+    ///    would not load) aborts the build while the compiler still has zero diagnostics,
+    ///    and the run reports a handful of errors where a real compile would report
+    ///    thousands. A duplicate App_Data Content item put n2cms in exactly this state and
+    ///    the AI gate accepted a deliberately broken answer because "1 error" had not moved.
+    ///
+    /// Recognising (2) as "no CS diagnostic was produced at all" rather than by listing
+    /// tool codes keeps it closed against MSB*, NETSDK*, RZ* and anything else that fails
+    /// ahead of the compiler.
+    /// </summary>
     private static bool StoppedAtParse(List<Diagnostic> diagnostics)
-        => diagnostics.Any(diagnostic => ParseErrorCodes.Contains(diagnostic.Code));
+        => diagnostics.Any(diagnostic => ParseErrorCodes.Contains(diagnostic.Code))
+            || (diagnostics.Count > 0
+                && !diagnostics.Any(diagnostic =>
+                    diagnostic.Code.StartsWith("CS", StringComparison.Ordinal)));
 
     private const string ParseStopWarning = """
         > **この件数は下限です。**

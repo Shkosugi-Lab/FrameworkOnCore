@@ -794,7 +794,13 @@ if (Directory.Exists(appDataSource))
         var csprojText = File.ReadAllText(csprojPath);
         csprojText = csprojText.Replace("</Project>",
             $"  <ItemGroup>{Environment.NewLine}"
-            + $"    <Content Include=\"App_Data\\**\" CopyToOutputDirectory=\"PreserveNewest\" />{Environment.NewLine}"
+            // The SDK's own default globs already claim some of these files by extension
+            // (**/*.config, **/*.json ...). A plain Include re-adds them and the build dies
+            // at NETSDK1022 BEFORE compiling anything - which also silently floors the
+            // build-error count at 1. Exclude what is already a Content item and set the
+            // copy metadata on those separately with Update.
+            + $"    <Content Include=\"App_Data\\**\" Exclude=\"@(Content)\" CopyToOutputDirectory=\"PreserveNewest\" />{Environment.NewLine}"
+            + $"    <Content Update=\"App_Data\\**\" CopyToOutputDirectory=\"PreserveNewest\" />{Environment.NewLine}"
             + $"  </ItemGroup>{Environment.NewLine}{Environment.NewLine}</Project>");
         File.WriteAllText(csprojPath, csprojText);
         report.Info("(project)", $"App_Data の {copied} ファイルを出力にコピーしました(ファイルベースのプロバイダのデータ)。");

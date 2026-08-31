@@ -62,6 +62,7 @@ string? expressionMapPath = null;
 string? propertyCatalogPath = null;
 string? webConfigOverride = null;
 var includeDirectories = new List<string>();
+var analyzerAssemblies = new List<string>();
 string? entryProjectPath = null;
 var deriveIncludes = true;
 var port = 5080;
@@ -80,6 +81,7 @@ for (var i = 0; i < args.Length; i++)
         case "--catalog": propertyCatalogPath = args[++i]; break;
         case "--include": includeDirectories.Add(args[++i]); break;
         case "--project": entryProjectPath = args[++i]; break;
+        case "--analyzer": analyzerAssemblies.Add(args[++i]); break;
         case "--no-derive-includes": deriveIncludes = false; break;
         case "--web-config": webConfigOverride = args[++i]; break;
         default:
@@ -175,11 +177,21 @@ if (deriveIncludes)
         // Not portable and not reproducible: whatever the generator emitted at build time
         // is simply absent, and the code that used it will not compile. Saying so here
         // saves the reader from hunting for a converter bug that does not exist.
-        report.Residual("(project)", ResidualKind.Configuration,
-            "ビルド時にコードを生成するアナライザ参照があります。生成される宣言は変換出力に含まれないため、"
-            + "それに依存するコードはビルドできません(手動移行が必要です): "
-            + string.Join(", ", derived.Analyzers.Select(Path.GetFileName)),
-            disposition: ResidualDisposition.ManualMigration);
+        var unwired = derived.Analyzers
+            .Where(path => !analyzerAssemblies.Any(dll =>
+                Path.GetFileNameWithoutExtension(dll)
+                    .Equals(Path.GetFileNameWithoutExtension(path), StringComparison.OrdinalIgnoreCase)))
+            .ToList();
+        if (unwired.Count > 0)
+        {
+            report.Residual("(project)", ResidualKind.Configuration,
+                "ビルド時にコードを生成するアナライザ参照があります。生成される宣言は変換元に存在しないため、"
+                + "それに依存するコードはこのままではビルドできません。"
+                + "アナライザをビルドして --analyzer <dll> で渡すと、生成プロジェクトに組み込まれ"
+                + "ビルド時に元と同じ宣言が生成されます: "
+                + string.Join(", ", unwired.Select(Path.GetFileName)),
+                disposition: ResidualDisposition.ManualMigration);
+        }
     }
 
     if (derived.ForeignLanguage.Count > 0)
@@ -713,6 +725,31 @@ if (packageReferences.Count > 0)
     File.WriteAllText(csprojPath, csprojText);
     report.Info("(project)",
         "移植コードの using から NuGet 参照を追加しました: " + string.Join(", ", packageReferences.Select(package => package.Id)));
+}
+
+// Source generators the ORIGINAL build ran. Their output is not in the source - that is
+// the whole point of a generator - so ported code that depends on it cannot compile:
+// DNN Platform's [DnnDeprecated] generator writes the defining half of every partial
+// method in its Obsolete/ files, and without it the build reports 230 CS0759.
+//
+// Rather than re-implement generator hosting, the generator is handed to the compiler the
+// same way the original project did, as an Analyzer on the generated project. MSBuild then
+// runs it during the build with a real compilation behind it, which is what a generator
+// needs and what the converter has no way to assemble on its own.
+//
+// Measured on DNN Platform: 941 build errors -> 726, with all 230 CS0759 gone.
+if (analyzerAssemblies.Count > 0)
+{
+    var csprojPath = Path.Combine(output, appName + ".csproj");
+    var csprojText = File.ReadAllText(csprojPath);
+    var analyzerItems = string.Join(Environment.NewLine, analyzerAssemblies.Select(path =>
+        $"    <Analyzer Include=\"{Path.GetFullPath(path)}\" />"));
+    csprojText = csprojText.Replace("</Project>",
+        $"  <ItemGroup>{Environment.NewLine}{analyzerItems}{Environment.NewLine}  </ItemGroup>{Environment.NewLine}{Environment.NewLine}</Project>");
+    File.WriteAllText(csprojPath, csprojText);
+    report.Info("(project)",
+        "ソースジェネレータを生成プロジェクトに組み込みました(ビルド時に元と同じ宣言が生成されます): "
+        + string.Join(", ", analyzerAssemblies.Select(Path.GetFileName)));
 }
 
 var appSettingsJson = project.WebConfigPath is not null

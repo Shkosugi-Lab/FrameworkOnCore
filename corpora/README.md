@@ -148,3 +148,29 @@ n2cms の `N2.Edit.TreeNode` と互換層の `TreeNode` が実例です(現状 2
 - これらのスクリプトは PowerShell 5.1 互換です。日本語を含むため
   **BOM 付き UTF-8** で保存してください(BOM 無しだと PS 5.1 は ANSI として読み、
   文字列リテラルが壊れます)。
+
+## ソースジェネレータ(`--analyzer`)
+
+DNN Platform はビルド時に Roslyn ソースジェネレータを走らせます。`[DnnDeprecated]` から
+partial メソッドの**定義宣言**を生成するもので、その宣言は**変換元のソースに存在しません**。
+変換器はソースを読み書きするだけなのでそれを再現できず、依存するコードがビルドできません
+(CS0759 が 230 件)。
+
+ジェネレータを変換器が自前で実行するのではなく、**生成プロジェクトに `<Analyzer>` として
+組み込みます**。ビルド時に MSBuild が元と同じようにジェネレータを走らせるため、参照解決も
+意味解析も自前で用意する必要がありません。
+
+```powershell
+# 1. ジェネレータをビルドする(そのプロジェクトが要求する SDK が必要)
+dotnet build "corpora\work\Dnn.Platform-9.13.10\DotNetNuke.Internal.SourceGenerators" -c Release
+
+# 2. その DLL を変換に渡す
+dotnet ...\WebForm2Blazor.Converter.dll --input ... --output ... `
+  --analyzer "...\bin\Release\netstandard2.0\DotNetNuke.Internal.SourceGenerators.dll"
+```
+
+**実測: DNN Platform のビルドエラー 941 → 726、CS0759 は 230 → 0。**
+
+ベースラインには反映していません。ジェネレータのビルドには**そのプロジェクトが `global.json`
+で固定した SDK** が要り(DNN は 9.0.202)、コーパス計測が追加の SDK に依存してしまうためです。
+`--analyzer` はオプトインで、渡さなければ従来どおり残差として報告します。

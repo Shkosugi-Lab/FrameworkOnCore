@@ -329,13 +329,13 @@ MasterProbe の 1 件は対処不要の通知(`Informational`)で、変換の失
 | コーパス | 移植 .cs | 総残差 | うち変換可能 |
 |---|---:|---:|---:|
 | BlogEngine.NET 3.3.8 | 252 | 83 | 6 |
-| mojoPortal 3.1.6 | 569 | 274 | 20 |
+| mojoPortal 3.1.6 | 718 | 278 | 20 |
 | YAF.NET 3.2.15 | 662 | 77 | 5 |
-| DNN Platform 9.13.10 | 1,308 | 346 | 12 |
+| DNN Platform 9.13.10 | 1,355 | 348 | 12 |
 | WingtipToys | 12 | 39 | 3 |
-| **計** | | **819** | **46** |
+| **計** | | **825** | **46** |
 
-総残差の大半(745 件)は `ManualMigration` = 設計判断や外部依存で、人間が決めるべきものです。
+総残差の大半は `ManualMigration` = 設計判断や外部依存で、人間が決めるべきものです。
 品質指標として追うのは **変換可能(`Convertible`)の 46 件**だけです。
 生成 Razor の RZ(Razor 構文)エラーは全コーパスで 0 件。
 
@@ -345,13 +345,14 @@ MasterProbe の 1 件は対処不要の通知(`Informational`)で、変換の失
 |---|---:|
 | BlogEngine | **0**(唯一ビルドが通る) |
 | WingtipToys | 16 |
-| mojoPortal | 1,073 |
+| mojoPortal | 616 |
 | YAF.NET | 1,629 |
-| DNN Platform | 2,291 |
+| DNN Platform | 883 |
 
-大半は互換シム不足と、元プロジェクトが参照していた .NET 非対応パッケージ(YAF の
-`ServiceStack` など)で、残差としては `ManualMigration` に分類されているものです。
-残差 0 件は「書かれた構文を全部読めた」であって「動く」ではありません。
+残るものの大半は、元プロジェクトが参照していた .NET 非対応パッケージ(YAF の
+`ServiceStack`、両者の `Lucene.Net` など)と、ナビゲーション系コントロール
+(`Menu` / `TreeView` 一族)の未実装です。いずれも残差としては `ManualMigration`
+に分類されています。**残差 0 件は「書かれた構文を全部読めた」であって「動く」ではありません。**
 
 ## 既知の制約(次マイルストーン候補)
 

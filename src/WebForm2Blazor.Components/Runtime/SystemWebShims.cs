@@ -871,6 +871,45 @@ public sealed class ToolboxDataAttribute(string data) : Attribute
     public string Data { get; } = data;
 }
 
+/// <summary>
+/// System.Web.UI.ThemeableAttribute equivalent (metadata only).
+///
+/// A genuine no-op rather than an approximation: WebForms themes and skin files have no
+/// Blazor counterpart at all, so there is no behaviour to reproduce. The attribute only
+/// ever told the designer and the theme engine whether a property could be themed, and
+/// ported control libraries carry it on hundreds of properties.
+/// </summary>
+[AttributeUsage(AttributeTargets.Class | AttributeTargets.Property | AttributeTargets.Event)]
+public sealed class ThemeableAttribute(bool themeable) : Attribute
+{
+    public static readonly ThemeableAttribute Yes = new(true);
+
+    public static readonly ThemeableAttribute No = new(false);
+
+    public static readonly ThemeableAttribute Default = Yes;
+
+    public bool Themeable { get; } = themeable;
+}
+
+/// <summary>
+/// System.Web.UI.PersistenceMode equivalent (metadata only). Described how the WebForms
+/// designer serialised a property back into markup; nothing reads it here.
+/// </summary>
+public enum PersistenceMode
+{
+    Attribute,
+    InnerProperty,
+    InnerDefaultProperty,
+    EncodedInnerDefaultProperty,
+}
+
+/// <summary>System.Web.UI.PersistenceModeAttribute equivalent (metadata only).</summary>
+[AttributeUsage(AttributeTargets.Property | AttributeTargets.Event)]
+public sealed class PersistenceModeAttribute(PersistenceMode mode) : Attribute
+{
+    public PersistenceMode Mode { get; } = mode;
+}
+
 /// <summary>System.Web.Caching.Cache equivalent (in-memory, application-wide).</summary>
 public sealed class Cache
 {

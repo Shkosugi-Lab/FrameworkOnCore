@@ -37,6 +37,9 @@ samples/
                                golden-webforms.json(既定値カタログ)として固定し、
                                変換後と属性レベルで照合する。
                                ルール: 変換器にコントロール/プロパティを追加したら必ずここにも足す。
+  MasterProbe/                 マスターページと naming container の適合スイート。
+                               ContentPlaceHolder / ユーザーコントロールが ClientID に
+                               連結するプレフィックスを、旧ランタイムの実描画と照合する。
   HelloWebForms/               最小サンプル(TextBox + Button + Label)
   ProductAdmin/                実践的サンプル(マスターページ、ユーザーコントロール、
                                GridView、Repeater、検証、ViewState、Session、Web.config)
@@ -52,6 +55,11 @@ tools/
                                      --auto で変換器の自動生成シナリオを実行(第2層)
   WebForm2Blazor.ParityTest/         変換前アプリとの動作パリティテスト(第3層)
                                      record で正解を記録、verify で突き合わせ
+  WebForm2Blazor.PropertyCatalog/    実行中の .NET Framework ランタイムから
+                                     コントロールの属性と既定値を採取(net48)
+  verify-all.ps1                     全体回帰(変換 → bUnit → ビルド検証 → パリティ)
+corpora/                       実在 OSS アプリでの残差計測。fetch.ps1 で取得し
+                               convert-all.ps1 でベースライン(expected.json)と比較
 ```
 
 ## 使い方(エンドツーエンド)
@@ -176,8 +184,12 @@ Roslyn は「アプリが何を使っているか」の解析(使用棚卸し)�
 - golden.json は変換のたびに消える output/ ではなく、シナリオと同じ場所に保管するのを推奨。
 
 実証済み: **本物の旧 WebForms アプリ(IIS Express + .NET Framework 4.8)から記録した正解と、
-変換後 Blazor アプリが 7 スナップショットすべて一致**(絞り込み・並べ替え・検証エラー・保存→
-リダイレクトまで)。設定を意図的に壊した状態では 7 件すべてで差分を検出することも確認済み。
+変換後 Blazor アプリが 30 スナップショットすべて一致**(絞り込み・並べ替え・検証エラー・保存→
+リダイレクトまで)。設定を意図的に壊した状態では差分を検出することも確認済み。
+
+記録済みの `golden-webforms.json` はリポジトリに含めてあるため、**`verify` を回すだけなら
+IIS Express も .NET Framework も不要**です(必要なのは .NET SDK のみ)。旧ランタイムが要るのは
+正解を録り直す `record` のときだけです。
 
 ### 旧アプリを動かすときの WebForms 定番トラブル(サンプルで対処済み)
 
@@ -298,11 +310,48 @@ ListView の GroupTemplate / DataPager 等)。ただし未カバーは必ず表�
 
 ## 現状の変換実績
 
+### サンプル(`tools\verify-all.ps1`、exit 0)
+
 | サンプル | 残差 | bUnit | 自動スモーク | パリティ(旧アプリ正解) |
-|---|---:|---|---|---|
-| HelloWebForms | 0 件 | 3 件 | 1 項目 | — |
-| ProductAdmin(3 ページ + マスター + UC、42 コントロール) | 0 件 | 9 件 | 21 項目 | **13/13 一致** |
-| OrderAdmin(3 ページ + マスター、42 コントロール、UpdatePanel/TemplateField/全バリデータ) | 0 件 | 5 件 | 24 項目 | **10/10 一致** |
+|---|---:|---:|---:|---|
+| DefaultsProbe(全対応コントロールの既定レンダリング) | 0 件 | — | 66 | **4/4 一致** |
+| MasterProbe(マスター/UC の naming container) | 1 件 (通知) | — | 9 | **3/3 一致** |
+| HelloWebForms | 0 件 | 3 件 | 3 | — |
+| ProductAdmin(3 ページ + マスター + UC、42 コントロール) | 0 件 | 9 件 | 23 | **13/13 一致** |
+| OrderAdmin(3 ページ + マスター、42 コントロール、UpdatePanel/TemplateField/全バリデータ) | 0 件 | 5 件 | 26 | **10/10 一致** |
+| 横断(NewControlTests / FrequentPropertyTests) | — | 13 件 | — | — |
+| **合計** | | **30 件合格** | | **30 スナップショット全一致** |
+
+MasterProbe の 1 件は対処不要の通知(`Informational`)で、変換の失敗ではありません。
+
+### コーパス(実在 OSS アプリ、`corpora\convert-all.ps1`、exit 0)
+
+| コーパス | 移植 .cs | 総残差 | うち変換可能 |
+|---|---:|---:|---:|
+| BlogEngine.NET 3.3.8 | 252 | 83 | 6 |
+| mojoPortal 3.1.6 | 569 | 274 | 20 |
+| YAF.NET 3.2.15 | 662 | 77 | 5 |
+| DNN Platform 9.13.10 | 1,308 | 346 | 12 |
+| WingtipToys | 12 | 39 | 3 |
+| **計** | | **819** | **46** |
+
+総残差の大半(745 件)は `ManualMigration` = 設計判断や外部依存で、人間が決めるべきものです。
+品質指標として追うのは **変換可能(`Convertible`)の 46 件**だけです。
+生成 Razor の RZ(Razor 構文)エラーは全コーパスで 0 件。
+
+**残差と「ビルドが通ること」は別物です。** 変換出力を実際にビルドすると:
+
+| コーパス | ビルドエラー |
+|---|---:|
+| BlogEngine | **0**(唯一ビルドが通る) |
+| WingtipToys | 16 |
+| mojoPortal | 1,073 |
+| YAF.NET | 1,629 |
+| DNN Platform | 2,291 |
+
+大半は互換シム不足と、元プロジェクトが参照していた .NET 非対応パッケージ(YAF の
+`ServiceStack` など)で、残差としては `ManualMigration` に分類されているものです。
+残差 0 件は「書かれた構文を全部読めた」であって「動く」ではありません。
 
 ## 既知の制約(次マイルストーン候補)
 
@@ -311,7 +360,10 @@ ListView の GroupTemplate / DataPager 等)。ただし未カバーは必ず表�
 - インラインコードブロック `<% %>`、テンプレート外のデータバインド式(残差報告のみ)
 - `<%@ Register Assembly=... %>`(サードパーティコントロール)
 - Forms 認証 / HttpModule / HttpHandler(残差報告のみ)
-- `ValidationGroup`、`RangeValidator` など残りのバリデータ
-- ListView / FormView / DetailsView / TreeView など残りのデータコントロール
-- AI 変換層(残差の自動変換)とビルドエラー自動修復ループ
-- 変換前アプリとの自動パリティテスト(ゴールデンマスター)
+- TreeView(残りのデータコントロール。ListView / FormView / DetailsView は対応済み)
+- AI 変換層: 残差の抽出(`AI-TASKS.json`)、プロンプト生成(`--ai-tasks`)、
+  ビルド/パリティをゲートにした適用とロールバック(`--ai-apply`)までは実装済み。
+  **プロンプトを LLM に投げて回答を書き出す部分だけが未実装**で、そこは外部に委ねている。
+
+実装済みになったもの: `ValidationGroup` と全バリデータ(`RangeValidator` 含む)、
+ListView / FormView / DetailsView、変換前アプリとの自動パリティテスト(ゴールデンマスター)。

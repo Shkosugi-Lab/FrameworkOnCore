@@ -785,9 +785,22 @@ public static partial class AspxConverters
     /// them statically would look right but be dead, so they stay as honest stubs for
     /// hand-porting via --control-map.
     /// </summary>
+    /// <summary>
+    /// WebForms base classes whose ported subclasses LegacyRenderHost can render. The name
+    /// is the ROOT of the original base chain, so these are System.Web.UI names even though
+    /// the ported class has been rewritten onto LegacyWebControl.
+    ///
+    /// The list was grown one entry at a time and had gaps that cost more than they look:
+    /// Button was missing, so mojoPortal's "mojoButton : Button" was reported as an
+    /// unmapped control 128 times - 30% of every unmapped control across all six corpora,
+    /// for a control whose source was ported and whose tagPrefix was registered.
+    /// </summary>
     private static readonly HashSet<string> LegacyRenderableRoots = new(StringComparer.Ordinal)
     {
-        "Control", "WebControl", "Panel", "Label", "Literal", "HyperLink", "Image", "PlaceHolder",
+        "Control", "WebControl", "CompositeControl", "TemplateControl",
+        "Panel", "Label", "Literal", "HyperLink", "Image", "PlaceHolder",
+        "Button", "LinkButton", "ImageButton", "TextBox", "CheckBox", "RadioButton",
+        "DropDownList", "ListBox", "ListControl", "BaseValidator",
         "LegacyWebControl", "LegacyPanel", "LegacyLabel", "LegacyLiteral", "LegacyHyperLink",
     };
 

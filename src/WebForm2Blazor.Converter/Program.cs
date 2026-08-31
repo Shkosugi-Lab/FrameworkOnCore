@@ -770,9 +770,40 @@ File.WriteAllText(Path.Combine(output, "appsettings.json"), appSettingsJson);
 // Only <configSections> and the sections it declares come across. The rest of Web.config
 // (<system.web>, <system.webServer>) is Framework-only and is converted or reported
 // separately; copying it would put settings into App.config that nothing reads.
+// App_Data is the application's data, not its code: a file-backed provider keeps its
+// store there, and without it the provider initialises and then fails on first read.
+// BlogEngine ships its entire blog as XML under App_Data, so the converted site cannot
+// serve a single post without it. Copied verbatim and marked to travel to the output
+// directory, because that is where the running app resolves the path from.
+var appDataSource = Path.Combine(input, "App_Data");
+if (Directory.Exists(appDataSource))
+{
+    var copied = 0;
+    foreach (var file in Directory.EnumerateFiles(appDataSource, "*", SearchOption.AllDirectories))
+    {
+        var relative = Path.GetRelativePath(appDataSource, file);
+        var destination = Path.Combine(output, "App_Data", relative);
+        Directory.CreateDirectory(Path.GetDirectoryName(destination)!);
+        File.Copy(file, destination, overwrite: true);
+        copied++;
+    }
+
+    if (copied > 0)
+    {
+        var csprojPath = Path.Combine(output, appName + ".csproj");
+        var csprojText = File.ReadAllText(csprojPath);
+        csprojText = csprojText.Replace("</Project>",
+            $"  <ItemGroup>{Environment.NewLine}"
+            + $"    <Content Include=\"App_Data\\**\" CopyToOutputDirectory=\"PreserveNewest\" />{Environment.NewLine}"
+            + $"  </ItemGroup>{Environment.NewLine}{Environment.NewLine}</Project>");
+        File.WriteAllText(csprojPath, csprojText);
+        report.Info("(project)", $"App_Data の {copied} ファイルを出力にコピーしました(ファイルベースのプロバイダのデータ)。");
+    }
+}
+
 if (project.WebConfigPath is not null)
 {
-    var appConfig = WebConfigConverter.ExtractCustomSections(project.WebConfigPath, report);
+    var appConfig = WebConfigConverter.ExtractCustomSections(project.WebConfigPath, appName, report);
     if (appConfig is not null)
     {
         File.WriteAllText(Path.Combine(output, "App.config"), appConfig);

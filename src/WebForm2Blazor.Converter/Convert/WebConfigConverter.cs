@@ -133,7 +133,7 @@ public static class WebConfigConverter
     /// class, and System.Configuration binds one only from a .config file. Once the XML is
     /// there the section resolves exactly as it did on 4.8.
     /// </summary>
-    public static string? ExtractCustomSections(string webConfigPath, ConversionReport report)
+    public static string? ExtractCustomSections(string webConfigPath, string assemblyName, ConversionReport report)
     {
         XDocument document;
         try
@@ -208,16 +208,17 @@ public static class WebConfigConverter
         }
 
         // Every "type" in the original names an assembly that no longer exists: the
-        // conversion flattens the whole application into one. Dropping the qualifier lets
-        // the type resolve out of the converted assembly, which is where it now lives.
-        // A qualified name that fails to load surfaces as a ConfigurationErrorsException,
-        // which the compatibility GetSection turns back into a null section - the exact
-        // failure this change exists to remove.
+        // conversion flattens the whole application into one. The assembly is REPLACED
+        // rather than dropped - System.Configuration resolves a bare name with
+        // Type.GetType, which searches only its own assembly and the core library, so an
+        // unqualified handler fails with "Could not resolve type" and the section comes
+        // back null. Pointing it at the converted assembly is what makes it load.
         foreach (var typeAttribute in root.Descendants()
                      .Select(element => element.Attribute("type"))
-                     .Where(attribute => attribute is not null && attribute.Value.Contains(',')))
+                     .Where(attribute => attribute is not null))
         {
-            typeAttribute!.Value = typeAttribute.Value.Split(',')[0].Trim();
+            var typeName = typeAttribute!.Value.Split(',')[0].Trim();
+            typeAttribute.Value = $"{typeName}, {assemblyName}";
         }
 
         report.Info("(project)",

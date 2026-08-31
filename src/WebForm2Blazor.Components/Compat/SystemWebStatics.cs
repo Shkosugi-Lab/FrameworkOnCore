@@ -77,18 +77,125 @@ public enum HttpCacheRevalidation
 }
 
 /// <summary>
-/// System.Web.Configuration.ProvidersHelper equivalent. The provider model instantiated
-/// types named in Web.config; that configuration is not carried over, so nothing is
-/// added to the collection and the caller sees an empty provider list rather than a
-/// half-built one.
+/// System.Web.Configuration.ProvidersHelper equivalent.
+///
+/// The provider model is how a WebForms application swaps its storage layer, and it is
+/// driven entirely from configuration: the section lists providers by type name, this
+/// helper instantiates each one and adds it to a ProviderCollection, and the application
+/// then indexes that collection by the configured default. Every step is ordinary
+/// reflection over the application's OWN types, all of which are ported.
+///
+/// It used to be an empty no-op, which left the collection empty and the application
+/// throwing "Unable to load default provider" from a static initialiser - BlogEngine loses
+/// four of its five routes that way. Nothing here is approximated: the providers really are
+/// created and really are initialised with their configured settings.
 /// </summary>
 public static class ProvidersHelper
 {
     public static void InstantiateProviders(object configProviders, object providers, Type providerType)
     {
+        if (configProviders is not System.Collections.IEnumerable settings || providers is null)
+        {
+            return;
+        }
+
+        var add = providers.GetType().GetMethod("Add", [typeof(object)])
+                  ?? providers.GetType().GetMethods()
+                      .FirstOrDefault(method => method.Name == "Add" && method.GetParameters().Length == 1);
+
+        foreach (var setting in settings)
+        {
+            var provider = InstantiateProvider(setting, providerType);
+            if (provider is not null && add is not null)
+            {
+                try
+                {
+                    add.Invoke(providers, [provider]);
+                }
+                catch (System.Reflection.TargetInvocationException)
+                {
+                    // A collection that rejects the provider (duplicate name, wrong base)
+                    // keeps the rest of the list working rather than failing the request.
+                }
+            }
+        }
     }
 
-    public static object InstantiateProvider(object providerSettings, Type providerType) => null;
+    /// <summary>
+    /// Creates one provider from its configuration entry and calls Initialize(name,
+    /// config), which is where a provider reads its own settings.
+    /// </summary>
+    public static object InstantiateProvider(object providerSettings, Type providerType)
+    {
+        if (providerSettings is null)
+        {
+            return null;
+        }
+
+        var settingsType = providerSettings.GetType();
+        var name = settingsType.GetProperty("Name")?.GetValue(providerSettings) as string;
+        var typeName = settingsType.GetProperty("Type")?.GetValue(providerSettings) as string;
+        if (string.IsNullOrWhiteSpace(typeName))
+        {
+            return null;
+        }
+
+        // The configuration names the type as the ORIGINAL application wrote it. The
+        // converter rewrites the assembly to the converted one, but a hand-edited config
+        // may still carry the old assembly, so fall back to a search by full name.
+        var resolved = Type.GetType(typeName, throwOnError: false)
+                       ?? FindType(typeName.Split(',')[0].Trim());
+        if (resolved is null || (providerType is not null && !providerType.IsAssignableFrom(resolved)))
+        {
+            return null;
+        }
+
+        object provider;
+        try
+        {
+            provider = Activator.CreateInstance(resolved);
+        }
+        catch (MissingMethodException)
+        {
+            return null;
+        }
+
+        // ProviderBase.Initialize(string name, NameValueCollection config) - the provider
+        // reads its own attributes here, so skipping it leaves it half-built.
+        var parameters = settingsType.GetProperty("Parameters")?.GetValue(providerSettings)
+            as System.Collections.Specialized.NameValueCollection
+            ?? [];
+        var initialize = resolved.GetMethod(
+            "Initialize",
+            [typeof(string), typeof(System.Collections.Specialized.NameValueCollection)]);
+        try
+        {
+            initialize?.Invoke(provider, [name, parameters]);
+        }
+        catch (System.Reflection.TargetInvocationException)
+        {
+            // A provider that cannot initialise here would have failed on 4.8 too; the
+            // collection keeps the others.
+            return null;
+        }
+
+        return provider;
+    }
+
+    private static Type FindType(string fullName)
+        => AppDomain.CurrentDomain.GetAssemblies()
+            .Select(assembly =>
+            {
+                try
+                {
+                    return assembly.GetType(fullName, throwOnError: false);
+                }
+                catch (System.IO.FileNotFoundException)
+                {
+                    return null;
+                }
+            })
+            .FirstOrDefault(type => type is not null);
 }
 
 /// <summary>

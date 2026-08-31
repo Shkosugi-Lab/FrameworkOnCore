@@ -76,7 +76,9 @@ public static class CodeBehindRewriter
             }
         }
 
-        root = RewriteUsings(root, [.. RequiredUsings, .. additionalUsings ?? [], .. namespaceBridge]);
+        root = RewriteUsings(root,
+            [.. RequiredUsings, .. additionalUsings ?? [], .. namespaceBridge,
+             .. NestedNamespaceAliases(source, originalNamespace, baseRegistry)]);
         root = RewriteNamespace(root, component.TargetNamespace);
 
         // The class is looked up by the name the SOURCE declares, not by the component
@@ -133,6 +135,47 @@ public static class CodeBehindRewriter
 
         root = root.ReplaceNode(classDeclaration, updated);
         return RewriteQualifiedFrameworkTypes(RewriteSyntax(root).ToFullString());
+    }
+
+    /// <summary>
+    /// Aliases that keep partially qualified references working after the file moves
+    /// namespace. Code inside N2.Addons.AddonCatalog.UI writes "Items.Addon" and resolves it
+    /// through the ENCLOSING namespace chain, which the conversion replaces - and C# does
+    /// not import nested namespaces through a using, so no plain import restores it. An
+    /// alias does: "using Items = N2.Addons.AddonCatalog.Items;".
+    ///
+    /// Only segments the file actually uses as a qualifier are emitted, and only when no
+    /// type of that name exists - aliasing over a type name would change what the file
+    /// means rather than preserve it.
+    /// </summary>
+    private static List<string> NestedNamespaceAliases(
+        string source, string? originalNamespace, BaseClassRegistry? registry)
+    {
+        var aliases = new List<string>();
+        if (registry is null || string.IsNullOrEmpty(originalNamespace))
+        {
+            return aliases;
+        }
+
+        var taken = new HashSet<string>(StringComparer.Ordinal);
+        for (var ancestor = originalNamespace; !string.IsNullOrEmpty(ancestor);)
+        {
+            foreach (var segment in registry.ChildNamespaceSegments(ancestor))
+            {
+                if (!taken.Add(segment)
+                    || registry.DeclaresTypeNamed(segment)
+                    || !source.Contains(segment + ".", StringComparison.Ordinal))
+                {
+                    continue;
+                }
+                aliases.Add($"{segment} = {ancestor}.{segment}");
+            }
+
+            var lastDot = ancestor.LastIndexOf('.');
+            ancestor = lastDot < 0 ? null : ancestor[..lastDot];
+        }
+
+        return aliases;
     }
 
     private static bool HasCustomProjectBase(ClassDeclarationSyntax classDeclaration, BaseClassRegistry? registry)
@@ -614,6 +657,8 @@ public static class CodeBehindRewriter
 
         foreach (var name in requiredUsings)
         {
+            // Also accepts an alias written out in full ("Items = N2.Addons.X.Items"),
+            // which "using {name};" renders correctly either way.
             if (seen.Add(name))
             {
                 kept.Add(MakeUsing($"using {name};"));

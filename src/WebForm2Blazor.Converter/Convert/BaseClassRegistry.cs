@@ -178,6 +178,36 @@ public sealed class BaseClassRegistry
         return matches.Count == 1 ? matches[0] : null;
     }
 
+    /// <summary>
+    /// The first segment of every namespace nested under <paramref name="ancestor"/> that
+    /// holds types: for "N2.Addons.AddonCatalog" with N2.Addons.AddonCatalog.Items and
+    /// .UI declared, that is "Items" and "UI".
+    ///
+    /// Needed because C# does NOT import nested namespaces through a using directive. Code
+    /// written inside N2.Addons.AddonCatalog.UI can say "Items.Addon" only because the
+    /// ENCLOSING namespace chain puts N2.Addons.AddonCatalog in scope; move that file to
+    /// another namespace, as the conversion does, and the reference stops resolving with no
+    /// plain using able to bring it back. An alias can.
+    /// </summary>
+    public IEnumerable<string> ChildNamespaceSegments(string ancestor)
+    {
+        if (string.IsNullOrEmpty(ancestor))
+        {
+            return [];
+        }
+        var prefix = ancestor + ".";
+        return _namespaces
+            .Where(ns => ns.StartsWith(prefix, StringComparison.Ordinal))
+            .Select(ns =>
+            {
+                var rest = ns[prefix.Length..];
+                var dot = rest.IndexOf('.');
+                return dot < 0 ? rest : rest[..dot];
+            })
+            .Where(segment => segment.Length > 0)
+            .Distinct(StringComparer.Ordinal);
+    }
+
     /// <summary>True when a class with this full name exists in the scanned sources
     /// (used to decide whether an unmapped control can run under LegacyRenderHost).</summary>
     public bool HasClass(string fullName) => _allClassFullNames.Contains(fullName);

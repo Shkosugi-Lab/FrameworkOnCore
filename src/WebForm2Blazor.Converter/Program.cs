@@ -914,7 +914,31 @@ static List<(string Id, string Version)> CollectDeclaredPackages(
         "Microsoft.AspNetCore.",
     ];
 
-    // The .NET SDK provides these; a carried-over 4.x/5.x reference downgrades them
+    // Packages that exist only to backport BCL types to .NET Framework. The types are in
+    // the box on modern .NET, so carrying the reference over is at best redundant (NU1510)
+    // and at worst harmful: an old out-of-band assembly can win binding over the in-box one.
+    //
+    // Matched by identity, not by version. The previous rule keyed off a 4.x/5.x version
+    // number, but these packages now ship on the .NET release train - mojoPortal declares
+    // System.Text.Json 10.0.2 and System.Runtime.CompilerServices.Unsafe 6.1.2 - so every
+    // one of them slipped through.
+    var inBoxOnModernDotNet = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+    {
+        "Microsoft.Bcl.AsyncInterfaces", "Microsoft.Bcl.HashCode", "Microsoft.Bcl.TimeProvider",
+        "Microsoft.CSharp",
+        "System.Buffers", "System.Collections.Immutable", "System.ComponentModel.Annotations",
+        "System.Diagnostics.DiagnosticSource", "System.IO.Pipelines", "System.Memory",
+        "System.Net.Http", "System.Numerics.Vectors", "System.Runtime.CompilerServices.Unsafe",
+        "System.Security.AccessControl", "System.Security.Principal.Windows",
+        "System.Text.Encoding.CodePages", "System.Text.Encodings.Web", "System.Text.Json",
+        "System.Threading.Tasks.Extensions", "System.ValueTuple",
+    };
+
+    // Kept alongside the identity list: a 4.x/5.x System.* reference is a Framework-era
+    // split package regardless of whether it is named above, and carrying it downgrades the
+    // modern framework reference. Packages that genuinely still ship out of band
+    // (System.Configuration.ConfigurationManager, System.Drawing.Common) are re-added from
+    // the ported code's usings by ResolvePackageReferences.
     static bool IsSdkProvidedSystemPackage(string id, string version)
         => id.StartsWith("System.", StringComparison.OrdinalIgnoreCase)
            && System.Text.RegularExpressions.Regex.IsMatch(version, @"^[45]\.");
@@ -925,11 +949,20 @@ static List<(string Id, string Version)> CollectDeclaredPackages(
 
     var carried = new List<(string Id, string Version)>();
     var skipped = new List<string>();
+    var inBox = new List<string>();
 
     void Add(string id, string version)
     {
         if (string.IsNullOrWhiteSpace(id) || string.IsNullOrWhiteSpace(version))
         {
+            return;
+        }
+        // Reported apart from the skipped list: dropping these needs no decision from
+        // anyone, whereas a skipped Framework-only package is a migration the reader has to
+        // plan for. Mixing the two buries the second in the first.
+        if (inBoxOnModernDotNet.Contains(id))
+        {
+            inBox.Add(id);
             return;
         }
         if (skipPrefixes.Any(prefix => id.StartsWith(prefix, StringComparison.OrdinalIgnoreCase))
@@ -979,6 +1012,12 @@ static List<(string Id, string Version)> CollectDeclaredPackages(
         }
     }
 
+    if (inBox.Count > 0)
+    {
+        report.Info("(project)",
+            ".NET に同梱済みのため NuGet 参照を削除しました(対応不要): "
+            + string.Join(", ", inBox.Distinct(StringComparer.OrdinalIgnoreCase)));
+    }
     if (skipped.Count > 0)
     {
         report.Residual("(project)", ResidualKind.Configuration,

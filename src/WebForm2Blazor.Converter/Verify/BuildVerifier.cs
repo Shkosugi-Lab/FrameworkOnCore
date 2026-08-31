@@ -83,11 +83,45 @@ public static partial class BuildVerifier
     };
 
     /// <summary>
-    /// Error count for a gate check (no report written). Null when the build could not be
-    /// run or failed without parseable diagnostics - the caller must treat that as a
-    /// failure rather than as success.
+    /// Diagnostics produced by the PARSER. C# never runs semantic analysis over a
+    /// compilation it could not parse, so the moment one of these appears the error count
+    /// stops being a total and becomes a FLOOR: every type-resolution error behind it goes
+    /// unreported. This is not a small effect - injecting a single syntax error into the
+    /// converted YAF.NET output took the reported count from 1,630 down to 2.
+    ///
+    /// The list is deliberately over-inclusive. Treating a semantic error as a syntax one
+    /// only costs a rejected candidate, while the reverse lets syntactically broken code
+    /// walk through a gate that compares counts.
     /// </summary>
-    public static int? CountErrors(string outputDirectory)
+    private static readonly HashSet<string> ParseErrorCodes = new(StringComparer.Ordinal)
+    {
+        "CS1001", "CS1002", "CS1003", "CS1004", "CS1010", "CS1012", "CS1022", "CS1026",
+        "CS1027", "CS1031", "CS1035", "CS1039", "CS1041", "CS1056", "CS1513", "CS1514",
+        "CS1519", "CS1520", "CS1525", "CS1526", "CS1528", "CS1547", "CS1553", "CS1733",
+        "CS8124", "CS8641",
+    };
+
+    /// <summary>
+    /// The result of a gate build.
+    /// </summary>
+    /// <param name="ErrorCount">
+    /// Number of distinct error diagnostics. Only a total when
+    /// <paramref name="StoppedAtParse"/> is false; otherwise a lower bound.
+    /// </param>
+    /// <param name="StoppedAtParse">
+    /// The sources would not parse, so semantic analysis never ran and
+    /// <paramref name="ErrorCount"/> may hide an arbitrary number of further errors.
+    /// Counts from such a build must never be compared against one from a build that
+    /// completed - the broken one looks better.
+    /// </param>
+    public readonly record struct BuildOutcome(int ErrorCount, bool StoppedAtParse);
+
+    /// <summary>
+    /// Builds for a gate check (no report written). Null when the build could not be run or
+    /// failed without parseable diagnostics - the caller must treat that as a failure rather
+    /// than as success.
+    /// </summary>
+    public static BuildOutcome? Measure(string outputDirectory)
     {
         var projectPath = Directory.EnumerateFiles(outputDirectory, "*.csproj").FirstOrDefault();
         if (projectPath is null)
@@ -97,8 +131,23 @@ public static partial class BuildVerifier
 
         var (output, exitCode) = RunBuild(projectPath);
         var diagnostics = Parse(output);
-        return exitCode != 0 && diagnostics.Count == 0 ? null : diagnostics.Count;
+        if (exitCode != 0 && diagnostics.Count == 0)
+        {
+            return null;
+        }
+
+        return new BuildOutcome(diagnostics.Count, StoppedAtParse(diagnostics));
     }
+
+    private static bool StoppedAtParse(List<Diagnostic> diagnostics)
+        => diagnostics.Any(diagnostic => ParseErrorCodes.Contains(diagnostic.Code));
+
+    private const string ParseStopWarning = """
+        > **この件数は下限です。**
+        > 構文エラーがあるため C# コンパイラは意味解析を実行しておらず、型解決のエラーは
+        > 1 件も報告されていません。構文エラーを解消すると件数は大幅に増える可能性があります。
+        > 前後比較や合否判定にこの数値をそのまま使わないでください。
+        """;
 
     public static int Run(string outputDirectory, string? reportPath)
     {
@@ -126,18 +175,39 @@ public static partial class BuildVerifier
             return 1;
         }
 
-        File.WriteAllText(reportPath, BuildReport(projectPath, diagnostics));
+        var stoppedAtParse = StoppedAtParse(diagnostics);
+        var report = BuildReport(projectPath, diagnostics);
+        if (stoppedAtParse)
+        {
+            // Blank line between: a block quote running straight into the "#" heading would
+            // swallow it into the quote.
+            report = ParseStopWarning + Environment.NewLine + Environment.NewLine + report;
+        }
+        File.WriteAllText(reportPath, report);
 
         Console.WriteLine($"エラー {diagnostics.Count} 件(うち連鎖 {diagnostics.Count(d => IsCascade(d))} 件)");
+        if (stoppedAtParse)
+        {
+            // Without this the number reads as "almost building" when the truth is the
+            // opposite: the compiler gave up before it ever looked at any type.
+            Console.WriteLine(
+                "警告: 構文エラーがあるため意味解析が実行されていません。上の件数は下限であり、"
+                + "総数ではありません。構文エラーを直すと件数は大幅に増える可能性があります。");
+        }
         Console.WriteLine($"レポート: {reportPath}");
         return diagnostics.Count == 0 ? 0 : 2;
     }
 
     private static (string Output, int ExitCode) RunBuild(string projectPath)
     {
+        // --no-incremental is mandatory, not an optimisation trade-off. A stale obj/ (left by a
+        // killed or interrupted build) makes an incremental build report far fewer errors than a
+        // clean one - this project once reported "391 -> 39 -> 3 -> 1" only for a clean build to
+        // produce 705. The AI residual layer accepts or rolls back a candidate answer purely on
+        // whether this count went up, so an under-count here silently admits broken code.
         var process = new Process
         {
-            StartInfo = new ProcessStartInfo("dotnet", $"build \"{projectPath}\" --nologo -v q")
+            StartInfo = new ProcessStartInfo("dotnet", $"build \"{projectPath}\" --no-incremental --nologo -v q")
             {
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,

@@ -122,12 +122,25 @@ public static class AiResidualLayer
         // The gate is "no worse than before", not "zero errors": a large app carries
         // pre-existing errors from unportable dependencies, and demanding zero there
         // would reject every change regardless of its merit.
-        var baseline = Verify.BuildVerifier.CountErrors(outputDirectory);
-        if (baseline is null)
+        var baselineBuild = Verify.BuildVerifier.Measure(outputDirectory);
+        if (baselineBuild is not { } baselineOutcome)
         {
             Console.Error.WriteLine("基準となるビルドを実行できませんでした。適用を中止します。");
             return 1;
         }
+
+        // Counting errors only means something once the compiler has actually looked at the
+        // types. If the output does not even parse, every count taken from it - including
+        // this baseline - is a floor, and "no worse than before" cannot be decided.
+        if (baselineOutcome.StoppedAtParse)
+        {
+            Console.Error.WriteLine(
+                "適用前の出力に構文エラーがあり、意味解析が実行されていません。この状態ではビルドエラー数の"
+                + "前後比較が成立しないため、適用を中止します。先に構文エラーを解消してください。");
+            return 1;
+        }
+
+        var baseline = baselineOutcome.ErrorCount;
         Console.WriteLine($"適用前のビルドエラー(基準値): {baseline} 件");
 
         var results = new List<(string Name, string Verdict, string Detail)>();
@@ -159,13 +172,26 @@ public static class AiResidualLayer
 
             File.WriteAllText(targetPath, answer);
 
-            var buildErrors = Verify.BuildVerifier.CountErrors(outputDirectory);
-            if (buildErrors is null)
+            var candidate = Verify.BuildVerifier.Measure(outputDirectory);
+            if (candidate is not { } outcome)
             {
                 File.WriteAllText(targetPath, original);
                 results.Add((name, "REJECT", "ビルドを実行できませんでした"));
                 continue;
             }
+
+            // The dangerous case, and the reason this check exists: a syntactically broken
+            // answer stops the compiler at parse time, which HIDES every semantic error and
+            // makes the count PLUNGE. Compared numerically it looks like a large improvement,
+            // so the gate would accept it and then lower the baseline to that fiction.
+            if (outcome.StoppedAtParse)
+            {
+                File.WriteAllText(targetPath, original);
+                results.Add((name, "REJECT", "回答に構文エラーがあります(ビルドが構文解析で停止)"));
+                continue;
+            }
+
+            var buildErrors = outcome.ErrorCount;
             if (buildErrors > baseline)
             {
                 File.WriteAllText(targetPath, original);

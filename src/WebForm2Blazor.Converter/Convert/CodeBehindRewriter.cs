@@ -635,6 +635,19 @@ public static class CodeBehindRewriter
                 {
                     aliasUsings.Add("using HttpRequest = WebForm2Blazor.Components.HttpRequestShim;");
                     aliasUsings.Add("using HttpResponse = WebForm2Blazor.Components.HttpResponseShim;");
+
+                    // The *Base abstractions (System.Web.Abstractions, added for MVC
+                    // testability) are used as parameter and field types throughout
+                    // WebForms-era code. HttpContextBase is a real abstract class in the
+                    // compat layer and its members are already typed as these shims, so
+                    // pointing the names at the same shims keeps assignments compiling
+                    // both ways.
+                    aliasUsings.Add("using HttpRequestBase = WebForm2Blazor.Components.HttpRequestShim;");
+                    aliasUsings.Add("using HttpResponseBase = WebForm2Blazor.Components.HttpResponseShim;");
+                    aliasUsings.Add("using HttpSessionState = WebForm2Blazor.Components.WebFormsSession;");
+                    aliasUsings.Add("using HttpSessionStateBase = WebForm2Blazor.Components.WebFormsSession;");
+                    aliasUsings.Add("using HttpServerUtility = WebForm2Blazor.Components.ServerUtilityShim;");
+                    aliasUsings.Add("using HttpServerUtilityBase = WebForm2Blazor.Components.ServerUtilityShim;");
                 }
                 removals.Add(directive);
                 continue;
@@ -702,11 +715,20 @@ public static class CodeBehindRewriter
             }
         }
 
-        foreach (var aliasUsing in aliasUsings.Distinct())
+        // Aliases stay FILE-scoped even here. A "global using X = ..." and a file-level
+        // "using X = ..." for the same name is CS1537 ("the alias appeared previously"),
+        // and every other file in the project adds its own alias when it drops its
+        // System.Web import - so emitting them globally collides with all of them at once
+        // (120 errors in YAF.NET). The namespace import above is what has to be global;
+        // an alias is only needed where the name is actually written.
+        if (!isGlobal)
         {
-            if (seen.Add(aliasUsing))
+            foreach (var aliasUsing in aliasUsings.Distinct())
             {
-                kept.Add(MakeUsing(aliasUsing, isGlobal));
+                if (seen.Add(aliasUsing))
+                {
+                    kept.Add(MakeUsing(aliasUsing));
+                }
             }
         }
 

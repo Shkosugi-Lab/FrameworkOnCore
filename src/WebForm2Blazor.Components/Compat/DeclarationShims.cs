@@ -860,3 +860,247 @@ public class View : LegacyWebControl
 {
     protected override string TagName => "div";
 }
+
+// ---------------------------------------------------------------------------------------
+// Membership controls, HTML controls and the remaining data-source plumbing.
+//
+// Same bargain as the navigation family: none of these render, and the markup that
+// declares them has no mapping entry, so it is already reported as an unmapped control.
+// What is bought here is the code-behind that configures them - a login page sets
+// ChangePassword.MembershipProvider and handles its events, and none of that compiles
+// without the type.
+//
+// The membership ones are worth naming explicitly: Membership.ValidateUser and
+// Roles.IsUserInRole are hardwired to false in the compatibility layer, so a converted
+// site lets nobody in. These controls inherit that stance - they carry configuration and
+// authenticate no one.
+// ---------------------------------------------------------------------------------------
+
+/// <summary>System.Web.UI.WebControls.ChangePassword equivalent (state only).</summary>
+public class ChangePassword : LegacyWebControl
+{
+    public string MembershipProvider { get; set; } = string.Empty;
+
+    public string UserName { get; set; } = string.Empty;
+
+    public string CurrentPassword => string.Empty;
+
+    public string NewPassword => string.Empty;
+
+    public string ConfirmNewPassword => string.Empty;
+
+    public string ContinueDestinationPageUrl { get; set; } = string.Empty;
+
+    public string CancelDestinationPageUrl { get; set; } = string.Empty;
+
+    public bool DisplayUserName { get; set; }
+
+    public event EventHandler ChangedPassword;
+
+    public event EventHandler ChangePasswordError;
+
+    public event EventHandler CancelButtonClick;
+
+    public event EventHandler ContinueButtonClick;
+
+    protected override string TagName => "div";
+
+    protected virtual void OnChangedPassword(EventArgs e) => ChangedPassword?.Invoke(this, e);
+
+    protected virtual void OnChangePasswordError(EventArgs e) => ChangePasswordError?.Invoke(this, e);
+
+    protected virtual void OnCancelButtonClick(EventArgs e) => CancelButtonClick?.Invoke(this, e);
+
+    protected virtual void OnContinueButtonClick(EventArgs e) => ContinueButtonClick?.Invoke(this, e);
+}
+
+/// <summary>System.Web.UI.WebControls.WizardStepBase equivalent.</summary>
+public class WizardStepBase : LegacyWebControl
+{
+    public string Title { get; set; } = string.Empty;
+
+    public string StepType { get; set; } = "Auto";
+
+    public bool AllowReturn { get; set; } = true;
+
+    protected override string TagName => "div";
+}
+
+/// <summary>System.Web.UI.WebControls.WizardStep equivalent.</summary>
+public class WizardStep : WizardStepBase
+{
+}
+
+/// <summary>System.Web.UI.WebControls.CreateUserWizardStep equivalent.</summary>
+public class CreateUserWizardStep : WizardStepBase
+{
+}
+
+/// <summary>System.Web.UI.WebControls.CompleteWizardStep equivalent.</summary>
+public class CompleteWizardStep : WizardStepBase
+{
+}
+
+/// <summary>
+/// System.Web.UI.WebControls.CreateUserWizard equivalent (state only). Creates no user:
+/// the compatibility Membership provider is fail-closed.
+/// </summary>
+public class CreateUserWizard : LegacyWebControl
+{
+    public string MembershipProvider { get; set; } = string.Empty;
+
+    public string UserName { get; set; } = string.Empty;
+
+    public string Email { get; set; } = string.Empty;
+
+    public string Password => string.Empty;
+
+    public string Question { get; set; } = string.Empty;
+
+    public string Answer { get; set; } = string.Empty;
+
+    public string ContinueDestinationPageUrl { get; set; } = string.Empty;
+
+    public bool DisableCreatedUser { get; set; }
+
+    public bool LoginCreatedUser { get; set; } = true;
+
+    public bool RequireEmail { get; set; } = true;
+
+    public bool AutoGeneratePassword { get; set; }
+
+    public ControlCollection WizardSteps { get; } = [];
+
+    public event EventHandler CreatedUser;
+
+    public event EventHandler CreateUserError;
+
+    public event EventHandler CreatingUser;
+
+    public event EventHandler ContinueButtonClick;
+
+    protected override string TagName => "div";
+
+    protected virtual void OnCreatedUser(EventArgs e) => CreatedUser?.Invoke(this, e);
+
+    protected virtual void OnCreateUserError(EventArgs e) => CreateUserError?.Invoke(this, e);
+
+    protected virtual void OnCreatingUser(EventArgs e) => CreatingUser?.Invoke(this, e);
+
+    protected virtual void OnContinueButtonClick(EventArgs e) => ContinueButtonClick?.Invoke(this, e);
+}
+
+/// <summary>System.Web.UI.WebControls.SiteMapDataSource equivalent (state only).</summary>
+public class SiteMapDataSource : LegacyWebControl
+{
+    public string SiteMapProvider { get; set; } = string.Empty;
+
+    public string StartingNodeUrl { get; set; } = string.Empty;
+
+    public bool ShowStartingNode { get; set; } = true;
+
+    public bool StartFromCurrentNode { get; set; }
+
+    public int StartingNodeOffset { get; set; }
+
+    public SiteMapProvider Provider => null;
+}
+
+/// <summary>
+/// System.Web.UI.DataSourceSelectArguments equivalent. Passed to a data source's Select;
+/// carries the sort and paging the caller asked for.
+/// </summary>
+public class DataSourceSelectArguments
+{
+    public DataSourceSelectArguments()
+    {
+    }
+
+    public DataSourceSelectArguments(string sortExpression) => SortExpression = sortExpression;
+
+    public DataSourceSelectArguments(int startRowIndex, int maximumRows)
+    {
+        StartRowIndex = startRowIndex;
+        MaximumRows = maximumRows;
+    }
+
+    public static DataSourceSelectArguments Empty => new();
+
+    public string SortExpression { get; set; } = string.Empty;
+
+    public int StartRowIndex { get; set; }
+
+    public int MaximumRows { get; set; }
+
+    public int TotalRowCount { get; set; } = -1;
+
+    public bool RetrieveTotalRowCount { get; set; }
+
+    public void AddSupportedCapabilities(object capability)
+    {
+    }
+
+    public void RaiseUnsupportedCapabilitiesError(object view)
+    {
+    }
+}
+
+/// <summary>System.Web.UI.HtmlControls.HtmlButton equivalent.</summary>
+public class HtmlButton : LegacyWebControl
+{
+    public string InnerHtml { get; set; } = string.Empty;
+
+    public string InnerText { get; set; } = string.Empty;
+
+    public bool CausesValidation { get; set; } = true;
+
+    public string ValidationGroup { get; set; } = string.Empty;
+
+    public event EventHandler ServerClick;
+
+    protected override string TagName => "button";
+
+    protected virtual void OnServerClick(EventArgs e) => ServerClick?.Invoke(this, e);
+}
+
+/// <summary>
+/// System.Web.UI.HtmlControls.HtmlInputFile equivalent. PostedFile is always null: there
+/// is no postback, so nothing was ever uploaded through it.
+/// </summary>
+public class HtmlInputFile : LegacyWebControl
+{
+    public string Accept { get; set; } = string.Empty;
+
+    public int MaxLength { get; set; }
+
+    public int Size { get; set; }
+
+    public string Value { get; set; } = string.Empty;
+
+    public object PostedFile => null;
+
+    protected override string TagName => "input";
+}
+
+/// <summary>System.Web.UI.HtmlControls.HtmlInputHidden equivalent.</summary>
+public class HtmlInputHidden : LegacyWebControl
+{
+    public string Value { get; set; } = string.Empty;
+
+    public event EventHandler ServerChange;
+
+    protected override string TagName => "input";
+
+    protected virtual void OnServerChange(EventArgs e) => ServerChange?.Invoke(this, e);
+}
+
+/// <summary>
+/// System.Web.Configuration.ProfileAuthenticationOption equivalent. Named which profiles a
+/// query covered; the compatibility profile store keeps no anonymous profiles.
+/// </summary>
+public enum ProfileAuthenticationOption
+{
+    Anonymous,
+    Authenticated,
+    All,
+}

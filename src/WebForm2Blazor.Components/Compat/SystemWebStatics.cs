@@ -295,10 +295,24 @@ public static class HttpRuntime
 {
     public static Cache Cache => HttpContext.Current.Cache;
 
-    public static string AppDomainAppPath => AppContext.BaseDirectory;
+    /// <summary>
+    /// System.Web.HttpRuntime.AppDomainAppPath equivalent: the application's ROOT, which is
+    /// the content root here.
+    ///
+    /// It used to answer AppContext.BaseDirectory, the bin folder. On 4.8 those are the
+    /// same place, so ported code combines this with a relative path and expects to land
+    /// on content - "Path.Combine(AppDomainAppPath, "App_Data/")" is how a file-backed
+    /// provider finds its store. Answering bin sends every one of those lookups one
+    /// directory too deep.
+    /// </summary>
+    public static string AppDomainAppPath
+        => (HttpContext.Services?.GetService(typeof(Microsoft.AspNetCore.Hosting.IWebHostEnvironment))
+                as Microsoft.AspNetCore.Hosting.IWebHostEnvironment)?.ContentRootPath
+           ?? AppContext.BaseDirectory;
 
     public static string AppDomainAppVirtualPath => "/";
 
+    /// <summary>Where the assemblies are, which really is the bin folder.</summary>
     public static string BinDirectory => AppContext.BaseDirectory;
 
     public static bool IsOnUNCShare => false;

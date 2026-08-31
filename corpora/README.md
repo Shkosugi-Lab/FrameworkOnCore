@@ -174,3 +174,28 @@ dotnet ...\WebForm2Blazor.Converter.dll --input ... --output ... `
 ベースラインには反映していません。ジェネレータのビルドには**そのプロジェクトが `global.json`
 で固定した SDK** が要り(DNN は 9.0.202)、コーパス計測が追加の SDK に依存してしまうためです。
 `--analyzer` はオプトインで、渡さなければ従来どおり残差として報告します。
+
+## BlogEngine が全ルート 200 にならない理由(未解決・設計判断)
+
+現状 `/archive` と `/search` は 200、`/`・`/contact`・`/post` はプロセスごと落ちます。
+カスタム構成セクション対応でプロバイダは生成・初期化され、データも読めるようになりましたが、
+最後に**スタックオーバーフロー**が残ります。
+
+```
+32x BlogEngine.Core.Right.RefreshAllRights
+31x BlogEngine.Core.Providers.BlogService.SaveRights
+```
+
+原因は互換層の `Roles.GetAllRoles()` が空配列を返すことです。BlogEngine は
+「ロールが 1 つも無い = 権限テーブルが未設定」と判断して既定値を追加し、保存し、
+再読込し、また空を見て…と無限に繰り返します。4.8 ではロールプロバイダが
+Administrators / Editors / Anonymous を返すため 1 巡で収束します。
+
+**これは HANDOVER 2.4 の fail closed 方針が意図どおり効いている結果です。**
+`Roles.IsUserInRole` も `GetAllRoles` も、ロールストアが無い状態で「ロールがある」と
+答えないよう作られています。ここで互換層にロールを捏造させるのは、
+半分移行したサイトに誰でも入れる状態を作ることと同じです。
+
+**したがってこれは変換器の穴ではなく、手動移行の判断です。** BlogEngine を全ルート
+動かすには、ASP.NET Core Identity なり独自実装なりの**ロールストアをアプリ側で供給**する
+必要があります。HANDOVER 5.2 が「設計判断が要る」と書いていたのは、まさにこの地点です。

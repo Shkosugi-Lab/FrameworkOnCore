@@ -367,6 +367,34 @@ var candidateNamespaces = portCandidates
             .Select(match => match.Groups[1].Value).Distinct(StringComparer.Ordinal).ToList()))
     .ToList();
 
+// Half of the "Framework-only namespace" residuals are not WebForms at all: DNN hosts
+// WebForms, MVC and Web API in one application, and 232 of its 321 are System.Web.Mvc,
+// System.Web.Http or ASP.NET Identity. Saying "manual migration required" of those is
+// misleading - nothing was lost in conversion, that code was never in scope. The reader
+// needs to tell "this converter dropped something you must rebuild" apart from "this part
+// of your app is a different framework".
+static string OutOfScopeFrameworkNote(string unportable)
+{
+    var outOfScope = unportable switch
+    {
+        var ns when ns == "System.Web.Mvc" || ns.StartsWith("System.Web.Mvc.", StringComparison.Ordinal)
+            => "ASP.NET MVC",
+        var ns when ns == "System.Web.Http" || ns.StartsWith("System.Web.Http.", StringComparison.Ordinal)
+            => "ASP.NET Web API",
+        var ns when ns.StartsWith("Microsoft.AspNet.Identity", StringComparison.Ordinal)
+            => "ASP.NET Identity",
+        var ns when ns == "System.Web.Optimization" => "ASP.NET バンドル",
+        _ => null,
+    };
+
+    return outOfScope is not null
+        ? $"{outOfScope}({unportable})のコードです。**この変換器は WebForms のみを対象とする**ため"
+          + "移植していません。変換で失われたものはなく、対応する ASP.NET Core の仕組みへ"
+          + "別途移行してください。"
+        : $".NET Framework 専用の名前空間 {unportable} を使用しているため移植から除外しました"
+          + "(認証/ルーティング等の基盤コードは手動移行が必要)。";
+}
+
 var excludedCandidates = new HashSet<int>();
 for (var i = 0; i < candidateNamespaces.Count; i++)
 {
@@ -374,7 +402,7 @@ for (var i = 0; i < candidateNamespaces.Count; i++)
     {
         excludedCandidates.Add(i);
         report.Residual(candidateNamespaces[i].candidate.ReportName, ResidualKind.CodeBehind,
-            $".NET Framework 専用の名前空間 {unportable} を使用しているため移植から除外しました(認証/ルーティング等の基盤コードは手動移行が必要)。", disposition: ResidualDisposition.ManualMigration);
+            OutOfScopeFrameworkNote(unportable), disposition: ResidualDisposition.ManualMigration);
         continue;
     }
 

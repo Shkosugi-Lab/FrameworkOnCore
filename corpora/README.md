@@ -165,6 +165,38 @@ wt             13      39         3             1
 安全なのは、`LegacyRenderHost` が呼ぶのが移植された元クラスの `RenderContents` 等
 そのものだからで、互換層が挙動を推測するわけではありません。パリティ 30/30 で確認済みです。
 
+### コードビハインド 512 件 — 半分は WebForms ではない
+
+同じ手法で割ると、321 件が「.NET Framework 専用の名前空間」の 1 形でした。その中身:
+
+```
+140  System.Web.Mvc
+ 79  System.Web.Http           ← Web API
+ 22  System.Web.Http.*(3 種)
+ 31  Microsoft.AspNet.Identity
+ 22  System.Web.Routing
+  4  System.Web.Optimization
+```
+
+**MVC + Web API + Identity + バンドルで 232 件。** DNN は WebForms と MVC と Web API が
+1 つのアプリに同居しており、**この変換器の対象は WebForms だけ**です。
+
+これらに「手動移行が必要」と書くのは誤解を招きます。**変換で失われたものは何もなく、
+最初から対象外**だからです。読み手には次の 2 つを区別できる必要があります。
+
+- 変換器が落としたので作り直す必要があるもの
+- そもそも別フレームワークで、この道具の範囲外のもの
+
+メッセージを分けました。
+
+```
+ASP.NET MVC(System.Web.Mvc)のコードです。この変換器は WebForms のみを対象とするため
+移植していません。変換で失われたものはなく、対応する ASP.NET Core の仕組みへ別途移行してください。
+```
+
+同じ切り分けは**ビルドエラー側にも要ります。** dnn の CS0115 241 件にも
+`AuthorizeAttribute.AuthorizeCore` のような MVC 由来のものが混ざっています。
+
 「変換可能 36 件の未対応属性」も同様に固まっています。
 
 ```

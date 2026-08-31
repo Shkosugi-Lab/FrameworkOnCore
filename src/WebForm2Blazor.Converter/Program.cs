@@ -1117,6 +1117,7 @@ static List<(string Id, string Version)> CollectDeclaredPackages(
     var carried = new List<(string Id, string Version)>();
     var skipped = new List<string>();
     var inBox = new List<string>();
+    var binaryReferences = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
     void Add(string id, string version)
     {
@@ -1154,6 +1155,30 @@ static List<(string Id, string Version)> CollectDeclaredPackages(
                     Add(reference.Attribute("Include")?.Value,
                         reference.Attribute("Version")?.Value
                         ?? reference.Elements().FirstOrDefault(child => child.Name.LocalName == "Version")?.Value);
+                }
+
+                // A "<Reference>" pointing at a DLL checked into the repository (_libs\,
+                // packages\, lib\) is a dependency with NO NuGet identity to carry over, so
+                // it vanishes silently and its types come back as CS0246 - mojoPortal's
+                // Lucene.Net is 115 errors of exactly this. The converter cannot pick the
+                // replacement: the modern package may be a different major with a different
+                // API (Lucene.Net 3.0.3 -> 4.8 is a rewrite, not an upgrade). Name them so
+                // the choice is visible instead of silent.
+                foreach (var reference in document.Descendants()
+                             .Where(node => node.Name.LocalName == "Reference"))
+                {
+                    var hintPath = reference.Elements()
+                        .FirstOrDefault(child => child.Name.LocalName == "HintPath")?.Value;
+                    if (string.IsNullOrEmpty(hintPath))
+                    {
+                        continue;
+                    }
+
+                    var assembly = reference.Attribute("Include")?.Value?.Split(',')[0].Trim();
+                    if (!string.IsNullOrEmpty(assembly))
+                    {
+                        binaryReferences.Add(assembly);
+                    }
                 }
             }
             catch (System.Xml.XmlException)
@@ -1198,6 +1223,24 @@ static List<(string Id, string Version)> CollectDeclaredPackages(
             + string.Join(", ", carried.Select(package => package.Id).Distinct(StringComparer.OrdinalIgnoreCase)));
     }
 
+    // Reported apart from skipped packages: those had a NuGet identity and were rejected,
+    // these never had one. The reader has to find the modern package themselves, and for
+    // some there is not one at the same API level.
+    var undecided = binaryReferences
+        .Where(assembly => !carried.Any(package =>
+            package.Id.Equals(assembly, StringComparison.OrdinalIgnoreCase)))
+        .OrderBy(assembly => assembly, StringComparer.OrdinalIgnoreCase)
+        .ToList();
+    if (undecided.Count > 0)
+    {
+        report.Residual("(project)", ResidualKind.Configuration,
+            $"リポジトリ同梱の DLL を直接参照していた依存が {undecided.Count} 件あります。"
+            + "NuGet の識別子が無いため引き継げません。対応する .NET 版パッケージを "
+            + "PackageReference として追加してください(メジャーバージョンが変わり API 移行が"
+            + "必要なものもあります): " + string.Join(", ", undecided),
+            disposition: ResidualDisposition.ManualMigration);
+    }
+
     return carried.DistinctBy(package => package.Id, StringComparer.OrdinalIgnoreCase).ToList();
 }
 
@@ -1225,6 +1268,13 @@ static List<(string Id, string Version)> ResolvePackageReferences(HashSet<string
         ("Ionic.Zip", "DotNetZip", "1.16.0"),
         ("System.ServiceModel.Syndication", "System.ServiceModel.Syndication", RuntimeLibraryVersion),
         ("System.DirectoryServices", "System.DirectoryServices", RuntimeLibraryVersion),
+        // MEF. Referenced on 4.8 as a GAC assembly ("<Reference Include=" with no HintPath),
+        // which leaves no NuGet trace to carry over, so ImportMany and friends came out as
+        // CS0246. The package has the same API as the Framework assembly.
+        ("System.ComponentModel.Composition", "System.ComponentModel.Composition", RuntimeLibraryVersion),
+        ("System.Runtime.Caching", "System.Runtime.Caching", RuntimeLibraryVersion),
+        ("System.Management", "System.Management", RuntimeLibraryVersion),
+        ("System.Security.Cryptography.Xml", "System.Security.Cryptography.Xml", RuntimeLibraryVersion),
     ];
 
     return knownPackages

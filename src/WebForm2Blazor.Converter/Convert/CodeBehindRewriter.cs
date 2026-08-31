@@ -95,7 +95,7 @@ public static class CodeBehindRewriter
         if (classDeclaration is null)
         {
             report.Error(sourceName, $"コードビハインドに partial class {component.ComponentName} が見つかりません。");
-            return RewriteQualifiedFrameworkTypes(RewriteControlReferences(root).ToFullString());
+            return RewriteQualifiedFrameworkTypes(RewriteSyntax(root).ToFullString());
         }
 
         // Component names must start uppercase in Razor; a lowercase WebForms class
@@ -132,7 +132,7 @@ public static class CodeBehindRewriter
         updated = InsertGeneratedMembers(updated, component, sourceName, report);
 
         root = root.ReplaceNode(classDeclaration, updated);
-        return RewriteQualifiedFrameworkTypes(RewriteControlReferences(root).ToFullString());
+        return RewriteQualifiedFrameworkTypes(RewriteSyntax(root).ToFullString());
     }
 
     private static bool HasCustomProjectBase(ClassDeclarationSyntax classDeclaration, BaseClassRegistry? registry)
@@ -233,10 +233,19 @@ public static class CodeBehindRewriter
                    || usingName == "System.Security.Permissions";
         });
 
-        var rewritten = RewriteControlReferences(
+        var rewritten = RewriteSyntax(
             RewriteUsings(root, needsCompatNamespace ? ["WebForm2Blazor.Components"] : [])).ToFullString();
         return RewriteQualifiedFrameworkTypes(rewritten);
     }
+
+    /// <summary>
+    /// The syntax-level passes, applied to the parsed tree before the text pass in
+    /// <see cref="RewriteQualifiedFrameworkTypes"/>. A rewrite belongs here whenever it has
+    /// to reason about the SHAPE of the code rather than the spelling of a name.
+    /// </summary>
+    private static CompilationUnitSyntax RewriteSyntax(CompilationUnitSyntax root)
+        => (CompilationUnitSyntax)new HtmlGenericControlRewriter()
+            .Visit(RewriteControlReferences(root));
 
     /// <summary>
     /// Maps System.Web.UI.Control REFERENCES onto IWebFormsControl.
@@ -315,13 +324,127 @@ public static class CodeBehindRewriter
     }
 
     /// <summary>
+    /// new HtmlGenericControl("div")
+    ///   -> new WebForm2Blazor.Components.HtmlGenericControl { TagName = "div" }
+    ///
+    /// The compat control is a Blazor component and a component must have exactly one
+    /// (parameterless) constructor, so the tag has to travel as a property instead.
+    ///
+    /// This has to run on syntax rather than text. WebForms code routinely writes the
+    /// constructor WITH an object initializer already attached:
+    ///
+    ///     new HtmlGenericControl("style") { InnerHtml = ... }
+    ///
+    /// and a regex that simply appends its own initializer emits two initializer blocks
+    /// back to back, which is not valid C#. That was not a theoretical case: it was the
+    /// only thing keeping mojoPortal, YAF.NET and DNN Platform from building. The existing
+    /// initializer is merged instead, with TagName placed first.
+    /// </summary>
+    private sealed class HtmlGenericControlRewriter : CSharpSyntaxRewriter
+    {
+        public override SyntaxNode? VisitObjectCreationExpression(ObjectCreationExpressionSyntax node)
+        {
+            // Children first: the tag argument or the initializer may contain further
+            // constructions of their own.
+            var creation = (ObjectCreationExpressionSyntax)base.VisitObjectCreationExpression(node)!;
+
+            // Only the (tag) overload moves. A bare new HtmlGenericControl() already binds
+            // to the component's own constructor and TagName keeps its default.
+            if (!DenotesHtmlGenericControl(creation.Type)
+                || creation.ArgumentList is not { Arguments.Count: 1 } argumentList)
+            {
+                return creation;
+            }
+
+            var tagName = SyntaxFactory.AssignmentExpression(
+                SyntaxKind.SimpleAssignmentExpression,
+                SyntaxFactory.IdentifierName("TagName").WithTrailingTrivia(SyntaxFactory.Space),
+                SyntaxFactory.Token(SyntaxKind.EqualsToken).WithTrailingTrivia(SyntaxFactory.Space),
+                argumentList.Arguments[0].Expression.WithoutTrivia());
+
+            return creation
+                // The argument list disappears, so whatever followed its ")" - typically the
+                // line break in front of a multi-line initializer - moves onto the type, or
+                // the initializer would be dragged up onto the type's line.
+                .WithType(SyntaxFactory
+                    .ParseTypeName("WebForm2Blazor.Components.HtmlGenericControl")
+                    .WithLeadingTrivia(creation.Type.GetLeadingTrivia())
+                    .WithTrailingTrivia(argumentList.CloseParenToken.TrailingTrivia))
+                .WithArgumentList(null)
+                .WithInitializer(Merge(creation.Initializer, tagName));
+        }
+
+        /// <summary>
+        /// Puts TagName at the head of the initializer, keeping the existing entries and
+        /// their separators (a trailing comma is legal and some corpora write one). The
+        /// layout of the original block is preserved: the new entry adopts the indentation
+        /// of the entry it displaces, and the comma introduced after it carries a line
+        /// break only when the block was already spread over several lines.
+        /// </summary>
+        private static InitializerExpressionSyntax Merge(
+            InitializerExpressionSyntax? existing,
+            AssignmentExpressionSyntax tagName)
+        {
+            if (existing is null)
+            {
+                return SyntaxFactory.InitializerExpression(
+                        SyntaxKind.ObjectInitializerExpression,
+                        SyntaxFactory.SingletonSeparatedList<ExpressionSyntax>(tagName))
+                    .WithOpenBraceToken(SyntaxFactory.Token(SyntaxKind.OpenBraceToken)
+                        .WithLeadingTrivia(SyntaxFactory.Space)
+                        .WithTrailingTrivia(SyntaxFactory.Space))
+                    .WithCloseBraceToken(SyntaxFactory.Token(SyntaxKind.CloseBraceToken)
+                        .WithLeadingTrivia(SyntaxFactory.Space));
+            }
+
+            var expressions = existing.Expressions;
+            if (expressions.Count == 0)
+            {
+                return existing.WithExpressions(
+                    SyntaxFactory.SingletonSeparatedList<ExpressionSyntax>(tagName));
+            }
+
+            var multiLine = existing.OpenBraceToken.TrailingTrivia
+                .Any(trivia => trivia.IsKind(SyntaxKind.EndOfLineTrivia));
+
+            var parts = new List<SyntaxNodeOrToken>
+            {
+                tagName.WithLeadingTrivia(expressions[0].GetLeadingTrivia()),
+                SyntaxFactory.Token(SyntaxKind.CommaToken).WithTrailingTrivia(
+                    multiLine ? SyntaxFactory.EndOfLine(Environment.NewLine) : SyntaxFactory.Space),
+            };
+
+            for (var index = 0; index < expressions.Count; index++)
+            {
+                parts.Add(expressions[index]);
+                if (index < expressions.SeparatorCount)
+                {
+                    parts.Add(expressions.GetSeparator(index));
+                }
+            }
+
+            return existing.WithExpressions(SyntaxFactory.SeparatedList<ExpressionSyntax>(parts));
+        }
+
+        /// <summary>
+        /// Matches on the final identifier, so the bare name, the original
+        /// System.Web.UI.HtmlControls qualification and an already-mapped compat
+        /// qualification are all recognised.
+        /// </summary>
+        private static bool DenotesHtmlGenericControl(TypeSyntax type) => type switch
+        {
+            IdentifierNameSyntax identifier => identifier.Identifier.Text == "HtmlGenericControl",
+            QualifiedNameSyntax qualified => qualified.Right.Identifier.Text == "HtmlGenericControl",
+            AliasQualifiedNameSyntax aliased => aliased.Name.Identifier.Text == "HtmlGenericControl",
+            _ => false,
+        };
+    }
+
+    /// <summary>
     /// Fully qualified Framework type references written inline (System.Web.UI.HtmlTextWriter
     /// in a method signature, EF4 ObjectContext namespaces in EDMX designer code) are not
     /// touched by the using rewrite; a text pass maps them onto the compat / EF6 types.
     /// </summary>
-    /// <summary>Applies a step in the middle of a Replace chain.</summary>
-    private static string Pipe(this string value, Func<string, string> step) => step(value);
-
     private static string RewriteQualifiedFrameworkTypes(string code)
         => code
             .Replace("System.Data.Objects", "System.Data.Entity.Core.Objects")
@@ -356,13 +479,10 @@ public static class CodeBehindRewriter
             .Replace("System.Web.HttpRuntime", "WebForm2Blazor.Components.HttpRuntime")
             .Replace("System.Web.VirtualPathUtility", "WebForm2Blazor.Components.VirtualPathUtility")
             .Replace("System.Web.HttpUtility", "WebForm2Blazor.Components.HttpUtility")
-            .Replace("System.Web.HttpCacheability", "WebForm2Blazor.Components.HttpCacheability")
-            // WebForms controls are components here, and Blazor requires a component to
-            // have exactly one constructor - so the tag goes through the property instead
-            .Pipe(code => System.Text.RegularExpressions.Regex.Replace(
-                code,
-                @"new\s+(?:WebForm2Blazor\.Components\.)?HtmlGenericControl\s*\(\s*(""[^""]*""|[A-Za-z_][\w.]*)\s*\)",
-                "new WebForm2Blazor.Components.HtmlGenericControl { TagName = $1 }"));
+            .Replace("System.Web.HttpCacheability", "WebForm2Blazor.Components.HttpCacheability");
+    // new HtmlGenericControl("div") is NOT handled here: rewriting a constructor call
+    // needs to see whether an object initializer already follows it, which a text pass
+    // cannot. See HtmlGenericControlRewriter.
 
     /// <summary>
     /// Every using in the file, including the ones written INSIDE the namespace. That

@@ -145,6 +145,29 @@ public static class CodeBehindRewriter
         return baseName is not null && registry.TryResolve(baseName, out _);
     }
 
+    /// <summary>
+    /// The WebForms bases that make a type a Blazor component. Only these three matter to
+    /// <see cref="ResolveComponentBase"/>: the render-based Legacy* replacements are not
+    /// components, and some of them declare abstract members a stub could not implement.
+    /// </summary>
+    private static readonly HashSet<string> ComponentBaseNames = new(StringComparer.Ordinal)
+    {
+        "Page", "MasterPage", "UserControl",
+    };
+
+    /// <summary>
+    /// The compat component base for a WebForms base name, or null when there is none.
+    ///
+    /// Exposed for the excluded-type stubs. A stub that loses a WebForms base stops being a
+    /// component, and then every .razor with "@inherits ThatStub" fails on BuildRenderTree -
+    /// the error surfaces in generated markup while the cause sits in the stub.
+    /// </summary>
+    internal static string? ResolveComponentBase(string baseName)
+        => ComponentBaseNames.Contains(baseName)
+           && CompatBaseReplacements.TryGetValue(baseName, out var compat)
+            ? compat
+            : null;
+
     private static readonly Dictionary<string, string> CompatBaseReplacements = new(StringComparer.Ordinal)
     {
         ["Page"] = "WebFormsPage",

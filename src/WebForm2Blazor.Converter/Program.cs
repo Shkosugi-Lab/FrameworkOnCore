@@ -1075,12 +1075,48 @@ static string GenerateExcludedTypeStubs(
 
     var surviving = new HashSet<string>(StringComparer.Ordinal);
     var survivingNames = new HashSet<string>(StringComparer.Ordinal);
+
+    // Simple name -> namespace-qualified name, for inheritable classes only. A stub is
+    // rendered with almost no usings and its base often lives in another namespace, so a
+    // base class has to be written out fully qualified. A name that is not unique maps to
+    // null and is then dropped rather than guessed.
+    var classesBySimpleName = new Dictionary<string, string?>(StringComparer.Ordinal);
+    void RecordInheritableClass(StubType declaration)
+    {
+        if (declaration.Declaration is not Microsoft.CodeAnalysis.CSharp.Syntax.ClassDeclarationSyntax classDeclaration)
+        {
+            return;
+        }
+        // sealed/static cannot be derived from at all. abstract is excluded for a subtler
+        // reason: the stub would inherit abstract members it has no way to implement, and
+        // CS0534 replaces the error we were trying to remove. A concrete class cannot carry
+        // unimplemented abstract members, so restricting to concrete keeps this sound
+        // without having to walk the inheritance chain.
+        var unusable = classDeclaration.Modifiers.Any(modifier =>
+            Microsoft.CodeAnalysis.CSharpExtensions.IsKind(modifier, Microsoft.CodeAnalysis.CSharp.SyntaxKind.SealedKeyword)
+            || Microsoft.CodeAnalysis.CSharpExtensions.IsKind(modifier, Microsoft.CodeAnalysis.CSharp.SyntaxKind.StaticKeyword)
+            || Microsoft.CodeAnalysis.CSharpExtensions.IsKind(modifier, Microsoft.CodeAnalysis.CSharp.SyntaxKind.AbstractKeyword));
+        if (unusable)
+        {
+            return;
+        }
+
+        var qualified = QualifiedName(declaration.Namespace, declaration.Name);
+        if (classesBySimpleName.TryGetValue(declaration.Name, out var existing) && existing != qualified)
+        {
+            classesBySimpleName[declaration.Name] = null;
+            return;
+        }
+        classesBySimpleName[declaration.Name] = qualified;
+    }
+
     foreach (var source in survivingSources)
     {
         foreach (var declaration in EnumerateTopLevelTypes(source))
         {
             surviving.Add(declaration.Key);
             survivingNames.Add(QualifiedName(declaration.Namespace, declaration.Name));
+            RecordInheritableClass(declaration);
         }
     }
 
@@ -1103,6 +1139,7 @@ static string GenerateExcludedTypeStubs(
             }
             members.Add(declaration);
             stubNames.Add(QualifiedName(declaration.Namespace, declaration.Name));
+            RecordInheritableClass(declaration);
         }
     }
 
@@ -1135,7 +1172,7 @@ static string GenerateExcludedTypeStubs(
         }
         foreach (var stub in members.OrderBy(member => member.Name, StringComparer.Ordinal))
         {
-            builder.AppendLine(RenderStubType(stub, known, indent, declaredNamespace));
+            builder.AppendLine(RenderStubType(stub, known, classesBySimpleName, indent, declaredNamespace));
             typeCount++;
         }
         if (!string.IsNullOrEmpty(declaredNamespace))
@@ -1149,7 +1186,12 @@ static string GenerateExcludedTypeStubs(
 }
 
 /// <summary>Renders one stubbed type, keeping the members whose signatures still resolve.</summary>
-static string RenderStubType(StubType stub, HashSet<string> known, string indent, string declaredNamespace)
+static string RenderStubType(
+    StubType stub,
+    HashSet<string> known,
+    IReadOnlyDictionary<string, string?> classesBySimpleName,
+    string indent,
+    string declaredNamespace)
 {
     var declaration = stub.Declaration;
 
@@ -1176,6 +1218,58 @@ static string RenderStubType(StubType stub, HashSet<string> known, string indent
     var modifiers = isStatic ? "public static" : "public";
     var isInterface = keyword == "interface";
 
+    // Dropping the base class silently changes what the type IS, and the damage lands
+    // somewhere else entirely: a .razor that says "@inherits ThatType" stops being a Blazor
+    // component and fails with CS0115 on BuildRenderTree. 33 of DNN Platform's 39
+    // generated-Razor errors traced back to this one omission, through chains like
+    // PortalModuleBase (stubbed) -> UserControlBase (ported) -> the compat UserControl.
+    //
+    // Only a project CLASS is carried. An interface in the base list would oblige the stub
+    // to implement its members, which is exactly what a stub cannot do, and a base outside
+    // the port (System.Web, a NuGet package) cannot be named from here.
+    var baseClause = string.Empty;
+    var ownQualifiedName = QualifiedName(declaredNamespace, stub.Name);
+    if (!isStatic && keyword == "class" && typeDeclaration?.BaseList is { } baseList)
+    {
+        foreach (var candidate in baseList.Types)
+        {
+            var baseName = candidate.Type switch
+            {
+                Microsoft.CodeAnalysis.CSharp.Syntax.IdentifierNameSyntax identifier
+                    => identifier.Identifier.Text,
+                Microsoft.CodeAnalysis.CSharp.Syntax.QualifiedNameSyntax qualified
+                    => qualified.Right.Identifier.Text,
+                _ => null,
+            };
+
+            if (baseName is null)
+            {
+                continue;
+            }
+
+            // A project class first; failing that, a WebForms base the compat layer supplies.
+            // The stub file carries almost no usings, so either way the name is written out
+            // fully qualified.
+            string? resolvedBase = null;
+            if (classesBySimpleName.TryGetValue(baseName, out var projectClass)
+                && projectClass is not null
+                && projectClass != ownQualifiedName)
+            {
+                resolvedBase = projectClass;
+            }
+            else if (CodeBehindRewriter.ResolveComponentBase(baseName) is { } compatBase)
+            {
+                resolvedBase = "WebForm2Blazor.Components." + compatBase;
+            }
+
+            if (resolvedBase is not null)
+            {
+                baseClause = $" : {resolvedBase}";
+                break;
+            }
+        }
+    }
+
     var lines = new List<string>();
     if (typeDeclaration is not null)
     {
@@ -1191,11 +1285,11 @@ static string RenderStubType(StubType stub, HashSet<string> known, string indent
 
     if (lines.Count == 0)
     {
-        return $"{indent}{modifiers} {keyword} {stub.Name}{typeParameters} {{ }}";
+        return $"{indent}{modifiers} {keyword} {stub.Name}{typeParameters}{baseClause} {{ }}";
     }
 
     var body = new StringBuilder();
-    body.AppendLine($"{indent}{modifiers} {keyword} {stub.Name}{typeParameters}");
+    body.AppendLine($"{indent}{modifiers} {keyword} {stub.Name}{typeParameters}{baseClause}");
     body.AppendLine($"{indent}{{");
     foreach (var line in lines)
     {

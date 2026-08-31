@@ -130,6 +130,15 @@ public static class CodeBehindRewriter
         var keepsCustomBase = HasCustomProjectBase(classDeclaration, baseRegistry);
 
         var updated = keepsCustomBase ? classDeclaration : RemoveWebFormsBaseType(classDeclaration);
+        if (keepsCustomBase)
+        {
+            // Both halves of the partial class must name the base with the SAME text. The
+            // razor resolves and fully qualifies it; the source wrote it short. Restating
+            // the razor's version here keeps them textually identical, which is what C#
+            // compares - a generic base otherwise reads as two different types and fails
+            // with CS0263 even though both spellings resolve to one.
+            updated = WithBaseType(updated, component.RazorInheritsBase);
+        }
         updated = AddParameterAttributes(updated, component, sourceName, report);
         updated = InsertGeneratedMembers(updated, component, sourceName, report);
 
@@ -176,6 +185,26 @@ public static class CodeBehindRewriter
         }
 
         return aliases;
+    }
+
+    /// <summary>
+    /// Replaces the first entry of the base list with <paramref name="baseTypeName"/>,
+    /// leaving any interfaces after it alone. A no-op when the razor did not record a base.
+    /// </summary>
+    private static ClassDeclarationSyntax WithBaseType(
+        ClassDeclarationSyntax classDeclaration, string? baseTypeName)
+    {
+        if (string.IsNullOrWhiteSpace(baseTypeName)
+            || classDeclaration.BaseList is not { Types.Count: > 0 } baseList)
+        {
+            return classDeclaration;
+        }
+
+        var existing = baseList.Types[0];
+        var replacement = SyntaxFactory.SimpleBaseType(
+            SyntaxFactory.ParseTypeName(baseTypeName).WithTriviaFrom(existing.Type));
+        return classDeclaration.WithBaseList(
+            baseList.WithTypes(baseList.Types.Replace(existing, replacement)));
     }
 
     private static bool HasCustomProjectBase(ClassDeclarationSyntax classDeclaration, BaseClassRegistry? registry)

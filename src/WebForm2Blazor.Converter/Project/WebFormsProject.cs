@@ -329,6 +329,19 @@ public sealed class ConvertedComponent
     public required CodeBehindKind Kind { get; init; }
     public string? CodeBehindSourcePath { get; init; }
 
+    /// <summary>
+    /// Exactly what the razor emitted as @inherits, so the code-behind half of the partial
+    /// class can be made to say the same thing.
+    ///
+    /// C# requires every partial declaration to name the SAME base, textually resolvable to
+    /// the same type. The two halves are written from different places - the razor resolves
+    /// and fully qualifies the base, the code-behind keeps it as the source wrote it - and
+    /// a generic base makes them disagree: "ContentUserControl&lt;ContentItem, RegisterItem&gt;"
+    /// on one side, "...&lt;N2.ContentItem, Demo.Items.RegisterItem&gt;" on the other. Same type,
+    /// different text, CS0263.
+    /// </summary>
+    public string? RazorInheritsBase { get; set; }
+
     public string FullName => $"{TargetNamespace}.{ComponentName}";
 
     /// <summary>@page routes when this is a page (the first one is the primary route).</summary>

@@ -210,6 +210,7 @@ public static partial class AspxConverters
         {
             ComponentName = componentName,
             SourceClassName = sourceClassName,
+            RazorInheritsBase = inheritsName,
             OutputDirectory = outputDirectory,
             TargetNamespace = targetNamespace,
             RazorContent = razor.ToString(),
@@ -281,6 +282,7 @@ public static partial class AspxConverters
         {
             ComponentName = componentName,
             SourceClassName = sourceClassName,
+            RazorInheritsBase = inheritsName,
             OutputDirectory = outputDirectory,
             TargetNamespace = targetNamespace,
             RazorContent = razor.ToString(),
@@ -412,6 +414,7 @@ public static partial class AspxConverters
         {
             ComponentName = componentName,
             SourceClassName = sourceClassName,
+            RazorInheritsBase = inheritsName,
             OutputDirectory = outputDirectory,
             TargetNamespace = targetNamespace,
             RazorContent = razor.ToString(),

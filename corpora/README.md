@@ -191,8 +191,8 @@ dotnet ...\WebForm2Blazor.Converter.dll --input ... --output ... `
 /          200
 /archive   200
 /search    200
-/contact   500   (生成 Razor 内の NullReferenceException)
-/post      500   (同上)
+/contact   200
+/post      500   (下記「Init と @ref の順序」)
 ```
 
 **変換出力がロールデータを実際に読んで動いています。** ロールは `App_Data/roles.xml` から
@@ -218,5 +218,32 @@ dotnet ...\WebForm2Blazor.Converter.dll --input ... --output ... `
 プロバイダとそのデータが変換出力に揃っているときに、それを使うようになった**点だけで、
 ロールを捏造してはいません。
 
-残る `/contact` と `/post` は生成 Razor 内の `NullReferenceException` で、インフラでは
-なく個別ページの変換残差です。
+`/contact` は 3 つの修正で通るようになりました。いずれも汎用の欠陥です。
+
+| 症状 | 原因 | 修正 |
+|---|---|---|
+| `NullReferenceException` | `<label for="<%= txtName.ClientID %>">` — `@ref` は初回描画後にしか代入されない | 同一ファイルで宣言された ID の `X.ClientID` を `ClientIdOf("X")` に書き換え |
+| `ChildContent が無い` | `<asp:Label>本文</asp:Label>` のタグ内容 | `Label` に `ChildContent` を追加(`Text` 優先は WebForms と同じ) |
+| `parameter ... is not public` | getter のみのプロパティに `[Parameter]` を付与していた | public セッターがあるものだけに限定 |
+
+3 つ目は**実行時**にしか出ません。ビルドは通り、そのコンポーネントが初めて描画された
+瞬間に落ちます。
+
+### Init と @ref の順序(未解決)
+
+`/post` が残っています。**個別ページの残差ではなく、ライフサイクルの構造的な差です。**
+
+WebForms はコントロールツリーを構築してから `OnInit` を呼ぶため、`OnInit` の中で宣言済み
+コントロールに触れるのは普通のコードです(`ucCommentList.Visible = ...`)。Blazor では
+それらは `@ref` フィールドで、**初回描画後にしか代入されません**。
+
+`OnInit` を `OnAfterRender(firstRender)` に遅らせる修正を試し、**撤回しました。**
+`Page_Load` が既にそうなっているので一貫して見えますが、`OnInit` は描画に必要なデータを
+作る側でもあります(BlogEngine の Post ページは `OnInit` でページ全体がバインドする
+`Post` を代入します)。遅らせると `ucCommentList` の null は消えますが、今度は `Post` が
+null になり、NullReferenceException が別の場所に移動しただけでした。
+
+2 つの制約 —「描画前に走る必要がある」と「描画後にしか存在しないものを使う」— は
+Blazor のライフサイクルでは同時に満たせません。根治するには `@ref` フィールドを、
+生成後に実体へ委譲するプロキシにして Init 中の設定を保留・再生する設計が要ります。
+影響範囲が大きいため、着手するなら独立した作業として計画してください。

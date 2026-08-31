@@ -176,6 +176,7 @@ public static partial class AspxConverters
                 + "</SectionContent>";
         };
 
+        MarkupEmitter.CollectDeclaredControlIds(parsed.Nodes, context);
         var emitter = new MarkupEmitter(context);
         var markup = NeutralizeUnbalanced(emitter.EmitNodes(bodyNodes), report, sourceName);
 
@@ -253,6 +254,7 @@ public static partial class AspxConverters
         var prefixNamespaces = BuildPrefixNamespaces(parsed, path, project);
         context.LegacyControlResolver = (prefix, name) => ResolveLegacyControl(prefixNamespaces, baseRegistry, prefix, name);
 
+        MarkupEmitter.CollectDeclaredControlIds(parsed.Nodes, context);
         var markup = NeutralizeUnbalanced(
             new MarkupEmitter(context).EmitNodes(parsed.Nodes), report, sourceName);
 
@@ -336,6 +338,7 @@ public static partial class AspxConverters
                 : EmitContentForMaster(element, emitter, master, report, sourceName);
         };
 
+        MarkupEmitter.CollectDeclaredControlIds(parsed.Nodes, context);
         var emitter = new MarkupEmitter(context);
 
         List<AspxNode> contentNodes;

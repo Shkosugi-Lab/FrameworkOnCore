@@ -814,6 +814,29 @@ public static class CodeBehindRewriter
             classDeclaration.BaseList.WithTypes(SyntaxFactory.SeparatedList(remaining)));
     }
 
+    /// <summary>
+    /// Whether Blazor could actually assign this property, which is what [Parameter]
+    /// promises. The renderer rejects a parameter it cannot set - "declares a parameter
+    /// matching the name 'X' that is not public" - and the failure is at RUNTIME, when the
+    /// component is first rendered, not at build time.
+    ///
+    /// Excluded: get-only and expression-bodied properties (no accessor list at all), and
+    /// "private/protected/internal set". Those are computed or internally-owned values, not
+    /// something markup passes in. BlogEngine's CommentList.NestingSupported is a get-only
+    /// property that probes the theme directory - it was being advertised as a parameter
+    /// and took /post down with it.
+    /// </summary>
+    private static bool IsPubliclySettable(PropertyDeclarationSyntax property)
+    {
+        var setter = property.AccessorList?.Accessors
+            .FirstOrDefault(accessor => accessor.IsKind(SyntaxKind.SetAccessorDeclaration));
+
+        return setter is not null
+            && !setter.Modifiers.Any(SyntaxKind.PrivateKeyword)
+            && !setter.Modifiers.Any(SyntaxKind.ProtectedKeyword)
+            && !setter.Modifiers.Any(SyntaxKind.InternalKeyword);
+    }
+
     /// <summary>Public properties of a user control become Blazor [Parameter]s.</summary>
     private static ClassDeclarationSyntax AddParameterAttributes(
         ClassDeclarationSyntax classDeclaration,
@@ -829,6 +852,8 @@ public static class CodeBehindRewriter
         var properties = classDeclaration.Members
             .OfType<PropertyDeclarationSyntax>()
             .Where(property => property.Modifiers.Any(SyntaxKind.PublicKeyword))
+            .Where(property => !property.Modifiers.Any(SyntaxKind.StaticKeyword))
+            .Where(IsPubliclySettable)
             .Where(property => !property.AttributeLists
                 .SelectMany(list => list.Attributes)
                 .Any(attribute => attribute.Name.ToString().Contains("Parameter", StringComparison.Ordinal)))

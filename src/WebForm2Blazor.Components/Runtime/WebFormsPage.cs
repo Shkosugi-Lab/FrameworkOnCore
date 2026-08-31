@@ -17,6 +17,20 @@ public abstract class Page : ComponentBase, IWebFormsHost
 
     public WebFormsHostCore HostCore { get; } = new();
 
+    /// <summary>
+    /// Naming containers this page's content sits in - a ContentPlaceHolder in the layout
+    /// contributes here. A page is not itself a naming container, so it adds nothing.
+    /// </summary>
+    [CascadingParameter(Name = "NamingContainerPrefix")]
+    private string NamingContainerPrefix { get; set; }
+
+    /// <summary>
+    /// The DOM id of a control declared in this page's markup. See
+    /// <see cref="ClientIdResolver"/> for why markup cannot go through the control itself.
+    /// </summary>
+    protected string ClientIdOf(string serverId)
+        => ClientIdResolver.Resolve(NamingContainerPrefix, serverId);
+
     [Inject] protected NavigationManager NavigationManager { get; set; }
     [Inject] protected WebFormsSession Session { get; set; }
     [Inject] protected WebFormsApplicationState Application { get; set; }
@@ -107,6 +121,12 @@ public abstract class Page : ComponentBase, IWebFormsHost
     protected override void OnInitialized()
     {
         HostCore.PostBackEventCompleted += HandlePostBackEventCompleted;
+
+        // Init runs BEFORE the first render, not after it like Page_Load. Deferring it was
+        // tried and reverted: OnInit bodies routinely produce the data the markup then
+        // renders (BlogEngine's Post page assigns the Post the whole page binds to), so
+        // moving it past the first render trades one NullReferenceException for another.
+        // See HANDOVER for the control-reference problem this leaves open.
         OnInit(EventArgs.Empty);
     }
 
@@ -339,6 +359,19 @@ public abstract class WebFormsUserControl : ComponentBase, IWebFormsHost, IWebFo
     /// <summary>WebForms Control.ClientID equivalent (no naming containers here).</summary>
     public string ClientID => ID;
 
+    [CascadingParameter(Name = "NamingContainerPrefix")]
+    private string NamingContainerPrefix { get; set; }
+
+    /// <summary>
+    /// The DOM id of a control declared in this user control's markup. Unlike a page, a
+    /// user control IS a naming container, so its own ID joins the prefix - the same rule
+    /// WebFormsScope applies when it cascades the prefix to the controls below.
+    /// </summary>
+    protected string ClientIdOf(string serverId)
+        => ClientIdResolver.Resolve(
+            string.IsNullOrEmpty(ID) ? NamingContainerPrefix : NamingContainerPrefix + ID + "_",
+            serverId);
+
     // The rest of the IWebFormsControl surface, so a user control walked as a
     // System.Web.UI.Control reads the same as any other control.
     [Parameter] public bool Enabled { get; set; } = true;
@@ -462,6 +495,14 @@ public abstract class WebFormsLayout : LayoutComponentBase, IWebFormsHost
     private HttpRequestShim _request;
 
     public WebFormsHostCore HostCore { get; } = new();
+
+    /// <summary>As on Page: a layout is not a naming container, it only inherits one.</summary>
+    [CascadingParameter(Name = "NamingContainerPrefix")]
+    private string NamingContainerPrefix { get; set; }
+
+    /// <summary>The DOM id of a control declared in this layout's markup.</summary>
+    protected string ClientIdOf(string serverId)
+        => ClientIdResolver.Resolve(NamingContainerPrefix, serverId);
 
     [Inject] protected NavigationManager NavigationManager { get; set; }
     [Inject] protected WebFormsSession Session { get; set; }

@@ -150,3 +150,28 @@ public interface IWebFormsHost
 {
     WebFormsHostCore HostCore { get; }
 }
+
+/// <summary>
+/// Resolves the DOM id a server control WILL be rendered with, from the id it is declared
+/// under in the markup.
+///
+/// Markup routinely needs this before the control object exists - "&lt;label
+/// for='&lt;%= txtName.ClientID %&gt;'&gt;" is the standard WebForms idiom. Converted to
+/// Blazor, txtName is an @ref field, and Blazor assigns those only AFTER the first render,
+/// so reading ClientID off the control throws a NullReferenceException on the way in.
+///
+/// The id does not actually depend on the instance: it is the enclosing naming containers
+/// joined with the declared id, and the host knows its own prefix from the cascade. Going
+/// through the prefix rather than the control makes it answerable during the first render,
+/// which is when the markup asks.
+/// </summary>
+public static class ClientIdResolver
+{
+    /// <summary>
+    /// Mirrors WebFormsControlBase.ClientIdFor - the same join, reached without a control.
+    /// </summary>
+    public static string Resolve(string namingContainerPrefix, string serverId)
+        => string.IsNullOrEmpty(namingContainerPrefix) || string.IsNullOrEmpty(serverId)
+            ? serverId
+            : namingContainerPrefix + serverId;
+}

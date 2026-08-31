@@ -58,6 +58,17 @@ public sealed class EmitContext
     /// Drives WebForms implicit localization (meta:resourcekey).
     /// </summary>
     public Dictionary<string, string> LocalResources { get; init; } = new(StringComparer.OrdinalIgnoreCase);
+
+    /// <summary>
+    /// Server-control IDs declared anywhere in this file, collected BEFORE emitting.
+    ///
+    /// Populated up front rather than from <see cref="Fields"/> because Fields grows in
+    /// document order during the emit walk, and markup regularly refers to a control
+    /// declared further down (a &lt;script&gt; block at the top of the page is the usual
+    /// case). Reading a half-built list would make the rewrite depend on where in the file
+    /// the reference happens to sit.
+    /// </summary>
+    public HashSet<string> DeclaredControlIds { get; } = new(StringComparer.Ordinal);
 }
 
 /// <summary>Converts the ASPX syntax tree into Razor markup.</summary>
@@ -1228,12 +1239,80 @@ public sealed partial class MarkupEmitter(EmitContext context)
     private string RewriteContainerReferences(string code)
         => _dataBindingTemplateDepth <= 1 ? code : Regex.Replace(code, @"\bContainer\b", ContainerName);
 
+    /// <summary>
+    /// Records every server-control ID in the document into
+    /// <see cref="EmitContext.DeclaredControlIds"/>. Run once over the whole parse tree
+    /// before emitting, so a reference can be resolved regardless of whether the control
+    /// is declared above or below it.
+    /// </summary>
+    public static void CollectDeclaredControlIds(IEnumerable<AspxNode> nodes, EmitContext context)
+    {
+        foreach (var element in nodes.OfType<ElementNode>())
+        {
+            foreach (var node in new[] { element }.Concat(element.Descendants()))
+            {
+                // Only runat="server" elements get an ID the framework rewrites; a plain
+                // HTML id is already the DOM id and is never reached through ClientID.
+                if (node.Id is { Length: > 0 } id
+                    && node.Attributes.TryGetValue("runat", out var runat)
+                    && runat.Equals("server", StringComparison.OrdinalIgnoreCase))
+                {
+                    context.DeclaredControlIds.Add(id);
+                }
+            }
+        }
+    }
+
+    /// <summary>
+    /// A control declared in this file used as "&lt;id&gt;.ClientID" - the WebForms idiom
+    /// for "the DOM id this control will render with", overwhelmingly inside
+    /// &lt;label for=...&gt;.
+    ///
+    /// The lookbehind keeps it to a bare identifier: "Foo.Bar.ClientID" is a property path
+    /// through something else and must be left alone.
+    /// </summary>
+    private static readonly Regex ClientIdReferenceRegex =
+        new(@"(?<![.\w])(?<id>[A-Za-z_]\w*)\s*\.\s*ClientID\b", RegexOptions.Compiled);
+
+    /// <summary>
+    /// Rewrites "txtName.ClientID" to "ClientIdOf(\"txtName\")".
+    ///
+    /// The control is an @ref field in the converted output, and Blazor assigns those only
+    /// AFTER the first render - so the original expression is null-dereferenced on the way
+    /// in and the page answers 500. BlogEngine's /contact and /post failed exactly here.
+    ///
+    /// The rewrite is limited to IDs declared in THIS file. An identifier the file does not
+    /// declare may be an inherited code-behind member or an unrelated local, and there the
+    /// original expression is the correct one.
+    /// </summary>
+    private string RewriteClientIdReferences(string code)
+    {
+        if (context.DeclaredControlIds.Count == 0 || !code.Contains("ClientID", StringComparison.Ordinal))
+        {
+            return code;
+        }
+
+        return ClientIdReferenceRegex.Replace(code, match =>
+        {
+            var id = match.Groups["id"].Value;
+            if (!context.DeclaredControlIds.Contains(id))
+            {
+                return match.Value;
+            }
+
+            context.Report.Info(context.SourceName,
+                $"{id}.ClientID を ClientIdOf(\"{id}\") に変換しました"
+                + "(@ref は初回描画後にしか代入されないため、描画中は null になります)。");
+            return $"ClientIdOf(\"{id}\")";
+        });
+    }
+
     private string EmitExpression(ExpressionNode expression)
     {
         switch (expression.Kind)
         {
             case ExpressionKind.Encoded:
-                return $"@({expression.Code})";
+                return $"@({RewriteClientIdReferences(expression.Code)})";
 
             case ExpressionKind.Render:
                 // <%= %> renders WITHOUT HTML encoding in WebForms; MarkupString keeps
@@ -1241,10 +1320,10 @@ public sealed partial class MarkupEmitter(EmitContext context)
                 context.Report.Info(context.SourceName,
                     $"<%= {Truncate(expression.Code)} %> を MarkupString 出力に変換しました(WebForms と同じ非エンコード描画)。");
                 // Convert.ToString handles value types too (?. would not compile on int etc.)
-                return $"@((global::Microsoft.AspNetCore.Components.MarkupString)global::System.Convert.ToString({expression.Code}))";
+                return $"@((global::Microsoft.AspNetCore.Components.MarkupString)global::System.Convert.ToString({RewriteClientIdReferences(expression.Code)}))";
 
             case ExpressionKind.DataBind:
-                return EmitDataBinding(expression.Code);
+                return EmitDataBinding(RewriteClientIdReferences(expression.Code));
 
             default:
                 // A text-position expression builder ("<% $Prefix:Value %>")

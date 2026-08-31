@@ -7,11 +7,11 @@
     {
         @* WebForms AssociatedControlID equivalent: renders as <label for> *@
         <label @attributes="ExtraAttributes" style="@ComputedStyle" id="@ClientID" class="@CssClass"
-               for="@ClientIdFor(AssociatedControlID)">@Text</label>
+               for="@ClientIdFor(AssociatedControlID)">@Body</label>
     }
     else
     {
-        <span @attributes="ExtraAttributes" style="@ComputedStyle" id="@ClientID" class="@CssClass">@Text</span>
+        <span @attributes="ExtraAttributes" style="@ComputedStyle" id="@ClientID" class="@CssClass">@Body</span>
     }
 }
 
@@ -32,4 +32,19 @@
         get => _text;
         set => SetAndRefresh(ref _text, value ?? string.Empty);
     }
+
+    /// <summary>
+    /// Markup written between the tags: "&lt;asp:Label&gt;Hello &lt;b&gt;you&lt;/b&gt;&lt;/asp:Label&gt;".
+    /// WebForms parses that as the label's content and renders it inside the same element
+    /// the Text attribute would have filled.
+    /// </summary>
+    [Parameter] public RenderFragment ChildContent { get; set; }
+
+    /// <summary>
+    /// Text wins over inner markup, as in WebForms: setting Text replaces whatever the
+    /// declaration contained.
+    /// </summary>
+    private RenderFragment Body => string.IsNullOrEmpty(Text)
+        ? ChildContent
+        : builder => builder.AddContent(0, Text);
 }

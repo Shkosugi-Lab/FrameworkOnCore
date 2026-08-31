@@ -226,19 +226,22 @@ partial メソッドの**定義宣言**を生成するもので、その宣言�
 意味解析も自前で用意する必要がありません。
 
 ```powershell
-# 1. ジェネレータをビルドする(そのプロジェクトが要求する SDK が必要)
-dotnet build "corpora\work\Dnn.Platform-9.13.10\DotNetNuke.Internal.SourceGenerators" -c Release
-
-# 2. その DLL を変換に渡す
-dotnet ...\WebForm2Blazor.Converter.dll --input ... --output ... `
-  --analyzer "...\bin\Release\netstandard2.0\DotNetNuke.Internal.SourceGenerators.dll"
+.\corpora\convert-all.ps1 -Only dnn -WithAnalyzers
 ```
 
-**実測: DNN Platform のビルドエラー 941 → 726、CS0759 は 230 → 0。**
+`-WithAnalyzers` は必要ならジェネレータを先にビルドしてから `--analyzer` で渡します。
 
-ベースラインには反映していません。ジェネレータのビルドには**そのプロジェクトが `global.json`
-で固定した SDK** が要り(DNN は 9.0.202)、コーパス計測が追加の SDK に依存してしまうためです。
-`--analyzer` はオプトインで、渡さなければ従来どおり残差として報告します。
+**実測: DNN Platform のビルドエラー 836 → 606、CS0759 は 230 → 0**(減少幅が CS0759 の
+件数と一致します)。
+
+**ベースラインには入れません。** ジェネレータのビルドには**そのプロジェクトが `global.json`
+で固定した SDK** が要ります(DNN は 9.0.202 / `rollForward: latestMinor`)。ベースラインが
+「どの SDK がインストールされているか」で動くようになると、回帰検知の役に立ちません。
+このマシンで通るのは 9.0.317 が入っているからで、それは環境の事情です。
+
+つまり `-WithAnalyzers` は**計測用であって比較用ではありません。** ジェネレータをビルド
+できなかった場合、スクリプトは警告を出して `--analyzer` 無しで続行します(黙って別物の
+数字を出さないため)。
 
 ## BlogEngine の稼働状況
 

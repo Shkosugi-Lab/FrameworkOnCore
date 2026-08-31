@@ -18,7 +18,12 @@ param(
     [string[]]$Only,
     [switch]$SkipBuild,
     [switch]$SkipVerifyBuild,
-    [switch]$UpdateBaseline
+    [switch]$UpdateBaseline,
+    # Builds each corpus's Roslyn source generators and passes them with --analyzer.
+    # OFF by default and never part of the baseline: building a generator needs the SDK
+    # that ITS project pins, so turning this on makes the corpus numbers depend on which
+    # SDKs happen to be installed. Use it to measure, not to compare.
+    [switch]$WithAnalyzers
 )
 
 $ErrorActionPreference = 'Continue'
@@ -52,8 +57,13 @@ $corpora = @(
        # これを渡さないと tagPrefix が読めず YAF: が全部未対応コントロールになる。
        WebConfig = 'YAFNET-3.2.15\yafsrc\YetAnotherForum.NET\recommended.web.config' },
 
+    # DNN runs a Roslyn source generator at build time; its output exists in no source
+    # file, so the ported code cannot compile without it (CS0759). Only used with
+    # -WithAnalyzers.
     @{ Name = 'dnn'
        Input = 'Dnn.Platform-9.13.10\DNN Platform\Website'
+       AnalyzerProject = 'Dnn.Platform-9.13.10\DotNetNuke.Internal.SourceGenerators\DotNetNuke.Internal.SourceGenerators.csproj'
+       AnalyzerAssembly = 'Dnn.Platform-9.13.10\DotNetNuke.Internal.SourceGenerators\bin\Release\netstandard2.0\DotNetNuke.Internal.SourceGenerators.dll'
        Include = @() },
 
     # Seven .csproj sit in the web root (the app plus its addons), so the entry point has
@@ -153,6 +163,19 @@ foreach ($c in $corpora) {
     if ($c.WebConfig)  { $arguments += @('--web-config',  (Join-Path $Root $c.WebConfig)) }
     if ($c.ControlMap) { $arguments += @('--control-map', (Join-Path $PSScriptRoot $c.ControlMap)) }
     if ($c.ExpressionMap) { $arguments += @('--expression-map', (Join-Path $PSScriptRoot $c.ExpressionMap)) }
+    if ($WithAnalyzers -and $c.AnalyzerProject) {
+        $analyzerDll = Join-Path $Root $c.AnalyzerAssembly
+        if (-not (Test-Path $analyzerDll)) {
+            Write-Host "  ジェネレータをビルド中..."
+            & dotnet build (Join-Path $Root $c.AnalyzerProject) -c Release --nologo -v q | Out-Null
+        }
+        if (Test-Path $analyzerDll) {
+            $arguments += @('--analyzer', $analyzerDll)
+        } else {
+            # Not fatal, but the run is no longer the one that was asked for.
+            Write-Warning "  $($c.Name): ジェネレータをビルドできませんでした。--analyzer 無しで続行します(数字は比較対象外)。"
+        }
+    }
 
     & dotnet $converter @arguments | Out-Null
     if ($LASTEXITCODE -ne 0) {

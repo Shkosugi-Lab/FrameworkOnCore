@@ -263,3 +263,142 @@ public class Html32TextWriter(System.IO.TextWriter inner) : HtmlTextWriter(inner
     {
     }
 }
+
+/// <summary>
+/// System.Web.UI.WebControls.Style equivalent. Ported control libraries expose style
+/// objects as properties ("public TableItemStyle ItemStyle { get; }") and set them from
+/// code; the values are carried but nothing renders from them, because the markup that
+/// would consume a style is reported as a residual instead.
+/// </summary>
+public class Style
+{
+    public string CssClass { get; set; } = string.Empty;
+
+    public string BackColor { get; set; } = string.Empty;
+
+    public string ForeColor { get; set; } = string.Empty;
+
+    public string BorderColor { get; set; } = string.Empty;
+
+    public Unit BorderWidth { get; set; }
+
+    public Unit Width { get; set; }
+
+    public Unit Height { get; set; }
+
+    public bool IsEmpty => string.IsNullOrEmpty(CssClass);
+
+    public virtual void CopyFrom(Style source)
+    {
+        if (source is null)
+        {
+            return;
+        }
+        CssClass = source.CssClass;
+        BackColor = source.BackColor;
+        ForeColor = source.ForeColor;
+        BorderColor = source.BorderColor;
+        BorderWidth = source.BorderWidth;
+        Width = source.Width;
+        Height = source.Height;
+    }
+
+    public virtual void MergeWith(Style source)
+    {
+        if (source is not null && string.IsNullOrEmpty(CssClass))
+        {
+            CssClass = source.CssClass;
+        }
+    }
+
+    public virtual void Reset() => CssClass = BackColor = ForeColor = BorderColor = string.Empty;
+}
+
+/// <summary>System.Web.UI.WebControls.TableStyle equivalent.</summary>
+public class TableStyle : Style
+{
+    public Unit CellPadding { get; set; }
+
+    public Unit CellSpacing { get; set; }
+
+    public string GridLines { get; set; } = string.Empty;
+
+    public string BackImageUrl { get; set; } = string.Empty;
+}
+
+/// <summary>System.Web.UI.WebControls.TableItemStyle equivalent.</summary>
+public class TableItemStyle : Style
+{
+    public string HorizontalAlign { get; set; } = string.Empty;
+
+    public string VerticalAlign { get; set; } = string.Empty;
+
+    public bool Wrap { get; set; } = true;
+}
+
+/// <summary>
+/// System.Web.UI.TemplateControl equivalent - the base System.Web gives Page and
+/// UserControl in common. Ported helper code names it in signatures ("static void
+/// Bind(TemplateControl host)") to accept either.
+/// </summary>
+public abstract class TemplateControl
+{
+    public virtual IWebFormsControl LoadControl(string virtualPath) => null;
+
+    public virtual object Eval(string expression) => null;
+
+    public virtual string AppRelativeVirtualPath { get; set; } = string.Empty;
+}
+
+/// <summary>
+/// System.Web.Hosting.VirtualPathProvider equivalent. Ported code derives from it to serve
+/// pages out of a database or a theme package; the ASP.NET Core equivalent is a
+/// FileProvider registered at startup, which is a migration decision rather than a
+/// mechanical rewrite. Inert here: every member reports "not found" so a derived provider
+/// compiles and its Open/GetFile overrides are visible to whoever migrates it.
+/// </summary>
+public abstract class VirtualPathProvider
+{
+    public virtual bool FileExists(string virtualPath) => false;
+
+    public virtual bool DirectoryExists(string virtualDir) => false;
+
+    public virtual object GetFile(string virtualPath) => null;
+
+    public virtual object GetDirectory(string virtualDir) => null;
+
+    public virtual string GetFileHash(string virtualPath, System.Collections.IEnumerable dependencies) => null;
+
+    public virtual object GetCacheDependency(
+        string virtualPath, System.Collections.IEnumerable dependencies, DateTime utcStart) => null;
+
+    public virtual string CombineVirtualPaths(string basePath, string relativePath) => relativePath;
+
+    protected virtual void Initialize()
+    {
+    }
+}
+
+/// <summary>
+/// System.Web.UI.TemplateContainerAttribute equivalent (metadata only). Told the WebForms
+/// designer which type a template's Container binds to; nothing reads it at runtime.
+/// </summary>
+[AttributeUsage(AttributeTargets.Property)]
+public sealed class TemplateContainerAttribute(Type containerType) : Attribute
+{
+    public Type ContainerType { get; } = containerType;
+
+    public string BindingDirection { get; set; } = string.Empty;
+}
+
+/// <summary>
+/// System.Web.Script.Serialization.ScriptIgnoreAttribute equivalent (metadata only).
+/// Marked members the old JavaScriptSerializer skipped. Ported DTOs carry it; the modern
+/// serializer uses [JsonIgnore], which is a migration decision, so this only keeps the
+/// declaration compiling.
+/// </summary>
+[AttributeUsage(AttributeTargets.Property | AttributeTargets.Field)]
+public sealed class ScriptIgnoreAttribute : Attribute
+{
+    public bool ApplyToOverrides { get; set; }
+}

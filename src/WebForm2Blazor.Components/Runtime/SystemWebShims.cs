@@ -183,6 +183,63 @@ public sealed class HttpUnhandledException : HttpException
 /// user. The generated app removes the implicit Microsoft.AspNetCore.Http using, so the
 /// name resolves to this shim in ported code.
 /// </summary>
+/// <summary>
+/// System.Web.HttpContextBase equivalent - the abstraction ported code takes as a
+/// parameter so it can be tested without a live request ("void Handle(HttpContextBase
+/// context)"). It is the single most requested missing type in the corpora.
+///
+/// The members return the CONCRETE shims rather than HttpRequestBase / HttpResponseBase.
+/// System.Web has a parallel abstract hierarchy for those, but reproducing it means
+/// duplicating every member twice over, and the payoff is only for code that assigns
+/// "HttpRequestBase r = context.Request" rather than calling through. Callers that do
+/// that still fail, deliberately visibly, instead of binding to a hollow base that
+/// silently returns nothing.
+/// </summary>
+public abstract class HttpContextBase
+{
+    public abstract HttpRequestShim Request { get; }
+
+    public abstract HttpResponseShim Response { get; }
+
+    public abstract ServerUtilityShim Server { get; }
+
+    public abstract WebFormsSession Session { get; }
+
+    public abstract System.Collections.IDictionary Items { get; }
+
+    public abstract System.Security.Principal.IPrincipal User { get; set; }
+
+    public abstract Cache Cache { get; }
+}
+
+/// <summary>
+/// System.Web.HttpContextWrapper equivalent: adapts the live context onto
+/// <see cref="HttpContextBase"/>. Ported code writes exactly this at the boundary -
+/// "new HttpContextWrapper(HttpContext.Current)".
+/// </summary>
+public sealed class HttpContextWrapper(HttpContext context) : HttpContextBase
+{
+    private readonly HttpContext _context = context;
+
+    public override HttpRequestShim Request => _context.Request;
+
+    public override HttpResponseShim Response => _context.Response;
+
+    public override ServerUtilityShim Server => _context.Server;
+
+    public override WebFormsSession Session => _context.Session;
+
+    public override System.Collections.IDictionary Items => _context.Items;
+
+    public override System.Security.Principal.IPrincipal User
+    {
+        get => _context.User;
+        set => _context.User = value;
+    }
+
+    public override Cache Cache => _context.Cache;
+}
+
 public sealed class HttpContext
 {
     internal const string SessionCookieName = "w2b-session-id";

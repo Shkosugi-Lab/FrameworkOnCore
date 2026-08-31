@@ -402,3 +402,242 @@ public sealed class ScriptIgnoreAttribute : Attribute
 {
     public bool ApplyToOverrides { get; set; }
 }
+
+// ---------------------------------------------------------------------------------------
+// Navigation controls (TreeView / Menu and their node models).
+//
+// These carry state and compile; they do not render. That is the same bargain the rest of
+// this file makes, and it holds for the same reason: <asp:TreeView>, <asp:Menu> and
+// <asp:SiteMapDataSource> have no entry in the control mapping table, so every use of them
+// in MARKUP is already reported as an unmapped control. The reader has been told the
+// control did not convert before reaching any of this.
+//
+// What the shims buy is the code-behind around it. Ported navigation providers build their
+// trees in C# - "var node = new TreeNode(); node.Text = ...; parent.ChildNodes.Add(node)" -
+// and without the node types none of that code compiles, which buries the residual under
+// hundreds of type errors pointing at the wrong thing.
+// ---------------------------------------------------------------------------------------
+
+/// <summary>System.Web.UI.WebControls.TreeNode equivalent (data only).</summary>
+public class TreeNode
+{
+    public TreeNode()
+    {
+    }
+
+    public TreeNode(string text) => Text = text;
+
+    public TreeNode(string text, string value)
+    {
+        Text = text;
+        Value = value;
+    }
+
+    public TreeNode(string text, string value, string imageUrl)
+        : this(text, value) => ImageUrl = imageUrl;
+
+    public TreeNode(string text, string value, string imageUrl, string navigateUrl, string target)
+        : this(text, value, imageUrl)
+    {
+        NavigateUrl = navigateUrl;
+        Target = target;
+    }
+
+    public string Text { get; set; } = string.Empty;
+
+    public string Value { get; set; } = string.Empty;
+
+    public string NavigateUrl { get; set; } = string.Empty;
+
+    public string ImageUrl { get; set; } = string.Empty;
+
+    public string ImageToolTip { get; set; } = string.Empty;
+
+    public string Target { get; set; } = string.Empty;
+
+    public string ToolTip { get; set; } = string.Empty;
+
+    public bool Selected { get; set; }
+
+    public bool Expanded { get; set; }
+
+    public bool Checked { get; set; }
+
+    public bool PopulateOnDemand { get; set; }
+
+    public string SelectAction { get; set; } = string.Empty;
+
+    public int Depth { get; set; }
+
+    public string ValuePath => Value;
+
+    public TreeNode Parent { get; internal set; }
+
+    public TreeNodeCollection ChildNodes { get; } = [];
+
+    public void Select() => Selected = true;
+
+    public void Collapse() => Expanded = false;
+
+    public void Expand() => Expanded = true;
+
+    public void ToggleExpandState() => Expanded = !Expanded;
+}
+
+/// <summary>System.Web.UI.WebControls.TreeNodeCollection equivalent.</summary>
+public class TreeNodeCollection : System.Collections.ObjectModel.Collection<TreeNode>
+{
+    public void AddAt(int index, TreeNode child) => Insert(index, child);
+}
+
+/// <summary>System.Web.UI.WebControls.TreeNodeEventArgs equivalent.</summary>
+public class TreeNodeEventArgs(TreeNode node) : EventArgs
+{
+    public TreeNode Node { get; } = node;
+}
+
+/// <summary>System.Web.UI.WebControls.TreeView equivalent (state only; does not render).</summary>
+public class TreeView : LegacyWebControl
+{
+    public TreeNodeCollection Nodes { get; } = [];
+
+    public TreeNode SelectedNode { get; set; }
+
+    public string SelectedValue => SelectedNode?.Value ?? string.Empty;
+
+    public int ExpandDepth { get; set; } = -1;
+
+    public bool ShowLines { get; set; }
+
+    public bool ShowExpandCollapse { get; set; } = true;
+
+    public bool ShowCheckBoxes { get; set; }
+
+    public string DataSourceID { get; set; } = string.Empty;
+
+    public object DataSource { get; set; }
+
+    public event EventHandler<TreeNodeEventArgs> SelectedNodeChanged;
+
+    public event EventHandler<TreeNodeEventArgs> TreeNodePopulate;
+
+    public event EventHandler<TreeNodeEventArgs> TreeNodeExpanded;
+
+    public void ExpandAll()
+    {
+        foreach (var node in Nodes)
+        {
+            node.Expand();
+        }
+    }
+
+    public void CollapseAll()
+    {
+        foreach (var node in Nodes)
+        {
+            node.Collapse();
+        }
+    }
+
+    public void DataBind()
+    {
+        _ = SelectedNodeChanged;
+        _ = TreeNodePopulate;
+        _ = TreeNodeExpanded;
+    }
+}
+
+/// <summary>System.Web.UI.WebControls.MenuItem equivalent (data only).</summary>
+public class MenuItem
+{
+    public MenuItem()
+    {
+    }
+
+    public MenuItem(string text) => Text = text;
+
+    public MenuItem(string text, string value)
+    {
+        Text = text;
+        Value = value;
+    }
+
+    public MenuItem(string text, string value, string imageUrl)
+        : this(text, value) => ImageUrl = imageUrl;
+
+    public MenuItem(string text, string value, string imageUrl, string navigateUrl)
+        : this(text, value, imageUrl) => NavigateUrl = navigateUrl;
+
+    public MenuItem(string text, string value, string imageUrl, string navigateUrl, string target)
+        : this(text, value, imageUrl, navigateUrl) => Target = target;
+
+    public string Text { get; set; } = string.Empty;
+
+    public string Value { get; set; } = string.Empty;
+
+    public string NavigateUrl { get; set; } = string.Empty;
+
+    public string ImageUrl { get; set; } = string.Empty;
+
+    public string PopOutImageUrl { get; set; } = string.Empty;
+
+    public string SeparatorImageUrl { get; set; } = string.Empty;
+
+    public string Target { get; set; } = string.Empty;
+
+    public string ToolTip { get; set; } = string.Empty;
+
+    public bool Selected { get; set; }
+
+    public bool Enabled { get; set; } = true;
+
+    public int Depth { get; set; }
+
+    public string ValuePath => Value;
+
+    public MenuItem Parent { get; internal set; }
+
+    public MenuItemCollection ChildItems { get; } = [];
+}
+
+/// <summary>System.Web.UI.WebControls.MenuItemCollection equivalent.</summary>
+public class MenuItemCollection : System.Collections.ObjectModel.Collection<MenuItem>
+{
+    public void AddAt(int index, MenuItem child) => Insert(index, child);
+}
+
+/// <summary>System.Web.UI.WebControls.MenuEventArgs equivalent.</summary>
+public class MenuEventArgs(MenuItem item) : EventArgs
+{
+    public MenuItem Item { get; } = item;
+}
+
+/// <summary>System.Web.UI.WebControls.Menu equivalent (state only; does not render).</summary>
+public class Menu : LegacyWebControl
+{
+    public MenuItemCollection Items { get; } = [];
+
+    public MenuItem SelectedItem { get; set; }
+
+    public string SelectedValue => SelectedItem?.Value ?? string.Empty;
+
+    public string DataSourceID { get; set; } = string.Empty;
+
+    public object DataSource { get; set; }
+
+    public string Orientation { get; set; } = "Vertical";
+
+    public int StaticDisplayLevels { get; set; } = 1;
+
+    public int MaximumDynamicDisplayLevels { get; set; } = 3;
+
+    public event EventHandler<MenuEventArgs> MenuItemClick;
+
+    public event EventHandler<MenuEventArgs> MenuItemDataBound;
+
+    public void DataBind()
+    {
+        _ = MenuItemClick;
+        _ = MenuItemDataBound;
+    }
+}

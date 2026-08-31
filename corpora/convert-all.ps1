@@ -46,9 +46,19 @@ $corpora = @(
 
     @{ Name = 'yaf'
        Input = 'YAFNET-3.2.15\yafsrc\YetAnotherForum.NET'
+       # YAF vendors its dependencies as SOURCE rather than consuming NuGet packages:
+       # ServiceStack.OrmLite and Lucene.Net both live inside the repository and are wired
+       # up with ProjectReference. They look like external packages in the error log, but
+       # nothing needs to be downloaded - they only have to be included.
+       # One data provider only (SqlServer), for the same reason as mojoPortal.
        Include = @('YAFNET-3.2.15\yafsrc\YAF.Core',
                    'YAFNET-3.2.15\yafsrc\YAF.Types',
-                   'YAFNET-3.2.15\yafsrc\YAF.Web')
+                   'YAFNET-3.2.15\yafsrc\YAF.Web',
+                   'YAFNET-3.2.15\yafsrc\YAF.Configuration',
+                   'YAFNET-3.2.15\yafsrc\YAF.UrlRewriter',
+                   'YAFNET-3.2.15\yafsrc\YAF.Data\YAF.Data.SqlServer',
+                   'YAFNET-3.2.15\yafsrc\ServiceStack\ServiceStack.OrmLite',
+                   'YAFNET-3.2.15\yafsrc\Lucene.Net')
        # YAF はサイトルートに Web.config が無く、配布時にリネームする前提。
        # これを渡さないと tagPrefix が読めず YAF: が全部未対応コントロールになる。
        WebConfig = 'YAFNET-3.2.15\yafsrc\YetAnotherForum.NET\recommended.web.config' },

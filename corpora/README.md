@@ -177,20 +177,52 @@ WebForms 期のアプリは依存ライブラリを `_libs\` などにチェッ�
 黙って落としていました。mojoPortal の Lucene.Net がこれで、CS0246 が 115 件出ていました。
 
 **変換器は代替パッケージを選びません。** Lucene.Net 3.0.3 → 4.8 のようにメジャーが
-変わって API が別物になっているものがあり、機械的に決められないためです。代わりに
-**残差として名前を列挙**します(mojo は 60 件)。ユーザーが選んで `PackageReference` を
-足す前提です。
+変わって API が別物になっているものがあり、機械的に決められないためです。
+
+代わりに、**答えを書き込める形で出力します。** 変換のたびに出力先へ
+`package-map.template.json` を書き、そこに未決の依存が並びます(mojo は 61 件)。
+
+```json
+[
+  { "_readme": "..." },
+  { "assembly": "Lucene.Net", "package": "", "version": "" }
+]
+```
+
+`package` と `version` を埋めて `--package-map <そのファイル>` で再変換すると
+`PackageReference` が入ります。**引き継がないと決めたものは `package` を空のまま**に
+すると残差から消えます — 「判断した」と「判断していない」を区別するためです。
+
+テンプレートはそのまま `--package-map` に渡せる有効な JSON です(説明は
+`assembly` を持たないエントリに入れてあり、読み込み側が無視します)。
 
 一方 **HintPath の無い `<Reference Include="..." />` は GAC アセンブリ**で、こちらは
 同一 API の NuGet パッケージがあります。`System.ComponentModel.Composition`(MEF)を
 名前空間対応表に追加し、**DNN が 941 → 901** になりました。
 
-## 互換名前空間のあいまい参照(未解決)
+## あいまい参照 CS0104(未解決)— まず内訳を見てください
+
+**「CS0104 = 互換層の平坦化が原因」は誤りです。** 実測すると 72 件中 28 件しか
+互換層は関係していません。名前空間分割に着手する前にこれを確認してください。
+
+```
+28  互換層 vs アプリ      TreeNode 20 (n2) / ListItem 6 (yaf) / Image 2 (mojo)
+44  アプリ同梱コード vs BCL  Activity 12 / Directory 8 / *Converter 10 /
+                           OrderedDictionary 4 / Attribute 2 / BBCode 2 ほか
+```
+
+後者は互換層と無関係で、**移行先の .NET が新しいことによる衝突**です。
+`System.Collections.Generic.OrderedDictionary` は .NET 9 で新設された型なので
+.NET Framework 時代には衝突しようがなく、`System.Diagnostics.Activity` も同様です。
+アプリが同梱した Lucene.Net や ServiceStack の型が、後から増えた BCL の型と
+名前でぶつかっています。**互換層をどう分割してもこの 44 件は動きません。**
+
+### 互換層側の 28 件
 
 互換層は `System.Web` 全体を `WebForm2Blazor.Components` 1 つに平坦化します。その結果、
 **`System.Web` しか import していなかったファイルにも `System.Web.UI.WebControls` 相当の型が
 見えるようになり**、アプリが同名の型を持っていると `CS0104` になります。
-n2cms の `N2.Edit.TreeNode` と互換層の `TreeNode` が実例です(現状 20 件、YAF は 48 件)。
+n2cms の `N2.Edit.TreeNode` と互換層の `TreeNode` がその 20 件です。
 
 **「プロジェクト型を優先する別名を出す」方向で 2 回試し、いずれも撤回しました。**
 
@@ -202,7 +234,10 @@ n2cms の `N2.Edit.TreeNode` と互換層の `TreeNode` が実例です(現状 2
 どちらも「その名前が元は互換層側から来ていたのか」を確実に判定できないことが原因です。
 根治するには**互換層の名前空間を元の `System.Web.*` の構造に合わせて分割**し、
 変換器が元ファイルの import に対応する名前空間だけを補う必要があります。
-影響範囲が大きいため、着手するなら独立した作業として計画してください。
+
+**ただし、上の内訳を踏まえると費用対効果は低いです。** 互換層の全ファイルに影響する
+変更で、上限は 28 件です。同じ労力なら他に効く場所があります。着手するなら
+「28 件のために互換層を作り直す」と分かった上で判断してください。
 
 ## 既知の注意点
 

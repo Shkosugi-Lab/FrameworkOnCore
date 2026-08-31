@@ -59,6 +59,7 @@ string? appName = null;
 string? componentsReference = null;
 string? controlMapPath = null;
 string? expressionMapPath = null;
+string? packageMapPath = null;
 string? propertyCatalogPath = null;
 string? webConfigOverride = null;
 var includeDirectories = new List<string>();
@@ -78,6 +79,7 @@ for (var i = 0; i < args.Length; i++)
         case "--port": port = int.Parse(args[++i]); break;
         case "--control-map": controlMapPath = args[++i]; break;
         case "--expression-map": expressionMapPath = args[++i]; break;
+        case "--package-map": packageMapPath = args[++i]; break;
         case "--catalog": propertyCatalogPath = args[++i]; break;
         case "--include": includeDirectories.Add(args[++i]); break;
         case "--project": entryProjectPath = args[++i]; break;
@@ -710,7 +712,15 @@ if (project.CultureResourceFiles.Count > 0)
 // NuGet references: what the original projects declared (csproj PackageReference /
 // packages.config) carries over first, then references implied by the ported code's
 // usings (EF6, JSON.NET etc.). Framework-only web packages are skipped with a report.
-var packageReferences = CollectDeclaredPackages([input, .. includeDirectories], report)
+var packageMap = packageMapPath is not null ? LoadPackageMap(packageMapPath) : null;
+if (packageMap is not null)
+{
+    report.Info("(project)", $"--package-map から {packageMap.Count} 件のパッケージ指定を読み込みました。");
+}
+
+var packageReferences = CollectDeclaredPackages(
+        [input, .. includeDirectories], report, packageMap,
+        Path.Combine(output, "package-map.template.json"))
     .Concat(ResolvePackageReferences(portedNamespaces))
     .DistinctBy(package => package.Id, StringComparer.OrdinalIgnoreCase)
     .ToList();
@@ -1064,8 +1074,38 @@ static IEnumerable<string> EnumerateUsingNamespaces(string source)
 /// Framework-only web packages (OWIN, System.Web.*, script bundles) are skipped;
 /// packages with a known .NET-compatible newer version are uplifted.
 /// </summary>
+/// <summary>
+/// Assembly name -> the NuGet package to use for it, from --package-map:
+/// [{ "assembly": "Lucene.Net", "package": "Lucene.Net", "version": "4.8.0-beta00017" }]
+///
+/// An entry with no "package" means "deliberately not carried over", which suppresses the
+/// residual for that assembly without adding a reference - the difference between a
+/// decision made and a decision missing.
+/// </summary>
+static Dictionary<string, (string? Package, string? Version)> LoadPackageMap(string path)
+{
+    var map = new Dictionary<string, (string?, string?)>(StringComparer.OrdinalIgnoreCase);
+    using var document = System.Text.Json.JsonDocument.Parse(File.ReadAllText(path));
+    foreach (var entry in document.RootElement.EnumerateArray())
+    {
+        if (!entry.TryGetProperty("assembly", out var assembly)
+            || assembly.GetString() is not { Length: > 0 } assemblyName)
+        {
+            continue;
+        }
+
+        map[assemblyName] = (
+            entry.TryGetProperty("package", out var package) ? package.GetString() : null,
+            entry.TryGetProperty("version", out var version) ? version.GetString() : null);
+    }
+    return map;
+}
+
 static List<(string Id, string Version)> CollectDeclaredPackages(
-    IEnumerable<string> projectDirectories, ConversionReport report)
+    IEnumerable<string> projectDirectories,
+    ConversionReport report,
+    Dictionary<string, (string? Package, string? Version)>? packageMap = null,
+    string? templatePath = null)
 {
     string[] skipPrefixes =
     [
@@ -1226,11 +1266,74 @@ static List<(string Id, string Version)> CollectDeclaredPackages(
     // Reported apart from skipped packages: those had a NuGet identity and were rejected,
     // these never had one. The reader has to find the modern package themselves, and for
     // some there is not one at the same API level.
+    // A --package-map answer is applied here rather than earlier so it is visible as an
+    // explicit decision: the assembly had no NuGet identity and someone supplied one.
+    var mapped = new List<string>();
+    var declined = new List<string>();
+    foreach (var assembly in binaryReferences)
+    {
+        if (packageMap is null || !packageMap.TryGetValue(assembly, out var choice))
+        {
+            continue;
+        }
+
+        if (string.IsNullOrEmpty(choice.Package))
+        {
+            declined.Add(assembly);
+        }
+        else
+        {
+            carried.Add((choice.Package!, choice.Version ?? "*"));
+            mapped.Add($"{assembly} -> {choice.Package} {choice.Version}");
+        }
+    }
+    if (mapped.Count > 0)
+    {
+        report.Info("(project)", "--package-map で指定された置き換えを適用しました: " + string.Join(", ", mapped));
+    }
+    if (declined.Count > 0)
+    {
+        report.Info("(project)",
+            "--package-map で「引き継がない」と指定された依存です(判断済みのため残差にしません): "
+            + string.Join(", ", declined));
+    }
+
     var undecided = binaryReferences
+        .Where(assembly => packageMap is null || !packageMap.ContainsKey(assembly))
         .Where(assembly => !carried.Any(package =>
             package.Id.Equals(assembly, StringComparison.OrdinalIgnoreCase)))
         .OrderBy(assembly => assembly, StringComparer.OrdinalIgnoreCase)
         .ToList();
+
+    // A list in a report is something to read; a file with the assembly names already in
+    // it is something to answer. The template is the --package-map format with the
+    // packages left blank, so deciding is filling in blanks rather than looking up a
+    // schema.
+    if (undecided.Count > 0 && templatePath is not null)
+    {
+        // Valid JSON as written, so it can be passed straight back with --package-map
+        // without editing anything out first. The instructions ride in an entry with no
+        // "assembly", which LoadPackageMap skips.
+        var entries = new List<string>
+        {
+            "  { \"_readme\": \""
+            + "リポジトリ同梱の DLL を直接参照していた依存です。NuGet の識別子が無いため"
+            + "自動では引き継げません。package と version を埋めて "
+            + "--package-map <このファイル> で再変換してください。"
+            + "引き継がないと決めたものは package を空のままにすると残差から消えます。\" }",
+        };
+        entries.AddRange(undecided.Select(assembly =>
+            $"  {{ \"assembly\": \"{assembly}\", \"package\": \"\", \"version\": \"\" }}"));
+
+        // BOM: these outputs are read by PowerShell 5.1 tooling, which treats a BOM-less
+        // file as ANSI and mangles the Japanese (see corpora/README.md).
+        File.WriteAllText(
+            templatePath,
+            "[" + Environment.NewLine + string.Join("," + Environment.NewLine, entries)
+            + Environment.NewLine + "]" + Environment.NewLine,
+            new System.Text.UTF8Encoding(encoderShouldEmitUTF8Identifier: true));
+    }
+
     if (undecided.Count > 0)
     {
         report.Residual("(project)", ResidualKind.Configuration,

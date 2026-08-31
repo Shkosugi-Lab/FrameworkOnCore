@@ -1071,8 +1071,16 @@ public interface IConfigurationSectionHandler
 public class ControlCollection : List<IWebFormsControl>
 {
     /// <summary>WebForms AddAt equivalent (index clamped, unlike WebForms).</summary>
-    public void AddAt(int index, IWebFormsControl child)
+    public virtual void AddAt(int index, IWebFormsControl child)
         => Insert(Math.Clamp(index, 0, Count), child);
+
+    /// <summary>
+    /// WebForms ControlCollection.Add equivalent. Declared here rather than inherited
+    /// because List&lt;T&gt;.Add is not virtual, and ported collections override Add to
+    /// validate or reparent what goes in - System.Web's ControlCollection.Add is virtual
+    /// and they are written against that.
+    /// </summary>
+    public new virtual void Add(IWebFormsControl child) => base.Add(child);
 }
 
 /// <summary>

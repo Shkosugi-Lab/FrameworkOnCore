@@ -1474,6 +1474,11 @@ static string RenderStubType(
     var modifiers = isStatic ? "public static" : "public";
     var isInterface = keyword == "interface";
 
+    // A sealed stub cannot carry virtual members. The stub itself is not emitted sealed,
+    // but the source declaration is what decides whether subclasses could exist at all.
+    var isSealed = typeDeclaration is not null
+                   && typeDeclaration.Modifiers.Any(modifier => Microsoft.CodeAnalysis.CSharpExtensions.IsKind(modifier, Microsoft.CodeAnalysis.CSharp.SyntaxKind.SealedKeyword));
+
     // Dropping the base class silently changes what the type IS, and the damage lands
     // somewhere else entirely: a .razor that says "@inherits ThatType" stops being a Blazor
     // component and fails with CS0115 on BuildRenderTree. 33 of DNN Platform's 39
@@ -1535,7 +1540,8 @@ static string RenderStubType(
     {
         foreach (var member in typeDeclaration.Members)
         {
-            var text = RenderStubMember(member, known, isStatic, isInterface, declaredNamespace);
+            var text = RenderStubMember(
+                member, known, isStatic, isInterface, declaredNamespace, containerIsSealed: isSealed);
             if (text is not null)
             {
                 lines.Add($"{indent}    {text}");
@@ -1568,7 +1574,8 @@ static string? RenderStubMember(
     HashSet<string> known,
     bool containerIsStatic,
     bool containerIsInterface,
-    string declaredNamespace)
+    string declaredNamespace,
+    bool containerIsSealed = false)
 {
     bool IsPublic(Microsoft.CodeAnalysis.SyntaxTokenList modifiers)
         => modifiers.Any(modifier => Microsoft.CodeAnalysis.CSharpExtensions.IsKind(modifier, Microsoft.CodeAnalysis.CSharp.SyntaxKind.PublicKeyword))
@@ -1582,7 +1589,27 @@ static string? RenderStubMember(
         }
         var isStatic = containerIsStatic
                        || modifiers.Any(modifier => Microsoft.CodeAnalysis.CSharpExtensions.IsKind(modifier, Microsoft.CodeAnalysis.CSharp.SyntaxKind.StaticKeyword));
-        return isStatic ? "public static " : "public ";
+        if (isStatic)
+        {
+            return "public static ";
+        }
+
+        // A member the original declared virtual/abstract/override is one subclasses
+        // override, and those subclasses are being ported even though this type was not.
+        // Emitting it without the modifier turns every one of those overrides into CS0506
+        // ("no suitable method found to override... not marked virtual"), reported against
+        // the subclass. DNN's FileInstaller, PermissionsGrid and AuthorizeAttributeBase
+        // are stubs whose subclasses failed this way.
+        //
+        // Only mirrors what the source said - a member that was not overridable stays that
+        // way, so a stub never invites an override the original did not allow.
+        var wasOverridable = !containerIsSealed
+            && modifiers.Any(modifier =>
+                Microsoft.CodeAnalysis.CSharpExtensions.IsKind(modifier, Microsoft.CodeAnalysis.CSharp.SyntaxKind.VirtualKeyword)
+                || Microsoft.CodeAnalysis.CSharpExtensions.IsKind(modifier, Microsoft.CodeAnalysis.CSharp.SyntaxKind.AbstractKeyword)
+                || Microsoft.CodeAnalysis.CSharpExtensions.IsKind(modifier, Microsoft.CodeAnalysis.CSharp.SyntaxKind.OverrideKeyword));
+
+        return wasOverridable ? "public virtual " : "public ";
     }
 
     switch (member)

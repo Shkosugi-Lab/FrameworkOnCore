@@ -121,11 +121,11 @@ YAF はサイトルートに `Web.config` が無く、配布時に `recommended.
 コーパス  移植 .cs  総残差  変換可能  ビルドエラー
 be            253      83         6             0
 n2           1661     236        36            95
-mojo          731     263        20           212
+mojo          731     263        20           211
 yaf          2722      81         5            83
-dnn          1944     393        12           779
+dnn          1944     393        12           710
 wt             13      39         3             1
-合計                 1095        82          1170
+合計                 1095        82          1100
 ```
 
 **追うべきは「変換可能」と「ビルドエラー」です。** 総残差の大半は `ManualMigration`
@@ -233,6 +233,27 @@ override で CS0115 になっていました。**エラーはサブクラス側�
 
 WebForms コントロールが基底の場合は `LegacyWebControl`(平のクラスとしての
 コントロール基底)に解決するようにし、**DNN が 836 → 779** になりました。
+
+### スタブのメンバは `virtual` を保つ
+
+同じ理由で、スタブは**元が `virtual` / `abstract` / `override` だったメンバを
+`public void Install()` として出していました。** 継承側は移植されているので、
+その override が全部 CS0506(「基底が virtual でない」)になります。DNN の
+`FileInstaller` / `PermissionsGrid` / `AuthorizeAttributeBase` がこれでした。
+
+元の修飾子を写すだけにしてあります(元が overridable でなければ付けません)。
+**DNN 779 → 710、CS0506 は 71 → 0。**
+
+### 残っている CS0115(241 件)
+
+こちらは「基底にメンバ自体が無い」ケースで、2 つに分かれます。
+
+- 互換層の不足(`Control.EnableViewState` など)
+- **ASP.NET MVC の型**(`AuthorizeAttribute.AuthorizeCore(HttpContextBase)` など)。
+  DNN は WebForms と MVC が同居しているアプリで、MVC 部分はこの変換器の対象外です
+
+前者は互換層に足せますが、後者は「範囲外」であって欠陥ではありません。
+**着手する前に、この 2 つを分けて数えてください。**
 
 ## ソースジェネレータ(`--analyzer`)
 

@@ -189,7 +189,7 @@ public abstract class LegacyWebControl : IWebFormsControl, IDisposable
     protected StateBag ViewState { get; } = new();
 
     /// <summary>WebForms Control.Controls equivalent (children added programmatically).</summary>
-    public ControlCollection Controls { get; } = [];
+    public virtual ControlCollection Controls { get; } = [];
 
     /// <summary>
     /// WebForms Control.Page / .Context / .Master equivalents. A legacy control reaches

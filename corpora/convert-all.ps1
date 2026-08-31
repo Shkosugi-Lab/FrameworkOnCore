@@ -31,8 +31,14 @@ $corpora = @(
 
     @{ Name = 'mojo'
        Input = 'mojoportal-3.1.6\Web'
+       # Only ONE data provider is included on purpose: MSSQL, MySql, SQLite and pgsql all
+       # declare the same mojoPortal.Data namespace, so taking more than one would turn
+       # every type in it into a CS0433 ambiguity.
        Include = @('mojoportal-3.1.6\Brettle.Web.NeatHtml',
                    'mojoportal-3.1.6\mojoPortal.Business',
+                   'mojoportal-3.1.6\mojoPortal.Business.WebHelpers',
+                   'mojoportal-3.1.6\mojoPortal.Core',
+                   'mojoportal-3.1.6\mojoPortal.Data.MSSQL',
                    'mojoportal-3.1.6\mojoPortal.Web.Controls',
                    'mojoportal-3.1.6\mojoPortal.Web.Framework')
        # <mp:mojoGridView> は独自コントロール。マップが無いと未対応コントロール扱いになる。

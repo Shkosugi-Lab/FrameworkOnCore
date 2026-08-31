@@ -10,7 +10,7 @@
 ## 使い方
 
 ```powershell
-.\corpora\fetch.ps1          # コーパスを取得(初回のみ、約 115MB)
+.\corpora\fetch.ps1          # コーパスを取得(初回のみ、約 140MB)
 .\corpora\convert-all.ps1    # 全件変換してベースラインと比較
 ```
 
@@ -34,7 +34,16 @@
 | `mojo` | mojoPortal 3.1.6 | `i7MEDIA/mojoportal` @ `v3.1.6` |
 | `yaf` | YAF.NET 3.2.15 | `YAFNET/YAFNET` @ `v3.2.15` |
 | `dnn` | DNN Platform 9.13.10 | `dnnsoftware/Dnn.Platform` @ `v9.13.10` |
+| `n2` | n2cms | `n2cms/n2cms` @ `master` |
 | `wt` | WingtipToys | `corn-mendoza/wingtiptoys` @ `master` |
+
+`n2` は**ホールドアウト**として後から追加したものです。他の 5 本は変換器を育てる過程で
+使ってきたため、それらへの適合しすぎを検出する対照が必要でした。追加時点の初回変換で、
+他の 5 本が一度も踏まなかった穴(ジェネリックなページ基底クラス)を実際に露出させ、
+生成 Razor のエラーが 1 件から 108 件に跳ね上がっています。
+
+**変換器を変更したら、`n2` の数字を特に見てください。** ここが動くときは、他 5 本に
+合わせ込んだ変更である可能性があります。
 
 ### nopCommerce 1.90 について
 
@@ -86,11 +95,12 @@ YAF はサイトルートに `Web.config` が無く、配布時に `recommended.
 ```
 コーパス  移植 .cs  総残差  変換可能  ビルドエラー
 be            252      83         6             0
+n2           1661     258        59           414
 mojo          729     265        20           599
 yaf          2722      80         5           188
 dnn          1944     392        12          1086
 wt             12      39         3            16
-合計                  859        46          1889
+合計                 1117       105          2303
 ```
 
 **追うべきは「変換可能」と「ビルドエラー」です。** 総残差の大半は `ManualMigration`

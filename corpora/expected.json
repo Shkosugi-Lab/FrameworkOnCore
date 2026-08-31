@@ -1,4 +1,4 @@
-﻿{
+{
     "be":  {
                "convertible":  6,
                "portedCs":  252,
@@ -23,6 +23,12 @@
                 "residuals":  392,
                 "buildErrors":  1086
             },
+    "n2":  {
+               "convertible":  59,
+               "portedCs":  1661,
+               "residuals":  258,
+               "buildErrors":  414
+           },
     "wt":  {
                "convertible":  3,
                "portedCs":  12,

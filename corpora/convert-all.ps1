@@ -56,6 +56,13 @@ $corpora = @(
        Input = 'Dnn.Platform-9.13.10\DNN Platform\Website'
        Include = @() },
 
+    # Seven .csproj sit in the web root (the app plus its addons), so the entry point has
+    # to be named.
+    @{ Name = 'n2'
+       Input = 'n2cms-master\src\WebForms\WebFormsTemplates'
+       Project = 'n2cms-master\src\WebForms\WebFormsTemplates\N2.Templates.csproj'
+       Include = @() },
+
     # 入力ルートが 1 階層深い(リポジトリ名 / ソリューション名 / プロジェクト名)。
     @{ Name = 'wt'
        Input = 'wingtiptoys-master\WingtipToys\WingtipToys'
@@ -65,7 +72,7 @@ $corpora = @(
 if ($Only) {
     $corpora = $corpora | Where-Object { $Only -contains $_.Name }
     if (-not $corpora) {
-        Write-Error "-Only に一致するコーパスがありません。指定可能: be, mojo, yaf, dnn, wt"
+        Write-Error "-Only に一致するコーパスがありません。指定可能: be, mojo, yaf, dnn, n2, wt"
     }
 }
 
@@ -251,7 +258,7 @@ if ($UpdateBaseline) {
     # 対象を絞って実行した場合、計測していないコーパスの値は保持する
     foreach ($k in $measured.Keys) { $baseline[$k] = $measured[$k] }
     $ordered = [ordered]@{}
-    foreach ($k in @('be', 'mojo', 'yaf', 'dnn', 'wt')) {
+    foreach ($k in @('be', 'mojo', 'yaf', 'dnn', 'n2', 'wt')) {
         if ($baseline.ContainsKey($k)) { $ordered[$k] = $baseline[$k] }
     }
     $text = ($ordered | ConvertTo-Json -Depth 5)

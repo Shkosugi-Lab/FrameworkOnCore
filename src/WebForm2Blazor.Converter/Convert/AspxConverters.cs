@@ -644,7 +644,12 @@ public static partial class AspxConverters
         {
             report.Info(sourceName,
                 $"独自基底クラス {entry.ClassName} を維持しました(基底連鎖の根本は互換基底クラスへ差し替え)。");
-            return entry.FullName;
+            // The registry resolves a NAME; the type arguments live only in the base list as
+            // written. Emitting just the name turns "TemplateMasterPage<ContentItem>" into
+            // an open generic and the component fails with CS0305. The arguments carry over
+            // as written and are qualified where the registry knows them, because the razor
+            // file no longer sits in the namespace that made the short name resolve.
+            return entry.FullName + QualifyTypeArguments(baseName, baseRegistry);
         }
 
         report.Residual(sourceName, ResidualKind.CodeBehind,
@@ -657,6 +662,60 @@ public static partial class AspxConverters
     {
         var lastDot = typeName.LastIndexOf('.');
         return lastDot >= 0 ? typeName[(lastDot + 1)..] : typeName;
+    }
+
+    /// <summary>
+    /// The type-argument list of a base type as written ("&lt;A, B&gt;"), with each argument
+    /// replaced by its full name where the registry knows it. Empty when non-generic.
+    ///
+    /// Qualification matters because the argument was written to resolve from the
+    /// code-behind's namespace and usings ("Items.Addon" under namespace N2.Templates),
+    /// and the generated razor sits in a different namespace entirely.
+    /// </summary>
+    private static string QualifyTypeArguments(string baseTypeName, BaseClassRegistry baseRegistry)
+    {
+        var start = baseTypeName.IndexOf('<');
+        var end = baseTypeName.LastIndexOf('>');
+        if (start < 0 || end < start)
+        {
+            return string.Empty;
+        }
+
+        var arguments = SplitTopLevel(baseTypeName[(start + 1)..end])
+            .Select(argument => Qualify(argument.Trim(), baseRegistry));
+        return "<" + string.Join(", ", arguments) + ">";
+    }
+
+    private static string Qualify(string typeName, BaseClassRegistry baseRegistry)
+    {
+        if (typeName.Length == 0 || typeName.Contains('<'))
+        {
+            // Nested generics are left alone: qualifying them needs the same treatment
+            // recursively, and no corpus writes one in a page base.
+            return typeName;
+        }
+        var canonical = baseRegistry.ResolveFullTypeName(typeName);
+        return canonical ?? typeName;
+    }
+
+    /// <summary>Splits a type-argument list on top-level commas only.</summary>
+    private static IEnumerable<string> SplitTopLevel(string arguments)
+    {
+        var depth = 0;
+        var start = 0;
+        for (var i = 0; i < arguments.Length; i++)
+        {
+            switch (arguments[i])
+            {
+                case '<': depth++; break;
+                case '>': depth--; break;
+                case ',' when depth == 0:
+                    yield return arguments[start..i];
+                    start = i + 1;
+                    break;
+            }
+        }
+        yield return arguments[start..];
     }
 
     private static Dictionary<string, UserControlRef> BuildUserControlTags(

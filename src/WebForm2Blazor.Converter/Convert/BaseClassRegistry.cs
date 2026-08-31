@@ -19,9 +19,24 @@ public sealed class BaseClassRegistry
     public sealed record Entry(string ClassName, string Namespace, CodeBehindKind Kind)
     {
         public string FullName => string.IsNullOrEmpty(Namespace) ? ClassName : $"{Namespace}.{ClassName}";
+
+        /// <summary>Number of type parameters; 0 for a non-generic class.</summary>
+        public int Arity { get; init; }
     }
 
-    private readonly Dictionary<string, Entry> _byShortName;
+    // Keyed by name AND arity. Keying by name alone conflates a generic class with its
+    // non-generic namesake, which matters because the standard way to give a generic base
+    // a default type argument is to declare exactly that pair:
+    //
+    //     class TemplatePage : TemplatePage<ContentItem>
+    //
+    // Read by short name, that is a class deriving from itself, and the cycle guard in the
+    // chain walk stops before reaching Page. n2cms builds its entire page hierarchy this
+    // way, so not one of its base classes resolved.
+    private readonly Dictionary<string, Entry> _byKey;
+    // Fallback for a base written with an arity the registry does not have (aliases,
+    // partially written names). Never shadows an exact match.
+    private readonly Dictionary<string, Entry> _byName;
     // Markup tags are case-insensitive; map any casing to the canonical type name
     private readonly Dictionary<string, string> _canonicalClassNames = new(StringComparer.OrdinalIgnoreCase);
     private readonly HashSet<string> _allClassFullNames;
@@ -32,13 +47,73 @@ public sealed class BaseClassRegistry
     private Dictionary<string, (string Namespace, string? BaseName)> _declarations = new(StringComparer.Ordinal);
 
     private BaseClassRegistry(
-        Dictionary<string, Entry> byShortName,
+        Dictionary<string, Entry> byKey,
+        Dictionary<string, Entry> byName,
         HashSet<string> allClassFullNames,
         HashSet<string> allShortTypeNames)
     {
-        _byShortName = byShortName;
+        _byKey = byKey;
+        _byName = byName;
         _allClassFullNames = allClassFullNames;
         _allShortTypeNames = allShortTypeNames;
+    }
+
+    /// <summary>Registry key for a declared type: short name, plus an arity suffix for generics.</summary>
+    private static string DeclarationKey(string name, int arity)
+        => arity == 0 ? name : $"{name}`{arity}";
+
+    /// <summary>The name part of a registry key, without the arity suffix.</summary>
+    private static string KeyName(string key)
+    {
+        var tick = key.IndexOf('`');
+        return tick < 0 ? key : key[..tick];
+    }
+
+    /// <summary>The arity encoded in a registry key.</summary>
+    private static int KeyArity(string key)
+    {
+        var tick = key.IndexOf('`');
+        return tick >= 0 && int.TryParse(key[(tick + 1)..], out var arity) ? arity : 0;
+    }
+
+    /// <summary>
+    /// Registry key for a type reference AS WRITTEN in a base list:
+    /// "Web.UI.TemplateUserControl&lt;ContentItem, Poll&gt;" -&gt; "TemplateUserControl`2".
+    /// </summary>
+    private static string KeyForWrittenType(string typeName)
+        => DeclarationKey(LastSegment(typeName), WrittenArity(typeName));
+
+    /// <summary>
+    /// Type-argument count of a reference as written. Only top-level commas count, so a
+    /// nested Dictionary&lt;string, List&lt;int&gt;&gt; still reads as arity 2.
+    /// </summary>
+    private static int WrittenArity(string typeName)
+    {
+        var start = typeName.IndexOf('<');
+        if (start < 0)
+        {
+            return 0;
+        }
+
+        var depth = 0;
+        var arity = 1;
+        for (var i = start; i < typeName.Length; i++)
+        {
+            switch (typeName[i])
+            {
+                case '<': depth++; break;
+                case '>':
+                    depth--;
+                    if (depth == 0)
+                    {
+                        return arity;
+                    }
+                    break;
+                case ',' when depth == 1: arity++; break;
+            }
+        }
+
+        return arity;
     }
 
     /// <summary>
@@ -49,24 +124,59 @@ public sealed class BaseClassRegistry
     public string? GetRootBaseName(string className)
     {
         var visited = new HashSet<string>(StringComparer.Ordinal);
-        var current = className;
+        var current = DeclarationKey(className, 0);
+        if (!_declarations.ContainsKey(current))
+        {
+            current = _declarations.Keys.FirstOrDefault(key => KeyName(key) == className) ?? current;
+        }
+
         while (visited.Add(current) && _declarations.TryGetValue(current, out var declaration))
         {
             if (declaration.BaseName is null)
             {
                 return null;
             }
-            var shortName = LastSegment(declaration.BaseName);
-            if (!_declarations.ContainsKey(shortName))
+            var baseKey = KeyForWrittenType(declaration.BaseName);
+            if (!_declarations.ContainsKey(baseKey))
             {
-                return shortName;
+                return LastSegment(declaration.BaseName);
             }
-            current = shortName;
+            current = baseKey;
         }
         return null;
     }
 
-    public int Count => _byShortName.Count;
+    public int Count => _byKey.Count;
+
+    /// <summary>
+    /// The namespace-qualified name of a type written short or partially qualified
+    /// ("ContentItem", "Items.Addon"), or null when the sources declare no such type or
+    /// declare more than one with that name.
+    ///
+    /// Used for the type arguments of a razor @inherits: they were written to resolve from
+    /// the code-behind's namespace and usings, neither of which the generated component has.
+    /// Ambiguity returns null rather than a guess - a wrong base type is worse than one the
+    /// reader has to fix.
+    /// </summary>
+    public string? ResolveFullTypeName(string writtenName)
+    {
+        if (string.IsNullOrWhiteSpace(writtenName))
+        {
+            return null;
+        }
+        if (_allClassFullNames.Contains(writtenName))
+        {
+            return writtenName;
+        }
+
+        // "Items.Addon" matches "...Templates.Items.Addon"; "ContentItem" matches "N2.ContentItem".
+        var suffix = "." + writtenName;
+        var matches = _allClassFullNames
+            .Where(full => full.EndsWith(suffix, StringComparison.Ordinal))
+            .Take(2)
+            .ToList();
+        return matches.Count == 1 ? matches[0] : null;
+    }
 
     /// <summary>True when a class with this full name exists in the scanned sources
     /// (used to decide whether an unmapped control can run under LegacyRenderHost).</summary>
@@ -98,7 +208,7 @@ public sealed class BaseClassRegistry
     /// </summary>
     public bool DeclaresTypeNamed(string shortName) => _allShortTypeNames.Contains(shortName);
 
-    /// <summary>Resolves a base-type name as written (possibly qualified) to a registered custom base.</summary>
+    /// <summary>Resolves a base-type name as written (possibly qualified, possibly generic).</summary>
     public bool TryResolve(string baseTypeName, out Entry entry)
     {
         entry = null!;
@@ -106,8 +216,10 @@ public sealed class BaseClassRegistry
         {
             return false;
         }
-        var shortName = LastSegment(baseTypeName);
-        return _byShortName.TryGetValue(shortName, out entry!);
+        // Exact arity first: TemplatePage and TemplatePage<T> are different types, and
+        // picking the wrong one produces either a missing or a superfluous type argument.
+        return _byKey.TryGetValue(KeyForWrittenType(baseTypeName), out entry!)
+               || _byName.TryGetValue(LastSegment(baseTypeName), out entry!);
     }
 
     public static BaseClassRegistry Build(IEnumerable<string> plainCodeFiles)
@@ -134,8 +246,10 @@ public sealed class BaseClassRegistry
                     .OfType<BaseNamespaceDeclarationSyntax>()
                     .FirstOrDefault()?.Name.ToString() ?? string.Empty;
                 var baseName = classDeclaration.BaseList?.Types.FirstOrDefault()?.Type.ToString();
+                var arity = classDeclaration.TypeParameterList?.Parameters.Count ?? 0;
                 // First declaration wins (partial classes appear once with the base list in practice)
-                declarations.TryAdd(classDeclaration.Identifier.Text, (namespaceName, baseName));
+                declarations.TryAdd(
+                    DeclarationKey(classDeclaration.Identifier.Text, arity), (namespaceName, baseName));
                 allClassFullNames.Add(string.IsNullOrEmpty(namespaceName)
                     ? classDeclaration.Identifier.Text
                     : $"{namespaceName}.{classDeclaration.Identifier.Text}");
@@ -159,16 +273,20 @@ public sealed class BaseClassRegistry
 
         // Pass 2: keep only classes whose base chain reaches Page / UserControl / MasterPage
         var registry = new Dictionary<string, Entry>(StringComparer.Ordinal);
-        foreach (var (className, declaration) in declarations)
+        var byName = new Dictionary<string, Entry>(StringComparer.Ordinal);
+        foreach (var (key, declaration) in declarations)
         {
-            var kind = ResolveKind(className, declarations);
-            if (kind is not null)
+            var kind = ResolveKind(key, declarations);
+            if (kind is null)
             {
-                registry[className] = new Entry(className, declaration.Namespace, kind.Value);
+                continue;
             }
+            var entry = new Entry(KeyName(key), declaration.Namespace, kind.Value) { Arity = KeyArity(key) };
+            registry[key] = entry;
+            byName.TryAdd(entry.ClassName, entry);
         }
 
-        var result = new BaseClassRegistry(registry, allClassFullNames, allShortTypeNames) { _declarations = declarations };
+        var result = new BaseClassRegistry(registry, byName, allClassFullNames, allShortTypeNames) { _declarations = declarations };
         foreach (var fullName in allClassFullNames)
         {
             result._canonicalClassNames.TryAdd(fullName, fullName);
@@ -181,11 +299,12 @@ public sealed class BaseClassRegistry
         return result;
     }
 
+    /// <param name="classKey">Arity-qualified key, so the walk can tell X from X&lt;T&gt;.</param>
     private static CodeBehindKind? ResolveKind(
-        string className, Dictionary<string, (string Namespace, string? BaseName)> declarations)
+        string classKey, Dictionary<string, (string Namespace, string? BaseName)> declarations)
     {
         var visited = new HashSet<string>(StringComparer.Ordinal);
-        var current = className;
+        var current = classKey;
 
         while (visited.Add(current) && declarations.TryGetValue(current, out var declaration))
         {
@@ -205,7 +324,13 @@ public sealed class BaseClassRegistry
                     return CodeBehindKind.Layout;
             }
 
-            current = LastSegment(baseName);
+            var next = KeyForWrittenType(baseName);
+            // A base written without its type arguments (or with an arity the sources do
+            // not declare) still names a real class; fall back to any declaration of it
+            // rather than ending the walk.
+            current = declarations.ContainsKey(next)
+                ? next
+                : declarations.Keys.FirstOrDefault(key => KeyName(key) == LastSegment(baseName)) ?? next;
         }
 
         return null;

@@ -39,6 +39,12 @@ $corpora = @(
        Url = 'https://github.com/dnnsoftware/Dnn.Platform/archive/refs/tags/v9.13.10.zip'
        ExtractedAs = 'Dnn.Platform-9.13.10' },
 
+    # Added as a held-out test set: the first five corpora had shaped the converter, and a
+    # sixth it had never seen immediately exposed a gap they all missed (generic page bases).
+    @{ Name = 'n2';   Title = 'n2cms (master)'
+       Url = 'https://github.com/n2cms/n2cms/archive/refs/heads/master.zip'
+       ExtractedAs = 'n2cms-master' },
+
     @{ Name = 'wt';   Title = 'WingtipToys (master)'
        Url = 'https://github.com/corn-mendoza/wingtiptoys/archive/refs/heads/master.zip'
        ExtractedAs = 'wingtiptoys-master' }
@@ -57,7 +63,7 @@ $corpora = @(
 if ($Only) {
     $corpora = $corpora | Where-Object { $Only -contains $_.Name }
     if (-not $corpora) {
-        Write-Error "-Only に一致するコーパスがありません。指定可能: be, mojo, yaf, dnn, wt"
+        Write-Error "-Only に一致するコーパスがありません。指定可能: be, mojo, yaf, dnn, n2, wt"
     }
 }
 

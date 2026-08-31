@@ -6,18 +6,18 @@
            },
     "mojo":  {
                  "convertible":  20,
-                 "portedCs":  718,
-                 "residuals":  278
+                 "portedCs":  729,
+                 "residuals":  265
              },
     "yaf":  {
                 "convertible":  5,
-                "portedCs":  2702,
+                "portedCs":  2722,
                 "residuals":  80
             },
     "dnn":  {
                 "convertible":  12,
-                "portedCs":  1355,
-                "residuals":  348
+                "portedCs":  1944,
+                "residuals":  392
             },
     "wt":  {
                "convertible":  3,

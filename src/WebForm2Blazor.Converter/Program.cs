@@ -62,6 +62,8 @@ string? expressionMapPath = null;
 string? propertyCatalogPath = null;
 string? webConfigOverride = null;
 var includeDirectories = new List<string>();
+string? entryProjectPath = null;
+var deriveIncludes = true;
 var port = 5080;
 
 for (var i = 0; i < args.Length; i++)
@@ -77,6 +79,8 @@ for (var i = 0; i < args.Length; i++)
         case "--expression-map": expressionMapPath = args[++i]; break;
         case "--catalog": propertyCatalogPath = args[++i]; break;
         case "--include": includeDirectories.Add(args[++i]); break;
+        case "--project": entryProjectPath = args[++i]; break;
+        case "--no-derive-includes": deriveIncludes = false; break;
         case "--web-config": webConfigOverride = args[++i]; break;
         default:
             Console.Error.WriteLine($"不明な引数: {args[i]}");
@@ -121,6 +125,78 @@ if (propertyCatalogPath is not null && File.Exists(propertyCatalogPath))
 {
     WebForm2Blazor.Converter.Mapping.PropertyKnowledge.Load(propertyCatalogPath);
     report.Info("(project)", $"プロパティカタログを読み込みました: {propertyCatalogPath}(expando 属性判定を実プロパティ基準で行います)。");
+}
+
+// Which library projects to port alongside the app is stated by the app's .csproj, so it
+// is read rather than guessed. Getting this set wrong is the most expensive mistake in a
+// conversion and it does not announce itself: the missing types surface as hundreds of
+// CS0246 that read like converter or compatibility-layer failures.
+if (deriveIncludes)
+{
+    var derived = WebForm2Blazor.Converter.Project.ProjectReferenceGraph.Derive(input, entryProjectPath);
+
+    if (derived.AmbiguousProjects.Count > 0)
+    {
+        report.Residual("(project)", ResidualKind.Configuration,
+            $"{input} に .csproj が {derived.AmbiguousProjects.Count} 個あり、参照プロジェクトを自動導出できません"
+            + "(相互排他のビルド構成である場合が多く、選ぶとデータベース等を暗黙に決めてしまいます)。"
+            + "--project でどれを使うか指定してください: "
+            + string.Join(", ", derived.AmbiguousProjects.Select(Path.GetFileName)),
+            disposition: ResidualDisposition.ManualMigration);
+    }
+
+    var added = derived.Directories
+        .Where(directory => !includeDirectories.Any(existing =>
+            string.Equals(Path.GetFullPath(existing).TrimEnd(Path.DirectorySeparatorChar),
+                directory.TrimEnd(Path.DirectorySeparatorChar),
+                StringComparison.OrdinalIgnoreCase)))
+        .ToList();
+    includeDirectories.AddRange(added);
+
+    if (added.Count > 0)
+    {
+        report.Info("(project)",
+            $"{Path.GetFileName(derived.EntryProject)} の ProjectReference から参照プロジェクト {added.Count} 件を自動で移植対象にしました: "
+            + string.Join(", ", added.Select(Path.GetFileName)));
+    }
+
+    foreach (var group in derived.ExclusiveGroups)
+    {
+        report.Residual("(project)", ResidualKind.Configuration,
+            "同じ型を宣言する参照プロジェクトが複数あります(データプロバイダ等、実行時に 1 つだけ使う排他構成)。"
+            + "どれを使うかは配置の判断のため自動選択せず、いずれも移植対象から外しました。"
+            + "--include で 1 つ指定してください: "
+            + string.Join(" / ", group.Select(Path.GetFileName)),
+            disposition: ResidualDisposition.ManualMigration);
+    }
+
+    if (derived.Analyzers.Count > 0)
+    {
+        // Not portable and not reproducible: whatever the generator emitted at build time
+        // is simply absent, and the code that used it will not compile. Saying so here
+        // saves the reader from hunting for a converter bug that does not exist.
+        report.Residual("(project)", ResidualKind.Configuration,
+            "ビルド時にコードを生成するアナライザ参照があります。生成される宣言は変換出力に含まれないため、"
+            + "それに依存するコードはビルドできません(手動移行が必要です): "
+            + string.Join(", ", derived.Analyzers.Select(Path.GetFileName)),
+            disposition: ResidualDisposition.ManualMigration);
+    }
+
+    if (derived.ForeignLanguage.Count > 0)
+    {
+        report.Residual("(project)", ResidualKind.Configuration,
+            "C# 以外のプロジェクトが参照されています。変換対象外です: "
+            + string.Join(", ", derived.ForeignLanguage.Select(Path.GetFileName)),
+            disposition: ResidualDisposition.ManualMigration);
+    }
+
+    if (derived.Missing.Count > 0)
+    {
+        report.Residual("(project)", ResidualKind.Configuration,
+            "ProjectReference の参照先が見つかりません(取得漏れの可能性があります): "
+            + string.Join(", ", derived.Missing.Select(Path.GetFileName)),
+            disposition: ResidualDisposition.ManualMigration);
+    }
 }
 
 var project = WebFormsProject.Scan(input, includeDirectories, webConfigOverride);

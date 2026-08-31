@@ -24,54 +24,36 @@ $ErrorActionPreference = 'Continue'
 $repo = Split-Path $PSScriptRoot -Parent
 $baselinePath = Join-Path $PSScriptRoot 'expected.json'
 
+# Library projects are no longer listed here: the converter derives them from the web
+# project's ProjectReference graph. What remains is only what the graph cannot decide -
+# which .csproj to start from when an app ships several, and which of a set of mutually
+# exclusive data providers to take.
 $corpora = @(
     @{ Name = 'be'
        Input = 'BlogEngine.NET-3.3.8.0\BlogEngine\BlogEngine.NET'
-       Include = @('BlogEngine.NET-3.3.8.0\BlogEngine\BlogEngine.Core') },
+       Include = @() },
 
     @{ Name = 'mojo'
        Input = 'mojoportal-3.1.6\Web'
-       # Only ONE data provider is included on purpose: MSSQL, MySql, SQLite and pgsql all
-       # declare the same mojoPortal.Data namespace, so taking more than one would turn
-       # every type in it into a CS0433 ambiguity.
-       Include = @('mojoportal-3.1.6\Brettle.Web.NeatHtml',
-                   'mojoportal-3.1.6\mojoPortal.Business',
-                   'mojoportal-3.1.6\mojoPortal.Business.WebHelpers',
-                   'mojoportal-3.1.6\mojoPortal.Core',
-                   'mojoportal-3.1.6\mojoPortal.Data.MSSQL',
-                   'mojoportal-3.1.6\mojoPortal.Web.Controls',
-                   'mojoportal-3.1.6\mojoPortal.Web.Framework')
+       # The converter detects that the four mojoPortal.Data.* projects declare the same
+       # types and takes none of them; the deployed database is picked here.
+       Include = @('mojoportal-3.1.6\mojoPortal.Data.MSSQL')
        # <mp:mojoGridView> は独自コントロール。マップが無いと未対応コントロール扱いになる。
        ControlMap = 'mojo-control-map.json' },
 
     @{ Name = 'yaf'
        Input = 'YAFNET-3.2.15\yafsrc\YetAnotherForum.NET'
-       # YAF vendors its dependencies as SOURCE rather than consuming NuGet packages:
-       # ServiceStack.OrmLite and Lucene.Net both live inside the repository and are wired
-       # up with ProjectReference. They look like external packages in the error log, but
-       # nothing needs to be downloaded - they only have to be included.
-       # One data provider only (SqlServer), for the same reason as mojoPortal.
-       Include = @('YAFNET-3.2.15\yafsrc\YAF.Core',
-                   'YAFNET-3.2.15\yafsrc\YAF.Types',
-                   'YAFNET-3.2.15\yafsrc\YAF.Web',
-                   'YAFNET-3.2.15\yafsrc\YAF.Configuration',
-                   'YAFNET-3.2.15\yafsrc\YAF.UrlRewriter',
-                   'YAFNET-3.2.15\yafsrc\YAF.Data\YAF.Data.SqlServer',
-                   'YAFNET-3.2.15\yafsrc\ServiceStack\ServiceStack.OrmLite',
-                   'YAFNET-3.2.15\yafsrc\Lucene.Net')
+       # YAF ships one .csproj per database, so the entry point has to be named; the graph
+       # from it reaches the vendored ServiceStack.OrmLite and Lucene.Net sources too.
+       Project = 'YAFNET-3.2.15\yafsrc\YetAnotherForum.NET\YAF-SqlServer.csproj'
+       Include = @()
        # YAF はサイトルートに Web.config が無く、配布時にリネームする前提。
        # これを渡さないと tagPrefix が読めず YAF: が全部未対応コントロールになる。
        WebConfig = 'YAFNET-3.2.15\yafsrc\YetAnotherForum.NET\recommended.web.config' },
 
-    # Library alone is not the application's own code: the interfaces and attributes the
-    # Website and Library are written against live in separate projects. Without them
-    # DnnDeprecatedAttribute, INavigationManager, IPortalSettings and ILog do not resolve,
-    # which alone accounted for ~1,100 build errors in the converted output.
     @{ Name = 'dnn'
        Input = 'Dnn.Platform-9.13.10\DNN Platform\Website'
-       Include = @('Dnn.Platform-9.13.10\DNN Platform\Library',
-                   'Dnn.Platform-9.13.10\DNN Platform\DotNetNuke.Abstractions',
-                   'Dnn.Platform-9.13.10\DNN Platform\DotNetNuke.Instrumentation') },
+       Include = @() },
 
     # 入力ルートが 1 階層深い(リポジトリ名 / ソリューション名 / プロジェクト名)。
     @{ Name = 'wt'
@@ -156,6 +138,7 @@ foreach ($c in $corpora) {
     $arguments = @('--input', $inputPath, '--output', $outDir, '--name', $c.Name,
                    '--components-ref', $componentsRef)
     foreach ($inc in $c.Include) { $arguments += @('--include', (Join-Path $Root $inc)) }
+    if ($c.Project) { $arguments += @('--project', (Join-Path $Root $c.Project)) }
     if ($c.WebConfig)  { $arguments += @('--web-config',  (Join-Path $Root $c.WebConfig)) }
     if ($c.ControlMap) { $arguments += @('--control-map', (Join-Path $PSScriptRoot $c.ControlMap)) }
 

@@ -1708,9 +1708,17 @@ static string? RenderStubMember(
     string declaredNamespace,
     bool containerIsSealed = false)
 {
+    bool Has(Microsoft.CodeAnalysis.SyntaxTokenList modifiers, Microsoft.CodeAnalysis.CSharp.SyntaxKind kind)
+        => modifiers.Any(modifier => Microsoft.CodeAnalysis.CSharpExtensions.IsKind(modifier, kind));
+
+    // "protected" belongs in a stub even though nothing outside can call it: the members a
+    // subclass OVERRIDES are usually protected, and the subclasses are being ported. Left
+    // out, DNN's EditControl stub loses RenderEditMode / RenderViewMode / StringValue and
+    // every control deriving from it fails on CS0115 - the single biggest cluster of them.
     bool IsPublic(Microsoft.CodeAnalysis.SyntaxTokenList modifiers)
-        => modifiers.Any(modifier => Microsoft.CodeAnalysis.CSharpExtensions.IsKind(modifier, Microsoft.CodeAnalysis.CSharp.SyntaxKind.PublicKeyword))
-           || modifiers.Any(modifier => Microsoft.CodeAnalysis.CSharpExtensions.IsKind(modifier, Microsoft.CodeAnalysis.CSharp.SyntaxKind.InternalKeyword));
+        => Has(modifiers, Microsoft.CodeAnalysis.CSharp.SyntaxKind.PublicKeyword)
+           || Has(modifiers, Microsoft.CodeAnalysis.CSharp.SyntaxKind.InternalKeyword)
+           || Has(modifiers, Microsoft.CodeAnalysis.CSharp.SyntaxKind.ProtectedKeyword);
 
     string Prefix(Microsoft.CodeAnalysis.SyntaxTokenList modifiers)
     {
@@ -1720,9 +1728,16 @@ static string? RenderStubMember(
         }
         var isStatic = containerIsStatic
                        || modifiers.Any(modifier => Microsoft.CodeAnalysis.CSharpExtensions.IsKind(modifier, Microsoft.CodeAnalysis.CSharp.SyntaxKind.StaticKeyword));
+        // A protected member stays protected: making it public would change the type's
+        // surface, and the only reason it is here is so a subclass can override it.
+        var access = !Has(modifiers, Microsoft.CodeAnalysis.CSharp.SyntaxKind.PublicKeyword)
+                     && Has(modifiers, Microsoft.CodeAnalysis.CSharp.SyntaxKind.ProtectedKeyword)
+            ? "protected "
+            : "public ";
+
         if (isStatic)
         {
-            return "public static ";
+            return access + "static ";
         }
 
         // A member the original declared virtual/abstract/override is one subclasses
@@ -1740,7 +1755,7 @@ static string? RenderStubMember(
                 || Microsoft.CodeAnalysis.CSharpExtensions.IsKind(modifier, Microsoft.CodeAnalysis.CSharp.SyntaxKind.AbstractKeyword)
                 || Microsoft.CodeAnalysis.CSharpExtensions.IsKind(modifier, Microsoft.CodeAnalysis.CSharp.SyntaxKind.OverrideKeyword));
 
-        return wasOverridable ? "public virtual " : "public ";
+        return wasOverridable ? access + "virtual " : access;
     }
 
     switch (member)

@@ -123,9 +123,9 @@ be            253      83         6             0
 n2           1661     232        36            95
 mojo          731     127        20           211
 yaf          2722      73         5            83
-dnn          1944     367        12           710
+dnn          1944     367        12           661
 wt             13      39         3             1
-合計                  921        82          1100
+合計                  921        82          1051
 ```
 
 ### 残差を原因で数える
@@ -222,10 +222,27 @@ ASP.NET MVC(System.Web.Mvc)のコードです。この変換器は WebForms の�
 CS0115 のオーバーライド先を数えると、`RenderEditMode` / `RenderViewMode` /
 `StringValue` / `AllowableFiles` / `ItemNodeName`(DNN の `EditControl` 系)と、
 `OnInit` / `CreateChildControls` / `LoadViewState` / `SaveViewState`(WebForms
-ライフサイクル)に集中しています。**いずれも除外型スタブが基底**で、スタブ生成器が
-メンバを落としていることに起因します(修飾子の欠落は修正済み、**メンバ自体の欠落は未着手**)。
+ライフサイクル)に集中していました。**いずれも除外型スタブが基底**でした。
 
-つまり残る CS0115 も「1 つの生成器の挙動」であって、295 個の別々の問題ではありません。
+### スタブは protected メンバを落としていた
+
+原因は 1 行です。スタブ生成器はメンバを `public` と `internal` だけ通していました。
+
+```csharp
+protected abstract string StringValue { get; set; }      // 元
+protected virtual void RenderViewMode(HtmlTextWriter w)  // 元
+```
+
+**サブクラスが override するメンバは、たいてい protected です。** 落とせば、その型を
+継承している移植済みクラスが全部 CS0115 になります。DNN の `EditControl` がこれで、
+`RenderEditMode` / `RenderViewMode` / `StringValue` / `AllowableFiles` を失っていました。
+
+protected を通し、**アクセス修飾子は元のまま**にしました(public に上げると型の公開面が
+変わるため。ここに置く理由は override させることだけです)。**DNN 710 → 661。**
+
+スタブ生成器はこれで 3 回目です — 基底クラスの消失(CS0115)、修飾子の消失(CS0506)、
+メンバの消失(CS0115)。いずれも**エラーはサブクラス側にしか出ません**。
+除外型スタブが絡む override エラーを見たら、まず生成器を疑ってください。
 
 「変換可能 36 件の未対応属性」も同様に固まっています。
 

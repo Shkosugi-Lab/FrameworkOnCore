@@ -253,6 +253,22 @@ public abstract class LegacyWebControl : IWebFormsControl, IDisposable
     }
 
     /// <summary>
+    /// WebForms WebControl.AddAttributesToRender / RenderAttributes equivalents. Ported
+    /// controls override these to put their own attributes on the element, and without
+    /// them every such override is CS0115 against a base that renders but offers no hook
+    /// to add attributes.
+    ///
+    /// RenderBeginTag calls AddAttributesToRender, so an override reaches the output the
+    /// same way it did on 4.8.
+    /// </summary>
+    protected virtual void AddAttributesToRender(HtmlTextWriter writer)
+    {
+    }
+
+    /// <summary>WebForms WebControl.RenderAttributes equivalent (pre-2.0 spelling).</summary>
+    protected virtual void RenderAttributes(HtmlTextWriter writer) => AddAttributesToRender(writer);
+
+    /// <summary>
     /// WebForms WebControl.TagKey equivalent. Rendering here goes through
     /// <see cref="TagName"/>; TagKey exists because ported controls override it to pick
     /// their element.
@@ -320,6 +336,9 @@ public abstract class LegacyWebControl : IWebFormsControl, IDisposable
         {
             writer.AddAttribute(pair.Key, pair.Value);
         }
+        // Last, so a control's own attributes can override the ones above - the order
+        // WebForms uses.
+        AddAttributesToRender(writer);
         writer.RenderBeginTag(TagName);
     }
 

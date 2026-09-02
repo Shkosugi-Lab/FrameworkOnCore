@@ -1755,6 +1755,18 @@ static string RenderStubType(
             {
                 resolvedBase = "WebForm2Blazor.Components." + controlBase;
             }
+            else if (baseName is "Attribute" or "System.Attribute")
+            {
+                // An attribute class that loses its base is no longer an attribute, and the
+                // error lands on every USE of it ("StringFormatMethodAttribute is not an
+                // attribute class") rather than on the stub. This is the language's own
+                // rule, not a list: [X] requires X : Attribute.
+                //
+                // Only Attribute is carried over from outside the port. A framework base in
+                // general may declare abstract members the stub cannot implement, which
+                // trades CS0115 for CS0534 - see RecordInheritableClass for the measurement.
+                resolvedBase = "global::System.Attribute";
+            }
 
             if (resolvedBase is not null)
             {
@@ -1771,7 +1783,7 @@ static string RenderStubType(
         foreach (var member in typeDeclaration.Members)
         {
             var text = RenderStubMember(
-                member, known, isStatic, isInterface, lookupNamespaces,
+                member, known, isStatic, isInterface, lookupNamespaces, stub.Name,
                 containerIsSealed: isSealed, containerHasBase: baseClause.Length > 0);
             if (text is not null)
             {
@@ -1806,6 +1818,7 @@ static string? RenderStubMember(
     bool containerIsStatic,
     bool containerIsInterface,
     IReadOnlyList<string> lookupNamespaces,
+    string containerName,
     bool containerIsSealed = false,
     bool containerHasBase = false)
 {
@@ -1984,6 +1997,36 @@ static string? RenderStubMember(
                     : null;
             }
             return $"{Prefix(field.Modifiers)}{fieldType} {variable.Identifier.Text};";
+        }
+
+        case Microsoft.CodeAnalysis.CSharp.Syntax.ConstructorDeclarationSyntax constructor:
+        {
+            // A stub declaring no constructor gets the implicit parameterless one, and every
+            // "new Stub(a, b)" then fails with CS1729 against a type that otherwise looks
+            // fine. An attribute is the same case: [Stub("x")] IS a constructor call, which
+            // is why giving those stubs their Attribute base only moved the error.
+            if (containerIsStatic || containerIsInterface || !IsPublic(constructor.Modifiers))
+            {
+                return null;
+            }
+            var constructorParameters = new List<string>();
+            foreach (var parameter in constructor.ParameterList.Parameters)
+            {
+                var passing = string.Concat(parameter.Modifiers.Select(modifier => modifier.Text + " "));
+                var parameterType = parameter.Modifiers.Any(modifier =>
+                        Microsoft.CodeAnalysis.CSharpExtensions.IsKind(modifier, Microsoft.CodeAnalysis.CSharp.SyntaxKind.ThisKeyword))
+                    ? null
+                    : ResolveType(parameter.Type, known, lookupNamespaces);
+                if (parameterType is null)
+                {
+                    return null;
+                }
+                constructorParameters.Add($"{passing}{parameterType} {parameter.Identifier.Text}");
+            }
+            // An empty body, not a throw: constructing one of these is how ported code
+            // reaches the members the stub does carry, and an attribute is only ever
+            // constructed by the runtime reading metadata.
+            return $"public {containerName}({string.Join(", ", constructorParameters)}) {{ }}";
         }
 
         default:

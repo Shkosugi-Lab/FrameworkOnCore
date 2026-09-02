@@ -9,13 +9,13 @@
                  "convertible":  19,
                  "portedCs":  731,
                  "residuals":  126,
-                 "buildErrors":  208
+                 "buildErrors":  206
              },
     "yaf":  {
                 "convertible":  5,
                 "portedCs":  2722,
                 "residuals":  73,
-                "buildErrors":  54
+                "buildErrors":  53
             },
     "dnn":  {
                 "convertible":  10,
@@ -27,7 +27,7 @@
                "convertible":  27,
                "portedCs":  1661,
                "residuals":  223,
-               "buildErrors":  82
+               "buildErrors":  74
            },
     "wt":  {
                "convertible":  3,

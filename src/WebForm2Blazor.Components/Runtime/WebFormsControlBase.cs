@@ -257,6 +257,10 @@ public abstract class WebFormsControlBase : ComponentBase, IWebFormsControl, IDi
     {
         Host?.HostCore.RegisterControl(this);
         RowContainer?.RegisterControl(this);
+
+        // Init runs before the first render, the same call site and for the same reason as
+        // WebFormsPage.OnInitialized. See the lifecycle block at the end of this file.
+        OnInit(EventArgs.Empty);
     }
 
     protected override void OnParametersSet()
@@ -431,5 +435,96 @@ public abstract class WebFormsControlBase : ComponentBase, IWebFormsControl, IDi
             return value + "pt";
         }
         return value.ToLowerInvariant();
+    }
+
+    // ---------------------------------------------------------------------------------
+    // WebForms Control lifecycle and view-state extension points.
+    //
+    // An application's own control derives from a compatibility control and overrides
+    // these ("class UrlSelector : HtmlGenericControl { protected override void
+    // OnInit(EventArgs e) ... }"). Without something to override, none of those files
+    // compile, and the CS0115 points at the application's control rather than at the base
+    // that is missing the member.
+    //
+    // LegacyWebControl (the plain-class control base) and WebFormsPage both offer this
+    // set already; the component control base did not, which is the whole of the gap.
+    //
+    // Only OnInit is driven, from OnInitialized - the same choice WebFormsPage makes,
+    // because Init bodies produce state the first render then reads (EnsureChildControls,
+    // script registration). The rest are declared, not raised: a Blazor component has no
+    // postback and no view state, and an override that is never called stays visible in
+    // the source, whereas silently skipped state handling would not be.
+    // ---------------------------------------------------------------------------------
+
+    protected virtual void OnInit(EventArgs e)
+    {
+    }
+
+    protected virtual void OnLoad(EventArgs e)
+    {
+    }
+
+    protected virtual void OnPreRender(EventArgs e)
+    {
+    }
+
+    protected virtual void OnUnload(EventArgs e)
+    {
+    }
+
+    protected virtual void OnDataBinding(EventArgs e)
+    {
+    }
+
+    /// <summary>WebForms Control.ChildControlsCreated equivalent.</summary>
+    protected bool ChildControlsCreated { get; set; }
+
+    /// <summary>
+    /// WebForms CreateChildControls equivalent. Composite controls build their children
+    /// here and the markup of a converted page has them already, so the default does
+    /// nothing; ported overrides run when the control itself calls EnsureChildControls.
+    /// </summary>
+    protected virtual void CreateChildControls()
+    {
+    }
+
+    protected void EnsureChildControls() => CreateChildControls();
+
+    /// <summary>WebForms Control.OnBubbleEvent equivalent (nothing bubbles here).</summary>
+    protected virtual bool OnBubbleEvent(object source, EventArgs args) => false;
+
+    /// <summary>
+    /// WebForms view-state extension points. A Blazor circuit keeps component state on the
+    /// server across renders, so there is no state to serialise and nothing raises these.
+    /// </summary>
+    protected virtual void LoadViewState(object savedState)
+    {
+    }
+
+    protected virtual object SaveViewState() => null;
+
+    protected virtual void TrackViewState()
+    {
+    }
+
+    /// <summary>
+    /// WebForms render extension points. The component renders through its own Razor
+    /// markup, so these are never invoked; they exist because ported controls override
+    /// them and would otherwise not compile.
+    /// </summary>
+    protected virtual void Render(HtmlTextWriter writer)
+    {
+    }
+
+    protected virtual void RenderChildren(HtmlTextWriter writer)
+    {
+    }
+
+    protected virtual void RenderContents(HtmlTextWriter writer)
+    {
+    }
+
+    protected virtual void AddAttributesToRender(HtmlTextWriter writer)
+    {
     }
 }

@@ -120,12 +120,12 @@ YAF はサイトルートに `Web.config` が無く、配布時に `recommended.
 ```
 コーパス  移植 .cs  総残差  変換可能  ビルドエラー
 be            253      77         0             0
-n2           1661     223        27            82
-mojo          731     126        19           208
-yaf          2722      73         5            54
+n2           1661     223        27            74
+mojo          731     126        19           206
+yaf          2722      73         5            53
 dnn          1944     364        10           422
 wt             13      39         3             1
-合計                  902        64           767
+合計                  902        64           756
 ```
 
 ### AI 残差層が実際に届く範囲
@@ -389,6 +389,41 @@ YAF に残る 3 件はこれです。
 
 **yaf 82 → 54、n2 83 → 82。合計ビルドエラー 796 → 767。** 総残差・変換可能・移植 .cs は
 6 コーパスすべてで不変、パリティ 30/30。
+
+### ライフサイクルの override 先は、コンポーネント系の基底にだけ無かった
+
+n2 の 82 件を分けると CS0115 が 25 件。メンバ名で見ると `OnInit` 3 / `CreateChildControls` 3 /
+`OnPreRender` 2 / `OnDataBinding` 2 のように**同じ名前が並びます**。1 件だけ追うと、
+
+```csharp
+public class UrlSelector : HtmlGenericControl        // 互換層の Blazor コンポーネント
+{
+    protected override void OnInit(EventArgs e)      // ← 基底に OnInit が無い
+    {
+        base.OnInit(e);
+        EnsureChildControls();                       // ← EnsureChildControls も無い
+```
+
+`LegacyWebControl`(平のクラスとしてのコントロール基底)と `WebFormsPage` は、この
+ライフサイクル一式を**両方とも既に持っています**。持っていなかったのは
+`WebFormsControlBase` — 互換層の**コンポーネント系**コントロール全部の基底だけでした。
+`Label` / `Button` / `HtmlGenericControl` / `TableRow` / `RequiredFieldValidator` を継承した
+アプリ独自コントロールが、そこで全部 CS0115 になります。
+
+`OnInit` / `OnLoad` / `OnPreRender` / `OnUnload` / `OnDataBinding` /
+`CreateChildControls` / `EnsureChildControls` / view-state 3 種 / render 4 種を追加しました。
+
+**駆動するのは `OnInit` だけです**(`OnInitialized` から)。`WebFormsPage` と同じ選択で、
+理由も同じ — Init の本体は初回描画が読む状態を作ります。残りは宣言のみで、これも
+`LegacyWebControl` と同じです。Blazor のコンポーネントにはポストバックもビューステートも
+無いため、駆動すると挙動を推測することになります。
+
+**この変更が影響するのは、いま CS0115 でビルドできないファイルだけ**です。互換層の
+コントロール自身は override していないので no-op のままです。
+
+**n2 82 → 74、mojo 208 → 206、yaf 54 → 53。dnn は変化なし** — dnn の CS0115 179 件は
+`AddPermission` / `RenderViewMode` のようなアプリ固有メンバで、基底は除外型スタブです
+(別の穴)。合計 767 → 756、パリティ 30/30。
 
 ## リポジトリ同梱 DLL への参照
 

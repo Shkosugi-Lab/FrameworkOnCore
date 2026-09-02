@@ -734,6 +734,17 @@ public sealed partial class MarkupEmitter(EmitContext context)
                 {
                     attributes.Add($"Visible=\"@(global::System.Convert.ToBoolean({visibleCode}))\"");
                 }
+                // An expression builder is handled for every other attribute (further down)
+                // but was not for this one, so Visible="<%$ HasValue: LogoUrl %>" became a
+                // residual even with the prefix in --expression-map. It is the same
+                // conversion; only the attribute differs.
+                else if (ExpressionBuilders.TryParseValue(value, out var visiblePrefix, out var visibleValue)
+                         && ExpressionBuilders.TryConvert(visiblePrefix, visibleValue, out var visibleExpression))
+                {
+                    attributes.Add($"Visible=\"@(global::System.Convert.ToBoolean({visibleExpression}))\"");
+                    context.Report.Info(context.SourceName,
+                        $"<{element.Name} runat=\"server\"> の Visible=\"<%$ {visiblePrefix}:{visibleValue} %>\" を変換しました。");
+                }
                 else if (value.Contains("<%", StringComparison.Ordinal))
                 {
                     Residual(ResidualKind.DataBinding,
@@ -941,7 +952,7 @@ public sealed partial class MarkupEmitter(EmitContext context)
                 if (parameterName is not null
                     && ExpressionBuilders.TryConvert(builderPrefix, builderValue, out var builderExpression))
                 {
-                    attributes.Add($"{parameterName}=\"@({builderExpression})\"");
+                    attributes.Add(RazorExpressionAttribute(parameterName, builderExpression));
                     context.Report.Info(context.SourceName,
                         $"式ビルダー {name}=\"<%$ {builderPrefix}:{builderValue} %>\" を変換しました。");
                     continue;
@@ -1705,6 +1716,21 @@ public sealed partial class MarkupEmitter(EmitContext context)
     private static partial Regex UnitValueRegex();
 
     private static string EscapeAttributeValue(string value) => value.Replace("\"", "&quot;");
+
+    /// <summary>
+    /// An attribute whose value is a C# expression, quoted so the expression survives.
+    ///
+    /// A string literal inside the expression is the problem: Attr="@("x")" ends the
+    /// attribute at the second quote, and escaping it to &amp;quot; would change the C#
+    /// rather than the markup. Razor accepts single quotes around an attribute, so the
+    /// quote that does not occur in the expression is used. n2cms writes
+    /// ZoneName="&lt;%$ Code:"AutoZone2" %&gt;", which is exactly this case.
+    /// </summary>
+    private static string RazorExpressionAttribute(string parameterName, string expression)
+        => expression.Contains('"', StringComparison.Ordinal)
+           && !expression.Contains('\'', StringComparison.Ordinal)
+            ? $"{parameterName}='@({expression})'"
+            : $"{parameterName}=\"@({expression})\"";
 
     /// <summary>
     /// Normalizes values of bool-typed parameters.

@@ -120,12 +120,12 @@ YAF はサイトルートに `Web.config` が無く、配布時に `recommended.
 ```
 コーパス  移植 .cs  総残差  変換可能  ビルドエラー
 be            253      77         0             0
-n2           1661     223        27            68
+n2           1661     223        27            65
 mojo          731     126        19           206
 yaf          2722      73         5            51
 dnn          1944     364        10           422
 wt             13      39         3             1
-合計                  902        64           748
+合計                  902        64           745
 ```
 
 ### AI 残差層が実際に届く範囲
@@ -444,6 +444,31 @@ public class UrlSelector : HtmlGenericControl        // 互換層の Blazor コ�
 すべてに効く必要があるので、`OnInit` の前に置きました。
 
 **n2 74 → 68、yaf 53 → 51。合計 748。** パリティ 30/30。
+
+### 完全修飾された `System.Web.X` の置換表も、手書きの列挙だった
+
+`using` の書き換えは、**シグネチャに完全修飾で書かれた型**には届きません
+(`protected override TextWriter GetTextWriter(System.Web.HttpResponse response)`)。
+そのためテキストパスが別にあるのですが、その中身が**手書きの列挙**でした。
+
+```csharp
+.Replace("System.Web.HttpContext", "WebForm2Blazor.Components.HttpContext")
+.Replace("System.Web.HttpRuntime", "WebForm2Blazor.Components.HttpRuntime")
+.Replace("System.Web.VirtualPathUtility", ...)
+.Replace("System.Web.HttpUtility", ...)
+```
+
+列挙されていなかったのは `HttpApplication` / `SiteMapNode` / `SiteMapProvider` /
+`HttpRequestBase` — **どれも互換層に同名で実在します。**
+
+**変換器は互換層のアセンブリを参照しています。**(`--components-ref` とは別に、
+`typeof(WebFormsControlBase).Assembly` として。)ならば列挙を持つ理由はありません。
+`System.Web.X` を正規表現で拾い、**互換層が本当に X を宣言しているときだけ**置換する
+ようにしました。型名の変わるもの(`HttpBrowserCapabilities` → `...Shim`)と
+名前空間ごと移すもの(`System.Web.UI.WebControls.`)は先に走るので影響を受けません。
+
+**n2 68 → 65。** 他 5 本は不変です。件数は小さいですが、消えたのは「列挙が漏れる」と
+いう欠陥のほうで、互換層に型を足すたびにここを更新する必要も無くなりました。
 
 ## リポジトリ同梱 DLL への参照
 

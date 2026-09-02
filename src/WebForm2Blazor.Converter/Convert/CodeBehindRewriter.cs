@@ -596,7 +596,7 @@ public static class CodeBehindRewriter
     /// touched by the using rewrite; a text pass maps them onto the compat / EF6 types.
     /// </summary>
     private static string RewriteQualifiedFrameworkTypes(string code)
-        => code
+        => RewriteRootSystemWebTypes(code
             .Replace("System.Data.Objects", "System.Data.Entity.Core.Objects")
             .Replace("System.Data.EntityClient", "System.Data.Entity.Core.EntityClient")
             .Replace("System.Data.Metadata.Edm", "System.Data.Entity.Core.Metadata.Edm")
@@ -625,11 +625,34 @@ public static class CodeBehindRewriter
             .Replace("System.Web.Configuration.", "WebForm2Blazor.Components.")
             .Replace("System.Web.Hosting.", "WebForm2Blazor.Components.")
             .Replace("System.Web.Profile.", "WebForm2Blazor.Components.")
-            .Replace("System.Web.HttpContext", "WebForm2Blazor.Components.HttpContext")
-            .Replace("System.Web.HttpRuntime", "WebForm2Blazor.Components.HttpRuntime")
-            .Replace("System.Web.VirtualPathUtility", "WebForm2Blazor.Components.VirtualPathUtility")
-            .Replace("System.Web.HttpUtility", "WebForm2Blazor.Components.HttpUtility")
-            .Replace("System.Web.HttpCacheability", "WebForm2Blazor.Components.HttpCacheability");
+            .Replace("System.Web.HttpCacheability", "WebForm2Blazor.Components.HttpCacheability"));
+    // The passes above rename a type or move a whole namespace. What is left over is
+    // "System.Web.X" where the compat layer has an X of the SAME name, and listing those
+    // by hand is exactly what went wrong: HttpContext / HttpRuntime / VirtualPathUtility /
+    // HttpUtility were listed, while HttpApplication, SiteMapNode, SiteMapProvider and
+    // HttpRequestBase - all present in the compat layer - were not. The converter
+    // references that assembly, so RewriteRootSystemWebTypes asks it instead.
+
+    /// <summary>
+    /// "System.Web.Foo" -> "WebForm2Blazor.Components.Foo", but only when the compat layer
+    /// really declares a Foo. Anything else (a sub-namespace the passes above did not
+    /// rewrite, a type with no counterpart) is left alone so the error stays visible.
+    /// </summary>
+    private static string RewriteRootSystemWebTypes(string code)
+        => System.Text.RegularExpressions.Regex.Replace(
+            code,
+            @"\bSystem\.Web\.([A-Z]\w*)\b",
+            match => CompatTypeNames.Contains(match.Groups[1].Value)
+                ? "WebForm2Blazor.Components." + match.Groups[1].Value
+                : match.Value);
+
+    /// <summary>Every public type the compat layer declares directly in its namespace.</summary>
+    private static readonly HashSet<string> CompatTypeNames =
+        typeof(WebForm2Blazor.Components.WebFormsControlBase).Assembly
+            .GetExportedTypes()
+            .Where(type => type.Namespace == "WebForm2Blazor.Components")
+            .Select(type => type.Name)
+            .ToHashSet(StringComparer.Ordinal);
     // new HtmlGenericControl("div") is NOT handled here: rewriting a constructor call
     // needs to see whether an object initializer already follows it, which a text pass
     // cannot. See HtmlGenericControlRewriter.

@@ -763,10 +763,28 @@ public static partial class AspxConverters
 
             if (string.IsNullOrEmpty(tagPrefix) || string.IsNullOrEmpty(src))
             {
-                // Assembly registrations (third-party controls) are not supported yet
+                // An assembly registration (<%@ Register TagPrefix Assembly Namespace %>)
+                // is NOT unsupported: BuildPrefixNamespaces reads its Namespace, and
+                // ResolveLegacyControl uses that to resolve the prefix onto ported
+                // controls. Reporting it as a residual said the opposite, and said it
+                // TWICE - a control that really cannot be resolved is already reported at
+                // each use site. DNN's admin/Containers/title.ascx carried one of these
+                // plus the five control residuals that describe the same gap.
+                //
+                // What remains worth saying is which assembly the prefix came from, since
+                // that is the thing to name in --package-map when the controls do go
+                // missing.
+                if (!string.IsNullOrEmpty(tagPrefix))
+                {
+                    report.Info(project.RelativePath(path),
+                        $"<%@ Register TagPrefix=\"{tagPrefix}\" Assembly=\"{directive.Get("Assembly")}\" %> の "
+                        + $"Namespace=\"{directive.Get("Namespace")}\" をプレフィックス解決に使用します"
+                        + "(移植済みのコントロールは解決され、解決できないものは使用箇所で個別に報告されます)。");
+                    continue;
+                }
+
                 report.Residual(project.RelativePath(path), ResidualKind.UnmappedControl,
-                    $"<%@ Register %> のうち Src を持たないもの(Assembly 登録)は未対応です: "
-                    + $"TagPrefix={tagPrefix}, Assembly={directive.Get("Assembly")}",
+                    $"<%@ Register %> に TagPrefix がありません: Assembly={directive.Get("Assembly")}, Src={src}",
                     disposition: ResidualDisposition.ManualMigration);
                 continue;
             }

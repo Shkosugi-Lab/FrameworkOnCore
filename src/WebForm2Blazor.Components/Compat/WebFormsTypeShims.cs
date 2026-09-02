@@ -266,22 +266,43 @@ public abstract class BaseCompareValidator : ValidatorBase
     };
 }
 
-/// <summary>System.Web.UI.WebControls.DataBoundControl equivalent (declaration surface).</summary>
+/// <summary>
+/// System.Web.UI.WebControls.DataBoundControl equivalent. The two-step bind (PerformSelect
+/// fetches, PerformDataBinding consumes) is what a ported control overrides.
+/// </summary>
 public class DataBoundControl : LegacyWebControl
 {
-    public object DataSource { get; set; }
+    public virtual object DataSource { get; set; }
 
-    public string DataSourceID { get; set; }
+    public virtual string DataSourceID { get; set; }
 
-    public string DataMember { get; set; }
+    public virtual string DataMember { get; set; }
+
+    protected virtual void PerformSelect()
+    {
+    }
+
+    protected virtual void PerformDataBinding(System.Collections.IEnumerable data)
+    {
+    }
+
+    protected virtual DataSourceView GetData() => null;
 }
 
-/// <summary>System.Web.UI.WebControls.DataSourceControl equivalent (declaration surface).</summary>
+/// <summary>
+/// System.Web.UI.WebControls.DataSourceControl equivalent.
+/// </summary>
+/// <remarks>
+/// GetView / GetViewNames are PROTECTED, as in System.Web. Declaring them public here made
+/// every ported data source (n2's ItemDataSource, mojoPortal's RssDataSource) fail with
+/// CS0507 - an override cannot widen accessibility - which is a worse error than the
+/// missing type it replaced.
+/// </remarks>
 public class DataSourceControl : LegacyWebControl
 {
-    public virtual DataSourceView GetView(string viewName) => null;
+    protected virtual DataSourceView GetView(string viewName) => null;
 
-    public virtual System.Collections.ICollection GetViewNames() => Array.Empty<string>();
+    protected virtual System.Collections.ICollection GetViewNames() => Array.Empty<string>();
 }
 
 /// <summary>System.Web.UI.WebControls.HierarchicalDataSourceControl equivalent.</summary>
@@ -436,6 +457,14 @@ public class Parameter
         DefaultValue = defaultValue?.ToString();
     }
 
+    protected Parameter(Parameter original)
+    {
+        Name = original?.Name;
+        DefaultValue = original?.DefaultValue;
+        Type = original?.Type;
+        Direction = original?.Direction;
+    }
+
     public string Name { get; set; }
 
     public string DefaultValue { get; set; }
@@ -445,6 +474,14 @@ public class Parameter
     public string ConvertEmptyStringToNull { get; set; }
 
     public string Direction { get; set; }
+
+    /// <summary>
+    /// WebForms Parameter.Clone / Evaluate. An application that declares a parameter of its
+    /// own (n2's CurrentItemParameter, which reads the current content item) overrides both.
+    /// </summary>
+    protected virtual Parameter Clone() => new(this);
+
+    protected virtual object Evaluate(HttpContext context, IWebFormsControl control) => DefaultValue;
 }
 
 /// <summary>System.Web.UI.OutputCacheParameters equivalent (declaration surface).</summary>
@@ -807,8 +844,35 @@ public sealed class WebRequestInformation
     public string ThreadAccountName { get; internal set; }
 }
 
+/// <summary>
+/// System.Web.Management.WebBaseEvent equivalent - the root of the health-monitoring
+/// events. Applications derive their own (mojoPortal raises one per sign-in attempt) and
+/// override Raise / FormatCustomEventDetails, so both are declared virtual.
+///
+/// Raise is inert: there is no health-monitoring pipeline to raise into. The override still
+/// runs whatever the application does before calling base.
+/// </summary>
+public class WebBaseEvent
+{
+    public object EventSource { get; protected set; }
+
+    public int EventCode { get; protected set; }
+
+    public int EventDetailCode { get; protected set; }
+
+    public DateTime EventTime { get; } = DateTime.UtcNow;
+
+    public string Message { get; protected set; }
+
+    public virtual void Raise()
+    {
+    }
+
+    public virtual void FormatCustomEventDetails(WebEventFormatter formatter) => _ = formatter;
+}
+
 /// <summary>System.Web.Management.WebAuthenticationSuccessAuditEvent equivalent.</summary>
-public class WebAuthenticationSuccessAuditEvent
+public class WebAuthenticationSuccessAuditEvent : WebBaseEvent
 {
     public string NameToAuthenticate { get; protected set; }
 
@@ -816,7 +880,7 @@ public class WebAuthenticationSuccessAuditEvent
 }
 
 /// <summary>System.Web.Management.WebAuthenticationFailureAuditEvent equivalent.</summary>
-public class WebAuthenticationFailureAuditEvent
+public class WebAuthenticationFailureAuditEvent : WebBaseEvent
 {
     public string NameToAuthenticate { get; protected set; }
 

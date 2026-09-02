@@ -120,12 +120,12 @@ YAF はサイトルートに `Web.config` が無く、配布時に `recommended.
 ```
 コーパス  移植 .cs  総残差  変換可能  ビルドエラー
 be            253      77         0             0
-n2           1661     223        27            54
-mojo          731     126        19            54
+n2           1661     223        27            48
+mojo          731     126        19            46
 yaf          2722      73         5            46
-dnn          1944     364        10           122
+dnn          1944     364        10           121
 wt             13      39         3             1
-合計                  902        64           277
+合計                  902        64           262
 ```
 
 **ビルドエラーの数には「未決の依存によるもの」を含めていません。** リポジトリ同梱 DLL の
@@ -674,6 +674,37 @@ SqlMembershipProvider ProfileProvider ValidatePasswordEventArgs ...
 セキュリティ上の答えではありません。
 
 **mojo 88 → 54、n2 63 → 54、yaf 51 → 46、dnn 132 → 122。合計 335 → 277。**
+
+### 追加した型の「面」を合わせる — アクセス修飾子は署名の一部
+
+63 型を足したあと CS0246 は 106 → 33 に落ち、代わりに **CS0115 が 83 → 98 に増えました。**
+型があると今度は**そのメンバが問われる**ので、これは前進です。ただし新種の
+`CS0507`(アクセス修飾子の変更)も出ました。
+
+```
+'RssDataSource.GetView(string)': 'public' の継承メンバー 'DataSourceControl.GetView(string)' を
+オーバーライドするときに、アクセス修飾子を変更できません
+```
+
+**`DataSourceControl.GetView` は System.Web では `protected` です。** public で宣言した
+ために、移植された全データソース(n2 の `ItemDataSource`、mojoPortal の `RssDataSource`)
+が override できなくなりました。**足す前より悪い**エラーです。
+
+同じ理由で直したもの:
+
+| | 実際の System.Web |
+|---|---|
+| `DataSourceControl.GetView` / `GetViewNames` | `protected` |
+| `HtmlContainerControl.TagName` | `public`(互換層は protected だった) |
+| `Parameter.Clone` / `Evaluate` | `protected virtual` |
+
+**アクセス修飾子は署名の一部です。** 宣言だけ合っていても override はできません。
+
+あわせて、足した型が持つべきメンバも埋めました — `DataBoundControl` の
+`PerformSelect` / `PerformDataBinding`、`WebBaseEvent`(`Raise` /
+`FormatCustomEventDetails`)、`LegacyWebControl` の `UniqueID` / `Font`。
+
+**mojo 54 → 46、n2 54 → 48、dnn 122 → 121。合計 277 → 262。**
 
 ## リポジトリ同梱 DLL への参照
 

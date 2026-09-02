@@ -169,6 +169,18 @@ public abstract class LegacyWebControl : IWebFormsControl, IDisposable
 
     public virtual string ClientID => ID;
 
+    /// <summary>
+    /// WebForms Control.UniqueID equivalent. Virtual because ported controls override it -
+    /// mojoPortal's AdRotator returns a stable id so its client script can find itself.
+    /// </summary>
+    public virtual string UniqueID => ID;
+
+    /// <summary>
+    /// WebForms WebControl.Font equivalent. The Font-* markup attributes land on the
+    /// component parameters; this is the object form ported code assigns through.
+    /// </summary>
+    public virtual FontInfo Font { get; set; } = new();
+
     public virtual string CssClass { get; set; }
 
     public virtual bool Visible { get; set; } = true;

@@ -1112,7 +1112,12 @@ public class HtmlContainerControl : LegacyWebControl
 
     public virtual string InnerText { get; set; } = string.Empty;
 
-    protected override string TagName => "span";
+    /// <summary>
+    /// WebForms HtmlContainerControl.TagName is PUBLIC (an HtmlGenericControl's tag is part
+    /// of its surface), and ported controls override it publicly - FieldSet returns
+    /// "fieldset". Declaring it protected here made those overrides CS0507.
+    /// </summary>
+    public new virtual string TagName { get; set; } = "span";
 }
 
 /// <summary>
@@ -1126,7 +1131,7 @@ public class HtmlHead : HtmlContainerControl
 
     public ControlCollection StyleSheet { get; } = [];
 
-    protected override string TagName => "head";
+    public HtmlHead() => TagName = "head";
 }
 
 /// <summary>System.Web.UI.WebControls.MultiView equivalent (state only).</summary>

@@ -299,6 +299,22 @@ public static class CodeBehindRewriter
         ["CompositeControl"] = "LegacyWebControl",
         ["PlaceHolder"] = "LegacyWebControl",
         ["Image"] = "LegacyWebControl",
+        // Same reason as the block above, found by re-measuring CS0115: the compat
+        // counterpart of each of these is a Blazor COMPONENT, which a ported plain class
+        // cannot derive from, so its Render / OnPreRender overrides had nothing to bind to
+        // (mojoPortal's "jQueryFileUpload : FileUpload").
+        //
+        // Only names whose compat form is a component belong here. TreeView, Menu,
+        // MultiView and Calendar are declaration shims that ALREADY derive from
+        // LegacyWebControl, and redirecting those would throw away the members the shim
+        // carries - a regression, not a fix.
+        ["FileUpload"] = "LegacyWebControl",
+        ["CheckBoxList"] = "LegacyWebControl",
+        ["RadioButtonList"] = "LegacyWebControl",
+        ["DetailsView"] = "LegacyWebControl",
+        ["FormView"] = "LegacyWebControl",
+        ["HiddenField"] = "LegacyWebControl",
+        ["Table"] = "LegacyWebControl",
     };
 
     /// <summary>

@@ -141,8 +141,22 @@ wt             13      39         3             1
 | 生成 `.razor` が無い | 26 | 対象種別だが、そのファイルの `.razor` が生成されていない |
 | AI タスクに到達 | 18 | |
 
-**26 件が「.razor が無い」で落ちているのは未調査です。** AI 層に LLM を繋ぐより先に、
-ここを見るほうが件数は大きい可能性があります。
+**26 件の「.razor が無い」は、少なくとも一部が誤りです。**
+
+BlogEngine の `Custom/Themes/RazorHost/CommentForm.ascx`(6 ファイル中の 1 つ)は
+`generatedRazor` が null ですが、出力には
+`Components/Controls/Custom/Themes/RazorHost/**CommentFormBase**.razor` が存在します。
+`inherits` に合わせてコンポーネント名が変わるため、**名前で引き当てられていない**だけです。
+
+```
+be   6 ファイル  名前解決の失敗を確認済み(.razor は存在する)
+n2   8 ファイル  未確認(<script runat="server"> で変換不可の可能性あり)
+その他 5 ファイル 未確認
+wt   Default.aspx.cs  そもそも .cs なので .razor が無いのは正しい
+```
+
+**LLM アダプタより先にここを直すべきです。** 名前解決が通れば AI 層の到達範囲は
+18 → 最大 44 件になり、いま作ろうとしている仕組みの土台の数字が倍以上変わります。
 
 ### 残差を原因で数える
 

@@ -891,13 +891,26 @@ report.Info("(project)", $"スモークシナリオを自動生成しました: 
 // code-behind. The AI layer works one residual at a time and its output is accepted only
 // when the parity harness still matches - build-green alone is not a sufficient gate
 // (a change can compile and still break the page at runtime).
+// Keyed on the MARKUP path. Deriving it from the code-behind path was the earlier
+// approach and it missed every file using <script runat="server">, which has no separate
+// code-behind at all - the AI layer then dropped those files as "not converted" when they
+// had converted fine, just under a component name taken from the inherits base
+// (CommentForm.ascx -> CommentFormBase.razor). The code-behind path is still used as a
+// fallback for anything that somehow lacks the markup path.
 var componentBySource = components
-    .Where(component => component.CodeBehindSourcePath is not null)
-    .GroupBy(component => project.RelativePath(component.CodeBehindSourcePath!)
-        .Replace(".aspx.cs", ".aspx", StringComparison.OrdinalIgnoreCase)
-        .Replace(".ascx.cs", ".ascx", StringComparison.OrdinalIgnoreCase)
-        .Replace(".master.cs", ".master", StringComparison.OrdinalIgnoreCase), StringComparer.OrdinalIgnoreCase)
-    .ToDictionary(group => group.Key, group => group.First(), StringComparer.OrdinalIgnoreCase);
+    .Select(component => (
+        Key: component.MarkupSourcePath is not null
+            ? project.RelativePath(component.MarkupSourcePath)
+            : component.CodeBehindSourcePath is not null
+                ? project.RelativePath(component.CodeBehindSourcePath)
+                    .Replace(".aspx.cs", ".aspx", StringComparison.OrdinalIgnoreCase)
+                    .Replace(".ascx.cs", ".ascx", StringComparison.OrdinalIgnoreCase)
+                    .Replace(".master.cs", ".master", StringComparison.OrdinalIgnoreCase)
+                : null,
+        Component: component))
+    .Where(entry => entry.Key is not null)
+    .GroupBy(entry => entry.Key!, StringComparer.OrdinalIgnoreCase)
+    .ToDictionary(group => group.Key, group => group.First().Component, StringComparer.OrdinalIgnoreCase);
 
 var aiTasks = report.Residuals
     .GroupBy(residual => residual.Source, StringComparer.OrdinalIgnoreCase)

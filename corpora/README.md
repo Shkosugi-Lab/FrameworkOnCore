@@ -141,22 +141,30 @@ wt             13      39         3             1
 | 生成 `.razor` が無い | 26 | 対象種別だが、そのファイルの `.razor` が生成されていない |
 | AI タスクに到達 | 18 | |
 
-**26 件の「.razor が無い」は、少なくとも一部が誤りです。**
+**「.razor が無い」26 件は、ほぼ全部が誤りでした(修正済み)。**
 
-BlogEngine の `Custom/Themes/RazorHost/CommentForm.ascx`(6 ファイル中の 1 つ)は
-`generatedRazor` が null ですが、出力には
-`Components/Controls/Custom/Themes/RazorHost/**CommentFormBase**.razor` が存在します。
-`inherits` に合わせてコンポーネント名が変わるため、**名前で引き当てられていない**だけです。
+`componentBySource` は**コードビハインドのパス**から引いていました。
+`<script runat="server">` を使うファイルは別ファイルのコードビハインドを持たないため
+決して一致せず、変換に成功していても「未変換」として捨てられていました。
+BlogEngine の `CommentForm.ascx` は
+`Components/Controls/Custom/Themes/RazorHost/CommentFormBase.razor` として出力済みです
+(コンポーネント名は `inherits` の基底に合わせて変わります)。
+
+`ConvertedComponent.MarkupSourcePath` を追加してマークアップのパスで引くようにし、
+**脱落 26 → 1**。残る 1 件は `wt/Default.aspx.cs` で、`.cs` に `.razor` が無いのは正しい挙動です。
+
+### AI 残差層の到達範囲(修正後)
 
 ```
-be   6 ファイル  名前解決の失敗を確認済み(.razor は存在する)
-n2   8 ファイル  未確認(<script runat="server"> で変換不可の可能性あり)
-その他 5 ファイル 未確認
-wt   Default.aspx.cs  そもそも .cs なので .razor が無いのは正しい
+27 ファイル / 残差 43 件
+
+32  インラインコードブロック <% %>
+ 9  データバインド式
+ 2  ページ構造
 ```
 
-**LLM アダプタより先にここを直すべきです。** 名前解決が通れば AI 層の到達範囲は
-18 → 最大 44 件になり、いま作ろうとしている仕組みの土台の数字が倍以上変わります。
+修正前は **9 ファイル / 18 件**でした。**LLM アダプタを検討するなら、この数字を土台に
+してください。** 修正前の数字で設計すると、対象を半分以下に見積もることになります。
 
 ### 残差を原因で数える
 

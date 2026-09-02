@@ -218,6 +218,7 @@ public static partial class AspxConverters
             Fields = context.Fields,
             Kind = CodeBehindKind.Layout,
             CodeBehindSourcePath = codeBehindPath,
+            MarkupSourcePath = path,
             UsedControlNamespaces = [.. context.UsedControlNamespaces],
             StubComponents = context.StubComponents,
         };
@@ -291,6 +292,7 @@ public static partial class AspxConverters
             Fields = context.Fields,
             Kind = CodeBehindKind.UserControl,
             CodeBehindSourcePath = codeBehindPath,
+            MarkupSourcePath = path,
             UsedControlNamespaces = [.. context.UsedControlNamespaces],
             StubComponents = context.StubComponents,
         };
@@ -424,6 +426,7 @@ public static partial class AspxConverters
             Fields = context.Fields,
             Kind = CodeBehindKind.Page,
             CodeBehindSourcePath = codeBehindPath,
+            MarkupSourcePath = path,
             Routes = BuildRoutes(project.RelativePath(path)),
             SmokeControls = context.SmokeControls,
             UsedControlNamespaces = [.. context.UsedControlNamespaces],

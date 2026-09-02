@@ -330,6 +330,16 @@ public sealed class ConvertedComponent
     public string? CodeBehindSourcePath { get; init; }
 
     /// <summary>
+    /// The .aspx / .ascx / .master this component came from.
+    ///
+    /// Needed because a file using &lt;script runat="server"&gt; has NO separate
+    /// code-behind, so anything keyed on <see cref="CodeBehindSourcePath"/> silently
+    /// misses it - which is how the AI layer came to discard residuals for files it had
+    /// converted perfectly well.
+    /// </summary>
+    public string? MarkupSourcePath { get; init; }
+
+    /// <summary>
     /// Exactly what the razor emitted as @inherits, so the code-behind half of the partial
     /// class can be made to say the same thing.
     ///

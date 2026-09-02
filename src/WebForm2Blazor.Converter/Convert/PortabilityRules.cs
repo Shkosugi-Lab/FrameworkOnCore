@@ -1,3 +1,5 @@
+using Microsoft.CodeAnalysis.CSharp;
+
 namespace WebForm2Blazor.Converter.Convert;
 
 /// <summary>
@@ -59,7 +61,70 @@ public static class PortabilityRules
     /// "MyPayPal.Helper" does not count.
     /// </summary>
     public static string? FindQualifiedFrameworkReference(string source)
-        => Prefixes.FirstOrDefault(prefix => HasQualifiedReference(source, prefix));
+    {
+        var code = WithoutStringsAndComments(source);
+        return Prefixes.FirstOrDefault(prefix => HasQualifiedReference(code, prefix));
+    }
+
+    /// <summary>
+    /// The source with string literals and comments blanked out.
+    ///
+    /// "Looks like code" was still decided by searching raw text, so a namespace NAMED IN A
+    /// STRING counted as a dependency. DNN's Upgrade.cs probes for an optional assembly
+    /// with
+    ///
+    ///     Reflection.CreateType("System.Data.Linq.DataContext", true)
+    ///
+    /// and was excluded for a namespace it does not import and does not reference. That
+    /// one file emptied DotNetNuke.Services.Upgrade, which took out HtmlUtils, which took
+    /// out Globals, which took out PortalSecurity - close to a hundred cascade residuals
+    /// from a string literal.
+    ///
+    /// The characters are replaced rather than removed so that every offset - and so the
+    /// surrounding-character test below - keeps working.
+    /// </summary>
+    private static string WithoutStringsAndComments(string source)
+    {
+        var text = new System.Text.StringBuilder(source);
+
+        void Blank(Microsoft.CodeAnalysis.Text.TextSpan span)
+        {
+            for (var index = span.Start; index < span.End && index < text.Length; index++)
+            {
+                if (text[index] is not ('\r' or '\n'))
+                {
+                    text[index] = ' ';
+                }
+            }
+        }
+
+        var root = CodeBehindRewriter.ParseUnit(source);
+
+        foreach (var token in root.DescendantTokens())
+        {
+            if (token.RawKind == (int)SyntaxKind.StringLiteralToken
+                || token.RawKind == (int)SyntaxKind.CharacterLiteralToken
+                || token.RawKind == (int)SyntaxKind.InterpolatedStringTextToken
+                || token.RawKind == (int)SyntaxKind.SingleLineRawStringLiteralToken
+                || token.RawKind == (int)SyntaxKind.MultiLineRawStringLiteralToken)
+            {
+                Blank(token.Span);
+            }
+        }
+
+        foreach (var trivia in root.DescendantTrivia())
+        {
+            if (trivia.RawKind == (int)SyntaxKind.SingleLineCommentTrivia
+                || trivia.RawKind == (int)SyntaxKind.MultiLineCommentTrivia
+                || trivia.RawKind == (int)SyntaxKind.SingleLineDocumentationCommentTrivia
+                || trivia.RawKind == (int)SyntaxKind.MultiLineDocumentationCommentTrivia)
+            {
+                Blank(trivia.Span);
+            }
+        }
+
+        return text.ToString();
+    }
 
     private static bool HasQualifiedReference(string source, string prefix)
     {

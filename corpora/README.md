@@ -324,6 +324,18 @@ WebForms 期のアプリは依存ライブラリを `_libs\` などにチェッ�
 同一 API の NuGet パッケージがあります。`System.ComponentModel.Composition`(MEF)を
 名前空間対応表に追加し、**DNN が 941 → 901** になりました。
 
+### 調査済み: `DNNNode` / `DNNNodeCollection`(CS0246 58 件)
+
+型ごと欠落しているので変換器の穴を疑って追いましたが、**欠陥ではありませんでした。**
+
+`DotNetNuke.WebControls` という同梱 DLL の型で、`class DNNNode` の宣言は
+**入力ツリーのどこにも存在しません**(`DNN Platform/Controls/DotNetNuke.WebControls/`
+には `bin` しか無く、ソースは同梱されていない)。既に
+`package-map.template.json` に載っており、正しく報告されています。
+
+**再調査しないでください。** 58 件は「ユーザーが代替パッケージを決める」側の数字で、
+変換器側で減らせるものではありません。
+
 ## あいまい参照 CS0104(未解決)— まず内訳を見てください
 
 **「CS0104 = 互換層の平坦化が原因」は誤りです。** 実測すると 72 件中 28 件しか

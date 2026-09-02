@@ -503,6 +503,38 @@ static bool UsesGoneType(string source, (string Type, string Namespace) gone)
 // namespace drags out base classes whole page trees are built on. A qualified name is
 // unambiguous evidence of a dependency; a bare one is not worth the blast radius.
 
+/// <summary>
+/// Whether the source names any type declared in <paramref name="ns"/> - qualified or not.
+///
+/// Used to decide whether an import of an emptied namespace is a real dependency. A bare
+/// identifier is weak evidence, which is why it is only ever used to keep a file excluded,
+/// never to exclude one (see the note above UsesGoneType).
+/// </summary>
+bool MentionsAnyTypeOf(string source, string ns)
+{
+    var identifiers = new HashSet<string>(StringComparer.Ordinal);
+    foreach (var identifier in CodeBehindRewriter.ParseUnit(source)
+                 .DescendantNodes()
+                 .OfType<Microsoft.CodeAnalysis.CSharp.Syntax.IdentifierNameSyntax>())
+    {
+        identifiers.Add(identifier.Identifier.Text);
+    }
+
+    for (var index = 0; index < declaredTypes.Count; index++)
+    {
+        foreach (var declared in declaredTypes[index])
+        {
+            if (string.Equals(declared.Namespace, ns, StringComparison.Ordinal)
+                && identifiers.Contains(declared.Type))
+            {
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
+
 HashSet<string> ComputeFullyExcludedNamespaces()
     => candidateNamespaces
         .SelectMany((entry, index) => entry.Declared.Select(ns => (ns, index)))
@@ -532,8 +564,19 @@ do
         }
 
         var source = candidateNamespaces[i].candidate.Source;
+        // Importing a namespace that lost every file is only fatal if the file actually
+        // uses something from it. An import alone is not a dependency, and treating it as
+        // one cascades hard: DNN's HtmlUtils.cs imports DotNetNuke.Services.Upgrade
+        // without naming a type from it, which took Globals.cs with it and 22 more after
+        // that - from two files excluded for System.Web.Compilation and System.Data.Linq.
+        //
+        // NAME-BASED, not qualified-name-based, and that direction is deliberate. Chasing
+        // unqualified uses to EXCLUDE more was measured three times and ran away every
+        // time (see UsesGoneType). Here the same evidence is used to KEEP a file only when
+        // no name from the namespace appears at all, so an uncertain case stays excluded.
         var dependency = EnumerateUsingNamespaces(source)
-            .FirstOrDefault(ns => emptyNamespaces.Contains(ns));
+            .Where(ns => emptyNamespaces.Contains(ns))
+            .FirstOrDefault(ns => MentionsAnyTypeOf(source, ns));
         if (dependency is not null)
         {
             excludedCandidates.Add(i);
@@ -626,8 +669,13 @@ for (var i = 0; i < candidateNamespaces.Count; i++)
     CollectUsingNamespaces(candidate.Source, portedNamespaces);
     var destination = Path.Combine(output, candidate.OutputRelative.Replace('/', Path.DirectorySeparatorChar));
     Directory.CreateDirectory(Path.GetDirectoryName(destination)!);
+    // A file kept despite importing an emptied namespace still has the import, and the
+    // namespace is not there any more - so the using itself has to go, exactly as
+    // StripDeadUsings does for @using in .razor.
     File.WriteAllText(destination,
-        ApplyNamespaceMap(CodeBehindRewriter.RewritePlainCodeFile(candidate.Source, candidate.ReportName, report)));
+        ApplyNamespaceMap(StripDeadCodeUsings(
+            CodeBehindRewriter.RewritePlainCodeFile(candidate.Source, candidate.ReportName, report),
+            fullyExcludedNamespaces, report, candidate.ReportName)));
     report.CopiedCodeFiles++;
 
     // BinaryFormatter still compiles (the generated project suppresses SYSLIB0011) but the
@@ -1515,6 +1563,39 @@ static List<(string Id, string Version)> ResolvePackageReferences(HashSet<string
 /// the SOURCE tree; the porting exclusion cascade can then remove every file of that
 /// namespace, and Razor fails to compile on the now-dead import.
 /// </summary>
+/// <summary>
+/// The .cs counterpart of <see cref="StripDeadUsings"/>: removes "using X;" for a namespace
+/// that no longer has any type in it. A file only reaches here when it names nothing from
+/// that namespace, so removing the import cannot break anything it does use.
+/// </summary>
+static string StripDeadCodeUsings(
+    string code, HashSet<string> deadNamespaces, ConversionReport report, string reportName)
+{
+    if (deadNamespaces.Count == 0)
+    {
+        return code;
+    }
+
+    var lines = code.Split('\n');
+    var kept = new List<string>(lines.Length);
+
+    foreach (var line in lines)
+    {
+        var match = System.Text.RegularExpressions.Regex.Match(
+            line, @"^\s*(global\s+)?using\s+([A-Za-z_][\w.]*)\s*;\s*$");
+        if (match.Success && deadNamespaces.Contains(match.Groups[2].Value))
+        {
+            report.Info(reportName,
+                $"using {match.Groups[2].Value}; は移植後に型が残らないため除去しました"
+                + "(このファイルはその名前空間の型を使っていません)。");
+            continue;
+        }
+        kept.Add(line);
+    }
+
+    return string.Join("\n", kept);
+}
+
 static string StripDeadUsings(
     string razor, HashSet<string> deadNamespaces, ConversionReport report, string componentName)
 {

@@ -142,9 +142,9 @@ be            253      77         0             0
 n2           1661     209        25            48
 mojo          731     124        19            46
 yaf          2722      73         5            42
-dnn          1944     283        10           121
+dnn          1955     272        10           121
 wt             13      39         3             1
-合計                  805        62           258
+合計                  794        62           258
 ```
 
 **ビルドエラーの数には「未決の依存によるもの」を含めていません。** リポジトリ同梱 DLL の
@@ -301,6 +301,42 @@ mojo 126 → 124。合計 900 → 805。**
 
 「未対応コントロール」の件数が誤った案内で膨らむのは**これで 2 回目**です
 (1 回目は `portal:mojoButton` の 128 件)。この種別の数字は、**まず内訳を見てください。**
+
+### 除外の連鎖 — import は依存ではない(dnn +11 ファイル)
+
+コードビハインド残差 512 件のうち **113 件が「連鎖して除外」**でした。起点を数えると
+少数に集中しています。
+
+```
+22  DotNetNuke.Common.Globals      9  DotNetNuke.UI.Skins.Skin
+14  DotNetNuke.Security.FilterFlag 9  DotNetNuke.Framework.Reflection
+12  DotNetNuke.UI.Utilities        7  DotNetNuke.Services.Upgrade
+```
+
+最大の `Globals` を根まで辿ると、**2 ファイルに行き着きます**。
+
+```
+System.Web.Compilation を使う DnnInstallLogger.cs   ─┐
+System.Data.Linq を使う Upgrade.cs                  ─┴→ DotNetNuke.Services.Upgrade が空に
+  → HtmlUtils.cs が「その名前空間を import している」ので連鎖除外
+    → Globals.cs が HtmlUtils に依存するので連鎖除外
+      → さらに 22 ファイル
+```
+
+**`HtmlUtils.cs` は `using DotNetNuke.Services.Upgrade;` と書いているだけで、その
+名前空間の型を 1 つも使っていません。** import は依存ではありません。
+
+空になった名前空間を import しているとき、**その名前空間の型を実際に名指ししているか**を
+見るようにしました。名指ししていなければ移植し、`using` の方を落とします
+(`.razor` の `@using` に対する `StripDeadUsings` と同じことを `.cs` にも)。
+
+**判定は単純名で行い、その向きは意図的です。** 非修飾の使用を追って**除外を広げる**のは
+過去 3 回とも制御不能になっています(`UsesGoneType` のコメント参照)。ここでは同じ材料を
+**「1 つも出てこないときだけ救う」**という向きにしか使わないので、曖昧なものは
+除外されたままになります。
+
+**dnn の移植 .cs 1944 → 1955、総残差 283 → 272、ビルドエラーは 121 のまま。**
+救ったファイルが新しいエラーを持ち込んでいないことの確認になります。他 5 本は不変。
 
 ### 残差を原因で数える
 

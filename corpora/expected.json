@@ -19,8 +19,8 @@
             },
     "dnn":  {
                 "convertible":  10,
-                "portedCs":  1944,
-                "residuals":  283,
+                "portedCs":  1955,
+                "residuals":  272,
                 "buildErrors":  121
             },
     "n2":  {

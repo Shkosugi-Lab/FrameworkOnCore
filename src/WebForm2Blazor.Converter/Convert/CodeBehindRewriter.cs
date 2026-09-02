@@ -346,19 +346,29 @@ public static class CodeBehindRewriter
             root = root.ReplaceNodes(targets.Keys, (original, _) => targets[original]);
         }
 
+        // The body rewrite runs FIRST so the import decision can see its result. Ordered
+        // the other way, the decision was made from the file's usings alone - and a file
+        // whose body gets compat substitutions may have no usings to judge by. n2's
+        // MembershipToolbarPluginAttribute has none at all: the rewrite turned Control into
+        // IWebFormsControl and then nothing imported it. Same shape in a global-usings
+        // project, where the per-file import list is empty by construction.
+        var bodyRewritten = RewriteSyntax(root);
+
         // Dropped System.Web usings mean the file references that API surface
         // (HttpContext, HttpUtility, ...) - the compatibility namespace supplies it
-        var needsCompatNamespace = replacedAny || AllUsings(root).Any(directive =>
-        {
-            var usingName = directive.Name?.ToString() ?? string.Empty;
-            return usingName == "System.Web"
-                   || usingName.StartsWith("System.Web.", StringComparison.Ordinal)
-                   // Dropped above, so the compat FileIOPermission must be importable
-                   || usingName == "System.Security.Permissions";
-        });
+        var needsCompatNamespace = replacedAny
+            || !ReferenceEquals(bodyRewritten, root)
+            || AllUsings(root).Any(directive =>
+            {
+                var usingName = directive.Name?.ToString() ?? string.Empty;
+                return usingName == "System.Web"
+                       || usingName.StartsWith("System.Web.", StringComparison.Ordinal)
+                       // Dropped above, so the compat FileIOPermission must be importable
+                       || usingName == "System.Security.Permissions";
+            });
 
-        var rewritten = RewriteSyntax(
-            RewriteUsings(root, needsCompatNamespace ? ["WebForm2Blazor.Components"] : [])).ToFullString();
+        var rewritten = RewriteUsings(
+            bodyRewritten, needsCompatNamespace ? ["WebForm2Blazor.Components"] : []).ToFullString();
         return RewriteQualifiedFrameworkTypes(rewritten);
     }
 

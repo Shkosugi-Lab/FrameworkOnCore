@@ -340,6 +340,12 @@ public sealed class ConvertedComponent
     public string? MarkupSourcePath { get; init; }
 
     /// <summary>
+    /// Bodies of &lt;script runat="server"&gt; blocks from the markup. Appended to the
+    /// generated partial class - it is code-behind, only written inline.
+    /// </summary>
+    public List<string> ServerScriptBlocks { get; init; } = [];
+
+    /// <summary>
     /// Exactly what the razor emitted as @inherits, so the code-behind half of the partial
     /// class can be made to say the same thing.
     ///

@@ -69,6 +69,13 @@ public sealed class EmitContext
     /// the reference happens to sit.
     /// </summary>
     public HashSet<string> DeclaredControlIds { get; } = new(StringComparer.Ordinal);
+
+    /// <summary>
+    /// Bodies of &lt;script runat="server"&gt; blocks, in document order. These are
+    /// code-behind written inline; the converter appends them to the generated partial
+    /// class rather than discarding them.
+    /// </summary>
+    public List<string> ServerScriptBlocks { get; } = [];
 }
 
 /// <summary>Converts the ASPX syntax tree into Razor markup.</summary>
@@ -577,6 +584,19 @@ public sealed partial class MarkupEmitter(EmitContext context)
             // residual instead.
             if (element.Name.Equals("script", StringComparison.OrdinalIgnoreCase))
             {
+                // The block IS the code-behind, just written inside the markup. The
+                // generated partial class is the place it belongs, so carry the text
+                // across instead of dropping it. Only at the top level: a script block
+                // nested in a data-bound template would be captured once per row.
+                var code = string.Concat(element.Children.OfType<TextNode>().Select(text => text.Text));
+                if (_templateDepth == 0 && !string.IsNullOrWhiteSpace(code))
+                {
+                    context.ServerScriptBlocks.Add(code);
+                    context.Report.Info(context.SourceName,
+                        "<script runat=\"server\"> ブロックの内容をコードビハインドへ移しました。");
+                    return "@* W2B: server-side script block moved to the code-behind *@";
+                }
+
                 Residual(ResidualKind.InlineCode,
                     "<script runat=\"server\"> ブロックは自動変換できません。コードビハインドへの移動が必要です。");
                 return "@* TODO(W2B): server-side script block removed *@";

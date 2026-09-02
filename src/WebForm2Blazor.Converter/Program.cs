@@ -2007,9 +2007,33 @@ static string GenerateFieldOnlyCodeBehind(ConvertedComponent component)
     };
 
     var builder = new StringBuilder();
+    // System / collections: the field list rarely needs them, but a moved
+    // <script runat="server"> body is ordinary code-behind and uses EventArgs, List<T>
+    // and LINQ the way any handler does.
+    builder.AppendLine("using System;");
+    builder.AppendLine("using System.Collections.Generic;");
+    builder.AppendLine("using System.Linq;");
     builder.AppendLine("using Microsoft.AspNetCore.Components;");
     builder.AppendLine("using WebForm2Blazor.Components;");
-    foreach (var ns in component.UsedControlNamespaces.Distinct().Order(StringComparer.Ordinal))
+    var usings = component.UsedControlNamespaces.ToHashSet(StringComparer.Ordinal);
+
+    // The .razor and this file are two halves of ONE partial class, so whatever the markup
+    // imports applies here too. It matters once a <script runat="server"> body lands here:
+    // that code was written against the page's own <%@ Import %> directives, which the
+    // razor carries as @using and this half did not.
+    if (component.ServerScriptBlocks.Count > 0)
+    {
+        foreach (var line in component.RazorContent.Split('\n'))
+        {
+            var trimmed = line.Trim();
+            if (trimmed.StartsWith("@using ", StringComparison.Ordinal) && trimmed.EndsWith(';') is false)
+            {
+                usings.Add(trimmed["@using ".Length..].Trim());
+            }
+        }
+    }
+
+    foreach (var ns in usings.Distinct().Order(StringComparer.Ordinal))
     {
         builder.AppendLine($"using {ns};");
     }
@@ -2022,6 +2046,18 @@ static string GenerateFieldOnlyCodeBehind(ConvertedComponent component)
     {
         builder.AppendLine($"        protected {field.Type} {field.Name};");
     }
+
+    // <script runat="server"> is code-behind written inside the markup, and this generated
+    // partial is where code-behind goes. Emitted verbatim: it is the application's own C#
+    // and rewriting it here would duplicate what the code-behind rewriter already does for
+    // a real .aspx.cs.
+    foreach (var script in component.ServerScriptBlocks)
+    {
+        builder.AppendLine();
+        builder.AppendLine("        // Moved from a <script runat=\"server\"> block in the markup.");
+        builder.AppendLine(script.TrimEnd());
+    }
+
     builder.AppendLine("    }");
     builder.AppendLine("}");
     _ = baseClass;

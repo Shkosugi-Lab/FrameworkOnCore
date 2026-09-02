@@ -188,12 +188,10 @@ public sealed class HttpUnhandledException : HttpException
 /// parameter so it can be tested without a live request ("void Handle(HttpContextBase
 /// context)"). It is the single most requested missing type in the corpora.
 ///
-/// The members return the CONCRETE shims rather than HttpRequestBase / HttpResponseBase.
-/// System.Web has a parallel abstract hierarchy for those, but reproducing it means
-/// duplicating every member twice over, and the payoff is only for code that assigns
-/// "HttpRequestBase r = context.Request" rather than calling through. Callers that do
-/// that still fail, deliberately visibly, instead of binding to a hollow base that
-/// silently returns nothing.
+/// The members return the CONCRETE shims. That is not a narrowing any more: the parallel
+/// System.Web abstractions (HttpRequestBase, HttpResponseBase, HttpSessionStateBase,
+/// HttpServerUtilityBase) are real base classes of those shims here, so
+/// "HttpRequestBase r = context.Request" compiles as well as calling through does.
 /// </summary>
 public abstract class HttpContextBase
 {
@@ -1230,19 +1228,30 @@ public static class IdentityExtensions
 }
 
 /// <summary>
-/// WebForms Server (HttpServerUtility) equivalent.
+/// System.Web.HttpServerUtilityBase equivalent, carrying the implementation so that
+/// <see cref="ServerUtilityShim"/> IS one (see <see cref="HttpResponseBase"/> for why these
+/// names are real types rather than using-aliases).
 /// </summary>
-public sealed class ServerUtilityShim(NavigationManager navigation)
+public abstract class HttpServerUtilityBase
 {
-    public string HtmlEncode(string value) => HttpUtility.HtmlEncode(value);
-    public string HtmlDecode(string value) => HttpUtility.HtmlDecode(value);
-    public string UrlEncode(string value) => HttpUtility.UrlEncode(value);
-    public string UrlEncode(string value, System.Text.Encoding encoding) => HttpUtility.UrlEncode(value);
-    public string UrlDecode(string value) => HttpUtility.UrlDecode(value);
-    public string UrlDecode(string value, System.Text.Encoding encoding) => HttpUtility.UrlDecode(value);
+    private readonly NavigationManager _navigation;
+
+    /// <summary>For ported code that derives its own server utility (test doubles).</summary>
+    protected HttpServerUtilityBase()
+    {
+    }
+
+    protected HttpServerUtilityBase(NavigationManager navigation) => _navigation = navigation;
+
+    public virtual string HtmlEncode(string value) => HttpUtility.HtmlEncode(value);
+    public virtual string HtmlDecode(string value) => HttpUtility.HtmlDecode(value);
+    public virtual string UrlEncode(string value) => HttpUtility.UrlEncode(value);
+    public virtual string UrlEncode(string value, System.Text.Encoding encoding) => HttpUtility.UrlEncode(value);
+    public virtual string UrlDecode(string value) => HttpUtility.UrlDecode(value);
+    public virtual string UrlDecode(string value, System.Text.Encoding encoding) => HttpUtility.UrlDecode(value);
 
     /// <summary>Maps "~/x" onto the content root (wwwroot for static assets lives beside it).</summary>
-    public string MapPath(string path)
+    public virtual string MapPath(string path)
     {
         var relative = (path ?? string.Empty).TrimStart('~').TrimStart('/', '\\');
         return Path.Combine(Directory.GetCurrentDirectory(), relative.Replace('/', Path.DirectorySeparatorChar));
@@ -1253,14 +1262,31 @@ public sealed class ServerUtilityShim(NavigationManager navigation)
     /// WebForms). Outside a component (HttpContext.Current.Server) there is no
     /// navigation manager, so the call no-ops.
     /// </summary>
-    public void Transfer(string url) => navigation?.NavigateTo(UrlMapper.ResolveUrl(url));
+    public virtual void Transfer(string url) => _navigation?.NavigateTo(UrlMapper.ResolveUrl(url));
 
-    public void Transfer(string url, bool preserveForm) => Transfer(url);
+    public virtual void Transfer(string url, bool preserveForm) => Transfer(url);
 
     /// <summary>No error-page pipeline exists here; always null (guarded by callers).</summary>
-    public Exception GetLastError() => null;
+    public virtual Exception GetLastError() => null;
 
-    public void ClearError()
+    public virtual void ClearError()
     {
     }
 }
+
+/// <summary>System.Web.HttpServerUtility equivalent (see <see cref="HttpSessionState"/>).</summary>
+public abstract class HttpServerUtility : HttpServerUtilityBase
+{
+    protected HttpServerUtility()
+    {
+    }
+
+    protected HttpServerUtility(NavigationManager navigation) : base(navigation)
+    {
+    }
+}
+
+/// <summary>
+/// WebForms Server (HttpServerUtility) equivalent.
+/// </summary>
+public sealed class ServerUtilityShim(NavigationManager navigation) : HttpServerUtility(navigation);

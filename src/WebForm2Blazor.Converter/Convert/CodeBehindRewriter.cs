@@ -691,18 +691,14 @@ public static class CodeBehindRewriter
                     aliasUsings.Add("using HttpRequest = WebForm2Blazor.Components.HttpRequestShim;");
                     aliasUsings.Add("using HttpResponse = WebForm2Blazor.Components.HttpResponseShim;");
 
-                    // The *Base abstractions (System.Web.Abstractions, added for MVC
-                    // testability) are used as parameter and field types throughout
-                    // WebForms-era code. HttpContextBase is a real abstract class in the
-                    // compat layer and its members are already typed as these shims, so
-                    // pointing the names at the same shims keeps assignments compiling
-                    // both ways.
-                    aliasUsings.Add("using HttpRequestBase = WebForm2Blazor.Components.HttpRequestShim;");
-                    aliasUsings.Add("using HttpResponseBase = WebForm2Blazor.Components.HttpResponseShim;");
-                    aliasUsings.Add("using HttpSessionState = WebForm2Blazor.Components.WebFormsSession;");
-                    aliasUsings.Add("using HttpSessionStateBase = WebForm2Blazor.Components.WebFormsSession;");
-                    aliasUsings.Add("using HttpServerUtility = WebForm2Blazor.Components.ServerUtilityShim;");
-                    aliasUsings.Add("using HttpServerUtilityBase = WebForm2Blazor.Components.ServerUtilityShim;");
+                    // The *Base abstractions (System.Web.Abstractions) and HttpSessionState
+                    // / HttpServerUtility used to be supplied here as aliases too. They are
+                    // real types in the compatibility layer now - base classes of the shims -
+                    // because an alias only reaches the file that dropped a "using
+                    // System.Web;" of its own. An application whose imports are all "global
+                    // using" (YAF.NET) has no such file, so the names were supplied nowhere.
+                    // HttpRequest / HttpResponse stay aliases: those names DO exist in
+                    // Microsoft.AspNetCore.Http, so the compat types keep the Shim suffix.
                 }
                 removals.Add(directive);
                 continue;

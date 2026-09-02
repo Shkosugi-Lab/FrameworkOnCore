@@ -56,86 +56,108 @@ public sealed class HttpBrowserCapabilitiesShim(string userAgent)
 }
 
 /// <summary>
-/// WebForms Response.Redirect equivalent. Maps physical (.aspx) paths onto Blazor routes
-/// before delegating to NavigationManager, so code-behind ports without modification.
+/// System.Web.HttpResponseBase equivalent: the abstraction WebForms-era code declares its
+/// fields and parameters with ("void Send(HttpResponseBase response)").
+///
+/// It carries the implementation rather than being a hollow base, and
+/// <see cref="HttpResponseShim"/> derives from it, so the two names denote ONE type
+/// hierarchy. Supplying these names by using-alias instead ("using HttpResponseBase =
+/// ...HttpResponseShim;") only reaches files that had a "using System.Web;" line of their
+/// own to drop; an application whose imports are all "global using" (YAF.NET) has no such
+/// file and got the names nowhere.
 /// </summary>
-public sealed class HttpResponseShim(NavigationManager navigation)
+public abstract class HttpResponseBase
 {
-    /// <summary>Null outside a component (HttpContext.Current.Response): Redirect no-ops.</summary>
-    public void Redirect(string url) => navigation?.NavigateTo(UrlMapper.ResolveUrl(url));
+    private readonly NavigationManager _navigation;
 
-    public void Redirect(string url, bool endResponse)
+    /// <summary>For ported code that derives its own response (test doubles).</summary>
+    protected HttpResponseBase()
+    {
+    }
+
+    protected HttpResponseBase(NavigationManager navigation) => _navigation = navigation;
+
+    /// <summary>Null outside a component (HttpContext.Current.Response): Redirect no-ops.</summary>
+    public virtual void Redirect(string url) => _navigation?.NavigateTo(UrlMapper.ResolveUrl(url));
+
+    public virtual void Redirect(string url, bool endResponse)
     {
         _ = endResponse; // Blazor has no notion of terminating the response
         Redirect(url);
     }
 
-    public void RedirectPermanent(string url) => Redirect(url);
+    public virtual void RedirectPermanent(string url) => Redirect(url);
 
     /// <summary>
     /// WebForms Response.Cookies. Writes are accepted but not sent (Blazor Server cannot
     /// append response cookies after the circuit starts) - template boilerplate
     /// (AntiXsrf etc.) compiles and no-ops.
     /// </summary>
-    public HttpCookieCollection Cookies { get; } = new();
+    public virtual HttpCookieCollection Cookies { get; } = new();
 
     /// <summary>WebForms Response.Write equivalent. A Blazor circuit has no response
     /// stream to write into; the calls compile and are dropped.</summary>
-    public void Write(object value)
+    public virtual void Write(object value)
     {
     }
 
-    public void BinaryWrite(byte[] buffer)
+    public virtual void BinaryWrite(byte[] buffer)
     {
     }
 
-    public void Clear()
+    public virtual void Clear()
     {
     }
 
-    public void End()
+    public virtual void End()
     {
     }
 
-    public void Flush()
+    public virtual void Flush()
     {
     }
 
-    public string ContentType { get; set; }
+    public virtual string ContentType { get; set; }
 
-    public string Charset { get; set; }
+    public virtual string Charset { get; set; }
 
-    public System.Text.Encoding ContentEncoding { get; set; } = System.Text.Encoding.UTF8;
+    public virtual System.Text.Encoding ContentEncoding { get; set; } = System.Text.Encoding.UTF8;
 
-    public int StatusCode { get; set; } = 200;
+    public virtual int StatusCode { get; set; } = 200;
 
     /// <summary>WebForms Response.Cache equivalent (no per-response cache policy here).</summary>
-    public HttpCachePolicyShim Cache { get; } = new();
+    public virtual HttpCachePolicyShim Cache { get; } = new();
 
     /// <summary>
     /// WebForms Response.OutputStream / Filter equivalents. Nothing is streamed to the
     /// client over a Blazor circuit, so writes land in a buffer that ported code can
     /// still read back (image handlers build their bytes this way).
     /// </summary>
-    public Stream OutputStream { get; } = new MemoryStream();
+    public virtual Stream OutputStream { get; } = new MemoryStream();
 
-    public Stream Filter { get; set; }
+    public virtual Stream Filter { get; set; }
 
     /// <summary>
     /// WebForms Response.SuppressContent equivalent. Setting it told the pipeline to send
     /// headers only; a Blazor component's output is the render tree, so the flag is
     /// recorded and read back but suppresses nothing on its own.
     /// </summary>
-    public bool SuppressContent { get; set; }
+    public virtual bool SuppressContent { get; set; }
 
-    public void AddHeader(string name, string value)
+    public virtual void AddHeader(string name, string value)
     {
     }
 
-    public void AppendHeader(string name, string value)
+    public virtual void AppendHeader(string name, string value)
     {
     }
 }
+
+/// <summary>
+/// WebForms Response.Redirect equivalent. Maps physical (.aspx) paths onto Blazor routes
+/// before delegating to NavigationManager, so code-behind ports without modification.
+/// </summary>
+public sealed class HttpResponseShim(NavigationManager navigation) : HttpResponseBase(navigation);
 
 /// <summary>
 /// WebForms HttpCachePolicy equivalent. Output caching is configured by middleware in
@@ -220,19 +242,29 @@ public enum HttpCacheability
 }
 
 /// <summary>
-/// WebForms Request equivalent (read-only). Sourced from the NavigationManager inside
-/// components; HttpContext.Current builds it from the connection's HttpContext instead.
+/// System.Web.HttpRequestBase equivalent: the abstraction WebForms-era code declares its
+/// fields and parameters with ("bool IsBanned(HttpRequestBase request)"). See
+/// <see cref="HttpResponseBase"/> for why these names are real types rather than
+/// using-aliases.
 /// </summary>
-public sealed class HttpRequestShim(NavigationManager navigation)
+public abstract class HttpRequestBase
 {
+    private readonly NavigationManager _navigation;
     private readonly Microsoft.AspNetCore.Http.HttpContext _aspNetContext;
 
-    internal HttpRequestShim(Microsoft.AspNetCore.Http.HttpContext aspNetContext) : this((NavigationManager)null)
+    /// <summary>For ported code that derives its own request (test doubles).</summary>
+    protected HttpRequestBase()
+    {
+    }
+
+    protected HttpRequestBase(NavigationManager navigation) => _navigation = navigation;
+
+    protected internal HttpRequestBase(Microsoft.AspNetCore.Http.HttpContext aspNetContext)
         => _aspNetContext = aspNetContext;
 
     private Uri CurrentUri
-        => navigation is not null
-            ? new Uri(navigation.Uri)
+        => _navigation is not null
+            ? new Uri(_navigation.Uri)
             : new Uri(_aspNetContext is null
                 ? "http://localhost/"
                 : Microsoft.AspNetCore.Http.Extensions.UriHelper.GetDisplayUrl(_aspNetContext.Request));
@@ -242,7 +274,7 @@ public sealed class HttpRequestShim(NavigationManager navigation)
     /// Request.Form / QueryString to NameValueCollection variables and passes them to
     /// helpers typed that way.
     /// </summary>
-    public System.Collections.Specialized.NameValueCollection QueryString
+    public virtual System.Collections.Specialized.NameValueCollection QueryString
     {
         get
         {
@@ -256,27 +288,27 @@ public sealed class HttpRequestShim(NavigationManager navigation)
         }
     }
 
-    public System.Collections.Specialized.NameValueCollection Params => QueryString;
+    public virtual System.Collections.Specialized.NameValueCollection Params => QueryString;
 
     /// <summary>WebForms Request["key"] equivalent (query string / form lookup).</summary>
-    public string this[string key] => QueryString[key];
+    public virtual string this[string key] => QueryString[key];
 
     /// <summary>WebForms Request.Form equivalent. Blazor Server has no form posts;
     /// present so ported code compiles (always empty).</summary>
-    public System.Collections.Specialized.NameValueCollection Form
+    public virtual System.Collections.Specialized.NameValueCollection Form
         => new(StringComparer.OrdinalIgnoreCase);
 
-    public string RawUrl => CurrentUri.PathAndQuery;
+    public virtual string RawUrl => CurrentUri.PathAndQuery;
 
     /// <summary>WebForms Request.Path / FilePath equivalent (no query string).</summary>
-    public string Path => CurrentUri.AbsolutePath;
+    public virtual string Path => CurrentUri.AbsolutePath;
 
-    public string FilePath => CurrentUri.AbsolutePath;
+    public virtual string FilePath => CurrentUri.AbsolutePath;
 
-    public string CurrentExecutionFilePath => CurrentUri.AbsolutePath;
+    public virtual string CurrentExecutionFilePath => CurrentUri.AbsolutePath;
 
     /// <summary>WebForms Request.UrlReferrer equivalent (null when the header is absent).</summary>
-    public Uri UrlReferrer
+    public virtual Uri UrlReferrer
     {
         get
         {
@@ -288,7 +320,7 @@ public sealed class HttpRequestShim(NavigationManager navigation)
     }
 
     /// <summary>WebForms Request.Headers equivalent.</summary>
-    public System.Collections.Specialized.NameValueCollection Headers
+    public virtual System.Collections.Specialized.NameValueCollection Headers
     {
         get
         {
@@ -306,16 +338,16 @@ public sealed class HttpRequestShim(NavigationManager navigation)
     /// WebForms Request.InputStream equivalent. Blazor Server renders over a circuit
     /// rather than a request body, so this is empty unless a real request is in scope.
     /// </summary>
-    public Stream InputStream => EffectiveAspNetContext?.Request.Body ?? Stream.Null;
+    public virtual Stream InputStream => EffectiveAspNetContext?.Request.Body ?? Stream.Null;
 
     /// <summary>WebForms Request.Url is a Uri (code calls .AbsoluteUri / .Query on it).</summary>
-    public Uri Url => CurrentUri;
+    public virtual Uri Url => CurrentUri;
 
     /// <summary>WebForms Request.IsSecureConnection equivalent.</summary>
-    public bool IsSecureConnection => CurrentUri.Scheme == Uri.UriSchemeHttps;
+    public virtual bool IsSecureConnection => CurrentUri.Scheme == Uri.UriSchemeHttps;
 
     /// <summary>WebForms Request.IsLocal equivalent (loopback check on the connection).</summary>
-    public bool IsLocal
+    public virtual bool IsLocal
     {
         get
         {
@@ -330,24 +362,24 @@ public sealed class HttpRequestShim(NavigationManager navigation)
     }
 
     /// <summary>WebForms Request.Cookies equivalent (read-only snapshot of the incoming cookies).</summary>
-    public HttpCookieCollection Cookies
+    public virtual HttpCookieCollection Cookies
         => EffectiveAspNetContext is { } context
             ? new HttpCookieCollection(context.Request.Cookies)
             : new HttpCookieCollection();
 
-    public string UserAgent => EffectiveAspNetContext?.Request.Headers.UserAgent.ToString();
+    public virtual string UserAgent => EffectiveAspNetContext?.Request.Headers.UserAgent.ToString();
 
     /// <summary>WebForms Request.PhysicalApplicationPath equivalent (the content root).</summary>
-    public string PhysicalApplicationPath => Directory.GetCurrentDirectory();
+    public virtual string PhysicalApplicationPath => Directory.GetCurrentDirectory();
 
     /// <summary>WebForms Request.HttpMethod equivalent ("GET" when there is no live request).</summary>
-    public string HttpMethod => EffectiveAspNetContext?.Request.Method ?? "GET";
+    public virtual string HttpMethod => EffectiveAspNetContext?.Request.Method ?? "GET";
 
     /// <summary>
     /// WebForms Request.UserLanguages equivalent: the Accept-Language values in
     /// preference order, quality factors stripped (as the original reports them).
     /// </summary>
-    public string[] UserLanguages
+    public virtual string[] UserLanguages
     {
         get
         {
@@ -365,11 +397,11 @@ public sealed class HttpRequestShim(NavigationManager navigation)
     }
 
     /// <summary>WebForms Request.PhysicalPath equivalent: the requested path under the content root.</summary>
-    public string PhysicalPath
+    public virtual string PhysicalPath
         => Path_Combine(PhysicalApplicationPath, CurrentUri.AbsolutePath.TrimStart('/'));
 
     /// <summary>WebForms Request.CurrentExecutionFilePathExtension equivalent (".aspx" etc.).</summary>
-    public string CurrentExecutionFilePathExtension
+    public virtual string CurrentExecutionFilePathExtension
         => System.IO.Path.GetExtension(CurrentExecutionFilePath) ?? string.Empty;
 
     /// <summary>
@@ -377,7 +409,7 @@ public sealed class HttpRequestShim(NavigationManager navigation)
     /// handful of CGI names ported code actually reads. Unknown names return null, as they
     /// do in WebForms when the variable is absent.
     /// </summary>
-    public System.Collections.Specialized.NameValueCollection ServerVariables
+    public virtual System.Collections.Specialized.NameValueCollection ServerVariables
     {
         get
         {
@@ -410,15 +442,15 @@ public sealed class HttpRequestShim(NavigationManager navigation)
     /// ASP.NET Core, so the values are derived from the User-Agent string only - enough
     /// for the common Crawler / IsMobileDevice branches without pretending to more.
     /// </summary>
-    public HttpBrowserCapabilitiesShim Browser => new(UserAgent);
+    public virtual HttpBrowserCapabilitiesShim Browser => new(UserAgent);
 
     private static string Path_Combine(string root, string relative)
         => System.IO.Path.Combine(root, relative.Replace('/', System.IO.Path.DirectorySeparatorChar));
 
     /// <summary>WebForms Request.ApplicationPath equivalent.</summary>
-    public string ApplicationPath => "/";
+    public virtual string ApplicationPath => "/";
 
-    public string UserHostAddress => EffectiveAspNetContext?.Connection.RemoteIpAddress?.ToString();
+    public virtual string UserHostAddress => EffectiveAspNetContext?.Connection.RemoteIpAddress?.ToString();
 
     private Microsoft.AspNetCore.Http.HttpContext EffectiveAspNetContext
         => _aspNetContext ?? AmbientAspNetContext;
@@ -428,6 +460,21 @@ public sealed class HttpRequestShim(NavigationManager navigation)
             ? Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions
                 .GetService<Microsoft.AspNetCore.Http.IHttpContextAccessor>(services)?.HttpContext
             : null;
+}
+
+/// <summary>
+/// WebForms Request equivalent (read-only). Sourced from the NavigationManager inside
+/// components; HttpContext.Current builds it from the connection's HttpContext instead.
+/// </summary>
+public sealed class HttpRequestShim : HttpRequestBase
+{
+    public HttpRequestShim(NavigationManager navigation) : base(navigation)
+    {
+    }
+
+    internal HttpRequestShim(Microsoft.AspNetCore.Http.HttpContext aspNetContext) : base(aspNetContext)
+    {
+    }
 }
 
 // NOTE: an earlier look-alike collection lived here. Ported code assigns these
@@ -452,40 +499,63 @@ public sealed class WebFormsSessionStore
 }
 
 /// <summary>
-/// WebForms Session equivalent. Resolved via the cookie-based session id, so one user
-/// keeps one session across page navigations (circuit re-creations).
+/// System.Web.HttpSessionStateBase equivalent, carrying the implementation so that
+/// <see cref="WebFormsSession"/> IS one (see <see cref="HttpResponseBase"/> for why these
+/// names are real types rather than using-aliases).
 /// </summary>
-public sealed class WebFormsSession
+public abstract class HttpSessionStateBase
 {
     private readonly Dictionary<string, object> _items = new(StringComparer.Ordinal);
 
-    public object this[string key]
+    public virtual object this[string key]
     {
         get => _items.TryGetValue(key, out var value) ? value : null;
         set => _items[key] = value;
     }
 
-    public int Count => _items.Count;
-    public IEnumerable<string> Keys => _items.Keys;
-    public void Remove(string key) => _items.Remove(key);
-    public void Clear() => _items.Clear();
-    public void Abandon() => _items.Clear();
+    public virtual int Count => _items.Count;
+    public virtual IEnumerable<string> Keys => _items.Keys;
+    public virtual void Remove(string key) => _items.Remove(key);
+    public virtual void Clear() => _items.Clear();
+    public virtual void Abandon() => _items.Clear();
 }
 
 /// <summary>
-/// WebForms Application state equivalent (shared across the whole app).
+/// System.Web.HttpSessionState equivalent. In System.Web this is a sealed class unrelated
+/// to HttpSessionStateBase (HttpSessionStateWrapper bridges them); here it sits between the
+/// two so that a session assigns to a variable of either name.
 /// </summary>
-public sealed class WebFormsApplicationState
+public abstract class HttpSessionState : HttpSessionStateBase;
+
+/// <summary>
+/// WebForms Session equivalent. Resolved via the cookie-based session id, so one user
+/// keeps one session across page navigations (circuit re-creations).
+/// </summary>
+public sealed class WebFormsSession : HttpSessionState;
+
+/// <summary>
+/// System.Web.HttpApplicationStateBase equivalent, carrying the implementation so that
+/// <see cref="WebFormsApplicationState"/> IS one.
+/// </summary>
+public abstract class HttpApplicationStateBase
 {
     private readonly Dictionary<string, object> _items = new(StringComparer.Ordinal);
     private readonly Lock _gate = new();
 
-    public object this[string key]
+    public virtual object this[string key]
     {
         get { lock (_gate) { return _items.TryGetValue(key, out var value) ? value : null; } }
         set { lock (_gate) { _items[key] = value; } }
     }
 
-    public void Remove(string key) { lock (_gate) { _items.Remove(key); } }
-    public void Clear() { lock (_gate) { _items.Clear(); } }
+    public virtual void Remove(string key) { lock (_gate) { _items.Remove(key); } }
+    public virtual void Clear() { lock (_gate) { _items.Clear(); } }
 }
+
+/// <summary>System.Web.HttpApplicationState equivalent (see <see cref="HttpSessionState"/>).</summary>
+public abstract class HttpApplicationState : HttpApplicationStateBase;
+
+/// <summary>
+/// WebForms Application state equivalent (shared across the whole app).
+/// </summary>
+public sealed class WebFormsApplicationState : HttpApplicationState;

@@ -646,6 +646,13 @@ public static class CodeBehindRewriter
                 ? "WebForm2Blazor.Components." + match.Groups[1].Value
                 : match.Value);
 
+    /// <summary>
+    /// Whether the compatibility layer declares a type of this name. Used by the
+    /// excluded-type stubs: a name that came from System.Web in the source resolves to the
+    /// compat layer after the port, and the stub has to write THAT name in its signatures.
+    /// </summary>
+    internal static bool DeclaresCompatType(string name) => CompatTypeNames.Contains(name);
+
     /// <summary>Every public type the compat layer declares directly in its namespace.</summary>
     private static readonly HashSet<string> CompatTypeNames =
         typeof(WebForm2Blazor.Components.WebFormsControlBase).Assembly

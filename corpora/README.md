@@ -123,9 +123,9 @@ be            253      77         0             0
 n2           1661     223        27            65
 mojo          731     126        19           206
 yaf          2722      73         5            51
-dnn          1944     364        10           325
+dnn          1944     364        10           299
 wt             13      39         3             1
-合計                  902        64           648
+合計                  902        64           622
 ```
 
 ### AI 残差層が実際に届く範囲
@@ -512,6 +512,29 @@ IsKnownSimpleType(name)                                  // 手書きの BCL 名
 いずれも同じ壊れ方をします。
 
 **dnn 422 → 325(−97)。** 他 5 本は不変です。パリティ 30/30。
+
+### 同じ名前解決が、今度は互換層を見ていなかった
+
+上を直して dnn の CS0115 は 179 → 87。**メンバ名別**に数え直すと、また同じ名前が並びます。
+
+```
+10  RenderViewMode    5  SaveViewState    3  RenderJsDependencies
+10  RenderEditMode    5  LoadViewState    3  RenderCssDependencies
+ 8  AllowableFiles    4  AddEditorRow     2  Render
+```
+
+`EditControl.RenderViewMode(HtmlTextWriter writer)` は元ソースに存在するのに、
+スタブに出ていません。`HtmlTextWriter` が解決できないからです。
+
+- `known`(移植済み + スタブ済み)に無い — 移植対象外
+- `System.Web.UI.HtmlTextWriter` は .NET に無いので `FrameworkTypeIndex` にも無い
+- **しかし `WebForm2Blazor.Components.HtmlTextWriter` は互換層にあります**
+
+名前解決がプロジェクト型と BCL しか見ておらず、**移植後にその名前が何になるか**を
+見ていませんでした。`System.Web*` から import された名前は互換層に解決するので、
+そこも引くようにしました(`AddEditorRow(Table, object)` の `Table` / `Panel` も同じです)。
+
+**dnn 325 → 299。** 他 5 本は不変、パリティ 30/30。
 
 ## リポジトリ同梱 DLL への参照
 

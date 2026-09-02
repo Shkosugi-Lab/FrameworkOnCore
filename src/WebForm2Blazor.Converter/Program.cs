@@ -1937,10 +1937,24 @@ static string? ResolveTypeName(
         {
             return "global::" + candidate;
         }
+
+        // A name imported from System.Web resolves to the compat layer after the port, so
+        // that is the name the stub has to write. Missing this dropped every member taking
+        // an HtmlTextWriter - RenderViewMode / RenderEditMode / Render on DNN's EditControl -
+        // and the CS0115 came out on the controls deriving from it.
+        if (IsSystemWebNamespace(candidateNamespace)
+            && CodeBehindRewriter.DeclaresCompatType(name))
+        {
+            return "global::WebForm2Blazor.Components." + name;
+        }
     }
 
     return null;
 }
+
+/// <summary>System.Web and everything under it - the namespaces the compat layer flattens.</summary>
+static bool IsSystemWebNamespace(string name)
+    => name == "System.Web" || name.StartsWith("System.Web.", StringComparison.Ordinal);
 
 /// <summary>Metadata spells a generic type "Ns.List`1"; the source spells it "List&lt;T&gt;".</summary>
 static string MetadataName(string qualifiedName, int arity)

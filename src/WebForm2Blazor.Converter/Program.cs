@@ -1492,6 +1492,12 @@ static string GenerateExcludedTypeStubs(
         // CS0534 replaces the error we were trying to remove. A concrete class cannot carry
         // unimplemented abstract members, so restricting to concrete keeps this sound
         // without having to walk the inheritance chain.
+        //
+        // MEASURED, do not repeat: allowing abstract bases fixes 14 errors in DNN (the
+        // installers under ComponentInstallerBase override all five of its abstract members,
+        // so that base IS satisfiable) and costs 138 in YAF.NET, whose stubs cannot implement
+        // what their abstract bases declare. The stub generator would have to reproduce a
+        // member exactly - every one of them - before this trade turns positive.
         var unusable = classDeclaration.Modifiers.Any(modifier =>
             Microsoft.CodeAnalysis.CSharpExtensions.IsKind(modifier, Microsoft.CodeAnalysis.CSharp.SyntaxKind.SealedKeyword)
             || Microsoft.CodeAnalysis.CSharpExtensions.IsKind(modifier, Microsoft.CodeAnalysis.CSharp.SyntaxKind.StaticKeyword)
@@ -1686,7 +1692,8 @@ static string RenderStubType(
         foreach (var member in typeDeclaration.Members)
         {
             var text = RenderStubMember(
-                member, known, isStatic, isInterface, lookupNamespaces, containerIsSealed: isSealed);
+                member, known, isStatic, isInterface, lookupNamespaces,
+                containerIsSealed: isSealed, containerHasBase: baseClause.Length > 0);
             if (text is not null)
             {
                 lines.Add($"{indent}    {text}");
@@ -1720,7 +1727,8 @@ static string? RenderStubMember(
     bool containerIsStatic,
     bool containerIsInterface,
     IReadOnlyList<string> lookupNamespaces,
-    bool containerIsSealed = false)
+    bool containerIsSealed = false,
+    bool containerHasBase = false)
 {
     bool Has(Microsoft.CodeAnalysis.SyntaxTokenList modifiers, Microsoft.CodeAnalysis.CSharp.SyntaxKind kind)
         => modifiers.Any(modifier => Microsoft.CodeAnalysis.CSharpExtensions.IsKind(modifier, kind));
@@ -1744,10 +1752,19 @@ static string? RenderStubMember(
                        || modifiers.Any(modifier => Microsoft.CodeAnalysis.CSharpExtensions.IsKind(modifier, Microsoft.CodeAnalysis.CSharp.SyntaxKind.StaticKeyword));
         // A protected member stays protected: making it public would change the type's
         // surface, and the only reason it is here is so a subclass can override it.
+        //
+        // An internal one is widened to public, which is safe on its own - except on an
+        // override, where the accessibility has to match the base exactly or it is CS0507
+        // ("cannot change access modifiers when overriding"). BlogEngine's
+        // DbFileSystemProvider.GetFileContents is internal in its base.
         var access = !Has(modifiers, Microsoft.CodeAnalysis.CSharp.SyntaxKind.PublicKeyword)
                      && Has(modifiers, Microsoft.CodeAnalysis.CSharp.SyntaxKind.ProtectedKeyword)
             ? "protected "
-            : "public ";
+            : !Has(modifiers, Microsoft.CodeAnalysis.CSharp.SyntaxKind.PublicKeyword)
+              && Has(modifiers, Microsoft.CodeAnalysis.CSharp.SyntaxKind.InternalKeyword)
+              && Has(modifiers, Microsoft.CodeAnalysis.CSharp.SyntaxKind.OverrideKeyword)
+                ? "internal "
+                : "public ";
 
         if (isStatic)
         {
@@ -1763,11 +1780,20 @@ static string? RenderStubMember(
         //
         // Only mirrors what the source said - a member that was not overridable stays that
         // way, so a stub never invites an override the original did not allow.
+        var wasOverride = Has(modifiers, Microsoft.CodeAnalysis.CSharp.SyntaxKind.OverrideKeyword);
         var wasOverridable = !containerIsSealed
-            && modifiers.Any(modifier =>
-                Microsoft.CodeAnalysis.CSharpExtensions.IsKind(modifier, Microsoft.CodeAnalysis.CSharp.SyntaxKind.VirtualKeyword)
-                || Microsoft.CodeAnalysis.CSharpExtensions.IsKind(modifier, Microsoft.CodeAnalysis.CSharp.SyntaxKind.AbstractKeyword)
-                || Microsoft.CodeAnalysis.CSharpExtensions.IsKind(modifier, Microsoft.CodeAnalysis.CSharp.SyntaxKind.OverrideKeyword));
+            && (wasOverride
+                || Has(modifiers, Microsoft.CodeAnalysis.CSharp.SyntaxKind.VirtualKeyword)
+                || Has(modifiers, Microsoft.CodeAnalysis.CSharp.SyntaxKind.AbstractKeyword));
+
+        // An override stays an override only when the stub kept the base that declares the
+        // member; without one there is nothing to override and it becomes virtual instead.
+        // Getting this wrong the other way is what an abstract base makes visible: the base
+        // declares the member abstract, so a virtual re-declaration leaves it unimplemented.
+        if (wasOverride && containerHasBase && !containerIsSealed)
+        {
+            return access + "override ";
+        }
 
         return wasOverridable ? access + "virtual " : access;
     }
@@ -1788,14 +1814,21 @@ static string? RenderStubMember(
             var parameters = new List<string>();
             foreach (var parameter in method.ParameterList.Parameters)
             {
-                var parameterType = parameter.Modifiers.Count > 0
+                // ref / out / in / params are part of the signature, so dropping the member
+                // over them makes an abstract base impossible to satisfy - DNN's
+                // MembershipProvider declares eight abstract members taking "ref UserInfo".
+                // "this" is not reproduced: an extension method needs a static container
+                // this stub may not have.
+                var passing = string.Concat(parameter.Modifiers.Select(modifier => modifier.Text + " "));
+                var parameterType = parameter.Modifiers.Any(modifier =>
+                        Microsoft.CodeAnalysis.CSharpExtensions.IsKind(modifier, Microsoft.CodeAnalysis.CSharp.SyntaxKind.ThisKeyword))
                     ? null
                     : ResolveType(parameter.Type, known, lookupNamespaces);
                 if (parameterType is null)
                 {
                     return null;
                 }
-                parameters.Add($"{parameterType} {parameter.Identifier.Text}");
+                parameters.Add($"{passing}{parameterType} {parameter.Identifier.Text}");
             }
             var message = $"{method.Identifier.Text} は変換対象外です(元の実装は移植されていません)。";
             return $"{Prefix(method.Modifiers)}{returnType} {method.Identifier.Text}({string.Join(", ", parameters)})"
@@ -1815,7 +1848,35 @@ static string? RenderStubMember(
             }
             // An auto-property rather than a throwing accessor: properties read as data,
             // and a control-tree walk that touches one should not bring the page down.
-            return $"{Prefix(property.Modifiers)}{propertyType} {property.Identifier.Text} {{ get; set; }}";
+            //
+            // The ACCESSORS are copied, not assumed to be both. A read-only property in the
+            // source stayed "{ get; set; }" here, and an override of one is CS0546 ("no
+            // overridable set accessor") - which only shows up once the stub keeps its base,
+            // so it was invisible while bases were being dropped.
+            var hasGetter = property.AccessorList is null // "=> expression" is a getter
+                            || property.AccessorList.Accessors.Any(accessor =>
+                                Microsoft.CodeAnalysis.CSharpExtensions.IsKind(accessor, Microsoft.CodeAnalysis.CSharp.SyntaxKind.GetAccessorDeclaration));
+            var hasSetter = property.AccessorList is not null
+                            && property.AccessorList.Accessors.Any(accessor =>
+                                Microsoft.CodeAnalysis.CSharpExtensions.IsKind(accessor, Microsoft.CodeAnalysis.CSharp.SyntaxKind.SetAccessorDeclaration)
+                                || Microsoft.CodeAnalysis.CSharpExtensions.IsKind(accessor, Microsoft.CodeAnalysis.CSharp.SyntaxKind.InitAccessorDeclaration));
+            var accessors = (hasGetter, hasSetter) switch
+            {
+                (true, true) => "{ get; set; }",
+                // A getter-only auto-property cannot be assigned, so it reads as default -
+                // which is what a stub has to offer anyway.
+                (true, false) => "{ get; }",
+                // An auto-property must have a getter (CS8051), so a setter-only property
+                // gets one it did not have. Reading it is not something the original allowed,
+                // so nothing can be relying on the value.
+                (false, true) => "{ get; set; }",
+                _ => null,
+            };
+            if (accessors is null)
+            {
+                return null;
+            }
+            return $"{Prefix(property.Modifiers)}{propertyType} {property.Identifier.Text} {accessors}";
         }
 
         case Microsoft.CodeAnalysis.CSharp.Syntax.FieldDeclarationSyntax field:

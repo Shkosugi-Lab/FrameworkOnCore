@@ -120,12 +120,12 @@ YAF はサイトルートに `Web.config` が無く、配布時に `recommended.
 ```
 コーパス  移植 .cs  総残差  変換可能  ビルドエラー
 be            253      77         0             0
-n2           1661     223        27            83
+n2           1661     223        27            82
 mojo          731     126        19           208
-yaf          2722      73         5            82
+yaf          2722      73         5            54
 dnn          1944     364        10           422
 wt             13      39         3             1
-合計                  902        64           796
+合計                  902        64           767
 ```
 
 ### AI 残差層が実際に届く範囲
@@ -349,6 +349,46 @@ CS0246」という状態でした。**注入する using を元ファイルの g
 副作用として mojoPortal が 1 件増えました(`Image` が `System.Drawing.Image` と衝突)。
 互換層が project 全体から見えるようになったことで、下記の平坦化問題が 1 箇所表面化した
 ものです。差引 64 件の改善なので受け入れています。
+
+### 続き: エイリアスで供給していた型は、そもそも互換層に無かった
+
+`HttpRequestBase` / `HttpResponseBase` / `HttpSessionStateBase` /
+`HttpServerUtility(Base)` は、互換層の実型ではなく **「ファイルが `using System.Web;` を
+落としたときに、その場で出す using エイリアス」** として供給していました。
+
+```csharp
+aliasUsings.Add("using HttpRequestBase = WebForm2Blazor.Components.HttpRequestShim;");
+```
+
+エイリアスは**それを書いたファイルにしか効きません。** そして上の 1 節のとおり、
+エイリアスだけは `global using` にできません(同じ名前を各ファイルが宣言するので
+CS1537 が全ファイル分出る)。結果、**global using のアプリには落とす import が無く、
+名前はどこにも供給されませんでした。** YAF.NET の 82 件はこの内訳です。
+
+```
+9  HttpRequestBase        3  HttpApplicationStateBase   ← エイリアス表にすら無かった
+8  HttpResponseBase       3  HttpRequest
+6  HttpSessionStateBase   2  HttpServerUtilityBase
+```
+
+**82 件中 31 件が、1 つの供給方式の欠陥です。**
+
+修正は互換層に**実型として置く**ことです。`HttpRequestShim` は `sealed` なので、
+`HttpRequestBase` を実基底にするには**メンバを基底へ移す**必要がありました。
+`HttpRequestBase` が実装を持ち、`HttpRequestShim` がそれを継承します(sealed のまま)。
+メンバは `virtual` にしてあります — 移植コードが独自の派生(テストダブル)を書いたときに
+override できる必要があり、System.Web の `*Base` も全メンバが virtual だからです。
+
+`HttpSessionState` / `HttpApplicationState` / `HttpServerUtility` は基底と具象の間に
+挟みました。System.Web ではこれらは `*Base` と無関係な sealed クラスですが、ここでは
+**どちらの名前で受けても代入できる**ことだけが要件なので、1 本の鎖にしてあります。
+
+**`HttpRequest` / `HttpResponse` はエイリアスのまま残しています。** この 2 つは
+`Microsoft.AspNetCore.Http` に実在する名前で、互換層側は `Shim` 接尾辞を外せません。
+YAF に残る 3 件はこれです。
+
+**yaf 82 → 54、n2 83 → 82。合計ビルドエラー 796 → 767。** 総残差・変換可能・移植 .cs は
+6 コーパスすべてで不変、パリティ 30/30。
 
 ## リポジトリ同梱 DLL への参照
 

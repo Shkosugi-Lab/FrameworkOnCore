@@ -136,7 +136,12 @@ public static partial class BuildVerifier
             return null;
         }
 
-        return new BuildOutcome(diagnostics.Count, StoppedAtParse(diagnostics));
+        // StoppedAtParse is judged on ALL diagnostics: a syntax error hides real errors
+        // whether or not an undecided dependency is also in the file.
+        var stoppedAtParse = StoppedAtParse(diagnostics);
+        var undecidedTypes = ReadUndecidedDependencyTypes(outputDirectory);
+        var counted = diagnostics.Count(d => UndecidedDependency(d, undecidedTypes) is null);
+        return new BuildOutcome(counted, stoppedAtParse);
     }
 
     /// <summary>
@@ -160,6 +165,72 @@ public static partial class BuildVerifier
             || (diagnostics.Count > 0
                 && !diagnostics.Any(diagnostic =>
                     diagnostic.Code.StartsWith("CS", StringComparison.Ordinal)));
+
+    /// <summary>
+    /// Diagnostics caused by a vendored DLL whose replacement package the user has not
+    /// chosen yet.
+    ///
+    /// These are NOT conversion defects. The converter cannot pick the package (Lucene.Net
+    /// 3.0.3 -> 4.8 is a rewrite, not an upgrade), so nothing in this tool can remove them;
+    /// only a --package-map answer can. Counting them together with the rest was actively
+    /// misleading, because they are numerous enough to dominate: of DNN Platform's 203
+    /// missing-type errors, 154 were Lucene.Net and DotNetNuke.WebControls.
+    ///
+    /// Membership is decided by the ASSEMBLY'S OWN METADATA - the converter writes
+    /// unresolved-dependency-types.txt next to the package-map template while it still has
+    /// the DLL in hand. A prefix rule would have to guess; this reads the answer.
+    /// </summary>
+    private static Dictionary<string, string> ReadUndecidedDependencyTypes(string outputDirectory)
+    {
+        var byName = new Dictionary<string, string>(StringComparer.Ordinal);
+        var path = Path.Combine(outputDirectory, "unresolved-dependency-types.txt");
+        if (!File.Exists(path))
+        {
+            return byName;
+        }
+
+        foreach (var line in File.ReadLines(path))
+        {
+            var tab = line.IndexOf('\t');
+            if (tab > 0)
+            {
+                // First assembly wins; the name is only used to say which one to decide on.
+                byName.TryAdd(line[(tab + 1)..], line[..tab]);
+            }
+        }
+        return byName;
+    }
+
+    /// <summary>
+    /// The undecided assembly this diagnostic is about, or null when it is not one.
+    ///
+    /// The names in the message are matched rather than the message parsed: compiler text is
+    /// localized by the SDK, so anything that reads it in one language breaks in another.
+    /// Only the codes that mean "this name does not exist" are considered - a missing type
+    /// elsewhere in the file is a real error even if a dropped assembly also has that name.
+    /// </summary>
+    private static string? UndecidedDependency(
+        Diagnostic diagnostic, IReadOnlyDictionary<string, string> undecidedTypes)
+    {
+        if (undecidedTypes.Count == 0
+            || diagnostic.Code is not ("CS0246" or "CS0234" or "CS0012" or "CS1069" or "CS7069"))
+        {
+            return null;
+        }
+
+        foreach (Match quoted in QuotedName().Matches(diagnostic.Message))
+        {
+            if (undecidedTypes.TryGetValue(quoted.Groups[1].Value, out var assembly))
+            {
+                return assembly;
+            }
+        }
+        return null;
+    }
+
+    /// <summary>A name in single quotes, as every compiler locale writes identifiers.</summary>
+    [GeneratedRegex(@"'([^']+)'")]
+    private static partial Regex QuotedName();
 
     private const string ParseStopWarning = """
         > **この件数は下限です。**
@@ -195,7 +266,16 @@ public static partial class BuildVerifier
         }
 
         var stoppedAtParse = StoppedAtParse(diagnostics);
-        var report = BuildReport(projectPath, diagnostics);
+        var undecidedTypes = ReadUndecidedDependencyTypes(outputDirectory);
+        var undecided = diagnostics
+            .Select(diagnostic => (diagnostic, assembly: UndecidedDependency(diagnostic, undecidedTypes)))
+            .Where(pair => pair.assembly is not null)
+            .ToList();
+        diagnostics = diagnostics
+            .Where(diagnostic => UndecidedDependency(diagnostic, undecidedTypes) is null)
+            .ToList();
+
+        var report = BuildReport(projectPath, diagnostics, undecided!);
         if (stoppedAtParse)
         {
             // Blank line between: a block quote running straight into the "#" heading would
@@ -205,6 +285,12 @@ public static partial class BuildVerifier
         File.WriteAllText(reportPath, report);
 
         Console.WriteLine($"エラー {diagnostics.Count} 件(うち連鎖 {diagnostics.Count(d => IsCascade(d))} 件)");
+        if (undecided.Count > 0)
+        {
+            Console.WriteLine(
+                $"別に、未決の依存(package-map 未指定)によるエラーが {undecided.Count} 件あります"
+                + "(変換の欠陥ではないため件数に含めていません)。");
+        }
         if (stoppedAtParse)
         {
             // Without this the number reads as "almost building" when the truth is the
@@ -261,6 +347,36 @@ public static partial class BuildVerifier
         }
     }
 
+    /// <summary>
+    /// Lists the errors that are waiting on a package choice, kept out of the totals above.
+    /// Reported rather than hidden: they disappear the moment --package-map names a
+    /// replacement, and the reader is the one who has to name it.
+    /// </summary>
+    private static void AppendUndecidedDependencies(
+        StringBuilder builder, List<(Diagnostic Diagnostic, string Assembly)> undecided)
+    {
+        if (undecided.Count == 0)
+        {
+            return;
+        }
+
+        builder.AppendLine("## 未決の依存によるエラー(件数に含めていません)");
+        builder.AppendLine();
+        builder.AppendLine($"**{undecided.Count} 件**は、リポジトリ同梱 DLL の置き換え先が未決定なために");
+        builder.AppendLine("型が見つからないものです。変換の欠陥ではなく、`package-map.template.json` に");
+        builder.AppendLine("パッケージを書いて `--package-map` で再変換すれば解消します。");
+        builder.AppendLine();
+        builder.AppendLine("| アセンブリ | 件数 |");
+        builder.AppendLine("| --- | ---: |");
+        foreach (var group in undecided
+                     .GroupBy(pair => pair.Assembly, StringComparer.Ordinal)
+                     .OrderByDescending(group => group.Count()))
+        {
+            builder.AppendLine($"| `{group.Key}` | {group.Count()} |");
+        }
+        builder.AppendLine();
+    }
+
     private static string UnparsedReport(string projectPath, int exitCode, string output)
     {
         var builder = new StringBuilder();
@@ -304,7 +420,10 @@ public static partial class BuildVerifier
 
     private static bool IsCascade(Diagnostic diagnostic) => diagnostic.Code == "CS1662";
 
-    private static string BuildReport(string projectPath, List<Diagnostic> diagnostics)
+    private static string BuildReport(
+        string projectPath,
+        List<Diagnostic> diagnostics,
+        List<(Diagnostic Diagnostic, string Assembly)> undecidedDependencies)
     {
         var builder = new StringBuilder();
         builder.AppendLine("# ビルド検証レポート");
@@ -314,12 +433,17 @@ public static partial class BuildVerifier
 
         if (diagnostics.Count == 0)
         {
-            builder.AppendLine("**ビルド成功(エラー 0 件)**。");
+            builder.AppendLine(undecidedDependencies.Count == 0
+                ? "**ビルド成功(エラー 0 件)**。"
+                : "**変換側のエラーは 0 件です。**");
             builder.AppendLine();
+            AppendUndecidedDependencies(builder, undecidedDependencies);
             builder.AppendLine("注意: ビルドが通ることと動作が一致することは別です。");
             builder.AppendLine("実際の描画一致は ParityTest(旧アプリのゴールデンマスター照合)で確認してください。");
             return builder.ToString();
         }
+
+        AppendUndecidedDependencies(builder, undecidedDependencies);
 
         var primary = diagnostics.Where(diagnostic => !IsCascade(diagnostic)).ToList();
         builder.AppendLine("## サマリー");

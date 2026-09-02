@@ -33,48 +33,56 @@ internal static class FrameworkTypeIndex
 
         foreach (var path in platformAssemblies.Split(Path.PathSeparator, StringSplitOptions.RemoveEmptyEntries))
         {
-            try
+            ReadPublicTypes(path, (typeNamespace, typeName) =>
             {
-                using var stream = File.OpenRead(path);
-                using var peReader = new PEReader(stream);
-                if (!peReader.HasMetadata)
+                if (typeNamespace.Length > 0)
                 {
-                    continue;
+                    names.Add(typeNamespace + "." + typeName);
                 }
-                var metadata = peReader.GetMetadataReader();
-
-                foreach (var handle in metadata.TypeDefinitions)
-                {
-                    var definition = metadata.GetTypeDefinition(handle);
-                    if ((definition.Attributes & TypeAttributes.VisibilityMask) != TypeAttributes.Public)
-                    {
-                        continue;
-                    }
-                    var typeNamespace = metadata.GetString(definition.Namespace);
-                    if (typeNamespace.Length > 0)
-                    {
-                        names.Add(typeNamespace + "." + metadata.GetString(definition.Name));
-                    }
-                }
-
-                // Facade assemblies (System.Data.dll and friends) contain only forwarders,
-                // so the type has to be picked up from the exported table as well.
-                foreach (var handle in metadata.ExportedTypes)
-                {
-                    var exported = metadata.GetExportedType(handle);
-                    var typeNamespace = metadata.GetString(exported.Namespace);
-                    if (typeNamespace.Length > 0)
-                    {
-                        names.Add(typeNamespace + "." + metadata.GetString(exported.Name));
-                    }
-                }
-            }
-            catch (Exception)
-            {
-                // An unreadable assembly simply contributes no names.
-            }
+            });
         }
 
         return names;
+    }
+
+    /// <summary>
+    /// Calls back with (namespace, name) for every public type an assembly declares or
+    /// forwards. Reads metadata only - the assembly is never loaded, so an assembly built
+    /// for another framework is still readable.
+    /// </summary>
+    public static void ReadPublicTypes(string assemblyPath, Action<string, string> onType)
+    {
+        try
+        {
+            using var stream = File.OpenRead(assemblyPath);
+            using var peReader = new PEReader(stream);
+            if (!peReader.HasMetadata)
+            {
+                return;
+            }
+            var metadata = peReader.GetMetadataReader();
+
+            foreach (var handle in metadata.TypeDefinitions)
+            {
+                var definition = metadata.GetTypeDefinition(handle);
+                if ((definition.Attributes & TypeAttributes.VisibilityMask) != TypeAttributes.Public)
+                {
+                    continue;
+                }
+                onType(metadata.GetString(definition.Namespace), metadata.GetString(definition.Name));
+            }
+
+            // Facade assemblies (System.Data.dll and friends) contain only forwarders, so
+            // the type has to be picked up from the exported table as well.
+            foreach (var handle in metadata.ExportedTypes)
+            {
+                var exported = metadata.GetExportedType(handle);
+                onType(metadata.GetString(exported.Namespace), metadata.GetString(exported.Name));
+            }
+        }
+        catch (Exception)
+        {
+            // An unreadable assembly simply contributes no names.
+        }
     }
 }

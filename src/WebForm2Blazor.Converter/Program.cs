@@ -1123,6 +1123,52 @@ static IEnumerable<string> EnumerateUsingNamespaces(string source)
 /// residual for that assembly without adding a reference - the difference between a
 /// decision made and a decision missing.
 /// </summary>
+/// <summary>
+/// Records which type names disappear because a vendored DLL has no replacement chosen yet.
+///
+/// Those types come back as CS0246 in the ported code, and counting them as conversion
+/// defects is wrong twice over: nothing can fix them but the user naming a package, and
+/// their sheer number (Lucene.Net alone is ~86 in DNN Platform) hides the errors that ARE
+/// the converter's. The build gate reads this file and reports them separately.
+///
+/// The names come from the assembly's own metadata rather than a guess at what a namespace
+/// prefix implies - the DLL is right there in the input tree, and it is the only thing that
+/// actually knows.
+/// </summary>
+static void WriteUndecidedDependencyTypes(
+    IEnumerable<(string Assembly, string? DllPath)> undecided, string path)
+{
+    var lines = new SortedSet<string>(StringComparer.Ordinal);
+
+    foreach (var (assembly, dllPath) in undecided)
+    {
+        if (dllPath is null || !File.Exists(dllPath))
+        {
+            continue;
+        }
+
+        WebForm2Blazor.Converter.Convert.FrameworkTypeIndex.ReadPublicTypes(dllPath, (typeNamespace, typeName) =>
+        {
+            // The simple name is what a CS0246 reports ("DNNNode"), and the root namespace
+            // segment is what a CS0234 reports ("'Lucene' does not exist in ...").
+            lines.Add($"{assembly}\t{typeName}");
+            if (typeNamespace.Length > 0)
+            {
+                lines.Add($"{assembly}\t{typeNamespace.Split('.')[0]}");
+            }
+        });
+    }
+
+    if (lines.Count == 0)
+    {
+        // Left behind from an earlier run it would be read as still current.
+        File.Delete(path);
+        return;
+    }
+
+    File.WriteAllLines(path, lines);
+}
+
 static Dictionary<string, (string? Package, string? Version)> LoadPackageMap(string path)
 {
     var map = new Dictionary<string, (string?, string?)>(StringComparer.OrdinalIgnoreCase);
@@ -1198,7 +1244,10 @@ static List<(string Id, string Version)> CollectDeclaredPackages(
     var carried = new List<(string Id, string Version)>();
     var skipped = new List<string>();
     var inBox = new List<string>();
-    var binaryReferences = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+    // The DLL path is kept, not just the name: the assembly is the only place that says
+    // which TYPES go missing when it is dropped, and the build gate needs that to tell
+    // "the user has not chosen a package yet" apart from a defect in the conversion.
+    var binaryReferences = new Dictionary<string, string?>(StringComparer.OrdinalIgnoreCase);
 
     void Add(string id, string version)
     {
@@ -1256,9 +1305,18 @@ static List<(string Id, string Version)> CollectDeclaredPackages(
                     }
 
                     var assembly = reference.Attribute("Include")?.Value?.Split(',')[0].Trim();
-                    if (!string.IsNullOrEmpty(assembly))
+                    if (string.IsNullOrEmpty(assembly))
                     {
-                        binaryReferences.Add(assembly);
+                        continue;
+                    }
+
+                    // HintPath is relative to the project file.
+                    var dllPath = Path.GetFullPath(Path.Combine(
+                        Path.GetDirectoryName(csprojPath) ?? directory,
+                        hintPath.Replace('\\', Path.DirectorySeparatorChar)));
+                    if (!binaryReferences.TryGetValue(assembly, out var known) || known is null)
+                    {
+                        binaryReferences[assembly] = File.Exists(dllPath) ? dllPath : null;
                     }
                 }
             }
@@ -1311,7 +1369,7 @@ static List<(string Id, string Version)> CollectDeclaredPackages(
     // explicit decision: the assembly had no NuGet identity and someone supplied one.
     var mapped = new List<string>();
     var declined = new List<string>();
-    foreach (var assembly in binaryReferences)
+    foreach (var assembly in binaryReferences.Keys)
     {
         if (packageMap is null || !packageMap.TryGetValue(assembly, out var choice))
         {
@@ -1339,12 +1397,20 @@ static List<(string Id, string Version)> CollectDeclaredPackages(
             + string.Join(", ", declined));
     }
 
-    var undecided = binaryReferences
+    var undecided = binaryReferences.Keys
         .Where(assembly => packageMap is null || !packageMap.ContainsKey(assembly))
         .Where(assembly => !carried.Any(package =>
             package.Id.Equals(assembly, StringComparison.OrdinalIgnoreCase)))
         .OrderBy(assembly => assembly, StringComparer.OrdinalIgnoreCase)
         .ToList();
+
+    // What the build gate needs in order to not count these against the conversion.
+    if (templatePath is not null)
+    {
+        WriteUndecidedDependencyTypes(
+            undecided.Select(assembly => (assembly, binaryReferences[assembly])),
+            Path.Combine(Path.GetDirectoryName(templatePath)!, "unresolved-dependency-types.txt"));
+    }
 
     // A list in a report is something to read; a file with the assembly names already in
     // it is something to answer. The template is the --package-map format with the

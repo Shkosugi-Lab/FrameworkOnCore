@@ -19,11 +19,17 @@ param(
     [switch]$SkipBuild,
     [switch]$SkipVerifyBuild,
     [switch]$UpdateBaseline,
-    # Builds each corpus's Roslyn source generators and passes them with --analyzer.
-    # OFF by default and never part of the baseline: building a generator needs the SDK
-    # that ITS project pins, so turning this on makes the corpus numbers depend on which
-    # SDKs happen to be installed. Use it to measure, not to compare.
-    [switch]$WithAnalyzers
+    # Skips building each corpus's Roslyn source generators.
+    #
+    # Analyzers are ON by default and ARE part of the baseline. They were opt-in at first
+    # because building a generator needs the SDK its own project pins, which makes the
+    # numbers depend on the machine. That was the wrong trade: without them DNN reports 230
+    # CS0759 for partial-method declarations the generator produces, i.e. the baseline was
+    # fixed against a build the original application never performs.
+    #
+    # If a generator will not build, the run continues without it and the corpus will not
+    # match the baseline - which is the correct outcome, not a silent one.
+    [switch]$SkipAnalyzers
 )
 
 $ErrorActionPreference = 'Continue'
@@ -163,7 +169,7 @@ foreach ($c in $corpora) {
     if ($c.WebConfig)  { $arguments += @('--web-config',  (Join-Path $Root $c.WebConfig)) }
     if ($c.ControlMap) { $arguments += @('--control-map', (Join-Path $PSScriptRoot $c.ControlMap)) }
     if ($c.ExpressionMap) { $arguments += @('--expression-map', (Join-Path $PSScriptRoot $c.ExpressionMap)) }
-    if ($WithAnalyzers -and $c.AnalyzerProject) {
+    if (-not $SkipAnalyzers -and $c.AnalyzerProject) {
         $analyzerDll = Join-Path $Root $c.AnalyzerAssembly
         if (-not (Test-Path $analyzerDll)) {
             Write-Host "  ジェネレータをビルド中..."

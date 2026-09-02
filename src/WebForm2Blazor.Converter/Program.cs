@@ -1682,10 +1682,11 @@ static string RenderStubType(
     var lines = new List<string>();
     if (typeDeclaration is not null)
     {
+        var lookupNamespaces = LookupNamespacesFor(typeDeclaration, declaredNamespace);
         foreach (var member in typeDeclaration.Members)
         {
             var text = RenderStubMember(
-                member, known, isStatic, isInterface, declaredNamespace, containerIsSealed: isSealed);
+                member, known, isStatic, isInterface, lookupNamespaces, containerIsSealed: isSealed);
             if (text is not null)
             {
                 lines.Add($"{indent}    {text}");
@@ -1718,7 +1719,7 @@ static string? RenderStubMember(
     HashSet<string> known,
     bool containerIsStatic,
     bool containerIsInterface,
-    string declaredNamespace,
+    IReadOnlyList<string> lookupNamespaces,
     bool containerIsSealed = false)
 {
     bool Has(Microsoft.CodeAnalysis.SyntaxTokenList modifiers, Microsoft.CodeAnalysis.CSharp.SyntaxKind kind)
@@ -1775,35 +1776,56 @@ static string? RenderStubMember(
     {
         case Microsoft.CodeAnalysis.CSharp.Syntax.MethodDeclarationSyntax method:
         {
-            if (!IsPublic(method.Modifiers)
-                || method.TypeParameterList is not null
-                || !Resolves(method.ReturnType, known, declaredNamespace)
-                || method.ParameterList.Parameters.Any(parameter =>
-                    parameter.Modifiers.Count > 0 || !Resolves(parameter.Type, known, declaredNamespace)))
+            if (!IsPublic(method.Modifiers) || method.TypeParameterList is not null)
             {
                 return null;
             }
-            var parameters = string.Join(", ", method.ParameterList.Parameters
-                .Select(parameter => $"{parameter.Type} {parameter.Identifier.Text}"));
+            var returnType = ResolveType(method.ReturnType, known, lookupNamespaces);
+            if (returnType is null)
+            {
+                return null;
+            }
+            var parameters = new List<string>();
+            foreach (var parameter in method.ParameterList.Parameters)
+            {
+                var parameterType = parameter.Modifiers.Count > 0
+                    ? null
+                    : ResolveType(parameter.Type, known, lookupNamespaces);
+                if (parameterType is null)
+                {
+                    return null;
+                }
+                parameters.Add($"{parameterType} {parameter.Identifier.Text}");
+            }
             var message = $"{method.Identifier.Text} は変換対象外です(元の実装は移植されていません)。";
-            return $"{Prefix(method.Modifiers)}{method.ReturnType} {method.Identifier.Text}({parameters})"
+            return $"{Prefix(method.Modifiers)}{returnType} {method.Identifier.Text}({string.Join(", ", parameters)})"
                    + $" => throw new global::System.NotSupportedException(\"{message}\");";
         }
 
         case Microsoft.CodeAnalysis.CSharp.Syntax.PropertyDeclarationSyntax property:
         {
-            if (!IsPublic(property.Modifiers) || !Resolves(property.Type, known, declaredNamespace))
+            if (!IsPublic(property.Modifiers))
+            {
+                return null;
+            }
+            var propertyType = ResolveType(property.Type, known, lookupNamespaces);
+            if (propertyType is null)
             {
                 return null;
             }
             // An auto-property rather than a throwing accessor: properties read as data,
             // and a control-tree walk that touches one should not bring the page down.
-            return $"{Prefix(property.Modifiers)}{property.Type} {property.Identifier.Text} {{ get; set; }}";
+            return $"{Prefix(property.Modifiers)}{propertyType} {property.Identifier.Text} {{ get; set; }}";
         }
 
         case Microsoft.CodeAnalysis.CSharp.Syntax.FieldDeclarationSyntax field:
         {
-            if (!IsPublic(field.Modifiers) || !Resolves(field.Declaration.Type, known, declaredNamespace))
+            if (!IsPublic(field.Modifiers))
+            {
+                return null;
+            }
+            var fieldType = ResolveType(field.Declaration.Type, known, lookupNamespaces);
+            if (fieldType is null)
             {
                 return null;
             }
@@ -1818,10 +1840,10 @@ static string? RenderStubMember(
             if (isConst)
             {
                 return variable.Initializer?.Value is Microsoft.CodeAnalysis.CSharp.Syntax.LiteralExpressionSyntax literal
-                    ? $"public const {field.Declaration.Type} {variable.Identifier.Text} = {literal};"
+                    ? $"public const {fieldType} {variable.Identifier.Text} = {literal};"
                     : null;
             }
-            return $"{Prefix(field.Modifiers)}{field.Declaration.Type} {variable.Identifier.Text};";
+            return $"{Prefix(field.Modifiers)}{fieldType} {variable.Identifier.Text};";
         }
 
         default:
@@ -1830,47 +1852,138 @@ static string? RenderStubMember(
 }
 
 /// <summary>
-/// True when every name in a type reference resolves after the port: a predefined C# type,
-/// a common BCL type, or a project type that survived or is itself stubbed.
-/// Generic arguments are checked too, so List&lt;ExcludedThing&gt; is rejected.
+/// The type as it can be written in the stub file, fully qualified, or null when nothing
+/// it names can be resolved from here.
+///
+/// The stub file carries two usings (System, System.Collections.Generic) and cannot carry
+/// the source file's, which would drag in the very namespaces that were excluded. So the
+/// name lookup happens HERE and the result is written out qualified.
+///
+/// This used to be a bool plus a hand-written list of "simple" BCL names, and a member was
+/// kept only when its signature named a type in the SAME namespace. That drops most of what
+/// a real base class declares: DNN's PermissionsGrid lost AddPermission / GetPermissions /
+/// SupportsDenyPermissions to ArrayList, RoleInfo, UserInfo and PermissionInfo - one BCL
+/// type not on the list and three ported types one namespace over - and every grid deriving
+/// from it then failed CS0115 on all of them.
 /// </summary>
-static bool Resolves(Microsoft.CodeAnalysis.CSharp.Syntax.TypeSyntax? type, HashSet<string> known, string declaredNamespace)
+static string? ResolveType(
+    Microsoft.CodeAnalysis.CSharp.Syntax.TypeSyntax? type,
+    HashSet<string> known,
+    IReadOnlyList<string> lookupNamespaces)
 {
     switch (type)
     {
         case null:
-            return false;
-        case Microsoft.CodeAnalysis.CSharp.Syntax.PredefinedTypeSyntax:
-            return true;
+            return null;
+        case Microsoft.CodeAnalysis.CSharp.Syntax.PredefinedTypeSyntax predefined:
+            return predefined.ToString();
         case Microsoft.CodeAnalysis.CSharp.Syntax.NullableTypeSyntax nullable:
-            return Resolves(nullable.ElementType, known, declaredNamespace);
+            return ResolveType(nullable.ElementType, known, lookupNamespaces) is { } element
+                ? element + "?"
+                : null;
         case Microsoft.CodeAnalysis.CSharp.Syntax.ArrayTypeSyntax array:
-            return Resolves(array.ElementType, known, declaredNamespace);
+            return ResolveType(array.ElementType, known, lookupNamespaces) is { } item
+                ? item + string.Concat(array.RankSpecifiers.Select(rank => rank.ToString()))
+                : null;
         case Microsoft.CodeAnalysis.CSharp.Syntax.GenericNameSyntax generic:
-            return IsKnownSimpleType(generic.Identifier.Text)
-                   && generic.TypeArgumentList.Arguments.All(argument => Resolves(argument, known, declaredNamespace));
+        {
+            var definition = ResolveTypeName(
+                generic.Identifier.Text, generic.TypeArgumentList.Arguments.Count, known, lookupNamespaces);
+            if (definition is null)
+            {
+                return null;
+            }
+            var arguments = new List<string>();
+            foreach (var argument in generic.TypeArgumentList.Arguments)
+            {
+                var resolved = ResolveType(argument, known, lookupNamespaces);
+                if (resolved is null)
+                {
+                    return null;
+                }
+                arguments.Add(resolved);
+            }
+            return $"{definition}<{string.Join(", ", arguments)}>";
+        }
         case Microsoft.CodeAnalysis.CSharp.Syntax.IdentifierNameSyntax identifier:
-            return IsKnownSimpleType(identifier.Identifier.Text)
-                   || known.Contains(QualifiedName(declaredNamespace, identifier.Identifier.Text));
+            return ResolveTypeName(identifier.Identifier.Text, 0, known, lookupNamespaces);
+        case Microsoft.CodeAnalysis.CSharp.Syntax.QualifiedNameSyntax qualified:
+            // Written out in the source ("System.Data.IDataReader", "Collections.ArrayList").
+            // Treated as a name to look up like any other, so a partial qualification still
+            // resolves through the file's imports.
+            return ResolveTypeName(qualified.ToString(), 0, known, lookupNamespaces);
         default:
-            // Qualified names (System.Web.X) would need real resolution; leave them out.
-            return false;
+            return null;
     }
+}
+
+/// <summary>
+/// One type name against the namespaces in scope, project types first. Returns the
+/// global:: qualified name, or null when no namespace in scope declares it.
+/// </summary>
+static string? ResolveTypeName(
+    string name, int arity, HashSet<string> known, IReadOnlyList<string> lookupNamespaces)
+{
+    // A name already written in full needs no prefix.
+    if (known.Contains(name) || WebForm2Blazor.Converter.Convert.FrameworkTypeIndex.Contains(MetadataName(name, arity)))
+    {
+        return "global::" + name;
+    }
+
+    foreach (var candidateNamespace in lookupNamespaces)
+    {
+        var candidate = QualifiedName(candidateNamespace, name);
+        if (known.Contains(candidate) || WebForm2Blazor.Converter.Convert.FrameworkTypeIndex.Contains(MetadataName(candidate, arity)))
+        {
+            return "global::" + candidate;
+        }
+    }
+
+    return null;
+}
+
+/// <summary>Metadata spells a generic type "Ns.List`1"; the source spells it "List&lt;T&gt;".</summary>
+static string MetadataName(string qualifiedName, int arity)
+    => arity == 0 ? qualifiedName : qualifiedName + "`" + arity;
+
+/// <summary>
+/// The namespaces a name written in this file could bind to: its own and each enclosing
+/// one, then its imports - the order the compiler would try.
+/// </summary>
+static List<string> LookupNamespacesFor(
+    Microsoft.CodeAnalysis.CSharp.Syntax.BaseTypeDeclarationSyntax declaration, string declaredNamespace)
+{
+    var namespaces = new List<string>();
+
+    if (!string.IsNullOrEmpty(declaredNamespace))
+    {
+        var parts = declaredNamespace.Split('.');
+        for (var count = parts.Length; count > 0; count--)
+        {
+            namespaces.Add(string.Join(".", parts.Take(count)));
+        }
+    }
+
+    foreach (var directive in declaration.SyntaxTree.GetRoot()
+                 .DescendantNodes()
+                 .OfType<Microsoft.CodeAnalysis.CSharp.Syntax.UsingDirectiveSyntax>())
+    {
+        // An alias names one type under a different name; reproducing that in the stub
+        // would need the alias too, so those are left to fail the resolve.
+        if (directive.Alias is null && directive.Name is { } name)
+        {
+            namespaces.Add(name.ToString());
+        }
+    }
+
+    namespaces.Add("System");
+    return namespaces;
 }
 
 /// <summary>Namespace-qualified type key ("Ns.Name", or just "Name" in the global namespace).</summary>
 static string QualifiedName(string declaredNamespace, string name)
     => string.IsNullOrEmpty(declaredNamespace) ? name : declaredNamespace + "." + name;
 
-/// <summary>BCL type names that are safe to name in a stub signature without resolving anything.</summary>
-static bool IsKnownSimpleType(string name) => name switch
-{
-    "String" or "Object" or "Boolean" or "Int32" or "Int64" or "Double" or "Decimal"
-        or "DateTime" or "Guid" or "TimeSpan" or "Uri" or "Exception" or "Type" or "Stream"
-        or "List" or "IList" or "IEnumerable" or "ICollection" or "Dictionary" or "IDictionary"
-        or "KeyValuePair" or "Nullable" or "IReadOnlyList" or "IReadOnlyCollection" => true,
-    _ => false,
-};
 
 /// <summary>Top-level type declarations of a file.</summary>
 static List<StubType> EnumerateTopLevelTypes(string source)

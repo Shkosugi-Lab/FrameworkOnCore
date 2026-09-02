@@ -123,9 +123,9 @@ be            253      77         0             0
 n2           1661     223        27            65
 mojo          731     126        19           206
 yaf          2722      73         5            51
-dnn          1944     364        10           422
+dnn          1944     364        10           325
 wt             13      39         3             1
-合計                  902        64           745
+合計                  902        64           648
 ```
 
 ### AI 残差層が実際に届く範囲
@@ -469,6 +469,49 @@ public class UrlSelector : HtmlGenericControl        // 互換層の Blazor コ�
 
 **n2 68 → 65。** 他 5 本は不変です。件数は小さいですが、消えたのは「列挙が漏れる」と
 いう欠陥のほうで、互換層に型を足すたびにここを更新する必要も無くなりました。
+
+### スタブ生成器 4 回目 — 名前解決が「同じ名前空間」と手書き BCL リストだけだった
+
+dnn の CS0115 は 179 件。**クラス別**に見ると散らばって見えません。
+
+```
+16  SqlDataProvider          8  ResourceFileInstaller
+16  ModulePermissionsGrid    8  DesktopModulePermissionsGrid
+13  TabPermissionsGrid       6  DNNScheduler
+12  FolderPermissionsGrid    5  CleanupInstaller
+```
+
+`*PermissionsGrid` 4 つの基底は `PermissionsGrid`(除外型スタブ)で、落ちているのは
+`AddPermission(ArrayList, RoleInfo)` / `GetPermissions()` / `SupportsDenyPermissions(PermissionInfo)`
+など。スタブ側にそれらのメンバがありません。
+
+原因は `Resolves` — メンバを出すかどうかを決める判定です。型が解決できると認めるのは
+**2 つだけ**でした。
+
+```csharp
+IsKnownSimpleType(name)                                  // 手書きの BCL 名 24 個
+|| known.Contains(QualifiedName(declaredNamespace, name)) // 同じ名前空間の型のみ
+```
+
+`ArrayList` はリストに無く、`RoleInfo` / `UserInfo` / `PermissionInfo` は
+**1 つ隣の名前空間**にあります。どちらも解決できないので、それらを含むメンバは全部落ち、
+継承側が全部 CS0115 になります。**エラーはやはりサブクラス側にしか出ません。**
+
+スタブファイルは `using System;` と `using System.Collections.Generic;` しか持てません
+(元ファイルの using を写すと、除外した名前空間ごと引き込んでしまう)。だから
+`IsKnownSimpleType` はその 2 つで書ける名前の一覧として正しくはあり、
+**足りなかったのは「名前解決を自分でやって完全修飾で書き出す」ことでした。**
+
+- 探索する名前空間は、その型の名前空間とその親、それから**元ファイルの import** の順
+- プロジェクト型は `known`(移植済み + スタブ済みの完全修飾名)で判定
+- BCL 型は、**変換器が動いているフレームワークのアセンブリのメタデータを読んで**判定
+  (`FrameworkTypeIndex`)。ロードはしません — 「その名前の型があるか」しか要らないので
+- 解決したら `global::` 付きの完全修飾名で出力
+
+**手書きリストは 3 つめでした**(エイリアス供給表、`System.Web.X` 置換表、これ)。
+いずれも同じ壊れ方をします。
+
+**dnn 422 → 325(−97)。** 他 5 本は不変です。パリティ 30/30。
 
 ## リポジトリ同梱 DLL への参照
 

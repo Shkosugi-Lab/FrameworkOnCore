@@ -289,7 +289,17 @@ if ($rows.Count -gt 0) {
 
 if ($UpdateBaseline) {
     # 対象を絞って実行した場合、計測していないコーパスの値は保持する
-    foreach ($k in $measured.Keys) { $baseline[$k] = $measured[$k] }
+    foreach ($k in $measured.Keys) {
+        $new = $measured[$k]
+        # -SkipVerifyBuild ではビルドエラーを測っていない(-1)。それをそのまま書くと
+        # ベースラインが「未計測」で固定され、以後どんなエラー数も比較されなくなる。
+        # 「測らなかった」は「0 件だった」ではないので、前の値を残す。
+        if ($new.buildErrors -lt 0 -and $baseline.ContainsKey($k) -and $null -ne $baseline[$k].buildErrors) {
+            $new.buildErrors = $baseline[$k].buildErrors
+            Write-Warning "  ${k}: ビルドエラーは未計測です。ベースラインの既存値 $($new.buildErrors) を保持します。"
+        }
+        $baseline[$k] = $new
+    }
     $ordered = [ordered]@{}
     foreach ($k in @('be', 'mojo', 'yaf', 'dnn', 'n2', 'wt')) {
         if ($baseline.ContainsKey($k)) { $ordered[$k] = $baseline[$k] }

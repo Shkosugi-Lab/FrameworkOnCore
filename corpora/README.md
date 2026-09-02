@@ -120,12 +120,12 @@ YAF はサイトルートに `Web.config` が無く、配布時に `recommended.
 ```
 コーパス  移植 .cs  総残差  変換可能  ビルドエラー
 be            253      77         0             0
-n2           1661     223        27            74
+n2           1661     223        27            68
 mojo          731     126        19           206
-yaf          2722      73         5            53
+yaf          2722      73         5            51
 dnn          1944     364        10           422
 wt             13      39         3             1
-合計                  902        64           756
+合計                  902        64           748
 ```
 
 ### AI 残差層が実際に届く範囲
@@ -424,6 +424,26 @@ public class UrlSelector : HtmlGenericControl        // 互換層の Blazor コ�
 **n2 82 → 74、mojo 208 → 206、yaf 54 → 53。dnn は変化なし** — dnn の CS0115 179 件は
 `AddPermission` / `RenderViewMode` のようなアプリ固有メンバで、基底は除外型スタブです
 (別の穴)。合計 767 → 756、パリティ 30/30。
+
+### ページ側にも同じ穴があった(`ID` / `OnDataBinding` / `EnableTheming` / `InitializeCulture`)
+
+上を直した時点で n2 の CS0115 は 25 → 17。残りを見ると、直らなかった 2 件は
+`RecentVersions.OnDataBinding` / `ReferencingItems.OnDataBinding` で、**基底は
+`WebFormsUserControl`** でした。コントロール側だけ直しても、ページ / ユーザーコントロール /
+レイアウトの 3 基底には同じ穴が残っていたということです。
+
+| メンバ | 落ちていたもの |
+|---|---|
+| `ID` | `TemplatePage<TPage>` / `TemplateMasterPage<TPage>` / `Framed`。System.Web では virtual で、n2 は「未設定なら "P"」を返すために override する |
+| `OnDataBinding` | `RecentVersions` / `ReferencingItems` |
+| `EnableTheming` | `EditPage` |
+| `InitializeCulture` | YAF の `BasePage` / `ForumPageBase` |
+
+`InitializeCulture` だけは**駆動しています。** WebForms はコントロールツリーを作る前に
+呼ぶ約束で、ページが `CurrentUICulture` をリクエストから設定するためのものです。後続の
+すべてに効く必要があるので、`OnInit` の前に置きました。
+
+**n2 74 → 68、yaf 53 → 51。合計 748。** パリティ 30/30。
 
 ## リポジトリ同梱 DLL への参照
 

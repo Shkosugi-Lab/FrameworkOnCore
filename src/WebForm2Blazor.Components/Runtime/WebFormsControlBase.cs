@@ -66,7 +66,11 @@ public abstract class WebFormsControlBase : ComponentBase, IWebFormsControl, IDi
         }
     }
 
-    [Parameter] public string ID { get => _id; set => SetAndRefresh(ref _id, value); }
+    /// <summary>
+    /// WebForms Control.ID equivalent. Virtual because it is virtual there and ported
+    /// controls override it (n2's TemplatePage returns "P" when none was assigned).
+    /// </summary>
+    [Parameter] public virtual string ID { get => _id; set => SetAndRefresh(ref _id, value); }
     [Parameter] public string CssClass { get => _cssClass; set => SetAndRefresh(ref _cssClass, value); }
 
     /// <summary>WebForms Visible equivalent. Renders nothing when false.</summary>

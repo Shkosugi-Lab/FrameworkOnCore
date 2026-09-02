@@ -122,6 +122,11 @@ public abstract class Page : ComponentBase, IWebFormsHost
     {
         HostCore.PostBackEventCompleted += HandlePostBackEventCompleted;
 
+        // WebForms calls InitializeCulture before the control tree exists, so that a page
+        // setting CurrentUICulture from the request affects everything that follows. The
+        // same holds here: it has to run before OnInit, not after.
+        InitializeCulture();
+
         // Init runs BEFORE the first render, not after it like Page_Load. Deferring it was
         // tried and reverted: OnInit bodies routinely produce the data the markup then
         // renders (BlogEngine's Post page assigns the Post the whole page binds to), so
@@ -211,6 +216,37 @@ public abstract class Page : ComponentBase, IWebFormsHost
     }
 
     protected void EnsureChildControls() => CreateChildControls();
+
+    /// <summary>WebForms Control.OnDataBinding override point (custom bases override it).</summary>
+    protected virtual void OnDataBinding(EventArgs e)
+    {
+    }
+
+    /// <summary>
+    /// WebForms Control.ID equivalent. Virtual because it is virtual there and ported page
+    /// bases override it (n2's TemplatePage returns "P" when none was assigned).
+    /// </summary>
+    public virtual string ID { get; set; }
+
+    /// <summary>
+    /// WebForms Page.EnableTheming / Theme equivalents. Themes and skins are a WebForms
+    /// rendering feature with no ASP.NET Core counterpart, so the values are recorded and
+    /// read back but select nothing. Ported bases turn theming OFF through this property,
+    /// which is what the value would have meant here anyway.
+    /// </summary>
+    public virtual bool EnableTheming { get; set; } = true;
+
+    /// <summary>WebForms Page.Theme equivalent (recorded, inert).</summary>
+    public virtual string Theme { get; set; }
+
+    /// <summary>
+    /// WebForms Page.InitializeCulture override point. WebForms called it before creating
+    /// controls so a page could set Thread.CurrentThread.CurrentUICulture from the request;
+    /// the same override runs here, from OnInitialized, before the first render.
+    /// </summary>
+    protected virtual void InitializeCulture()
+    {
+    }
 
     /// <summary>WebForms data-binding expression &lt;%# Eval("X") %&gt; equivalent.</summary>
     protected static object Eval(object container, string expression)
@@ -325,7 +361,8 @@ public abstract class WebFormsUserControl : ComponentBase, IWebFormsHost, IWebFo
     public WebFormsHostCore HostCore { get; } = new();
 
     /// <summary>The ID attribute from markup (WebForms user controls carry an ID too).</summary>
-    [Parameter] public string ID { get; set; }
+    /// <remarks>Virtual for the same reason as <see cref="Page.ID"/>.</remarks>
+    [Parameter] public virtual string ID { get; set; }
 
     /// <inheritdoc cref="WebFormsPage.Master"/>
     public dynamic Master => null;
@@ -470,6 +507,14 @@ public abstract class WebFormsUserControl : ComponentBase, IWebFormsHost, IWebFo
 
     protected void EnsureChildControls() => CreateChildControls();
 
+    /// <inheritdoc cref="Page.OnDataBinding"/>
+    protected virtual void OnDataBinding(EventArgs e)
+    {
+    }
+
+    /// <inheritdoc cref="Page.EnableTheming"/>
+    public virtual bool EnableTheming { get; set; } = true;
+
     private void HandlePostBackEventCompleted()
     {
         OnPreRenderCompat();
@@ -592,6 +637,17 @@ public abstract class WebFormsLayout : LayoutComponentBase, IWebFormsHost
     }
 
     protected void EnsureChildControls() => CreateChildControls();
+
+    /// <inheritdoc cref="Page.OnDataBinding"/>
+    protected virtual void OnDataBinding(EventArgs e)
+    {
+    }
+
+    /// <inheritdoc cref="Page.ID"/>
+    public virtual string ID { get; set; }
+
+    /// <inheritdoc cref="Page.EnableTheming"/>
+    public virtual bool EnableTheming { get; set; } = true;
 
     protected static object Eval(object container, string expression)
         => DataBinder.Eval(container, expression);

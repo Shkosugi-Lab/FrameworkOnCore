@@ -120,12 +120,12 @@ YAF はサイトルートに `Web.config` が無く、配布時に `recommended.
 ```
 コーパス  移植 .cs  総残差  変換可能  ビルドエラー
 be            253      77         0             0
-n2           1661     223        27            63
-mojo          731     126        19            88
-yaf          2722      73         5            51
-dnn          1944     364        10           132
+n2           1661     223        27            54
+mojo          731     126        19            54
+yaf          2722      73         5            46
+dnn          1944     364        10           122
 wt             13      39         3             1
-合計                  902        64           335
+合計                  902        64           277
 ```
 
 **ビルドエラーの数には「未決の依存によるもの」を含めていません。** リポジトリ同梱 DLL の
@@ -640,6 +640,40 @@ code = code.Replace(originalNamespace + ".", distinct[0] + ".");
 そのまま残るため、同じ置換がもう一度当たって二重に前置されます。
 
 名前の境界(`(?<![\w.])`)で固定しました。**dnn 146 → 132、n2 65 → 63。**
+
+### 互換層に無かった WebForms 型 63 個
+
+未決の依存を外したあとの CS0246 は 106 件。**上位が 3 件しかない完全なロングテール**で、
+1 つの欠陥ではありません。ただし型名を並べると性質は揃っていました。
+
+```
+PagerPosition ButtonType TextAlign GridLines FirstDayOfWeek DayNameFormat
+GridViewRowCollection DataGridItemCollection DataBindingCollection Parameter
+WebPart CatalogPart Personalizable WebBrowsable UrlProperty
+IButtonControl IEditableTextControl INavigateUIData
+SqlMembershipProvider ProfileProvider ValidatePasswordEventArgs ...
+```
+
+**ほとんどが「互換層がまだ宣言していなかった System.Web の型」**です。63 個を
+`Compat/WebFormsTypeShims.cs` にまとめて追加しました。enum は**元の値**を持ちます
+(コードが値で分岐し、永続化するものもあるため)。
+
+対象外として**足さなかった**もの:
+
+| | 例 |
+|---|---|
+| MVC / Web API / WCF | `WebPageBase`、`MediaTypeFormatter`、`ServiceHost` |
+| アプリ自身の型 | `CmsPage`、`StyleSheetCombiner`、`MetaContent` |
+
+**型だけ足すと悪化することがあります。** `ProfileProvider` を空で足したところ、n2 の
+`ContentProfileProvider` が override 先を失って **CS0246 1 件が CS0115 8 件に化けました**
+(63 → 64)。プロバイダは**アプリが継承するもの**なので、抽象メンバを 1 つ残らず
+宣言して初めて意味があります。`SqlMembershipProvider` も同じ理由で全メンバを実装して
+います — そちらは具象クラスなので、各メソッドは既定値を返さず**投げます**。認証
+プロバイダが黙って「そんなユーザーはいない」と答えるのは、この層が発明してよい
+セキュリティ上の答えではありません。
+
+**mojo 88 → 54、n2 63 → 54、yaf 51 → 46、dnn 132 → 122。合計 335 → 277。**
 
 ## リポジトリ同梱 DLL への参照
 

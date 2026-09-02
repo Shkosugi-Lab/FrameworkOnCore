@@ -202,6 +202,33 @@ BlogEngine の `CommentForm.ascx` は
 「43 件」でもありません。同じ形の誤読は既に一度起きています — n2 の式ビルダー 23 件は
 AI タスクの 17 件を占めていましたが、対応表 1 つで消えました。
 
+#### 「テンプレート外のデータバインド式」6 件 — 調査したが未解決
+
+このうち 4 件は mojoPortal の `BreadcrumbsControl.ascx` で、**実際にはテンプレートの中**です。
+
+```aspx
+<portal:SiteMapPath ...>
+  <NodeTemplate>
+    <asp:HyperLink NavigateUrl='<%# Page.ResolveUrl(Eval("Url").ToString()) %>' ... />
+```
+
+`ControlMappings` の `DataBoundTemplates` / `PlainTemplates` は**組み込みコントロールの
+テンプレート名の手書き一覧**で、`SiteMapPath` が自前で宣言する `NodeTemplate` /
+`CurrentNodeTemplate` / `RootNodeTemplate` は載っていません。
+
+**「`*Template` で終わる未知の要素はデータバインドテンプレート」という一般化を入れて
+みましたが、数字が 1 件も動きませんでした(撤回済み)。** 生成物を見ると、テンプレート
+のタグ自体は出ているのに中の `Eval` は依然として除去されており、`_dataBindingTemplateDepth`
+が増えていません。`SiteMapPath` が `LegacyRenderHost` に解決され、子が
+`EmitNodes` で素通しされる経路のどこかだと思われますが、**特定できていません。**
+
+残る 2 件は `EmptyDataTemplate` 内の `Bind()` で、こちらは WebForms でもデータ項目の
+無い場所です(mojoPortal が「空のときに入力欄を出す」ために書いたもの)。
+
+**次に触る人へ:** 手書き一覧を疑うところまでは正しかったはずですが、それだけでは
+届きません。`EmitLegacyRenderHost` の子要素がテンプレートとして扱われない理由から
+調べてください。
+
 ### インラインコード 32 件の中身
 
 「インラインコードブロック」は 1 つの種別ですが、**中身は 3 種類**でした。

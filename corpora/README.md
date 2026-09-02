@@ -120,12 +120,12 @@ YAF はサイトルートに `Web.config` が無く、配布時に `recommended.
 ```
 コーパス  移植 .cs  総残差  変換可能  ビルドエラー
 be            253      77         0             0
-n2           1661     223        27            65
-mojo          731     126        19           103
+n2           1661     223        27            63
+mojo          731     126        19            88
 yaf          2722      73         5            51
-dnn          1944     364        10           146
+dnn          1944     364        10           132
 wt             13      39         3             1
-合計                  902        64           366
+合計                  902        64           335
 ```
 
 **ビルドエラーの数には「未決の依存によるもの」を含めていません。** リポジトリ同梱 DLL の
@@ -601,6 +601,45 @@ mojo Lucene.Net 64 / ZedGraph 12 / Novell.Directory.Ldap 12 /
 
 なお `--verify-build` の終了コードも変換側のエラーだけで決まります。未決の依存しか
 残っていない出力は「変換としては通っている」と扱われます。
+
+### コントロールアダプタ(mojo 15 件)
+
+`System.Web.UI.Adapters.ControlAdapter` は、`.browser` ファイルに登録すると**コントロール
+の描画を丸ごと差し替える** WebForms の仕組みです。mojoPortal はこれを 15 個持っています
+(メニュー、ツリービュー、グリッドビュー、ログイン系)。
+
+互換層には `WebControlAdapter` だけがあり、基底の `ControlAdapter` も
+`MenuAdapter` / `HierarchicalDataBoundControlAdapter` もありませんでした。さらに
+変換器は `System.Web.UI.Adapters.` をフラットに潰しておらず、
+`WebForm2Blazor.Components.Adapters.X` という**存在しない名前空間**を書いていました。
+
+**宣言するだけで、駆動はしません。** Blazor のコンポーネントは自分のマークアップから
+描画し、`.browser` を読む機構も、描画をアダプタに渡す機構もありません。`Control` が
+null なのはそのためで、万一アダプタに到達した呼び出しは正しくない描画をせずに落ちます。
+`LegacyWebControl` のライフサイクルフックと同じ判断です。
+
+**mojo 103 → 88。**
+
+### 名前空間マップの置換が、自分の出力に再マッチしていた
+
+dnn に `'dnn' が名前空間 'dnn.Components.Controls' に存在しません` が 14 件。生成物を
+見ると原因は明白でした。
+
+```razor
+<dnn.Components.Controls.dnn.Components.Controls.DesktopModules.Admin.Security.DNNProfile ... />
+```
+
+`ApplyNamespaceMap` は、元の名前空間を変換後のものへ**単純な文字列置換**で移します。
+
+```csharp
+code = code.Replace(originalNamespace + ".", distinct[0] + ".");
+```
+
+ところが**移行先は移行元を含みます** — `DesktopModules.Admin.Security` →
+`dnn.Components.Controls.DesktopModules.Admin.Security`。置換結果の中に元の文字列が
+そのまま残るため、同じ置換がもう一度当たって二重に前置されます。
+
+名前の境界(`(?<![\w.])`)で固定しました。**dnn 146 → 132、n2 65 → 63。**
 
 ## リポジトリ同梱 DLL への参照
 

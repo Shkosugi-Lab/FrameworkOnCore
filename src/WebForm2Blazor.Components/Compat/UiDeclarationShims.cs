@@ -96,38 +96,9 @@ public interface IReadOnlySessionState
 {
 }
 
-/// <summary>
-/// System.Web.UI.Adapters.WebControlAdapter equivalent. Control adapters were a
-/// browser-targeting mechanism; nothing invokes these, so the render hooks are inert.
-/// </summary>
-public class WebControlAdapter
-{
-    protected LegacyWebControl Control { get; set; }
-
-    protected virtual void Render(HtmlTextWriter writer)
-    {
-    }
-
-    protected virtual void RenderBeginTag(HtmlTextWriter writer)
-    {
-    }
-
-    protected virtual void RenderContents(HtmlTextWriter writer)
-    {
-    }
-
-    protected virtual void RenderEndTag(HtmlTextWriter writer)
-    {
-    }
-
-    protected virtual void BeginRender(HtmlTextWriter writer)
-    {
-    }
-
-    protected virtual void EndRender(HtmlTextWriter writer)
-    {
-    }
-}
+// The control adapters live in Compat/ControlAdapters.cs: WebControlAdapter is one of a
+// family (ControlAdapter, MenuAdapter, HierarchicalDataBoundControlAdapter, ...) that a
+// real application derives from, and mojoPortal ships fifteen of them.
 
 /// <summary>
 /// System.Web.UI.PageStatePersister equivalent. ViewState in the compatibility layer lives

@@ -328,8 +328,21 @@ string ApplyNamespaceMap(string code, bool razorContent = false)
         var distinct = targets.Distinct(StringComparer.Ordinal).ToList();
         if (distinct.Count == 1)
         {
-            // Qualified type references follow only when the mapping is unambiguous
-            code = code.Replace(originalNamespace + ".", distinct[0] + ".");
+            // Qualified type references follow only when the mapping is unambiguous.
+            //
+            // Anchored at a name boundary, not a plain substring replace. The target
+            // CONTAINS the original ("DesktopModules.Admin.Security" ->
+            // "dnn.Components.Controls.DesktopModules.Admin.Security"), so a substring
+            // replace matches inside its own output and prefixes it twice:
+            // "dnn.Components.Controls.dnn.Components.Controls.DesktopModules.Admin.
+            // Security.DNNProfile". That reached both the .razor tag and the field it
+            // generates, so DNN lost four user-control references to it.
+            code = System.Text.RegularExpressions.Regex.Replace(
+                code,
+                @"(?<![\w.])" + System.Text.RegularExpressions.Regex.Escape(originalNamespace) + @"\.",
+                // A literal replacement: "$" in a namespace would otherwise be read as a
+                // substitution.
+                _ => distinct[0] + ".");
             code = code.Replace($"using {originalNamespace};", $"using {distinct[0]};");
         }
         else

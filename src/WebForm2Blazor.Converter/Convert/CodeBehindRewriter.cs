@@ -606,6 +606,11 @@ public static class CodeBehindRewriter
             // rewrite never reaches them.
             .Replace("System.Web.UI.HtmlTextWriter", "WebForm2Blazor.Components.HtmlTextWriter")
             .Replace("System.Web.UI.AttributeCollection", "WebForm2Blazor.Components.AttributeCollection")
+            // Adapters BEFORE the two below it: "System.Web.UI.WebControls.Adapters.X" would
+            // otherwise become "WebForm2Blazor.Components.Adapters.X", and the compat layer
+            // is flat - there is no Adapters namespace in it.
+            .Replace("System.Web.UI.WebControls.Adapters.", "WebForm2Blazor.Components.")
+            .Replace("System.Web.UI.Adapters.", "WebForm2Blazor.Components.")
             .Replace("System.Web.UI.WebControls.", "WebForm2Blazor.Components.")
             .Replace("System.Web.UI.HtmlControls.", "WebForm2Blazor.Components.")
             .Replace("System.Web.UI.Page", "WebForm2Blazor.Components.Page")

@@ -114,6 +114,9 @@ public sealed class MonthChangedEventArgs(DateTime newDate, DateTime previousDat
 /// <summary>System.Web.UI.DataSourceViewSelectCallback equivalent.</summary>
 public delegate void DataSourceViewSelectCallback(System.Collections.IEnumerable data);
 
+/// <summary>System.Web.UI.DataSourceViewOperationCallback equivalent.</summary>
+public delegate bool DataSourceViewOperationCallback(int affectedRecords, Exception ex);
+
 // ---------------------------------------------------------------------------------------
 // Attributes. Declared with the real AttributeTargets so that applying one where the
 // original did still compiles; nothing reads them (design-time metadata).

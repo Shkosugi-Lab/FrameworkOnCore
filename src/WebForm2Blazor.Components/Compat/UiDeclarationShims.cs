@@ -132,6 +132,51 @@ public abstract class DataSourceView(string name)
 
     public virtual bool CanRetrieveTotalRowCount => false;
 
+    /// <summary>
+    /// WebForms DataSourceView.ExecuteSelect and the three write operations - what a
+    /// declarative data source actually does. A ported data source overrides them (n2's
+    /// ItemDataSourceView and ChildrenDataSourceView, mojoPortal's RssDataSourceView), so
+    /// leaving them out put a CS0115 on each override rather than on the missing base
+    /// member.
+    ///
+    /// The defaults do nothing and return nothing: the base has no store to read. What
+    /// runs is the application's override.
+    /// </summary>
+    protected virtual System.Collections.IEnumerable ExecuteSelect(DataSourceSelectArguments arguments) => null;
+
+    protected virtual int ExecuteInsert(System.Collections.IDictionary values) => 0;
+
+    protected virtual int ExecuteUpdate(
+        System.Collections.IDictionary keys,
+        System.Collections.IDictionary values,
+        System.Collections.IDictionary oldValues) => 0;
+
+    protected virtual int ExecuteDelete(
+        System.Collections.IDictionary keys, System.Collections.IDictionary oldValues) => 0;
+
+    /// <summary>
+    /// WebForms DataSourceView.Select - the asynchronous entry point that calls
+    /// ExecuteSelect and hands the result to the callback.
+    /// </summary>
+    public virtual void Select(DataSourceSelectArguments arguments, DataSourceViewSelectCallback callback)
+        => callback?.Invoke(ExecuteSelect(arguments));
+
+    public virtual void Insert(System.Collections.IDictionary values, DataSourceViewOperationCallback callback)
+        => callback?.Invoke(ExecuteInsert(values), null);
+
+    public virtual void Update(
+        System.Collections.IDictionary keys,
+        System.Collections.IDictionary values,
+        System.Collections.IDictionary oldValues,
+        DataSourceViewOperationCallback callback)
+        => callback?.Invoke(ExecuteUpdate(keys, values, oldValues), null);
+
+    public virtual void Delete(
+        System.Collections.IDictionary keys,
+        System.Collections.IDictionary oldValues,
+        DataSourceViewOperationCallback callback)
+        => callback?.Invoke(ExecuteDelete(keys, oldValues), null);
+
     public event EventHandler DataSourceViewChanged;
 
     protected virtual void OnDataSourceViewChanged(EventArgs e)

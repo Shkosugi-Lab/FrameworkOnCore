@@ -632,11 +632,47 @@ public abstract class StaticSiteMapProvider : SiteMapProvider
     }
 }
 
-/// <summary>System.Web.UI.WebControls.SiteMapNodeItemEventArgs equivalent.</summary>
-public sealed class SiteMapNodeItemEventArgs(object item) : EventArgs
+/// <summary>System.Web.UI.WebControls.SiteMapNodeItemType equivalent.</summary>
+public enum SiteMapNodeItemType
 {
-    public object Item { get; } = item;
+    Root,
+    Parent,
+    Current,
+    PathSeparator,
 }
+
+/// <summary>
+/// System.Web.UI.WebControls.SiteMapNodeItem equivalent - one node in a SiteMapPath, which
+/// a ported breadcrumb control creates and templates against (mojoPortal's
+/// mojoSiteMapPath).
+/// </summary>
+public class SiteMapNodeItem : LegacyWebControl
+{
+    public SiteMapNodeItem()
+    {
+    }
+
+    public SiteMapNodeItem(int itemIndex, SiteMapNodeItemType itemType)
+    {
+        ItemIndex = itemIndex;
+        ItemType = itemType;
+    }
+
+    public int ItemIndex { get; }
+
+    public SiteMapNodeItemType ItemType { get; }
+
+    public SiteMapNode SiteMapNode { get; set; }
+}
+
+/// <summary>System.Web.UI.WebControls.SiteMapNodeItemEventArgs equivalent.</summary>
+public sealed class SiteMapNodeItemEventArgs(SiteMapNodeItem item) : EventArgs
+{
+    public SiteMapNodeItem Item { get; } = item;
+}
+
+/// <summary>System.Web.UI.WebControls.SiteMapNodeItemEventHandler equivalent.</summary>
+public delegate void SiteMapNodeItemEventHandler(object sender, SiteMapNodeItemEventArgs e);
 
 // ---------------------------------------------------------------------------------------
 // Membership / profile / mail

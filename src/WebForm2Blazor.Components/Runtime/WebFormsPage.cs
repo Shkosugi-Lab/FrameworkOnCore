@@ -352,8 +352,23 @@ public sealed class ClientScriptManagerShim
     }
 }
 
+/// <summary>
+/// System.Web.UI.UserControl equivalent - the name ported code writes when it declares a
+/// field or parameter of "some user control" ("UserControl ctl = LoadControl(path)").
+///
+/// It is the BASE of <see cref="WebFormsUserControl"/> rather than an alias, so a converted
+/// control assigns to a variable of either name. Supplying it by using-alias only reached
+/// files that dropped a System.Web import of their own - the same defect as the
+/// System.Web.Abstractions types earlier in this file.
+/// </summary>
+/// <remarks>
+/// The interfaces stay on <see cref="WebFormsUserControl"/>: they are implemented there,
+/// and declaring them here would only oblige this class to implement them twice.
+/// </remarks>
+public abstract class UserControl : ComponentBase;
+
 /// <summary>Base class for converted .ascx user controls.</summary>
-public abstract class WebFormsUserControl : ComponentBase, IWebFormsHost, IWebFormsControl
+public abstract class WebFormsUserControl : UserControl, IWebFormsHost, IWebFormsControl
 {
     private HttpResponseShim _response;
     private HttpRequestShim _request;

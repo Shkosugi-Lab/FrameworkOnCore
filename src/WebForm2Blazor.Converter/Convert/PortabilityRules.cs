@@ -21,10 +21,20 @@ public static class PortabilityRules
         "Microsoft.Owin", "Owin", "Microsoft.AspNet.Identity", "Microsoft.AspNet.FriendlyUrls",
         "Microsoft.AspNet.SignalR", "System.Web.Optimization", "System.Web.Http",
         "System.Web.Mvc", "System.Web.Services", "System.Web.Routing",
+        // ASP.NET Web Pages (Razor v2) - a different framework, like MVC beside it.
+        // BlogEngine's RazorHelpers.cs extends its HtmlHelper; that file used to be
+        // excluded via System.Web.Compilation, and once that stopped excluding it the
+        // Web Pages dependency was the thing actually left unresolved.
+        "System.Web.WebPages", "System.Web.Helpers",
         // Dead / Framework-only third-party SDKs with no .NET package
         "GCheckout", "Microsoft.Practices", "PayPal", "FredCK", "MigraDoc", "PdfSharp",
-        // Custom expression builders plug into the WebForms compilation pipeline
-        "System.Web.Compilation",
+        // System.Web.Compilation was here for custom expression builders, which plug into
+        // the WebForms page compiler. It is NOT here any more: excluding the namespace cost
+        // 28 files plus their cascade (DNN's Framework/Reflection.cs calls one method of
+        // BuildManager and took nine files with it), and the compatibility layer now
+        // declares BuildManager, ExpressionBuilder and the CodeDom shapes a builder
+        // returns. The builders compile and stay inert - the converter resolves
+        // <%$ Prefix:Value %> at conversion time through --expression-map instead.
         // LINQ to SQL and WCF Data Services were never ported to .NET, and a file built
         // on them cannot compile at all - unlike System.Web.Security and friends, where
         // the compatibility layer covers enough that local errors beat an exclusion.

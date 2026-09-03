@@ -1,14 +1,14 @@
 {
     "be":  {
                "convertible":  0,
-               "portedCs":  253,
-               "residuals":  77,
+               "portedCs":  255,
+               "residuals":  75,
                "buildErrors":  0
            },
     "mojo":  {
                  "convertible":  19,
-                 "portedCs":  735,
-                 "residuals":  120,
+                 "portedCs":  741,
+                 "residuals":  114,
                  "buildErrors":  63
              },
     "yaf":  {
@@ -19,15 +19,15 @@
             },
     "dnn":  {
                 "convertible":  10,
-                "portedCs":  2029,
-                "residuals":  189,
+                "portedCs":  2040,
+                "residuals":  178,
                 "buildErrors":  98
             },
     "n2":  {
                "convertible":  25,
-               "portedCs":  1662,
-               "residuals":  208,
-               "buildErrors":  48
+               "portedCs":  1668,
+               "residuals":  202,
+               "buildErrors":  46
            },
     "wt":  {
                "convertible":  3,

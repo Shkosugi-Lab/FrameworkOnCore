@@ -138,13 +138,13 @@ YAF はサイトルートに `Web.config` が無く、配布時に `recommended.
 
 ```
 コーパス  移植 .cs  総残差  変換可能  ビルドエラー
-be            253      77         0             0
-n2           1662     208        25            48
-mojo          735     120        19            63
+be            255      75         0             0
+n2           1668     202        25            46
+mojo          741     114        19            63
 yaf          2724      71         5            42
-dnn          2029     189        10            98
+dnn          2040     178        10            98
 wt             13      39         3             1
-合計                  704        62           252
+合計                  679        62           250
 ```
 
 **ビルドエラーの数には「未決の依存によるもの」を含めていません。** リポジトリ同梱 DLL の
@@ -366,6 +366,45 @@ if (Reflection.CreateType("System.Data.Linq.DataContext", true) != null)
 未決だからです。未決の依存は本来件数から外れますが、**この DLL は入力ツリーに無く型名を
 読めない**ため分類できません(`unresolved-dependency-types.txt` の限界)。移植されたこと
 自体は正しく、依存が未決であることが見えている状態なので、受け入れています。
+
+### `System.Web.Compilation` は除外をやめて互換層に置いた
+
+連鎖を潰したあと、`.NET Framework 専用の名前空間` 108 件の最大は
+`System.Web.Compilation` 28 件でした。この名前空間を import する 32 ファイルを数えると:
+
+```
+13  ExpressionBuilder を継承(独自の <%$ Prefix:Value %> 構文)
+ 3  BuildManager を呼ぶ
+```
+
+`Prefixes` のコメントは既に方針を書いています — **「ライブラリ級の Framework 名前空間は
+移植してローカルエラーにする。除外の連鎖の方が害が大きい」**。`System.Web.Compilation`
+はその条件に当てはまるのに列挙に入っていました。DNN の `Framework/Reflection.cs` は
+`BuildManager.GetType` を 2 回呼ぶだけで除外され、9 ファイルを道連れにしています。
+
+互換層に `BuildManager` / `ExpressionBuilder` / `ExpressionPrefixAttribute` /
+`BoundPropertyEntry` / `ExpressionBuilderContext` と、ビルダーが返す CodeDom の形
+(`CodeExpression` ほか)を置き、`Prefixes` から外しました。
+
+- **`BuildManager.GetType` は実装しています。** 名前による型解決は .NET でもできます
+- **式ビルダーは宣言のみで、動きません。** 呼ぶのは WebForms のページコンパイラで、
+  それはここに存在しません。`<%$ %>` は**変換時に** `--expression-map` で解決済みです
+- CodeDom は NuGet パッケージを参照せずシムにしました。グラフをコンパイルする側が
+  いないので、型が存在しさえすれば足ります
+
+**この変更は一度 be を 0 → 11 に壊しました。** 露出した依存を 3 つ直して 0 に戻しています。
+
+| 出た問題 | 実体 |
+|---|---|
+| `HtmlHelper` 7 件 | `RazorHelpers.cs` が `System.Web.WebPages.Html` を使用。**ASP.NET Web Pages** で MVC 同様に対象外 → `Prefixes` に追加 |
+| `CS0508` 2 件 | 派生が `using System.CodeDom;` を保持し、互換層の `CodeExpression` と別型になっていた → import を落として互換層に束ねる |
+| `ExpressionPrefixAttribute` / `HttpCompileException` | シムに不足 → 追加 |
+
+**be の 0 は守る前提で進めました。** 唯一ビルドが通り 5 ルート中 4 が動くコーパスで、
+ここを崩す変更は入れる価値がありません。
+
+**全 6 本で残差が減りました。** be 77→75、n2 208→202(ビルドエラーも 48→46)、
+mojo 120→114、dnn 189→178。**合計 総残差 704 → 679。**
 
 ### 残差を原因で数える
 

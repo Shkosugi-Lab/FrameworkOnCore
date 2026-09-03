@@ -690,6 +690,11 @@ public static class CodeBehindRewriter
            // the using resolves and then the TYPE does not. Dropping it lets the inert
            // FileIOPermission in the compatibility library bind instead.
            || name == "System.Security.Permissions"
+           // The CodeDom shapes an expression builder returns are declared in the compat
+           // layer rather than referenced from the System.CodeDom package: nothing here
+           // compiles a CodeDom graph, so the types only need to exist. Dropping the
+           // import lets them bind to the compat ones.
+           || name == "System.CodeDom" || name.StartsWith("System.CodeDom.", StringComparison.Ordinal)
            || name == "AjaxControlToolkit" || name.StartsWith("AjaxControlToolkit.", StringComparison.Ordinal)
            || name == "FredCK" || name.StartsWith("FredCK.", StringComparison.Ordinal);
 

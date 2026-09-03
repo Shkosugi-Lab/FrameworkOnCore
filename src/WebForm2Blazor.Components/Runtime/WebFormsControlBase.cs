@@ -12,8 +12,11 @@ namespace WebForm2Blazor.Components;
 /// Properties re-render the control when assigned from code-behind
 /// (the equivalent of a WebForms postback re-render).
 /// </summary>
-public abstract class WebFormsControlBase : ComponentBase, IWebFormsControl, IDisposable
+public abstract class WebFormsControlBase : ComponentBase, IWebFormsControl, IDisposable, IDeferredControlState
 {
+    /// <inheritdoc />
+    public IDictionary<string, object> PendingState { get; } = new Dictionary<string, object>(StringComparer.Ordinal);
+
     /// <summary>
     /// System.Web.UI.Control implements IDisposable, so ported code creates controls
     /// inside a using block. A Blazor component's lifetime is the renderer's, and there
@@ -294,7 +297,8 @@ public abstract class WebFormsControlBase : ComponentBase, IWebFormsControl, IDi
     /// A change made outside parameter application (= an assignment from code-behind)
     /// is recorded as a state change.
     /// </summary>
-    protected void SetAndRefresh<T>(ref T field, T value)
+    protected void SetAndRefresh<T>(
+        ref T field, T value, [System.Runtime.CompilerServices.CallerMemberName] string propertyName = "")
     {
         if (!EqualityComparer<T>.Default.Equals(field, value))
         {
@@ -306,6 +310,14 @@ public abstract class WebFormsControlBase : ComponentBase, IWebFormsControl, IDi
             if (_renderHandleReady)
             {
                 StateHasChanged();
+            }
+            else if (!_applyingParameters && propertyName.Length > 0)
+            {
+                // No render handle means this instance is not (yet) in the render tree.
+                // For a stand-in serving a not-yet-created @ref that is the normal case,
+                // and the assignment is what has to survive until the real control
+                // arrives. See IDeferredControlState.
+                PendingState[propertyName] = value;
             }
         }
     }

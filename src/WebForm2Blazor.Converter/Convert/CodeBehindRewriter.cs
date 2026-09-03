@@ -1015,6 +1015,79 @@ public static class CodeBehindRewriter
         });
     }
 
+    /// <summary>
+    /// One control field. A plain field for most, a stand-in backed property for the ones a
+    /// page can touch before they exist.
+    ///
+    /// WebForms built the control tree and THEN called OnInit, so "ucCommentList.Visible =
+    /// x" in OnInit is ordinary code. Here the field is @ref, which Blazor assigns after
+    /// the first render, so it is null during OnInit and the page dies -
+    /// BlogEngine's /post did exactly that.
+    ///
+    /// The property hands out a stand-in until @ref delivers the real control, and the
+    /// setter replays onto it whatever the page assigned in the meantime (see
+    /// IDeferredControlState). Only assignments actually made are replayed.
+    ///
+    /// Restricted to types that can stand in: a compat control or a converted user control,
+    /// both of which have a parameterless constructor and record their own assignments.
+    /// "dynamic" (a stub placeholder) and anything else keeps the plain field - a stand-in
+    /// that cannot record would swallow the assignment instead of deferring it, which is
+    /// worse than the null it replaces.
+    /// </summary>
+    private static string EmitControlField(Emit.ControlField field, string indent)
+    {
+        if (!CanStandIn(field.Type))
+        {
+            return $"{indent}protected {field.Type} {field.Name};\r\n";
+        }
+
+        var pending = $"__{field.Name}_pending";
+        var reference = $"__{field.Name}_ref";
+        return $"{indent}private {field.Type} {pending};\r\n"
+             + $"{indent}private {field.Type} {reference};\r\n"
+             + $"{indent}protected {field.Type} {field.Name}\r\n"
+             + $"{indent}{{\r\n"
+             + $"{indent}    get => {reference} ?? ({pending} ??= new {field.Type}());\r\n"
+             + $"{indent}    set\r\n"
+             + $"{indent}    {{\r\n"
+             + $"{indent}        {reference} = value;\r\n"
+             + $"{indent}        {pending}?.ReplayPendingStateOnto(value);\r\n"
+             + $"{indent}    }}\r\n"
+             + $"{indent}}}\r\n";
+    }
+
+    /// <summary>
+    /// Whether a stand-in of this type can be constructed and can record assignments.
+    ///
+    /// Asked of the compat assembly rather than assumed from the name: not every compat
+    /// control records. ObjectDataSource derives from ComponentBase directly, so a
+    /// stand-in of it would swallow assignments silently - and emitting the replay call
+    /// against it does not even compile (CS1929, which is how this was caught).
+    /// </summary>
+    private static bool CanStandIn(string type)
+    {
+        if (type is "dynamic" || type.Contains('<', StringComparison.Ordinal))
+        {
+            return false;
+        }
+
+        var simpleName = type[(type.LastIndexOf('.') + 1)..];
+        if (CompatTypeNames.Contains(simpleName))
+        {
+            return RecordsPendingState(simpleName);
+        }
+
+        // Anything else with a namespace is a converted user control: those are always
+        // WebFormsUserControl, which records, and their type does not exist here to check.
+        return type.Contains('.', StringComparison.Ordinal);
+    }
+
+    /// <summary>Whether a compat control implements IDeferredControlState.</summary>
+    private static bool RecordsPendingState(string simpleName)
+        => typeof(WebForm2Blazor.Components.WebFormsControlBase).Assembly
+            .GetType("WebForm2Blazor.Components." + simpleName) is { } type
+           && typeof(WebForm2Blazor.Components.IDeferredControlState).IsAssignableFrom(type);
+
     private static ClassDeclarationSyntax InsertGeneratedMembers(
         ClassDeclarationSyntax classDeclaration,
         ConvertedComponent component,
@@ -1050,7 +1123,7 @@ public static class CodeBehindRewriter
             generated.Append($"{indent}// Instances are assigned via @ref on the .razor side.\r\n");
             foreach (var field in emittedFields)
             {
-                generated.Append($"{indent}protected {field.Type} {field.Name};\r\n");
+                generated.Append(EmitControlField(field, indent));
             }
             generated.Append("\r\n");
         }

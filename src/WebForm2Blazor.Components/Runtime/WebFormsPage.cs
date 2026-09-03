@@ -368,7 +368,7 @@ public sealed class ClientScriptManagerShim
 public abstract class UserControl : ComponentBase;
 
 /// <summary>Base class for converted .ascx user controls.</summary>
-public abstract class WebFormsUserControl : UserControl, IWebFormsHost, IWebFormsControl
+public abstract class WebFormsUserControl : UserControl, IWebFormsHost, IWebFormsControl, IDeferredControlState
 {
     private HttpResponseShim _response;
     private HttpRequestShim _request;
@@ -403,9 +403,30 @@ public abstract class WebFormsUserControl : UserControl, IWebFormsHost, IWebForm
             if (_visible != value)
             {
                 _visible = value;
-                StateHasChanged();
+                if (_renderHandleReady)
+                {
+                    StateHasChanged();
+                }
+                else
+                {
+                    // A stand-in for a not-yet-created @ref has no render handle, and
+                    // StateHasChanged would throw on it. Record instead: the value is
+                    // replayed when the real control arrives (see IDeferredControlState).
+                    PendingState[nameof(Visible)] = value;
+                }
             }
         }
+    }
+
+    private bool _renderHandleReady;
+
+    /// <inheritdoc />
+    public IDictionary<string, object> PendingState { get; } = new Dictionary<string, object>(StringComparer.Ordinal);
+
+    public override Task SetParametersAsync(ParameterView parameters)
+    {
+        _renderHandleReady = true;
+        return base.SetParametersAsync(parameters);
     }
 
     /// <summary>WebForms Control.ClientID equivalent (no naming containers here).</summary>

@@ -202,6 +202,31 @@ BlogEngine の `CommentForm.ascx` は
 「43 件」でもありません。同じ形の誤読は既に一度起きています — n2 の式ビルダー 23 件は
 AI タスクの 17 件を占めていましたが、対応表 1 つで消えました。
 
+#### 実際に通した(制御フロー 2 箇所)
+
+AI 層を**エンドツーエンドで動かしました。** 対象は mojoPortal の 2 つのスキンにある
+同じ構文です。
+
+```aspx
+<% if (siteSettings.Logo != "" && siteSettings.Logo != "blank.gif") { %>
+    <portal:SiteLogo ... /><portal:SiteTitle SkinID="HiddenTitle" ... />
+<% } else { %>
+    <portal:SiteTitle SkinID="navbar-brand" ... />
+<% } %>
+```
+
+生成 `.razor` では 3 つの `@* TODO(W2B) *@` に分解されていたものを `@if` / `else` に
+畳み、`--ai-apply` に通して **2 件とも ACCEPT**(ビルドエラー増加なし)。
+
+**この過程で AI 層のバグが 1 つ出ました。** 適用先を**コンポーネント名**で引いていて、
+コンポーネント名は一意ではありません。mojoPortal はスキンごとに `Layout.master` を持つので、
+`001-Layout` と `002-Layout` が**同じファイルに解決**されていました。2 番目の答え
+(別ページのマークアップ全文)が 1 番目のファイルに上書きされるところで、気づけるのは
+ビルドゲートだけです。
+
+プロンプト生成時に `ai-layer/index.json`(答え名 → 対象 `.razor`)を書き、適用側は
+それを読むようにしました。**対応は導出せず記録します。**
+
 #### 「テンプレート外のデータバインド式」6 件 — 調査したが未解決
 
 このうち 4 件は mojoPortal の `BreadcrumbsControl.ascx` で、**実際にはテンプレートの中**です。

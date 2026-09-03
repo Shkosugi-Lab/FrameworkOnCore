@@ -19,6 +19,9 @@ public static class AiResidualLayer
 {
     private const string WorkDirectoryName = "ai-layer";
 
+    /// <summary>Answer name -> the .razor it belongs to, written when the prompts are generated.</summary>
+    private const string IndexFileName = "index.json";
+
     /// <summary>Residual kinds the AI layer can act on (the rest are design decisions, not conversions).</summary>
     private static readonly HashSet<string> ActionableKinds = new(StringComparer.OrdinalIgnoreCase)
     {
@@ -74,6 +77,7 @@ public static class AiResidualLayer
             .ToList();
 
         var index = 0;
+        var mapping = new List<string>();
         foreach (var task in selected)
         {
             index++;
@@ -86,7 +90,22 @@ public static class AiResidualLayer
             {
                 File.WriteAllText(answerPath, string.Empty);
             }
+            mapping.Add(
+                $"  {{ \"name\": {JsonSerializer.Serialize(name)}, "
+                + $"\"razor\": {JsonSerializer.Serialize(task.GeneratedRazor)} }}");
         }
+
+        // Which file each answer belongs to, recorded rather than re-derived.
+        //
+        // The apply pass used to look the target up by COMPONENT NAME, and a component name
+        // is not unique: mojoPortal has two Layout.master files (one per skin), so answers
+        // 001-Layout and 002-Layout both resolved to the first one. The second answer would
+        // have been written over the first file - a whole different page's markup - and
+        // only the build gate would have caught it.
+        File.WriteAllText(
+            Path.Combine(workDirectory, IndexFileName),
+            "[" + Environment.NewLine + string.Join("," + Environment.NewLine, mapping)
+            + Environment.NewLine + "]" + Environment.NewLine);
 
         Console.WriteLine($"AI 残差層のタスクを {selected.Count} 件生成しました: {workDirectory}");
         Console.WriteLine("各 .prompt.md をモデルに渡し、修正後の .razor 全文を同名の .answer.razor に保存してください。");
@@ -114,6 +133,10 @@ public static class AiResidualLayer
             return 1;
         }
 
+        // Answer name -> target file, as recorded when the prompts were written. Falls back
+        // to the component name for a work directory generated before the index existed;
+        // that lookup is ambiguous when two components share a name (see GeneratePrompts).
+        var byAnswerName = LoadIndex(workDirectory);
         var byComponent = tasks
             .Where(task => task.ComponentName is not null && task.GeneratedRazor is not null)
             .GroupBy(task => task.ComponentName!, StringComparer.Ordinal)
@@ -155,14 +178,25 @@ public static class AiResidualLayer
                 continue;
             }
 
-            var componentName = name[(name.IndexOf('-') + 1)..];
-            if (!byComponent.TryGetValue(componentName, out var task) || task.GeneratedRazor is null)
+            string? targetPath = null;
+            if (byAnswerName.TryGetValue(name, out var indexed))
+            {
+                targetPath = indexed;
+            }
+            else
+            {
+                var componentName = name[(name.IndexOf('-') + 1)..];
+                if (byComponent.TryGetValue(componentName, out var task))
+                {
+                    targetPath = task.GeneratedRazor;
+                }
+            }
+
+            if (targetPath is null)
             {
                 results.Add((name, "SKIP", "対応するコンポーネントが見つかりません"));
                 continue;
             }
-
-            var targetPath = task.GeneratedRazor;
             var original = File.Exists(targetPath) ? File.ReadAllText(targetPath) : null;
             if (original is null)
             {
@@ -257,6 +291,42 @@ public static class AiResidualLayer
         """;
         File.WriteAllText(projectPath, text.Replace("</Project>", exclusion));
         Console.WriteLine($"{Path.GetFileName(projectPath)} に {WorkDirectoryName} の除外を追加しました。");
+    }
+
+    /// <summary>
+    /// The answer-name -> target-file map written by <see cref="GeneratePrompts"/>. Empty
+    /// when the work directory predates it, in which case the caller falls back to the
+    /// component name.
+    /// </summary>
+    private static Dictionary<string, string> LoadIndex(string workDirectory)
+    {
+        var map = new Dictionary<string, string>(StringComparer.Ordinal);
+        var path = Path.Combine(workDirectory, IndexFileName);
+        if (!File.Exists(path))
+        {
+            return map;
+        }
+
+        try
+        {
+            using var document = JsonDocument.Parse(File.ReadAllText(path));
+            foreach (var entry in document.RootElement.EnumerateArray())
+            {
+                var name = GetOptionalString(entry, "name");
+                var razor = GetOptionalString(entry, "razor");
+                if (name is not null && razor is not null)
+                {
+                    map[name] = razor;
+                }
+            }
+        }
+        catch (JsonException)
+        {
+            // A malformed index falls back to the component-name lookup rather than
+            // stopping the run.
+        }
+
+        return map;
     }
 
     private static List<TaskFile>? LoadTasks(string outputDirectory)

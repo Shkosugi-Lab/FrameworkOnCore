@@ -297,6 +297,39 @@ public abstract class LegacyWebControl : IWebFormsControl, IDisposable
 
     protected virtual object SaveViewState() => null;
 
+    /// <summary>
+    /// WebForms control state (LoadControlState / SaveControlState). Separate from view
+    /// state in the original because a control could not opt out of it; here neither
+    /// round-trips, since a Blazor circuit keeps the component itself alive on the server.
+    /// Declared because ported composite controls override them - DNN's DnnFormEditor and
+    /// DnnFormItemBase do.
+    /// </summary>
+    protected virtual void LoadControlState(object savedState)
+    {
+    }
+
+    protected virtual object SaveControlState() => null;
+
+    /// <summary>
+    /// WebForms Control.EnableViewState / ViewStateMode equivalents. Nothing is serialised
+    /// here (see above), so the value is recorded and read back. Virtual because ported
+    /// controls override it to force it off.
+    /// </summary>
+    public virtual bool EnableViewState { get; set; } = true;
+
+    /// <inheritdoc cref="EnableViewState"/>
+    public virtual string ViewStateMode { get; set; } = "Inherit";
+
+    /// <summary>
+    /// WebForms WebControl.Width / Height equivalents. The compat COMPONENTS render these
+    /// as CSS; a legacy control renders itself, so here they are values its own Render
+    /// reads. Virtual because ported controls override them to compute a size.
+    /// </summary>
+    public virtual Unit Width { get; set; }
+
+    /// <inheritdoc cref="Width"/>
+    public virtual Unit Height { get; set; }
+
     protected virtual void TrackViewState()
     {
     }
@@ -355,6 +388,18 @@ public abstract class LegacyWebControl : IWebFormsControl, IDisposable
     }
 
     public virtual void RenderEndTag(HtmlTextWriter writer) => writer.RenderEndTag();
+
+    /// <summary>
+    /// WebForms Control.RenderChildren equivalent. A container control overrides it to put
+    /// markup around its children (n2's TreeNode, YAF's Form).
+    /// </summary>
+    protected virtual void RenderChildren(HtmlTextWriter writer)
+    {
+        foreach (var child in Controls)
+        {
+            child?.RenderControl(writer);
+        }
+    }
 
     protected virtual void RenderContents(HtmlTextWriter writer)
     {

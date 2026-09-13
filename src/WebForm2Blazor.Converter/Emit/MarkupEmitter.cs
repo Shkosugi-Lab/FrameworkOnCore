@@ -675,12 +675,18 @@ public sealed partial class MarkupEmitter(EmitContext context)
                 return EmitLegacyRenderHost(element, legacyTypeName);
             }
 
-            // Choosing what an unmapped control becomes is a decision, not a conversion:
-            // a third-party or app-specific control needs a replacement picked and mapped
-            // through --control-map. No prompt can invent it.
+            // Two different situations share this failure. A standard <asp:*> control has
+            // a rendering WebForms itself defines - Login, Calendar, Wizard - and the only
+            // thing missing is the compat component: that is the converter's backlog, not
+            // anyone's decision. A vendored control whose source is not in the input tree
+            // is different: its behaviour lives in a binary the tool cannot read, so the
+            // replacement has to come from the user via --control-map.
+            var isStandardControl = element.Prefix.Equals("asp", StringComparison.OrdinalIgnoreCase);
             Residual(ResidualKind.UnmappedControl,
-                $"<{element.QualifiedName}> は未対応コントロールです。マッピング表または --control-map への追加が必要です。",
-                ResidualDisposition.ManualMigration);
+                isStandardControl
+                    ? $"<{element.QualifiedName}> は標準コントロールですが互換コンポーネントが未実装です。"
+                    : $"<{element.QualifiedName}> は未対応コントロールです。移植ソースが無い場合は --control-map で置き換え先の指定が必要です。",
+                isStandardControl ? ResidualDisposition.Backlog : ResidualDisposition.NeedsInput);
 
             // Emit a generated placeholder component so the output still compiles and the
             // missing control is visible on the page (the residual above stays on record)

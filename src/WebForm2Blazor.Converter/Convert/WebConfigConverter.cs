@@ -151,7 +151,7 @@ public static class WebConfigConverter
 
                 report.Residual(sourceName, ResidualKind.Configuration,
                     $"<{element.Name.LocalName}> は自動変換していません。{note}",
-                    disposition: ResidualDisposition.ManualMigration);
+                    disposition: ResidualDisposition.Backlog);
             }
         }
 

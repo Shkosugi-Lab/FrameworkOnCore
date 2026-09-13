@@ -1,4 +1,4 @@
-﻿using System.Text;
+using System.Text;
 using System.Text.RegularExpressions;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -666,7 +666,7 @@ public static partial class AspxConverters
 
         report.Residual(sourceName, ResidualKind.CodeBehind,
             $"基底クラス {baseName} がプロジェクト内に見つかりません(外部アセンブリ由来の可能性)。@inherits はそのまま出力しました。",
-            disposition: ResidualDisposition.ManualMigration);
+            disposition: ResidualDisposition.NeedsInput);
         return baseName;
     }
 
@@ -785,7 +785,7 @@ public static partial class AspxConverters
 
                 report.Residual(project.RelativePath(path), ResidualKind.UnmappedControl,
                     $"<%@ Register %> に TagPrefix がありません: Assembly={directive.Get("Assembly")}, Src={src}",
-                    disposition: ResidualDisposition.ManualMigration);
+                    disposition: ResidualDisposition.NeedsInput);
                 continue;
             }
 
@@ -1038,7 +1038,7 @@ public static partial class AspxConverters
         {
             report.Residual(sourceName, ResidualKind.Configuration,
                 $"App_LocalResources の {Path.GetFileName(resourcePath)} を読み込めませんでした。",
-                disposition: ResidualDisposition.ManualMigration);
+                disposition: ResidualDisposition.NeedsInput);
         }
 
         return resources;

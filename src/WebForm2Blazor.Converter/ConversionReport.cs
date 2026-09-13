@@ -27,6 +27,12 @@ public enum ResidualKind
 /// master, which has nothing to fix. Mixing them made the acceptance rate meaningless
 /// because most tasks were unfixable by construction.
 /// </summary>
+// The former ManualMigration bucket is gone. It lumped together three different answers
+// to "who resolves this and how", and mislabelled two 100+ clusters as human decisions
+// (portal:mojoButton, the assembly Register directives). With "behave identically to the
+// original" as the goal, almost nothing is actually a design decision - what remains
+// splits into what the CONVERTER still owes (Backlog), what only the USER can supply
+// (NeedsInput), and what a WebForms converter is not (OutOfScope).
 public enum ResidualDisposition
 {
     /// <summary>The construct can be converted - the deterministic layer just could not.
@@ -34,10 +40,27 @@ public enum ResidualDisposition
     Convertible,
 
     /// <summary>
-    /// A decision or work outside the markup: choosing a replacement for a third-party
-    /// control, porting a library, migrating authentication. No prompt will fix it.
+    /// The goal is well-defined and machine-achievable; the converter simply does not do
+    /// it yet. A standard control with no compat component, a namespace that could map, a
+    /// file excluded only because something it depends on was. This is the converter's own
+    /// backlog, not the user's work.
     /// </summary>
-    ManualMigration,
+    Backlog,
+
+    /// <summary>
+    /// Blocked on information the tool cannot derive: which of several build configs was
+    /// deployed, which package replaces a vendored DLL whose source is gone, a file the
+    /// input tree does not contain. The tool asks; the user answers; conversion proceeds.
+    /// </summary>
+    NeedsInput,
+
+    /// <summary>
+    /// Code from a framework this converter does not target (MVC, Web API, OWIN/Identity,
+    /// Web Pages). Nothing was lost in conversion - converting it is a scope extension,
+    /// not a defect. "For now": the goal of identical behaviour would eventually need
+    /// these ported too, by a converter for THAT framework.
+    /// </summary>
+    OutOfScope,
 
     /// <summary>
     /// A notice about what the conversion did. Nothing is broken and nothing is pending;
@@ -205,7 +228,9 @@ public sealed class ConversionReport
     public static string DescribeDisposition(ResidualDisposition disposition) => disposition switch
     {
         ResidualDisposition.Convertible => "変換可能(決定的層の穴 / AI 層の対象)",
-        ResidualDisposition.ManualMigration => "手動移行(設計判断・外部依存)",
+        ResidualDisposition.Backlog => "実装待ち(変換器の未実装。ユーザーの作業ではない)",
+        ResidualDisposition.NeedsInput => "入力待ち(ツールが導出できない情報の指定が必要)",
+        ResidualDisposition.OutOfScope => "範囲外・いまは(別フレームワーク。変換で失われたものはない)",
         ResidualDisposition.Informational => "情報通知(対処不要)",
         _ => disposition.ToString(),
     };
@@ -214,8 +239,15 @@ public sealed class ConversionReport
     {
         ResidualDisposition.Convertible =>
             "変換できるはずの構文を決定的層が扱えなかったもの。決定的層への実装、または AI 残差層の対象。",
-        ResidualDisposition.ManualMigration =>
-            "プロンプトでは解けない。代替製品の選定、ライブラリの .NET 移植、認証・構成の移行といった判断が必要。",
+        ResidualDisposition.Backlog =>
+            "ゴール(元と同じ動作)は明確で機械的に到達可能だが、変換器がまだ実装していないもの。"
+            + "変換器の開発項目であり、ユーザーが判断することは何もない。",
+        ResidualDisposition.NeedsInput =>
+            "ツールには導出できない情報が要るもの。どのビルド構成を配置していたか、ソースの無い同梱 DLL の"
+            + "置き換え先、入力ツリーに無いファイル。指定されれば変換は続行できる。",
+        ResidualDisposition.OutOfScope =>
+            "この変換器の対象(WebForms)ではないフレームワークのコード。変換で失われたものはなく、"
+            + "「元と同じ動作」に含めるなら、そのフレームワーク用の変換が別途必要。",
         ResidualDisposition.Informational =>
             "変換の結果として記録した通知。壊れている箇所ではなく、対処も不要。",
         _ => string.Empty,

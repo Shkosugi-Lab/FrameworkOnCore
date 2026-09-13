@@ -98,7 +98,7 @@ public static class CodeBehindUsageAnalyzer
                           + $"({count} 箇所)。Blazor では子ツリーをマークアップが持つため、"
                           + "対応するマークアップ(@foreach など)への書き換えが必要です。"
                         : $"コードビハインドが使用している {typeName}.{member} は互換コンポーネント未対応です({count} 箇所)。",
-                    disposition: dynamic ? ResidualDisposition.ManualMigration : ResidualDisposition.Convertible);
+                    disposition: dynamic ? ResidualDisposition.Backlog : ResidualDisposition.Convertible);
             }
         }
 

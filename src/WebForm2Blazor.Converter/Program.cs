@@ -146,7 +146,7 @@ if (deriveIncludes)
             + "(相互排他のビルド構成である場合が多く、選ぶとデータベース等を暗黙に決めてしまいます)。"
             + "--project でどれを使うか指定してください: "
             + string.Join(", ", derived.AmbiguousProjects.Select(Path.GetFileName)),
-            disposition: ResidualDisposition.ManualMigration);
+            disposition: ResidualDisposition.NeedsInput);
     }
 
     var added = derived.Directories
@@ -171,7 +171,7 @@ if (deriveIncludes)
             + "どれを使うかは配置の判断のため自動選択せず、いずれも移植対象から外しました。"
             + "--include で 1 つ指定してください: "
             + string.Join(" / ", group.Select(Path.GetFileName)),
-            disposition: ResidualDisposition.ManualMigration);
+            disposition: ResidualDisposition.NeedsInput);
     }
 
     if (derived.Analyzers.Count > 0)
@@ -192,7 +192,7 @@ if (deriveIncludes)
                 + "アナライザをビルドして --analyzer <dll> で渡すと、生成プロジェクトに組み込まれ"
                 + "ビルド時に元と同じ宣言が生成されます: "
                 + string.Join(", ", unwired.Select(Path.GetFileName)),
-                disposition: ResidualDisposition.ManualMigration);
+                disposition: ResidualDisposition.NeedsInput);
         }
     }
 
@@ -201,7 +201,7 @@ if (deriveIncludes)
         report.Residual("(project)", ResidualKind.Configuration,
             "C# 以外のプロジェクトが参照されています。変換対象外です: "
             + string.Join(", ", derived.ForeignLanguage.Select(Path.GetFileName)),
-            disposition: ResidualDisposition.ManualMigration);
+            disposition: ResidualDisposition.OutOfScope);
     }
 
     if (derived.Missing.Count > 0)
@@ -209,7 +209,7 @@ if (deriveIncludes)
         report.Residual("(project)", ResidualKind.Configuration,
             "ProjectReference の参照先が見つかりません(取得漏れの可能性があります): "
             + string.Join(", ", derived.Missing.Select(Path.GetFileName)),
-            disposition: ResidualDisposition.ManualMigration);
+            disposition: ResidualDisposition.NeedsInput);
     }
 }
 
@@ -415,7 +415,7 @@ for (var i = 0; i < candidateNamespaces.Count; i++)
     {
         excludedCandidates.Add(i);
         report.Residual(candidateNamespaces[i].candidate.ReportName, ResidualKind.CodeBehind,
-            OutOfScopeFrameworkNote(unportable), disposition: ResidualDisposition.ManualMigration);
+            OutOfScopeFrameworkNote(unportable), disposition: ResidualDisposition.OutOfScope);
         continue;
     }
 
@@ -423,8 +423,8 @@ for (var i = 0; i < candidateNamespaces.Count; i++)
     {
         excludedCandidates.Add(i);
         report.Residual(candidateNamespaces[i].candidate.ReportName, ResidualKind.CodeBehind,
-            $"名前空間 {integration} は .NET に存在しないライブラリの統合コードのため移植から除外しました(手動移行が必要)。",
-            disposition: ResidualDisposition.ManualMigration);
+            $"名前空間 {integration} は .NET に存在しないライブラリの統合コードのため移植から除外しました。",
+            disposition: ResidualDisposition.OutOfScope);
     }
 }
 
@@ -582,7 +582,7 @@ do
             excludedCandidates.Add(i);
             cascadeChanged = true;
             report.Residual(candidateNamespaces[i].candidate.ReportName, ResidualKind.CodeBehind,
-                $"移植から除外済みの名前空間 {dependency} に依存するため、連鎖して除外しました。", disposition: ResidualDisposition.ManualMigration);
+                $"移植から除外済みの名前空間 {dependency} に依存するため、連鎖して除外しました(根が移植されれば追随できます)。", disposition: ResidualDisposition.Backlog);
             continue;
         }
 
@@ -591,7 +591,7 @@ do
             excludedCandidates.Add(i);
             cascadeChanged = true;
             report.Residual(candidateNamespaces[i].candidate.ReportName, ResidualKind.CodeBehind,
-                $"移植から除外済みの型 {goneType.Namespace}.{goneType.Type} に依存するため、連鎖して除外しました。", disposition: ResidualDisposition.ManualMigration);
+                $"移植から除外済みの型 {goneType.Namespace}.{goneType.Type} に依存するため、連鎖して除外しました(根が移植されれば追随できます)。", disposition: ResidualDisposition.Backlog);
         }
     }
 } while (cascadeChanged);
@@ -617,7 +617,7 @@ foreach (var component in components)
     if (unportablePage is not null)
     {
         report.Residual(project.RelativePath(component.CodeBehindSourcePath), ResidualKind.CodeBehind,
-            $".NET Framework 専用の名前空間 {unportablePage} に依存するため、ページ全体をプレースホルダー化しました(認証/OWIN 等は手動移行が必要)。", disposition: ResidualDisposition.ManualMigration);
+            $".NET Framework 専用の名前空間 {unportablePage} に依存するため、ページ全体をプレースホルダー化しました(認証/OWIN は別フレームワーク)。", disposition: ResidualDisposition.OutOfScope);
         File.WriteAllText(Path.Combine(directory, component.ComponentName + ".razor"),
             GenerateUnportablePlaceholder(component, unportablePage));
         continue;
@@ -686,7 +686,7 @@ for (var i = 0; i < candidateNamespaces.Count; i++)
         report.Residual(candidate.ReportName, ResidualKind.CodeBehind,
             "BinaryFormatter は .NET から削除されています。ビルドは通りますが実行時に "
             + "PlatformNotSupportedException になります。別のシリアライザへの移行が必要です。",
-            disposition: ResidualDisposition.ManualMigration);
+            disposition: ResidualDisposition.Backlog);
     }
     if (!candidate.Included)
     {
@@ -713,7 +713,7 @@ if (stubbedTypeCount > 0)
     File.WriteAllText(Path.Combine(output, "ExcludedTypeStubs.g.cs"), ApplyNamespaceMap(excludedTypeStubs));
     report.Residual("(project)", ResidualKind.CodeBehind,
         $"移植から除外したファイルが宣言していた型 {stubbedTypeCount} 個を空のスタブとして生成しました"
-        + "(ExcludedTypeStubs.g.cs)。参照側はコンパイルできますが、メンバーの実装は手動移行が必要です。", disposition: ResidualDisposition.ManualMigration);
+        + "(ExcludedTypeStubs.g.cs)。参照側はコンパイルできます(除外の理由は各ファイルの残差を参照)。", disposition: ResidualDisposition.Backlog);
 }
 
 // Placeholder components for unmapped controls: the output compiles and the missing
@@ -795,7 +795,7 @@ if (project.CultureResourceFiles.Count > 0)
 {
     report.Residual("(project)", ResidualKind.Configuration,
         $"言語別リソース {project.CultureResourceFiles.Count} 件は移植していません。"
-        + "サテライトアセンブリ化(または IStringLocalizer への移行)が必要です。", disposition: ResidualDisposition.ManualMigration);
+        + "サテライトアセンブリ化(または IStringLocalizer への移行)が必要です。", disposition: ResidualDisposition.Backlog);
 }
 
 // NuGet references: what the original projects declared (csproj PackageReference /
@@ -1413,8 +1413,8 @@ static List<(string Id, string Version)> CollectDeclaredPackages(
     if (skipped.Count > 0)
     {
         report.Residual("(project)", ResidualKind.Configuration,
-            ".NET へそのまま持ち込めない NuGet 参照をスキップしました(認証/バンドル等は手動移行): "
-            + string.Join(", ", skipped.Distinct(StringComparer.OrdinalIgnoreCase)), disposition: ResidualDisposition.ManualMigration);
+            ".NET へそのまま持ち込めない NuGet 参照をスキップしました(認証/バンドルは別フレームワーク側の基盤): "
+            + string.Join(", ", skipped.Distinct(StringComparer.OrdinalIgnoreCase)), disposition: ResidualDisposition.OutOfScope);
     }
     if (carried.Count > 0)
     {
@@ -1509,7 +1509,7 @@ static List<(string Id, string Version)> CollectDeclaredPackages(
             + "NuGet の識別子が無いため引き継げません。対応する .NET 版パッケージを "
             + "PackageReference として追加してください(メジャーバージョンが変わり API 移行が"
             + "必要なものもあります): " + string.Join(", ", undecided),
-            disposition: ResidualDisposition.ManualMigration);
+            disposition: ResidualDisposition.NeedsInput);
     }
 
     return carried.DistinctBy(package => package.Id, StringComparer.OrdinalIgnoreCase).ToList();

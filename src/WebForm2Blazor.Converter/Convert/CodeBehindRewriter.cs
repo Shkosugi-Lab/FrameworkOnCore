@@ -671,6 +671,9 @@ public static class CodeBehindRewriter
     /// </summary>
     internal static bool DeclaresCompatType(string name) => CompatTypeNames.Contains(name);
 
+    /// <summary>The same set, for CompatImportDisambiguator to enumerate.</summary>
+    internal static IReadOnlySet<string> CompatTypeNamesForDisambiguation => CompatTypeNames;
+
     /// <summary>Every public type the compat layer declares directly in its namespace.</summary>
     private static readonly HashSet<string> CompatTypeNames =
         typeof(WebForm2Blazor.Components.WebFormsControlBase).Assembly

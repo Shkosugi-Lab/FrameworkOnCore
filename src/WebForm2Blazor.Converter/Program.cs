@@ -605,6 +605,22 @@ var compatImports = WebForm2Blazor.Converter.Convert.CompatImportDisambiguator.B
         .Where(index => !excludedCandidates.Contains(index))
         .Select(index => candidateNamespaces[index].candidate.Source));
 
+// A global using does not appear in the file it reaches, so the disambiguator has to be
+// told about them. The web project's stay global (its pages' generated halves rely on
+// them) and so does the compat namespace the generated project imports for everyone.
+compatImports.WithAmbientImports(
+    Enumerable.Range(0, candidateNamespaces.Count)
+        .Where(index => !excludedCandidates.Contains(index))
+        .Where(index => !candidateNamespaces[index].candidate.Included)
+        .SelectMany(index => CodeBehindRewriter.ParseUnit(
+                candidateNamespaces[index].candidate.Source).Usings
+            .Where(directive => directive.GlobalKeyword.RawKind
+                                == (int)Microsoft.CodeAnalysis.CSharp.SyntaxKind.GlobalKeyword)
+            .Where(directive => directive.Alias is null && directive.StaticKeyword.RawKind == 0)
+            .Select(directive => directive.Name?.ToString())
+            .OfType<string>())
+        .Append("WebForm2Blazor.Components"));
+
 foreach (var component in components)
 {
     var directory = Path.Combine(output, component.OutputDirectory.Replace('/', Path.DirectorySeparatorChar));
@@ -709,9 +725,7 @@ static string ScopeGlobalUsings(string source, IReadOnlyList<string> libraryUsin
         }
     }
 
-    return unit
-        .WithUsings(Microsoft.CodeAnalysis.CSharp.SyntaxFactory.List(localised))
-        .ToFullString();
+    return WebForm2Blazor.Converter.Convert.SyntaxUsings.Replace(unit, localised).ToFullString();
 }
 
 static Microsoft.CodeAnalysis.CSharp.Syntax.UsingDirectiveSyntax ParseUsing(string text)

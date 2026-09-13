@@ -349,7 +349,7 @@ public static class CodeBehindRewriter
         CompilationUnitSyntax root,
         string? sourceName,
         ConversionReport? report,
-        Func<string, bool> portDeclaresType)
+        PortedTypeIndex? portedTypes)
     {
         var edits = new Dictionary<MemberDeclarationSyntax, MemberDeclarationSyntax>();
 
@@ -360,23 +360,27 @@ public static class CodeBehindRewriter
                 continue;
             }
 
-            var simpleName = baseName[(baseName.LastIndexOf('.') + 1)..];
+            // Name`arity, so a ported generic of the same name is not mistaken for the
+            // compat type (n2 declares Page<TPage>).
+            var baseKey = PortedTypeIndex.KeyOfWrittenType(baseName);
+            var simpleName = baseKey.Contains('`', StringComparison.Ordinal)
+                ? baseKey[..baseKey.IndexOf('`')]
+                : baseKey;
 
-            // The application's own type of the same name wins. DNN declares
-            // DotNetNuke.Security.Membership.MembershipProvider, and reading that as the
-            // compat layer's ASP.NET MembershipProvider - a completely different set of
-            // members - stripped the override off 30 implementations of DNN's abstract
-            // members and turned 13 errors into 52.
-            if (portDeclaresType(simpleName))
-            {
-                continue;
-            }
+            // The application's own type of the same name wins over the compat layer's.
+            // DNN declares DotNetNuke.Security.Membership.MembershipProvider, and reading
+            // that as ASP.NET's - a completely different set of members - stripped the
+            // override off 30 implementations of DNN's own abstract members and turned 13
+            // errors into 52.
+            var portedBase = portedTypes?.Declares(baseKey) == true;
+            var baseType = portedBase
+                ? null
+                : typeof(WebForm2Blazor.Components.WebFormsControlBase).Assembly
+                    .GetType("WebForm2Blazor.Components." + simpleName);
 
-            var baseType = typeof(WebForm2Blazor.Components.WebFormsControlBase).Assembly
-                .GetType("WebForm2Blazor.Components." + simpleName);
-            if (baseType is null)
+            if (baseType is null && !portedBase)
             {
-                // A ported or third-party base. Its members are not ours to judge.
+                // Third-party. Its members are not ours to judge.
                 continue;
             }
 
@@ -396,8 +400,17 @@ public static class CodeBehindRewriter
                     continue;
                 }
 
-                if (DeclaresMember(baseType, name))
+                var found = portedBase
+                    ? portedTypes!.AnyBaseDeclares(baseKey, name, CompatDeclares)
+                    : DeclaresMember(baseType!, name);
+
+                if (found)
                 {
+                    if (baseType is null)
+                    {
+                        continue;
+                    }
+
                     // The member is there; the only thing that can still be wrong is how
                     // visible it is. WebForms declared the same method at different
                     // accessibilities on different bases - WebControl.RenderBeginTag is
@@ -417,10 +430,17 @@ public static class CodeBehindRewriter
                 // member too, and a plain method cannot be overridden (CS0506). The chain
                 // below this class keeps working; only the link above it is gone, and
                 // that link was to a base the compat layer does not model.
-                var kept = SyntaxFactory.TokenList(modifiers.Select(modifier =>
-                    modifier.RawKind == (int)SyntaxKind.OverrideKeyword
+                //
+                // Unless the class is sealed, where a virtual member is CS0549 and there
+                // can be no subclass to keep working anyway.
+                var sealedClass = classDeclaration.Modifiers.Any(modifier =>
+                    modifier.RawKind == (int)SyntaxKind.SealedKeyword);
+
+                var kept = SyntaxFactory.TokenList(modifiers
+                    .Select(modifier => modifier.RawKind == (int)SyntaxKind.OverrideKeyword && !sealedClass
                         ? SyntaxFactory.Token(SyntaxKind.VirtualKeyword).WithTriviaFrom(modifier)
-                        : modifier));
+                        : modifier)
+                    .Where(modifier => !(sealedClass && modifier.RawKind == (int)SyntaxKind.OverrideKeyword)));
 
                 edits[member] = member switch
                 {
@@ -431,8 +451,8 @@ public static class CodeBehindRewriter
 
                 report?.Residual(sourceName ?? string.Empty, ResidualKind.CodeBehind,
                     $"{classDeclaration.Identifier.Text}.{name} の override を外しました。"
-                    + $"元の基底が持っていたこのメンバを互換層の {simpleName} は持ちません"
-                    + "(このコントロールは描画対象としてモデル化されていないため、"
+                    + $"{simpleName} から上に、元の基底が持っていたこのメンバがありません"
+                    + "(互換層がこのコントロールを描画対象としてモデル化していないため、"
                     + "このメソッドは基底から呼ばれません)。",
                     disposition: ResidualDisposition.Backlog);
             }
@@ -480,14 +500,50 @@ public static class CodeBehindRewriter
         };
     }
 
-    /// <summary>Whether the type or any base declares a member of this name.</summary>
+    /// <summary>
+    /// Whether the compat type of this name declares the member, or null when the compat
+    /// layer has no type of that name.
+    /// </summary>
+    private static bool? CompatDeclares(string simpleName, string member)
+    {
+        // The index is built from the sources BEFORE the base rewrite, so a ported class
+        // still says "UserControl" where the output says WebFormsUserControl. Asking the
+        // compat layer for "UserControl" finds the empty marker type instead of the base
+        // that has the lifecycle on it, and everything below it lost its OnInit.
+        var mapped = ResolveComponentBase(simpleName) ?? ResolveControlBase(simpleName) ?? simpleName;
+
+        return typeof(WebForm2Blazor.Components.WebFormsControlBase).Assembly
+                   .GetType("WebForm2Blazor.Components." + mapped) is { } type
+            ? DeclaresMember(type, member)
+            : null;
+    }
+
+    /// <summary>
+    /// Whether the type or any base declares a member of this name.
+    ///
+    /// Walks BaseType by hand. Type.GetMember does not return a base class's non-public
+    /// members, and FlattenHierarchy only widens that for STATIC members - so asking
+    /// Panel for "OnLoad", which LegacyWebControl declares protected, answers no. That
+    /// made this strip the override off valid code: n2's Edit.aspx.cs overrides OnLoad
+    /// through four ported bases down to the compat page, and it was being demoted.
+    /// </summary>
     private static bool DeclaresMember(Type type, string name)
-        => type.GetMember(
-            name,
-            System.Reflection.BindingFlags.Instance
-            | System.Reflection.BindingFlags.Public
-            | System.Reflection.BindingFlags.NonPublic
-            | System.Reflection.BindingFlags.FlattenHierarchy).Length > 0;
+    {
+        for (var current = type; current is not null; current = current.BaseType)
+        {
+            if (current.GetMember(
+                    name,
+                    System.Reflection.BindingFlags.Instance
+                    | System.Reflection.BindingFlags.Public
+                    | System.Reflection.BindingFlags.NonPublic
+                    | System.Reflection.BindingFlags.DeclaredOnly).Length > 0)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
 
     /// <summary>
     /// Non-code-behind .cs files (business logic etc.). Usings are replaced; namespace and
@@ -500,12 +556,12 @@ public static class CodeBehindRewriter
         string source,
         string? sourceName = null,
         ConversionReport? report = null,
-        Func<string, bool>? portDeclaresType = null)
+        PortedTypeIndex? portedTypes = null)
         => DeepSyntaxWork.Run(() =>
-            RewritePlainCodeFileCore(source, sourceName, report, portDeclaresType ?? (_ => false)));
+            RewritePlainCodeFileCore(source, sourceName, report, portedTypes));
 
     private static string RewritePlainCodeFileCore(
-        string source, string? sourceName, ConversionReport? report, Func<string, bool> portDeclaresType)
+        string source, string? sourceName, ConversionReport? report, PortedTypeIndex? portedTypes)
     {
         var root = ParseUnit(source);
 
@@ -550,7 +606,7 @@ public static class CodeBehindRewriter
         // IWebFormsControl and then nothing imported it. Same shape in a global-usings
         // project, where the per-file import list is empty by construction.
         var bodyRewritten = DropOverridesTheCompatBaseDoesNotHave(
-            RewriteSyntax(root), sourceName, report, portDeclaresType);
+            RewriteSyntax(root), sourceName, report, portedTypes);
 
         // Dropped System.Web usings mean the file references that API surface
         // (HttpContext, HttpUtility, ...) - the compatibility namespace supplies it

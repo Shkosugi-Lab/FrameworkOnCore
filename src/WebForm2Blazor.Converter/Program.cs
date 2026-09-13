@@ -599,12 +599,18 @@ do
 var fullyExcludedNamespaces = ComputeFullyExcludedNamespaces();
 var unsafeCodePorted = false;
 
+var portedSources = Enumerable.Range(0, candidateNamespaces.Count)
+    .Where(index => !excludedCandidates.Contains(index))
+    .Select(index => candidateNamespaces[index].candidate.Source)
+    .ToList();
+
 // The compat layer is one namespace where WebForms had a dozen, so importing it brings in
 // names the original import never had - see CompatImportDisambiguator.
-var compatImports = WebForm2Blazor.Converter.Convert.CompatImportDisambiguator.Build(
-    Enumerable.Range(0, candidateNamespaces.Count)
-        .Where(index => !excludedCandidates.Contains(index))
-        .Select(index => candidateNamespaces[index].candidate.Source));
+var compatImports = WebForm2Blazor.Converter.Convert.CompatImportDisambiguator.Build(portedSources);
+
+// What the ported classes declare and derive from, so an override can be checked against
+// the whole chain rather than only a direct compat base.
+var portedTypes = WebForm2Blazor.Converter.Convert.PortedTypeIndex.Build(portedSources);
 
 // A global using does not appear in the file it reaches, so the disambiguator has to be
 // told about them. The web project's stay global (its pages' generated halves rely on
@@ -796,7 +802,7 @@ for (var i = 0; i < candidateNamespaces.Count; i++)
         ApplyNamespaceMap(StripDeadCodeUsings(
             compatImports.Apply(
                 CodeBehindRewriter.RewritePlainCodeFile(
-                    candidateSource, candidate.ReportName, report, compatImports.PortDeclaresType)),
+                    candidateSource, candidate.ReportName, report, portedTypes)),
             fullyExcludedNamespaces, report, candidate.ReportName)));
     report.CopiedCodeFiles++;
 

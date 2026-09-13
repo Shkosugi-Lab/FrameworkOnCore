@@ -328,16 +328,131 @@ public static class CodeBehindRewriter
     };
 
     /// <summary>
+    /// Removes "override" where the compat base has no such member.
+    ///
+    /// WebForms had a control class per widget, each with its own virtuals: DataGridColumn
+    /// had Initialize, BaseValidator had EvaluateIsValid, ListControl had
+    /// PerformDataBinding. The compat layer models the ones that render and collapses the
+    /// rest onto LegacyWebControl, so a ported subclass's override has nothing to bind to
+    /// and the file stops compiling on a method whose body is perfectly good.
+    ///
+    /// Dropping the keyword keeps the body. Nothing in the compat layer would have called
+    /// these anyway - it does not implement DataGrid or validator behaviour - so this
+    /// removes an error rather than a call. Each one is reported, because a control whose
+    /// base is not modelled does not behave like the original and that has to stay visible.
+    ///
+    /// The compat ASSEMBLY is asked, never a list: which members exist changes as the
+    /// layer grows, and a list would go stale in the direction that silently drops
+    /// overrides that had become valid.
+    /// </summary>
+    private static CompilationUnitSyntax DropOverridesTheCompatBaseDoesNotHave(
+        CompilationUnitSyntax root,
+        string? sourceName,
+        ConversionReport? report,
+        Func<string, bool> portDeclaresType)
+    {
+        var edits = new Dictionary<MemberDeclarationSyntax, MemberDeclarationSyntax>();
+
+        foreach (var classDeclaration in root.DescendantNodes().OfType<ClassDeclarationSyntax>())
+        {
+            if (classDeclaration.BaseList?.Types.FirstOrDefault()?.Type.ToString().Trim() is not { } baseName)
+            {
+                continue;
+            }
+
+            var simpleName = baseName[(baseName.LastIndexOf('.') + 1)..];
+
+            // The application's own type of the same name wins. DNN declares
+            // DotNetNuke.Security.Membership.MembershipProvider, and reading that as the
+            // compat layer's ASP.NET MembershipProvider - a completely different set of
+            // members - stripped the override off 30 implementations of DNN's abstract
+            // members and turned 13 errors into 52.
+            if (portDeclaresType(simpleName))
+            {
+                continue;
+            }
+
+            var baseType = typeof(WebForm2Blazor.Components.WebFormsControlBase).Assembly
+                .GetType("WebForm2Blazor.Components." + simpleName);
+            if (baseType is null)
+            {
+                // A ported or third-party base. Its members are not ours to judge.
+                continue;
+            }
+
+            foreach (var member in classDeclaration.Members)
+            {
+                var (name, modifiers) = member switch
+                {
+                    MethodDeclarationSyntax method => (method.Identifier.Text, method.Modifiers),
+                    PropertyDeclarationSyntax property => (property.Identifier.Text, property.Modifiers),
+                    _ => (null, default),
+                };
+
+                if (name is null
+                    || !modifiers.Any(modifier =>
+                        modifier.RawKind == (int)SyntaxKind.OverrideKeyword)
+                    || DeclaresMember(baseType, name))
+                {
+                    continue;
+                }
+
+                // virtual, not nothing: subclasses in the same application override this
+                // member too, and a plain method cannot be overridden (CS0506). The chain
+                // below this class keeps working; only the link above it is gone, and
+                // that link was to a base the compat layer does not model.
+                var kept = SyntaxFactory.TokenList(modifiers.Select(modifier =>
+                    modifier.RawKind == (int)SyntaxKind.OverrideKeyword
+                        ? SyntaxFactory.Token(SyntaxKind.VirtualKeyword).WithTriviaFrom(modifier)
+                        : modifier));
+
+                edits[member] = member switch
+                {
+                    MethodDeclarationSyntax method => method.WithModifiers(kept),
+                    PropertyDeclarationSyntax property => property.WithModifiers(kept),
+                    _ => member,
+                };
+
+                report?.Residual(sourceName ?? string.Empty, ResidualKind.CodeBehind,
+                    $"{classDeclaration.Identifier.Text}.{name} の override を外しました。"
+                    + $"元の基底が持っていたこのメンバを互換層の {simpleName} は持ちません"
+                    + "(このコントロールは描画対象としてモデル化されていないため、"
+                    + "このメソッドは基底から呼ばれません)。",
+                    disposition: ResidualDisposition.Backlog);
+            }
+        }
+
+        return edits.Count == 0
+            ? root
+            : root.ReplaceNodes(edits.Keys, (original, _) => edits[original]);
+    }
+
+    /// <summary>Whether the type or any base declares a member of this name.</summary>
+    private static bool DeclaresMember(Type type, string name)
+        => type.GetMember(
+            name,
+            System.Reflection.BindingFlags.Instance
+            | System.Reflection.BindingFlags.Public
+            | System.Reflection.BindingFlags.NonPublic
+            | System.Reflection.BindingFlags.FlattenHierarchy).Length > 0;
+
+    /// <summary>
     /// Non-code-behind .cs files (business logic etc.). Usings are replaced; namespace and
     /// classes are ported as-is - except that classes deriving directly from
     /// System.Web.UI.Page / MasterPage / UserControl (= custom base classes such as
     /// BaseNopPage) get that base swapped for the compatibility base, so the whole
     /// inheritance chain of converted pages lands on the compat runtime.
     /// </summary>
-    public static string RewritePlainCodeFile(string source, string? sourceName = null, ConversionReport? report = null)
-        => DeepSyntaxWork.Run(() => RewritePlainCodeFileCore(source, sourceName, report));
+    public static string RewritePlainCodeFile(
+        string source,
+        string? sourceName = null,
+        ConversionReport? report = null,
+        Func<string, bool>? portDeclaresType = null)
+        => DeepSyntaxWork.Run(() =>
+            RewritePlainCodeFileCore(source, sourceName, report, portDeclaresType ?? (_ => false)));
 
-    private static string RewritePlainCodeFileCore(string source, string? sourceName, ConversionReport? report)
+    private static string RewritePlainCodeFileCore(
+        string source, string? sourceName, ConversionReport? report, Func<string, bool> portDeclaresType)
     {
         var root = ParseUnit(source);
 
@@ -381,7 +496,8 @@ public static class CodeBehindRewriter
         // MembershipToolbarPluginAttribute has none at all: the rewrite turned Control into
         // IWebFormsControl and then nothing imported it. Same shape in a global-usings
         // project, where the per-file import list is empty by construction.
-        var bodyRewritten = RewriteSyntax(root);
+        var bodyRewritten = DropOverridesTheCompatBaseDoesNotHave(
+            RewriteSyntax(root), sourceName, report, portDeclaresType);
 
         // Dropped System.Web usings mean the file references that API surface
         // (HttpContext, HttpUtility, ...) - the compatibility namespace supplies it

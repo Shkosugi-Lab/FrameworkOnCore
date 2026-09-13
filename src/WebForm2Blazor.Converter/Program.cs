@@ -795,7 +795,8 @@ for (var i = 0; i < candidateNamespaces.Count; i++)
     File.WriteAllText(destination,
         ApplyNamespaceMap(StripDeadCodeUsings(
             compatImports.Apply(
-                CodeBehindRewriter.RewritePlainCodeFile(candidateSource, candidate.ReportName, report)),
+                CodeBehindRewriter.RewritePlainCodeFile(
+                    candidateSource, candidate.ReportName, report, compatImports.PortDeclaresType)),
             fullyExcludedNamespaces, report, candidate.ReportName)));
     report.CopiedCodeFiles++;
 

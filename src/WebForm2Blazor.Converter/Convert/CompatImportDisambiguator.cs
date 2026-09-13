@@ -54,6 +54,16 @@ public sealed class CompatImportDisambiguator
         => _ambientImports = imports.Distinct(StringComparer.Ordinal).ToList();
 
     /// <summary>
+    /// Whether the application declares a type of this simple name anywhere.
+    ///
+    /// Asked before treating a base class as the compat layer's: DNN declares its own
+    /// MembershipProvider, and matching a base by simple name alone reads that as
+    /// ASP.NET's - which has an entirely different set of members.
+    /// </summary>
+    public bool PortDeclaresType(string simpleName)
+        => _typesByNamespace.Values.Any(names => names.Contains(simpleName));
+
+    /// <summary>
     /// Indexes namespace -> the non-generic types the port declares directly in it.
     /// A generic type cannot be named by a using alias, so it is no use here.
     /// </summary>

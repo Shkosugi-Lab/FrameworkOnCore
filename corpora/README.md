@@ -1706,3 +1706,40 @@ public void InstantiateIn(IWebFormsControl container)   // 元は Control contai
 揃っていなかったのは**互換層側**で、`ITemplate.InstantiateIn` が `Control` のままでした。
 実装側は全部書き換えを通るので、**誰一人として実装していないことになります。**
 DNN のカラムテンプレート 9 個がこれでした。
+
+## モデル化されていない基底の override を外す(147 → 121)
+
+CS0115 が 50 件。中身は全部同じで、**元の基底が持っていた仮想メンバを互換層の基底が
+持っていない**でした。
+
+```
+DNNDataGrid.CreateControlHierarchy(bool) : オーバーライドする適切なメソッドがありません
+EmailValidator.EvaluateIsValid()        : 同上
+mojoDropDownList.PerformDataBinding(IEnumerable) : 同上
+```
+
+WebForms はウィジェットごとにクラスがあり、それぞれ固有の仮想メンバを持っていました
+(`DataGridColumn.Initialize`、`BaseValidator.EvaluateIsValid`、
+`ListControl.PerformDataBinding`)。互換層は描画するものだけをモデル化し、
+残りは `LegacyWebControl` に潰しています。**本体が完全に正しいメソッドで、
+ファイル全体がコンパイルできなくなります。**
+
+`override` を外して `virtual` に落とすようにしました。本体は残ります。
+互換層はこれらを**元々呼びません**(DataGrid やバリデータの挙動を実装していません)ので、
+呼び出しが消えるのではなくエラーが消えます。
+
+**1 件ずつ残差として記録します。** 基底がモデル化されていないコントロールは
+元と同じ動きをしないので、そこは見えていなければなりません(残差 +29 はこれです)。
+
+**何を持っているかは互換アセンブリに聞きます。** 一覧を持つと、互換層が育ったときに
+「実は有効だった override を黙って外す」方向に腐ります。
+
+### 2 回間違えました
+
+| | |
+|---|---|
+| `override` を単に削除した | 同じアプリ内の派生クラスが override できなくなり CS0506。`virtual` に置き換えました |
+| 単純名で互換層と照合した | DNN は**自前の** `MembershipProvider` を宣言しています。ASP.NET の同名型と取り違え、DNN の abstract メンバの実装 30 個から override を剥がし、**13 件が 52 件になりました**。移植側が宣言している名前は互換層より優先します |
+
+2 つ目は、このセッションで `TreeNode` と `Attribute` に対して立てたのと同じ規則です。
+**アプリ自身の型が勝ちます。**

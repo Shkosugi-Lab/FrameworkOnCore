@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using System.Text.RegularExpressions;
+using WebForm2Blazor.Converter.Convert;
 using WebForm2Blazor.Converter.Mapping;
 using WebForm2Blazor.Converter.Parsing;
 using WebForm2Blazor.Converter.Project;
@@ -14,6 +15,12 @@ namespace WebForm2Blazor.Converter.Emit;
 /// through it - see CodeBehindRewriter.EmitControlField.
 /// </summary>
 public sealed record ControlField(string Type, string Name, bool LegacyHost = false);
+
+/// <summary>Prefix that makes a compat type name unambiguous against the page namespace.</summary>
+internal static class CompatNames
+{
+    public const string QualifiedPrefix = "global::WebForm2Blazor.Components.";
+}
 
 /// <summary>
 /// Control information for smoke-scenario auto-generation.
@@ -1080,8 +1087,18 @@ public sealed partial class MarkupEmitter(EmitContext context)
             // the real control's members (editor.Value etc.), which a generated stub
             // cannot declare - dynamic keeps that code compiling (inert at runtime).
             attributes.Add($"@ref=\"{id}\"");
-            context.Fields.Add(new ControlField(
-                component.StartsWith("Stub_", StringComparison.Ordinal) ? "dynamic" : component, id));
+
+            // Fully qualified, because a PAGE can be named after a control. BlogEngine has
+            // Login.aspx, whose class is Login in the page namespace, and a bare "Login"
+            // field there resolves to the page - not the compat control - so every member
+            // the code-behind touches is missing. The enclosing namespace is checked before
+            // any using, so only global:: settles it.
+            var declaredType = component.StartsWith("Stub_", StringComparison.Ordinal)
+                ? "dynamic"
+                : CodeBehindRewriter.DeclaresCompatType(component)
+                    ? CompatNames.QualifiedPrefix + component
+                    : component;
+            context.Fields.Add(new ControlField(declaredType, id));
         }
 
         if (id is not null && mapping is not null && _templateDepth == 0)
@@ -1117,7 +1134,16 @@ public sealed partial class MarkupEmitter(EmitContext context)
         context.Report.ConvertedControls++;
 
         attributes = DedupeAttributes(attributes);
-        var openTag = attributes.Count == 0 ? component : $"{component} {string.Join(" ", attributes)}";
+
+        // Same collision as the field type above, on the TAG. n2 has Login.ascx, whose
+        // component is Login in the application's own namespace, and <Login> inside that
+        // very file resolves to itself. Razor takes a fully qualified tag, and the
+        // qualification only goes on where a converted control really does share the name.
+        var tag = CodeBehindRewriter.DeclaresCompatType(component) && SharesNameWithAConvertedControl(component)
+            ? "WebForm2Blazor.Components." + component
+            : component;
+
+        var openTag = attributes.Count == 0 ? tag : $"{tag} {string.Join(" ", attributes)}";
         string result;
         if (element.SelfClosing || element.Children.Count == 0)
         {
@@ -1125,7 +1151,7 @@ public sealed partial class MarkupEmitter(EmitContext context)
         }
         else
         {
-            result = $"<{openTag}>{EmitChildren(element)}</{component}>";
+            result = $"<{openTag}>{EmitChildren(element)}</{tag}>";
         }
 
         _layoutPlaceholderId = previousPlaceholderId;
@@ -1264,14 +1290,32 @@ public sealed partial class MarkupEmitter(EmitContext context)
                 $"<{element.Name}> 内の不整合な HTML タグを raw 出力に退避しました(WebForms は許容するが Razor は構文エラーのため)。");
         }
 
+        // Context is only legal on a RenderFragment<T>, and it is only NEEDED when the
+        // template body actually names the value - which, for a layout, means the item
+        // placeholder was found and substituted above. Login also has a LayoutTemplate,
+        // a plain RenderFragment, and emitting Context there is RZ9997.
         var contextAttribute = dataBound
             ? $" Context=\"{containerName}\""
-            : isLayout || isGroup
+            : (isLayout || isGroup) && inner.Contains("@ItemsPlaceholder", StringComparison.Ordinal)
                 ? " Context=\"ItemsPlaceholder\""
                 : string.Empty;
         var tagName = ControlMappings.TemplateParameterNames.GetValueOrDefault(element.Name, element.Name);
         return $"<{tagName}{contextAttribute}>{inner}</{tagName}>";
     }
+
+    /// <summary>
+    /// Whether a converted control of the application's own would answer to this name -
+    /// either one this file registers, or THIS file itself. n2's Login.ascx becomes a
+    /// component called Login in the application's namespace, and a bare &lt;Login&gt;
+    /// inside it resolves to itself rather than to the compat control.
+    /// </summary>
+    private bool SharesNameWithAConvertedControl(string component)
+        => context.UserControlTags.Values.Any(reference =>
+               string.Equals(reference.ComponentName, component, StringComparison.Ordinal))
+           || string.Equals(
+               Path.GetFileNameWithoutExtension(context.SourceName.AsSpan()).ToString(),
+               component,
+               StringComparison.OrdinalIgnoreCase);
 
     /// <summary>
     /// Context parameter name for the CURRENT data-bound template depth. Depth 1 keeps

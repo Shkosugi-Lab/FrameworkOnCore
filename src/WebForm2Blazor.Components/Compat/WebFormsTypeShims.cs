@@ -356,37 +356,6 @@ public class HtmlInputImage : LegacyWebControl
     protected virtual void OnServerClick(EventArgs e) => ServerClick?.Invoke(this, e);
 }
 
-/// <summary>
-/// System.Web.UI.WebControls.Login equivalent (declaration surface). Authentication is
-/// ASP.NET Core's in the converted app, so this carries the declaration only.
-/// </summary>
-public class Login : LegacyWebControl
-{
-    public string UserName { get; set; }
-
-    public string Password { get; set; }
-
-    public bool RememberMeSet { get; set; }
-
-    public string FailureText { get; set; }
-
-    public string DestinationPageUrl { get; set; }
-
-    public string MembershipProvider { get; set; }
-
-    public event EventHandler LoggingIn;
-
-    public event EventHandler LoggedIn;
-
-    public event EventHandler LoginError;
-
-    protected virtual void OnLoggingIn(EventArgs e) => LoggingIn?.Invoke(this, e);
-
-    protected virtual void OnLoggedIn(EventArgs e) => LoggedIn?.Invoke(this, e);
-
-    protected virtual void OnLoginError(EventArgs e) => LoginError?.Invoke(this, e);
-}
-
 // ---------------------------------------------------------------------------------------
 // Collections and data plumbing
 // ---------------------------------------------------------------------------------------

@@ -328,6 +328,14 @@ public static class ControlMappings
             Component = "WizardStep",
             Attributes = Map("ID", "Visible", "Title", "StepType", "AllowReturn"),
         },
+        // The membership controls (Login / LoginStatus / LoginView / ChangePassword) are
+        // IMPLEMENTED as components but NOT mapped here yet. MEASURED: enabling them makes
+        // WingtipToys terminate during the regression run, on the application's own
+        // Debug.Fail in AddToCart.Page_Load - the master page now renders far enough that
+        // the page runs to that line. That may well be the original's behaviour (the
+        // original asserts there too), but a snapshot cannot say so from a dead process,
+        // and shipping a change whose effect cannot be checked is what the gate exists to
+        // stop. Search MEMBERSHIP_CONTROLS in corpora/README.md.
         // MultiView / View: "show one child of several". Without them the whole switched
         // region rendered as an unconverted-control comment - every pane of it gone.
         ["MultiView"] = new()

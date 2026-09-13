@@ -894,44 +894,6 @@ public class ContentPlaceHolder : LegacyWebControl
 // authenticate no one.
 // ---------------------------------------------------------------------------------------
 
-/// <summary>System.Web.UI.WebControls.ChangePassword equivalent (state only).</summary>
-public class ChangePassword : LegacyWebControl
-{
-    public string MembershipProvider { get; set; } = string.Empty;
-
-    public string UserName { get; set; } = string.Empty;
-
-    public string CurrentPassword => string.Empty;
-
-    public string NewPassword => string.Empty;
-
-    public string ConfirmNewPassword => string.Empty;
-
-    public string ContinueDestinationPageUrl { get; set; } = string.Empty;
-
-    public string CancelDestinationPageUrl { get; set; } = string.Empty;
-
-    public bool DisplayUserName { get; set; }
-
-    public event EventHandler ChangedPassword;
-
-    public event EventHandler ChangePasswordError;
-
-    public event EventHandler CancelButtonClick;
-
-    public event EventHandler ContinueButtonClick;
-
-    protected override string TagName => "div";
-
-    protected virtual void OnChangedPassword(EventArgs e) => ChangedPassword?.Invoke(this, e);
-
-    protected virtual void OnChangePasswordError(EventArgs e) => ChangePasswordError?.Invoke(this, e);
-
-    protected virtual void OnCancelButtonClick(EventArgs e) => CancelButtonClick?.Invoke(this, e);
-
-    protected virtual void OnContinueButtonClick(EventArgs e) => ContinueButtonClick?.Invoke(this, e);
-}
-
 /// <summary>System.Web.UI.WebControls.WizardStepBase equivalent.</summary>
 public class WizardStepBase : LegacyWebControl
 {

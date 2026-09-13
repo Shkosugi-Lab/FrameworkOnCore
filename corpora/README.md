@@ -1983,3 +1983,52 @@ RZ9996: Unrecognized child content inside component 'WizardStep'
 マッピングに足し、`[Parameter]` と `event` の両方から同じデリゲートに届くようにしました。
 
 **総残差 691 → 679。** ビルドエラー不変、パリティ 30/30、回帰 13/13。
+
+## アプリがコントロールと同じ名前を持つとき(2 か所で壊れていました)
+
+会員制御の実装中に出てきた、**もっと一般的な欠陥**です。
+
+### フィールドの型
+
+BlogEngine には `Login.aspx` があり、ページクラスは `be.Components.Pages.Account.Login`。
+生成されるフィールドが `protected Login Login1;` だと、**囲んでいる名前空間が
+using より先に引かれる**ので、これはページ自身を指します。
+`Login1.UserName` は当然ありません。
+
+互換層の型は `global::WebForm2Blazor.Components.X` で出すようにしました。
+
+### タグ
+
+n2 には `Login.ascx` があり、コンポーネント名は `Login`。
+**そのファイルの中の `<Login>` は自分自身に解決します。**
+変換後のコントロールと名前が衝突するときだけ、タグを完全修飾します。
+
+どちらも「アプリ自身の型が勝つ」規則の裏返しです。`TreeNode` や `MembershipProvider`
+のときは**アプリの型が正解**でしたが、ここでは**互換層の型が正解**です
+— 書いた人が `<asp:Login>` と書いたのだから、それは ASP.NET のコントロールです。
+
+### `Context` はテンプレートが値を使うときだけ
+
+`<LayoutTemplate Context="ItemsPlaceholder">` を常に出していました。
+`Context` は `RenderFragment<T>` にしか付けられず、`Login` の `LayoutTemplate` は
+ただの `RenderFragment` なので RZ9997 になります。
+**プレースホルダを実際に差し替えたときだけ**出すようにしました。
+
+## MEMBERSHIP_CONTROLS — 実装済み、マッピングは未接続
+
+`Login` / `LoginStatus` / `LoginView` / `ChangePassword` はコンポーネントとして
+実装しました。アプリ自身の `LayoutTemplate` を描画し(サイトのログインフォームは
+そのテンプレートそのもので、今までページに一切届いていませんでした)、
+`Authenticate` / `ChangingPassword` を発火します。**認証自体は行いません** —
+membership は無く、変換後のアプリは ASP.NET Core で認証するからです。
+自前のユーザーストアを `Authenticate` ハンドラで実装していたアプリは、そのまま動きます。
+
+**マッピング表には繋いでいません。** 繋ぐと WingtipToys が回帰テスト中に
+**プロセスごと終了**します。アプリ自身の `Debug.Fail`
+(`AddToCart.Page_Load`「ProductId 無しでここに来るはずがない」)に到達するためで、
+マスターページが以前より深くまで描画されるようになった結果です。
+
+**それが元の挙動である可能性は高い**(元のアプリも同じ assert に当たります)のですが、
+**死んだプロセスからスナップショットは何も言えません。** 効果を確認できない変更を
+出さないために、ゲートがあります。次に着手する人は、まず wt のシナリオが
+`/AddToCart` に直接行っている点から見てください。

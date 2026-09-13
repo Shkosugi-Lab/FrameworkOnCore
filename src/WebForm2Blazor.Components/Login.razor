@@ -1,0 +1,133 @@
+@namespace WebForm2Blazor.Components
+@inherits WebFormsControlBase
+
+@* WebForms Login equivalent.
+
+   The application's own LayoutTemplate is rendered when there is one, which is the
+   common case - the markup in the template IS the login form the site shows, and until
+   now none of it reached the page. Without a template, the default form WebForms
+   generated is rendered instead.
+
+   Authenticating is NOT done here. Membership is gone and the converted application signs
+   people in through ASP.NET Core, so this raises Authenticate / LoggingIn / LoginError
+   and lets the page decide: an application that handled Authenticate itself - which is
+   how a custom user store was always done - keeps working unchanged. One that relied on
+   the membership provider gets FailureText and a residual saying so. *@
+@if (Visible && !(VisibleWhenLoggedIn is false && IsAuthenticated))
+{
+    <div @attributes="ExtraAttributes" style="@ComputedStyle" id="@ClientID" class="@CssClass">
+        @if (LayoutTemplate is not null)
+        {
+            @LayoutTemplate
+        }
+        else
+        {
+            <div class="login-username">
+                <label for="@(ClientID)_UserName">@UserNameLabelText</label>
+                <input id="@(ClientID)_UserName" type="text" value="@UserName"
+                       @onchange="e => UserName = e.Value?.ToString()" />
+            </div>
+            <div class="login-password">
+                <label for="@(ClientID)_Password">@PasswordLabelText</label>
+                <input id="@(ClientID)_Password" type="password" value="@Password"
+                       @onchange="e => Password = e.Value?.ToString()" />
+            </div>
+            @if (DisplayRememberMe)
+            {
+                <div class="login-rememberme">
+                    <input id="@(ClientID)_RememberMe" type="checkbox" checked="@RememberMeSet"
+                           @onchange="e => RememberMeSet = e.Value is true" />
+                    <label for="@(ClientID)_RememberMe">@RememberMeText</label>
+                </div>
+            }
+            <button type="button" @onclick="Submit">@LoginButtonText</button>
+        }
+
+        @if (!string.IsNullOrEmpty(_failure))
+        {
+            <span class="login-failure">@_failure</span>
+        }
+    </div>
+}
+
+@code {
+    private string _failure;
+
+    [Parameter] public RenderFragment LayoutTemplate { get; set; }
+
+    [Parameter] public string UserName { get; set; }
+    [Parameter] public string Password { get; set; }
+    [Parameter] public bool RememberMeSet { get; set; }
+    [Parameter] public bool DisplayRememberMe { get; set; } = true;
+    [Parameter] public bool? VisibleWhenLoggedIn { get; set; }
+
+    [Parameter] public string FailureText { get; set; } = "Your login attempt was not successful. Please try again.";
+    [Parameter] public string UserNameLabelText { get; set; } = "User Name:";
+    [Parameter] public string PasswordLabelText { get; set; } = "Password:";
+    [Parameter] public string RememberMeText { get; set; } = "Remember me next time.";
+    [Parameter] public string LoginButtonText { get; set; } = "Log In";
+    [Parameter] public string DestinationPageUrl { get; set; }
+    [Parameter] public string MembershipProvider { get; set; }
+
+    [Parameter] public EventHandler<AuthenticateEventArgs> OnAuthenticate { get; set; }
+    [Parameter] public EventHandler OnLoggingIn { get; set; }
+    [Parameter] public EventHandler OnLoggedIn { get; set; }
+    [Parameter] public EventHandler OnLoginError { get; set; }
+
+    public event EventHandler<AuthenticateEventArgs> Authenticate
+    {
+        add => OnAuthenticate += value;
+        remove => OnAuthenticate -= value;
+    }
+
+    public event EventHandler LoggingIn
+    {
+        add => OnLoggingIn += value;
+        remove => OnLoggingIn -= value;
+    }
+
+    public event EventHandler LoggedIn
+    {
+        add => OnLoggedIn += value;
+        remove => OnLoggedIn -= value;
+    }
+
+    public event EventHandler LoginError
+    {
+        add => OnLoginError += value;
+        remove => OnLoginError -= value;
+    }
+
+    private static bool IsAuthenticated
+        => HttpContext.Current?.User?.Identity?.IsAuthenticated == true;
+
+    /// <summary>
+    /// The WebForms order: LoggingIn, then Authenticate (which decides), then LoggedIn or
+    /// LoginError. With no Authenticate handler the attempt fails - there is no membership
+    /// provider behind this to ask, and reporting success would be a lie.
+    /// </summary>
+    private void Submit()
+    {
+        _failure = null;
+        OnLoggingIn?.Invoke(this, EventArgs.Empty);
+
+        var args = new AuthenticateEventArgs();
+        OnAuthenticate?.Invoke(this, args);
+
+        if (args.Authenticated)
+        {
+            OnLoggedIn?.Invoke(this, EventArgs.Empty);
+            if (!string.IsNullOrEmpty(DestinationPageUrl))
+            {
+                HttpContext.Current?.Response?.Redirect(DestinationPageUrl);
+            }
+        }
+        else
+        {
+            _failure = FailureText;
+            OnLoginError?.Invoke(this, EventArgs.Empty);
+        }
+
+        Host?.HostCore.NotifyPostBackEvent();
+    }
+}

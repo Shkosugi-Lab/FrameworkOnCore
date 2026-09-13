@@ -1,0 +1,29 @@
+@namespace WebForm2Blazor.Components
+@inherits WebFormsControlBase
+
+@* WebForms LoginView equivalent: shows AnonymousTemplate or LoggedInTemplate according to
+   whether anyone is signed in. It used to render nothing at all, so the anonymous half of
+   a page - the "please sign in" panel - disappeared along with the signed-in half.
+
+   RoleGroups is NOT supported and is reported as a residual rather than rendered: picking
+   a group means matching roles, and rendering the wrong group is worse than rendering
+   none. None of the corpora use one. *@
+@if (Visible)
+{
+    @if (IsAuthenticated)
+    {
+        @LoggedInTemplate
+    }
+    else
+    {
+        @AnonymousTemplate
+    }
+}
+
+@code {
+    [Parameter] public RenderFragment AnonymousTemplate { get; set; }
+    [Parameter] public RenderFragment LoggedInTemplate { get; set; }
+
+    private static bool IsAuthenticated
+        => HttpContext.Current?.User?.Identity?.IsAuthenticated == true;
+}

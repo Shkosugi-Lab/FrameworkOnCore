@@ -2372,6 +2372,15 @@ static void LintGeneratedRazor(ConvertedComponent component, ConversionReport re
 }
 
 static string GenerateStubComponent(string appName, string stubName, string originalTag)
+    // An HTML COMMENT, not a visible span. The stub used to render
+    // "<span class="w2b-stub">[asp:LoginView]</span>", which put text on the page that the
+    // original never had - running WingtipToys showed "[asp:LoginView]" and
+    // "[webopt:bundlereference]" sitting in the header of every page. Against a goal of
+    // rendering what the original rendered, a visible marker IS a difference.
+    //
+    // The gap still has to be visible SOMEWHERE, and it is: every one of these is already
+    // a residual in the conversion report, and the comment names the tag in the page
+    // source. What changes is that it no longer shows up to a user of the site.
     => $$"""
         @namespace {{appName}}.Components.Stubs
 
@@ -2379,7 +2388,7 @@ static string GenerateStubComponent(string appName, string stubName, string orig
            Map the tag to a real component via --control-map, or replace this stub with a
            hand-ported component. Original markup attributes arrive in UnmatchedParameters;
            child template markup arrives as ChildContent and is intentionally not rendered. *@
-        <span id="@ID" class="w2b-stub" title="unconverted control: {{originalTag}}">[{{originalTag}}]</span>
+        @((MarkupString)$"<!-- W2B: unconverted control {{originalTag}}{(string.IsNullOrEmpty(ID) ? "" : $" id={ID}")} -->")
 
         @code {
             [Parameter] public string ID { get; set; }

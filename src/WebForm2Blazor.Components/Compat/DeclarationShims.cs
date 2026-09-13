@@ -990,21 +990,9 @@ public class CreateUserWizard : LegacyWebControl
     protected virtual void OnContinueButtonClick(EventArgs e) => ContinueButtonClick?.Invoke(this, e);
 }
 
-/// <summary>System.Web.UI.WebControls.SiteMapDataSource equivalent (state only).</summary>
-public class SiteMapDataSource : LegacyWebControl
-{
-    public string SiteMapProvider { get; set; } = string.Empty;
-
-    public string StartingNodeUrl { get; set; } = string.Empty;
-
-    public bool ShowStartingNode { get; set; } = true;
-
-    public bool StartFromCurrentNode { get; set; }
-
-    public int StartingNodeOffset { get; set; }
-
-    public SiteMapProvider Provider => null;
-}
+// SiteMapDataSource used to be a state-only declaration here. It is a real component now
+// (Runtime/SiteMapDataSource.cs): it renders nothing either way, so nothing about the DOM
+// changes, but the markup tag maps to it instead of being reported as unsupported.
 
 /// <summary>
 /// System.Web.UI.DataSourceSelectArguments equivalent. Passed to a data source's Select;

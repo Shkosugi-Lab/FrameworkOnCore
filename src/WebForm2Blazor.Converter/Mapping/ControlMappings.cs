@@ -452,6 +452,20 @@ public static class ControlMappings
             Attributes = Map("ID", "TypeName", "SelectMethod", "SelectCountMethod",
                 "EnablePaging", "StartRowIndexParameterName", "MaximumRowsParameterName"),
         },
+        ["SiteMapDataSource"] = new()
+        {
+            // Also non-visual. Its nodes come from the application's own SiteMapProvider,
+            // so converting it cannot change the DOM - it only stops the tag being
+            // reported as an unsupported control.
+            Component = "SiteMapDataSource",
+            Attributes = Map("ID", "ShowStartingNode", "StartingNodeUrl", "StartFromCurrentNode",
+                "StartingNodeOffset", "SiteMapProvider"),
+        },
+        ["TableHeaderRow"] = new()
+        {
+            Component = "TableHeaderRow",
+            Attributes = WithCommon(Map("ID", "CssClass", "Visible", "TableSection")),
+        },
         // --- AjaxControlToolkit (prefix-qualified: matched as ajaxToolkit:TabContainer) ---
         ["ajaxToolkit:TabContainer"] = new()
         {

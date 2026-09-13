@@ -127,7 +127,13 @@ if (-not $SkipBuild) {
     # ロックしていてもビルドできるようにするため。
     dotnet build (Join-Path $repo 'src\WebForm2Blazor.Converter') `
         -o (Join-Path $repo 'src\WebForm2Blazor.Converter\bin\alt') --nologo -v q | Out-Null
-    if ($LASTEXITCODE -ne 0) { Write-Error '変換器のビルドに失敗しました。' }
+    # exit、Write-Error ではなく。$ErrorActionPreference = 'Continue' なので Write-Error は
+    # 止めません。ここで止まらないと、以降は bin\alt に残った**前回のバイナリ**を
+    # 実行して、変更が反映された数字のように見えます(実際に一度そうなりました)。
+    if ($LASTEXITCODE -ne 0) {
+        Write-Host '変換器のビルドに失敗しました。' -ForegroundColor Red
+        exit 1
+    }
 }
 
 $converter = Join-Path $repo 'src\WebForm2Blazor.Converter\bin\alt\WebForm2Blazor.Converter.dll'

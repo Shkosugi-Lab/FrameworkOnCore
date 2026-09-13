@@ -1618,3 +1618,43 @@ using が 1 つも無いファイルでは `#pragma` / `#define` / `#if` や著�
 | `System.Security.Permissions` | `CodeAccessPermission` / `PermissionState` の移行先パッケージを追加。using を見るだけでは足りません(**完全修飾で 1 回だけ書く**のが普通の書き方で、OrmLite がそうしています)ので、既知パッケージの接頭辞だけは本文からも拾います |
 | `AllowUnsafeBlocks` | 移植コードに `unsafe` があれば有効化。**元のプロジェクトが許可していたことは確実**です(でなければコンパイルできていません) |
 | `CallContext` | Remoting は .NET から消えましたが、`CallContext` は .NET Framework 製ライブラリが**リクエスト単位の状態**を運ぶ手段として生き延びていました。OrmLite は開いた接続とトランザクションをここに置きます。`System.Runtime.Remoting.Messaging` という**元の名前空間のまま**互換層に置きました。`LogicalGetData` は `AsyncLocal`、`GetData` は `ThreadLocal` — 元の「流れる/流れない」の差をそのまま残しています |
+
+## アセンブリを 1 つに統合すると、名前解決が変わる(yaf 7 → 4)
+
+```
+Lucene.Net/Analysis/NumericTokenStream.cs: error CS0234:
+  'Attribute' が名前空間 'yaf...Lucene.Net.Analysis.Util' に存在しません
+```
+
+ファイルは `YAF.Lucene.Net.Analysis` の中で `Util.Attribute` と書き、
+`using YAF.Lucene.Net.Util;` でそれを解決していました。
+**`YAF.Lucene.Net.Analysis.Util` は別アセンブリ**(Analysis.Common)にあり、
+Lucene.Net 本体はそれを参照していないので、そもそも見つからなかったのです。
+
+統合後は全部が 1 コンパイルです。C# は **using より先に外側の名前空間を見る**ので、
+`Analysis.Util` が見つかり、そこに `Attribute` が無い、となります。
+
+**エイリアスでは直せません。** 名前空間のメンバはどの階層でも using エイリアスより
+先に引かれます。完全修飾で書き直すしかないので、そうしました。
+
+条件は「外側の名前空間チェーンがその頭を捕まえていて、かつ空振りしている」ときだけです。
+
+### 併せて
+
+`LegacyWebControl` に `OnClick` を追加しました。`LinkButton` 派生の移植クラス
+(YAF の `CollapseButton`)は `OnClick` を override しますが、`LinkButton` の互換型は
+Blazor コンポーネントで、平のクラスは継承できないため `LegacyWebControl` に落ちます。
+`RaisePostBackEvent` から呼ぶようにしてあるので、**押されたときに動く**経路も繋がっています。
+
+## `convert-all.ps1` が、ビルドに失敗した変換器の古いバイナリで測っていた
+
+```powershell
+if ($LASTEXITCODE -ne 0) { Write-Error '変換器のビルドに失敗しました。' }
+```
+
+`$ErrorActionPreference = 'Continue'` なので、**`Write-Error` は止めません。**
+`bin\alt` に前回のバイナリが残っているため、変換は成功し、
+**変更が反映されたかのような数字が出ます。** 実際にこれで 1 回測り間違えました。
+`exit 1` に変えました。
+
+**`-SkipBuild` を使わなくても同じ罠にはまります。**

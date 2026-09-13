@@ -1,3 +1,4 @@
+using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
@@ -96,6 +97,7 @@ public sealed class CompatImportDisambiguator
     public string Apply(string source)
     {
         var unit = CodeBehindRewriter.ParseUnit(source);
+        unit = QualifyNamesBrokenByMerging(unit);
         var imports = unit.Usings
             .Where(directive => directive.Alias is null && directive.StaticKeyword.RawKind == 0)
             .Select(directive => directive.Name?.ToString())
@@ -106,7 +108,7 @@ public sealed class CompatImportDisambiguator
 
         if (imports.Count < 2)
         {
-            return source;
+            return unit.ToFullString();
         }
 
         var aliased = new HashSet<string>(
@@ -149,8 +151,81 @@ public sealed class CompatImportDisambiguator
         }
 
         return additions.Count == 0
-            ? source
+            ? unit.ToFullString()
             : SyntaxUsings.Replace(unit, unit.Usings.Concat(additions)).ToFullString();
+    }
+
+    /// <summary>
+    /// Writes out in full the qualified names that merging the projects broke.
+    ///
+    /// Lucene.Net's core writes "Util.Attribute" from inside YAF.Lucene.Net.Analysis,
+    /// meaning YAF.Lucene.Net.Util.Attribute through its using. That worked because
+    /// YAF.Lucene.Net.Analysis.Util lives in a DIFFERENT assembly, which the core project
+    /// does not reference - so there was no Analysis.Util namespace to find. Here every
+    /// project is one compilation, C# checks the enclosing namespace before the usings,
+    /// and Analysis.Util is found and has no Attribute in it.
+    ///
+    /// An alias cannot fix this: namespace members are looked up before using aliases at
+    /// every level. The name has to be written out.
+    /// </summary>
+    private CompilationUnitSyntax QualifyNamesBrokenByMerging(CompilationUnitSyntax unit)
+    {
+        var imports = unit.Usings
+            .Where(directive => directive.Alias is null && directive.StaticKeyword.RawKind == 0)
+            .Select(directive => directive.Name?.ToString())
+            .OfType<string>()
+            .ToList();
+
+        if (imports.Count == 0)
+        {
+            return unit;
+        }
+
+        var replacements = new Dictionary<QualifiedNameSyntax, string>();
+        foreach (var qualified in unit.DescendantNodes().OfType<QualifiedNameSyntax>())
+        {
+            if (qualified.Left is not IdentifierNameSyntax head
+                || qualified.Right is not IdentifierNameSyntax tail
+                || qualified.Parent is QualifiedNameSyntax)
+            {
+                continue;
+            }
+
+            var enclosing = qualified.Ancestors()
+                .OfType<BaseNamespaceDeclarationSyntax>()
+                .FirstOrDefault();
+            if (enclosing is null)
+            {
+                continue;
+            }
+
+            // Only when the enclosing chain really does capture the head and comes up
+            // empty. Anything else resolves the way it always did.
+            var shadow = enclosing.Name.ToString() + "." + head.Identifier.Text;
+            if (!_typesByNamespace.TryGetValue(shadow, out var shadowed)
+                || shadowed.Contains(tail.Identifier.Text))
+            {
+                continue;
+            }
+
+            var intended = imports
+                .Where(import => import.EndsWith("." + head.Identifier.Text, StringComparison.Ordinal))
+                .Where(import => _typesByNamespace.TryGetValue(import, out var names)
+                                 && names.Contains(tail.Identifier.Text))
+                .ToList();
+
+            if (intended.Count == 1)
+            {
+                replacements[qualified] = intended[0] + "." + tail.Identifier.Text;
+            }
+        }
+
+        return replacements.Count == 0
+            ? unit
+            : unit.ReplaceNodes(
+                replacements.Keys,
+                (original, _) => SyntaxFactory.ParseName(replacements[original])
+                    .WithTriviaFrom(original));
     }
 
     /// <summary>

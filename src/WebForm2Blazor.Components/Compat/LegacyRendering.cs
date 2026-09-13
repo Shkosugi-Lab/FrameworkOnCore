@@ -254,10 +254,11 @@ public abstract class LegacyWebControl : IWebFormsControl, IDisposable
     {
     }
 
-    /// <summary>WebForms IPostBackEventHandler.RaisePostBackEvent equivalent.</summary>
-    public virtual void RaisePostBackEvent(string eventArgument)
-    {
-    }
+    /// <summary>
+    /// WebForms IPostBackEventHandler.RaisePostBackEvent equivalent. Reaches OnClick,
+    /// which is how WebForms got from a postback to a Button-derived control's handler.
+    /// </summary>
+    public virtual void RaisePostBackEvent(string eventArgument) => OnClick(EventArgs.Empty);
 
     /// <summary>WebForms WebControl.OnAttributesChanged equivalent.</summary>
     protected virtual void OnAttributesChanged()
@@ -426,6 +427,20 @@ public abstract class LegacyWebControl : IWebFormsControl, IDisposable
     protected virtual void OnDataBinding(EventArgs e)
     {
     }
+
+    /// <summary>
+    /// Button / LinkButton / ImageButton raised this, and a ported control that derives
+    /// from one of them overrides it - YAF.NET's CollapseButton toggles a panel here.
+    /// Those bases are Blazor components in the compat layer, which a plain ported class
+    /// cannot derive from, so it lands on LegacyWebControl and the override needs
+    /// something to bind to.
+    ///
+    /// Raised by <see cref="RaisePostBackEvent"/>, which is how WebForms reached it.
+    /// </summary>
+    protected virtual void OnClick(EventArgs e) => Click?.Invoke(this, e);
+
+    /// <summary>Button-style click event, for code that subscribes rather than overrides.</summary>
+    public event EventHandler Click;
 
     protected virtual void CreateChildControls()
     {

@@ -463,6 +463,9 @@ public static class CodeBehindRewriter
                     .Select(modifier => modifier.RawKind == (int)SyntaxKind.OverrideKeyword && !sealedClass
                         ? SyntaxFactory.Token(SyntaxKind.VirtualKeyword).WithTriviaFrom(modifier)
                         : modifier)
+                    // "sealed override" seals the override; with no override left it is
+                    // CS0238 ("cannot be sealed because it is not an override").
+                    .Where(modifier => modifier.RawKind != (int)SyntaxKind.SealedKeyword)
                     .Where(modifier => !(sealedClass && modifier.RawKind == (int)SyntaxKind.OverrideKeyword)));
 
                 edits[member] = member switch

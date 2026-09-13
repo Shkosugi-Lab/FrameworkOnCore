@@ -223,9 +223,17 @@ public abstract class LegacyWebControl : IWebFormsControl, IDisposable
 
     public string ResolveClientUrl(string relativeUrl) => UrlMapper.ResolveUrl(relativeUrl);
 
-    /// <summary>WebForms Control.FindControl equivalent (searches the Controls collection).</summary>
-    public virtual Control FindControl(string id)
-        => Controls.FirstOrDefault(child => string.Equals(child.ID, id, StringComparison.Ordinal)) as Control;
+    /// <summary>
+    /// WebForms Control.FindControl equivalent (searches the Controls collection).
+    ///
+    /// IWebFormsControl, like every other FindControl here. It used to return Control, and
+    /// a ported override - whose "Control" return type the converter rewrites to the
+    /// interface, because a child can be either a component or a plain control - could not
+    /// match it (CS0508). Returning the interface also stops the search silently dropping
+    /// a child that is a Blazor component rather than a Control.
+    /// </summary>
+    public virtual IWebFormsControl FindControl(string id)
+        => Controls.FirstOrDefault(child => string.Equals(child.ID, id, StringComparison.Ordinal));
 
     // ---------------------------------------------------------------------------------
     // Postback and view-state extension points.

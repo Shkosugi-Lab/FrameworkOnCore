@@ -1123,6 +1123,47 @@ public class HtmlContainerControl : LegacyWebControl
 }
 
 /// <summary>
+/// System.Web.UI.HtmlControls.HtmlTitle equivalent. A designer file declares one for
+/// &lt;title runat="server"&gt; and the code-behind assigns Text; the markup side emits
+/// PageTitle, so the value is carried and nothing is rendered from here.
+/// </summary>
+public class HtmlTitle : HtmlContainerControl
+{
+    public HtmlTitle() => TagName = "title";
+
+    public string Text { get; set; } = string.Empty;
+}
+
+/// <summary>
+/// System.Web.UI.WebControls.SqlDataSource equivalent (declaration surface).
+///
+/// Declared, not implemented: a control that issues its own SQL from markup has no
+/// counterpart here, and the properties exist so the designer field and the code-behind
+/// that assigns them still compile. Selecting returns nothing rather than something
+/// plausible-but-wrong, and the residual report names the control.
+/// </summary>
+public class SqlDataSource : LegacyWebControl
+{
+    public string ConnectionString { get; set; }
+    public string ProviderName { get; set; }
+    public string SelectCommand { get; set; }
+    public string InsertCommand { get; set; }
+    public string UpdateCommand { get; set; }
+    public string DeleteCommand { get; set; }
+    public string DataSourceMode { get; set; } = "DataSet";
+    public List<Parameter> SelectParameters { get; } = [];
+    public List<Parameter> InsertParameters { get; } = [];
+    public List<Parameter> UpdateParameters { get; } = [];
+    public List<Parameter> DeleteParameters { get; } = [];
+
+    public IEnumerable<object> Select() => [];
+
+    protected override void Render(HtmlTextWriter writer)
+    {
+    }
+}
+
+/// <summary>
 /// System.Web.UI.HtmlControls.HtmlHead equivalent. Code-behind reaches Page.Header to add
 /// a stylesheet or set the title; Blazor does that with HeadContent, so the values are
 /// carried and the markup side emits HeadContent instead.

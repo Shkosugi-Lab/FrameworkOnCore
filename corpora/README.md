@@ -1841,3 +1841,26 @@ CS7069: 型 'Control' への参照では 'System.Web' で定義されている�
 
 前回入れた「**構文エラーがあるため件数は下限です**」の警告が無ければ、
 **大幅な改善だと思い込んで commit していました。**
+
+## 互換層の欠けと、プロジェクト設定(80 → 69)
+
+| | |
+|---|---:|
+| `GridViewSelectEventArgs` / `GridViewDeletedEventArgs` / `GridViewUpdatedEventArgs` | n2 −3 |
+| `HtmlTitle` / `SqlDataSource` | n2 −2 |
+| `LegacyWebControl.FindControl` の戻り値 | dnn −2 |
+| `GenerateAssemblyInfo` | dnn −3 |
+| `sealed override` から override を外したときの `sealed`(**自分のバグ**) | dnn −1 |
+
+`FindControl` は `ITemplate` と同型です。互換層の他の `FindControl` は全部
+`IWebFormsControl` を返すのに、`LegacyWebControl` だけが `Control` を返していました。
+移植側の override は `IWebFormsControl` に書き換わるので一致しません(CS0508)。
+**インターフェースを返すことで、子が Blazor コンポーネントのときに
+黙って取りこぼす問題も同時に消えます。**
+
+`GenerateAssemblyInfo` は、移植コードがアセンブリ属性を宣言していると SDK 生成分と
+重複するためです(CS0579)。検出は 1 回外しました — DNN が同梱する log4net は
+`[assembly: System.Reflection.AssemblyCompany(...)]` と**名前空間を書き出して**います。
+
+`sealed override` は自分で入れたバグです。override を外すと `sealed` だけが残り、
+CS0238(「override ではないため sealed にできません」)になります。

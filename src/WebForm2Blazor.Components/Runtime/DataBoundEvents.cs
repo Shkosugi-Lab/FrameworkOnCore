@@ -252,6 +252,48 @@ public sealed class GridViewEditEventArgs(int newEditIndex) : EventArgs
 public delegate void GridViewEditEventHandler(object sender, GridViewEditEventArgs e);
 
 /// <summary>
+/// WebForms GridViewSelectEventArgs equivalent (SelectedIndexChanging).
+///
+/// The "-ing" events carry Cancel; the "-ed" ones below carry the outcome instead. Both
+/// halves of each pair have to exist, or a handler signature in the ported code has
+/// nothing to name - n2's GridViewTest handles RowDeleted, RowUpdated and
+/// SelectedIndexChanging and named three types that were not here.
+/// </summary>
+public sealed class GridViewSelectEventArgs(int newSelectedIndex) : EventArgs
+{
+    public int NewSelectedIndex { get; set; } = newSelectedIndex;
+    public bool Cancel { get; set; }
+}
+
+public delegate void GridViewSelectEventHandler(object sender, GridViewSelectEventArgs e);
+
+/// <summary>WebForms GridViewDeletedEventArgs equivalent (RowDeleted).</summary>
+public sealed class GridViewDeletedEventArgs(int affectedRows, Exception exception) : EventArgs
+{
+    public int AffectedRows { get; } = affectedRows;
+    public Exception Exception { get; } = exception;
+    public bool ExceptionHandled { get; set; }
+    public IOrderedDictionary Keys { get; } = new OrderedDictionary();
+    public IOrderedDictionary Values { get; } = new OrderedDictionary();
+}
+
+public delegate void GridViewDeletedEventHandler(object sender, GridViewDeletedEventArgs e);
+
+/// <summary>WebForms GridViewUpdatedEventArgs equivalent (RowUpdated).</summary>
+public sealed class GridViewUpdatedEventArgs(int affectedRows, Exception exception) : EventArgs
+{
+    public int AffectedRows { get; } = affectedRows;
+    public Exception Exception { get; } = exception;
+    public bool ExceptionHandled { get; set; }
+    public bool KeepInEditMode { get; set; }
+    public IOrderedDictionary Keys { get; } = new OrderedDictionary();
+    public IOrderedDictionary NewValues { get; } = new OrderedDictionary();
+    public IOrderedDictionary OldValues { get; } = new OrderedDictionary();
+}
+
+public delegate void GridViewUpdatedEventHandler(object sender, GridViewUpdatedEventArgs e);
+
+/// <summary>
 /// WebForms GridViewUpdateEventArgs equivalent (RowUpdating).
 ///
 /// NewValues / OldValues stay empty: WebForms filled them by extracting values out of the

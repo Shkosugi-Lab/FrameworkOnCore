@@ -598,6 +598,7 @@ do
 
 var fullyExcludedNamespaces = ComputeFullyExcludedNamespaces();
 var unsafeCodePorted = false;
+var assemblyAttributesPorted = false;
 
 var portedSources = Enumerable.Range(0, candidateNamespaces.Count)
     .Where(index => !excludedCandidates.Contains(index))
@@ -793,6 +794,11 @@ for (var i = 0; i < candidateNamespaces.Count; i++)
     CollectQualifiedPackageNamespaces(candidateSource, portedNamespaces);
     unsafeCodePorted |= System.Text.RegularExpressions.Regex.IsMatch(
         candidateSource, @"(?<![\w.])unsafe(?![\w])");
+    // The namespace may be written out in full - log4net, which DNN vendors, says
+    // [assembly: System.Reflection.AssemblyCompany(...)] - so the prefix is optional.
+    assemblyAttributesPorted |= System.Text.RegularExpressions.Regex.IsMatch(
+        candidateSource,
+        @"\[\s*assembly\s*:\s*(System\.Reflection\.)?Assembly(Version|FileVersion|Company|Product|Title|Configuration|Trademark|Culture|InformationalVersion)\s*\(");
     var destination = Path.Combine(output, candidate.OutputRelative.Replace('/', Path.DirectorySeparatorChar));
     Directory.CreateDirectory(Path.GetDirectoryName(destination)!);
     // A file kept despite importing an emptied namespace still has the import, and the
@@ -950,6 +956,22 @@ if (unsafeCodePorted)
         "<Nullable>disable</Nullable>" + Environment.NewLine
         + "    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>"));
     report.Info("(project)", "移植コードに unsafe があるため AllowUnsafeBlocks を有効にしました。");
+}
+
+// The SDK writes AssemblyVersion / AssemblyCompany / AssemblyFileVersion into a generated
+// AssemblyInfo.cs. A ported file that declares them too is CS0579 ("duplicate attribute"),
+// and the application's own values are the ones to keep - DNN carries a shared assembly
+// info file that every project of the solution included.
+if (assemblyAttributesPorted)
+{
+    var csprojPath = Path.Combine(output, appName + ".csproj");
+    File.WriteAllText(csprojPath, File.ReadAllText(csprojPath).Replace(
+        "<Nullable>disable</Nullable>",
+        "<Nullable>disable</Nullable>" + Environment.NewLine
+        + "    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>"));
+    report.Info("(project)",
+        "移植コードがアセンブリ属性を宣言しているため GenerateAssemblyInfo を無効にしました"
+        + "(SDK 生成分と重複するため)。");
 }
 
 // NuGet references: what the original projects declared (csproj PackageReference /

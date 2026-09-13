@@ -1,0 +1,49 @@
+@namespace WebForm2Blazor.Components
+@inherits WebFormsControlBase
+
+@* WebForms WizardStep equivalent: one page of a Wizard. Renders its children only while
+   it is the active step, and no wrapper of its own.
+
+   CreateUserWizardStep and CompleteWizardStep are the same control with a different
+   StepType - the account-creation behaviour behind them belonged to the membership
+   provider, which is ASP.NET Core Identity's job in the converted application, so what is
+   reproduced here is the step structure and not the account creation. *@
+@if (Visible && IsActive)
+{
+    @(ContentTemplate ?? ChildContent)
+}
+
+@code {
+    private int _index;
+
+    [Parameter] public RenderFragment ChildContent { get; set; }
+
+    /// <summary>The account-wizard steps wrap their body in &lt;ContentTemplate&gt;.</summary>
+    [Parameter] public RenderFragment ContentTemplate { get; set; }
+
+    /// <summary>Shown in the wizard's sidebar.</summary>
+    [Parameter] public string Title { get; set; } = string.Empty;
+
+    /// <summary>WebForms StepType: Auto / Start / Step / Finish / Complete.</summary>
+    [Parameter] public string StepType { get; set; } = "Auto";
+
+    /// <summary>WebForms AllowReturn: false hides the Previous button on this step.</summary>
+    [Parameter] public bool AllowReturn { get; set; } = true;
+
+    [CascadingParameter] internal Wizard OwnerWizard { get; set; }
+
+    /// <summary>
+    /// A step outside a Wizard renders normally: ported markup does declare one on its
+    /// own, and hiding it would lose content the original showed.
+    /// </summary>
+    private bool IsActive => OwnerWizard is null || OwnerWizard.IsActive(_index);
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        _index = OwnerWizard?.RegisterStep(this) ?? 0;
+    }
+
+    /// <summary>Called by the owning Wizard when the active step changes.</summary>
+    internal void RefreshVisibility() => StateHasChanged();
+}

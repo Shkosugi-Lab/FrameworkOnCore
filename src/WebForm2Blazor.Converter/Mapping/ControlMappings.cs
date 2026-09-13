@@ -300,6 +300,46 @@ public static class ControlMappings
             Component = "PlaceHolder",
             Attributes = Map("ID", "Visible"),
         },
+        // The Wizard family, the largest group of unimplemented standard controls (17
+        // across the corpora). CreateUserWizard is a Wizard whose steps happened to create
+        // an account - the account creation belonged to the membership provider, which is
+        // Identity's job in the converted app, so what is reproduced is the step structure.
+        ["Wizard"] = new()
+        {
+            Component = "Wizard",
+            Attributes = Map(
+                "ID", "Visible", "ActiveStepIndex", "DisplaySideBar",
+                "FinishCompleteButtonText", "StartNextButtonText",
+                "StepNextButtonText", "StepPreviousButtonText",
+                // The navigation handlers. Dropping these leaves a wizard that moves
+                // between steps while the page never learns that it did - YAF's installer
+                // does all of its work in them.
+                "OnActiveStepChanged", "OnNextButtonClick",
+                "OnPreviousButtonClick", "OnFinishButtonClick"),
+        },
+        // CreateUserWizard / CreateUserWizardStep / CompleteWizardStep are NOT mapped onto
+        // these. MEASURED: it costs 11 build errors in BlogEngine alone. The account
+        // wizard is not a Wizard with different steps - its code-behind uses an API of its
+        // own (CreateUserStep, ContinueDestinationPageUrl, UserName, Password), and its
+        // markup nests named templates a plain WizardStep does not accept. Making it work
+        // means a component of its own, not an alias for this one.
+        ["WizardStep"] = new()
+        {
+            Component = "WizardStep",
+            Attributes = Map("ID", "Visible", "Title", "StepType", "AllowReturn"),
+        },
+        // MultiView / View: "show one child of several". Without them the whole switched
+        // region rendered as an unconverted-control comment - every pane of it gone.
+        ["MultiView"] = new()
+        {
+            Component = "MultiView",
+            Attributes = Map("ID", "Visible", "ActiveViewIndex"),
+        },
+        ["View"] = new()
+        {
+            Component = "View",
+            Attributes = Map("ID", "Visible"),
+        },
         ["Repeater"] = new()
         {
             Component = "Repeater",

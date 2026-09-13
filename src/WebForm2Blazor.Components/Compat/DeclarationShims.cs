@@ -879,12 +879,6 @@ public class ContentPlaceHolder : LegacyWebControl
     protected override string TagName => "div";
 }
 
-/// <summary>System.Web.UI.WebControls.View equivalent (a MultiView pane).</summary>
-public class View : LegacyWebControl
-{
-    protected override string TagName => "div";
-}
-
 // ---------------------------------------------------------------------------------------
 // Membership controls, HTML controls and the remaining data-source plumbing.
 //
@@ -948,21 +942,6 @@ public class WizardStepBase : LegacyWebControl
     public bool AllowReturn { get; set; } = true;
 
     protected override string TagName => "div";
-}
-
-/// <summary>System.Web.UI.WebControls.WizardStep equivalent.</summary>
-public class WizardStep : WizardStepBase
-{
-}
-
-/// <summary>System.Web.UI.WebControls.CreateUserWizardStep equivalent.</summary>
-public class CreateUserWizardStep : WizardStepBase
-{
-}
-
-/// <summary>System.Web.UI.WebControls.CompleteWizardStep equivalent.</summary>
-public class CompleteWizardStep : WizardStepBase
-{
 }
 
 /// <summary>
@@ -1187,29 +1166,6 @@ public class HtmlHead : HtmlContainerControl
     public HtmlHead() => TagName = "head";
 }
 
-/// <summary>System.Web.UI.WebControls.MultiView equivalent (state only).</summary>
-public class MultiView : LegacyWebControl
-{
-    public int ActiveViewIndex { get; set; } = -1;
-
-    public ControlCollection Views => Controls;
-
-    public event EventHandler ActiveViewChanged;
-
-    public View GetActiveView()
-        => ActiveViewIndex >= 0 && ActiveViewIndex < Controls.Count
-            ? Controls[ActiveViewIndex] as View
-            : null;
-
-    public void SetActiveView(View view)
-    {
-        ActiveViewIndex = Controls.IndexOf(view);
-        ActiveViewChanged?.Invoke(this, EventArgs.Empty);
-    }
-
-    protected override string TagName => "div";
-}
-
 /// <summary>System.Web.UI.ITextControl equivalent.</summary>
 public interface ITextControl
 {
@@ -1273,4 +1229,14 @@ public class ProfileInfo(string userName)
 public class ProfileInfoCollection : System.Collections.ObjectModel.KeyedCollection<string, ProfileInfo>
 {
     protected override string GetKeyForItem(ProfileInfo item) => item?.UserName ?? string.Empty;
+}
+
+/// <summary>System.Web.UI.WebControls.CompleteWizardStep equivalent (declaration only).</summary>
+public class CompleteWizardStep : WizardStepBase
+{
+}
+
+/// <summary>System.Web.UI.WebControls.CreateUserWizardStep equivalent (declaration only).</summary>
+public class CreateUserWizardStep : WizardStepBase
+{
 }

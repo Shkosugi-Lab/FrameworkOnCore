@@ -357,44 +357,6 @@ public class HtmlInputImage : LegacyWebControl
 }
 
 /// <summary>
-/// System.Web.UI.WebControls.Wizard equivalent (declaration surface). A multi-step wizard is
-/// a control with its own view state and step navigation; converting one is manual work, so
-/// this exists to keep the surrounding file compiling.
-/// </summary>
-public class Wizard : LegacyWebControl
-{
-    public int ActiveStepIndex { get; set; }
-
-    public string FinishCompleteButtonText { get; set; }
-
-    public string StartNextButtonText { get; set; }
-
-    public string StepNextButtonText { get; set; }
-
-    public string StepPreviousButtonText { get; set; }
-
-    public bool DisplaySideBar { get; set; } = true;
-
-    public event EventHandler ActiveStepChanged;
-
-    public event EventHandler FinishButtonClick;
-
-    public event EventHandler NextButtonClick;
-
-    public event EventHandler PreviousButtonClick;
-
-    protected virtual void OnActiveStepChanged(object source, EventArgs e)
-        => ActiveStepChanged?.Invoke(source, e);
-
-    private void Unused()
-    {
-        _ = FinishButtonClick;
-        _ = NextButtonClick;
-        _ = PreviousButtonClick;
-    }
-}
-
-/// <summary>
 /// System.Web.UI.WebControls.Login equivalent (declaration surface). Authentication is
 /// ASP.NET Core's in the converted app, so this carries the declaration only.
 /// </summary>

@@ -1946,3 +1946,40 @@ CommentList.OnAfterRender の override を外しました。ICallbackEventHandle
 変換器のマッピング表にも足しました。
 
 **n2 の変換可能 25 → 11、総残差 207 → 193。** パリティ 30/30、回帰 13/13。
+
+## 未実装の標準コントロール:`MultiView` / `View` / `Wizard` / `WizardStep`
+
+「実装待ち」129 件のうち、**標準コントロールの互換コンポーネント未実装が 34 件**でした。
+これらは丸ごとスタブ(HTML コメント)になるので、**そのコントロールが持っていた UI が
+ページから消えます。**
+
+最大は Wizard 系 17、次いで `MultiView` / `View` 3。どちらも
+「複数の子のうち 1 つを表示する」同じ形なので、まとめて実装しました。
+
+非アクティブな子も**ツリーには残し、マークアップだけ出さない**ようにしています。
+WebForms では表示されていないステップのコントロールも存在していたので、
+`@ref` はそのまま割り当たります。
+
+### `CreateUserWizard` は `Wizard` の別名ではありません — 測って外しました
+
+`CreateUserWizard` / `CreateUserWizardStep` / `CompleteWizardStep` も `Wizard` /
+`WizardStep` に寄せてみましたが、**BlogEngine だけでビルドエラーが 11 件**出ました。
+
+```
+'Wizard' に 'CreateUserStep' の定義が含まれていません
+'Wizard' に 'ContinueDestinationPageUrl' の定義が含まれていません
+RZ9996: Unrecognized child content inside component 'WizardStep'
+```
+
+アカウント作成ウィザードは**独自の API**(`CreateUserStep`、`UserName`、`Password`)を持ち、
+マークアップも `WizardStep` が受け取れない名前付きテンプレートを入れ子にします。
+**別のコンポーネントが要るのであって、別名では済みません。** 外しました。
+
+### イベント属性を落としていた
+
+最初の実装では `OnFinishButtonClick="Wizard_FinishButtonClick"` などが
+「マッピング未定義」で除去されていました。**ステップは進むのにページが気づかない**
+ウィザードになります(YAF のインストーラは処理を全部ハンドラでやっています)。
+マッピングに足し、`[Parameter]` と `event` の両方から同じデリゲートに届くようにしました。
+
+**総残差 691 → 679。** ビルドエラー不変、パリティ 30/30、回帰 13/13。

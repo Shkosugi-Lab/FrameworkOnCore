@@ -1,0 +1,183 @@
+@namespace WebForm2Blazor.Components
+@inherits WebFormsControlBase
+
+@* WebForms Wizard equivalent: shows one step at a time with the navigation WebForms
+   generated, and raises the same events.
+
+   The sidebar and the button bar are rendered here rather than in the step, because that
+   is where WebForms put them. The markup is not identical to WebForms' table layout -
+   nothing here reproduces the control's rendered <table> - but the structure is: a step
+   heading list, the active step's content, and the buttons that apply to it.
+
+   Every step stays in the tree and only the inactive ones render nothing, so an @ref
+   field naming a control on a later step is still assigned - as in WebForms, where the
+   control existed whether or not its step was showing. *@
+@if (Visible)
+{
+    <div @attributes="ExtraAttributes" style="@ComputedStyle" id="@ClientID" class="@CssClass">
+        @if (DisplaySideBar && _steps.Count > 0)
+        {
+            <ul class="wizard-sidebar">
+                @for (var index = 0; index < _steps.Count; index++)
+                {
+                    <li class="@(index == ActiveStepIndex ? "wizard-step-active" : null)">@_steps[index].Title</li>
+                }
+            </ul>
+        }
+
+        <CascadingValue Value="this" IsFixed="true">@ChildContent</CascadingValue>
+
+        <div class="wizard-navigation">
+            @if (ActiveStepIndex > 0 && ActiveStep?.AllowReturn != false)
+            {
+                <button type="button" @onclick="PreviousStep">@(StepPreviousButtonText ?? "Previous")</button>
+            }
+            @if (IsFinishStep)
+            {
+                <button type="button" @onclick="Finish">@(FinishCompleteButtonText ?? "Finish")</button>
+            }
+            else if (_steps.Count > 1 && ActiveStepIndex < _steps.Count - 1)
+            {
+                <button type="button" @onclick="NextStep">
+                    @(ActiveStepIndex == 0 ? (StartNextButtonText ?? "Next") : (StepNextButtonText ?? "Next"))
+                </button>
+            }
+        </div>
+    </div>
+}
+
+@code {
+    private readonly List<WizardStep> _steps = new();
+    private int _activeStepIndex;
+    private bool _stepsChanged;
+
+    [Parameter] public RenderFragment ChildContent { get; set; }
+
+    /// <summary>WebForms ActiveStepIndex. Assigning it moves the wizard and raises ActiveStepChanged.</summary>
+    [Parameter]
+    public int ActiveStepIndex
+    {
+        get => _activeStepIndex;
+        set
+        {
+            if (_activeStepIndex != value)
+            {
+                SetAndRefresh(ref _activeStepIndex, value);
+                NotifySteps();
+                RaiseActiveStepChanged(this, EventArgs.Empty);
+            }
+        }
+    }
+
+    [Parameter] public bool DisplaySideBar { get; set; } = true;
+    [Parameter] public string FinishCompleteButtonText { get; set; }
+    [Parameter] public string StartNextButtonText { get; set; }
+    [Parameter] public string StepNextButtonText { get; set; }
+    [Parameter] public string StepPreviousButtonText { get; set; }
+
+    public IReadOnlyList<WizardStep> WizardSteps => _steps;
+
+    public WizardStep ActiveStep
+        => _activeStepIndex >= 0 && _activeStepIndex < _steps.Count ? _steps[_activeStepIndex] : null;
+
+    /// <summary>
+    /// The last step, or one explicitly marked Finish / Complete. WebForms decided the
+    /// button bar from StepType, and "Auto" meant "Finish if it is last".
+    /// </summary>
+    private bool IsFinishStep
+        => ActiveStep is { } step
+           && (step.StepType is "Finish" or "Complete" || _activeStepIndex == _steps.Count - 1);
+
+    // The markup names its handlers (OnFinishButtonClick="Wizard_FinishButtonClick"), so
+    // the converter binds them as parameters; code-behind that subscribes instead uses the
+    // event of the same name. Both reach the same delegate.
+    [Parameter] public EventHandler OnActiveStepChanged { get; set; }
+    [Parameter] public EventHandler<WizardNavigationEventArgs> OnNextButtonClick { get; set; }
+    [Parameter] public EventHandler<WizardNavigationEventArgs> OnPreviousButtonClick { get; set; }
+    [Parameter] public EventHandler<WizardNavigationEventArgs> OnFinishButtonClick { get; set; }
+
+    public event EventHandler ActiveStepChanged
+    {
+        add => OnActiveStepChanged += value;
+        remove => OnActiveStepChanged -= value;
+    }
+
+    public event EventHandler<WizardNavigationEventArgs> NextButtonClick
+    {
+        add => OnNextButtonClick += value;
+        remove => OnNextButtonClick -= value;
+    }
+
+    public event EventHandler<WizardNavigationEventArgs> PreviousButtonClick
+    {
+        add => OnPreviousButtonClick += value;
+        remove => OnPreviousButtonClick -= value;
+    }
+
+    public event EventHandler<WizardNavigationEventArgs> FinishButtonClick
+    {
+        add => OnFinishButtonClick += value;
+        remove => OnFinishButtonClick -= value;
+    }
+
+    protected virtual void RaiseActiveStepChanged(object source, EventArgs e)
+        => OnActiveStepChanged?.Invoke(source, e);
+
+    /// <summary>Called by WizardStep on initialization; returns the step's index.</summary>
+    internal int RegisterStep(WizardStep step)
+    {
+        _steps.Add(step);
+        _stepsChanged = true;
+        return _steps.Count - 1;
+    }
+
+    internal bool IsActive(int index) => index == _activeStepIndex;
+
+    private void NextStep() => Move(ActiveStepIndex + 1, OnNextButtonClick);
+
+    private void PreviousStep() => Move(ActiveStepIndex - 1, OnPreviousButtonClick);
+
+    private void Finish()
+    {
+        var args = new WizardNavigationEventArgs(ActiveStepIndex, ActiveStepIndex);
+        OnFinishButtonClick?.Invoke(this, args);
+        Host?.HostCore.NotifyPostBackEvent();
+    }
+
+    /// <summary>
+    /// Raises the navigation event BEFORE moving, and honours Cancel - that is the order
+    /// WebForms used, and a handler that validates the step depends on it.
+    /// </summary>
+    private void Move(int nextIndex, EventHandler<WizardNavigationEventArgs> raising)
+    {
+        var args = new WizardNavigationEventArgs(ActiveStepIndex, nextIndex);
+        raising?.Invoke(this, args);
+        if (!args.Cancel)
+        {
+            ActiveStepIndex = args.NextStepIndex;
+        }
+        Host?.HostCore.NotifyPostBackEvent();
+    }
+
+    /// <summary>
+    /// Steps freeze their parameters once touched (WebFormsControlBase), so a parent
+    /// re-render does not reach them; visibility changes are pushed explicitly.
+    /// </summary>
+    private void NotifySteps()
+    {
+        foreach (var step in _steps)
+        {
+            step.RefreshVisibility();
+        }
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        // The sidebar and the button bar can only be built once the steps have registered.
+        if (_stepsChanged)
+        {
+            _stepsChanged = false;
+            StateHasChanged();
+        }
+    }
+}

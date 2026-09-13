@@ -918,6 +918,17 @@ public class PagePropertiesChangingEventArgs : EventArgs
 /// <summary>System.Web.UI.WebControls.WizardNavigationEventArgs equivalent.</summary>
 public class WizardNavigationEventArgs : EventArgs
 {
+    public WizardNavigationEventArgs()
+    {
+    }
+
+    /// <summary>The form the Wizard control raises it with.</summary>
+    public WizardNavigationEventArgs(int currentStepIndex, int nextStepIndex)
+    {
+        CurrentStepIndex = currentStepIndex;
+        NextStepIndex = nextStepIndex;
+    }
+
     public int CurrentStepIndex { get; set; }
 
     public int NextStepIndex { get; set; }

@@ -1686,3 +1686,23 @@ Framework の参照アセンブリが要ります(環境に無いこともあり
 |---|---|
 | `OrderedDictionary<,>` 2 件 | `J2N` と、**.NET 9 で追加された** `System.Collections.Generic` の衝突。ジェネリックなのでエイリアスで解決できず、使用箇所を修飾するしかありません。どちらが正しいかは「元がコンパイルできた」からは導けますが、`J2N` がその型を持つことを変換器は確認できません(パッケージは復元前です) |
 | `DbProviderFactory.CreatePermission` 1 件 | **.NET が削除した API**(CAS ごと)。元は net481 向けにコンパイルしていました。真の残差です |
+
+## 互換層のインターフェースが、変換器の書き換え後の型と揃っていなかった(dnn −9 / mojo −2)
+
+```
+CheckBoxColumnTemplate は ITemplate.InstantiateIn(Control) を実装しません
+```
+
+移植後のコードはこうなっています。
+
+```csharp
+public void InstantiateIn(IWebFormsControl container)   // 元は Control container
+```
+
+**書き換えは正しい**です。`Control` 引数は `IWebFormsControl` になります —
+移植後のコントロールは Blazor コンポーネントか平の `LegacyWebControl` のどちらかで、
+両方をまたげるのはインターフェースだけだからです。
+
+揃っていなかったのは**互換層側**で、`ITemplate.InstantiateIn` が `Control` のままでした。
+実装側は全部書き換えを通るので、**誰一人として実装していないことになります。**
+DNN のカラムテンプレート 9 個がこれでした。

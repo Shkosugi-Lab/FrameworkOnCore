@@ -729,7 +729,12 @@ public abstract class RoleProvider
 /// <summary>System.Web.UI.ITemplate equivalent (never instantiated by the runtime here).</summary>
 public interface ITemplate
 {
-    void InstantiateIn(Control container);
+    // IWebFormsControl, not Control: the converter rewrites a "Control" PARAMETER to
+    // IWebFormsControl, because a ported control can be either a Blazor component or a
+    // plain LegacyWebControl and only the interface spans both. An implementer of this
+    // interface goes through the same rewrite, so declaring Control here would leave
+    // every one of them not implementing it - nine of DNN's column templates did.
+    void InstantiateIn(IWebFormsControl container);
 }
 
 /// <summary>System.Web.HttpApplication equivalent (declaration surface for helpers).</summary>

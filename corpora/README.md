@@ -1923,3 +1923,26 @@ CommentList.OnAfterRender の override を外しました。ICallbackEventHandle
 |---|---:|
 | `System.Net.Http.Formatting`(Web API)を移植対象外へ | dnn −5 |
 | コードビハインドの override 判定 | dnn −1 / mojo −1 |
+
+## 挙動の穴のほうを見る:`Repeater` の `DataSourceID`(変換可能 62 → 48)
+
+ビルドエラーの残りが長い尾になったので、**「変換可能」残差**を見ました。
+これは「変換器が対応すべきなのにしていない」もので、**ビルドは通るが元と違う動きをする**
+ものが入ります。
+
+落ちている属性 36 件を集計すると、最大は `DataSourceID` **13 件で全部が
+`asp:Repeater`** でした。
+
+```
+<asp:Repeater> の属性 DataSourceID="idsNews" はマッピング未定義のため除去しました
+```
+
+**`DataSourceID` だけでバインドする Repeater は、WebForms で最も普通の書き方**です
+(コードビハインドに `DataBind()` の呼び出しはありません)。属性を落とすと、
+そのコントロールは**何も描画しません。**「機能が足りない」ではなく、
+**黙って空になる**種類の違いです。
+
+`GridView` と `ListView` には既に実装されていました。同じものを `Repeater` に入れ、
+変換器のマッピング表にも足しました。
+
+**n2 の変換可能 25 → 11、総残差 207 → 193。** パリティ 30/30、回帰 13/13。

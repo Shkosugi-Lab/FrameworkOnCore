@@ -303,7 +303,11 @@ public static class ControlMappings
         ["Repeater"] = new()
         {
             Component = "Repeater",
-            Attributes = Map("ID", "Visible", "OnItemCommand", "OnItemDataBound"),
+            // DataSourceID is how WebForms bound most Repeaters - no code-behind call, just
+            // the attribute. Dropping it rendered thirteen of them across the corpora as
+            // nothing at all, which is a silent behaviour change, not a missing feature.
+            Attributes = Map(
+                "ID", "Visible", "OnItemCommand", "OnItemDataBound", "DataSourceID", "DataMember"),
         },
         ["RequiredFieldValidator"] = new()
         {

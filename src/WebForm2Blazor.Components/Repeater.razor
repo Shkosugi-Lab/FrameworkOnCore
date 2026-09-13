@@ -73,6 +73,20 @@
     /// <summary>WebForms DataSource equivalent. Applied by DataBind().</summary>
     public object DataSource { get; set; }
 
+    /// <summary>
+    /// WebForms declarative binding, as GridView and ListView already had.
+    /// A Repeater with DataSourceID and no code-behind DataBind() call is how WebForms
+    /// bound most lists, and dropping the attribute left the control rendering nothing at
+    /// all - thirteen of them across the corpora, silently empty.
+    /// </summary>
+    [Parameter] public string DataSourceID { get; set; }
+
+    /// <summary>
+    /// WebForms DataMember equivalent: which table of a DataSet to bind. Accepted and
+    /// unused - the compat data sources return one result set.
+    /// </summary>
+    [Parameter] public string DataMember { get; set; }
+
     public IReadOnlyList<object> Items => _containers.Select(container => container.DataItem).ToList();
 
     internal void RaiseItemCommand(object commandSource, RepeaterItem item, CommandEventArgs args)
@@ -111,6 +125,15 @@
 
     protected override void OnAfterRender(bool firstRender)
     {
+        // Declarative binding, the same shape ListView uses: the data source control is a
+        // sibling in the page, so it can only be found once the tree has rendered once.
+        if (firstRender && DataSource is null && !string.IsNullOrEmpty(DataSourceID)
+            && Host?.HostCore.FindControl(DataSourceID) is ObjectDataSource dataSourceControl)
+        {
+            DataSource = dataSourceControl.Select();
+            DataBind();
+        }
+
         // The row controls have initialized by now; fire ItemDataBound once per DataBind
         if (_pendingItemDataBound)
         {

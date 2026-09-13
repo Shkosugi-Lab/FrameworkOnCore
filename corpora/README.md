@@ -1492,3 +1492,35 @@ n2 が +1 になり、`CS0653: 抽象であるため属性クラス 'Displayable
 | 合計 | 216 → **206** |
 
 パリティ 30/30、bUnit 30/30、回帰スナップショット be 5/5・wt 8/8。
+
+## `global using` が統合後に全ファイルへ漏れていた(yaf 40 → 13)
+
+CS0104(あいまいな参照)36 件。1 件見て原因を確かめました。
+
+```
+Lucene.Net/Codecs/Compressing/CompressingStoredFieldsWriter.cs(72,26): error CS0104:
+'Directory' は 'yaf...Lucene.Net.Store.Directory' と 'System.IO.Directory' 間の
+あいまいな参照です
+```
+
+**元ファイルは `using System.IO;` を持っていません。** using 行は変換前後で
+(名前空間の付け替えを除き)同一です。ではどこから来たのか。
+
+```
+corpora/out/yaf/YAF.Web/GlobalUsings.cs:7:  global using System.IO;
+```
+
+`global using` は**コンパイル単位全体**に効きます。元のソリューションでは
+YAF.Web は独立したアセンブリなので、この行は YAF.Web にしか届きませんでした。
+変換後は全部が 1 プロジェクトに統合されるので、**同梱の Lucene.Net にまで届きます。**
+yaf の CS0104 はこれが全部でした。**元のアプリには 1 件も無かったエラーです。**
+
+ライブラリ(`--include`)の `global using` は、そのライブラリのファイル内の
+ファイルスコープ using に戻すようにしました。**ファイルが見る import は、
+元のコンパイルでそのファイルが見ていた import と一致していなければなりません。**
+
+Web プロジェクト自身の `global using` はそのままにしてあります。そちらのファイルは
+ページで、生成される `.razor` / `.razor.cs` は別経路で書き出されるため、
+閉じ込めると逆に失われます。
+
+**yaf 40 → 13。合計 206 → 179。** 他 5 本は不変、パリティ 30/30、回帰 13/13。

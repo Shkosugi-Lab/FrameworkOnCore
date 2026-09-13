@@ -659,6 +659,57 @@ foreach (var component in components)
     }
 }
 
+// A "global using" covers the whole COMPILATION. The original solution compiled each
+// library as its own assembly, so YAF.Web's "global using System.IO;" reached YAF.Web and
+// nothing else; here everything is merged into one project and it reaches the vendored
+// Lucene.Net sources too, where "Directory" then means both System.IO.Directory and
+// Lucene's own. That is the whole of YAF.NET's CS0104 count and the original had none of
+// it - the imports a file sees have to be the imports it had.
+//
+// So a library's global usings are turned back into file-level usings on that library's
+// own files. The web project's stay global: its files are the pages, whose generated
+// .razor / .razor.cs halves are written elsewhere and would otherwise lose them.
+var libraryGlobalUsings = new Dictionary<string, List<string>>(StringComparer.Ordinal);
+
+static string OwningProjectOf(string outputRelative, bool included)
+    => included ? outputRelative.Split('/')[0] : string.Empty;
+
+// Drops the "global" keyword from this file's own global usings and gives the file every
+// global using its library declared, so the file ends up with exactly the imports the
+// original compilation gave it - no more (the leak this fixes) and no less.
+static string UsingText(Microsoft.CodeAnalysis.CSharp.Syntax.UsingDirectiveSyntax directive)
+    => System.Text.RegularExpressions.Regex.Replace(
+        directive.WithGlobalKeyword(default).ToString(), @"\s+", " ").Trim();
+
+static string ScopeGlobalUsings(string source, IReadOnlyList<string> libraryUsings)
+{
+    var unit = CodeBehindRewriter.ParseUnit(source);
+
+    var localised = unit.Usings
+        .Select(directive => directive.GlobalKeyword.RawKind
+                             == (int)Microsoft.CodeAnalysis.CSharp.SyntaxKind.GlobalKeyword
+            ? ParseUsing(UsingText(directive))
+            : directive)
+        .ToList();
+
+    var present = new HashSet<string>(localised.Select(UsingText), StringComparer.Ordinal);
+
+    foreach (var text in libraryUsings)
+    {
+        if (present.Add(text))
+        {
+            localised.Add(ParseUsing(text));
+        }
+    }
+
+    return unit
+        .WithUsings(Microsoft.CodeAnalysis.CSharp.SyntaxFactory.List(localised))
+        .ToFullString();
+}
+
+static Microsoft.CodeAnalysis.CSharp.Syntax.UsingDirectiveSyntax ParseUsing(string text)
+    => Microsoft.CodeAnalysis.CSharp.SyntaxFactory.ParseCompilationUnit(text + "\r\n").Usings[0];
+
 for (var i = 0; i < candidateNamespaces.Count; i++)
 {
     if (excludedCandidates.Contains(i))
@@ -666,7 +717,51 @@ for (var i = 0; i < candidateNamespaces.Count; i++)
         continue;
     }
     var (candidate, _) = candidateNamespaces[i];
-    CollectUsingNamespaces(candidate.Source, portedNamespaces);
+    if (!candidate.Included)
+    {
+        continue;
+    }
+
+    var owner = OwningProjectOf(candidate.OutputRelative, candidate.Included);
+    foreach (var directive in CodeBehindRewriter.ParseUnit(candidate.Source).Usings)
+    {
+        if (directive.GlobalKeyword.RawKind
+            != (int)Microsoft.CodeAnalysis.CSharp.SyntaxKind.GlobalKeyword)
+        {
+            continue;
+        }
+
+        if (!libraryGlobalUsings.TryGetValue(owner, out var list))
+        {
+            libraryGlobalUsings[owner] = list = [];
+        }
+        var text = UsingText(directive);
+        if (!list.Contains(text, StringComparer.Ordinal))
+        {
+            list.Add(text);
+        }
+    }
+}
+
+if (libraryGlobalUsings.Count > 0)
+{
+    report.Info("(project)",
+        $"ライブラリ {libraryGlobalUsings.Count} 件の global using を、"
+        + "そのライブラリのファイル内に閉じ込めました(統合後の他プロジェクトへ漏れないようにするため)。");
+}
+
+for (var i = 0; i < candidateNamespaces.Count; i++)
+{
+    if (excludedCandidates.Contains(i))
+    {
+        continue;
+    }
+    var (candidate, _) = candidateNamespaces[i];
+    var candidateSource = libraryGlobalUsings.TryGetValue(
+            OwningProjectOf(candidate.OutputRelative, candidate.Included), out var scoped)
+        ? ScopeGlobalUsings(candidate.Source, scoped)
+        : candidate.Source;
+    CollectUsingNamespaces(candidateSource, portedNamespaces);
     var destination = Path.Combine(output, candidate.OutputRelative.Replace('/', Path.DirectorySeparatorChar));
     Directory.CreateDirectory(Path.GetDirectoryName(destination)!);
     // A file kept despite importing an emptied namespace still has the import, and the
@@ -674,7 +769,7 @@ for (var i = 0; i < candidateNamespaces.Count; i++)
     // StripDeadUsings does for @using in .razor.
     File.WriteAllText(destination,
         ApplyNamespaceMap(StripDeadCodeUsings(
-            CodeBehindRewriter.RewritePlainCodeFile(candidate.Source, candidate.ReportName, report),
+            CodeBehindRewriter.RewritePlainCodeFile(candidateSource, candidate.ReportName, report),
             fullyExcludedNamespaces, report, candidate.ReportName)));
     report.CopiedCodeFiles++;
 

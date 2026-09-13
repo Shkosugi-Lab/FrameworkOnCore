@@ -15,7 +15,7 @@
                 "convertible":  5,
                 "portedCs":  2724,
                 "residuals":  71,
-                "buildErrors":  40
+                "buildErrors":  13
             },
     "dnn":  {
                 "convertible":  10,
@@ -27,7 +27,7 @@
                "convertible":  25,
                "portedCs":  1668,
                "residuals":  201,
-               "buildErrors":  37
+               "buildErrors":  27
            },
     "wt":  {
                "convertible":  3,

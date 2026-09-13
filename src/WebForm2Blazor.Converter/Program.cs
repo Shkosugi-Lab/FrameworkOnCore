@@ -598,6 +598,13 @@ do
 
 var fullyExcludedNamespaces = ComputeFullyExcludedNamespaces();
 
+// The compat layer is one namespace where WebForms had a dozen, so importing it brings in
+// names the original import never had - see CompatImportDisambiguator.
+var compatImports = WebForm2Blazor.Converter.Convert.CompatImportDisambiguator.Build(
+    Enumerable.Range(0, candidateNamespaces.Count)
+        .Where(index => !excludedCandidates.Contains(index))
+        .Select(index => candidateNamespaces[index].candidate.Source));
+
 foreach (var component in components)
 {
     var directory = Path.Combine(output, component.OutputDirectory.Replace('/', Path.DirectorySeparatorChar));
@@ -647,7 +654,7 @@ foreach (var component in components)
             codeBehindSource, component, sourceName, report,
             controlUsings, baseRegistry);
         File.WriteAllText(Path.Combine(directory, component.ComponentName + ".razor.cs"),
-            ApplyNamespaceMap(rewritten));
+            ApplyNamespaceMap(compatImports.Apply(rewritten)));
     }
     else if (component.Fields.Count > 0)
     {
@@ -769,7 +776,8 @@ for (var i = 0; i < candidateNamespaces.Count; i++)
     // StripDeadUsings does for @using in .razor.
     File.WriteAllText(destination,
         ApplyNamespaceMap(StripDeadCodeUsings(
-            CodeBehindRewriter.RewritePlainCodeFile(candidateSource, candidate.ReportName, report),
+            compatImports.Apply(
+                CodeBehindRewriter.RewritePlainCodeFile(candidateSource, candidate.ReportName, report)),
             fullyExcludedNamespaces, report, candidate.ReportName)));
     report.CopiedCodeFiles++;
 

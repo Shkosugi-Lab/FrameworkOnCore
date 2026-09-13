@@ -1524,3 +1524,39 @@ Web プロジェクト自身の `global using` はそのままにしてありま
 閉じ込めると逆に失われます。
 
 **yaf 40 → 13。合計 206 → 179。** 他 5 本は不変、パリティ 30/30、回帰 13/13。
+
+## 互換層が WebForms の名前空間を 1 つに潰していた(n2 37 → 27)
+
+n2 の CS0104 は 10 件すべて `TreeNode` で、`N2.Edit.TreeNode` と
+`WebForm2Blazor.Components.TreeNode` の衝突でした。
+
+元ファイルの import はこうです。
+
+```csharp
+using System.Web;                      // ← 変換後は using WebForm2Blazor.Components;
+using System.Web.Script.Serialization;
+```
+
+**`System.Web` に `TreeNode` はありません。** あれは `System.Web.UI.WebControls` の型です。
+WebForms は型を 10 個以上の名前空間に分けていますが、**互換層は 1 つ**なので、
+そのうちどれを import しても全部が入ってきます。
+
+アプリ自身が同じ単純名を、そのファイルが import している名前空間で宣言しているなら、
+**アプリの型が正解です。** もし元のファイルがその名前を宣言する WebForms 名前空間も
+import していたなら、元のコードが曖昧でコンパイルできなかったはずだからです。
+その名前にファイルスコープのエイリアスを足すようにしました。
+
+`Attribute` という接尾辞のときと同じで、**接尾辞や名前の一覧ではなく、
+移植したソースが実際に何を宣言しているか**から出しています。
+
+## 深い構文木でスタックが尽きていた
+
+上を入れたあと、yaf の変換が `InsufficientExecutionStackException` で落ちるように
+なりました。しかも**再現しません** — 同じコーパスが 1 回目は通り 2 回目で落ちます。
+
+`CSharpSyntaxRewriter` は構文ノード 1 個につきスタックフレームを 1 つ使い、
+`EnsureSufficientExecutionStack` で自己申告します。既定の 1MB では、実アプリが同梱する
+生成コードや巨大ライブラリ(YAF は Lucene.Net 一式を持っています)に足りません。
+
+書き換えを 64MB スタックのスレッドで回すようにしました(`DeepSyntaxWork`)。
+**変換前から潜んでいた不安定さで、今回の変更が顕在化させただけです。**

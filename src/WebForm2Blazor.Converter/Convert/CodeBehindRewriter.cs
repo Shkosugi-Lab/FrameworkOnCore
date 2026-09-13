@@ -51,6 +51,16 @@ public static class CodeBehindRewriter
         ConversionReport report,
         IEnumerable<string>? additionalUsings = null,
         BaseClassRegistry? baseRegistry = null)
+        => DeepSyntaxWork.Run(() =>
+            RewriteCore(source, component, sourceName, report, additionalUsings, baseRegistry));
+
+    private static string RewriteCore(
+        string source,
+        ConvertedComponent component,
+        string sourceName,
+        ConversionReport report,
+        IEnumerable<string>? additionalUsings,
+        BaseClassRegistry? baseRegistry)
     {
         var root = ParseUnit(source);
 
@@ -325,6 +335,9 @@ public static class CodeBehindRewriter
     /// inheritance chain of converted pages lands on the compat runtime.
     /// </summary>
     public static string RewritePlainCodeFile(string source, string? sourceName = null, ConversionReport? report = null)
+        => DeepSyntaxWork.Run(() => RewritePlainCodeFileCore(source, sourceName, report));
+
+    private static string RewritePlainCodeFileCore(string source, string? sourceName, ConversionReport? report)
     {
         var root = ParseUnit(source);
 

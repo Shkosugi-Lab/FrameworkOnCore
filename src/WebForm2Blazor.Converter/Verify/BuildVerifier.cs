@@ -228,6 +228,42 @@ public static partial class BuildVerifier
         return null;
     }
 
+    /// <summary>
+    /// The System.Web assembly a REFERENCED LIBRARY still needs, or null.
+    ///
+    /// CS7069 and CS0012 are the compiler saying "an assembly you reference declares this
+    /// member in terms of a type from an assembly that is not here". The converter never
+    /// emits a reference to System.Web - removing it is the whole job - so when that
+    /// assembly is System.Web, the dependency is a library the application brought with
+    /// it. DNN's Dnn.ClientDependency package is built for .NET Framework and its
+    /// WebFormsFileRegistrationProvider takes a System.Web.UI.Control.
+    ///
+    /// Nothing the converter does can fix that; a .NET build of the library has to be
+    /// supplied. Counted separately for the same reason a vendored DLL with no
+    /// replacement is, and reported so it cannot be mistaken for progress.
+    /// </summary>
+    private static string? NeedsSystemWeb(Diagnostic diagnostic)
+    {
+        if (diagnostic.Code is not ("CS7069" or "CS0012"))
+        {
+            return null;
+        }
+
+        foreach (Match quoted in QuotedName().Matches(diagnostic.Message))
+        {
+            var name = quoted.Groups[1].Value;
+            if (name == "System.Web"
+                || name.StartsWith("System.Web,", StringComparison.Ordinal)
+                || name.StartsWith("System.Web.Services,", StringComparison.Ordinal)
+                || name.StartsWith("System.Web.Extensions,", StringComparison.Ordinal))
+            {
+                return name.Split(',')[0];
+            }
+        }
+
+        return null;
+    }
+
     /// <summary>A name in single quotes, as every compiler locale writes identifiers.</summary>
     [GeneratedRegex(@"'([^']+)'")]
     private static partial Regex QuotedName();
@@ -268,11 +304,14 @@ public static partial class BuildVerifier
         var stoppedAtParse = StoppedAtParse(diagnostics);
         var undecidedTypes = ReadUndecidedDependencyTypes(outputDirectory);
         var undecided = diagnostics
-            .Select(diagnostic => (diagnostic, assembly: UndecidedDependency(diagnostic, undecidedTypes)))
+            .Select(diagnostic => (
+                diagnostic,
+                assembly: UndecidedDependency(diagnostic, undecidedTypes) ?? NeedsSystemWeb(diagnostic)))
             .Where(pair => pair.assembly is not null)
             .ToList();
         diagnostics = diagnostics
-            .Where(diagnostic => UndecidedDependency(diagnostic, undecidedTypes) is null)
+            .Where(diagnostic => UndecidedDependency(diagnostic, undecidedTypes) is null
+                                 && NeedsSystemWeb(diagnostic) is null)
             .ToList();
 
         var report = BuildReport(projectPath, diagnostics, undecided!);
@@ -362,9 +401,14 @@ public static partial class BuildVerifier
 
         builder.AppendLine("## 未決の依存によるエラー(件数に含めていません)");
         builder.AppendLine();
-        builder.AppendLine($"**{undecided.Count} 件**は、リポジトリ同梱 DLL の置き換え先が未決定なために");
-        builder.AppendLine("型が見つからないものです。変換の欠陥ではなく、`package-map.template.json` に");
-        builder.AppendLine("パッケージを書いて `--package-map` で再変換すれば解消します。");
+        builder.AppendLine($"**{undecided.Count} 件**は、参照ライブラリ側の都合で型が見つからないものです。");
+        builder.AppendLine("変換の欠陥ではありません。");
+        builder.AppendLine();
+        builder.AppendLine("- リポジトリ同梱 DLL の置き換え先が未決定: `package-map.template.json` に");
+        builder.AppendLine("  パッケージを書いて `--package-map` で再変換すれば解消します。");
+        builder.AppendLine("- `System.Web` を必要とするライブラリ: **公開 API が System.Web の型を");
+        builder.AppendLine("  含んでいます。** 変換器にできることはなく、.NET 向けにビルドされた");
+        builder.AppendLine("  そのライブラリを用意してもらう必要があります。");
         builder.AppendLine();
         builder.AppendLine("| アセンブリ | 件数 |");
         builder.AppendLine("| --- | ---: |");

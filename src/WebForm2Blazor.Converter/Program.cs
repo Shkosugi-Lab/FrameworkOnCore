@@ -961,10 +961,22 @@ if (packageMap is not null)
     report.Info("(project)", $"--package-map から {packageMap.Count} 件のパッケージ指定を読み込みました。");
 }
 
-var packageReferences = CollectDeclaredPackages(
-        [input, .. includeDirectories], report, packageMap,
-        Path.Combine(output, "package-map.template.json"))
-    .Concat(ResolvePackageReferences(portedNamespaces))
+var declared = CollectDeclaredPackages(
+    [input, .. includeDirectories], report, packageMap,
+    Path.Combine(output, "package-map.template.json"));
+
+// A package the code's usings imply is only needed when the original did not already
+// bring that library in under another name. mojoPortal declares DotNetZip.Original and
+// the Ionic.Zip import adds DotNetZip: two packages, one Ionic.Zip.ZipFile, and every use
+// of it is CS0433 ("exists in both"). Deduplicating by Id alone does not see it, because
+// the ids differ - a fork or a rename keeps the old id as a prefix.
+var impliedPackages = ResolvePackageReferences(portedNamespaces)
+    .Where(implied => !declared.Any(existing =>
+        existing.Id.StartsWith(implied.Id, StringComparison.OrdinalIgnoreCase)))
+    .ToList();
+
+var packageReferences = declared
+    .Concat(impliedPackages)
     .DistinctBy(package => package.Id, StringComparer.OrdinalIgnoreCase)
     .ToList();
 if (packageReferences.Count > 0)

@@ -50,9 +50,10 @@ public static class CodeBehindRewriter
         string sourceName,
         ConversionReport report,
         IEnumerable<string>? additionalUsings = null,
-        BaseClassRegistry? baseRegistry = null)
+        BaseClassRegistry? baseRegistry = null,
+        PortedTypeIndex? portedTypes = null)
         => DeepSyntaxWork.Run(() =>
-            RewriteCore(source, component, sourceName, report, additionalUsings, baseRegistry));
+            RewriteCore(source, component, sourceName, report, additionalUsings, baseRegistry, portedTypes));
 
     private static string RewriteCore(
         string source,
@@ -60,7 +61,8 @@ public static class CodeBehindRewriter
         string sourceName,
         ConversionReport report,
         IEnumerable<string>? additionalUsings,
-        BaseClassRegistry? baseRegistry)
+        BaseClassRegistry? baseRegistry,
+        PortedTypeIndex? portedTypes)
     {
         var root = ParseUnit(source);
 
@@ -172,6 +174,12 @@ public static class CodeBehindRewriter
             // with CS0263 even though both spellings resolve to one.
             updated = WithBaseType(updated, component.RazorInheritsBase);
         }
+        // BEFORE InsertGeneratedMembers. That step adds the converter's own
+        // OnAfterRender(bool) - the lifecycle driver - and running the override check
+        // afterwards demoted it: the base is whatever the .razor inherits, which the check
+        // resolves through the ported chain, and a miss there silently turns the page
+        // lifecycle off while the build still passes.
+        updated = DropOverridesTheCompatBaseDoesNotHave(updated, sourceName, report, portedTypes);
         updated = AddParameterAttributes(updated, component, sourceName, report);
         updated = InsertGeneratedMembers(updated, component, sourceName, report);
 
@@ -374,17 +382,47 @@ public static class CodeBehindRewriter
         ConversionReport? report,
         PortedTypeIndex? portedTypes)
     {
+        var rewritten = root.DescendantNodes().OfType<ClassDeclarationSyntax>()
+            .ToDictionary(
+                declaration => declaration,
+                declaration => (SyntaxNode)DropOverridesTheCompatBaseDoesNotHave(
+                    declaration, sourceName, report, portedTypes))
+            .Where(pair => pair.Key != pair.Value)
+            .ToDictionary(pair => pair.Key, pair => pair.Value);
+
+        return rewritten.Count == 0
+            ? root
+            : root.ReplaceNodes(rewritten.Keys, (original, _) => rewritten[original]);
+    }
+
+    /// <inheritdoc cref="DropOverridesTheCompatBaseDoesNotHave(CompilationUnitSyntax, string, ConversionReport, PortedTypeIndex)"/>
+    private static ClassDeclarationSyntax DropOverridesTheCompatBaseDoesNotHave(
+        ClassDeclarationSyntax classDeclaration,
+        string? sourceName,
+        ConversionReport? report,
+        PortedTypeIndex? portedTypes)
+    {
         var edits = new Dictionary<MemberDeclarationSyntax, MemberDeclarationSyntax>();
 
-        foreach (var classDeclaration in root.DescendantNodes().OfType<ClassDeclarationSyntax>())
         {
             if (classDeclaration.BaseList?.Types.FirstOrDefault()?.Type.ToString().Trim() is not { } baseName)
             {
-                continue;
+                return classDeclaration;
             }
 
             // Name`arity, so a ported generic of the same name is not mistaken for the
             // compat type (n2 declares Page<TPage>).
+            // The first entry of a base list is only the base CLASS when there is one. A
+            // converted code-behind has its base moved to the .razor's @inherits, so what
+            // is left first is an interface - BlogEngine's CommentList starts
+            // ": ICallbackEventHandler" - and judging overrides against an interface
+            // demoted two perfectly good ones.
+            if (baseName.StartsWith('I') && baseName.Length > 1 && char.IsUpper(baseName[1])
+                && CompatType(baseName) is { IsInterface: true })
+            {
+                return classDeclaration;
+            }
+
             var baseKey = PortedTypeIndex.KeyOfWrittenType(baseName);
             var simpleName = baseKey.Contains('`', StringComparison.Ordinal)
                 ? baseKey[..baseKey.IndexOf('`')]
@@ -404,7 +442,7 @@ public static class CodeBehindRewriter
             if (baseType is null && !portedBase)
             {
                 // Third-party. Its members are not ours to judge.
-                continue;
+                return classDeclaration;
             }
 
             foreach (var member in classDeclaration.Members)
@@ -485,8 +523,8 @@ public static class CodeBehindRewriter
         }
 
         return edits.Count == 0
-            ? root
-            : root.ReplaceNodes(edits.Keys, (original, _) => edits[original]);
+            ? classDeclaration
+            : classDeclaration.ReplaceNodes(edits.Keys, (original, _) => edits[original]);
     }
 
     /// <summary>
@@ -530,6 +568,11 @@ public static class CodeBehindRewriter
     /// Whether the compat type of this name declares the member, or null when the compat
     /// layer has no type of that name.
     /// </summary>
+    /// <summary>The compat type of this simple name, or null.</summary>
+    private static Type? CompatType(string simpleName)
+        => typeof(WebForm2Blazor.Components.WebFormsControlBase).Assembly
+            .GetType("WebForm2Blazor.Components." + simpleName);
+
     private static bool? CompatDeclares(string simpleName, string member)
     {
         // The index is built from the sources BEFORE the base rewrite, so a ported class

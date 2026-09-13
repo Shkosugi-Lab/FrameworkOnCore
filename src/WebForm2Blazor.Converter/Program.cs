@@ -676,7 +676,7 @@ foreach (var component in components)
             .ToList();
         var rewritten = CodeBehindRewriter.Rewrite(
             codeBehindSource, component, sourceName, report,
-            controlUsings, baseRegistry);
+            controlUsings, baseRegistry, portedTypes);
         File.WriteAllText(Path.Combine(directory, component.ComponentName + ".razor.cs"),
             ApplyNamespaceMap(compatImports.Apply(rewritten)));
     }

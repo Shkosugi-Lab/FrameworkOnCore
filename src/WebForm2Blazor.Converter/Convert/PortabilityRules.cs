@@ -21,6 +21,10 @@ public static class PortabilityRules
         "Microsoft.Owin", "Owin", "Microsoft.AspNet.Identity", "Microsoft.AspNet.FriendlyUrls",
         "Microsoft.AspNet.SignalR", "System.Web.Optimization", "System.Web.Http",
         "System.Web.Mvc", "System.Web.Services", "System.Web.Routing",
+        // ASP.NET Web API's formatting assembly. Same framework as System.Web.Http above,
+        // which is already here; it just does not live under that namespace. DNN's
+        // StringPassThroughMediaTypeFormatter derives from its MediaTypeFormatter.
+        "System.Net.Http.Formatting",
         // ASP.NET Web Pages (Razor v2) - a different framework, like MVC beside it.
         // BlogEngine's RazorHelpers.cs extends its HtmlHelper; that file used to be
         // excluded via System.Web.Compilation, and once that stopped excluding it the

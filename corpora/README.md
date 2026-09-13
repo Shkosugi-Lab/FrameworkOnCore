@@ -1888,3 +1888,38 @@ mojoPortal の `mojoServiceHostFactory` がそれで、**WCF サービスは Web
 **`Equals(string, string)` は `IEqualityComparer<string>` のメンバで、`object` のものでは
 ありません。** 名前だけで判定していたため、override する先が無い宣言を作っていました
 (mojoPortal の `UserProfileKeyComparer`)。引数の数まで見るようにしました。
+
+## コードビハインドにも override 判定を効かせる — 致命的なバグを 2 つ踏みました(62 → 56)
+
+`ProfileDefinitions.LoadViewState` などはコードビハインド側にあり、判定が効いていません
+でした。効かせたところ **be +2 / yaf +1 の残差だけが増え、ビルドエラーは動きません。**
+また同じ形です。何を外したか見ると、2 つとも**黙って壊す**種類でした。
+
+### 1. 変換器が自分で生成した `OnAfterRender` を外していた
+
+```
+Install.OnAfterRender の override を外しました
+```
+
+WebForms に `OnAfterRender` はありません。これは**変換器が
+`InsertGeneratedMembers` で生成したライフサイクル駆動そのもの**です。
+判定を生成の**後**に置いたため、自分の出力を削っていました。
+
+**ビルドは通ります。ページのライフサイクルが動かなくなるだけです。**
+生成の前に移しました。
+
+### 2. 基底リストの先頭がインターフェースだった
+
+```
+CommentList.OnAfterRender の override を外しました。ICallbackEventHandler から上に…
+```
+
+コードビハインド側は基底クラスを `.razor` の `@inherits` に移すので、
+**残った先頭はインターフェース**です。それを基底クラスとして判定していました。
+
+### 併せて
+
+| | |
+|---|---:|
+| `System.Net.Http.Formatting`(Web API)を移植対象外へ | dnn −5 |
+| コードビハインドの override 判定 | dnn −1 / mojo −1 |

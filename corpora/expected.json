@@ -9,7 +9,7 @@
                  "convertible":  19,
                  "portedCs":  741,
                  "residuals":  113,
-                 "buildErrors":  39
+                 "buildErrors":  35
              },
     "yaf":  {
                 "convertible":  5,
@@ -21,13 +21,13 @@
                 "convertible":  10,
                 "portedCs":  2040,
                 "residuals":  193,
-                "buildErrors":  57
+                "buildErrors":  55
             },
     "n2":  {
                "convertible":  25,
                "portedCs":  1668,
                "residuals":  207,
-               "buildErrors":  21
+               "buildErrors":  19
            },
     "wt":  {
                "convertible":  3,

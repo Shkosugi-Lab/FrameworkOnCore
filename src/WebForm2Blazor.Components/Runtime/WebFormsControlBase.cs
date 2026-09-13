@@ -557,7 +557,8 @@ public abstract class WebFormsControlBase : ComponentBase, IWebFormsControl, IDi
     {
     }
 
-    protected void EnsureChildControls() => CreateChildControls();
+    /// <summary>virtual, as Control.EnsureChildControls is - ported controls override it.</summary>
+    protected virtual void EnsureChildControls() => CreateChildControls();
 
     /// <summary>WebForms Control.OnBubbleEvent equivalent (nothing bubbles here).</summary>
     protected virtual bool OnBubbleEvent(object source, EventArgs args) => false;

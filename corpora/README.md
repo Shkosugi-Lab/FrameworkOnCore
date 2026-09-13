@@ -1743,3 +1743,25 @@ WebForms はウィジェットごとにクラスがあり、それぞれ固有�
 
 2 つ目は、このセッションで `TreeNode` と `Attribute` に対して立てたのと同じ規則です。
 **アプリ自身の型が勝ちます。**
+
+## 互換層に足りない WebForms API と、アクセシビリティの整合(121 → 113)
+
+| | |
+|---|---|
+| `Control.EnsureChildControls` / `HtmlTextWriter.RenderBeginTag` | WebForms では **virtual** です。非 virtual で出していたため CS0506。mojoPortal は `HtmlTextWriter` を 2 つ派生させて `RenderBeginTag` を override します |
+| `TemplateContainerAttribute(Type, BindingDirection)` | 2 引数形が無く CS1729。`BindingDirection` 列挙型ごと追加 |
+| `PersonalizationScope` | 列挙型が無く CS0103 |
+
+### `override` のアクセシビリティを基底に合わせる
+
+```
+FieldSet.RenderBeginTag(HtmlTextWriter): 'public' の継承メンバーをオーバーライドするとき
+アクセス修飾子を変更できません
+```
+
+WebForms は**同じメソッドを基底ごとに違うアクセシビリティで宣言**していました。
+`WebControl.RenderBeginTag` は public、`HtmlControl` の方は protected です。
+互換層はその両方を 1 つに潰しているので、移植後の override の半分が食い違います。
+
+基底が public なら `protected override` を `public override` に広げるようにしました。
+**広げる方向しか必要になりません** — 互換層が元より狭く宣言することはないからです。

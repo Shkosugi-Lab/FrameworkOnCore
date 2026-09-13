@@ -391,9 +391,25 @@ public static class CodeBehindRewriter
 
                 if (name is null
                     || !modifiers.Any(modifier =>
-                        modifier.RawKind == (int)SyntaxKind.OverrideKeyword)
-                    || DeclaresMember(baseType, name))
+                        modifier.RawKind == (int)SyntaxKind.OverrideKeyword))
                 {
+                    continue;
+                }
+
+                if (DeclaresMember(baseType, name))
+                {
+                    // The member is there; the only thing that can still be wrong is how
+                    // visible it is. WebForms declared the same method at different
+                    // accessibilities on different bases - WebControl.RenderBeginTag is
+                    // public, HtmlControl's is protected - and the compat layer collapses
+                    // both onto one, so half the ported overrides disagree with it (CS0507).
+                    if (AlignAccessibility(member, modifiers, baseType, name) is { } aligned)
+                    {
+                        edits[member] = aligned;
+                        report?.Info(sourceName ?? string.Empty,
+                            $"{classDeclaration.Identifier.Text}.{name} を public override にしました"
+                            + $"(互換層の {simpleName} が public で宣言しているため)。");
+                    }
                     continue;
                 }
 
@@ -425,6 +441,43 @@ public static class CodeBehindRewriter
         return edits.Count == 0
             ? root
             : root.ReplaceNodes(edits.Keys, (original, _) => edits[original]);
+    }
+
+    /// <summary>
+    /// Makes a protected override public when the compat base declares that member public,
+    /// or null when nothing needs changing. C# requires an override to match the base
+    /// exactly, and only widening is ever needed here: the compat layer never narrows a
+    /// member the original had public.
+    /// </summary>
+    private static MemberDeclarationSyntax? AlignAccessibility(
+        MemberDeclarationSyntax member, SyntaxTokenList modifiers, Type baseType, string name)
+    {
+        var isPublicOnBase = baseType.GetMember(
+                name,
+                System.Reflection.BindingFlags.Instance
+                | System.Reflection.BindingFlags.Public
+                | System.Reflection.BindingFlags.FlattenHierarchy)
+            .Length > 0;
+
+        var isProtectedHere = modifiers.Any(modifier =>
+            modifier.RawKind == (int)SyntaxKind.ProtectedKeyword);
+
+        if (!isPublicOnBase || !isProtectedHere)
+        {
+            return null;
+        }
+
+        var widened = SyntaxFactory.TokenList(modifiers.Select(modifier =>
+            modifier.RawKind == (int)SyntaxKind.ProtectedKeyword
+                ? SyntaxFactory.Token(SyntaxKind.PublicKeyword).WithTriviaFrom(modifier)
+                : modifier));
+
+        return member switch
+        {
+            MethodDeclarationSyntax method => method.WithModifiers(widened),
+            PropertyDeclarationSyntax property => property.WithModifiers(widened),
+            _ => null,
+        };
     }
 
     /// <summary>Whether the type or any base declares a member of this name.</summary>

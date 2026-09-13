@@ -122,6 +122,13 @@ public delegate bool DataSourceViewOperationCallback(int affectedRecords, Except
 // original did still compiles; nothing reads them (design-time metadata).
 // ---------------------------------------------------------------------------------------
 
+/// <summary>System.Web.UI.WebControls.WebParts.PersonalizationScope equivalent.</summary>
+public enum PersonalizationScope
+{
+    User,
+    Shared,
+}
+
 /// <summary>System.Web.UI.WebControls.WebParts.PersonalizableAttribute equivalent.</summary>
 [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field)]
 public sealed class PersonalizableAttribute : Attribute

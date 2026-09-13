@@ -386,9 +386,24 @@ public abstract class VirtualPathProvider
 [AttributeUsage(AttributeTargets.Property)]
 public sealed class TemplateContainerAttribute(Type containerType) : Attribute
 {
+    /// <summary>
+    /// The two-argument form the original has. mojoPortal's SiteMapPath writes
+    /// [TemplateContainer(typeof(SiteMapNodeItem), BindingDirection.OneWay)] four times.
+    /// </summary>
+    public TemplateContainerAttribute(Type containerType, BindingDirection bindingDirection)
+        : this(containerType)
+        => BindingDirection = bindingDirection;
+
     public Type ContainerType { get; } = containerType;
 
-    public string BindingDirection { get; set; } = string.Empty;
+    public BindingDirection BindingDirection { get; set; }
+}
+
+/// <summary>System.ComponentModel.BindingDirection equivalent (metadata only).</summary>
+public enum BindingDirection
+{
+    OneWay,
+    TwoWay,
 }
 
 /// <summary>

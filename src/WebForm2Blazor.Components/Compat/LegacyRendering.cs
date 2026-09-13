@@ -98,9 +98,13 @@ public class HtmlTextWriter(TextWriter inner) : TextWriter
     public void AddStyleAttribute(string name, string value)
         => _pendingStyles.Add(new KeyValuePair<string, string>(name, value));
 
-    public void RenderBeginTag(HtmlTextWriterTag tag) => RenderBeginTag(tag.ToString().ToLowerInvariant());
+    public virtual void RenderBeginTag(HtmlTextWriterTag tag) => RenderBeginTag(tag.ToString().ToLowerInvariant());
 
-    public void RenderBeginTag(string tagName)
+    /// <summary>
+    /// virtual, as HtmlTextWriter.RenderBeginTag is. mojoPortal derives two writers from
+    /// it (mojoHtmlTextWriter, mojoHtml32TextWriter) and overrides this one.
+    /// </summary>
+    public virtual void RenderBeginTag(string tagName)
     {
         inner.Write('<' + tagName);
         foreach (var attribute in _pendingAttributes)

@@ -1,4 +1,4 @@
-using System.Text;
+﻿using System.Text;
 using System.Text.Encodings.Web;
 using System.Text.Json;
 using WebForm2Blazor.Converter;
@@ -597,6 +597,7 @@ do
 } while (cascadeChanged);
 
 var fullyExcludedNamespaces = ComputeFullyExcludedNamespaces();
+var unsafeCodePorted = false;
 
 // The compat layer is one namespace where WebForms had a dozen, so importing it brings in
 // names the original import never had - see CompatImportDisambiguator.
@@ -783,6 +784,9 @@ for (var i = 0; i < candidateNamespaces.Count; i++)
         ? ScopeGlobalUsings(candidate.Source, scoped)
         : candidate.Source;
     CollectUsingNamespaces(candidateSource, portedNamespaces);
+    CollectQualifiedPackageNamespaces(candidateSource, portedNamespaces);
+    unsafeCodePorted |= System.Text.RegularExpressions.Regex.IsMatch(
+        candidateSource, @"(?<![\w.])unsafe(?![\w])");
     var destination = Path.Combine(output, candidate.OutputRelative.Replace('/', Path.DirectorySeparatorChar));
     Directory.CreateDirectory(Path.GetDirectoryName(destination)!);
     // A file kept despite importing an emptied namespace still has the import, and the
@@ -925,6 +929,20 @@ if (project.CultureResourceFiles.Count > 0)
     report.Residual("(project)", ResidualKind.Configuration,
         $"言語別リソース {project.CultureResourceFiles.Count} 件は移植していません。"
         + "サテライトアセンブリ化(または IStringLocalizer への移行)が必要です。", disposition: ResidualDisposition.Backlog);
+}
+
+// Unsafe code. The original project must have allowed it or it would not have compiled,
+// and the ported source is the evidence: "unsafe" is a keyword, so a declaration of it
+// cannot be anything else. YAF.NET carries Lucene.Net, whose EncodingExtensions has an
+// unsafe block, and without this the port stops at CS0227.
+if (unsafeCodePorted)
+{
+    var csprojPath = Path.Combine(output, appName + ".csproj");
+    File.WriteAllText(csprojPath, File.ReadAllText(csprojPath).Replace(
+        "<Nullable>disable</Nullable>",
+        "<Nullable>disable</Nullable>" + Environment.NewLine
+        + "    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>"));
+    report.Info("(project)", "移植コードに unsafe があるため AllowUnsafeBlocks を有効にしました。");
 }
 
 // NuGet references: what the original projects declared (csproj PackageReference /
@@ -1706,13 +1724,41 @@ static List<(string Id, string Version)> CollectDeclaredPackages(
 
 /// <summary>Well-known WebForms-era libraries that have .NET-compatible NuGet packages.</summary>
 static List<(string Id, string Version)> ResolvePackageReferences(HashSet<string> namespaces)
+    => KnownPackages()
+        .Where(package => namespaces.Any(ns =>
+            ns.Equals(package.Prefix, StringComparison.Ordinal)
+            || ns.StartsWith(package.Prefix + ".", StringComparison.Ordinal)))
+        .Select(package => (package.Id, package.Version))
+        .DistinctBy(package => package.Id)
+        .ToList();
+
+/// <summary>
+/// Records the packages a file needs because it writes the namespace out in full.
+///
+/// Reading the using list alone misses them, and a fully qualified reference is the normal
+/// way to name a type used once: ServiceStack.OrmLite's ProfiledProviderFactory writes
+/// System.Security.Permissions.PermissionState in a signature and imports nothing.
+/// Only the known prefixes are looked for, so the set of packages stays closed.
+/// </summary>
+static void CollectQualifiedPackageNamespaces(string source, HashSet<string> namespaces)
+{
+    foreach (var package in KnownPackages())
+    {
+        if (source.Contains(package.Prefix + ".", StringComparison.Ordinal))
+        {
+            namespaces.Add(package.Prefix);
+        }
+    }
+}
+
+static (string Prefix, string Id, string Version)[] KnownPackages()
 {
     // Microsoft ships these alongside the runtime, so their version must track the target
     // framework. Pinning an older major downgrades what a carried-over package already
     // depends on (NU1605) and the restore fails.
     const string RuntimeLibraryVersion = "10.0.*";
 
-    (string Prefix, string Id, string Version)[] knownPackages =
+    return
     [
         ("System.Data.Entity", "EntityFramework", "6.5.1"),
         ("System.Data.Objects", "EntityFramework", "6.5.1"),
@@ -1735,15 +1781,12 @@ static List<(string Id, string Version)> ResolvePackageReferences(HashSet<string
         ("System.Runtime.Caching", "System.Runtime.Caching", RuntimeLibraryVersion),
         ("System.Management", "System.Management", RuntimeLibraryVersion),
         ("System.Security.Cryptography.Xml", "System.Security.Cryptography.Xml", RuntimeLibraryVersion),
+        // CodeAccessPermission and PermissionState live here on .NET. They are still in the
+        // framework index because the shim assembly forwards them, which is why the failure
+        // reads CS1069 ("forwarded to System.Security.Permissions, consider adding a
+        // reference") rather than "type not found".
+        ("System.Security.Permissions", "System.Security.Permissions", RuntimeLibraryVersion),
     ];
-
-    return knownPackages
-        .Where(package => namespaces.Any(ns =>
-            ns.Equals(package.Prefix, StringComparison.Ordinal)
-            || ns.StartsWith(package.Prefix + ".", StringComparison.Ordinal)))
-        .Select(package => (package.Id, package.Version))
-        .DistinctBy(package => package.Id)
-        .ToList();
 }
 
 /// <summary>

@@ -619,50 +619,59 @@ public static class CodeBehindRewriter
             // rewrite never reaches them.
             .Replace("System.Web.UI.HtmlTextWriter", "WebForm2Blazor.Components.HtmlTextWriter")
             .Replace("System.Web.UI.AttributeCollection", "WebForm2Blazor.Components.AttributeCollection")
-            // Adapters BEFORE the two below it: "System.Web.UI.WebControls.Adapters.X" would
-            // otherwise become "WebForm2Blazor.Components.Adapters.X", and the compat layer
-            // is flat - there is no Adapters namespace in it.
-            .Replace("System.Web.UI.WebControls.Adapters.", "WebForm2Blazor.Components.")
-            .Replace("System.Web.UI.Adapters.", "WebForm2Blazor.Components.")
-            .Replace("System.Web.UI.WebControls.", "WebForm2Blazor.Components.")
-            .Replace("System.Web.UI.HtmlControls.", "WebForm2Blazor.Components.")
-            .Replace("System.Web.UI.Page", "WebForm2Blazor.Components.Page")
-            .Replace("System.Web.UI.Control", "WebForm2Blazor.Components.Control")
-            // The remaining System.Web sub-namespaces map onto the flat compat namespace.
-            // Order matters: the specific System.Web.UI entries above run first, so what
-            // is left here is Security / Caching / Configuration / Hosting / Profile and
-            // finally the root itself (HttpContext, HttpRuntime, ...).
-            .Replace("System.Web.UI.", "WebForm2Blazor.Components.")
-            .Replace("System.Web.Script.Serialization.", "WebForm2Blazor.Components.")
             .Replace("System.Configuration.ConnectionStringSettings", "WebForm2Blazor.Components.Compat.ConnectionStringSettings")
-            .Replace("System.Security.Permissions.", "WebForm2Blazor.Components.")
             .Replace("System.Web.HttpBrowserCapabilities", "WebForm2Blazor.Components.HttpBrowserCapabilitiesShim")
-            .Replace("HttpCapabilitiesBase", "HttpBrowserCapabilitiesShim")
-            .Replace("System.Web.Security.", "WebForm2Blazor.Components.")
-            .Replace("System.Web.Caching.", "WebForm2Blazor.Components.")
-            .Replace("System.Web.Configuration.", "WebForm2Blazor.Components.")
-            .Replace("System.Web.Hosting.", "WebForm2Blazor.Components.")
-            .Replace("System.Web.Profile.", "WebForm2Blazor.Components.")
-            .Replace("System.Web.HttpCacheability", "WebForm2Blazor.Components.HttpCacheability"));
-    // The passes above rename a type or move a whole namespace. What is left over is
-    // "System.Web.X" where the compat layer has an X of the SAME name, and listing those
-    // by hand is exactly what went wrong: HttpContext / HttpRuntime / VirtualPathUtility /
-    // HttpUtility were listed, while HttpApplication, SiteMapNode, SiteMapProvider and
-    // HttpRequestBase - all present in the compat layer - were not. The converter
-    // references that assembly, so RewriteRootSystemWebTypes asks it instead.
+            .Replace("HttpCapabilitiesBase", "HttpBrowserCapabilitiesShim"));
 
     /// <summary>
-    /// "System.Web.Foo" -> "WebForm2Blazor.Components.Foo", but only when the compat layer
-    /// really declares a Foo. Anything else (a sub-namespace the passes above did not
-    /// rewrite, a type with no counterpart) is left alone so the error stays visible.
+    /// The WebForms namespaces the compat layer stands in for, longest first so that
+    /// "System.Web.UI.WebControls.Adapters.X" is not read as the shorter prefix plus
+    /// "Adapters.X" - the compat layer is flat and has no Adapters namespace in it.
+    /// </summary>
+    private static readonly string[] CompatSourceNamespaces =
+    [
+        "System.Web.UI.WebControls.Adapters",
+        "System.Web.UI.HtmlControls",
+        "System.Web.UI.WebControls",
+        "System.Web.UI.Adapters",
+        "System.Web.Script.Serialization",
+        "System.Security.Permissions",
+        "System.Web.Configuration",
+        "System.Web.Security",
+        "System.Web.Caching",
+        "System.Web.Hosting",
+        "System.Web.Profile",
+        "System.Web.UI",
+        "System.Web",
+    ];
+
+    /// <summary>
+    /// "System.Web.Foo" -> "WebForm2Blazor.Components.Foo", but only where the compat layer
+    /// really declares a Foo. Anything else is left alone so the error stays visible, and
+    /// pointing at a namespace member that does not exist is a worse error than the one it
+    /// replaces: rewriting System.Security.Permissions wholesale turned
+    /// System.Security.Permissions.PermissionState, which the compat layer does not have,
+    /// into WebForm2Blazor.Components.PermissionState, which does not exist at all.
+    ///
+    /// The list above is of SOURCE namespaces, which is fixed by WebForms. What the compat
+    /// layer contains is asked of the assembly, never listed - that is what went wrong
+    /// before, when HttpContext and HttpUtility were listed while HttpApplication,
+    /// SiteMapNode, SiteMapProvider and HttpRequestBase were not.
     /// </summary>
     private static string RewriteRootSystemWebTypes(string code)
-        => System.Text.RegularExpressions.Regex.Replace(
-            code,
-            @"\bSystem\.Web\.([A-Z]\w*)\b",
-            match => CompatTypeNames.Contains(match.Groups[1].Value)
-                ? "WebForm2Blazor.Components." + match.Groups[1].Value
-                : match.Value);
+    {
+        foreach (var sourceNamespace in CompatSourceNamespaces)
+        {
+            code = System.Text.RegularExpressions.Regex.Replace(
+                code,
+                @"\b" + System.Text.RegularExpressions.Regex.Escape(sourceNamespace) + @"\.([A-Z]\w*)\b",
+                match => CompatTypeNames.Contains(match.Groups[1].Value)
+                    ? "WebForm2Blazor.Components." + match.Groups[1].Value
+                    : match.Value);
+        }
+
+        return code;
+    }
 
     /// <summary>
     /// Whether the compatibility layer declares a type of this name. Used by the

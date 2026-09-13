@@ -15,13 +15,13 @@
                 "convertible":  5,
                 "portedCs":  2724,
                 "residuals":  71,
-                "buildErrors":  10
+                "buildErrors":  7
             },
     "dnn":  {
                 "convertible":  10,
                 "portedCs":  2040,
                 "residuals":  178,
-                "buildErrors":  79
+                "buildErrors":  78
             },
     "n2":  {
                "convertible":  25,

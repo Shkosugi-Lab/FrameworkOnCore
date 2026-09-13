@@ -1594,3 +1594,27 @@ using が 1 つも無いファイルでは `#pragma` / `#define` / `#if` や著�
 もう 1 つ、`using AspNetHostingPermission = System.Web.AspNetHostingPermission;` を
 出してしまい CS1069 になりました。型転送された名前はフレームワークの索引に残っていますが、
 **System.Web は互換層が置き換える対象**なので答えになり得ません。候補から外しました。
+
+## 名前空間の一括置換が、互換層に実在するか確かめていなかった(yaf 10 → 7、dnn −1)
+
+`System.Security.Permissions.PermissionState` が
+`WebForm2Blazor.Components.PermissionState` になっていました。**互換層にそんな型はありません。**
+
+```csharp
+.Replace("System.Security.Permissions.", "WebForm2Blazor.Components.")
+```
+
+同じファイルに、この欠陥を**既に一度直したコメントが書いてあります**。
+`System.Web.X` については「互換層が X を宣言しているときだけ置換する」ようになっていて、
+`RewriteRootSystemWebTypes` がそれをやっています。**残りの名前空間は無条件のままでした。**
+
+全部そちらに寄せました。置換元の名前空間の一覧は WebForms 側で固定なので持ちますが、
+**互換層に何があるかは常にアセンブリに聞きます。**
+
+### 付随して直したもの
+
+| | |
+|---|---|
+| `System.Security.Permissions` | `CodeAccessPermission` / `PermissionState` の移行先パッケージを追加。using を見るだけでは足りません(**完全修飾で 1 回だけ書く**のが普通の書き方で、OrmLite がそうしています)ので、既知パッケージの接頭辞だけは本文からも拾います |
+| `AllowUnsafeBlocks` | 移植コードに `unsafe` があれば有効化。**元のプロジェクトが許可していたことは確実**です(でなければコンパイルできていません) |
+| `CallContext` | Remoting は .NET から消えましたが、`CallContext` は .NET Framework 製ライブラリが**リクエスト単位の状態**を運ぶ手段として生き延びていました。OrmLite は開いた接続とトランザクションをここに置きます。`System.Runtime.Remoting.Messaging` という**元の名前空間のまま**互換層に置きました。`LogicalGetData` は `AsyncLocal`、`GetData` は `ThreadLocal` — 元の「流れる/流れない」の差をそのまま残しています |

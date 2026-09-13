@@ -1,0 +1,33 @@
+{
+  "_comment": "WingtipToys regression scenario. NOT a parity scenario: the snapshot beside it is recorded from the CONVERTED app, so it says nothing about matching the original. It catches unintended DOM changes from converter work - see corpora/regression-gate.ps1.",
+  "ignorePatterns": [
+    "\\d{4}-\\d{2}-\\d{2}",
+    "\\d{1,2}:\\d{2}(:\\d{2})?",
+    "\\b\\d{4}\\b"
+  ],
+  "steps": [
+    { "action": "goto", "path": "/" },
+    { "action": "snapshot", "name": "home" },
+
+    { "action": "goto", "path": "/About" },
+    { "action": "snapshot", "name": "about" },
+
+    { "action": "goto", "path": "/Contact" },
+    { "action": "snapshot", "name": "contact" },
+
+    { "action": "goto", "path": "/ProductList" },
+    { "action": "snapshot", "name": "product-list" },
+
+    { "action": "goto", "path": "/ProductDetails" },
+    { "action": "snapshot", "name": "product-details" },
+
+    { "action": "goto", "path": "/ShoppingCart" },
+    { "action": "snapshot", "name": "shopping-cart" },
+
+    { "action": "goto", "path": "/AddToCart" },
+    { "action": "snapshot", "name": "add-to-cart" },
+
+    { "action": "goto", "path": "/ErrorPage" },
+    { "action": "snapshot", "name": "error-page" }
+  ]
+}

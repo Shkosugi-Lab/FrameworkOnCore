@@ -1248,14 +1248,62 @@ wt Welcome [webopt:bundlereference] Wingtip Toys Home About Contact Products [as
 
 **教訓: ビルドエラー 0 とルート 200 は、どちらも「同じ動作」の必要条件にすぎません。**
 
-## BlogEngine の稼働状況
+## 回帰スナップショット(`regression-gate.ps1`)
+
+**パリティテストではありません。** 比較相手は変換後アプリ自身の過去のスナップショットで、
+「元の WebForms アプリと同じか」は何も言いません。それを言えるのは
+`samples\*\golden-webforms.json` だけで、あちらは**IIS Express で旧アプリを動かして**
+録ったものです。**この環境には IIS Express も LocalDB も無く、コーパスの正解データは
+作れません**(元アプリを動かせる人にしか作れない、という前回の整理どおりです)。
+
+ここが捕まえるのは「変換器を触ったら意図せず DOM が変わった」です。実際このセッションで
+wt の DOM を 2 回変えており(スタブのコメント化、`Scripts` シム)、どちらも意図的でしたが
+**意図しない同種の変更を検出する仕組みはありませんでした。**
+
+```powershell
+.\corpora\regression-gate.ps1            # 記録済みスナップショットと照合
+.\corpora\regression-gate.ps1 -Record    # 現在の出力を新しい基準として記録
+```
+
+対象は**ビルドが通るコーパスだけ**です(be / wt)。他は起動できません。
+
+### これが即座に暴いたこと — 「200」は動作を意味しない
+
+記録した瞬間に分かりました。**BlogEngine のホームは記事を 1 件も描画していません。**
 
 ```
-/          200
+be / の可視テキスト(全 55 文字):
+  Account Login << Older posts Newer posts >>
+```
+
+HTTP 200 で、テーマのマークアップ(ページング、ログインリンク)は出ます。
+**記事だけが出ません。** 原因は `PostList.ascx.cs` のこの 2 行です。
+
+```csharp
+var postView = (PostViewBase)this.LoadControl(path);   // LoadControl は null を返す
+this.posts.Controls.Add(postView);                     // Controls は描画されない
+```
+
+`LoadControl`(実行時の動的コントロール生成)は互換層で null を返し、
+`Controls.Add` されたものを `HtmlGenericControl` は描画しません — 描画するのは
+`ChildContent` だけです。**どちらも既知の未対応**で、残差としては「実装待ち」に
+分類されています。
+
+**このセッションで「BlogEngine は 5/5 で動く」と報告したのは過大でした。** 5 ルートが
+200 を返すのは事実ですが、中核機能である記事一覧は動いていません。ルートの
+ステータスコードだけを見ていたためで、**同じ誤りは wt でも起きていました**
+(`/ProductList` はページ全体がプレースホルダー)。
+
+## BlogEngine の稼働状況
+
+**ステータスコードであって、動作ではありません。**(上の回帰スナップショットの節を参照)
+
+```
+/          200   ただし記事は描画されていない(LoadControl 未対応)
 /archive   200
 /search    200
 /contact   200
-/post      200
+/post      200   500 から改善(Init と @ref の順序)
 ```
 
 **変換出力がロールデータを実際に読んで動いています。** ロールは `App_Data/roles.xml` から

@@ -1,0 +1,230 @@
+{
+  "SourceUrl": "http://localhost:5080",
+  "Snapshots": [
+    {
+      "Name": "home",
+      "Path": "/",
+      "Title": "Account Login",
+      "Text": [],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "divError": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "PostList1_posts": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "posts"
+          },
+          "Style": {}
+        },
+        "postPaging": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "PostList1_hlPrev": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {
+            "float": "left"
+          }
+        },
+        "PostList1_hlNext": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {
+            "float": "right"
+          }
+        }
+      }
+    },
+    {
+      "Name": "archive",
+      "Path": "/archive",
+      "Title": "Account Login",
+      "Text": [
+        "Archive",
+        "Total",
+        "1 posts",
+        "1 comments",
+        "0 raters"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "archive": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "archive-page page-global"
+          },
+          "Style": {}
+        },
+        "ulMenu": {
+          "Tag": "ul",
+          "Attributes": {
+            "class": "archive-page-menu"
+          },
+          "Style": {}
+        },
+        "totals": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "archive-page-total"
+          },
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "search",
+      "Path": "/search",
+      "Title": "Account Login",
+      "Text": [],
+      "Tables": [],
+      "Inputs": {
+        "q": ""
+      },
+      "Elements": {
+        "h1Headline": {
+          "Tag": "h2",
+          "Attributes": {
+            "class": "page-global-title"
+          },
+          "Style": {}
+        },
+        "searchpage": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "search-page-searchbox clearfix"
+          },
+          "Style": {}
+        },
+        "q": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "contact",
+      "Path": "/contact",
+      "Title": "Account Login",
+      "Text": [
+        "Contact",
+        "I'll answer the mail as soon as I can.",
+        "Name",
+        "E-mail",
+        "Subject",
+        "Message",
+        "Image/File",
+        "[App_Code.Controls.RecaptchaControl: render error]"
+      ],
+      "Tables": [],
+      "Inputs": {
+        "txtName": "",
+        "txtEmail": "",
+        "txtSubject": "",
+        "txtMessage": "",
+        "txtAttachment": ""
+      },
+      "Elements": {
+        "contact": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "contact-page page-global"
+          },
+          "Style": {}
+        },
+        "divForm": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtName": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text",
+            "class": "field form-control"
+          },
+          "Style": {}
+        },
+        "txtEmail": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text",
+            "class": "field form-control"
+          },
+          "Style": {}
+        },
+        "txtSubject": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text",
+            "class": "field form-control"
+          },
+          "Style": {}
+        },
+        "txtMessage": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text",
+            "class": "form-control"
+          },
+          "Style": {}
+        },
+        "txtAttachment": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "file"
+          },
+          "Style": {}
+        },
+        "btnSend": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button",
+            "class": "btn btn-primary"
+          },
+          "Style": {}
+        },
+        "thanks": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "post",
+      "Path": "/error404",
+      "Title": "Account Login",
+      "Text": [
+        "Ooops! I can't find the page you're looking for",
+        "You might find one of the following links useful:",
+        "Archive",
+        "Home page",
+        "You can also try to search for the page you were looking for.",
+        "You may not be able to find the page you were after because of:",
+        "An out-of-date bookmark/favorite",
+        "A search engine that has an out-of-date listing for us",
+        "A miss-typed address"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "divDirectHit": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    }
+  ]
+}

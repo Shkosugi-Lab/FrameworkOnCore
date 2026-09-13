@@ -131,6 +131,16 @@ public class Calendar : LegacyWebControl
     }
 }
 
+/// <summary>
+/// System.Web.UI.WebControls.PathDirection equivalent. A ported SiteMapPath declares a
+/// property of this type and defaults it - mojoPortal's mojoSiteMapPath does both.
+/// </summary>
+public enum PathDirection
+{
+    RootToCurrent,
+    CurrentToRoot,
+}
+
 /// <summary>System.Web.UI.WebControls.ListControl equivalent (declaration surface).</summary>
 public class ListControl : LegacyWebControl
 {

@@ -1324,6 +1324,11 @@ static string GenerateUnportablePlaceholder(ConvertedComponent component, string
 /// Web API/MVC, routing config) that cannot be ported as-is. Files using them are
 /// excluded with a residual instead of breaking the whole build.
 /// </summary>
+/// <summary>The three members every type inherits from object, matched by signature.</summary>
+static bool IsObjectMember(string name, int parameterCount)
+    => (name is "ToString" or "GetHashCode" && parameterCount == 0)
+       || (name == "Equals" && parameterCount == 1);
+
 static string? FindUnportableNamespace(string source)
 {
     foreach (var ns in EnumerateUsingNamespaces(source))
@@ -2261,7 +2266,7 @@ static string? RenderStubMember(
            || Has(modifiers, Microsoft.CodeAnalysis.CSharp.SyntaxKind.InternalKeyword)
            || Has(modifiers, Microsoft.CodeAnalysis.CSharp.SyntaxKind.ProtectedKeyword);
 
-    string Prefix(Microsoft.CodeAnalysis.SyntaxTokenList modifiers, string memberName = "")
+    string Prefix(Microsoft.CodeAnalysis.SyntaxTokenList modifiers, string memberName = "", int parameterCount = -1)
     {
         if (containerIsInterface)
         {
@@ -2318,7 +2323,11 @@ static string? RenderStubMember(
         // record declares ToString itself - so re-declaring it virtual is CS8869 ("does not
         // override an expected method from object"). mojoPortal's Author / Content / Date /
         // Title records are stubbed and each overrides ToString.
-        if (wasOverride && !containerIsSealed && memberName is "ToString" or "Equals" or "GetHashCode")
+        //
+        // By SIGNATURE, not by name: Equals(string, string) is IEqualityComparer<string>,
+        // not object.Equals, and forcing an override onto it is CS0115 with nothing to
+        // bind to. mojoPortal's UserProfileKeyComparer is one.
+        if (wasOverride && !containerIsSealed && IsObjectMember(memberName, parameterCount))
         {
             return access + "override ";
         }
@@ -2359,7 +2368,7 @@ static string? RenderStubMember(
                 parameters.Add($"{passing}{parameterType} {parameter.Identifier.Text}");
             }
             var message = $"{method.Identifier.Text} は変換対象外です(元の実装は移植されていません)。";
-            return $"{Prefix(method.Modifiers, method.Identifier.Text)}{returnType} {method.Identifier.Text}({string.Join(", ", parameters)})"
+            return $"{Prefix(method.Modifiers, method.Identifier.Text, method.ParameterList.Parameters.Count)}{returnType} {method.Identifier.Text}({string.Join(", ", parameters)})"
                    + $" => throw new global::System.NotSupportedException(\"{message}\");";
         }
 

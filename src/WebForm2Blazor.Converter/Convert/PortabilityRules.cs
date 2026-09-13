@@ -41,6 +41,13 @@ public static class PortabilityRules
         "System.Data.Linq", "System.Data.Services",
         // Design-time control support only exists in the Framework designer
         "System.Web.UI.Design",
+        // WCF SERVICE HOSTING. Deliberately only .Activation and .Web: the client side of
+        // WCF has .NET packages (ChannelFactory, ServiceContract), so excluding
+        // System.ServiceModel wholesale would take out code that ports fine. What has no
+        // .NET counterpart is hosting a service in the web application - ServiceHost,
+        // ServiceHostFactory - and mojoPortal's mojoServiceHost / mojoServiceHostFactory
+        // are exactly that. A WCF service is not a WebForms page.
+        "System.ServiceModel.Activation", "System.ServiceModel.Web",
         // Framework-only third-party libraries with no .NET build
         "Microsoft.Ajax", "BlogML", "ICSharpCode",
     ];

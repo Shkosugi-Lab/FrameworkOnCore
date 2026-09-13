@@ -1864,3 +1864,27 @@ CS7069: 型 'Control' への参照では 'System.Web' で定義されている�
 
 `sealed override` は自分で入れたバグです。override を外すと `sealed` だけが残り、
 CS0238(「override ではないため sealed にできません」)になります。
+
+## WCF のホスティング、`PathDirection`、そして署名で絞る(69 → 62)
+
+| | |
+|---|---:|
+| `System.ServiceModel.Activation` / `.Web` を移植対象外へ | mojo −3 |
+| `PathDirection` 列挙型 | mojo −2 |
+| `Equals(string, string)` に override を付けていた(**自分のバグ**) | mojo −2 |
+
+### WCF は「クライアント側」と「ホスティング側」で違います
+
+`System.ServiceModel` をまるごと除外するのは**広すぎます** — クライアント側
+(`ChannelFactory`、`ServiceContract`)には .NET のパッケージがあり、そのまま移植できます。
+.NET に対応物が無いのは**Web アプリ内でサービスをホストする側**
+(`ServiceHost`、`ServiceHostFactory`、`System.ServiceModel.Activation`)です。
+mojoPortal の `mojoServiceHostFactory` がそれで、**WCF サービスは WebForms ページでは
+ありません。** MVC / Web API / Identity と同じ扱いにしました。
+
+### `object` のメンバは名前ではなく署名で判定する
+
+前回「`ToString` / `Equals` / `GetHashCode` は override のまま出す」を入れましたが、
+**`Equals(string, string)` は `IEqualityComparer<string>` のメンバで、`object` のものでは
+ありません。** 名前だけで判定していたため、override する先が無い宣言を作っていました
+(mojoPortal の `UserProfileKeyComparer`)。引数の数まで見るようにしました。

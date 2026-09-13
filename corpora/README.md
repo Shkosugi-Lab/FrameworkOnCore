@@ -1305,27 +1305,61 @@ this.posts.Controls.Add(postView);                     // Controls は描画さ�
 
 **それでも記事は出ませんでした。** 手前にもう 1 つあります。
 
-#### DRIVE_ONLOAD — 次にやること(実装して撤回済み)
+#### DRIVE_ONLOAD — 完了。記事が出るようになりました
 
-`AutoEventWireup` の `Page_Load` は駆動していますが、**`OnLoad` の override は駆動して
-いません。** コントロールライブラリは後者を使うのが普通で、BlogEngine の `PostList` は
-`OnLoad` で記事を組み立てます。**一度も呼ばれていませんでした。**
+`AutoEventWireup` の `Page_Load` は駆動していましたが、**`OnLoad` の override は駆動して
+いませんでした。** コントロールライブラリは後者を使うのが普通で、BlogEngine の
+`PostList` は `OnLoad` で記事を組み立てます。**一度も呼ばれていませんでした。**
 
-駆動するよう実装し、**測って撤回しました。** 回帰ゲートが退行を捕まえたためです。
+駆動を入れると回帰ゲートが 3 点の差分を出し、**そこから 2 つの欠陥が出てきました。**
+どちらも「1 か所の欠陥が複数の症状に見えていた」型です。
 
+**欠陥 1 — `@ref` がラッパーを指していた。**
+型を解決できないコントロールは `LegacyRenderHost` で描画し、コード側のフィールドは
+`dynamic` にしていました。その `dynamic` に `@ref` で入るのは**ラッパー**であって
+コントロール本体ではありません。`recaptcha.UserUniqueIdentifier` も `pager1.Posts` も
+`LegacyRenderHost` に解決されて `RuntimeBinderException` になります。
+変換器側の元のコメントは「dynamic はコードをコンパイルさせるため」と書いてあり、
+**実行時に落ちることは分かった上で放置されていました。** 駆動を入れて初めて走ります。
+
+ラッパーは `__{id}_host` という別フィールドで受け、名前つきフィールドは
+そこから `ControlInstance` に届くようにしました。
+
+**欠陥 2 — `DynamicComponent` は自前で別インスタンスを作る。**
+
+```csharp
+PostViewBase postView = (PostViewBase)LoadControl(path);
+postView.Post = Post;            // ただのプロパティ。Parameter ではない
+pwPost.Controls.Add(postView);
 ```
-NG contact  本文 7 行目: 期待 'Image/File' / 実際 '[App_Code.Controls.RecaptchaControl: render error]'
-            入力欄 'txtAttachment': 実測側に存在しない
-OK search   本文 0 行 → 'Search' が出るようになった(改善)
-```
 
-**変更自体は正しく、それが別の欠陥を露出させています。** 走ったことのない `OnLoad` が
-走り、互換層の中で例外になる。同じ構図はこのセッションで既に 2 回起きています
-(`System.Web.Compilation` の移植で be が 0→11、スタブの基底復活で yaf が +138)。
+`Controls` の描画に `DynamicComponent` を使っていたので、**ページが設定した
+インスタンスは捨てられます。** `[Parameter]` だけ引き継ぐ実装にしていましたが、
+WebForms のコントロールが持つ状態はほぼ `[Parameter]` ではありません。
+新しい方の `Post` は null で、`PostViewBase.OnInit` が落ちていました。
 
-**やるなら、新たに走り出す `OnLoad` が何を必要とするかを 1 つずつ潰す作業**で、
-回帰スナップショットがその判定に使えます。着手する人は
-`CodeBehindRewriter.cs` の `overridesLoad` から辿ってください。
+Blazor に「既にあるインスタンスを描画する」経路はありませんが、
+**`IComponentActivator` はレンダラーが実体を要求する唯一の場所**です。
+`PreparedComponentActivator` を挟み、用意済みのコントロールをそこで返します。
+
+結果、**未処理例外は 0 件**になり、回帰ゲートの差分 3 点はすべて改善でした。
+
+| ページ | 差分 | 判定 |
+|---|---|---|
+| home | `Welcome to BlogEngine.NET` と `<article id="post0">` が出現 | **記事が描画された** |
+| search | 本文 0 行 → `Search` | 改善 |
+| contact | 添付欄が消えた | **元の挙動。** `App_Data/settings.xml` の `enablecontactattachments` は `False` で、`phAttachment.Visible = BlogSettings.Instance.EnableContactAttachments` が効くようになった結果です |
+
+スナップショットは再記録しました。パリティ 30/30、bUnit 30/30、全 6 コーパスの数字は不変です。
+
+`[RecaptchaControl: render error]` は**この作業の前から出ています**(再記録前の
+スナップショットにも入っています)。退行ではなく、未着手の別件です。
+
+#### 回帰ゲートの欠陥も 1 つ直しました
+
+対象が全部ポート 5080 を使うのに解放を待っていませんでした。前のアプリが
+終了しきる前に次を起動すると、bind に失敗した上に**死にかけの前アプリが 200 を返して
+起動確認を通過**します。wt が `ERR_CONNECTION_REFUSED` で落ちたのはこれでした。
 
 ## BlogEngine の稼働状況
 

@@ -5,7 +5,9 @@
       "Name": "home",
       "Path": "/",
       "Title": "Account Login",
-      "Text": [],
+      "Text": [
+        "Welcome to BlogEngine.NET"
+      ],
       "Tables": [],
       "Inputs": {},
       "Elements": {
@@ -21,17 +23,17 @@
           },
           "Style": {}
         },
+        "post0": {
+          "Tag": "article",
+          "Attributes": {
+            "class": "post"
+          },
+          "Style": {}
+        },
         "postPaging": {
           "Tag": "div",
           "Attributes": {},
           "Style": {}
-        },
-        "PostList1_hlPrev": {
-          "Tag": "a",
-          "Attributes": {},
-          "Style": {
-            "float": "left"
-          }
         },
         "PostList1_hlNext": {
           "Tag": "a",
@@ -83,7 +85,9 @@
       "Name": "search",
       "Path": "/search",
       "Title": "Account Login",
-      "Text": [],
+      "Text": [
+        "Search"
+      ],
       "Tables": [],
       "Inputs": {
         "q": ""
@@ -123,7 +127,6 @@
         "E-mail",
         "Subject",
         "Message",
-        "Image/File",
         "[App_Code.Controls.RecaptchaControl: render error]"
       ],
       "Tables": [],
@@ -131,8 +134,7 @@
         "txtName": "",
         "txtEmail": "",
         "txtSubject": "",
-        "txtMessage": "",
-        "txtAttachment": ""
+        "txtMessage": ""
       },
       "Elements": {
         "contact": {
@@ -176,13 +178,6 @@
           "Attributes": {
             "type": "text",
             "class": "form-control"
-          },
-          "Style": {}
-        },
-        "txtAttachment": {
-          "Tag": "input",
-          "Attributes": {
-            "type": "file"
           },
           "Style": {}
         },

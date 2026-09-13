@@ -2516,7 +2516,9 @@ static string GenerateFieldOnlyCodeBehind(ConvertedComponent component)
     builder.AppendLine("    {");
     foreach (var field in component.Fields.DistinctBy(f => f.Name))
     {
-        builder.AppendLine($"        protected {field.Type} {field.Name};");
+        builder.Append(field.LegacyHost
+            ? WebForm2Blazor.Converter.Convert.CodeBehindRewriter.EmitLegacyHostField(field, "        ")
+            : $"        protected {field.Type} {field.Name};\r\n");
     }
 
     // <script runat="server"> is code-behind written inside the markup, and this generated

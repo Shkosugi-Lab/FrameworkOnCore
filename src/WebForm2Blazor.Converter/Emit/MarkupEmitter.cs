@@ -6,8 +6,14 @@ using WebForm2Blazor.Converter.Project;
 
 namespace WebForm2Blazor.Converter.Emit;
 
-/// <summary>A control field generated into the code-behind.</summary>
-public sealed record ControlField(string Type, string Name);
+/// <summary>
+/// A control field generated into the code-behind.
+///
+/// <paramref name="LegacyHost"/> marks the case where the rendered component is a
+/// LegacyRenderHost wrapper rather than the control itself, so the field has to reach
+/// through it - see CodeBehindRewriter.EmitControlField.
+/// </summary>
+public sealed record ControlField(string Type, string Name, bool LegacyHost = false);
 
 /// <summary>
 /// Control information for smoke-scenario auto-generation.
@@ -855,11 +861,13 @@ public sealed partial class MarkupEmitter(EmitContext context)
 
         if (id is not null && _templateDepth == 0)
         {
-            // dynamic field: the original code-behind sets properties of the LEGACY
-            // control (PageSize etc.), which the display-only host does not expose.
-            // dynamic keeps that code compiling; the host stays display-only.
-            attributes.Add($"@ref=\"{id}\"");
-            context.Fields.Add(new ControlField("dynamic", id));
+            // The field the code-behind uses is the LEGACY CONTROL, not this host.
+            // @ref can only capture the component, so it captures a separate host field
+            // and the named field reaches through it to ControlInstance. Binding @ref to
+            // the named field directly is what BlogEngine's "recaptcha.UserUniqueIdentifier"
+            // and "pager1.Posts" hit: both resolved against LegacyRenderHost and threw.
+            attributes.Add($"@ref=\"__{id}_host\"");
+            context.Fields.Add(new ControlField("dynamic", id, LegacyHost: true));
         }
 
         context.Report.Info(context.SourceName,

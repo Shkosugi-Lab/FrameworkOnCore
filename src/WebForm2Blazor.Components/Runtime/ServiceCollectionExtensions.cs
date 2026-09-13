@@ -21,6 +21,13 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<WebFormsSessionStore>();
         services.AddSingleton<WebFormsApplicationState>();
 
+        // Controls built in code (LoadControl + Controls.Add) are rendered as the very
+        // instance the page configured. Scoped, because the renderer resolves
+        // IComponentActivator per circuit and the registrations belong to that circuit.
+        services.AddScoped<PreparedComponentActivator>();
+        services.AddScoped<Microsoft.AspNetCore.Components.IComponentActivator>(
+            provider => provider.GetRequiredService<PreparedComponentActivator>());
+
         // The session is resolved via the session-id cookie (survives circuit re-creation).
         // Environments without an HttpContext (bUnit etc.) get an independent per-scope session.
         services.AddScoped(provider =>

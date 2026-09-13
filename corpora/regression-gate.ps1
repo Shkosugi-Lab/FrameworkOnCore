@@ -67,8 +67,18 @@ foreach ($target in $targets) {
     }
 
     # 実行中のプロセスが残っていると、古いバイナリに対して検証してしまう
-    try { Stop-Process -Name $name -Force -ErrorAction Stop } catch {}
-    Start-Sleep -Seconds 2
+    foreach ($other in $targets) {
+        try { Stop-Process -Name $other.Name -Force -ErrorAction Stop } catch {}
+    }
+
+    # 全対象が同じポートを使うため、直前のアプリが解放するまで待つ。待たないと
+    # dotnet run がバインドに失敗し、しかも死にかけの前アプリが 200 を返すので
+    # 起動確認を通過してしまう。wt が ERR_CONNECTION_REFUSED で落ちたのはこれ。
+    foreach ($attempt in 1..30) {
+        $inUse = Get-NetTCPConnection -LocalPort $target.Port -State Listen -ErrorAction SilentlyContinue
+        if (-not $inUse) { break }
+        Start-Sleep -Seconds 1
+    }
 
     dotnet build $project --nologo -v q | Out-Null
     if ($LASTEXITCODE -ne 0) {

@@ -1036,6 +1036,11 @@ public static class CodeBehindRewriter
     /// </summary>
     private static string EmitControlField(Emit.ControlField field, string indent)
     {
+        if (field.LegacyHost)
+        {
+            return EmitLegacyHostField(field, indent);
+        }
+
         if (!CanStandIn(field.Type))
         {
             return $"{indent}protected {field.Type} {field.Name};\r\n";
@@ -1055,6 +1060,26 @@ public static class CodeBehindRewriter
              + $"{indent}    }}\r\n"
              + $"{indent}}}\r\n";
     }
+
+    /// <summary>
+    /// The field for a control the markup renders through a LegacyRenderHost wrapper.
+    ///
+    /// @ref can only capture the component, and the component is the wrapper - so the
+    /// wrapper is captured into its own field and the name the code-behind uses reaches
+    /// through it to the control. Pointing the named field at the wrapper is what
+    /// BlogEngine hit: "recaptcha.UserUniqueIdentifier" and "pager1.Posts" both resolved
+    /// against LegacyRenderHost and threw RuntimeBinderException.
+    ///
+    /// Still null before the first render - the wrapper builds the instance in
+    /// OnParametersSet, which is before @ref is assigned but after OnInit.
+    ///
+    /// Shared with the generated partial for markup that has no code-behind file
+    /// (a theme's Site.master), which emits plain fields and would otherwise leave the
+    /// @ref target undeclared.
+    /// </summary>
+    internal static string EmitLegacyHostField(Emit.ControlField field, string indent)
+        => $"{indent}private global::WebForm2Blazor.Components.LegacyRenderHost __{field.Name}_host;\r\n"
+         + $"{indent}protected {field.Type} {field.Name} => __{field.Name}_host?.ControlInstance;\r\n";
 
     /// <summary>
     /// Whether a stand-in of this type can be constructed and can record assignments.
@@ -1137,23 +1162,14 @@ public static class CodeBehindRewriter
         var hasLoad = methodNames.Contains("Page_Load");
         var hasPreRender = methodNames.Contains("Page_PreRender");
 
-        // NOT driven yet, deliberately - see the note below.
+        // AutoEventWireup is one way to hook the lifecycle; overriding OnLoad / OnPreRender
+        // is the other, and a control library usually takes the second. Both are driven.
         //
-        // AutoEventWireup is one way to hook the lifecycle; overriding OnLoad /
-        // OnPreRender is the other, and a control library usually takes the second. Only
-        // the Page_* form is driven, so such an override is compiled and never called:
-        // BlogEngine's PostList builds its article list in OnLoad, which is why its home
-        // page renders the theme and no posts.
-        //
-        // Driving them WAS implemented and measured, and reverted. It is the right change
-        // and it exposes defects that have to be fixed first - the regression gate caught
-        // BlogEngine's /contact losing its attachment field to
-        // "[RecaptchaControl: render error]", because an OnLoad body that never ran now
-        // runs and throws inside the compat layer. Doing this for real means working
-        // through what each newly-running OnLoad needs, with the regression snapshots as
-        // the check. Search DRIVE_ONLOAD in corpora/README.md.
-        var overridesLoad = false;
-        var overridesPreRender = false;
+        // Only an override counts. A class that merely INHERITS OnLoad must not have it
+        // called here - the base's OnLoad is the compat layer's own, and calling it from
+        // OnAfterRender would run the base lifecycle twice.
+        var overridesLoad = OverridesLifecycleMethod(classDeclaration, "OnLoad");
+        var overridesPreRender = OverridesLifecycleMethod(classDeclaration, "OnPreRender");
 
         if (hasInit || hasLoad || hasPreRender || overridesLoad || overridesPreRender)
         {
@@ -1251,6 +1267,21 @@ public static class CodeBehindRewriter
 
         return classDeclaration.WithMembers(SyntaxFactory.List(generatedMembers.Concat(existingMembers)));
     }
+
+    /// <summary>
+    /// True when this class DECLARES an override of the named lifecycle method.
+    ///
+    /// The declaration has to be here, with the "override" keyword, and take one argument -
+    /// an inherited OnLoad belongs to the compat base, which drives itself, and a same-named
+    /// helper that is not an override is not a lifecycle hook at all.
+    /// </summary>
+    private static bool OverridesLifecycleMethod(ClassDeclarationSyntax classDeclaration, string name) =>
+        classDeclaration.Members
+            .OfType<MethodDeclarationSyntax>()
+            .Any(method =>
+                method.Identifier.Text == name
+                && method.ParameterList.Parameters.Count == 1
+                && method.Modifiers.Any(modifier => modifier.RawKind == (int)SyntaxKind.OverrideKeyword));
 
     private static void ReportUnsupportedLifecycle(
         ClassDeclarationSyntax classDeclaration,

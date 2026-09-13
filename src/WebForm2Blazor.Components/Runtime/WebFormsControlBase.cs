@@ -179,11 +179,20 @@ public abstract class WebFormsControlBase : ComponentBase, IWebFormsControl, IDi
     public ControlCollection Controls { get; } = [];
 
     /// <summary>
+    /// The activator that lets a child built in code be rendered as itself. Optional:
+    /// a host that did not call AddWebFormsCompat still renders, it just gets a fresh
+    /// instance of each dynamic child.
+    /// </summary>
+    [Inject] private IServiceProvider RootServices { get; set; }
+
+    /// <summary>
     /// Renders the programmatically added children, after any markup content.
     ///
-    /// A Blazor component goes through DynamicComponent; a plain LegacyWebControl renders
-    /// itself to a writer, so its output is emitted as markup. Anything else is skipped
-    /// rather than guessed at.
+    /// A Blazor component is rendered AS THE INSTANCE THE PAGE BUILT, via
+    /// PreparedComponentActivator - the state WebForms code sets on a control it loaded
+    /// is ordinary properties, not parameters, so constructing a fresh one loses it. A
+    /// plain LegacyWebControl renders itself to a writer and its output is emitted as
+    /// markup. Anything else is skipped rather than guessed at.
     /// </summary>
     protected void RenderDynamicChildren(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder builder, int sequence)
     {
@@ -192,15 +201,19 @@ public abstract class WebFormsControlBase : ComponentBase, IWebFormsControl, IDi
             return;
         }
 
+        var activator = RootServices?.GetService(typeof(PreparedComponentActivator))
+            as PreparedComponentActivator;
+
         foreach (var child in Controls)
         {
             switch (child)
             {
-                case ComponentBase component:
-                    builder.OpenComponent<DynamicComponent>(sequence);
-                    builder.AddAttribute(sequence + 1, nameof(DynamicComponent.Type), component.GetType());
-                    builder.AddAttribute(sequence + 2, nameof(DynamicComponent.Parameters),
-                        DynamicChildParameters(component));
+                case IComponent component:
+                    activator?.Register(component);
+                    builder.OpenComponent(sequence, component.GetType());
+                    // Keyed by the child object so re-rendering matches each frame to the
+                    // same control instead of re-instantiating by position.
+                    builder.SetKey(component);
                     builder.CloseComponent();
                     break;
 
@@ -209,45 +222,10 @@ public abstract class WebFormsControlBase : ComponentBase, IWebFormsControl, IDi
                     // same arrangement LegacyRenderHost uses for declared ones.
                     var text = new System.IO.StringWriter();
                     legacy.RenderControl(new HtmlTextWriter(text));
-                    builder.AddMarkupContent(sequence + 3, text.ToString());
+                    builder.AddMarkupContent(sequence + 1, text.ToString());
                     break;
             }
         }
-    }
-
-    /// <summary>
-    /// The parameters to hand a dynamically added component.
-    ///
-    /// DynamicComponent constructs its own instance, so the state the page set on the one
-    /// it added has to travel as parameters. Only [Parameter] properties with a public
-    /// setter are carried - the same rule the converter applies when deciding what may be
-    /// a parameter at all.
-    /// </summary>
-    private static Dictionary<string, object> DynamicChildParameters(ComponentBase component)
-    {
-        var parameters = new Dictionary<string, object>(StringComparer.Ordinal);
-        foreach (var property in component.GetType().GetProperties(
-                     System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance))
-        {
-            if (!property.CanRead || property.SetMethod?.IsPublic != true
-                || !Attribute.IsDefined(property, typeof(ParameterAttribute)))
-            {
-                continue;
-            }
-
-            try
-            {
-                if (property.GetValue(component) is { } value)
-                {
-                    parameters[property.Name] = value;
-                }
-            }
-            catch (System.Reflection.TargetInvocationException)
-            {
-                // A getter that throws off the render tree contributes nothing.
-            }
-        }
-        return parameters;
     }
 
     /// <summary>

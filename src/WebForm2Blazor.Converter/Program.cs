@@ -2239,7 +2239,7 @@ static string? RenderStubMember(
            || Has(modifiers, Microsoft.CodeAnalysis.CSharp.SyntaxKind.InternalKeyword)
            || Has(modifiers, Microsoft.CodeAnalysis.CSharp.SyntaxKind.ProtectedKeyword);
 
-    string Prefix(Microsoft.CodeAnalysis.SyntaxTokenList modifiers)
+    string Prefix(Microsoft.CodeAnalysis.SyntaxTokenList modifiers, string memberName = "")
     {
         if (containerIsInterface)
         {
@@ -2292,6 +2292,15 @@ static string? RenderStubMember(
             return access + "override ";
         }
 
+        // object's own members always have a base, whether or not the stub kept one, and a
+        // record declares ToString itself - so re-declaring it virtual is CS8869 ("does not
+        // override an expected method from object"). mojoPortal's Author / Content / Date /
+        // Title records are stubbed and each overrides ToString.
+        if (wasOverride && !containerIsSealed && memberName is "ToString" or "Equals" or "GetHashCode")
+        {
+            return access + "override ";
+        }
+
         return wasOverridable ? access + "virtual " : access;
     }
 
@@ -2328,7 +2337,7 @@ static string? RenderStubMember(
                 parameters.Add($"{passing}{parameterType} {parameter.Identifier.Text}");
             }
             var message = $"{method.Identifier.Text} は変換対象外です(元の実装は移植されていません)。";
-            return $"{Prefix(method.Modifiers)}{returnType} {method.Identifier.Text}({string.Join(", ", parameters)})"
+            return $"{Prefix(method.Modifiers, method.Identifier.Text)}{returnType} {method.Identifier.Text}({string.Join(", ", parameters)})"
                    + $" => throw new global::System.NotSupportedException(\"{message}\");";
         }
 

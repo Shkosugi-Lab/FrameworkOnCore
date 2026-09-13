@@ -389,21 +389,20 @@ public sealed class TemplateContainerAttribute(Type containerType) : Attribute
     /// <summary>
     /// The two-argument form the original has. mojoPortal's SiteMapPath writes
     /// [TemplateContainer(typeof(SiteMapNodeItem), BindingDirection.OneWay)] four times.
+    ///
+    /// System.ComponentModel.BindingDirection, not a shim of our own: that enum is still
+    /// in .NET, and declaring a second one of the same name in the compat namespace only
+    /// made the call ambiguous in the other direction (CS1503, "cannot convert from
+    /// System.ComponentModel.BindingDirection to WebForm2Blazor.Components.BindingDirection").
     /// </summary>
-    public TemplateContainerAttribute(Type containerType, BindingDirection bindingDirection)
+    public TemplateContainerAttribute(
+        Type containerType, System.ComponentModel.BindingDirection bindingDirection)
         : this(containerType)
         => BindingDirection = bindingDirection;
 
     public Type ContainerType { get; } = containerType;
 
-    public BindingDirection BindingDirection { get; set; }
-}
-
-/// <summary>System.ComponentModel.BindingDirection equivalent (metadata only).</summary>
-public enum BindingDirection
-{
-    OneWay,
-    TwoWay,
+    public System.ComponentModel.BindingDirection BindingDirection { get; set; }
 }
 
 /// <summary>

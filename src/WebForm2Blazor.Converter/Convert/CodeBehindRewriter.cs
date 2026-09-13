@@ -110,6 +110,29 @@ public static class CodeBehindRewriter
             return RewriteQualifiedFrameworkTypes(RewriteSyntax(root).ToFullString());
         }
 
+        // A .razor always generates "partial class", so the code-behind half has to be
+        // partial too. WebForms did not require it - a .master or .aspx with no designer
+        // file is an ordinary class, and mojoPortal's Web/App_MasterPages/layout.Master.cs
+        // is one - and without this the two halves are two declarations of one name
+        // (CS0260).
+        if (!classDeclaration.Modifiers.Any(modifier =>
+                modifier.RawKind == (int)SyntaxKind.PartialKeyword))
+        {
+            // The trailing space matters: AddModifiers appends the token with no trivia,
+            // and the "class" keyword carries its own leading space only when it follows
+            // the modifier list as parsed - so without this it renders "partialclass".
+            var madePartial = classDeclaration.AddModifiers(
+                SyntaxFactory.Token(SyntaxKind.PartialKeyword)
+                    .WithTrailingTrivia(SyntaxFactory.Space));
+            root = root.ReplaceNode(classDeclaration, madePartial);
+            classDeclaration = root.DescendantNodes()
+                .OfType<ClassDeclarationSyntax>()
+                .First(candidate => candidate.Identifier.Text == madePartial.Identifier.Text);
+            report.Info(sourceName,
+                $"{classDeclaration.Identifier.Text} に partial を付けました"
+                + "(.razor 側が partial class を生成するため)。");
+        }
+
         // Component names must start uppercase in Razor; a lowercase WebForms class
         // (class root : Page) is renamed so the partial halves line up
         if (classDeclaration.Identifier.Text != component.ComponentName)

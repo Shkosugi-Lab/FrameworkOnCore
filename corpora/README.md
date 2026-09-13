@@ -1825,3 +1825,19 @@ CS7069: 型 'Control' への参照では 'System.Web' で定義されている�
 この 2 つが System.Web を名指ししたら、必ず参照ライブラリ側です。
 
 **これは修正ではなく分類の変更です。** dnn の −14 はコードが 1 行も良くなっていません。
+
+## コードビハインドに `partial` が無い / `record` のスタブ / 自分で入れた退行(89 → 80)
+
+| | |
+|---|---|
+| `BindingDirection` | **前回自分で入れた退行です。** `System.ComponentModel.BindingDirection` は .NET に残っているのに、互換層に同名の列挙型を足したため、今度は逆向きの CS1503 になりました。互換層の型は消し、BCL の型を使います |
+| `partial` が無いコードビハインド | `.razor` は必ず `partial class` を生成しますが、**WebForms は designer ファイルが無ければ普通のクラスで構いません**(mojoPortal の `layout.Master.cs`)。付けるようにしました |
+| `record` のスタブの `ToString` | スタブは「基底を残せなかった override」を `virtual` に落としますが、**`object` のメンバは常に基底があります。** `record` は `ToString` を自前で宣言するので CS8869。`ToString` / `Equals` / `GetHashCode` は `override` のまま出します |
+
+### 構文エラーの警告が効きました
+
+`partial` を足すとき `AddModifiers` がトリビア無しでトークンを付けるため
+`public partialclass Layout` になりました。このとき数字は **mojo 4 / n2 5** と出ます。
+
+前回入れた「**構文エラーがあるため件数は下限です**」の警告が無ければ、
+**大幅な改善だと思い込んで commit していました。**

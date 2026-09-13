@@ -1713,33 +1713,64 @@ static string GenerateExcludedTypeStubs(
     // base class has to be written out fully qualified. A name that is not unique maps to
     // null and is then dropped rather than guessed.
     var classesBySimpleName = new Dictionary<string, string?>(StringComparer.Ordinal);
+
+    // Qualified names of the ported classes that are abstract. A stub deriving from one
+    // is emitted abstract too, so the abstract members it cannot implement are simply
+    // passed down to the real subclasses - which do implement them, since they compiled
+    // in the original. That is what makes carrying an abstract base safe.
+    var abstractClasses = new HashSet<string>(StringComparer.Ordinal);
+
+    // Qualified name -> the simple name of its base class, for the ported classes. Used to
+    // walk the chain and find the attribute classes: an attribute can never be abstract
+    // ("cannot apply attribute class X because it is abstract"), so those keep their base
+    // and stay concrete. Read off the base lists rather than guessed from the "Attribute"
+    // suffix, which is a convention and not the rule the compiler applies.
+    var baseNameByQualifiedName = new Dictionary<string, string>(StringComparer.Ordinal);
     void RecordInheritableClass(StubType declaration)
     {
         if (declaration.Declaration is not Microsoft.CodeAnalysis.CSharp.Syntax.ClassDeclarationSyntax classDeclaration)
         {
             return;
         }
-        // sealed/static cannot be derived from at all. abstract is excluded for a subtler
-        // reason: the stub would inherit abstract members it has no way to implement, and
-        // CS0534 replaces the error we were trying to remove. A concrete class cannot carry
-        // unimplemented abstract members, so restricting to concrete keeps this sound
-        // without having to walk the inheritance chain.
+        // sealed/static cannot be derived from at all.
         //
-        // MEASURED, do not repeat: allowing abstract bases fixes 14 errors in DNN (the
-        // installers under ComponentInstallerBase override all five of its abstract members,
-        // so that base IS satisfiable) and costs 138 in YAF.NET, whose stubs cannot implement
-        // what their abstract bases declare. The stub generator would have to reproduce a
-        // member exactly - every one of them - before this trade turns positive.
+        // abstract WAS excluded, because a concrete stub inherits abstract members it has
+        // no way to implement and CS0534 replaces the CS0115 we were removing - measured
+        // at DNN -14 / YAF.NET +138. The answer is not to drop the base but to stop making
+        // the stub concrete: see abstractClasses below.
         var unusable = classDeclaration.Modifiers.Any(modifier =>
             Microsoft.CodeAnalysis.CSharpExtensions.IsKind(modifier, Microsoft.CodeAnalysis.CSharp.SyntaxKind.SealedKeyword)
-            || Microsoft.CodeAnalysis.CSharpExtensions.IsKind(modifier, Microsoft.CodeAnalysis.CSharp.SyntaxKind.StaticKeyword)
-            || Microsoft.CodeAnalysis.CSharpExtensions.IsKind(modifier, Microsoft.CodeAnalysis.CSharp.SyntaxKind.AbstractKeyword));
+            || Microsoft.CodeAnalysis.CSharpExtensions.IsKind(modifier, Microsoft.CodeAnalysis.CSharp.SyntaxKind.StaticKeyword));
         if (unusable)
         {
             return;
         }
 
         var qualified = QualifiedName(declaration.Namespace, declaration.Name);
+
+        if (classDeclaration.BaseList?.Types.Count > 0)
+        {
+            var firstBase = classDeclaration.BaseList.Types[0].Type switch
+            {
+                Microsoft.CodeAnalysis.CSharp.Syntax.IdentifierNameSyntax identifier
+                    => identifier.Identifier.Text,
+                Microsoft.CodeAnalysis.CSharp.Syntax.QualifiedNameSyntax qualifiedBase
+                    => qualifiedBase.Right.Identifier.Text,
+                _ => null,
+            };
+            if (firstBase is not null)
+            {
+                baseNameByQualifiedName[qualified] = firstBase;
+            }
+        }
+
+        if (classDeclaration.Modifiers.Any(modifier =>
+                Microsoft.CodeAnalysis.CSharpExtensions.IsKind(
+                    modifier, Microsoft.CodeAnalysis.CSharp.SyntaxKind.AbstractKeyword)))
+        {
+            abstractClasses.Add(qualified);
+        }
+
         if (classesBySimpleName.TryGetValue(declaration.Name, out var existing) && existing != qualified)
         {
             classesBySimpleName[declaration.Name] = null;
@@ -1755,6 +1786,31 @@ static string GenerateExcludedTypeStubs(
             surviving.Add(declaration.Key);
             survivingNames.Add(QualifiedName(declaration.Namespace, declaration.Name));
             RecordInheritableClass(declaration);
+        }
+    }
+
+    // An attribute class cannot be abstract, so anything whose base chain reaches
+    // System.Attribute is taken back out of the abstract set - it keeps its base and stays
+    // concrete, which is what [DisplayableImage] on N2's ContentItem needs.
+    foreach (var qualified in abstractClasses.ToList())
+    {
+        var current = qualified;
+        for (var depth = 0; depth < 16; depth++)
+        {
+            if (!baseNameByQualifiedName.TryGetValue(current, out var baseName))
+            {
+                break;
+            }
+            if (baseName is "Attribute" or "System.Attribute")
+            {
+                abstractClasses.Remove(qualified);
+                break;
+            }
+            if (!classesBySimpleName.TryGetValue(baseName, out var next) || next is null)
+            {
+                break;
+            }
+            current = next;
         }
     }
 
@@ -1810,7 +1866,8 @@ static string GenerateExcludedTypeStubs(
         }
         foreach (var stub in members.OrderBy(member => member.Name, StringComparer.Ordinal))
         {
-            builder.AppendLine(RenderStubType(stub, known, classesBySimpleName, indent, declaredNamespace));
+            builder.AppendLine(RenderStubType(
+                stub, known, classesBySimpleName, abstractClasses, indent, declaredNamespace));
             typeCount++;
         }
         if (!string.IsNullOrEmpty(declaredNamespace))
@@ -1828,6 +1885,7 @@ static string RenderStubType(
     StubType stub,
     HashSet<string> known,
     IReadOnlyDictionary<string, string?> classesBySimpleName,
+    IReadOnlySet<string> abstractClasses,
     string indent,
     string declaredNamespace)
 {
@@ -1871,6 +1929,7 @@ static string RenderStubType(
     // to implement its members, which is exactly what a stub cannot do, and a base outside
     // the port (System.Web, a NuGet package) cannot be named from here.
     var baseClause = string.Empty;
+    var baseIsAbstract = false;
     var ownQualifiedName = QualifiedName(declaredNamespace, stub.Name);
     if (!isStatic && keyword == "class" && typeDeclaration?.BaseList is { } baseList)
     {
@@ -1924,9 +1983,23 @@ static string RenderStubType(
             if (resolvedBase is not null)
             {
                 baseClause = $" : {resolvedBase}";
+
+                // An abstract base declares members this stub has no implementation for -
+                // that is exactly why the base used to be dropped. Marking the stub
+                // abstract passes the obligation down to the real subclasses, which do
+                // implement them (the original compiled), instead of failing here.
+                if (abstractClasses.Contains(resolvedBase))
+                {
+                    baseIsAbstract = true;
+                }
                 break;
             }
         }
+    }
+
+    if (baseIsAbstract)
+    {
+        modifiers = "public abstract";
     }
 
     var lines = new List<string>();

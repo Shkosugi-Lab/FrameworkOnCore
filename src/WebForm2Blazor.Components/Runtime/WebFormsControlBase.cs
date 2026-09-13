@@ -169,11 +169,86 @@ public abstract class WebFormsControlBase : ComponentBase, IWebFormsControl, IDi
     public CssStyleCollection Style { get; }
 
     /// <summary>
-    /// WebForms Control.Controls equivalent. Blazor builds the child tree from markup,
-    /// so this collection only carries controls added programmatically (dynamic control
-    /// creation is manual-migration territory and does not render).
+    /// WebForms Control.Controls equivalent - the children added programmatically. Markup
+    /// children arrive as ChildContent instead; this is the other half.
+    ///
+    /// It RENDERS (see <see cref="RenderDynamicChildren"/>). It used to be collected and
+    /// dropped, which is how BlogEngine's home page came to return 200 with no posts on
+    /// it: PostList builds each post with LoadControl and adds it here.
     /// </summary>
     public ControlCollection Controls { get; } = [];
+
+    /// <summary>
+    /// Renders the programmatically added children, after any markup content.
+    ///
+    /// A Blazor component goes through DynamicComponent; a plain LegacyWebControl renders
+    /// itself to a writer, so its output is emitted as markup. Anything else is skipped
+    /// rather than guessed at.
+    /// </summary>
+    protected void RenderDynamicChildren(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder builder, int sequence)
+    {
+        if (Controls.Count == 0)
+        {
+            return;
+        }
+
+        foreach (var child in Controls)
+        {
+            switch (child)
+            {
+                case ComponentBase component:
+                    builder.OpenComponent<DynamicComponent>(sequence);
+                    builder.AddAttribute(sequence + 1, nameof(DynamicComponent.Type), component.GetType());
+                    builder.AddAttribute(sequence + 2, nameof(DynamicComponent.Parameters),
+                        DynamicChildParameters(component));
+                    builder.CloseComponent();
+                    break;
+
+                case LegacyWebControl legacy:
+                    // The ported control's own Render is the authority on its markup, the
+                    // same arrangement LegacyRenderHost uses for declared ones.
+                    var text = new System.IO.StringWriter();
+                    legacy.RenderControl(new HtmlTextWriter(text));
+                    builder.AddMarkupContent(sequence + 3, text.ToString());
+                    break;
+            }
+        }
+    }
+
+    /// <summary>
+    /// The parameters to hand a dynamically added component.
+    ///
+    /// DynamicComponent constructs its own instance, so the state the page set on the one
+    /// it added has to travel as parameters. Only [Parameter] properties with a public
+    /// setter are carried - the same rule the converter applies when deciding what may be
+    /// a parameter at all.
+    /// </summary>
+    private static Dictionary<string, object> DynamicChildParameters(ComponentBase component)
+    {
+        var parameters = new Dictionary<string, object>(StringComparer.Ordinal);
+        foreach (var property in component.GetType().GetProperties(
+                     System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance))
+        {
+            if (!property.CanRead || property.SetMethod?.IsPublic != true
+                || !Attribute.IsDefined(property, typeof(ParameterAttribute)))
+            {
+                continue;
+            }
+
+            try
+            {
+                if (property.GetValue(component) is { } value)
+                {
+                    parameters[property.Name] = value;
+                }
+            }
+            catch (System.Reflection.TargetInvocationException)
+            {
+                // A getter that throws off the render tree contributes nothing.
+            }
+        }
+        return parameters;
+    }
 
     /// <summary>
     /// WebForms Control.Focus equivalent. Focus is a client concern in Blazor

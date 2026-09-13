@@ -1294,6 +1294,39 @@ this.posts.Controls.Add(postView);                     // Controls は描画さ�
 ステータスコードだけを見ていたためで、**同じ誤りは wt でも起きていました**
 (`/ProductList` はページ全体がプレースホルダー)。
 
+### `LoadControl` と `Controls` — 実装したが、まだ記事は出ない
+
+回帰スナップショットが暴いた「記事が 1 件も出ない」の直接原因は 2 つで、両方直しました。
+
+| | 直したこと |
+|---|---|
+| `LoadControl` が常に null | 変換器が `UserControlCatalog.g.cs`(仮想パス → 変換後コンポーネント)を出力し、`LoadControl` がそこから実体を作る。**対応を知っているのは変換器だけ**なので、導出せず記録します |
+| `Controls` が描画されない | `WebFormsControlBase.RenderDynamicChildren` を追加。Blazor コンポーネントは `DynamicComponent` 経由、平の `LegacyWebControl` は自身の `Render` の出力をマークアップとして差し込みます |
+
+**それでも記事は出ませんでした。** 手前にもう 1 つあります。
+
+#### DRIVE_ONLOAD — 次にやること(実装して撤回済み)
+
+`AutoEventWireup` の `Page_Load` は駆動していますが、**`OnLoad` の override は駆動して
+いません。** コントロールライブラリは後者を使うのが普通で、BlogEngine の `PostList` は
+`OnLoad` で記事を組み立てます。**一度も呼ばれていませんでした。**
+
+駆動するよう実装し、**測って撤回しました。** 回帰ゲートが退行を捕まえたためです。
+
+```
+NG contact  本文 7 行目: 期待 'Image/File' / 実際 '[App_Code.Controls.RecaptchaControl: render error]'
+            入力欄 'txtAttachment': 実測側に存在しない
+OK search   本文 0 行 → 'Search' が出るようになった(改善)
+```
+
+**変更自体は正しく、それが別の欠陥を露出させています。** 走ったことのない `OnLoad` が
+走り、互換層の中で例外になる。同じ構図はこのセッションで既に 2 回起きています
+(`System.Web.Compilation` の移植で be が 0→11、スタブの基底復活で yaf が +138)。
+
+**やるなら、新たに走り出す `OnLoad` が何を必要とするかを 1 つずつ潰す作業**で、
+回帰スナップショットがその判定に使えます。着手する人は
+`CodeBehindRewriter.cs` の `overridesLoad` から辿ってください。
+
 ## BlogEngine の稼働状況
 
 **ステータスコードであって、動作ではありません。**(上の回帰スナップショットの節を参照)

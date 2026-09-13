@@ -343,7 +343,7 @@ public class TableItemStyle : Style
 /// </summary>
 public abstract class TemplateControl
 {
-    public virtual IWebFormsControl LoadControl(string virtualPath) => null;
+    public virtual IWebFormsControl LoadControl(string virtualPath) => UserControlCatalog.Create(virtualPath);
 
     public virtual object Eval(string expression) => null;
 

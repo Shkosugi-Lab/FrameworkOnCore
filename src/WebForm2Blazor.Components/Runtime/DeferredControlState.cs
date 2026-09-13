@@ -44,9 +44,23 @@ public static class DeferredControlStateExtensions
     /// </summary>
     public static void ReplayPendingStateOnto(this IDeferredControlState source, object target)
     {
-        if (source is null || target is null || source.PendingState.Count == 0)
+        if (source is null || target is null)
         {
             return;
+        }
+
+        // Children added while the control did not exist yet. PendingState only carries
+        // property assignments, and a control tree built in OnInit lands here instead -
+        // BlogEngine's PostList does "posts.Controls.Add(postView)" for every article, so
+        // without this the posts are built, handed to the stand-in, and dropped.
+        if (source is IWebFormsControl { Controls.Count: > 0 } pendingControl
+            && target is IWebFormsControl realControl)
+        {
+            foreach (var child in pendingControl.Controls)
+            {
+                realControl.Controls.Add(child);
+            }
+            pendingControl.Controls.Clear();
         }
 
         var type = target.GetType();

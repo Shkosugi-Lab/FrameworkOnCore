@@ -1137,7 +1137,25 @@ public static class CodeBehindRewriter
         var hasLoad = methodNames.Contains("Page_Load");
         var hasPreRender = methodNames.Contains("Page_PreRender");
 
-        if (hasInit || hasLoad || hasPreRender)
+        // NOT driven yet, deliberately - see the note below.
+        //
+        // AutoEventWireup is one way to hook the lifecycle; overriding OnLoad /
+        // OnPreRender is the other, and a control library usually takes the second. Only
+        // the Page_* form is driven, so such an override is compiled and never called:
+        // BlogEngine's PostList builds its article list in OnLoad, which is why its home
+        // page renders the theme and no posts.
+        //
+        // Driving them WAS implemented and measured, and reverted. It is the right change
+        // and it exposes defects that have to be fixed first - the regression gate caught
+        // BlogEngine's /contact losing its attachment field to
+        // "[RecaptchaControl: render error]", because an OnLoad body that never ran now
+        // runs and throws inside the compat layer. Doing this for real means working
+        // through what each newly-running OnLoad needs, with the regression snapshots as
+        // the check. Search DRIVE_ONLOAD in corpora/README.md.
+        var overridesLoad = false;
+        var overridesPreRender = false;
+
+        if (hasInit || hasLoad || hasPreRender || overridesLoad || overridesPreRender)
         {
             generated.Append($"{indent}// Equivalent of the WebForms page lifecycle (Init -> Load -> PreRender).\r\n");
             generated.Append($"{indent}// In Blazor, child-component @ref values are assigned only after the first\r\n");
@@ -1153,11 +1171,19 @@ public static class CodeBehindRewriter
             {
                 generated.Append($"{indent}    Page_Init(this, EventArgs.Empty);\r\n");
             }
+            if (overridesLoad)
+            {
+                generated.Append($"{indent}    OnLoad(EventArgs.Empty);\r\n");
+            }
             if (hasLoad)
             {
                 generated.Append($"{indent}    Page_Load(this, EventArgs.Empty);\r\n");
             }
             generated.Append($"{indent}    MarkPageLoaded();\r\n");
+            if (overridesPreRender)
+            {
+                generated.Append($"{indent}    OnPreRender(EventArgs.Empty);\r\n");
+            }
             if (hasPreRender)
             {
                 generated.Append($"{indent}    Page_PreRender(this, EventArgs.Empty);\r\n");
@@ -1167,8 +1193,16 @@ public static class CodeBehindRewriter
             generated.Append("\r\n");
 
             report.Info(sourceName,
-                $"ライフサイクル({string.Join(" → ", new[] { hasInit ? "Page_Init" : null, hasLoad ? "Page_Load" : null, hasPreRender ? "Page_PreRender" : null }.Where(n => n != null))})"
-                + " を OnAfterRender(firstRender) から呼び出すよう生成しました(メソッド本体は無変更)。");
+                "ライフサイクル("
+                + string.Join(" → ", new[]
+                {
+                    hasInit ? "Page_Init" : null,
+                    overridesLoad ? "OnLoad" : null,
+                    hasLoad ? "Page_Load" : null,
+                    overridesPreRender ? "OnPreRender" : null,
+                    hasPreRender ? "Page_PreRender" : null,
+                }.Where(name => name is not null))
+                + ")を OnAfterRender(firstRender) から呼び出すよう生成しました(メソッド本体は無変更)。");
         }
 
         if (hasPreRender)

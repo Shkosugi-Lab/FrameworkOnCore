@@ -190,13 +190,22 @@ public abstract class Page : ComponentBase, IWebFormsHost
     public bool IsCallback => false;
 
     /// <summary>
-    /// WebForms Page.LoadControl equivalent. User controls are Blazor components built
-    /// from markup, so one cannot be materialised from a virtual path at runtime; ported
-    /// code that does this needs the control placed in markup instead.
+    /// WebForms Page.LoadControl equivalent: the component the .ascx at that virtual path
+    /// was converted into. Add it to a Controls collection and it renders
+    /// (see WebFormsControlBase.RenderDynamicChildren).
+    ///
+    /// Null for a path the converter did not produce a component for - as LoadControl was
+    /// for a path that did not exist. Inventing a control there would render something the
+    /// original never had.
     /// </summary>
-    public IWebFormsControl LoadControl(string virtualPath) => null;
+    public IWebFormsControl LoadControl(string virtualPath) => UserControlCatalog.Create(virtualPath);
 
-    public IWebFormsControl LoadControl(Type type, object[] parameters) => null;
+    /// <summary>WebForms Page.LoadControl(Type) equivalent.</summary>
+    public IWebFormsControl LoadControl(Type type, object[] parameters)
+    {
+        _ = parameters; // WebForms passes these to a non-default constructor; components have none
+        return type is not null && Activator.CreateInstance(type) is IWebFormsControl control ? control : null;
+    }
 
     /// <summary>
     /// WebForms Page.OnError override point. Never raised: Blazor surfaces exceptions
@@ -530,7 +539,7 @@ public abstract class WebFormsUserControl : UserControl, IWebFormsHost, IWebForm
     }
 
     /// <summary>WebForms LoadControl equivalent (see WebFormsPage.LoadControl).</summary>
-    public object LoadControl(string virtualPath) => null;
+    public object LoadControl(string virtualPath) => UserControlCatalog.Create(virtualPath);
 
     /// <summary>WebForms Control.DataBind equivalent (custom bases override it).</summary>
     public virtual void DataBind()
@@ -661,7 +670,7 @@ public abstract class WebFormsLayout : LayoutComponentBase, IWebFormsHost
     }
 
     /// <summary>WebForms LoadControl equivalent (see WebFormsPage.LoadControl).</summary>
-    public object LoadControl(string virtualPath) => null;
+    public object LoadControl(string virtualPath) => UserControlCatalog.Create(virtualPath);
 
     /// <summary>WebForms Control.DataBind equivalent (custom bases override it).</summary>
     public virtual void DataBind()

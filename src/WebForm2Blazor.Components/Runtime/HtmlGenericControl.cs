@@ -135,6 +135,12 @@ public class HtmlGenericControl : WebFormsControlBase
         {
             builder.AddContent(7, ChildContent);
         }
+
+        // Children added from code-behind. InnerHtml/InnerText REPLACE the content in
+        // WebForms, so they win above; anything added to Controls renders after the
+        // markup children, in the order it was added.
+        RenderDynamicChildren(builder, 20);
+
         builder.CloseElement();
     }
 }

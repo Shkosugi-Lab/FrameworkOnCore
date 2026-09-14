@@ -286,6 +286,7 @@ new BlazorScaffolder(new ScaffoldOptions
     DefaultLayoutComponent = singleMaster?.FullName ?? $"{appName}.Components.Layout.MainLayout",
     EmitFallbackLayout = singleMaster is null,
     SiteTitle = siteTitle ?? string.Empty,
+    HasCustomErrorPage = WebConfigConverter.HasCustomErrorPage(project.WebConfigPath),
     Port = port,
 }).Scaffold(output);
 

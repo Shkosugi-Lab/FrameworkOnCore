@@ -2744,3 +2744,85 @@ Razor は**フラグメントを別々に解析する**ので、片方ずつ見�
 | ビルドエラー | 216 | **50**(−77%) |
 | 未対応コントロール | 113 | **66** |
 | 標準コントロール未実装 | 34 | **0** |
+
+---
+
+## `<customErrors>` を引き継ぐ — 例外時に元アプリと同じページへ
+
+### 先に試して撤回した案: ClientDependency の除外(記録)
+
+ビルドエラー 50 件の内訳を見ると、dnn の 20 件のうち **16 件が
+`Dnn.ClientDependency`**(net45 のみ、`WebFormsFileRegistrationProvider` が
+`System.Web.UI.Control` を取る)の統合コードでした。
+`DotNetNuke.Web.Client.Providers` はそのライブラリのラッパーそのものなので、
+`BlogML` と同じ扱い(Framework 専用ライブラリ)にしてみました。
+
+| | 変更前 | ClientDependency 除外 |
+|---|---:|---:|
+| ビルドエラー | 50 | **46**(−4) |
+| 合計総残差 | 568 | **591**(+23) |
+| dnn 移植 .cs | 2049 | **2030**(−19) |
+
+**ビルドエラーは 4 しか減らず、残差が 23 増えて 19 ファイル消えました。**
+連鎖除外の損が勝ちます(`PortabilityRules` の但し書きどおり)。撤回しました。
+16 件は「ユーザーが .NET ビルドを供給するまで動かせない外部ライブラリ」のままです。
+
+### customErrors: WebForms とまったく違う画面が出ていた
+
+4.8 では未処理例外は `defaultRedirect` へ飛びます。
+Blazor Server では同じ例外が**サーキットごと落とし**、訪問者が見るのは
+フレームワークの「An unhandled error has occurred. Reload」バーです。
+どのコーパスも自前のエラーページを持っているのに、それが一度も出ていませんでした。
+
+| | 設定 |
+|---|---|
+| be | `mode="RemoteOnly" defaultRedirect="~/error.aspx"` + `<error statusCode="404">` |
+| yaf | `mode="RemoteOnly" defaultRedirect="Error.aspx"` |
+| n2 | `mode="RemoteOnly" defaultRedirect="~/Templates/UI/Views/500.aspx"` |
+| wt | `mode="Off"` |
+
+1. `WebConfigConverter.CarryCustomErrors` — `mode` / `defaultRedirect` /
+   `<error statusCode redirect>` を `WebFormsCustomErrors` セクションへ。
+2. `WebFormsErrorBoundary`(互換層・新規) — ルーティングされたコンポーネントで
+   例外を受け、設定されたページへ遷移。`.aspx` は落とします
+   (変換後のページは自分の `@page` で到達するため)。
+3. `mode` は WebForms の定義どおり:
+   `On` = 常に / `Off` = 出さない / `RemoteOnly` = **クライアントアドレスが
+   ループバックでないときだけ**。ホスティング環境ではなくアドレスで決めるのが 4.8 の意味です。
+
+### `mode="Off"` は「未変換」ではなく「変換不要」
+
+wt の `<customErrors mode="Off"/>` は「カスタムエラーページを持たない」という
+**明示的な選択**です。「UseExceptionHandler への書き換えが必要」と報告するのは、
+挙動を保つどころか変えろと言っているのと同じでした。Info に変更。
+
+### 露出した欠陥: 「何も設定が無いのに境界を置く」のは中立ではない
+
+最初は Routes.razor に無条件で境界を入れ、設定が無ければ再スローする実装にしました。
+回帰ゲートが wt で落ちました。
+
+```
+NG   add-to-cart
+     ページタイトル: 期待 'wt' / 実際 ''
+```
+
+`OnErrorAsync` からの再スローは、**例外をそのまま通した場合とサーキットの
+落ち方が違います**。「捕まえて投げ直す」は「最初から捕まえない」と同じではない。
+
+なので、**Web.config がエラーページを指定しているときだけ境界を出す**ようにしました
+(`WebConfigConverter.HasCustomErrorPage` をスキャフォールド前に問い合わせ)。
+何も変えてはいけないコンポーネントは、出さないのが一番確実です。
+
+### 計測
+
+| | 変更前 | 変更後 |
+|---|---:|---:|
+| be 総残差 | 71 | **70** |
+| yaf 総残差 | 49 | **48** |
+| n2 総残差 | 150 | **149** |
+| wt 総残差 | 34 | **33** |
+| 合計総残差 | 568 | **564** |
+| ビルドエラー | 50 | **50**(変化なし) |
+
+パリティ 30/30、bUnit 30/30、回帰ゲート 13/13。
+生成物を確認: wt の Routes.razor には境界が無く、be には有ります。

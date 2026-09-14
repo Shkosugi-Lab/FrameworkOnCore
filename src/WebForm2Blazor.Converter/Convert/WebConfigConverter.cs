@@ -67,6 +67,112 @@ public static class WebConfigConverter
         return true;
     }
 
+    /// <summary>
+    /// Whether the Web.config configures a custom error page at all.
+    ///
+    /// Asked BEFORE scaffolding, because the answer decides whether the generated
+    /// Routes.razor wraps the page in a WebFormsErrorBoundary. Wrapping unconditionally
+    /// was wrong: with nothing configured the boundary has to re-throw, and re-throwing
+    /// from OnErrorAsync tears the circuit down differently from letting the exception
+    /// through - WingtipToys, which ships &lt;customErrors mode="Off"&gt;, lost the page title
+    /// on its failing route. A component that must not change anything is better not
+    /// emitted.
+    /// </summary>
+    public static bool HasCustomErrorPage(string? webConfigPath)
+    {
+        if (string.IsNullOrEmpty(webConfigPath) || !File.Exists(webConfigPath))
+        {
+            return false;
+        }
+
+        try
+        {
+            return XDocument.Load(webConfigPath).Root?.Element("system.web")?.Elements()
+                .Where(element => element.Name.LocalName.Equals("customErrors", StringComparison.OrdinalIgnoreCase))
+                .Any(QualifiesAsCustomErrorPage) == true;
+        }
+        catch (System.Xml.XmlException)
+        {
+            return false;
+        }
+    }
+
+    /// <summary>
+    /// The one rule both the scaffolder and the settings writer use: a custom error page
+    /// exists when the mode is not Off and a defaultRedirect names a page.
+    /// </summary>
+    private static bool QualifiesAsCustomErrorPage(XElement element)
+        => element.Attribute("mode")?.Value is not { } mode
+           || !mode.Equals("Off", StringComparison.OrdinalIgnoreCase)
+               ? !string.IsNullOrWhiteSpace(element.Attribute("defaultRedirect")?.Value)
+               : false;
+
+    /// <summary>
+    /// Writes &lt;customErrors mode defaultRedirect&gt; into the WebFormsCustomErrors section
+    /// that WebFormsErrorBoundary reads. Returns false when the element names no page to
+    /// go to, so the caller still reports it - a mode with no defaultRedirect and no
+    /// &lt;error&gt; entries has nothing to carry.
+    /// </summary>
+    private static bool CarryCustomErrors(
+        XElement element, JsonObject settings, string sourceName, ConversionReport report)
+    {
+        var mode = element.Attribute("mode")?.Value;
+        var defaultRedirect = element.Attribute("defaultRedirect")?.Value;
+
+        // mode="Off" means the application deliberately has NO custom error page - the
+        // real error is shown. There is nothing to migrate, so reporting it as "not
+        // converted, rewrite to UseExceptionHandler" was asking for work that would change
+        // the behaviour rather than preserve it. WingtipToys ships exactly this.
+        if (mode is not null && mode.Equals("Off", StringComparison.OrdinalIgnoreCase))
+        {
+            report.Info(sourceName,
+                "<customErrors mode=\"Off\"> のためカスタムエラーページはありません(移行不要。例外はそのまま表示されます)。");
+            return true;
+        }
+
+        if (string.IsNullOrWhiteSpace(defaultRedirect))
+        {
+            return false;
+        }
+
+        // A <location> or a nested Web.config can set it twice; the outermost file is the
+        // one applied to the application root, and it is read first.
+        if (settings.ContainsKey("WebFormsCustomErrors"))
+        {
+            return true;
+        }
+
+        var customErrors = new JsonObject
+        {
+            // WebForms' own default when the attribute is absent.
+            ["Mode"] = string.IsNullOrWhiteSpace(mode) ? "RemoteOnly" : mode,
+            ["DefaultRedirect"] = defaultRedirect,
+        };
+
+        var statusPages = new JsonObject();
+        foreach (var error in element.Elements().Where(child =>
+                     child.Name.LocalName.Equals("error", StringComparison.OrdinalIgnoreCase)))
+        {
+            var statusCode = error.Attribute("statusCode")?.Value;
+            var redirect = error.Attribute("redirect")?.Value;
+            if (!string.IsNullOrWhiteSpace(statusCode) && !string.IsNullOrWhiteSpace(redirect))
+            {
+                statusPages[statusCode] = redirect;
+            }
+        }
+        if (statusPages.Count > 0)
+        {
+            customErrors["StatusPages"] = statusPages;
+        }
+
+        settings["WebFormsCustomErrors"] = customErrors;
+
+        report.Info(sourceName,
+            $"<customErrors mode=\"{customErrors["Mode"]}\" defaultRedirect=\"{defaultRedirect}\"> を"
+            + "引き継ぎました(未処理例外時に元アプリと同じページへ遷移します)。");
+        return true;
+    }
+
     private static bool IsUtf8OnlyGlobalization(XElement element)
         => element.Attributes().All(attribute =>
             EncodingAttributes.Contains(attribute.Name.LocalName)
@@ -195,6 +301,15 @@ public static class WebConfigConverter
                 // converted pages render whatever culture the SERVER happens to have.
                 if (element.Name.LocalName.Equals("globalization", StringComparison.OrdinalIgnoreCase)
                     && CarryGlobalization(element, settings, sourceName, report))
+                {
+                    continue;
+                }
+
+                // The custom error page decides what a visitor sees when a page throws.
+                // Without it the converted application shows Blazor's "An unhandled error
+                // has occurred" bar where the original showed the application's own page.
+                if (element.Name.LocalName.Equals("customErrors", StringComparison.OrdinalIgnoreCase)
+                    && CarryCustomErrors(element, settings, sourceName, report))
                 {
                     continue;
                 }

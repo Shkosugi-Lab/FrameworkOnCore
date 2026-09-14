@@ -15,6 +15,13 @@ public sealed class ScaffoldOptions
 
     public string SiteTitle { get; init; } = "";
 
+    /// <summary>
+    /// Whether the Web.config names a custom error page. Only then is the routed component
+    /// wrapped in a WebFormsErrorBoundary - a boundary with nothing to redirect to would
+    /// have to re-throw, and that is not the same as never catching.
+    /// </summary>
+    public bool HasCustomErrorPage { get; init; }
+
     /// <summary>The port dotnet run listens on.</summary>
     public int Port { get; init; } = 5080;
 }
@@ -35,7 +42,8 @@ public sealed class BlazorScaffolder(ScaffoldOptions options)
         Write(outputDirectory, "Program.cs", ProgramCs);
         Write(outputDirectory, Path.Combine("Properties", "launchSettings.json"), LaunchSettingsJson);
         Write(outputDirectory, Path.Combine("Components", "App.razor"), AppRazor);
-        Write(outputDirectory, Path.Combine("Components", "Routes.razor"), RoutesRazor);
+        Write(outputDirectory, Path.Combine("Components", "Routes.razor"),
+            options.HasCustomErrorPage ? RoutesRazorWithCustomErrors : RoutesRazor);
         Write(outputDirectory, Path.Combine("Components", "_Imports.razor"), BuildImportsRazor());
 
         if (options.EmitFallbackLayout)
@@ -171,6 +179,28 @@ public sealed class BlazorScaffolder(ScaffoldOptions options)
         <Router AppAssembly="typeof(Routes).Assembly">
             <Found Context="routeData">
                 <RouteView RouteData="routeData" DefaultLayout="typeof({{LAYOUT}})" />
+            </Found>
+        </Router>
+        """;
+
+    /// <summary>
+    /// Emitted instead of <see cref="RoutesRazor"/> when the Web.config names a custom
+    /// error page.
+    ///
+    /// On 4.8 an unhandled exception in a page sent the browser to defaultRedirect. In
+    /// Blazor Server the same exception kills the CIRCUIT, and what the visitor sees is the
+    /// framework's "An unhandled error has occurred. Reload" bar - not the application's
+    /// own error page, which every one of these applications has.
+    /// </summary>
+    private const string RoutesRazorWithCustomErrors = """
+        @* <customErrors> from Web.config: an unhandled page exception goes to the
+           application's error page, as it did on 4.8. The boundary catches it at the
+           routed component, which is where a WebForms page's exception surfaced too. *@
+        <Router AppAssembly="typeof(Routes).Assembly">
+            <Found Context="routeData">
+                <WebFormsErrorBoundary>
+                    <RouteView RouteData="routeData" DefaultLayout="typeof({{LAYOUT}})" />
+                </WebFormsErrorBoundary>
             </Found>
         </Router>
         """;

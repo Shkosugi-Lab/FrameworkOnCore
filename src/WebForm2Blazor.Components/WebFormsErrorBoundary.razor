@@ -1,0 +1,118 @@
+@namespace WebForm2Blazor.Components
+@using System.Runtime.ExceptionServices
+@inherits ErrorBoundaryBase
+@inject Microsoft.AspNetCore.Components.NavigationManager Navigation
+@inject Microsoft.Extensions.Configuration.IConfiguration Configuration
+
+@* The <customErrors> section, as a Blazor error boundary.
+
+   WebForms sent an unhandled page exception to defaultRedirect. Blazor Server tears the
+   circuit down instead and the visitor gets the framework's generic error bar, so the
+   application's own error page - which every one of these applications has - never showed.
+
+   mode is honoured as WebForms defined it:
+     On         always show the custom page
+     Off        never (the exception surfaces, as the developer page or the error bar)
+     RemoteOnly custom page for remote clients, the real error on the loopback address
+   RemoteOnly is decided by the CLIENT ADDRESS, not by the hosting environment, because
+   that is what it meant on 4.8. *@
+@if (CurrentException is null)
+{
+    @ChildContent
+}
+else if (RedirectUrl is { Length: > 0 })
+{
+    <div class="w2b-customerrors-redirect">
+        @* Rendered rather than left blank while the navigation runs, so the page is never
+           momentarily empty. *@
+        <p>エラーが発生しました。</p>
+    </div>
+}
+
+@code {
+    /// <summary>Configuration section the converter writes &lt;customErrors&gt; into.</summary>
+    public const string SectionName = "WebFormsCustomErrors";
+
+    // ErrorBoundaryBase already declares ChildContent; this is the same parameter, not a
+    // second one.
+    private string RedirectUrl { get; set; }
+
+    private string Mode => Configuration?.GetSection(SectionName)["Mode"];
+
+    private string DefaultRedirect => Configuration?.GetSection(SectionName)["DefaultRedirect"];
+
+    protected override async Task OnErrorAsync(Exception exception)
+    {
+        if (!ShouldShowCustomPage())
+        {
+            // Off, or no <customErrors> at all: the conversion must not swallow an error
+            // the original would have shown.
+            ExceptionDispatchInfo.Capture(exception).Throw();
+        }
+
+        RedirectUrl = ResolveRedirect(DefaultRedirect);
+        if (string.IsNullOrEmpty(RedirectUrl))
+        {
+            ExceptionDispatchInfo.Capture(exception).Throw();
+        }
+
+        await Task.Yield();
+        Navigation.NavigateTo(RedirectUrl);
+    }
+
+    private bool ShouldShowCustomPage()
+    {
+        var mode = Mode;
+        if (string.IsNullOrWhiteSpace(mode) || mode.Equals("Off", StringComparison.OrdinalIgnoreCase))
+        {
+            return false;
+        }
+        if (mode.Equals("On", StringComparison.OrdinalIgnoreCase))
+        {
+            return true;
+        }
+
+        // RemoteOnly. A developer on the machine itself still sees the real exception,
+        // which is the whole point of the setting - so it is the CLIENT ADDRESS that
+        // decides it, not the hosting environment.
+        var address = HttpContext.Current?.Request?.UserHostAddress;
+        if (string.IsNullOrEmpty(address))
+        {
+            // No address to judge by: treat the visitor as remote, which is the side that
+            // does not leak a stack trace.
+            return true;
+        }
+
+        return !System.Net.IPAddress.TryParse(address, out var client)
+               || !System.Net.IPAddress.IsLoopback(client);
+    }
+
+    /// <summary>
+    /// "~/error.aspx" as the route the converted page actually has. The .aspx extension is
+    /// gone - a converted page is reached by its @page route - so it is stripped, the same
+    /// way every other converted link is.
+    /// </summary>
+    private static string ResolveRedirect(string configured)
+    {
+        if (string.IsNullOrWhiteSpace(configured))
+        {
+            return null;
+        }
+
+        var url = UrlMapper.ResolveUrl(configured.Trim());
+        var query = string.Empty;
+        var mark = url.IndexOf('?');
+        if (mark >= 0)
+        {
+            query = url[mark..];
+            url = url[..mark];
+        }
+
+        if (url.EndsWith(".aspx", StringComparison.OrdinalIgnoreCase))
+        {
+            url = url[..^5];
+        }
+
+        return url + query;
+    }
+}

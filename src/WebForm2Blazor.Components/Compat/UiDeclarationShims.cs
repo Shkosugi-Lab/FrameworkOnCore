@@ -270,20 +270,47 @@ public class BoundColumn
     public bool Visible { get; set; } = true;
 }
 
-/// <summary>System.Web.UI.WebControls.TemplateColumn equivalent (DataGrid-era column).</summary>
+/// <summary>
+/// System.Web.UI.WebControls.TemplateColumn equivalent (DataGrid-era column).
+///
+/// The templates are ITemplate, as WebForms declared them, not RenderFragment. A ported
+/// column builds them in code - DNN's TextColumn does
+/// "this.ItemTemplate = this.CreateTemplate(ListItemType.Item)" where CreateTemplate
+/// returns an ITemplate - so a RenderFragment property is the one shape that class can
+/// never satisfy. Declarative &lt;asp:TemplateColumn&gt; markup does not come here: the
+/// converter maps it to TemplateField, which is a component and keeps its RenderFragments.
+/// </summary>
 public class TemplateColumn
 {
     public string HeaderText { get; set; }
+
+    public string FooterText { get; set; }
 
     public string SortExpression { get; set; }
 
     public bool Visible { get; set; } = true;
 
-    public Microsoft.AspNetCore.Components.RenderFragment ItemTemplate { get; set; }
+    public ITemplate ItemTemplate { get; set; }
 
-    public Microsoft.AspNetCore.Components.RenderFragment EditItemTemplate { get; set; }
+    public ITemplate EditItemTemplate { get; set; }
 
-    public Microsoft.AspNetCore.Components.RenderFragment HeaderTemplate { get; set; }
+    public ITemplate HeaderTemplate { get; set; }
 
-    public Microsoft.AspNetCore.Components.RenderFragment FooterTemplate { get; set; }
+    public ITemplate FooterTemplate { get; set; }
+
+    /// <summary>WebForms per-column styles. A ported column sets them in Initialize.</summary>
+    public TableItemStyle ItemStyle { get; } = new();
+
+    public TableItemStyle HeaderStyle { get; } = new();
+
+    public TableItemStyle FooterStyle { get; } = new();
+
+    /// <summary>
+    /// WebForms DataGridColumn.Initialize: the column's chance to build its templates
+    /// before the grid renders rows. The grid calls it; a column that needs nothing
+    /// inherits this no-op.
+    /// </summary>
+    public virtual void Initialize()
+    {
+    }
 }

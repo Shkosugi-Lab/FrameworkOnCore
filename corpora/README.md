@@ -3236,3 +3236,60 @@ public class TextColumnTemplate : ITemplate
 `GridView` に `LegacyColumns` パラメータを足して `_columns` へ足すだけです。
 
 **この順で作れば、DNN 自身のコードが自分の列を描きます。** 変換器が推測する必要はありません。
+
+---
+
+## 列プロトコル(1/2): 互換 `TemplateColumn` を WebForms の型に揃えた
+
+設計の 4 点のうち、まず土台の 2 つを入れました。
+
+### `ItemTemplate` が `RenderFragment` だった
+
+```csharp
+// 互換層(変更前)
+public class TemplateColumn
+{
+    public RenderFragment ItemTemplate { get; set; }   // ← Blazor の型
+}
+
+// 移植された DNN
+public override void Initialize()
+    => this.ItemTemplate = this.CreateTemplate(ListItemType.Item);  // ← ITemplate を返す
+```
+
+**移植された列クラスが絶対に満たせない形**でした。WebForms の `TemplateColumn` は
+`ITemplate` なので、そちらに合わせます。
+宣言的な `<asp:TemplateColumn>` はここに来ません — 変換器はそれを `TemplateField`
+(コンポーネント)に割り当てるので、`RenderFragment` のままです。
+
+あわせて `Initialize()`(既定は何もしない)、`ItemStyle` / `HeaderStyle` / `FooterStyle`、
+`FooterText` を追加しました。移植された列が `Initialize` の中で触るものです。
+
+### `LegacyTableCell`
+
+WebForms の列は**マークアップを返すのではなくセルを埋めます**
+(テンプレートの `InstantiateIn` がセルに Label を足し、グリッドがセルを描く)。
+`TableCell` は既にありましたが Blazor コンポーネントで `RenderFragment` を取るため、
+移植された列からは使えません。`LegacyPanel` / `Panel` と同じ分け方で
+`LegacyTableCell : LegacyWebControl` を追加しました。
+
+### 計測
+
+| | 変更前 | 変更後 |
+|---|---:|---:|
+| dnn 総残差 | 175 | **171** |
+| 合計総残差 | 539 | **535** |
+| ビルドエラー | 50 | **50**(変化なし) |
+
+パリティ 30/30、bUnit 30/30、回帰ゲート 13/13。
+
+dnn の残差が 4 減ったのは、移植された列クラスのメンバーが
+**正しく解決されるようになった**ぶんです(型が合わないために落としていた宣言が通った)。
+
+### 残り(2/2)
+
+`LegacyColumnField : DataControlField` アダプタと `GridView.LegacyColumns`。
+これで移植済みの列オブジェクトを `Initialize()` し、行ごとに
+`DataGridItem` + `LegacyTableCell` を作って `ItemTemplate.InstantiateIn` し、
+`DataBinding` を発火させて HTML を取り出します。
+変換器側は `LegacyChild` / `<Columns>` の仕組みが既にあるので追加不要です。

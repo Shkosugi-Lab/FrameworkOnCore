@@ -43,6 +43,38 @@ public sealed class StaticMarkupTemplate(string markup) : ITemplate
 }
 
 /// <summary>
+/// The render-based counterpart of <see cref="TableCell"/> - a &lt;td&gt; whose contents are the
+/// controls put into it, written to an HtmlTextWriter.
+///
+/// A WebForms column fills a CELL rather than returning markup: the template's
+/// InstantiateIn adds a Label to the cell and the grid renders the cell. TableCell itself
+/// is a Blazor component and takes a RenderFragment, which a ported column cannot produce,
+/// so the legacy side needs its own - the same split as LegacyPanel beside Panel.
+/// </summary>
+public class LegacyTableCell : LegacyWebControl
+{
+    protected override string TagName => "td";
+
+    /// <summary>WebForms TableCell.Text: rendered when the cell holds no controls.</summary>
+    public string Text { get; set; }
+
+    public int ColumnSpan { get; set; }
+
+    public int RowSpan { get; set; }
+
+    protected override void RenderContents(HtmlTextWriter writer)
+    {
+        if (Controls.Count == 0)
+        {
+            writer.Write(Text ?? string.Empty);
+            return;
+        }
+
+        RenderChildren(writer);
+    }
+}
+
+/// <summary>
 /// Writes markup through verbatim. The content came from the .aspx, so it is already the
 /// exact HTML the original emitted - encoding it would change the page.
 /// </summary>

@@ -696,7 +696,7 @@ public sealed partial class MarkupEmitter(EmitContext context)
             // "<div class=\"list\">" and "</div>".
             var hasTemplateChildren = element.Children.OfType<ElementNode>().Any(child =>
                 string.IsNullOrEmpty(child.Prefix)
-                && !LegacyHostableTemplates.ContainsKey(child.Name)
+                && !IsHostableTemplate(child)
                 && (ControlMappings.DataBoundTemplates.Contains(child.Name)
                     || ControlMappings.PlainTemplates.Contains(child.Name)
                     || ControlMappings.StyleChildElements.Contains(child.Name)));
@@ -886,6 +886,93 @@ public sealed partial class MarkupEmitter(EmitContext context)
             ["FooterTemplate"] = "FooterContent",
         };
 
+    /// <summary>
+    /// Template elements whose content is handed to the legacy control as an ITemplate.
+    /// A separator only makes sense placed BETWEEN items, which only the control can do -
+    /// there is no "before" or "after" the host could use.
+    /// </summary>
+    private static readonly HashSet<string> LegacyTemplateProperties =
+        new(StringComparer.OrdinalIgnoreCase)
+        {
+            "HeaderTemplate", "FooterTemplate", "SeparatorTemplate", "ItemSeparatorTemplate",
+            "EmptyDataTemplate", "EmptyItemTemplate",
+        };
+
+    /// <summary>
+    /// Whether a template child can travel to the legacy control as fixed markup.
+    ///
+    /// Only static content qualifies. A template holding a data-bound expression or a
+    /// server control has to be instantiated per item with the item in scope, and a string
+    /// cannot carry that - those still take the stub path.
+    /// </summary>
+    private static bool IsHostableTemplate(ElementNode child)
+        => (LegacyHostableTemplates.ContainsKey(child.Name)
+            || LegacyTemplateProperties.Contains(child.Name))
+           && IsStaticMarkup(child);
+
+    /// <summary>
+    /// Static template content as the HTML it was in the .aspx.
+    ///
+    /// Deliberately NOT EmitNodes: that produces Razor, where "@" is escaped as "@@" and
+    /// text is emitted for a Razor parser. This string ends up inside a C# literal and is
+    /// written to the response verbatim, so it has to be the original markup.
+    /// </summary>
+    private static string EmitStaticMarkup(IEnumerable<AspxNode> nodes)
+    {
+        var builder = new StringBuilder();
+        foreach (var node in nodes)
+        {
+            switch (node)
+            {
+                case TextNode text:
+                    builder.Append(text.Text);
+                    break;
+                case ElementNode element:
+                    builder.Append('<').Append(element.Name);
+                    foreach (var attribute in element.Attributes)
+                    {
+                        builder.Append(' ').Append(attribute.Key)
+                            .Append("=\"").Append(attribute.Value).Append('"');
+                    }
+                    if (element.SelfClosing)
+                    {
+                        builder.Append(" />");
+                        break;
+                    }
+                    builder.Append('>')
+                        .Append(EmitStaticMarkup(element.Children))
+                        .Append("</").Append(element.Name).Append('>');
+                    break;
+            }
+        }
+        return builder.ToString();
+    }
+
+    /// <summary>
+    /// Markup as a C# string literal that Razor will not read as markup.
+    ///
+    /// A verbatim literal is not enough: Razor scans an attribute's C# expression for tag
+    /// starts, so @"&lt;div id=""x""&gt;" came back as RZ9980 "Unclosed tag 'div'". Escaping
+    /// "&lt;" as < is the same answer TagBalance.Neutralize already uses, and the
+    /// compiler produces the identical string.
+    /// </summary>
+    private static string Quote(string value)
+        => "\"" + value
+            .Replace("\\", "\\\\", StringComparison.Ordinal)
+            .Replace("\"", "\\\"", StringComparison.Ordinal)
+            .Replace("\r", "\\r", StringComparison.Ordinal)
+            .Replace("\n", "\\n", StringComparison.Ordinal)
+            .Replace("<", "\\u003c", StringComparison.Ordinal)
+            + "\"";
+
+    private static bool IsStaticMarkup(ElementNode element)
+        => element.Descendants().All(descendant =>
+               string.IsNullOrEmpty(descendant.Prefix)
+               && !descendant.Attributes.ContainsKey("runat"))
+           && !element.Children.OfType<ExpressionNode>().Any()
+           && !element.Descendants().SelectMany(descendant => descendant.Children)
+               .OfType<ExpressionNode>().Any();
+
     private string EmitLegacyRenderHost(ElementNode element, string legacyTypeName)
     {
         var id = element.Id;
@@ -926,14 +1013,31 @@ public sealed partial class MarkupEmitter(EmitContext context)
             return $"<LegacyRenderHost {string.Join(" ", attributes)} />";
         }
 
-        // <HeaderTemplate> / <FooterTemplate> become named fragments; everything else is
-        // content between the control's legacy begin/end tags.
+        // Static templates go to the control itself as ITemplate values - it knows where
+        // each belongs, which is the only way a <SeparatorTemplate> lands between items.
+        // <HeaderTemplate> / <FooterTemplate> ALSO become named fragments, as a fallback
+        // for a control that declares no such property: those two do have a meaningful
+        // "before" and "after". LegacyRenderHost suppresses the fragment when the control
+        // accepted the template, so nothing renders twice.
         var templates = new StringBuilder();
+        var templateMarkup = new List<string>();
         var rest = new List<AspxNode>();
         foreach (var child in element.Children)
         {
-            if (child is ElementNode template && string.IsNullOrEmpty(template.Prefix)
-                && LegacyHostableTemplates.TryGetValue(template.Name, out var parameterName))
+            if (child is not ElementNode template || !string.IsNullOrEmpty(template.Prefix)
+                || !IsHostableTemplate(template))
+            {
+                rest.Add(child);
+                continue;
+            }
+
+            if (LegacyTemplateProperties.Contains(template.Name))
+            {
+                templateMarkup.Add(
+                    $"[\"{template.Name}\"] = {Quote(EmitStaticMarkup(template.Children))}");
+            }
+
+            if (LegacyHostableTemplates.TryGetValue(template.Name, out var parameterName))
             {
                 // A header and a footer are balanced TOGETHER, not separately: n2's Zone
                 // opens "<div class="list">" in the header and closes it in the footer.
@@ -941,10 +1045,13 @@ public sealed partial class MarkupEmitter(EmitContext context)
                 // neutralized into raw output - the DOM the browser builds is the same.
                 templates.Append($"<{parameterName}>{TagBalance.Neutralize(EmitNodes(template.Children))}</{parameterName}>");
             }
-            else
-            {
-                rest.Add(child);
-            }
+        }
+
+        if (templateMarkup.Count > 0)
+        {
+            attributes.Add("TemplateMarkup=\"@(new global::System.Collections.Generic.Dictionary<string, string>("
+                + "global::System.StringComparer.OrdinalIgnoreCase) { "
+                + string.Join(", ", templateMarkup) + " })\"");
         }
 
         return $"<LegacyRenderHost {string.Join(" ", attributes)}>{templates}{EmitNodes(rest)}</LegacyRenderHost>";

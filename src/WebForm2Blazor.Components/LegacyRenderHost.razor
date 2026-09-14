@@ -14,7 +14,7 @@
    while a data-bound <ItemTemplate> cannot. *@
 @if (Visible)
 {
-@if (HeaderContent is not null)
+@if (HeaderContent is not null && !_headerTemplateTaken)
 {
     @HeaderContent
 }
@@ -22,7 +22,7 @@
 {
     @ChildContent
 }
-@((MarkupString)(_endHtml ?? string.Empty))@if (FooterContent is not null)
+@((MarkupString)(_endHtml ?? string.Empty))@if (FooterContent is not null && !_footerTemplateTaken)
 {
     @FooterContent
 }
@@ -67,6 +67,18 @@
     /// <summary>The control's &lt;FooterTemplate&gt;, rendered after its own output.</summary>
     [Parameter] public RenderFragment FooterContent { get; set; }
 
+    /// <summary>
+    /// Template name -> its static markup, for controls that declare ITemplate properties.
+    /// The control decides where each goes, which is the only way a &lt;SeparatorTemplate&gt;
+    /// can land between the items.
+    /// </summary>
+    [Parameter] public Dictionary<string, string> TemplateMarkup { get; set; }
+
+    // Set when the legacy control accepted the template through its own ITemplate
+    // property, so the fragment fallback does not render the same markup a second time.
+    private bool _headerTemplateTaken;
+    private bool _footerTemplateTaken;
+
     [CascadingParameter] protected IWebFormsHost Host { get; set; }
 
     /// <summary>The instantiated legacy control (code-behind can inspect it via FindControl).</summary>
@@ -107,6 +119,32 @@
         foreach (var pair in PropertyValues ?? [])
         {
             SetProperty(type, instance, pair.Key, pair.Value?.ToString());
+        }
+
+        _headerTemplateTaken = false;
+        _footerTemplateTaken = false;
+        foreach (var pair in TemplateMarkup ?? [])
+        {
+            var property = type.GetProperty(pair.Key,
+                System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance
+                | System.Reflection.BindingFlags.IgnoreCase);
+            if (property is null || !property.CanWrite || !typeof(ITemplate).IsAssignableFrom(property.PropertyType))
+            {
+                // The control has no such template. Header and footer still have a
+                // meaningful "before"/"after" position, and the fragment fallback renders
+                // them; anything else (a separator) has nowhere to go without the control.
+                continue;
+            }
+
+            property.SetValue(instance, new StaticMarkupTemplate(pair.Value));
+            if (pair.Key.Equals("HeaderTemplate", StringComparison.OrdinalIgnoreCase))
+            {
+                _headerTemplateTaken = true;
+            }
+            else if (pair.Key.Equals("FooterTemplate", StringComparison.OrdinalIgnoreCase))
+            {
+                _footerTemplateTaken = true;
+            }
         }
 
         using var buffer = new StringWriter();

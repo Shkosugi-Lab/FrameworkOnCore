@@ -2965,3 +2965,74 @@ mojoPortal はこれらに `src` 登録も `<%@ Register %>` も一切書かず�
 | ビルドエラー | 50 | **50** |
 
 パリティ 30/30、bUnit 30/30、回帰ゲート 13/13。
+
+---
+
+## `<SeparatorTemplate>` は「前後」では置けない — ITemplate として渡す
+
+前節で `HeaderTemplate` / `FooterTemplate` を Razor フラグメントとして渡したとき、
+n2 の Zone は 9 件しか解決しませんでした。残り 8 件を見ると:
+
+```aspx
+<n2:Zone ID="Zone0" ZoneName="AutoZone1" runat="server">
+    <HeaderTemplate><fieldset></HeaderTemplate>
+    <SeparatorTemplate></fieldset><fieldset></SeparatorTemplate>
+    <FooterTemplate></fieldset></FooterTemplate>
+</n2:Zone>
+```
+
+**`<SeparatorTemplate>` は項目の「間」に入ります。** ホスト側には「前」と「後」しかなく、
+「間」を知っているのは項目を回しているコントロール自身だけです。
+つまり `HeaderContent` / `FooterContent` という発想そのものが、
+セパレータには原理的に届きません。
+
+### WebForms と同じ形で渡す
+
+n2 の Zone は元から `ITemplate SeparatorTemplate { get; set; }` を持っています。
+**WebForms が使っていた形をそのまま使えばいい**だけでした。
+
+- `StaticMarkupTemplate : ITemplate`(互換層・新規)— 固定マークアップを保持し、
+  `InstantiateIn` でコントロールの `Controls` に `RawMarkupControl` を足す。
+- `LegacyRenderHost` は `TemplateMarkup`(テンプレート名 → 生マークアップ)を受け取り、
+  **その型が同名の `ITemplate` プロパティを持つときだけ**設定します。
+- 持たないときは、`HeaderTemplate` / `FooterTemplate` に限り従来のフラグメントが描画します
+  (この 2 つには意味のある「前」「後」があるため)。
+  コントロールがテンプレートを受け取った場合はフラグメント側を抑止するので、二重に出ません。
+
+**静的マークアップだけ**がこの経路を通ります。`<%# %>` を含むもの、
+サーバーコントロールを含むものは、項目をスコープに入れて実体化する必要があり、
+文字列では運べません(従来どおりスタブ)。
+
+### 露出した欠陥: Razor は属性の C# 式の中でもタグを探す
+
+最初の実装で n2 のビルドエラーが 13 → 19 になりました。
+
+```
+RZ9980 Unclosed tag 'div' with no matching end tag.   6
+```
+
+出力はこうなっていました。
+
+```razor
+TemplateMarkup="@(new Dictionary<string,string> { ["HeaderTemplate"] = @"<div id=""textContent"">" })"
+```
+
+**逐語的文字列リテラルでは足りません。** Razor は属性の C# 式の中もタグ開始として
+走査するので、`@"<div ...>"` が「閉じられていない div」になります。
+`<` を `<` にエスケープしました — `TagBalance.Neutralize` が既に使っている答えで、
+コンパイラが作る文字列は同一です。
+
+### 計測
+
+| | 変更前 | 変更後 |
+|---|---:|---:|
+| n2 総残差 | 148 | **140** |
+| 合計総残差 | 558 | **550** |
+| C(テンプレート子要素で弾かれた) | 23 | **15** |
+| ビルドエラー | 50 | **50** |
+
+パリティ 30/30、bUnit 30/30、回帰ゲート 13/13。
+
+残り 15 件は `dnn:DnnFormEditor` 7 / `dnn:DnnComboBox` 3 /
+`portal:mojoDataList` 3 / その他 2 で、いずれも `<Items>`(子コントロール宣言)か
+`<ItemTemplate>`(データ項目ごとの実体化)です。どちらも文字列では運べません。

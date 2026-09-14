@@ -3036,3 +3036,63 @@ TemplateMarkup="@(new Dictionary<string,string> { ["HeaderTemplate"] = @"<div id
 残り 15 件は `dnn:DnnFormEditor` 7 / `dnn:DnnComboBox` 3 /
 `portal:mojoDataList` 3 / その他 2 で、いずれも `<Items>`(子コントロール宣言)か
 `<ItemTemplate>`(データ項目ごとの実体化)です。どちらも文字列では運べません。
+
+---
+
+## `<Items>` は入れ子のコントロールではなくコレクションの中身
+
+テンプレートで弾かれていた残り 15 件の中身:
+
+```aspx
+<dnn:DnnComboBox ID="modeList" runat="server" AutoPostBack="true">
+    <Items>
+        <asp:ListItem Value="Normal" Text="Normal" ResourceKey="Normal" />
+    </Items>
+</dnn:DnnComboBox>
+
+<dnn:DnnFormEditor id="authenticationForm" runat="Server" FormMode="Short">
+    <Items>
+        <dnn:DnnFormTextBoxItem ID="authenticationType" runat="server" DataField="AuthenticationType" />
+    </Items>
+</dnn:DnnFormEditor>
+```
+
+`<Items>` は**ページが描く入れ子コントロールではありません**。
+親コントロールが自分のリストに持ち、自分で描く**エントリ**です。
+WebForms のパーサがそれを組み立てていました。
+
+- `LegacyChild(Collection, TypeName, Properties)`(互換層・新規)— 宣言の記述。
+- `LegacyRenderHost` が型を作り、属性を(コントロール本体と同じ型変換で)設定し、
+  一致するプロパティのコレクションに `Add` します。
+  コレクションはコンストラクタで作られ private setter で公開されているのが普通なので
+  (`public List<DnnFormItemBase> Items { get; private set; }`)、
+  **差し替えではなく読んで足します**。
+- 子の型解決には `ResolveAnyType` を新設しました。
+  エントリに「LegacyRenderHost で単独描画できるか」を聞くのは筋違いで、答えは常に no です。
+  `asp:` は互換層の型名、それ以外は接頭辞の名前空間から移植済みクラスを引きます。
+
+**エントリが一つでも解決できなければホストしません。** 半分欠けたコレクションは、
+「静かに間違ったコントロール」になります。目に見えて欠けているスタブの方がましです。
+
+### 計測
+
+| | 変更前 | 変更後 |
+|---|---:|---:|
+| dnn 総残差 | 185 | **175** |
+| 合計総残差 | 550 | **540** |
+| C(テンプレート子要素で弾かれた) | 15 | **5** |
+| ビルドエラー | 50 | **50** |
+
+パリティ 30/30、bUnit 30/30、回帰ゲート 13/13。
+
+残り 5 件は `portal:mojoDataList` 3 / `dnnweb:DnnGrid` 1 / `portal:SiteLogin` 1。
+いずれも `<ItemTemplate>`(データ項目ごとの実体化)で、文字列でも型名でも運べません。
+
+### このセッションの累計
+
+| | 開始時 | 現在 |
+|---|---:|---:|
+| 総残差 | 702 | **540**(−23%) |
+| ビルドエラー | 216 | **50**(−77%) |
+| 未対応コントロール | 113 | **50** |
+| 標準コントロール未実装 | 34 | **0** |

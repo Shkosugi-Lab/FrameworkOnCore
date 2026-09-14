@@ -74,6 +74,12 @@
     /// </summary>
     [Parameter] public Dictionary<string, string> TemplateMarkup { get; set; }
 
+    /// <summary>
+    /// Entries of the control's collection elements (&lt;Items&gt;, &lt;Columns&gt;), built and added
+    /// to the matching property the way the WebForms parser did.
+    /// </summary>
+    [Parameter] public LegacyChild[] CollectionChildren { get; set; }
+
     // Set when the legacy control accepted the template through its own ITemplate
     // property, so the fragment fallback does not render the same markup a second time.
     private bool _headerTemplateTaken;
@@ -119,6 +125,37 @@
         foreach (var pair in PropertyValues ?? [])
         {
             SetProperty(type, instance, pair.Key, pair.Value?.ToString());
+        }
+
+        foreach (var group in (CollectionChildren ?? [])
+            .GroupBy(child => child.Collection, StringComparer.OrdinalIgnoreCase))
+        {
+            var property = type.GetProperty(group.Key,
+                System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance
+                | System.Reflection.BindingFlags.IgnoreCase);
+
+            // The collection is usually created by the control's constructor and exposed
+            // with a private setter (DNN's "public List<DnnFormItemBase> Items { get;
+            // private set; }"), so it is READ and added to rather than replaced.
+            if (property?.GetValue(instance) is not System.Collections.IList list)
+            {
+                continue;
+            }
+
+            foreach (var child in group)
+            {
+                if (ResolveType(child.TypeName) is not { } childType)
+                {
+                    continue;
+                }
+
+                var entry = Activator.CreateInstance(childType);
+                foreach (var pair in child.Properties ?? [])
+                {
+                    SetProperty(childType, entry, pair.Key, pair.Value);
+                }
+                list.Add(entry);
+            }
         }
 
         _headerTemplateTaken = false;

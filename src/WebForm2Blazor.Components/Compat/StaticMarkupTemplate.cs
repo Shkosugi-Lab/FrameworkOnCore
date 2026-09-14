@@ -1,4 +1,20 @@
+using System.Collections.Generic;
+
 namespace WebForm2Blazor.Components;
+
+/// <summary>
+/// One entry of a control's collection element, as the markup declared it.
+///
+/// &lt;dnn:DnnComboBox&gt;&lt;Items&gt;&lt;asp:ListItem Value="Normal" /&gt;&lt;/Items&gt;&lt;/dnn:DnnComboBox&gt;
+/// is not three nested controls the page renders - it is one control with one entry in
+/// its Items list, which the control renders itself. The WebForms parser built those
+/// entries; LegacyRenderHost does the same from this description.
+/// </summary>
+/// <param name="Collection">The control's property that holds them ("Items", "Columns").</param>
+/// <param name="TypeName">Full name of the entry's type.</param>
+/// <param name="Properties">Markup attributes, applied with the same conversion as the control's own.</param>
+public sealed record LegacyChild(
+    string Collection, string TypeName, Dictionary<string, string> Properties);
 
 /// <summary>
 /// An &lt;ITemplate&gt; whose content is fixed markup.

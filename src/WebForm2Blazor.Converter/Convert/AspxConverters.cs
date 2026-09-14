@@ -101,6 +101,7 @@ public static partial class AspxConverters
 
         var prefixNamespaces = BuildPrefixNamespaces(parsed, path, project);
         context.LegacyControlResolver = (string prefix, string name, out string? reason) => ResolveLegacyControl(prefixNamespaces, baseRegistry, prefix, name, out reason);
+        context.AnyTypeResolver = (prefix, name) => ResolveAnyType(prefixNamespaces, baseRegistry, prefix, name);
 
         // The naming-container chain this master's own placeholders sit under. While the
         // emitter is inside an <asp:Content>, it is the parent's prefix for that slot.
@@ -255,6 +256,7 @@ public static partial class AspxConverters
 
         var prefixNamespaces = BuildPrefixNamespaces(parsed, path, project);
         context.LegacyControlResolver = (string prefix, string name, out string? reason) => ResolveLegacyControl(prefixNamespaces, baseRegistry, prefix, name, out reason);
+        context.AnyTypeResolver = (prefix, name) => ResolveAnyType(prefixNamespaces, baseRegistry, prefix, name);
 
         MarkupEmitter.CollectDeclaredControlIds(parsed.Nodes, context);
         var markup = NeutralizeUnbalanced(
@@ -329,6 +331,7 @@ public static partial class AspxConverters
 
         var prefixNamespaces = BuildPrefixNamespaces(parsed, path, project);
         context.LegacyControlResolver = (string prefix, string name, out string? reason) => ResolveLegacyControl(prefixNamespaces, baseRegistry, prefix, name, out reason);
+        context.AnyTypeResolver = (prefix, name) => ResolveAnyType(prefixNamespaces, baseRegistry, prefix, name);
 
         context.SpecialElementHandler = (element, emitter) =>
         {
@@ -941,6 +944,42 @@ public static partial class AspxConverters
         }
 
         reason = $"{fullName} の基底の根が {root ?? "不明"} で、LegacyRenderHost で描画できる系統ではありません";
+        return null;
+    }
+
+    /// <summary>
+    /// The ported or compatibility type a tag names, WITHOUT asking whether it can be
+    /// rendered on its own.
+    ///
+    /// The children of an &lt;Items&gt; or &lt;Columns&gt; element are not controls the page renders -
+    /// they are entries the parent control puts in a collection and renders itself
+    /// (&lt;asp:ListItem&gt; in a combo box, &lt;dnn:DnnFormTextBoxItem&gt; in a form editor). Asking
+    /// "can LegacyRenderHost render this" of them is the wrong question, and the answer is
+    /// always no.
+    /// </summary>
+    private static string? ResolveAnyType(
+        Dictionary<string, List<string>> prefixNamespaces, BaseClassRegistry baseRegistry,
+        string prefix, string name)
+    {
+        if (prefix.Equals("asp", StringComparison.OrdinalIgnoreCase))
+        {
+            return CodeBehindRewriter.DeclaresCompatType(name)
+                ? "WebForm2Blazor.Components." + name
+                : null;
+        }
+
+        if (!prefixNamespaces.TryGetValue(prefix, out var namespaces))
+        {
+            return null;
+        }
+
+        foreach (var ns in namespaces)
+        {
+            if (baseRegistry.TryGetCanonicalClass($"{ns}.{name}", out var canonical))
+            {
+                return canonical;
+            }
+        }
         return null;
     }
 

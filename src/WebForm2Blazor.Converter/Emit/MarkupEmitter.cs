@@ -73,6 +73,13 @@ public sealed class EmitContext
     /// </summary>
     public LegacyControlLookup? LegacyControlResolver { get; set; }
 
+    /// <summary>
+    /// (prefix, name) -&gt; the ported or compat type the tag names, whether or not it can
+    /// render on its own. Used for the entries of a collection element (&lt;Items&gt;,
+    /// &lt;Columns&gt;), which the parent control renders itself.
+    /// </summary>
+    public Func<string, string, string?>? AnyTypeResolver { get; set; }
+
     /// <summary>Stub component name per unmapped control tag encountered in this file.</summary>
     public Dictionary<string, string> StubComponents { get; } = new(StringComparer.OrdinalIgnoreCase);
 
@@ -697,6 +704,7 @@ public sealed partial class MarkupEmitter(EmitContext context)
             var hasTemplateChildren = element.Children.OfType<ElementNode>().Any(child =>
                 string.IsNullOrEmpty(child.Prefix)
                 && !IsHostableTemplate(child)
+                && !IsHostableCollection(child)
                 && (ControlMappings.DataBoundTemplates.Contains(child.Name)
                     || ControlMappings.PlainTemplates.Contains(child.Name)
                     || ControlMappings.StyleChildElements.Contains(child.Name)));
@@ -965,6 +973,25 @@ public sealed partial class MarkupEmitter(EmitContext context)
             .Replace("<", "\\u003c", StringComparison.Ordinal)
             + "\"";
 
+    /// <summary>
+    /// Collection elements: their children are not rendered by the page, they are entries
+    /// the parent control keeps in a list and renders itself.
+    /// </summary>
+    private static readonly HashSet<string> LegacyCollectionElements =
+        new(StringComparer.OrdinalIgnoreCase) { "Items", "Columns", "Fields" };
+
+    /// <summary>
+    /// Whether a collection element's entries can all be built at run time: every child
+    /// has to name a type that exists, since a collection missing half its entries would
+    /// render a control that is quietly wrong - worse than the stub, which is visibly
+    /// absent.
+    /// </summary>
+    private bool IsHostableCollection(ElementNode child)
+        => LegacyCollectionElements.Contains(child.Name)
+           && child.Children.OfType<ElementNode>().Any()
+           && child.Children.OfType<ElementNode>().All(entry =>
+               context.AnyTypeResolver?.Invoke(entry.Prefix, entry.Name) is not null);
+
     private static bool IsStaticMarkup(ElementNode element)
         => element.Descendants().All(descendant =>
                string.IsNullOrEmpty(descendant.Prefix)
@@ -1021,9 +1048,31 @@ public sealed partial class MarkupEmitter(EmitContext context)
         // accepted the template, so nothing renders twice.
         var templates = new StringBuilder();
         var templateMarkup = new List<string>();
+        var collectionEntries = new List<string>();
         var rest = new List<AspxNode>();
         foreach (var child in element.Children)
         {
+            // <Items> / <Columns>: each entry becomes a type name plus its attributes, and
+            // LegacyRenderHost adds the built objects to the control's own collection -
+            // which is what the WebForms parser did.
+            if (child is ElementNode collection && string.IsNullOrEmpty(collection.Prefix)
+                && IsHostableCollection(collection))
+            {
+                foreach (var entry in collection.Children.OfType<ElementNode>())
+                {
+                    var entryType = context.AnyTypeResolver!.Invoke(entry.Prefix, entry.Name)!;
+                    var values = entry.Attributes
+                        .Where(pair => !pair.Key.Equals("runat", StringComparison.OrdinalIgnoreCase))
+                        .Select(pair => $"[{Quote(pair.Key)}] = {Quote(pair.Value)}");
+                    collectionEntries.Add(
+                        $"new global::WebForm2Blazor.Components.LegacyChild({Quote(collection.Name)}, "
+                        + $"{Quote(entryType)}, new global::System.Collections.Generic.Dictionary<string, string>("
+                        + "global::System.StringComparer.OrdinalIgnoreCase) { "
+                        + string.Join(", ", values) + " })");
+                }
+                continue;
+            }
+
             if (child is not ElementNode template || !string.IsNullOrEmpty(template.Prefix)
                 || !IsHostableTemplate(template))
             {
@@ -1045,6 +1094,12 @@ public sealed partial class MarkupEmitter(EmitContext context)
                 // neutralized into raw output - the DOM the browser builds is the same.
                 templates.Append($"<{parameterName}>{TagBalance.Neutralize(EmitNodes(template.Children))}</{parameterName}>");
             }
+        }
+
+        if (collectionEntries.Count > 0)
+        {
+            attributes.Add("CollectionChildren=\"@(new global::WebForm2Blazor.Components.LegacyChild[] { "
+                + string.Join(", ", collectionEntries) + " })\"");
         }
 
         if (templateMarkup.Count > 0)

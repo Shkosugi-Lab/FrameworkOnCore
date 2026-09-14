@@ -1,6 +1,6 @@
 {
     "be":  {
-               "convertible":  0,
+               "convertible":  2,
                "portedCs":  255,
                "residuals":  75,
                "buildErrors":  0
@@ -8,7 +8,7 @@
     "mojo":  {
                  "convertible":  19,
                  "portedCs":  740,
-                 "residuals":  114,
+                 "residuals":  113,
                  "buildErrors":  13
              },
     "yaf":  {
@@ -26,13 +26,13 @@
     "n2":  {
                "convertible":  11,
                "portedCs":  1668,
-               "residuals":  190,
+               "residuals":  188,
                "buildErrors":  13
            },
     "wt":  {
                "convertible":  3,
                "portedCs":  13,
-               "residuals":  39,
+               "residuals":  37,
                "buildErrors":  0
            }
 }

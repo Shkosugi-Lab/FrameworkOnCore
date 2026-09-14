@@ -11,6 +11,8 @@
         "About",
         "Contact",
         "Products",
+        "Register",
+        "Log in",
         ".",
         "Wingtip Toys can help you find the perfect gift.",
         "We're all about transportation toys. You can order any of our toys today. Each toy listing has detailed information to help you choose the right toy."
@@ -58,6 +60,8 @@
         "About",
         "Contact",
         "Products",
+        "Register",
+        "Log in",
         ".",
         "Your application description page.",
         "Use this area to provide additional information."
@@ -105,6 +109,8 @@
         "About",
         "Contact",
         "Products",
+        "Register",
+        "Log in",
         ".",
         "Your contact page.",
         "One Microsoft Way",
@@ -147,7 +153,7 @@
     {
       "Name": "product-list",
       "Path": "/productlist",
-      "Title": "wt",
+      "Title": "ProductList",
       "Text": [
         "ProductList: このコンポーネントは .NET Framework 専用 API(System.Web.Routing)に依存しているため自動変換できません。手動移行が必要です。"
       ],
@@ -164,7 +170,9 @@
         "Home",
         "About",
         "Contact",
-        "Products"
+        "Products",
+        "Register",
+        "Log in"
       ],
       "Tables": [],
       "Inputs": {},
@@ -209,6 +217,8 @@
         "About",
         "Contact",
         "Products",
+        "Register",
+        "Log in",
         "Shopping Cart",
         "Order Total:"
       ],
@@ -311,7 +321,7 @@
     {
       "Name": "add-to-cart",
       "Path": "/addtocart",
-      "Title": "",
+      "Title": "wt",
       "Text": [],
       "Tables": [],
       "Inputs": {},
@@ -327,6 +337,8 @@
         "About",
         "Contact",
         "Products",
+        "Register",
+        "Log in",
         "Error:",
         "Label"
       ],

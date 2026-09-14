@@ -914,6 +914,12 @@ public static class CodeBehindRewriter
             .Replace("System.Web.UI.HtmlTextWriter", "WebForm2Blazor.Components.HtmlTextWriter")
             .Replace("System.Web.UI.AttributeCollection", "WebForm2Blazor.Components.AttributeCollection")
             .Replace("System.Configuration.ConnectionStringSettings", "WebForm2Blazor.Components.Compat.ConnectionStringSettings")
+            // The REAL System.Configuration.ConfigurationManager reads App.config, and the
+            // converted application's settings are in appsettings.json - so
+            // ConnectionStrings["WingtipToys"] came back null and the next dereference was
+            // a NullReferenceException that took the circuit down with it. The compat one
+            // reads what the converter actually wrote.
+            .Replace("System.Configuration.ConfigurationManager", "WebForm2Blazor.Components.Compat.ConfigurationManager")
             .Replace("System.Web.HttpBrowserCapabilities", "WebForm2Blazor.Components.HttpBrowserCapabilitiesShim")
             .Replace("HttpCapabilitiesBase", "HttpBrowserCapabilitiesShim"));
 

@@ -1306,6 +1306,15 @@ static string GenerateUnportablePlaceholder(ConvertedComponent component, string
     }
     builder.AppendLine($"@namespace {component.TargetNamespace}");
     builder.AppendLine();
+
+    // A PageTitle even here. The host page carries no static <title>, so a routable
+    // component without one leaves the document titleless.
+    if (component.Routes is { Count: > 0 })
+    {
+        builder.AppendLine($"<PageTitle>{component.ComponentName}</PageTitle>");
+        builder.AppendLine();
+    }
+
     builder.AppendLine("<div class=\"w2b-unported\" style=\"border:2px dashed #cc0000; padding:1em; margin:0.5em 0;\">");
     builder.AppendLine($"    <strong>{component.ComponentName}</strong>: このコンポーネントは .NET Framework 専用 API({unportableNamespace})に依存しているため自動変換できません。手動移行が必要です。");
     builder.AppendLine("</div>");

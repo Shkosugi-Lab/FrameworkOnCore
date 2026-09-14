@@ -408,6 +408,19 @@ public static partial class AspxConverters
                     && titleTemplate.Contains("<%", StringComparison.Ordinal)
             ? PageTitleReferenceRegex().Replace(titleTemplate, pageTitle ?? string.Empty)
             : pageTitle ?? titleTemplate;
+
+        // Still nothing - a page whose master declares no <title> at all. The site's own
+        // title stands in, which is what the document had before. EVERY page must end up
+        // with a PageTitle: the host page carries no static <title> (two of them in one
+        // document and the browser uses the first), so a page without one shows nothing.
+        if (string.IsNullOrWhiteSpace(title))
+        {
+            title = masters.Values
+                .Select(candidate => candidate.Title)
+                .FirstOrDefault(candidate => !string.IsNullOrWhiteSpace(candidate)
+                                             && !candidate.Contains("<%", StringComparison.Ordinal))
+                ?? appNamespace;
+        }
         if (!string.IsNullOrWhiteSpace(title))
         {
             if (ConvertTitleExpressions(title) is { } renderable)

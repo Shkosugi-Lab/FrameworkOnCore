@@ -2075,3 +2075,44 @@ throw new Exception("ERROR : It is illegal to load AddToCart.aspx without settin
 Debug ビルドの `Debug.Fail` は**プロセスを落とします。**
 記録済みスナップショットが本文 0 行だったのは、**ページがそこまで到達していなかった**
 からです。`?ProductID=1` を付けました。
+
+## MEMBERSHIP_CONTROLS 完了 — ログイン導線がページに戻りました
+
+前回「wt がプロセスごと落ちる」で外した会員制御を接続しました。落ちる原因は
+シナリオ側(上記)で、それを直したうえで**さらに 2 つの欠陥**が出てきました。
+
+### `System.Configuration.ConfigurationManager` が互換層を見ていなかった
+
+```
+System.NullReferenceException
+   at WingtipToys.Models.ProductContext.get_ConnectionString()
+```
+
+```csharp
+System.Configuration.ConfigurationManager.ConnectionStrings["WingtipToys"].ConnectionString
+```
+
+**完全修飾で書かれているので、実パッケージの方**に解決していました。あちらは
+`App.config` を読みますが、変換器が接続文字列を書くのは `appsettings.json` です。
+結果 `ConnectionStrings[...]` が null を返し、次の参照で落ちて**回路ごと停止**します。
+
+`System.Web.X` と同じく互換層へ向けるようにしました。
+
+### `<title>` が 1 つの文書に 2 つ出ていた
+
+ホストページに静的な `<title>` があり、`HeadOutlet` も prerender 時に 1 つ出します。
+**ブラウザは先頭を使う**ので、どのページも回路が立ち上がるまでプロジェクト名を
+表示していました。静的な方を外し、**全ページが必ず `PageTitle` を出す**ようにしました
+(自分の Title → マスターの書式 → サイトのタイトル → プロジェクト名)。
+プレースホルダーページも自分の名前を出します。
+
+### 結果(wt)
+
+| | 変換前 | 変換後 |
+|---|---|---|
+| 本文 | ログイン導線なし | **`Register` / `Log in` が表示される** |
+| home のタイトル | `Welcome` | `Welcome - Wingtip Toys` |
+| product-list | `wt` | `ProductList` |
+
+`Register` / `Log in` は元のアプリが匿名ユーザーに見せていたものです。
+`LoginView` が未実装だったため、**マスターのその部分が丸ごと消えていました。**

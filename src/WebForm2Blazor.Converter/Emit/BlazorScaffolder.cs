@@ -147,7 +147,11 @@ public sealed class BlazorScaffolder(ScaffoldOptions options)
             <meta charset="utf-8" />
             <meta name="viewport" content="width=device-width, initial-scale=1.0" />
             <base href="/" />
-            <title>{{TITLE}}</title>
+            @* No static <title> here. HeadOutlet emits its own during prerendering, and a
+               page that also carries one leaves TWO in the document - browsers use the
+               first, so every page showed the project name until the circuit started and
+               took over. Every converted page emits a PageTitle (its own, or the master's
+               composed one), so this is covered. *@
             <HeadOutlet @rendermode="InteractiveServer" />
         </head>
 

@@ -2826,3 +2826,97 @@ NG   add-to-cart
 
 パリティ 30/30、bUnit 30/30、回帰ゲート 13/13。
 生成物を確認: wt の Routes.razor には境界が無く、be には有ります。
+
+---
+
+## 基底連鎖の解決が 2 箇所で間違っていた
+
+前節で残差に理由を書かせたおかげで、残り 66 件のうち「D: 基底の根が描画対象外」を
+根の名前ごとに数えられるようになりました。
+
+| コントロール | 根 |
+|---|---|
+| `n2:Tree` | **Page** |
+| `YAF:Forum` | **IEntity** |
+| `n2:Repeater` | 不明 |
+
+`n2:Tree` の根が `Page`、`YAF:Forum` の根が**インターフェイス**。どちらもおかしい。
+
+### 欠陥 1: 宣言表が短名キーだった
+
+`BaseClassRegistry.Build` は
+
+```csharp
+declarations.TryAdd(DeclarationKey(classDeclaration.Identifier.Text, arity), ...)
+```
+
+と**クラスの短名**でキーを作り、`TryAdd` なので**先に読まれたファイルが勝ち**ます。
+n2 には `N2.Web.UI.WebControls.Tree`(コントロール)と
+`N2.Edit.Web.UI.Controls.Tree`(Page)の両方があり、後者が前者を隠していました。
+`ResolveLegacyControl` は完全名で型を特定しておきながら、
+基底連鎖だけ短名で引き直していた(`fullName[(lastIndexOf('.')+1)..]`)ので、
+**別のクラスの基底を見て**判定していたことになります。
+
+完全名キーの表を併せて持ち、`GetRootBaseNameOf(fullName)` で辿るようにしました。
+
+### 欠陥 2: 基底リストの先頭がインターフェイスでも基底クラス扱い
+
+```csharp
+var baseName = classDeclaration.BaseList?.Types.FirstOrDefault()?.Type.ToString();
+```
+
+C# では基底クラスがあるときだけ先頭が基底クラスです。無ければ先頭はインターフェイス。
+YAF の `Forum : IEntity, ...` は基底クラスを持たないので、根が `IEntity` になっていました。
+
+**これは同じセッションで一度踏んだ罠です**(`CodeBehindRewriter` の override 判定で
+`ICallbackEventHandler` を基底と読んで正しい override を 2 つ落とした件)。
+片方を直したときにもう片方を直さなかったので、別の場所で同じ形で出ました。
+
+スキャン中に宣言されたインターフェイス名を集め、先頭エントリがそれなら
+「基底クラス無し」として記録します。インターフェイスはクラスより後のファイルで
+宣言されていることがあるので、**全ファイル読了後に**後処理します。
+
+### 計測
+
+| | 変更前 | 変更後 |
+|---|---:|---:|
+| n2 総残差 | 149 | **148** |
+| 合計総残差 | 564 | **563** |
+| ビルドエラー | 50 | **50** |
+
+件数は 1 件ですが、直したのは**判定そのものの誤り**です。
+`YAF:Forum` の根は `IEntity` から `UserControl` に変わりました
+(ユーザーコントロールなので LegacyRenderHost の対象外という判定は正しい)。
+
+### 残り「D」23 件は正しい除外
+
+| 根 | 件数 | 判断 |
+|---|---:|---|
+| `TemplateColumn` / `TemplateField` | 13 | DataGrid/GridView の**列**。コントロールではない |
+| `ClientDependencyPath` / `JsInclude` / `CssInclude` / `ClientDependencyLoader` | 6 | 外部ライブラリ(.NET ビルド無し) |
+| `UserControl` | 2 | .ascx なのでユーザーコントロール経路 |
+| 不明 | 2 | n2 の `Repeater`(基底リスト無し) |
+
+パリティ 30/30、bUnit 30/30、回帰ゲート 13/13。
+
+---
+
+## n2 のビルドエラー 8 件は元リポジトリの欠落
+
+n2 の 13 件のうち 8 件はこれです。
+
+```
+CS0234 型または名前空間の名前 'Fragmenters' が名前空間 'N2.Addons.Wiki' に存在しません   6
+CS0246 型または名前空間の名前 'RegexFragmenter' が見つかりませんでした                  2
+```
+
+`Addons/Wiki/WikiParser.cs` が `using N2.Addons.Wiki.Fragmenters;` と
+`public void Add(RegexFragmenter fragment)` を書いていますが、
+
+- リポジトリ全体で `namespace N2.Addons.Wiki.Fragmenters` を宣言するファイルは**ゼロ**
+- `RegexFragmenter` を宣言するファイルも**ゼロ**(参照しているのは WikiParser.cs だけ)
+- `.csproj` にも `Fragmenters` の記載なし
+
+**元のアプリケーションもコンパイルできません。** 変換器に直せるものではないので、
+件数には残したまま記録に留めます(除外すれば数字は下がりますが、
+消えるのは WikiParser であって、問題ではありません)。

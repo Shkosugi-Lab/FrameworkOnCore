@@ -46,6 +46,9 @@ public sealed class BaseClassRegistry
     private readonly HashSet<string> _allShortTypeNames;
     private Dictionary<string, (string Namespace, string? BaseName)> _declarations = new(StringComparer.Ordinal);
 
+    /// <summary>Full class name`arity -> its base as written. Short names collide; these do not.</summary>
+    private Dictionary<string, string?> _baseByFullName = new(StringComparer.Ordinal);
+
     private BaseClassRegistry(
         Dictionary<string, Entry> byKey,
         Dictionary<string, Entry> byName,
@@ -121,6 +124,60 @@ public sealed class BaseClassRegistry
     /// defined in the scanned sources (e.g. "WebControl", "Button", "GridView").
     /// Used to keep interactive control families out of LegacyRenderHost.
     /// </summary>
+    /// <summary>
+    /// Whether a written base-list entry names an interface the scanned sources declare.
+    /// Generic arguments are stripped first ("IEnumerable&lt;Foo&gt;" -> "IEnumerable"), and
+    /// so is any namespace qualification.
+    /// </summary>
+    private static bool IsDeclaredInterface(string writtenType, HashSet<string> interfaceNames)
+    {
+        var name = writtenType.Trim();
+        var angle = name.IndexOf('<');
+        if (angle > 0)
+        {
+            name = name[..angle];
+        }
+        return interfaceNames.Contains(LastSegment(name));
+    }
+
+    /// <summary>
+    /// The root of a class's base chain, starting from its FULL name.
+    ///
+    /// Short names collide across namespaces, and the collision is not rare in these
+    /// applications: n2 has N2.Web.UI.WebControls.Tree and N2.Edit.Web.UI.Controls.Tree.
+    /// Falls back to the short-name walk when the full name is not one of the scanned
+    /// declarations, which is what every caller used to do unconditionally.
+    /// </summary>
+    public string? GetRootBaseNameOf(string fullName)
+    {
+        var key = DeclarationKey(fullName, 0);
+        if (!_baseByFullName.TryGetValue(key, out var baseName))
+        {
+            key = _baseByFullName.Keys.FirstOrDefault(candidate => KeyName(candidate) == fullName);
+            if (key is null)
+            {
+                return GetRootBaseName(LastSegment(fullName));
+            }
+            baseName = _baseByFullName[key];
+        }
+
+        if (baseName is null)
+        {
+            return null;
+        }
+
+        // The chain above the immediate base is only reachable by short name (a base is
+        // written as it appears in the source, which is usually unqualified), so the walk
+        // continues there - but it now starts from the RIGHT class.
+        var baseSimpleName = LastSegment(
+            baseName.Contains('<', StringComparison.Ordinal)
+                ? baseName[..baseName.IndexOf('<')]
+                : baseName);
+        return _declarations.Keys.Any(candidate => KeyName(candidate) == baseSimpleName)
+            ? GetRootBaseName(baseSimpleName)
+            : baseSimpleName;
+    }
+
     public string? GetRootBaseName(string className)
     {
         var visited = new HashSet<string>(StringComparer.Ordinal);
@@ -258,6 +315,18 @@ public sealed class BaseClassRegistry
         var declarations = new Dictionary<string, (string Namespace, string? BaseName)>(StringComparer.Ordinal);
         var allClassFullNames = new HashSet<string>(StringComparer.Ordinal);
         var allShortTypeNames = new HashSet<string>(StringComparer.Ordinal);
+
+        // The base chain keyed by FULL name as well, because the short-name key collides.
+        // n2 declares both N2.Web.UI.WebControls.Tree (a control) and
+        // N2.Edit.Web.UI.Controls.Tree (a Page); whichever file was scanned first won, and
+        // <n2:Tree> was reported as "base chain ends at Page" - the wrong class entirely.
+        var byFullName = new Dictionary<string, string?>(StringComparer.Ordinal);
+
+        // Interfaces the sources declare. The first entry of a base list is the base CLASS
+        // only when there IS one; otherwise it is an interface, and reading it as the base
+        // ends the walk at a name that was never a class. YAF's Forum came out as "base
+        // chain ends at IEntity".
+        var interfaceNames = new HashSet<string>(StringComparer.Ordinal);
         foreach (var path in plainCodeFiles)
         {
             CompilationUnitSyntax root;
@@ -280,9 +349,11 @@ public sealed class BaseClassRegistry
                 // First declaration wins (partial classes appear once with the base list in practice)
                 declarations.TryAdd(
                     DeclarationKey(classDeclaration.Identifier.Text, arity), (namespaceName, baseName));
-                allClassFullNames.Add(string.IsNullOrEmpty(namespaceName)
+                var fullName = string.IsNullOrEmpty(namespaceName)
                     ? classDeclaration.Identifier.Text
-                    : $"{namespaceName}.{classDeclaration.Identifier.Text}");
+                    : $"{namespaceName}.{classDeclaration.Identifier.Text}";
+                byFullName.TryAdd(DeclarationKey(fullName, arity), baseName);
+                allClassFullNames.Add(fullName);
             }
 
             // Interfaces / enums / structs / records count for namespace existence too
@@ -298,6 +369,29 @@ public sealed class BaseClassRegistry
                     allClassFullNames.Add($"{namespaceName}.{typeDeclaration.Identifier.Text}");
                 }
                 allShortTypeNames.Add(typeDeclaration.Identifier.Text);
+                if (typeDeclaration is InterfaceDeclarationSyntax)
+                {
+                    interfaceNames.Add(typeDeclaration.Identifier.Text);
+                }
+            }
+        }
+
+        // Now that every file has been read, a base list whose first entry turns out to be
+        // one of the application's own interfaces means the class has no base class.
+        // Done here rather than inline because the interface may be declared in a file
+        // scanned after the class that implements it.
+        foreach (var key in declarations.Keys.ToList())
+        {
+            if (declarations[key].BaseName is { } written && IsDeclaredInterface(written, interfaceNames))
+            {
+                declarations[key] = (declarations[key].Namespace, null);
+            }
+        }
+        foreach (var key in byFullName.Keys.ToList())
+        {
+            if (byFullName[key] is { } written && IsDeclaredInterface(written, interfaceNames))
+            {
+                byFullName[key] = null;
             }
         }
 
@@ -316,7 +410,11 @@ public sealed class BaseClassRegistry
             byName.TryAdd(entry.ClassName, entry);
         }
 
-        var result = new BaseClassRegistry(registry, byName, allClassFullNames, allShortTypeNames) { _declarations = declarations };
+        var result = new BaseClassRegistry(registry, byName, allClassFullNames, allShortTypeNames)
+        {
+            _declarations = declarations,
+            _baseByFullName = byFullName,
+        };
         foreach (var fullName in allClassFullNames)
         {
             result._canonicalClassNames.TryAdd(fullName, fullName);

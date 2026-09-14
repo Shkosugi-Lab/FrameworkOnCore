@@ -902,7 +902,7 @@ public static partial class AspxConverters
             return null;
         }
 
-        var root = baseRegistry.GetRootBaseName(fullName[(fullName.LastIndexOf('.') + 1)..]);
+        var root = baseRegistry.GetRootBaseNameOf(fullName);
         if (root is not null && IsLegacyRenderableRoot(root))
         {
             return fullName;

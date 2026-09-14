@@ -107,6 +107,13 @@
                                 {
                                     @boundField.GetCellText(container.DataItem)
                                 }
+                                else if (column is LegacyColumnField legacyColumn)
+                                {
+                                    @* The ported column renders the cell itself, through
+                                       the WebForms protocol: its template is instantiated
+                                       into a cell bound to this row's data item. *@
+                                    @((MarkupString)legacyColumn.RenderCell(container.DataItem, rowIndex, ListItemType.Item))
+                                }
                             </td>
                         }
                     </tr>
@@ -270,6 +277,21 @@
         if (column is TemplateField { HeaderTemplate: not null } templateField)
         {
             builder.AddContent(0, templateField.HeaderTemplate);
+        }
+        else if (column is LegacyColumnField legacyColumn)
+        {
+            // The ported column builds its own header - DNN's TextColumn puts the
+            // HeaderText in a Label through a HeaderTemplate - and falls back to the plain
+            // text when it declares no header template.
+            var header = legacyColumn.RenderCell(null, -1, ListItemType.Header);
+            if (string.IsNullOrEmpty(header))
+            {
+                builder.AddContent(2, legacyColumn.HeaderTextOrColumn);
+            }
+            else
+            {
+                builder.AddContent(3, (MarkupString)header);
+            }
         }
         else
         {
@@ -507,6 +529,42 @@
         _columnsChanged = true;
     }
 
+    /// <summary>
+    /// Ported column objects declared in &lt;Columns&gt; - DNN's textcolumn, imagecommandcolumn
+    /// and friends. They are not components, so they cannot arrive through ColumnsContent;
+    /// the converter passes their declarations and they are built here, in markup order,
+    /// before any declarative column so the grid's column order matches the .aspx.
+    /// </summary>
+    [Parameter] public LegacyChild[] LegacyColumns { get; set; }
+
+    private LegacyChild[] _builtLegacyColumns;
+
+    private void BuildLegacyColumns()
+    {
+        if (ReferenceEquals(_builtLegacyColumns, LegacyColumns))
+        {
+            return;
+        }
+
+        _builtLegacyColumns = LegacyColumns;
+        foreach (var declaration in LegacyColumns ?? [])
+        {
+            if (LegacyActivator.Create(declaration) is not TemplateColumn column)
+            {
+                // A column type that does not exist, or is not a column at all, is left
+                // out rather than guessed at - the residual report names it.
+                continue;
+            }
+
+            var field = new LegacyColumnField { Column = column, HeaderText = column.HeaderText };
+            field.EnsureInitialized();
+            _columns.Insert(Math.Min(_columns.Count, _legacyColumnCount++), field);
+            _columnsChanged = true;
+        }
+    }
+
+    private int _legacyColumnCount;
+
     void ICommandSink.RaiseCommand(object commandSource, CommandEventArgs args)
         => OnRowCommand?.Invoke(this, new GridViewCommandEventArgs(commandSource, args));
 
@@ -727,6 +785,12 @@
         }
 
         Host?.HostCore.NotifyPostBackEvent();
+    }
+
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+        BuildLegacyColumns();
     }
 
     protected override void OnAfterRender(bool firstRender)

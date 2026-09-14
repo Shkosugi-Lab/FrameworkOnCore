@@ -444,9 +444,21 @@ public abstract class LegacyWebControl : IWebFormsControl, IDisposable
     {
     }
 
-    protected virtual void OnDataBinding(EventArgs e)
-    {
-    }
+    protected virtual void OnDataBinding(EventArgs e) => DataBinding?.Invoke(this, e);
+
+    /// <summary>
+    /// WebForms Control.DataBinding. A template subscribes to it and fills the control in
+    /// the handler - that is how a WebForms column gets a value into a cell, so it has to
+    /// be raised and not just declared.
+    /// </summary>
+    public event EventHandler DataBinding;
+
+    /// <summary>
+    /// WebForms Control.NamingContainer: the control that owns this one's ID space. A
+    /// template's binding handler reaches the row's data through it
+    /// ("(DataGridItem)sender.NamingContainer").
+    /// </summary>
+    public IWebFormsControl NamingContainer { get; set; }
 
     /// <summary>
     /// Button / LinkButton / ImageButton raised this, and a ported control that derives

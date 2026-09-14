@@ -3320,3 +3320,67 @@ var container = (DataGridItem)lblText.NamingContainer;
 それでも `TextColumnTemplate.cs` はビルドエラーに出ていないので、
 **どこで解決されているのかを先に突き止める必要があります**
 (見つからなければ、設定可能な `NamingContainer` を `LegacyWebControl` に足すのが 3 点目の作業)。
+
+---
+
+## 列プロトコル(2/2): 移植済みの列が自分でセルを描く
+
+### まず `NamingContainer` の謎を決着させた
+
+前節の未確認事項でした。互換層を全文検索しても `NamingContainer` というメンバーは
+**存在しません**。それなのに DNN の `TextColumnTemplate.cs`(`lblText.NamingContainer` を書いている)は
+ビルドエラーに出ていませんでした。
+
+推測で進めるのをやめ、**足してビルドする**という決着の付け方をしました。
+重複なら `CS0102` が既存の宣言位置を教えてくれます。結果は**ビルド成功** —
+つまり本当に無かったということです
+(dnn の生ビルドは 406 の CS エラーを出しており、そのうち 386 がベンダー DLL /
+System.Web としてゲートで除外されています。その中に埋もれていたと考えられます)。
+
+これは方法としても正しかったと思います。「見つからないから無いはず」より、
+**コンパイラに聞く**方が速くて確実でした。
+
+### 作ったもの
+
+| | |
+|---|---|
+| `WebFormsControlBase.NamingContainer` / `LegacyWebControl.NamingContainer` | 所属する命名コンテナ(オブジェクト)。`NamingContainerPrefix`(連結済み文字列)とは別物 |
+| 両基底の `DataBinding` イベント と `DataBind()` | `OnDataBinding` が実際に発火するように。**宣言だけでは意味がありません** |
+| `LegacyActivator` | 宣言(型名 + 属性)からオブジェクトを組む。`TypeConverter` → `T(string)` → `Convert.ChangeType` の順 |
+| `LegacyColumnField : DataControlField` | 移植済み列をグリッドの列として見せる。`Initialize()` を呼び、行ごとに `DataGridItem` + `LegacyTableCell` を作り、`ItemTemplate.InstantiateIn` → `DataBinding` 発火 → セルの HTML を取り出す |
+| `GridView.LegacyColumns` | 宣言を受け取り、**マークアップ順を保って**先頭から挿入 |
+| `MarkupEmitter.TakeLegacyColumns` | `<Columns>` の未マップ列を取り出して宣言に変換し、**木から取り除く**(スタブ経路が二重に報告しないように) |
+
+**これは列プロトコルの翻訳ではなく、プロトコルそのものです。** DNN の
+`TextColumn` / `ImageCommandColumn` / `CheckBoxColumn` は全部これに乗っているので、
+動かせば **DNN 自身のコードが DNN の列を描きます**。
+変換器は「textcolumn とは何か」を知る必要がありません。
+
+### 計測
+
+| | 変更前 | 変更後 |
+|---|---:|---:|
+| dnn 総残差 | 171 | **158** |
+| 合計総残差 | 535 | **522** |
+| **未対応コントロール** | **41** | **28** |
+| ビルドエラー | 50 | **50**(変化なし) |
+
+パリティ 30/30、bUnit 30/30、回帰ゲート 13/13。
+減った 13 件は列そのもの(`dnn:textcolumn` 5 / `imagecommandcolumn` 4 /
+`checkboxcolumn` 2 / `dnnweb:DnnGridTemplateColumn` 2)です。
+
+### 残っている重複(次に片付ける)
+
+`LegacyRenderHost` の `ConvertMarkupValue` / `SetProperty` / `ResolveType` は
+`LegacyActivator` と同じことをしています。**同じことを決める実装が 2 つある**のは
+このセッションで何度も痛い目を見た形なので、`LegacyRenderHost` を
+`LegacyActivator` に委譲させます。
+
+### このセッションの累計
+
+| | 開始時 | 現在 |
+|---|---:|---:|
+| 総残差 | 702 | **522**(−26%) |
+| ビルドエラー | 216 | **50**(−77%) |
+| 未対応コントロール | 113 | **28** |
+| 標準コントロール未実装 | 34 | **0** |

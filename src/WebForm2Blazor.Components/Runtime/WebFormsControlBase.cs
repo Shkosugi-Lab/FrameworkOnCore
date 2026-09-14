@@ -140,6 +140,17 @@ public abstract class WebFormsControlBase : ComponentBase, IWebFormsControl, IDi
     [CascadingParameter(Name = "NamingContainerPrefix")]
     protected string NamingContainerPrefix { get; set; }
 
+    /// <summary>
+    /// WebForms Control.NamingContainer: the control that owns this one's ID space.
+    ///
+    /// Distinct from <see cref="NamingContainerPrefix"/>, which is the joined ID string.
+    /// This is the OBJECT, and ported code casts it: DNN's TextColumnTemplate writes
+    /// "(DataGridItem)lblText.NamingContainer" to reach the row's DataItem while binding.
+    /// Null unless something placed the control in a container - a legacy grid building
+    /// its rows sets it, and nothing else needs to.
+    /// </summary>
+    public IWebFormsControl NamingContainer { get; set; }
+
     /// <summary>WebForms SkinID equivalent. Themes are not supported; accepted as a no-op.</summary>
     public string SkinID { get; set; }
 
@@ -541,9 +552,17 @@ public abstract class WebFormsControlBase : ComponentBase, IWebFormsControl, IDi
     {
     }
 
-    protected virtual void OnDataBinding(EventArgs e)
-    {
-    }
+    protected virtual void OnDataBinding(EventArgs e) => DataBinding?.Invoke(this, e);
+
+    /// <summary>
+    /// WebForms Control.DataBinding. A template subscribes to it and fills the control in
+    /// the handler - DNN's TextColumnTemplate does "lblText.DataBinding += ..." and sets
+    /// lblText.Text there - so it has to be raised, not just declared.
+    /// </summary>
+    public event EventHandler DataBinding;
+
+    /// <summary>WebForms Control.DataBind: raises DataBinding on this control.</summary>
+    public virtual void DataBind() => OnDataBinding(EventArgs.Empty);
 
     /// <summary>WebForms Control.ChildControlsCreated equivalent.</summary>
     protected bool ChildControlsCreated { get; set; }

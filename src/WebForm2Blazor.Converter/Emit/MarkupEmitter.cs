@@ -986,6 +986,48 @@ public sealed partial class MarkupEmitter(EmitContext context)
     /// render a control that is quietly wrong - worse than the stub, which is visibly
     /// absent.
     /// </summary>
+    /// <summary>
+    /// Pulls the ported-column entries out of a &lt;Columns&gt; child and returns their
+    /// declarations. They are REMOVED from the tree so the stub path does not also report
+    /// them - a column carried this way is converted, not missing.
+    /// </summary>
+    private List<string> TakeLegacyColumns(ElementNode element)
+    {
+        var declarations = new List<string>();
+        var columns = element.Children.OfType<ElementNode>().FirstOrDefault(child =>
+            string.IsNullOrEmpty(child.Prefix)
+            && child.Name.Equals("Columns", StringComparison.OrdinalIgnoreCase));
+        if (columns is null)
+        {
+            return declarations;
+        }
+
+        foreach (var entry in columns.Children.OfType<ElementNode>().ToList())
+        {
+            if (ControlMappings.Find(entry.Prefix, entry.Name) is not null
+                || context.AnyTypeResolver?.Invoke(entry.Prefix, entry.Name) is not { } entryType)
+            {
+                continue;
+            }
+
+            var values = entry.Attributes
+                .Where(pair => !pair.Key.Equals("runat", StringComparison.OrdinalIgnoreCase))
+                .Select(pair => $"[{Quote(pair.Key)}] = {Quote(pair.Value)}");
+            declarations.Add(
+                $"new global::WebForm2Blazor.Components.LegacyChild({Quote("Columns")}, "
+                + $"{Quote(entryType)}, new global::System.Collections.Generic.Dictionary<string, string>("
+                + "global::System.StringComparer.OrdinalIgnoreCase) { "
+                + string.Join(", ", values) + " })");
+
+            context.Report.Info(context.SourceName,
+                $"<{entry.QualifiedName}> を移植済みの列 {entryType} として <Columns> に組み込みました"
+                + "(WebForms の列プロトコルで、列自身がセルを描画します)。");
+            columns.Children.Remove(entry);
+        }
+
+        return declarations;
+    }
+
     private bool IsHostableCollection(ElementNode child)
         => LegacyCollectionElements.Contains(child.Name)
            && child.Children.OfType<ElementNode>().Any()
@@ -1351,6 +1393,17 @@ public sealed partial class MarkupEmitter(EmitContext context)
         if (BuildPassthroughAttribute(passthrough, element.QualifiedName) is { } passthroughAttribute)
         {
             attributes.Add(passthroughAttribute);
+        }
+
+        // A <Columns> entry with no control mapping but a ported type is a WebForms COLUMN
+        // (DNN's textcolumn, imagecommandcolumn). It is not a component and cannot go in
+        // the ColumnsContent fragment, so it travels as a declaration and the grid builds
+        // it - and then the ported column renders its own cells, through the same protocol
+        // WebForms used.
+        if (TakeLegacyColumns(element) is { Count: > 0 } legacyColumns)
+        {
+            attributes.Add("LegacyColumns=\"@(new global::WebForm2Blazor.Components.LegacyChild[] { "
+                + string.Join(", ", legacyColumns) + " })\"");
         }
 
         context.Report.ConvertedControls++;

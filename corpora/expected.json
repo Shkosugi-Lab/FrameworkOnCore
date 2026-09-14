@@ -8,13 +8,13 @@
     "mojo":  {
                  "convertible":  20,
                  "portedCs":  740,
-                 "residuals":  111,
+                 "residuals":  110,
                  "buildErrors":  13
              },
     "yaf":  {
                 "convertible":  5,
                 "portedCs":  2724,
-                "residuals":  62,
+                "residuals":  61,
                 "buildErrors":  4
             },
     "dnn":  {
@@ -32,7 +32,7 @@
     "wt":  {
                "convertible":  3,
                "portedCs":  13,
-               "residuals":  37,
+               "residuals":  35,
                "buildErrors":  0
            }
 }

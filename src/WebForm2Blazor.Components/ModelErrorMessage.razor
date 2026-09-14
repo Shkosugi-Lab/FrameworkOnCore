@@ -1,0 +1,34 @@
+@namespace WebForm2Blazor.Components
+@inherits WebFormsControlBase
+
+@* WebForms ModelErrorMessage equivalent: shows the model-state error recorded for
+   ModelStateKey, and nothing when there is none - which is what the original did.
+
+   The message comes from the page's ModelState, which code-behind fills:
+   WingtipToys' ManagePassword reports every failure with
+   ModelState.AddModelError(""), and with nothing rendering it the user saw no reason
+   why the change had not worked. *@
+@if (Visible && Message is { Length: > 0 })
+{
+    <span @attributes="ExtraAttributes" style="@ComputedStyle" id="@ClientID" class="@CssClass">@Message</span>
+}
+
+@code {
+    /// <summary>WebForms ModelStateKey. Empty means the form-level error, as there.</summary>
+    [Parameter] public string ModelStateKey { get; set; } = string.Empty;
+
+    /// <summary>Accepted for markup compatibility (focus is a client concern in Blazor).</summary>
+    [Parameter] public string AssociatedControlID { get; set; }
+
+    /// <summary>WebForms Text: shown instead of the model's message when set.</summary>
+    [Parameter] public string Text { get; set; }
+
+    private string Message
+    {
+        get
+        {
+            var recorded = (Host as Page)?.ModelState[ModelStateKey ?? string.Empty];
+            return recorded is { Count: > 0 } ? (Text ?? recorded[0]) : null;
+        }
+    }
+}

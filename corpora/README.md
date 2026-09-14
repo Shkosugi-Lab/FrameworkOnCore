@@ -2143,3 +2143,16 @@ BlogEngine の登録ページは処理(ロール付与、認証クッキー、�
 | `CreateUserWizardStep` / `CompleteWizardStep` | **型として必要**でした。`.designer.cs` がこの名前でフィールドを宣言します(n2 の `Users/New.aspx.designer.cs`)。`WizardStep` の派生にしてあります |
 
 **総残差 673 → 666。** ビルドエラー不変、パリティ 30/30、回帰 13/13。
+
+## `ModelErrorMessage` / `Timer` / `PasswordRecovery`
+
+| | |
+|---|---|
+| `ModelErrorMessage` | **モデルバインディングは対象外ですが、エラー側は別の話です。** コードビハインドは `ModelState.AddModelError` で「見せたいメッセージ」を入れます。WingtipToys はパスワード変更の失敗を全部これで報告していて、**表示するものが無かったので利用者には何も出ていませんでした。** `ModelStateDictionary` を `Page` に足し、このコントロールが表示します |
+| `Timer` | 元はブラウザ側のインターバルでポストバックしていました。ここでは**回路が既に開いている**ので、サーバ側で tick して再描画をそこに流します。観測される挙動は同じ(ハンドラが周期実行されページが更新される)で、YAF のフォーラム削除画面はこれで進捗を追います |
+| `PasswordRecovery` | `Login` / `ChangePassword` と同じ扱い。テンプレートがあればそれ、無ければ既定のフォーム。**パスワードは復旧しません** — membership は無く、勝手にリセットを作るのは何もしないより悪いので、`VerifyingUser` / `SendingMail` を発火してアプリに渡します |
+
+`ModelErrorMessage` は最初 `CssClass` を落としていました(`text-danger`)。
+共通属性を通すようにしています。
+
+**総残差 666 → 662。** ビルドエラー不変、パリティ 30/30、回帰 13/13。

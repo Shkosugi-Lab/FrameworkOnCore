@@ -1,0 +1,96 @@
+@namespace WebForm2Blazor.Components
+@inherits WebFormsControlBase
+@implements IDisposable
+
+@* WebForms (AJAX) Timer equivalent: raises Tick every Interval milliseconds while Enabled.
+
+   The original worked by posting back on a JavaScript interval; here the server already
+   holds the circuit, so the tick happens on the server and the re-render goes out over it.
+   The observable behaviour is the same - the handler runs on a schedule and the page
+   updates - and YAF's forum-deletion screen polls its progress this way.
+
+   Renders nothing, as the original did. *@
+
+@code {
+    private System.Threading.Timer _timer;
+    private bool _enabled = true;
+    private int _interval = 60000;
+
+    /// <summary>WebForms Enabled. Assigning it from code-behind starts or stops the timer.</summary>
+    [Parameter]
+    public new bool Enabled
+    {
+        get => _enabled;
+        set
+        {
+            if (_enabled != value)
+            {
+                _enabled = value;
+                Reschedule();
+            }
+        }
+    }
+
+    /// <summary>WebForms Interval, in milliseconds. 60000 is the original's default.</summary>
+    [Parameter]
+    public int Interval
+    {
+        get => _interval;
+        set
+        {
+            if (_interval != value)
+            {
+                _interval = value;
+                Reschedule();
+            }
+        }
+    }
+
+    [Parameter] public EventHandler OnTick { get; set; }
+
+    public event EventHandler Tick
+    {
+        add => OnTick += value;
+        remove => OnTick -= value;
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+        {
+            Reschedule();
+        }
+    }
+
+    private void Reschedule()
+    {
+        _timer?.Dispose();
+        _timer = null;
+
+        if (!_enabled || _interval <= 0 || OnTick is null)
+        {
+            return;
+        }
+
+        // InvokeAsync: the callback arrives on a thread-pool thread and everything it
+        // touches - the component tree, the handler's own state - belongs to the
+        // renderer's synchronization context.
+        _timer = new System.Threading.Timer(
+            _ => InvokeAsync(() =>
+            {
+                OnTick?.Invoke(this, EventArgs.Empty);
+                Host?.HostCore.NotifyPostBackEvent();
+                StateHasChanged();
+            }),
+            null,
+            _interval,
+            _interval);
+    }
+
+    public override void Dispose()
+    {
+        _timer?.Dispose();
+        _timer = null;
+        base.Dispose();
+    }
+}

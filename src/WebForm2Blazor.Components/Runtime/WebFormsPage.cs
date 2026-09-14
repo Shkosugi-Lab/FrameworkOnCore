@@ -106,6 +106,12 @@ public abstract class Page : ComponentBase, IWebFormsHost
 
     public bool IsValid => HostCore.IsValid;
 
+    /// <summary>
+    /// WebForms 4.5 ModelState. Code-behind adds errors here for a ModelErrorMessage or a
+    /// ValidationSummary to show - see ModelStateDictionary.
+    /// </summary>
+    public ModelStateDictionary ModelState { get; } = new();
+
     public IWebFormsControl FindControl(string id) => HostCore.FindControl(id);
 
     public bool Validate() => HostCore.Validate();

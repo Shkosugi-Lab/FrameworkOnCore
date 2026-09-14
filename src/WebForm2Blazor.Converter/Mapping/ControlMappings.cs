@@ -325,6 +325,30 @@ public static class ControlMappings
         // own (CreateUserStep, ContinueDestinationPageUrl, UserName, Password), and its
         // markup nests named templates a plain WizardStep does not accept. Making it work
         // means a component of its own, not an alias for this one.
+        ["PasswordRecovery"] = new()
+        {
+            Component = "PasswordRecovery",
+            Attributes = Map(
+                "ID", "Visible", "UserName", "MembershipProvider", "SuccessPageUrl",
+                "UserNameLabelText", "SubmitButtonText", "SuccessText", "UserNameFailureText",
+                "OnVerifyingUser", "OnUserLookupError", "OnSendingMail", "OnSendMailError"),
+        },
+        // WebForms 4.5 model binding is out of scope, but its ERROR side is not the same
+        // thing: code-behind calls ModelState.AddModelError with a message it wants shown,
+        // and with nothing rendering it the visitor was told nothing at all.
+        ["ModelErrorMessage"] = new()
+        {
+            Component = "ModelErrorMessage",
+            Attributes = WithCommon(Map(
+                "ID", "Visible", "CssClass", "ModelStateKey", "AssociatedControlID", "Text")),
+        },
+        // The AJAX Timer. The original polled from the browser; the circuit is already
+        // open here, so the tick happens server-side and the re-render goes out over it.
+        ["Timer"] = new()
+        {
+            Component = "Timer",
+            Attributes = Map("ID", "Visible", "Enabled", "Interval", "OnTick"),
+        },
         ["CreateUserWizard"] = new()
         {
             Component = "CreateUserWizard",

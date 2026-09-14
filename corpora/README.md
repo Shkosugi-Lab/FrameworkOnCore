@@ -2414,3 +2414,141 @@ NG   product-list
 `product-details` も `shopping-cart` も同じで、WingtipToys の LocalDB が
 この環境に無いためです(元アプリも DB 無しでは同じ)。変換器の欠陥ではないので
 ここでは追いません。
+
+---
+
+## `System.Web.Services` の除外をやめる — と、そこで露出した 3 つの欠陥
+
+除外理由の 2 番目、`System.Web.Services`(mojoPortal 12 ファイル)を潰しました。
+そして**除外をやめたことで、隠れていた変換器の欠陥が 3 つ表に出ました**。
+これは毎回起きることなので、順に記録します。
+
+### 1. System.Web.Services はほぼ宣言だけ
+
+コーパスでの使用実態:
+
+| 型 | 出現 |
+|---|---:|
+| WebMethod | 15 |
+| WebService | 13 |
+| WsiProfiles | 12 |
+| WebServiceBinding | 12 |
+| ScriptService | 1 |
+
+**基底クラス 1 個と属性 4 個**です。ASMX のエンドポイントは提供しません
+(SOAP は別のプロトコル面で、`IHttpHandler` と同じ扱い)。
+しかし `[WebMethod]` が付いたメソッドは**ただの public メソッド**で、
+その周りのクラスはアプリの他の場所から普通に呼ばれます。
+宣言 5 個のためにファイルごと捨てていました。
+
+`Compat/WebServiceShims.cs` に `WebService` / `WebMethodAttribute` /
+`WebServiceAttribute` / `WebServiceBindingAttribute` / `WsiProfiles` /
+`ScriptServiceAttribute` / `ScriptMethodAttribute` を置き、
+`System.Web.Services` / `System.Web.Services.Protocols` /
+`System.Web.Script.Services` を書き換え対象の名前空間に追加しました。
+
+### 2. 露出した欠陥 A: 属性値の中のタグを「壊れたタグ」と誤認していた(RZ9986)
+
+DNN の InstallWizard が復活した結果、**生成 Razor** に RZ9986 が 5 件出ました。
+
+```razor
+<Label Text="<a class=&quot;videoLink&quot; href=&quot;...&quot;>Check DNN
+  Comunity website@((global::...MarkupString)"</a>")" @ref="lblIntroDetail" />
+```
+
+属性値の中の `</a>` が Razor 式に書き換えられています。属性の中に式は置けないので
+RZ9986(`Component attributes do not support complex content`)です。
+
+原因は `TagBalance` のタグ正規表現でした。
+
+```
+<(?<close>/)?(?<name>[A-Za-z][A-Za-z0-9-]*)(?:\s[^>]*?)?(?<self>/)?>
+```
+
+`[^>]*?` は**どこにあろうと最初の `>` で止まります**。上の行では
+`Text="..."` の中にある `<a ...>` の `>` がそれで、`<Label ...>` のマッチは
+そこで終わる。結果、開始タグ `<a>` はマッチに飲み込まれて見えず、
+**閉じタグ `</a>` だけが「対応する開きの無い迷子」**に見えていました。
+`Neutralize` はそれを律儀に修理した、というだけです。
+壊れていない場所に修理を当てて 3 ページを壊していました。
+
+属性値を引用符ごと丸ごと食うようにしました:
+
+```
+<(?<close>/)?(?<name>[A-Za-z][A-Za-z0-9-]*)(?:\s(?:"[^"]*"|'[^']*'|[^>"'])*?)?(?<self>/)?>
+```
+
+#### 先に試して撤回した案(記録)
+
+最初は「属性値の中身を空白でマスクしてから走査する」方式を書きました。
+`inTag` 状態機械で `<` を見たらタグ開始とみなす、というものです。**大失敗**でした。
+
+| | 変更前 | マスク方式 |
+|---|---:|---:|
+| be ビルドエラー | 0 | **2(しかも構文エラー)** |
+| n2 ビルドエラー | 13 | **48** |
+| 合計ビルドエラー | 64 | **101** |
+
+理由は `<script>` の中の `if (a<b)` のような**タグでない `<`** をタグ開始と読み、
+そこから次の引用符までを丸ごとマスクしてしまうからです。
+元の正規表現は `[^>]*?` が `>` を跨げないぶん、こういうゴミに対しては安全でした。
+**「より賢い解析」ではなく「元の挙動を保ったまま引用符だけ足す」方が正しい。**
+
+### 3. 露出した欠陥 B: VB プロジェクトの型がビルドエラーに数えられていた
+
+DNN の `Default.aspx.cs` と `InstallWizard.aspx.cs` が
+`IClientAPICallbackEventHandler` と `DotNetNuke.UI.Utilities.DataCache` で
+16 件のエラーを出しました。これらを宣言しているのは
+
+```
+<ProjectReference Include="..\DotNetNuke.WebUtility\DotNetNuke.WebUtility.vbproj" />
+```
+
+**VB.NET プロジェクト**です。この変換器は C# しか移植しないので、参照先の型は消えます。
+しかも `<Reference>` ではないので**同梱 DLL 未決定の枠にも入らず**、
+素の CS0246 として変換器の失点に数えられていました。
+
+これはベンダー DLL とまったく同じ状況です(誰かが .NET ビルドを供給するまで
+変換器には何もできない)。`.vbproj` / `.fsproj` への ProjectReference を
+バイナリ依存として登録し、そのビルド済みアセンブリからメタデータで型名を読むようにしました。
+
+探索範囲も直しました。DNN は `DNN Platform\DotNetNuke.WebUtility` にソースを置き、
+出力は `DNN Platform\Controls\DotNetNuke.WebUtility\bin` にあります。
+**プロジェクトの隣だけ見ても見つかりません**。親ディレクトリまで広げています。
+どのコピーでもよい理由は、欲しいのは「消える型の名前」だけで、
+どのビルドも同じ型を宣言しているからです。
+
+### 4. 露出した欠陥 C: 完全修飾の属性短縮形が解決されなかった
+
+```csharp
+[System.Web.Services.WebMethod]
+```
+
+互換層の型名は `WebMethodAttribute` なので、`WebMethod` では表に無く、
+**すぐ隣にある互換型に届かないまま**「存在しない名前空間」を指し続けていました。
+`RewriteRootSystemWebTypes` に「書かれた名前 → 無ければ +Attribute」を足しました
+(すでに `Attribute` で終わる名前には足しません。二重になって型を捏造します)。
+
+### 計測
+
+| | 変更前 | 変更後 |
+|---|---:|---:|
+| mojo 移植 .cs | 741 | **753**(+12) |
+| mojo 総残差 | 110 | **90** |
+| mojo 変換可能 | 20 | **12** |
+| dnn 総残差 | 188 | **186** |
+| **dnn ビルドエラー** | 26 | **20** |
+| n2 総残差 | 174 | **173** |
+| 合計総残差 | 638 | **615** |
+| 合計ビルドエラー | 56 | **50** |
+
+12 ファイル戻したうえで **ビルドエラーは 56 → 50 と減りました**。
+パリティ 30/30、bUnit 30/30、回帰ゲート 13/13。
+
+### ここまでの累計(このセッション)
+
+| | 開始時 | 現在 |
+|---|---:|---:|
+| 総残差 | 702 | **615** |
+| ビルドエラー | 216 | **50** |
+| 空スタブ化された型 | 287 | 255 |

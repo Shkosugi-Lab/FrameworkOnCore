@@ -20,7 +20,13 @@ public static class PortabilityRules
     [
         "Microsoft.Owin", "Owin", "Microsoft.AspNet.Identity", "Microsoft.AspNet.FriendlyUrls",
         "Microsoft.AspNet.SignalR", "System.Web.Optimization", "System.Web.Http",
-        "System.Web.Mvc", "System.Web.Services",
+        "System.Web.Mvc",
+        // System.Web.Services (ASMX) was here and emptied 12 mojoPortal files. What the
+        // corpora use of it is five declarations - WebService, [WebMethod],
+        // [WebService], [WebServiceBinding], WsiProfiles - which the compatibility layer
+        // now supplies. The SOAP endpoint is still not served (reported separately), but
+        // a [WebMethod] is an ordinary public method and the class around it holds logic
+        // the rest of the application calls directly.
         // System.Web.Routing was here and cost 20 files (DNN 10, n2 8, mojoPortal 1,
         // WingtipToys 1) plus their cascade. It is not a separate framework the way MVC
         // is: it is a handful of data carriers (RouteValueDictionary, RouteData,

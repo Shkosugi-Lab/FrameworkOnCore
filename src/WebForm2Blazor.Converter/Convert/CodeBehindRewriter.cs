@@ -939,6 +939,9 @@ public static class CodeBehindRewriter
         "System.Web.UI.WebControls",
         "System.Web.UI.Adapters",
         "System.Web.Script.Serialization",
+        "System.Web.Script.Services",
+        "System.Web.Services.Protocols",
+        "System.Web.Services",
         "System.Web.Routing",
         "System.Security.Permissions",
         "System.Web.Configuration",
@@ -970,12 +973,37 @@ public static class CodeBehindRewriter
             code = System.Text.RegularExpressions.Regex.Replace(
                 code,
                 @"\b" + System.Text.RegularExpressions.Regex.Escape(sourceNamespace) + @"\.([A-Z]\w*)\b",
-                match => CompatTypeNames.Contains(match.Groups[1].Value)
-                    ? "WebForm2Blazor.Components." + match.Groups[1].Value
+                match => CompatTypeNameFor(match.Groups[1].Value) is { } compatName
+                    ? "WebForm2Blazor.Components." + compatName
                     : match.Value);
         }
 
         return code;
+    }
+
+    /// <summary>
+    /// The compatibility layer's name for a type written as "Namespace.Name", or null when
+    /// it has none.
+    ///
+    /// An attribute may be written without its "Attribute" suffix, and fully qualified at
+    /// that: DNN's InstallWizard writes "[System.Web.Services.WebMethod]". Matching the
+    /// written name alone left that one qualified reference pointing at a namespace that no
+    /// longer exists, so the compat layer's WebMethodAttribute - which was right there -
+    /// was never reached.
+    /// </summary>
+    private static string? CompatTypeNameFor(string writtenName)
+    {
+        if (CompatTypeNames.Contains(writtenName))
+        {
+            return writtenName;
+        }
+
+        // Only for the shorthand form: a name already ending in "Attribute" was looked up
+        // above, and appending a second one would invent a type.
+        return !writtenName.EndsWith("Attribute", StringComparison.Ordinal)
+               && CompatTypeNames.Contains(writtenName + "Attribute")
+            ? writtenName + "Attribute"
+            : null;
     }
 
     /// <summary>

@@ -135,9 +135,14 @@ if (propertyCatalogPath is not null && File.Exists(propertyCatalogPath))
 // is read rather than guessed. Getting this set wrong is the most expensive mistake in a
 // conversion and it does not announce itself: the missing types surface as hundreds of
 // CS0246 that read like converter or compatibility-layer failures.
+// Referenced .vbproj / .fsproj: this converter cannot port them, and the build gate needs
+// their names later to keep their types out of the counted errors.
+var foreignLanguageProjects = new List<string>();
+
 if (deriveIncludes)
 {
     var derived = WebForm2Blazor.Converter.Project.ProjectReferenceGraph.Derive(input, entryProjectPath);
+    foreignLanguageProjects.AddRange(derived.ForeignLanguage);
 
     if (derived.AmbiguousProjects.Count > 0)
     {
@@ -985,7 +990,8 @@ if (packageMap is not null)
 
 var declared = CollectDeclaredPackages(
     [input, .. includeDirectories], report, packageMap,
-    Path.Combine(output, "package-map.template.json"));
+    Path.Combine(output, "package-map.template.json"),
+    foreignLanguageProjects);
 
 // A package the code's usings imply is only needed when the original did not already
 // bring that library in under another name. mojoPortal declares DotNetZip.Original and
@@ -1511,11 +1517,52 @@ static Dictionary<string, (string? Package, string? Version)> LoadPackageMap(str
     return map;
 }
 
+/// <summary>
+/// The built assembly of a project the converter cannot port, so its TYPE NAMES can be
+/// read from metadata.
+///
+/// Its own bin\ is checked first, then the directory above it. A repository does not
+/// always build in place: DNN keeps DotNetNuke.WebUtility's sources in
+/// "DNN Platform\DotNetNuke.WebUtility" and its output in
+/// "DNN Platform\Controls\DotNetNuke.WebUtility\bin", so looking only beside the project
+/// finds nothing. Any copy will do - what is wanted is the list of types that go missing,
+/// and every build of the assembly declares the same ones.
+/// </summary>
+static string? FindBuiltAssembly(string? projectDirectory, string assembly)
+{
+    if (projectDirectory is null)
+    {
+        return null;
+    }
+
+    var fileName = assembly + ".dll";
+    var beside = new[] { "bin", Path.Combine("bin", "Release"), Path.Combine("bin", "Debug") }
+        .Select(folder => Path.Combine(projectDirectory, folder, fileName))
+        .FirstOrDefault(File.Exists);
+    if (beside is not null)
+    {
+        return beside;
+    }
+
+    try
+    {
+        return Directory.GetParent(projectDirectory) is { } parent
+            ? Directory.EnumerateFiles(parent.FullName, fileName, SearchOption.AllDirectories)
+                .FirstOrDefault()
+            : null;
+    }
+    catch (Exception exception) when (exception is IOException or UnauthorizedAccessException)
+    {
+        return null;
+    }
+}
+
 static List<(string Id, string Version)> CollectDeclaredPackages(
     IEnumerable<string> projectDirectories,
     ConversionReport report,
     Dictionary<string, (string? Package, string? Version)>? packageMap = null,
-    string? templatePath = null)
+    string? templatePath = null,
+    IEnumerable<string>? foreignLanguageProjects = null)
 {
     string[] skipPrefixes =
     [
@@ -1593,6 +1640,27 @@ static List<(string Id, string Version)> CollectDeclaredPackages(
             return;
         }
         carried.Add((id, versionUplifts.GetValueOrDefault(id, version)));
+    }
+
+    // A ProjectReference to a .vbproj / .fsproj is a dependency this converter cannot port
+    // and has no NuGet identity either, so its types came back as plain CS0246 and counted
+    // against the conversion. DNN Platform references DotNetNuke.WebUtility.vbproj, which
+    // declares DotNetNuke.UI.Utilities - IClientAPICallbackEventHandler and DataCache -
+    // and 16 errors in Default.aspx.cs and InstallWizard.aspx.cs were nothing but that.
+    //
+    // It is exactly the vendored-DLL situation: someone has to supply a .NET build, and
+    // until they do the converter can neither fix it nor take credit for it. Registering
+    // the project's BUILT assembly (its own metadata lists the types, same as a vendored
+    // DLL) puts it in the package-map template and out of the counted errors.
+    foreach (var foreignProject in foreignLanguageProjects ?? [])
+    {
+        var assembly = Path.GetFileNameWithoutExtension(foreignProject);
+        if (string.IsNullOrEmpty(assembly) || binaryReferences.ContainsKey(assembly))
+        {
+            continue;
+        }
+
+        binaryReferences[assembly] = FindBuiltAssembly(Path.GetDirectoryName(foreignProject), assembly);
     }
 
     foreach (var directory in projectDirectories.Where(Directory.Exists))

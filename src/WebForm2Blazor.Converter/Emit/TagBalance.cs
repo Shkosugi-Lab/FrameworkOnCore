@@ -142,6 +142,24 @@ public static partial class TagBalance
         return unmatched;
     }
 
-    [GeneratedRegex(@"<(?<close>/)?(?<name>[A-Za-z][A-Za-z0-9-]*)(?:\s[^>]*?)?(?<self>/)?>")]
+    /// <summary>
+    /// One tag. The attribute list consumes QUOTED values whole, so a "&gt;" - or a whole
+    /// tag - inside an attribute value does not end the match.
+    ///
+    /// It used to be "\s[^&gt;]*?", which stopped at the first "&gt;" wherever it was. DNN's
+    /// InstallWizard has
+    ///
+    ///     &lt;asp:Label Text="&lt;a class=&amp;quot;videoLink&amp;quot; href=&amp;quot;...&amp;quot;&gt;Check this&lt;/a&gt;" /&gt;
+    ///
+    /// so the Label's match ended at the "&gt;" of the &lt;a&gt; INSIDE its Text. The opening &lt;a&gt;
+    /// was therefore swallowed and only the closing &lt;/a&gt; was seen - a stray close tag
+    /// that Neutralize dutifully rewrote into a Razor expression, inside an attribute,
+    /// which is RZ9986 ("Component attributes do not support complex content"). Three DNN
+    /// pages failed to compile because of a repair applied where nothing was broken.
+    ///
+    /// A tag whose quoting is genuinely unbalanced ('&lt;a title="x&gt;') no longer matches at
+    /// all, which is the honest answer: its extent cannot be determined.
+    /// </summary>
+    [GeneratedRegex("""<(?<close>/)?(?<name>[A-Za-z][A-Za-z0-9-]*)(?:\s(?:"[^"]*"|'[^']*'|[^>"'])*?)?(?<self>/)?>""")]
     private static partial Regex TagRegex();
 }

@@ -3293,3 +3293,30 @@ dnn の残差が 4 減ったのは、移植された列クラスのメンバー�
 `DataGridItem` + `LegacyTableCell` を作って `ItemTemplate.InstantiateIn` し、
 `DataBinding` を発火させて HTML を取り出します。
 変換器側は `LegacyChild` / `<Columns>` の仕組みが既にあるので追加不要です。
+
+### 2/2 に着手する前に確かめたこと
+
+アダプタを書く前の最大の不安は「**セルに足されるのは互換 `Label`(Blazor コンポーネント)で、
+それをレガシーセルが `HtmlTextWriter` に描けるのか**」でした。答えは描けます。
+
+```csharp
+// Runtime/WebFormsHostCore.cs — IWebFormsControl の既定実装
+void RenderControl(HtmlTextWriter writer) { }        // 既定は何も書かない
+// Runtime/WebFormsControlBase.cs:245 — コンポーネントはこれを override する
+public virtual void RenderControl(HtmlTextWriter writer)
+```
+
+つまり `LegacyTableCell.RenderChildren` → `Label.RenderControl(writer)` の経路は成立します。
+**アダプタはこの前提で書けます。**
+
+未確認が 1 つ残っています。DNN のテンプレートは
+
+```csharp
+var container = (DataGridItem)lblText.NamingContainer;
+```
+
+と書きますが、`NamingContainer` は `IWebFormsControl` にも `LegacyWebControl` にも
+見当たりません(`WebFormsControlBase` にあるのは `NamingContainerPrefix`)。
+それでも `TextColumnTemplate.cs` はビルドエラーに出ていないので、
+**どこで解決されているのかを先に突き止める必要があります**
+(見つからなければ、設定可能な `NamingContainer` を `LegacyWebControl` に足すのが 3 点目の作業)。

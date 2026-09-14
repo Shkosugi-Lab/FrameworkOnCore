@@ -687,8 +687,16 @@ public sealed partial class MarkupEmitter(EmitContext context)
             // A render-based custom control whose ported source is available runs
             // unchanged under LegacyRenderHost. Plain markup children render between the
             // legacy begin/end tags; controls with template children keep the stub path
+            // A <HeaderTemplate> / <FooterTemplate> does NOT stop a control being hosted.
+            // They are static markup rendered around the control's own output - no data
+            // item, no per-row instantiation - so Blazor can render them directly. That is
+            // not true of an <ItemTemplate> (needs the data item) or of <Items>/<Columns>
+            // (child control declarations the legacy control builds itself), which still
+            // take the stub path. n2's Zone is nine of these and its templates are
+            // "<div class=\"list\">" and "</div>".
             var hasTemplateChildren = element.Children.OfType<ElementNode>().Any(child =>
                 string.IsNullOrEmpty(child.Prefix)
+                && !LegacyHostableTemplates.ContainsKey(child.Name)
                 && (ControlMappings.DataBoundTemplates.Contains(child.Name)
                     || ControlMappings.PlainTemplates.Contains(child.Name)
                     || ControlMappings.StyleChildElements.Contains(child.Name)));
@@ -867,6 +875,17 @@ public sealed partial class MarkupEmitter(EmitContext context)
     /// injects its Render(HtmlTextWriter) output. Markup attributes travel as property
     /// values (the host applies them by reflection with type conversion).
     /// </summary>
+    /// <summary>
+    /// Templates a LegacyRenderHost can render itself: static markup around the control's
+    /// own output, with no data item behind it.
+    /// </summary>
+    private static readonly Dictionary<string, string> LegacyHostableTemplates =
+        new(StringComparer.OrdinalIgnoreCase)
+        {
+            ["HeaderTemplate"] = "HeaderContent",
+            ["FooterTemplate"] = "FooterContent",
+        };
+
     private string EmitLegacyRenderHost(ElementNode element, string legacyTypeName)
     {
         var id = element.Id;
@@ -907,8 +926,28 @@ public sealed partial class MarkupEmitter(EmitContext context)
             return $"<LegacyRenderHost {string.Join(" ", attributes)} />";
         }
 
-        // Children render as Blazor content between the control's legacy begin/end tags
-        return $"<LegacyRenderHost {string.Join(" ", attributes)}>{EmitNodes(element.Children)}</LegacyRenderHost>";
+        // <HeaderTemplate> / <FooterTemplate> become named fragments; everything else is
+        // content between the control's legacy begin/end tags.
+        var templates = new StringBuilder();
+        var rest = new List<AspxNode>();
+        foreach (var child in element.Children)
+        {
+            if (child is ElementNode template && string.IsNullOrEmpty(template.Prefix)
+                && LegacyHostableTemplates.TryGetValue(template.Name, out var parameterName))
+            {
+                // A header and a footer are balanced TOGETHER, not separately: n2's Zone
+                // opens "<div class="list">" in the header and closes it in the footer.
+                // Razor parses each fragment on its own, so each half has to be
+                // neutralized into raw output - the DOM the browser builds is the same.
+                templates.Append($"<{parameterName}>{TagBalance.Neutralize(EmitNodes(template.Children))}</{parameterName}>");
+            }
+            else
+            {
+                rest.Add(child);
+            }
+        }
+
+        return $"<LegacyRenderHost {string.Join(" ", attributes)}>{templates}{EmitNodes(rest)}</LegacyRenderHost>";
     }
 
     private string EmitComponent(ElementNode element, string component, ControlMapping? mapping, bool createsField)

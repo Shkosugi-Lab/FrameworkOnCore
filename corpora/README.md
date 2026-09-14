@@ -2676,3 +2676,71 @@ BlogEngine のカレンダーは描画エラーが消えて回帰も一致しま
 | B: 型が移植対象に無い(バイナリのみ) | 19 |
 | D: TemplateColumn / TemplateField(列であってコントロールでない) | 13 |
 | D: その他(ClientDependency 系など) | 11 |
+
+---
+
+## `<HeaderTemplate>` / `<FooterTemplate>` は LegacyRenderHost を止める理由にならない
+
+残り 71 件の最大クラスタ「C: テンプレート子要素あり(移植済み)」28 件の中身:
+
+| コントロール | 件数 | 子要素 |
+|---|---:|---|
+| `n2:Zone` | 9 | `HeaderTemplate` / `FooterTemplate` |
+| `dnn:DnnFormEditor` | 7 | `<Items>`(子コントロール宣言) |
+| `n2:EditableDisplay` | 4 | |
+| `mojo:mojoDataList` | 3 | `ItemTemplate` |
+| `dnn:DnnComboBox` | 3 | `<Items><asp:ListItem>` |
+| その他 | 2 | |
+
+**`ItemTemplate` と `HeaderTemplate` を同じ扱いにしていたのが間違い**でした。
+
+- `ItemTemplate` は**データ項目ごとに実体化**されます。レガシーコントロールは
+  `HtmlTextWriter` に書くだけなので、行ごとに Razor フラグメントを呼び戻せません。
+  これはホストできません。
+- `HeaderTemplate` / `FooterTemplate` は**コントロールの出力の前後に置かれる静的マークアップ**で、
+  データ項目もバインド式もありません。Blazor がそのまま描けます。
+
+`LegacyRenderHost` に `HeaderContent` / `FooterContent` を足し、
+変換器はその 2 つだけを名前付きフラグメントとして渡すようにしました
+(`Items` / `Columns` / `ItemTemplate` は従来どおりスタブ)。
+
+### ヘッダとフッタは「2 つで 1 つ」だった
+
+最初の実装で n2 のビルドエラーが **13 → 56** に跳ねました。
+
+```
+RZ9981 Unexpected closing tag 'div' with no matching start tag.   16
+RZ9980 Unclosed tag 'div' with no matching end tag.                7
+RZ1026 Encountered end tag "FooterContent" with no matching start tag.  3
+```
+
+n2 の Zone はこう書かれています。
+
+```aspx
+<HeaderTemplate><div class="list"></HeaderTemplate>
+<FooterTemplate></div></FooterTemplate>
+```
+
+**`<div>` を開くのがヘッダ、閉じるのがフッタ**です。2 つ合わせれば対称ですが、
+Razor は**フラグメントを別々に解析する**ので、片方ずつ見ると必ず壊れています。
+既存の `TagBalance.Neutralize` を各フラグメントに適用して、
+それぞれ生出力(`MarkupString`)に落としました。ブラウザが組む DOM は同じです。
+
+### 計測
+
+| | 変更前 | 変更後 |
+|---|---:|---:|
+| n2 総残差 | 155 | **150** |
+| 合計総残差 | 573 | **568** |
+| ビルドエラー | 50 | **50**(変化なし) |
+
+パリティ 30/30、bUnit 30/30、回帰ゲート 13/13。
+
+### このセッションの累計
+
+| | 開始時 | 現在 |
+|---|---:|---:|
+| 総残差 | 702 | **568**(−19%) |
+| ビルドエラー | 216 | **50**(−77%) |
+| 未対応コントロール | 113 | **66** |
+| 標準コントロール未実装 | 34 | **0** |

@@ -8,13 +8,24 @@
    work here - interactive controls need a hand-ported component via --control-map. *@
 @* Visible=false renders nothing, as WebForms does. The begin tag, children and end tag
    stay glued together exactly as before so no whitespace is introduced between them. *@
+@* HeaderContent / FooterContent are the control's <HeaderTemplate> / <FooterTemplate>.
+   WebForms renders those inside the control, around what it produces, and they carry no
+   data-bound expressions - which is exactly why they can be static Razor content here
+   while a data-bound <ItemTemplate> cannot. *@
 @if (Visible)
 {
+@if (HeaderContent is not null)
+{
+    @HeaderContent
+}
 @((MarkupString)(_beginHtml ?? string.Empty))@if (ChildContent is not null)
 {
     @ChildContent
 }
-@((MarkupString)(_endHtml ?? string.Empty))
+@((MarkupString)(_endHtml ?? string.Empty))@if (FooterContent is not null)
+{
+    @FooterContent
+}
 }
 
 @code {
@@ -49,6 +60,12 @@
 
     /// <summary>Markup children, rendered by Blazor between the legacy begin/end tags.</summary>
     [Parameter] public RenderFragment ChildContent { get; set; }
+
+    /// <summary>The control's &lt;HeaderTemplate&gt;, rendered before its own output.</summary>
+    [Parameter] public RenderFragment HeaderContent { get; set; }
+
+    /// <summary>The control's &lt;FooterTemplate&gt;, rendered after its own output.</summary>
+    [Parameter] public RenderFragment FooterContent { get; set; }
 
     [CascadingParameter] protected IWebFormsHost Host { get; set; }
 

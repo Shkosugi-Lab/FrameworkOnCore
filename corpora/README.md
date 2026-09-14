@@ -3159,3 +3159,80 @@ public class TextColumn : TemplateColumn
 連動します。**「名前から BoundField に読み替える」のは推測**であって、
 `imagecommandcolumn` のような列では間違った描画になります。
 規模が大きいので独立した作業として残します。
+
+---
+
+## 次の作業: DataGrid の列プロトコル(設計を確定させた)
+
+未対応コントロール 41 件の最大塊は **DataGrid の列 13 件**です
+(`dnn:textcolumn` 5 / `dnn:imagecommandcolumn` 4 / `dnn:checkboxcolumn` 2 /
+`dnnweb:DnnGridTemplateColumn` 2)。実装は次回に回しますが、
+**何を作ればよいかは調べ切った**ので、ここに残します。
+
+### なぜ「名前で読み替える」ではいけないか
+
+`dnn:textcolumn` を `BoundField` に読み替えれば数字は 5 減ります。しかしそれは推測です。
+同じ `<columns>` に並ぶ `dnn:imagecommandcolumn` は画像ボタンを描く列で、
+同じ読み替えをすれば**間違った列が出ます**。
+アプリ固有の知識を汎用変換器に焼き込むことにもなります。
+
+### 元のコードが要求しているもの
+
+```csharp
+public class TextColumn : TemplateColumn                    // DNN
+{
+    public override void Initialize()
+    {
+        this.ItemTemplate   = this.CreateTemplate(ListItemType.Item);
+        this.HeaderTemplate = this.CreateTemplate(ListItemType.Header);
+    }
+}
+
+public class TextColumnTemplate : ITemplate
+{
+    public void InstantiateIn(Control container)
+    {
+        lblText.DataBinding += this.Item_DataBinding;        // ← イベント
+        container.Controls.Add(lblText);
+    }
+    private void Item_DataBinding(object sender, EventArgs e)
+    {
+        var container = (DataGridItem)lblText.NamingContainer;   // ← NamingContainer
+        lblText.Text = DataBinder.Eval(container.DataItem, this.DataField).ToString();
+    }
+}
+```
+
+つまり **WebForms の列プロトコルそのもの**です。
+列が `ITemplate` を組み、グリッドが行ごとに `DataGridItem` を作って
+セルへ実体化し、`DataBinding` を発火させる。
+
+### 互換層に既にあるもの / 無いもの
+
+| 部品 | 状態 |
+|---|---|
+| `DataGridItem : LegacyWebControl`(`DataItem` 付き) | **有り**(`UiDeclarationShims.cs:227`) |
+| `DataBinder.Eval` | **有り**(`Runtime/DataBinder.cs`) |
+| `ITemplate` / `StaticMarkupTemplate` | **有り** |
+| `GridView` の `List<DataControlField> Columns` | **有り**(`BoundField` / `TemplateField` が `IColumnContainer` 経由で登録) |
+| `TableCell` | **無し** |
+| `LegacyWebControl.DataBinding` イベント / `NamingContainer` | **無し** |
+| 互換 `TemplateColumn` の `ItemTemplate` / `HeaderTemplate` / `Initialize()` | **無し**(今は空クラス) |
+| 移植済み列を `DataControlField` として包むアダプタ | **無し** |
+
+### 作るもの(4 点)
+
+1. `TableCell : LegacyWebControl` — `Controls` を描画するセル。
+2. `LegacyWebControl` に `DataBinding` イベントと `NamingContainer`
+   (LegacyRenderHost / 親コントロールが設定する)。
+3. 互換 `TemplateColumn` に `ITemplate ItemTemplate/HeaderTemplate/FooterTemplate/
+   EditItemTemplate`、`virtual void Initialize()`、`HeaderText`、`ItemStyle`/`HeaderStyle`。
+4. `LegacyColumnField : DataControlField` — 移植済み列オブジェクトを包み、
+   `Initialize()` を呼び、行ごとに `DataGridItem` + `TableCell` を作って
+   `ItemTemplate.InstantiateIn` し、`DataBinding` を発火させて HTML を取り出す。
+
+変換器側は既存の `LegacyChild` / `CollectionChildren` の仕組みをそのまま使えます
+(`<Columns>` は既に `LegacyCollectionElements` に入っている)。
+`GridView` に `LegacyColumns` パラメータを足して `_columns` へ足すだけです。
+
+**この順で作れば、DNN 自身のコードが自分の列を描きます。** 変換器が推測する必要はありません。

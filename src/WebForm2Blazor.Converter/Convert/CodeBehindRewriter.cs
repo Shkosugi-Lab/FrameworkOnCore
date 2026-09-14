@@ -299,7 +299,7 @@ public static class CodeBehindRewriter
         "CheckBox", "RadioButton", "ListControl", "DropDownList", "ListBox",
         "CheckBoxList", "RadioButtonList", "Repeater", "DataList", "GridView",
         "DetailsView", "FormView", "BaseValidator", "HtmlGenericControl",
-        "DataBoundControl", "CompositeDataBoundControl", "BaseDataBoundControl", "Calendar",
+        "DataBoundControl", "CompositeDataBoundControl", "BaseDataBoundControl", "Calendar", "TreeView",
         "HierarchicalDataBoundControl", "TemplateControl", "WebPart",
     };
 
@@ -325,6 +325,7 @@ public static class CodeBehindRewriter
         // Calendar renders now, so a ported control deriving from it gets the base that
         // carries the members rather than the component - the LegacyPanel arrangement.
         ["Calendar"] = "LegacyCalendar",
+        ["TreeView"] = "LegacyTreeView",
         // Interactive-control bases: the derived custom controls are stubbed in markup
         // (interactivity is manual-migration territory), but their ported source must
         // still compile - LegacyWebControl carries the lifecycle/render virtuals

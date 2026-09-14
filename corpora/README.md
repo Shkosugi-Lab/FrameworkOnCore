@@ -2183,3 +2183,31 @@ n2 の CalendarTeaser はこれだけで見た目を作っています。
 `OnDayRender` も発火します — アプリが「予定のある日」に印を付ける場所です。
 
 **総残差 662 → 660。** ビルドエラー不変、パリティ 30/30、回帰 13/13。
+
+## `TreeView` — 未実装の標準コントロールが 0 件になりました
+
+`Calendar` と同じ形(`mojoTreeView : TreeView`)なので、同じ手を使いました
+— 描画する `TreeView` はコンポーネント、基底は `LegacyTreeView`。
+
+WebForms はノードごとに `<table>` を描いていましたが、こちらは `<ul>`/`<li>` です。
+**構造とリンクは同じ**で、出るものはノードが持っているものだけです
+(`Text` / `NavigateUrl` / `Target` / `ToolTip` / `ImageUrl`)。
+`DataSourceID` が `SiteMapDataSource` を指していれば `SiteMap` から組みますが、
+**サイトマップの設定は Web.config にあり引き継いでいない**ので、根が無ければ
+空のままにします(ノードを捏造するより空の方がましです)。
+
+### 集計
+
+**「標準コントロールですが互換コンポーネントが未実装です」は 34 件 → 0 件。**
+
+| 実装したもの | 件数 |
+|---|---:|
+| Wizard / WizardStep / CreateUserWizard / 各ステップ | 17 |
+| Login / LoginStatus / LoginView / ChangePassword / PasswordRecovery | 9 |
+| MultiView / View | 3 |
+| Calendar | 2 |
+| ModelErrorMessage | 2 |
+| TreeView / Timer | 2 |
+
+いずれも**スタブ(HTML コメント)になっていた**もので、そのコントロールの UI は
+ページから丸ごと消えていました。

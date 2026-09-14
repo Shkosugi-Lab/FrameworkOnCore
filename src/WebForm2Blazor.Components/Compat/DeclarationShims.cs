@@ -525,8 +525,12 @@ public class TreeNodeEventArgs(TreeNode node) : EventArgs
     public TreeNode Node { get; } = node;
 }
 
-/// <summary>System.Web.UI.WebControls.TreeView equivalent (state only; does not render).</summary>
-public class TreeView : LegacyWebControl
+/// <summary>
+/// System.Web.UI.WebControls.TreeView as a BASE for a ported control that renders itself
+/// (mojoPortal's mojoTreeView). The rendering TreeView is a Blazor component, which a
+/// plain class cannot derive from - same arrangement as LegacyCalendar.
+/// </summary>
+public class LegacyTreeView : LegacyWebControl
 {
     public TreeNodeCollection Nodes { get; } = [];
 

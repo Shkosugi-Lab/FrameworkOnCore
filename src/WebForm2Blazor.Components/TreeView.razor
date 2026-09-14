@@ -1,0 +1,173 @@
+@namespace WebForm2Blazor.Components
+@inherits WebFormsControlBase
+
+@* WebForms TreeView equivalent: renders Nodes as a nested list, with expand/collapse and
+   selection.
+
+   WebForms drew a <table> per node; this is a <ul>/<li> tree, which carries the same
+   structure and the same links. The node's own properties decide what it shows - Text,
+   NavigateUrl, Target, ToolTip, ImageUrl - so a tree built in code-behind comes out with
+   what the application put in it. Nothing renders that the nodes do not carry. *@
+@if (Visible)
+{
+    <div @attributes="ExtraAttributes" style="@ComputedStyle" id="@ClientID" class="@CssClass">
+        @RenderNodes(Nodes, 0)
+    </div>
+}
+
+@code {
+    /// <summary>WebForms Nodes: the root collection, built in code-behind or by binding.</summary>
+    public TreeNodeCollection Nodes { get; } = [];
+
+    [Parameter] public TreeNode SelectedNode { get; set; }
+
+    public string SelectedValue => SelectedNode?.Value ?? string.Empty;
+
+    /// <summary>WebForms ExpandDepth: -1 (the default) expands everything.</summary>
+    [Parameter] public int ExpandDepth { get; set; } = -1;
+
+    [Parameter] public bool ShowLines { get; set; }
+    [Parameter] public bool ShowExpandCollapse { get; set; } = true;
+    [Parameter] public bool ShowCheckBoxes { get; set; }
+
+    /// <summary>WebForms declarative binding. A SiteMapDataSource supplies the tree.</summary>
+    [Parameter] public string DataSourceID { get; set; } = string.Empty;
+
+    public object DataSource { get; set; }
+
+    [Parameter] public EventHandler<TreeNodeEventArgs> OnSelectedNodeChanged { get; set; }
+    [Parameter] public EventHandler<TreeNodeEventArgs> OnTreeNodeExpanded { get; set; }
+    [Parameter] public EventHandler<TreeNodeEventArgs> OnTreeNodeCollapsed { get; set; }
+
+    public event EventHandler<TreeNodeEventArgs> SelectedNodeChanged
+    {
+        add => OnSelectedNodeChanged += value;
+        remove => OnSelectedNodeChanged -= value;
+    }
+
+    public event EventHandler<TreeNodeEventArgs> TreeNodeExpanded
+    {
+        add => OnTreeNodeExpanded += value;
+        remove => OnTreeNodeExpanded -= value;
+    }
+
+    public void ExpandAll() => ForEachNode(Nodes, node => node.Expanded = true);
+
+    public void CollapseAll() => ForEachNode(Nodes, node => node.Expanded = false);
+
+    public void DataBind()
+    {
+        var root = SiteMap.RootNode;
+        if (root is null)
+        {
+            // No sitemap is configured (Web.config is not carried over), so there is
+            // nothing to build a tree from - and inventing nodes would be worse than an
+            // empty tree. The residual report records the sitemap separately.
+            return;
+        }
+
+        Nodes.Clear();
+        Nodes.Add(BuildFrom(root, 0));
+        StateHasChanged();
+    }
+
+    private static TreeNode BuildFrom(SiteMapNode source, int depth)
+    {
+        var node = new TreeNode(source.Title, source.Url) { NavigateUrl = source.Url, Depth = depth };
+        foreach (var child in source.ChildNodes)
+        {
+            node.ChildNodes.Add(BuildFrom(child, depth + 1));
+        }
+        return node;
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        // A data source control is a sibling in the page, so it can only be found once the
+        // tree has rendered once - the same shape ListView and Repeater use.
+        if (firstRender && Nodes.Count == 0 && !string.IsNullOrEmpty(DataSourceID)
+            && Host?.HostCore.FindControl(DataSourceID) is SiteMapDataSource)
+        {
+            DataBind();
+        }
+    }
+
+    private bool IsExpanded(TreeNode node, int depth)
+        => node.Expanded || ExpandDepth < 0 || depth < ExpandDepth;
+
+    private RenderFragment RenderNodes(IEnumerable<TreeNode> nodes, int depth) => __builder =>
+    {
+        var list = nodes.ToList();
+        if (list.Count == 0)
+        {
+            return;
+        }
+
+        <ul class="@(ShowLines ? "treeview-lines" : null)">
+            @foreach (var node in list)
+            {
+                var current = node;
+                var expanded = IsExpanded(current, depth);
+                <li>
+                    @if (ShowExpandCollapse && current.ChildNodes.Count > 0)
+                    {
+                        <a href="javascript:void(0)" class="treeview-toggle"
+                           @onclick="() => Toggle(current)">@(expanded ? "-" : "+")</a>
+                    }
+                    @if (ShowCheckBoxes)
+                    {
+                        <input type="checkbox" checked="@current.Checked"
+                               @onchange="e => current.Checked = e.Value is true" />
+                    }
+                    @if (!string.IsNullOrEmpty(current.ImageUrl))
+                    {
+                        <img src="@current.ImageUrl" alt="@current.ImageToolTip" />
+                    }
+                    @if (string.IsNullOrEmpty(current.NavigateUrl))
+                    {
+                        <a href="javascript:void(0)" title="@current.ToolTip"
+                           class="@(current.Selected ? "treeview-selected" : null)"
+                           @onclick="() => Select(current)">@current.Text</a>
+                    }
+                    else
+                    {
+                        <a href="@current.NavigateUrl" target="@current.Target" title="@current.ToolTip"
+                           class="@(current.Selected ? "treeview-selected" : null)">@current.Text</a>
+                    }
+                    @if (expanded)
+                    {
+                        @RenderNodes(current.ChildNodes, depth + 1)
+                    }
+                </li>
+            }
+        </ul>
+    };
+
+    private void Toggle(TreeNode node)
+    {
+        node.Expanded = !node.Expanded;
+        (node.Expanded ? OnTreeNodeExpanded : OnTreeNodeCollapsed)?.Invoke(this, new TreeNodeEventArgs(node));
+        StateHasChanged();
+    }
+
+    private void Select(TreeNode node)
+    {
+        if (SelectedNode is { } previous)
+        {
+            previous.Selected = false;
+        }
+        node.Selected = true;
+        SelectedNode = node;
+        OnSelectedNodeChanged?.Invoke(this, new TreeNodeEventArgs(node));
+        Host?.HostCore.NotifyPostBackEvent();
+    }
+
+    private static void ForEachNode(IEnumerable<TreeNode> nodes, Action<TreeNode> action)
+    {
+        foreach (var node in nodes)
+        {
+            action(node);
+            ForEachNode(node.ChildNodes, action);
+        }
+    }
+}

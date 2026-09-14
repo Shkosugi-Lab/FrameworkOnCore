@@ -328,6 +328,14 @@ public static class ControlMappings
         // own (CreateUserStep, ContinueDestinationPageUrl, UserName, Password), and its
         // markup nests named templates a plain WizardStep does not accept. Making it work
         // means a component of its own, not an alias for this one.
+        ["TreeView"] = new()
+        {
+            Component = "TreeView",
+            Attributes = WithCommon(Map(
+                "ID", "Visible", "CssClass", "ExpandDepth", "ShowLines", "ShowExpandCollapse",
+                "ShowCheckBoxes", "DataSourceID",
+                "OnSelectedNodeChanged", "OnTreeNodeExpanded", "OnTreeNodeCollapsed")),
+        },
         ["Calendar"] = new()
         {
             Component = "Calendar",

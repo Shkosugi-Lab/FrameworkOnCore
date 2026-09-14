@@ -124,6 +124,10 @@ public sealed class BlazorScaffolder(ScaffoldOptions options)
 
         var app = builder.Build();
 
+        // <globalization culture uiCulture> from Web.config: the culture every page formats
+        // its dates and numbers in. No-op when the Web.config named none.
+        app.UseWebFormsGlobalization();
+
         // WebForms-compatible session (kept across page navigations via a session ID cookie)
         app.UseWebFormsSession();
 

@@ -2211,3 +2211,93 @@ WebForms はノードごとに `<table>` を描いていましたが、こちら
 
 いずれも**スタブ(HTML コメント)になっていた**もので、そのコントロールの UI は
 ページから丸ごと消えていました。
+
+---
+
+## `<globalization culture>` を引き継ぐ — 全ページの日付・数値の書式
+
+### 次に何を潰すか
+
+「標準コントロール未実装」が 0 件になったので、残っている **実装待ち 94 件** を
+原因別に数えました。
+
+| 原因 | 件数 |
+|---|---:|
+| `BinaryFormatter` は .NET から削除 | 9 |
+| **Web.config のセクション未変換** | **17** |
+| 移植除外の型/名前空間への連鎖除外 | 14 |
+| その他(長い尾) | 54 |
+
+Web.config の 17 件の内訳は `httpModules` 4 / `customErrors` 4 /
+`authentication` 3 / `httpHandlers` 2 / `sessionState` 2 / `globalization` 2。
+
+このうち **`<globalization>` を先に選びました**。理由は影響範囲です。
+`httpModules` や `customErrors` は特定の経路だけの話ですが、カルチャは
+**アプリの全ページの、すべての日付と数値の文字列**を決めます。
+
+```
+be  : <globalization requestEncoding="utf-8" responseEncoding="utf-8" culture="auto" uiCulture="auto" />
+yaf : <globalization culture="en-US" uiCulture="en" requestEncoding="UTF-8" ... />
+```
+
+引き継いでいなかったので、変換後のアプリは**そのサーバーの既定カルチャ**で
+描いていました。つまり YAF は元アプリなら必ず `9/14/2026` と出るところが、
+動かすマシン次第で `2026/09/14` にも `14.09.2026` にもなる。
+**同じページが機械によって違う文字列を出す**という、変換器が一番やってはいけない
+状態でした。
+
+### 直したもの
+
+1. `WebConfigConverter.CarryGlobalization` — `culture` / `uiCulture` を
+   appsettings.json の `WebFormsGlobalization` セクションへ書き出す。
+   どちらも無い(`enabled="true"` だけ等)なら従来どおり残差のまま。
+   エンコーディングだけの UTF-8 指定を無視する既存の判定はそのまま前段に残す。
+2. `GlobalizationExtensions.UseWebFormsGlobalization`(互換層・新規) —
+   起動時にその設定を適用する。
+3. `BlazorScaffolder` の `Program.cs` に `app.UseWebFormsGlobalization();` を
+   `UseWebFormsSession()` の前に追加。セクションが無ければ何もしない。
+
+### 固定カルチャと `auto` を区別している
+
+`<globalization>` の値には二種類あります。
+
+- **固定**(`en-US`)→ 4.8 では全リクエストスレッドがそのカルチャで走ります。
+  なので `CultureInfo.DefaultThreadCurrentCulture` / `...UICulture` を立てます。
+  ミドルウェアではなくプロセス既定にするのは、**移植した業務ロジックが
+  バックグラウンドスレッドで書式化する場合**(タイマー、キャッシュ更新)にも
+  4.8 では同じカルチャが効いていたからです。
+- **`auto`**(`auto:en-US` 形式のフォールバック付きを含む)→ 4.8 は
+  `Accept-Language` をリクエストごとに読みます。対応するのは
+  `UseRequestLocalization` で、**Blazor Server ではサーキットが
+  「そのサーキットを作ったリクエスト」のカルチャを引き継ぐ**ので、
+  ここで交渉しておけば対話コンポーネントにも届きます。
+
+`SupportedCultures` / `SupportedUICultures` は **null のまま**にしています。
+既定の挙動(明示リストに無い言語は既定へ丸める)は 4.8 の `auto` がやらないこと
+なので、リストを書くと**元アプリより言語が減る**からです。
+
+`culture="auto" uiCulture="en"` のような片方だけ固定の組み合わせは、
+交渉ミドルウェアの後段で固定側だけ戻しています。
+
+### 計測
+
+| | 変更前 | 変更後 |
+|---|---:|---:|
+| be 総残差 | 73 | **72** |
+| yaf 総残差 | 61 | **60** |
+| 合計総残差 | 659 | **657** |
+
+ビルドエラー 56 は変化なし。パリティ 30/30、bUnit 30/30、回帰ゲート 13/13。
+
+回帰ゲートが緑のままなのは意味があります。**yaf は今回から en-US に固定された**
+ので、もしこのマシンの既定が en-US でなければスナップショットが動いたはずです。
+be は `auto` なので Playwright が送る `Accept-Language` で決まり、これも動きません。
+つまり「固定した」こと自体は DOM を壊していません。
+
+### n2 の `sv-SE` は引き継いでいない(これで正しい)
+
+n2 の Web.config を grep すると `<globalization culture="sv-SE"/>` が出てきますが、
+XML として読むと `system.web` 直下にあるのは `<globalization enabled="true" />` だけです。
+**`sv-SE` の方はコメントの中**でした。`culture` も `uiCulture` も無いので
+`CarryGlobalization` は false を返し、従来どおり残差として報告されます。
+コメントを設定として読むのは変換器がやってはいけないことなので、これは期待どおりです。

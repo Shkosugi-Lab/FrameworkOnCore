@@ -2,7 +2,7 @@
     "be":  {
                "convertible":  2,
                "portedCs":  255,
-               "residuals":  73,
+               "residuals":  72,
                "buildErrors":  0
            },
     "mojo":  {
@@ -14,7 +14,7 @@
     "yaf":  {
                 "convertible":  5,
                 "portedCs":  2724,
-                "residuals":  61,
+                "residuals":  60,
                 "buildErrors":  4
             },
     "dnn":  {

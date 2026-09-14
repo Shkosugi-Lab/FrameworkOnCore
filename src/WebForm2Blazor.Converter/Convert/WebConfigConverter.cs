@@ -26,6 +26,47 @@ public static class WebConfigConverter
         "fileEncoding", "requestEncoding", "responseEncoding",
     };
 
+    /// <summary>
+    /// Writes &lt;globalization culture uiCulture&gt; into the WebFormsGlobalization section that
+    /// UseWebFormsGlobalization reads at startup. Returns false when the element names
+    /// neither, so the caller still reports it (enableClientBasedCulture and friends are
+    /// not carried).
+    /// </summary>
+    private static bool CarryGlobalization(
+        XElement element, JsonObject settings, string sourceName, ConversionReport report)
+    {
+        var culture = element.Attribute("culture")?.Value;
+        var uiCulture = element.Attribute("uiCulture")?.Value;
+        if (string.IsNullOrWhiteSpace(culture) && string.IsNullOrWhiteSpace(uiCulture))
+        {
+            return false;
+        }
+
+        // A <location> or a nested Web.config can name the culture twice; the first one
+        // wins, matching the way the outermost configuration file is the one applied to
+        // the application root.
+        if (settings.ContainsKey("WebFormsGlobalization"))
+        {
+            return true;
+        }
+
+        var globalization = new JsonObject();
+        if (!string.IsNullOrWhiteSpace(culture))
+        {
+            globalization["Culture"] = culture;
+        }
+        if (!string.IsNullOrWhiteSpace(uiCulture))
+        {
+            globalization["UICulture"] = uiCulture;
+        }
+        settings["WebFormsGlobalization"] = globalization;
+
+        report.Info(sourceName,
+            $"<globalization> のカルチャ(culture={culture ?? "未指定"}, uiCulture={uiCulture ?? "未指定"})を"
+            + "引き継ぎました(日付・数値の書式が元アプリと一致します)。");
+        return true;
+    }
+
     private static bool IsUtf8OnlyGlobalization(XElement element)
         => element.Attributes().All(attribute =>
             EncodingAttributes.Contains(attribute.Name.LocalName)
@@ -146,6 +187,15 @@ public static class WebConfigConverter
                 {
                     report.Info(sourceName,
                         "<globalization> は UTF-8 のエンコーディング指定のみのため移行不要です(ASP.NET Core は常に UTF-8)。");
+                    continue;
+                }
+
+                // The culture decides how every date and every number in the application
+                // prints, so it is carried over rather than reported: without it the
+                // converted pages render whatever culture the SERVER happens to have.
+                if (element.Name.LocalName.Equals("globalization", StringComparison.OrdinalIgnoreCase)
+                    && CarryGlobalization(element, settings, sourceName, report))
+                {
                     continue;
                 }
 

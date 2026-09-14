@@ -25,8 +25,14 @@
             </ul>
         }
 
-        <CascadingValue Value="this" IsFixed="true">@ChildContent</CascadingValue>
+        <CascadingValue Value="this" IsFixed="true">@ChildContent@WizardStepsContent</CascadingValue>
 
+        @if (ActiveStep?.CustomNavigationTemplate is { } stepNavigation)
+        {
+            <div class="wizard-navigation">@stepNavigation</div>
+        }
+        else
+        {
         <div class="wizard-navigation">
             @if (ActiveStepIndex > 0 && ActiveStep?.AllowReturn != false)
             {
@@ -43,6 +49,7 @@
                 </button>
             }
         </div>
+        }
     </div>
 }
 
@@ -52,6 +59,12 @@
     private bool _stepsChanged;
 
     [Parameter] public RenderFragment ChildContent { get; set; }
+
+    /// <summary>
+    /// The &lt;WizardSteps&gt; element the markup wraps its steps in. Named "...Content"
+    /// because WizardSteps itself is the COLLECTION, which code-behind reads.
+    /// </summary>
+    [Parameter] public RenderFragment WizardStepsContent { get; set; }
 
     /// <summary>WebForms ActiveStepIndex. Assigning it moves the wizard and raises ActiveStepChanged.</summary>
     [Parameter]

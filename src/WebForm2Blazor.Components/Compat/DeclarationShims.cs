@@ -906,54 +906,6 @@ public class WizardStepBase : LegacyWebControl
     protected override string TagName => "div";
 }
 
-/// <summary>
-/// System.Web.UI.WebControls.CreateUserWizard equivalent (state only). Creates no user:
-/// the compatibility Membership provider is fail-closed.
-/// </summary>
-public class CreateUserWizard : LegacyWebControl
-{
-    public string MembershipProvider { get; set; } = string.Empty;
-
-    public string UserName { get; set; } = string.Empty;
-
-    public string Email { get; set; } = string.Empty;
-
-    public string Password => string.Empty;
-
-    public string Question { get; set; } = string.Empty;
-
-    public string Answer { get; set; } = string.Empty;
-
-    public string ContinueDestinationPageUrl { get; set; } = string.Empty;
-
-    public bool DisableCreatedUser { get; set; }
-
-    public bool LoginCreatedUser { get; set; } = true;
-
-    public bool RequireEmail { get; set; } = true;
-
-    public bool AutoGeneratePassword { get; set; }
-
-    public ControlCollection WizardSteps { get; } = [];
-
-    public event EventHandler CreatedUser;
-
-    public event EventHandler CreateUserError;
-
-    public event EventHandler CreatingUser;
-
-    public event EventHandler ContinueButtonClick;
-
-    protected override string TagName => "div";
-
-    protected virtual void OnCreatedUser(EventArgs e) => CreatedUser?.Invoke(this, e);
-
-    protected virtual void OnCreateUserError(EventArgs e) => CreateUserError?.Invoke(this, e);
-
-    protected virtual void OnCreatingUser(EventArgs e) => CreatingUser?.Invoke(this, e);
-
-    protected virtual void OnContinueButtonClick(EventArgs e) => ContinueButtonClick?.Invoke(this, e);
-}
 
 // SiteMapDataSource used to be a state-only declaration here. It is a real component now
 // (Runtime/SiteMapDataSource.cs): it renders nothing either way, so nothing about the DOM
@@ -1193,12 +1145,3 @@ public class ProfileInfoCollection : System.Collections.ObjectModel.KeyedCollect
     protected override string GetKeyForItem(ProfileInfo item) => item?.UserName ?? string.Empty;
 }
 
-/// <summary>System.Web.UI.WebControls.CompleteWizardStep equivalent (declaration only).</summary>
-public class CompleteWizardStep : WizardStepBase
-{
-}
-
-/// <summary>System.Web.UI.WebControls.CreateUserWizardStep equivalent (declaration only).</summary>
-public class CreateUserWizardStep : WizardStepBase
-{
-}

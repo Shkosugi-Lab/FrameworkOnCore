@@ -2116,3 +2116,30 @@ System.Configuration.ConfigurationManager.ConnectionStrings["WingtipToys"].Conne
 
 `Register` / `Log in` は元のアプリが匿名ユーザーに見せていたものです。
 `LoginView` が未実装だったため、**マスターのその部分が丸ごと消えていました。**
+
+## `CreateUserWizard` — 別名ではなく、`Wizard` の派生として
+
+前回「別名では済まない」と測って外したものを、**独自コンポーネント**として入れました。
+
+```csharp
+public class CreateUserWizard : Wizard
+```
+
+描画は `Wizard` そのもの(ステップ・サイドバー・ナビゲーションは同じコントロールです)。
+足すのは**ページが話しかける面**だけです — `CreateUserStep`、アカウント項目、イベント。
+
+**アカウントは作りません。** membership は無く、変換後のアプリは ASP.NET Core で
+認証します。`CreatingUser` / `CreatedUser` を発火し、判断はページに渡します。
+BlogEngine の登録ページは処理(ロール付与、認証クッキー、リダイレクト)を全部
+`CreatedUser` でやっているので、**そのまま動きます。**
+
+### 途中で必要になったもの
+
+| | |
+|---|---|
+| `<WizardSteps>` | マークアップはステップをこの要素で包みます。`WizardSteps` は**コレクション名でもある**ので、既存の `Columns → ColumnsContent` と同じ仕組みで `WizardStepsContent` に |
+| `CustomNavigationTemplate` | そのステップのナビゲーションを差し替えます。アクティブなステップが持っていれば、`Wizard` は自分のボタンの代わりにそれを描画します |
+| `ContentTemplateContainer` | BlogEngine は `CreateUserStep.ContentTemplateContainer.FindControl(...)` でステップ内のコントロールを探します。ステップ自身を返します |
+| `CreateUserWizardStep` / `CompleteWizardStep` | **型として必要**でした。`.designer.cs` がこの名前でフィールドを宣言します(n2 の `Users/New.aspx.designer.cs`)。`WizardStep` の派生にしてあります |
+
+**総残差 673 → 666。** ビルドエラー不変、パリティ 30/30、回帰 13/13。

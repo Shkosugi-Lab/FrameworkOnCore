@@ -79,6 +79,7 @@ public static class ControlMappings
         new(StringComparer.OrdinalIgnoreCase)
         {
             ["Columns"] = "ColumnsContent",
+            ["WizardSteps"] = "WizardStepsContent",
         };
 
     /// <summary>Templates / child elements that take no context.</summary>
@@ -86,7 +87,8 @@ public static class ControlMappings
     {
         "HeaderTemplate", "FooterTemplate", "SeparatorTemplate", "ItemSeparatorTemplate",
         "EmptyDataTemplate", "ContentTemplate", "LayoutTemplate", "GroupTemplate",
-        "EmptyItemTemplate", "Columns", "Items", "Fields",
+        "EmptyItemTemplate", "Columns", "Items", "Fields", "WizardSteps",
+        "CustomNavigationTemplate", "SuccessTemplate", "ChangePasswordTemplate",
     };
 
     /// <summary>
@@ -323,6 +325,34 @@ public static class ControlMappings
         // own (CreateUserStep, ContinueDestinationPageUrl, UserName, Password), and its
         // markup nests named templates a plain WizardStep does not accept. Making it work
         // means a component of its own, not an alias for this one.
+        ["CreateUserWizard"] = new()
+        {
+            Component = "CreateUserWizard",
+            Attributes = Map(
+                "ID", "Visible", "ActiveStepIndex", "DisplaySideBar",
+                "FinishCompleteButtonText", "StartNextButtonText",
+                "StepNextButtonText", "StepPreviousButtonText",
+                "UserName", "Password", "Email", "Question", "Answer",
+                "MembershipProvider", "ContinueDestinationPageUrl",
+                "DisableCreatedUser", "LoginCreatedUser", "RequireEmail",
+                "OnCreatingUser", "OnCreatedUser", "OnCreateUserError",
+                "OnContinueButtonClick", "OnActiveStepChanged",
+                "OnNextButtonClick", "OnPreviousButtonClick", "OnFinishButtonClick"),
+        },
+        // The account wizard's steps are WizardSteps with a StepType. The account creation
+        // itself belonged to the membership provider, which is Identity's job now, so what
+        // is reproduced is the step structure and the events the page handles.
+        ["CreateUserWizardStep"] = new()
+        {
+            Component = "WizardStep",
+            Attributes = Map("ID", "Visible", "Title", "StepType", "AllowReturn"),
+        },
+        ["CompleteWizardStep"] = new()
+        {
+            Component = "WizardStep",
+            Attributes = Map("ID", "Visible", "Title", "AllowReturn"),
+            FixedParameters = new Dictionary<string, string> { ["StepType"] = "Complete" },
+        },
         ["WizardStep"] = new()
         {
             Component = "WizardStep",

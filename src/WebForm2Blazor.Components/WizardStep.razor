@@ -21,6 +21,16 @@
     /// <summary>The account-wizard steps wrap their body in &lt;ContentTemplate&gt;.</summary>
     [Parameter] public RenderFragment ContentTemplate { get; set; }
 
+    /// <summary>WebForms CustomNavigationTemplate: replaces the wizard buttons for this
+    /// step. The owning Wizard renders it in place of its own.</summary>
+    [Parameter] public RenderFragment CustomNavigationTemplate { get; set; }
+
+    /// <summary>
+    /// WebForms ContentTemplateContainer. The step itself: FindControl on it reaches the
+    /// controls declared inside, which is what BlogEngine's register page walks.
+    /// </summary>
+    public WizardStep ContentTemplateContainer => this;
+
     /// <summary>Shown in the wizard's sidebar.</summary>
     [Parameter] public string Title { get; set; } = string.Empty;
 

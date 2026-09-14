@@ -2920,3 +2920,48 @@ CS0246 型または名前空間の名前 'RegexFragmenter' が見つかりませ
 **元のアプリケーションもコンパイルできません。** 変換器に直せるものではないので、
 件数には残したまま記録に留めます(除外すれば数字は下がりますが、
 消えるのは WikiParser であって、問題ではありません)。
+
+---
+
+## 名前空間で登録されたユーザーコントロールが解決されていなかった
+
+「B: 型が移植対象に無い」19 件を一覧にしたところ、mojoPortal の 5 件が異質でした。
+
+```
+<portal:TimeZoneIdSetting>   (×3)
+<portal:AllowedRolesSetting>
+<portal:CurrencySetting>
+```
+
+これらは **`Web/Controls/*.ascx` として存在し、変換もされています**
+(`corpora/out/mojo/Components/Controls/Controls/AllowedRolesSetting.razor`)。
+
+```
+Web.config: <add tagPrefix="portal" namespace="mojoPortal.Web.UI" assembly="mojoPortal.Web" />
+AllowedRolesSetting.ascx: <%@ Control ... Inherits="mojoPortal.Web.UI.AllowedRolesSetting" %>
+SiteSettings.aspx: <portal:TimeZoneIdSetting ID="timeZone" runat="server" />  ← Register 無し
+```
+
+**ユーザーコントロールは `src` でしか登録されない、という前提が間違っていました。**
+WebForms は「接頭辞に紐づいた名前空間にそのクラスがある」でも解決します。
+mojoPortal はこれらに `src` 登録も `<%@ Register %>` も一切書かず、
+名前空間登録だけに頼っています。
+
+`BuildUserControlTags` は `src` 付きの登録しか見ていなかったので、
+出力ディレクトリに .razor が在るのに「移植対象に入っていない」と報告していました。
+
+`UserControlRef` に `.ascx` の `Inherits`(元のクラス完全名)を持たせ、
+接頭辞に登録された名前空間と突き合わせて `prefix:ClassName` を引けるようにしました。
+**`src` 登録は後から上書き**します — ファイルを名指しする方が、
+候補が複数ありうる名前空間より具体的だからです。
+
+### 計測
+
+| | 変更前 | 変更後 |
+|---|---:|---:|
+| mojo 総残差 | 79 | **74** |
+| 合計総残差 | 563 | **558** |
+| 未対応コントロール | 66 | **60** |
+| ビルドエラー | 50 | **50** |
+
+パリティ 30/30、bUnit 30/30、回帰ゲート 13/13。

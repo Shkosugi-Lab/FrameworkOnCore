@@ -477,6 +477,7 @@ public static partial class AspxConverters
             registry[relative] = new UserControlRef(ResolveComponentName(parsed, path, baseRegistry), targetNamespace)
             {
                 PropertyTypes = CollectPublicPropertyTypes(FindCodeBehind(path)),
+                OriginalTypeName = parsed.MainDirective?.Get("Inherits"),
             };
         }
         return registry;
@@ -765,6 +766,37 @@ public static partial class AspxConverters
         ConversionReport report)
     {
         var tags = new Dictionary<string, UserControlRef>(StringComparer.OrdinalIgnoreCase);
+
+        // A user control reached by NAMESPACE rather than by src. WebForms resolves
+        // <portal:TimeZoneIdSetting> against "tagPrefix=portal namespace=mojoPortal.Web.UI"
+        // when the control's own class lives in that namespace, and mojoPortal registers
+        // nothing else for these - no src entry, no <%@ Register %> in the page. Five
+        // converted controls were reported as "not in the ported tree" while sitting in the
+        // output directory.
+        //
+        // Added first so an explicit src registration still wins: that one names a FILE,
+        // which is more specific than a namespace full of candidates.
+        foreach (var (prefix, namespaces) in BuildPrefixNamespaces(parsed, path, project))
+        {
+            foreach (var reference in userControlRegistry.Values)
+            {
+                if (reference.OriginalTypeName is not { Length: > 0 } typeName)
+                {
+                    continue;
+                }
+
+                var lastDot = typeName.LastIndexOf('.');
+                if (lastDot <= 0)
+                {
+                    continue;
+                }
+
+                if (namespaces.Contains(typeName[..lastDot], StringComparer.Ordinal))
+                {
+                    tags[$"{prefix}:{typeName[(lastDot + 1)..]}"] = reference;
+                }
+            }
+        }
 
         // User controls registered app-wide (or folder-wide) in Web.config <pages><controls>
         foreach (var registration in project.RegistrationsFor(path))

@@ -307,6 +307,18 @@ public sealed record UserControlRef(string ComponentName, string Namespace)
     /// </summary>
     public IReadOnlyDictionary<string, string> PropertyTypes { get; init; }
         = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+
+    /// <summary>
+    /// The class the .ascx inherits, as written in its Control directive
+    /// ("mojoPortal.Web.UI.AllowedRolesSetting"), or null when it declares none.
+    ///
+    /// A user control is usually reached by a src registration, but not always: mojoPortal
+    /// registers only "tagPrefix=portal namespace=mojoPortal.Web.UI", writes
+    /// &lt;portal:TimeZoneIdSetting&gt; with no Register directive anywhere, and relies on the
+    /// class being in that namespace. Without this the tag resolved to nothing even though
+    /// the control had been converted.
+    /// </summary>
+    public string? OriginalTypeName { get; init; }
 }
 
 /// <summary>One converted component (.razor + .razor.cs).</summary>

@@ -2301,3 +2301,116 @@ XML として読むと `system.web` 直下にあるのは `<globalization enable
 **`sv-SE` の方はコメントの中**でした。`culture` も `uiCulture` も無いので
 `CarryGlobalization` は false を返し、従来どおり残差として報告されます。
 コメントを設定として読むのは変換器がやってはいけないことなので、これは期待どおりです。
+
+---
+
+## `System.Web.Routing` の除外をやめる — 20 ファイルの復活
+
+### 除外の実態を数える
+
+残差の「実装待ち」を原因別に並べた次に、**移植から除外された型**を数えました。
+
+| コーパス | 空スタブになった型 |
+|---|---:|
+| be | 53 |
+| mojo | 48 |
+| yaf | 30 |
+| dnn | 66 |
+| n2 | 80 |
+| wt | 10 |
+| **合計** | **287** |
+
+残差は 1 行でも、消えているのはアプリの中身です。除外理由を数えると:
+
+| 理由(名前空間) | ファイル数 |
+|---|---:|
+| **System.Web.Routing** | **20**(dnn 10 / n2 8 / mojo 1 / wt 1) |
+| System.Web.Services | 12(mojo) |
+| ICSharpCode.SharpZipLib | 7 |
+| System.Web.Helpers | 4 |
+| System.Web.UI.Design | 5 |
+
+最大の `System.Web.Routing` を潰しました。
+
+### System.Web.Routing は「別フレームワーク」ではない
+
+除外リストの但し書きは
+「leaf-level infrastructure namespaces(OWIN、bundling、MVC/Web API、route config)」
+でしたが、`System.Web.Routing` はそこに入る種類のものではありませんでした。
+`System.Web.Compilation` を外したときと同じ誤りです。
+
+コーパスでの実際の使われ方を数えると:
+
+| 型 | 出現 |
+|---|---:|
+| RouteValueDictionary | 134 |
+| RouteData | 127 |
+| RequestContext | 95 |
+| RouteCollection | 67 |
+| Route | 59 |
+| RouteTable | 22 |
+| IRouteHandler | 12 |
+
+**上位は全部データ入れ物**です。ディスパッチの話ではなく、
+「ルート値から URL を組み立てる / パスからルート値を取り出す」ための道具として
+使われています。だから互換層に**実装を持った型**を置きました
+(`Compat/RoutingShims.cs`)。
+
+- `RouteValueDictionary` — 大文字小文字を無視する `string→object`。匿名型からの
+  構築(`new RouteValueDictionary(new { id = 3 })`)も対応。これがコーパスで
+  一番多い書き方です。無いキーは例外ではなく null(System.Web と同じ)。
+- `Route.GetRouteData` / `Match` — `{param}` と `{*catchAll}`、既定値、
+  余分なセグメントの拒否まで実装。
+- `Route.GetVirtualPath` — パターンに使われなかった値はクエリ文字列へ回す、という
+  System.Web の挙動もそのまま。
+- `RouteCollection` — `MapPageRoute` の 5 オーバーロード、`Ignore`、名前付き索引、
+  `GetReadLock`/`GetWriteLock`(using ブロックが通るように)。
+- `RouteTable.Routes`、`StopRoutingHandler`、`PageRouteHandler`、
+  `IRouteConstraint`、`VirtualPathData`、`UrlRoutingModule`。
+
+**やらないこと**は明確です。`IRouteHandler` は `IHttpHandler` を返し、
+Blazor ではハンドラは走りません(変換後のページは自分の `@page` で到達します)。
+つまり「ルートに URL を聞く」コードは正しい答えを得ますが、
+「ルーティングモジュールがリクエストを捌く」ことは起きません。
+
+### 付随して直したもの
+
+`IDataBindingsAccessor` に `DataBindings` が無く、
+DNN の `ImageParameter` が CS0539 で落ちました。
+**明示的インターフェイス実装は、インターフェイスに宣言が無いとコンパイルエラー**です。
+プロパティが一つ足りないのではなく、そのファイルごと壊れていました。
+
+### 計測
+
+| | 変更前 | 変更後 |
+|---|---:|---:|
+| 移植 .cs 合計 | 5439 | **5459**(+20) |
+| dnn 総残差 | 198 | **188** |
+| n2 総残差 | 182 | **174** |
+| wt 総残差 | 35 | **34** |
+| 合計総残差 | 657 | **638** |
+| ビルドエラー | 56 | **56**(変化なし) |
+
+**ビルドエラーが増えていないのが要点です。** 20 ファイル戻して依存が解けない型が
+出れば error が増えるはずで、増えていないということは、互換層の実装で足りていました
+(唯一出た CS0539 が上の `IDataBindingsAccessor` で、それも直しました)。
+
+パリティ 30/30、bUnit 30/30。
+
+### 回帰ゲート: wt の product-list が変わった(改善)
+
+```
+NG   product-list
+     ページタイトル: 期待 'ProductList' / 実際 'Products - Wingtip Toys'
+     期待 'ProductList: ... System.Web.Routing に依存しているため自動変換できません。'
+     実際 'Wingtip Toys' / 'Home' / 'About' / 'Contact' / 'Products'
+     要素 'CategoryMenu' / 'Image1' / 'TitleContent' / 'cartCount': 変換前には無い要素
+```
+
+**変換不能プレースホルダだったページが、マスターもメニューもカートも付いた
+実ページになりました。** 記録し直しています。
+
+商品一覧そのものは "No data was returned." のままですが、これは
+`product-details` も `shopping-cart` も同じで、WingtipToys の LocalDB が
+この環境に無いためです(元アプリも DB 無しでは同じ)。変換器の欠陥ではないので
+ここでは追いません。

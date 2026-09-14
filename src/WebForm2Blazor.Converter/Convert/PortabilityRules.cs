@@ -20,7 +20,15 @@ public static class PortabilityRules
     [
         "Microsoft.Owin", "Owin", "Microsoft.AspNet.Identity", "Microsoft.AspNet.FriendlyUrls",
         "Microsoft.AspNet.SignalR", "System.Web.Optimization", "System.Web.Http",
-        "System.Web.Mvc", "System.Web.Services", "System.Web.Routing",
+        "System.Web.Mvc", "System.Web.Services",
+        // System.Web.Routing was here and cost 20 files (DNN 10, n2 8, mojoPortal 1,
+        // WingtipToys 1) plus their cascade. It is not a separate framework the way MVC
+        // is: it is a handful of data carriers (RouteValueDictionary, RouteData,
+        // RequestContext) plus a URL pattern matcher, and the corpora use it mostly to
+        // BUILD urls. The compatibility layer declares and implements them, so those
+        // files port and their routes match and generate the same URLs. What does not
+        // happen is dispatch - an IRouteHandler returns an IHttpHandler, and handlers do
+        // not run where a converted page is reached by its @page route.
         // ASP.NET Web API's formatting assembly. Same framework as System.Web.Http above,
         // which is already here; it just does not live under that namespace. DNN's
         // StringPassThroughMediaTypeFormatter derives from its MediaTypeFormatter.

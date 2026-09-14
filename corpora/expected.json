@@ -7,7 +7,7 @@
            },
     "mojo":  {
                  "convertible":  20,
-                 "portedCs":  740,
+                 "portedCs":  741,
                  "residuals":  110,
                  "buildErrors":  13
              },
@@ -19,20 +19,20 @@
             },
     "dnn":  {
                 "convertible":  10,
-                "portedCs":  2039,
-                "residuals":  198,
+                "portedCs":  2049,
+                "residuals":  188,
                 "buildErrors":  26
             },
     "n2":  {
                "convertible":  11,
-               "portedCs":  1668,
-               "residuals":  182,
+               "portedCs":  1676,
+               "residuals":  174,
                "buildErrors":  13
            },
     "wt":  {
                "convertible":  3,
                "portedCs":  13,
-               "residuals":  35,
+               "residuals":  34,
                "buildErrors":  0
            }
 }

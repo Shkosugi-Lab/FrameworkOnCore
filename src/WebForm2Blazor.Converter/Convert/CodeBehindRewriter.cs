@@ -939,6 +939,7 @@ public static class CodeBehindRewriter
         "System.Web.UI.WebControls",
         "System.Web.UI.Adapters",
         "System.Web.Script.Serialization",
+        "System.Web.Routing",
         "System.Security.Permissions",
         "System.Web.Configuration",
         "System.Web.Security",

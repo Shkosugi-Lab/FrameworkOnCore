@@ -153,13 +153,55 @@
     {
       "Name": "product-list",
       "Path": "/productlist",
-      "Title": "ProductList",
+      "Title": "Products - Wingtip Toys",
       "Text": [
-        "ProductList: このコンポーネントは .NET Framework 専用 API(System.Web.Routing)に依存しているため自動変換できません。手動移行が必要です。"
+        "Wingtip Toys",
+        "Home",
+        "About",
+        "Contact",
+        "Products",
+        "Register",
+        "Log in",
+        "No data was returned."
       ],
-      "Tables": [],
+      "Tables": [
+        [
+          [
+            "No data was returned."
+          ]
+        ]
+      ],
       "Inputs": {},
-      "Elements": {}
+      "Elements": {
+        "cartCount": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "TitleContent": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "text-align": "center"
+          }
+        },
+        "Image1": {
+          "Tag": "img",
+          "Attributes": {
+            "src": "/Images/logo.jpg"
+          },
+          "Style": {
+            "border-style": "none"
+          }
+        },
+        "CategoryMenu": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "text-align": "center"
+          }
+        }
+      }
     },
     {
       "Name": "product-details",

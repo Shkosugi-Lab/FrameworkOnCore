@@ -86,6 +86,13 @@ public sealed class TemplateInstanceAttribute(TemplateInstance instances) : Attr
 public interface IDataBindingsAccessor
 {
     bool HasDataBindings { get; }
+
+    // System.Web declares DataBindings here too, and implementers write it as an EXPLICIT
+    // interface member ("DataBindingCollection IDataBindingsAccessor.DataBindings => ...").
+    // An explicit implementation of a member the interface does not declare is CS0539, so
+    // leaving it out did not merely lose a property - it broke the file that used it
+    // (DNN's ImageParameter).
+    DataBindingCollection DataBindings { get; }
 }
 
 /// <summary>

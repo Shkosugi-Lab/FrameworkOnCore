@@ -2032,3 +2032,46 @@ membership は無く、変換後のアプリは ASP.NET Core で認証するか�
 **死んだプロセスからスナップショットは何も言えません。** 効果を確認できない変更を
 出さないために、ゲートがあります。次に着手する人は、まず wt のシナリオが
 `/AddToCart` に直接行っている点から見てください。
+
+## ページタイトルが前のページから持ち越されていた
+
+`MEMBERSHIP_CONTROLS` を追ううちに出てきた、**全アプリに効く実挙動の差**です。
+
+マスターを使うページに `Title` 属性が無いと、変換器は `<PageTitle>` を出しませんでした。
+これは「指定なし」ではありません。**Blazor の `HeadOutlet` は `PageTitle` が描画された
+ときだけタイトルを変えます** — 出さないと、**直前のページのタイトルが残ります。**
+WingtipToys のエラーページは、どこから来たかによって "Welcome" だったり空だったりしました。
+
+### マスターの書式にページ名を入れる
+
+WingtipToys のマスターはこうです。
+
+```aspx
+<title><%: Page.Title %> - Wingtip Toys</title>
+```
+
+これを「動的なタイトルなので変換できない」として捨てていました。
+実際には**サイト全体のタイトル書式**で、元のアプリは `Title="Welcome"` のページに
+`Welcome - Wingtip Toys` と出します。
+
+- ページの `Title` は**マスターの `Page.Title` の位置に入ります**
+  (ページ側だけ取るとサイト名が消え、マスター側だけ取るとページ名が消えます)
+- 他の式は Razor の式として残します
+
+| | 変換前 | 変換後 |
+|---|---|---|
+| home | `Welcome` | **`Welcome - Wingtip Toys`** |
+| error-page | `wt`(直前のページ次第で変動) | **`- Wingtip Toys`** |
+
+## wt のシナリオが、アプリ自身が「不正」と宣言する状態を記録していた
+
+`/AddToCart` を**クエリ無し**で開いていました。`AddToCart.aspx.cs` にはこうあります。
+
+```csharp
+Debug.Fail("ERROR : We should never get to AddToCart.aspx without a ProductId.");
+throw new Exception("ERROR : It is illegal to load AddToCart.aspx without setting a ProductId.");
+```
+
+Debug ビルドの `Debug.Fail` は**プロセスを落とします。**
+記録済みスナップショットが本文 0 行だったのは、**ページがそこまで到達していなかった**
+からです。`?ProductID=1` を付けました。

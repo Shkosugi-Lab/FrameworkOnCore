@@ -388,25 +388,39 @@ public static partial class AspxConverters
         razor.AppendLine();
 
         // Title: the @Page Title attribute wins. A page without a master page has its
-        // own <head><title>, so fall back to that as well
-        var title = directive?.Get("Title");
-        if (string.IsNullOrWhiteSpace(title) && master is null)
-        {
-            title = ExtractTitle(source);
-        }
+        // own <head><title>, so fall back to that as well.
+        //
+        // A page WITH a master and no Title of its own falls back to the master's, which
+        // is what WebForms showed. Emitting nothing was not "no opinion": Blazor's
+        // HeadOutlet only changes the title when a PageTitle renders, so such a page KEPT
+        // THE PREVIOUS PAGE'S title. WingtipToys' error page read "Welcome" or "" by
+        // whichever page the visitor came from.
+        var pageTitle = directive?.Get("Title");
+        var titleTemplate = master is null ? ExtractTitle(source) : master.Title;
+
+        // The master composes the title around the page's: WingtipToys' is
+        // "<%: Page.Title %> - Wingtip Toys", and the original shows
+        // "Welcome - Wingtip Toys" on a page whose directive says Title="Welcome".
+        // Taking the page's Title alone loses the site name; taking the master's alone
+        // loses the page name. The page's value goes where Page.Title stood, and any
+        // other expression stays dynamic.
+        var title = titleTemplate is not null
+                    && titleTemplate.Contains("<%", StringComparison.Ordinal)
+            ? PageTitleReferenceRegex().Replace(titleTemplate, pageTitle ?? string.Empty)
+            : pageTitle ?? titleTemplate;
         if (!string.IsNullOrWhiteSpace(title))
         {
-            if (title.Contains("<%", StringComparison.Ordinal))
+            if (ConvertTitleExpressions(title) is { } renderable)
             {
-                // A dynamic title (server expression, or a non-head <title> such as an RSS
-                // channel title picked up by the fallback) cannot be emitted literally
-                report.Residual(sourceName, ResidualKind.InlineCode,
-                    $"動的なページタイトルは変換できません: {title}");
+                razor.AppendLine($"<PageTitle>{renderable}</PageTitle>");
+                razor.AppendLine();
             }
             else
             {
-                razor.AppendLine($"<PageTitle>{title}</PageTitle>");
-                razor.AppendLine();
+                // A title built by something other than a plain expression - a code block,
+                // a call the page has to make - cannot be emitted literally.
+                report.Residual(sourceName, ResidualKind.InlineCode,
+                    $"動的なページタイトルは変換できません: {title}");
             }
         }
 
@@ -1263,6 +1277,39 @@ public static partial class AspxConverters
 
         return routes;
     }
+
+    /// <summary>
+    /// A &lt;title&gt; with &lt;%: expr %&gt; / &lt;%= expr %&gt; rewritten to Razor, or null
+    /// when it holds something that is not a plain expression.
+    ///
+    /// WingtipToys' master is "&lt;%: Page.Title %&gt; - Wingtip Toys", which is the whole
+    /// site's title on every page; treating it as unconvertible left every page with no
+    /// PageTitle at all, and Blazor then shows whatever the previous page set.
+    ///
+    /// Only an expression is accepted - a statement block (&lt;% ... %&gt;) runs somewhere
+    /// and cannot be moved into a title - and it must not contain the quote or angle
+    /// brackets that would end the attribute it lands in.
+    /// </summary>
+    private static string? ConvertTitleExpressions(string title)
+    {
+        if (!title.Contains("<%", StringComparison.Ordinal))
+        {
+            return title;
+        }
+
+        var converted = TitleExpressionRegex().Replace(title, match => "@(" + match.Groups[1].Value.Trim() + ")");
+        return converted.Contains("<%", StringComparison.Ordinal) ? null : converted;
+    }
+
+    [GeneratedRegex(@"<%[:=]\s*([^<>%""]+?)\s*%>")]
+    private static partial Regex TitleExpressionRegex();
+
+    /// <summary>
+    /// The master's reference to the page's own title: &lt;%: Page.Title %&gt; and the
+    /// spellings around it. Replaced by the page's Title, which is what WebForms put there.
+    /// </summary>
+    [GeneratedRegex(@"<%[:=]\s*(?:this\.)?(?:Page\.)?Title\s*%>")]
+    private static partial Regex PageTitleReferenceRegex();
 
     private static string? ExtractTitle(string source)
     {

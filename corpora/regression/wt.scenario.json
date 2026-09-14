@@ -24,7 +24,8 @@
     { "action": "goto", "path": "/ShoppingCart" },
     { "action": "snapshot", "name": "shopping-cart" },
 
-    { "action": "goto", "path": "/AddToCart" },
+    { "_why": "With a ProductID, because the application forbids the other form: AddToCart.aspx.cs says 'it is illegal to load AddToCart.aspx without setting a ProductId' and calls Debug.Fail, which terminates the process in a Debug build. The step used to have no query string and recorded an empty page - the page was never reaching Page_Load at all.",
+      "action": "goto", "path": "/AddToCart?ProductID=1" },
     { "action": "snapshot", "name": "add-to-cart" },
 
     { "action": "goto", "path": "/ErrorPage" },

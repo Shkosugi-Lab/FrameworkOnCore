@@ -4,7 +4,7 @@
     {
       "Name": "home",
       "Path": "/",
-      "Title": "Welcome",
+      "Title": "Welcome - Wingtip Toys",
       "Text": [
         "Wingtip Toys",
         "Home",
@@ -51,7 +51,7 @@
     {
       "Name": "about",
       "Path": "/about",
-      "Title": "About",
+      "Title": "About - Wingtip Toys",
       "Text": [
         "Wingtip Toys",
         "Home",
@@ -98,7 +98,7 @@
     {
       "Name": "contact",
       "Path": "/contact",
-      "Title": "Contact",
+      "Title": "Contact - Wingtip Toys",
       "Text": [
         "Wingtip Toys",
         "Home",
@@ -158,7 +158,7 @@
     {
       "Name": "product-details",
       "Path": "/productdetails",
-      "Title": "Product Details",
+      "Title": "Product Details - Wingtip Toys",
       "Text": [
         "Wingtip Toys",
         "Home",
@@ -202,7 +202,7 @@
     {
       "Name": "shopping-cart",
       "Path": "/shoppingcart",
-      "Title": "",
+      "Title": "- Wingtip Toys",
       "Text": [
         "Wingtip Toys",
         "Home",
@@ -320,7 +320,7 @@
     {
       "Name": "error-page",
       "Path": "/errorpage",
-      "Title": "wt",
+      "Title": "- Wingtip Toys",
       "Text": [
         "Wingtip Toys",
         "Home",

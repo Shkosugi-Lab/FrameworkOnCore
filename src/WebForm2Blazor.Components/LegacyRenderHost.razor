@@ -79,6 +79,13 @@
         var instance = Activator.CreateInstance(type);
         ControlInstance = instance;
 
+        // Before any property is set and long before the lifecycle runs: a ported control
+        // reads Page in OnLoad / OnPreRender / Render as a matter of course.
+        if (instance is LegacyWebControl hosted)
+        {
+            hosted.Page = Page;
+        }
+
         SetProperty(type, instance, "ID", ID);
         foreach (var pair in PropertyValues ?? [])
         {
@@ -131,10 +138,46 @@
             return;
         }
 
-        object converted = property.PropertyType.IsEnum
-            ? Enum.Parse(property.PropertyType, value, ignoreCase: true)
-            : Convert.ChangeType(value, property.PropertyType, System.Globalization.CultureInfo.InvariantCulture);
-        property.SetValue(instance, converted);
+        property.SetValue(instance, ConvertMarkupValue(value, property.PropertyType));
+    }
+
+    /// <summary>
+    /// A markup attribute's text as the property's type.
+    ///
+    /// Convert.ChangeType alone is not enough, and the failure was total rather than
+    /// partial: it only handles IConvertible, so Width="90%" on a ported control threw
+    /// "Invalid cast from 'System.String' to 'Unit'" and the WHOLE control rendered as
+    /// "[render error]" - one attribute taking down BlogEngine's PostCalendar. WebForms
+    /// parsed markup attributes through TypeConverter, so that is what is used here, with
+    /// IConvertible as the fallback rather than the first choice.
+    /// </summary>
+    private static object ConvertMarkupValue(string value, Type targetType)
+    {
+        var type = Nullable.GetUnderlyingType(targetType) ?? targetType;
+
+        if (type == typeof(string))
+        {
+            return value;
+        }
+        if (type.IsEnum)
+        {
+            return Enum.Parse(type, value, ignoreCase: true);
+        }
+
+        var converter = System.ComponentModel.TypeDescriptor.GetConverter(type);
+        if (converter is not null && converter.CanConvertFrom(typeof(string)))
+        {
+            return converter.ConvertFromInvariantString(value);
+        }
+
+        // A type with a public T(string) constructor - the compat Unit is written that way
+        // because ported code says new Unit("250").
+        if (type.GetConstructor([typeof(string)]) is { } fromString)
+        {
+            return fromString.Invoke([value]);
+        }
+
+        return Convert.ChangeType(value, type, System.Globalization.CultureInfo.InvariantCulture);
     }
 
     private static Type ResolveType(string typeName)

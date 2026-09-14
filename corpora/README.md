@@ -2552,3 +2552,127 @@ DNN の `Default.aspx.cs` と `InstallWizard.aspx.cs` が
 | 総残差 | 702 | **615** |
 | ビルドエラー | 216 | **50** |
 | 空スタブ化された型 | 287 | 255 |
+
+---
+
+## 未対応コントロール 113 → 71 — 手書きリストが 2 つあって食い違っていた
+
+### まず「なぜ紐付かないのか」を出力させた
+
+残差を区分別に数え直すと、**入力待ち 121 件の大半(113 件)が
+「未対応コントロールです。--control-map で指定して下さい」**でした。
+
+| コーパス | 未対応コントロール |
+|---|---:|
+| dnn | 39 |
+| n2 | 35 |
+| mojo | 24 |
+| yaf | 13 |
+| be / wt | 各 1 |
+
+ところが調べ始めると、`<n2:Zone>` の `N2.Web.UI.WebControls.Zone` も
+`<YAF:LocalizedRequiredFieldValidator>` も**ソースは移植済み**でした。
+1 件ずつ当てるのは効率が悪いので、**残差に理由を書かせました**。
+`ResolveLegacyControl` は今まで `null` を返すだけで、4 種類の別々の失敗が
+全部「--control-map で指定して下さい」という同じ答えになっていました。
+
+| 理由 | 件数 |
+|---|---:|
+| **D: 基底の根が描画対象外** | **69** |
+| C: テンプレート子要素あり(移植済み) | 23 |
+| B: 型が移植対象に無い | 19 |
+| A: タグ接頭辞が未登録 | 0 |
+
+D の内訳:`DataSourceControl` 15、`TemplateColumn` 11、
+`RequiredFieldValidator` 10、`RegularExpressionValidator` 6、
+`TreeView` 3、`HtmlGenericControl` 3、`DataList` 3、`FileUpload` 2、
+`HtmlForm` 2、`Login` 1、`GridView` 1、`Calendar` 1 …
+
+### 原因: 同じことを決める手書きリストが 2 つあった
+
+- `AspxConverters.LegacyRenderableRoots` — その基底の根なら LegacyRenderHost で描く
+- `CodeBehindRewriter.ControlBaseNames` — その基底なら `LegacyWebControl` に書き換える
+
+**この 2 つは一致していなければ意味がありません。**
+`ControlBaseNames` に `GridView` / `DataList` / `Calendar` / `TreeView` /
+`HtmlGenericControl` / `BaseValidator` があるのに `LegacyRenderableRoots` には無い。
+つまり「基底は `LegacyWebControl` に書き換えたのに、描画対象とは認めない」。
+**書き換えた側が正しく、認めなかった側が間違っていました。**
+
+`LegacyRenderableRoots` のコメント自身が
+「grown one entry at a time and had gaps that cost more than they look」
+と書いていたのに、同じ過ちをもう一つ隣で繰り返していた形です。
+
+### 直したもの
+
+1. `ControlBaseNames` を**互換アセンブリから導出**。
+   「互換層が `WebFormsControlBase`(コンポーネント)か `LegacyWebControl`
+   (プレーンクラス)として宣言している型名」がコントロール基底です。
+   `Page` / `MasterPage` / `UserControl` は子コントロールではないので除外。
+   手書きリストは和集合として残しています(`CompositeControl` など
+   互換層に無い元側の名前が入っているため)。
+2. `LegacyRenderableRoots` を廃止し、
+   `IsLegacyRenderableRoot(root)` = `ResolveControlBase(root) is not null`
+   に。**問いは一つ「移植後のクラスは結局 LegacyWebControl を継ぐのか」だけ**なので、
+   それを決めている側に聞きます。
+
+`TemplateColumn` / `TemplateField` が除外されたままなのは正しい判定です。
+あれは DataGrid/GridView の**列**であってコントロールではなく、
+LegacyRenderHost で単独描画するものではありません(互換層も
+`LegacyWebControl` 派生として宣言していない)。実体に聞いた結果、
+手書きでは間違えやすいこの区別が自動的に付きました。
+
+### 露出した欠陥 D: LegacyWebControl.Page が常に null だった
+
+回帰ゲートが BlogEngine で落ちました。
+
+```
+NG   home
+     実測側にのみある行: '[App_Code.Controls.PostCalendar: render error]'
+```
+
+`PostCalendar` は `Calendar` 派生で、いままでスタブ(不可視)だったものが
+LegacyRenderHost に載った結果、描画時に落ちました。原因は 2 つ。
+
+**(1) `LegacyWebControl.Page => null` の決め打ち。**
+`PostCalendar` は `OnLoad` で `Page.ClientScript`、`OnPreRender` と `Render` で
+`Page.IsPostBack` / `Page.IsCallback` を読みます。**ごく普通の WebForms コード**で、
+それが必ず NullReferenceException になっていました。
+ホストしている `LegacyRenderHost` はページを知っているので、
+ライフサイクルを回す前に設定するようにしました
+(何もホストしていないとき — 単体テスト等 — は null のままが正直な答えです)。
+
+**(2) マークアップ属性の型変換が `Convert.ChangeType` だけだった。**
+エラーの実体は `Invalid cast from 'System.String' to 'Unit'` でした。
+`Convert.ChangeType` は `IConvertible` しか扱えないので、`Width="90%"` のような
+**属性 1 個でコントロール全体が「[render error]」**になります。
+WebForms はマークアップ属性を `TypeConverter` で解釈していたので、そちらを先に使い、
+`T(string)` コンストラクタ、`Convert.ChangeType` の順にフォールバックします。
+
+### 計測
+
+| | 変更前 | 変更後 |
+|---|---:|---:|
+| **未対応コントロール残差** | **113** | **71** |
+| be 総残差 | 72 | 71 |
+| mojo 総残差 | 90 | **79** |
+| yaf 総残差 | 60 | **49** |
+| dnn 総残差 | 186 | 185 |
+| n2 総残差 | 173 | **155** |
+| 合計総残差 | 615 | **573** |
+| ビルドエラー | 50 | **50**(変化なし) |
+
+パリティ 30/30、bUnit 30/30、回帰ゲート 13/13。
+
+BlogEngine のカレンダーは描画エラーが消えて回帰も一致しましたが、
+**出力は空のまま**です。`LegacyCalendar` 自体が月表を描かないためで、
+スタブだったときと同じ(悪化はしていない)。別件として残します。
+
+### 残り 71 件の内訳
+
+| 理由 | 件数 |
+|---|---:|
+| C: テンプレート子要素あり(移植済み) | 28 |
+| B: 型が移植対象に無い(バイナリのみ) | 19 |
+| D: TemplateColumn / TemplateField(列であってコントロールでない) | 13 |
+| D: その他(ClientDependency 系など) | 11 |

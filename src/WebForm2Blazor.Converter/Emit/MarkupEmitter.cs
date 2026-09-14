@@ -8,6 +8,12 @@ using WebForm2Blazor.Converter.Project;
 namespace WebForm2Blazor.Converter.Emit;
 
 /// <summary>
+/// Resolves an unmapped control tag to the ported class LegacyRenderHost can render, or
+/// returns null and says why not.
+/// </summary>
+public delegate string? LegacyControlLookup(string prefix, string name, out string? reason);
+
+/// <summary>
 /// A control field generated into the code-behind.
 ///
 /// <paramref name="LegacyHost"/> marks the case where the rendered component is a
@@ -61,7 +67,11 @@ public sealed class EmitContext
     /// legacy control class, when its source is available (assembly/namespace tag
     /// registrations + the base-class registry). Enables LegacyRenderHost conversion.
     /// </summary>
-    public Func<string, string, string?>? LegacyControlResolver { get; set; }
+    /// <summary>
+    /// (prefix, name, out reason) -&gt; ported class name, or null with a reason saying which
+    /// of the several different failures this was.
+    /// </summary>
+    public LegacyControlLookup? LegacyControlResolver { get; set; }
 
     /// <summary>Stub component name per unmapped control tag encountered in this file.</summary>
     public Dictionary<string, string> StubComponents { get; } = new(StringComparer.OrdinalIgnoreCase);
@@ -682,11 +692,20 @@ public sealed partial class MarkupEmitter(EmitContext context)
                 && (ControlMappings.DataBoundTemplates.Contains(child.Name)
                     || ControlMappings.PlainTemplates.Contains(child.Name)
                     || ControlMappings.StyleChildElements.Contains(child.Name)));
-            if (!hasTemplateChildren
-                && context.LegacyControlResolver?.Invoke(element.Prefix, element.Name) is { } legacyTypeName)
+            string? legacyReason = null;
+            var legacyTypeName = context.LegacyControlResolver?.Invoke(
+                element.Prefix, element.Name, out legacyReason);
+            if (!hasTemplateChildren && legacyTypeName is not null)
             {
                 return EmitLegacyRenderHost(element, legacyTypeName);
             }
+
+            // Which of several different situations this is, in the report rather than in
+            // the reader's head. A tag prefix nobody registered, a type outside the ported
+            // tree and a base chain this tool will not render each need a different answer.
+            var why = hasTemplateChildren && legacyTypeName is not null
+                ? $"{legacyTypeName} は移植済みですが、テンプレート子要素を持つため LegacyRenderHost では描画できません"
+                : legacyReason;
 
             // Two different situations share this failure. A standard <asp:*> control has
             // a rendering WebForms itself defines - Login, Calendar, Wizard - and the only
@@ -698,7 +717,9 @@ public sealed partial class MarkupEmitter(EmitContext context)
             Residual(ResidualKind.UnmappedControl,
                 isStandardControl
                     ? $"<{element.QualifiedName}> は標準コントロールですが互換コンポーネントが未実装です。"
-                    : $"<{element.QualifiedName}> は未対応コントロールです。移植ソースが無い場合は --control-map で置き換え先の指定が必要です。",
+                    : $"<{element.QualifiedName}> は未対応コントロールです"
+                      + (why is null ? string.Empty : $"({why})")
+                      + "。移植ソースが無い場合は --control-map で置き換え先の指定が必要です。",
                 isStandardControl ? ResidualDisposition.Backlog : ResidualDisposition.NeedsInput);
 
             // Emit a generated placeholder component so the output still compiles and the

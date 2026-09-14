@@ -307,8 +307,51 @@ public static class CodeBehindRewriter
     /// The compat class an excluded stub should derive from so that lifecycle overrides in
     /// its subclasses resolve, or null when the base is not a WebForms control.
     /// </summary>
+    /// <summary>
+    /// Every control type the compatibility layer declares, by simple name.
+    ///
+    /// The list above was hand-written and had gaps, and so did the SECOND hand-written
+    /// list beside it (AspxConverters.LegacyRenderableRoots) - the two disagreed, which is
+    /// what two hand-written lists of the same thing always end up doing. Measured across
+    /// the corpora: 69 of the 113 unmapped-control residuals were a control whose source
+    /// WAS ported and whose base chain ended at a name one list had and the other did not
+    /// (RequiredFieldValidator 10, RegularExpressionValidator 6, DataSourceControl 15,
+    /// FileUpload 2, HtmlForm 2, Login 1, ...).
+    ///
+    /// So the assembly is asked instead. A name is a control base when the compat layer
+    /// declares it as one - a Blazor component (WebFormsControlBase) or a plain render
+    /// class (LegacyWebControl). Page / MasterPage / UserControl are excluded: those are
+    /// not child controls and have their own mapping.
+    /// </summary>
+    private static readonly Lazy<HashSet<string>> CompatControlNames = new(() =>
+    {
+        var names = new HashSet<string>(StringComparer.Ordinal);
+        var assembly = typeof(WebForm2Blazor.Components.WebFormsControlBase).Assembly;
+        var component = typeof(WebForm2Blazor.Components.WebFormsControlBase);
+        var legacy = assembly.GetType("WebForm2Blazor.Components.LegacyWebControl");
+
+        foreach (var type in assembly.GetExportedTypes())
+        {
+            if (type.Namespace != "WebForm2Blazor.Components"
+                || type.IsInterface
+                || ComponentBaseNames.Contains(type.Name))
+            {
+                continue;
+            }
+
+            if (component.IsAssignableFrom(type) || (legacy is not null && legacy.IsAssignableFrom(type)))
+            {
+                names.Add(type.Name);
+            }
+        }
+
+        return names;
+    });
+
     internal static string? ResolveControlBase(string baseName)
-        => ControlBaseNames.Contains(baseName) ? "LegacyWebControl" : null;
+        => ControlBaseNames.Contains(baseName) || CompatControlNames.Value.Contains(baseName)
+            ? "LegacyWebControl"
+            : null;
 
     private static readonly Dictionary<string, string> CompatBaseReplacements = new(StringComparer.Ordinal)
     {

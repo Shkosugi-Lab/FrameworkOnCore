@@ -209,10 +209,18 @@ public abstract class LegacyWebControl : IWebFormsControl, IDisposable
 
     /// <summary>
     /// WebForms Control.Page / .Context / .Master equivalents. A legacy control reaches
-    /// its host through these; Page is null unless one is in scope, and Master is always
-    /// null (Blazor layouts are not addressable at runtime).
+    /// its host through these; Master is always null (Blazor layouts are not addressable
+    /// at runtime).
+    ///
+    /// Page used to be a hard null, and a ported control that touches it - which is
+    /// ordinary WebForms code - threw a NullReferenceException the moment it rendered.
+    /// BlogEngine's PostCalendar calls Page.ClientScript in OnLoad and Page.IsPostBack in
+    /// OnPreRender and Render, so the whole control came out as "[render error]". The
+    /// hosting LegacyRenderHost knows the page and sets this before the lifecycle runs.
+    /// It is still null when nothing hosts the control (a unit test, a control created in
+    /// code and never placed), which is the honest answer there.
     /// </summary>
-    public Page Page => null;
+    public Page Page { get; internal set; }
 
     public HttpContext Context => HttpContext.Current;
 

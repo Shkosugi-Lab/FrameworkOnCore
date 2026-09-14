@@ -1,4 +1,4 @@
-using System.Text;
+﻿using System.Text;
 using System.Text.RegularExpressions;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -100,7 +100,7 @@ public static partial class AspxConverters
         };
 
         var prefixNamespaces = BuildPrefixNamespaces(parsed, path, project);
-        context.LegacyControlResolver = (prefix, name) => ResolveLegacyControl(prefixNamespaces, baseRegistry, prefix, name);
+        context.LegacyControlResolver = (string prefix, string name, out string? reason) => ResolveLegacyControl(prefixNamespaces, baseRegistry, prefix, name, out reason);
 
         // The naming-container chain this master's own placeholders sit under. While the
         // emitter is inside an <asp:Content>, it is the parent's prefix for that slot.
@@ -254,7 +254,7 @@ public static partial class AspxConverters
         };
 
         var prefixNamespaces = BuildPrefixNamespaces(parsed, path, project);
-        context.LegacyControlResolver = (prefix, name) => ResolveLegacyControl(prefixNamespaces, baseRegistry, prefix, name);
+        context.LegacyControlResolver = (string prefix, string name, out string? reason) => ResolveLegacyControl(prefixNamespaces, baseRegistry, prefix, name, out reason);
 
         MarkupEmitter.CollectDeclaredControlIds(parsed.Nodes, context);
         var markup = NeutralizeUnbalanced(
@@ -328,7 +328,7 @@ public static partial class AspxConverters
         };
 
         var prefixNamespaces = BuildPrefixNamespaces(parsed, path, project);
-        context.LegacyControlResolver = (prefix, name) => ResolveLegacyControl(prefixNamespaces, baseRegistry, prefix, name);
+        context.LegacyControlResolver = (string prefix, string name, out string? reason) => ResolveLegacyControl(prefixNamespaces, baseRegistry, prefix, name, out reason);
 
         context.SpecialElementHandler = (element, emitter) =>
         {
@@ -846,23 +846,46 @@ public static partial class AspxConverters
     /// unmapped control 128 times - 30% of every unmapped control across all six corpora,
     /// for a control whose source was ported and whose tagPrefix was registered.
     /// </summary>
-    private static readonly HashSet<string> LegacyRenderableRoots = new(StringComparer.Ordinal)
-    {
-        "Control", "WebControl", "CompositeControl", "TemplateControl",
-        "Panel", "Label", "Literal", "HyperLink", "Image", "PlaceHolder",
-        "Button", "LinkButton", "ImageButton", "TextBox", "CheckBox", "RadioButton",
-        "DropDownList", "ListBox", "ListControl", "BaseValidator",
-        "LegacyWebControl", "LegacyPanel", "LegacyLabel", "LegacyLiteral", "LegacyHyperLink",
-    };
+    /// <summary>
+    /// Whether a ported control's base-chain root is one LegacyRenderHost can render.
+    ///
+    /// This used to be a hand-written set, and the one it had to agree with -
+    /// CodeBehindRewriter.ControlBaseNames, which decides what the ported class's base is
+    /// REWRITTEN to - was a different hand-written set. They disagreed, and every
+    /// disagreement was a control whose source was ported but which came out as a stub:
+    /// GridView, DataList, Calendar, TreeView, HtmlGenericControl and BaseValidator were
+    /// in one and not the other.
+    ///
+    /// There is only one question here - "does the ported class end up deriving from
+    /// LegacyWebControl?" - so it is asked of the thing that decides it.
+    /// </summary>
+    private static bool IsLegacyRenderableRoot(string root)
+        => root is "Control" or "WebControl"
+           || root.StartsWith("Legacy", StringComparison.Ordinal)
+           || CodeBehindRewriter.ResolveControlBase(root) is not null;
 
-    /// <summary>Resolves an unmapped control to a ported legacy class eligible for LegacyRenderHost.</summary>
+    /// <summary>
+    /// Resolves an unmapped control to a ported legacy class eligible for LegacyRenderHost.
+    ///
+    /// <paramref name="reason"/> says why it did not, in the words the residual report
+    /// uses. There are four distinct failures here and they need four different answers -
+    /// a tag prefix nobody registered is the user's Web.config, a type that is not in the
+    /// ported tree is a vendored control, and a base chain this tool will not render is
+    /// the converter's own backlog. Reporting all four as "未対応コントロール" sent every
+    /// one of them to the same place: "specify --control-map".
+    /// </summary>
     private static string? ResolveLegacyControl(
-        Dictionary<string, List<string>> prefixNamespaces, BaseClassRegistry baseRegistry, string prefix, string name)
+        Dictionary<string, List<string>> prefixNamespaces, BaseClassRegistry baseRegistry,
+        string prefix, string name, out string? reason)
     {
+        reason = null;
         if (!prefixNamespaces.TryGetValue(prefix, out var namespaces))
         {
+            reason = $"タグ接頭辞 '{prefix}' がどこにも登録されていません"
+                     + "(Web.config の <pages><controls> か <%@ Register %> が必要です)";
             return null;
         }
+
         string? fullName = null;
         foreach (var ns in namespaces)
         {
@@ -874,10 +897,19 @@ public static partial class AspxConverters
         }
         if (fullName is null)
         {
+            reason = $"接頭辞 '{prefix}' の名前空間({string.Join(", ", namespaces)})に "
+                     + $"{name} が見つかりません(移植対象に入っていないか、バイナリのみの提供です)";
             return null;
         }
+
         var root = baseRegistry.GetRootBaseName(fullName[(fullName.LastIndexOf('.') + 1)..]);
-        return root is not null && LegacyRenderableRoots.Contains(root) ? fullName : null;
+        if (root is not null && IsLegacyRenderableRoot(root))
+        {
+            return fullName;
+        }
+
+        reason = $"{fullName} の基底の根が {root ?? "不明"} で、LegacyRenderHost で描画できる系統ではありません";
+        return null;
     }
 
     /// <summary>

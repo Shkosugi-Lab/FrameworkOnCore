@@ -1,0 +1,241 @@
+@namespace WebForm2Blazor.Components
+@inherits WebFormsControlBase
+@using System.Globalization
+
+@* WebForms Calendar equivalent: a month grid with a title row, day headers and day cells.
+
+   The markup is a <table> as the original's was, and the cell classes follow the style
+   properties the markup sets (OtherMonthDayStyle-CssClass, SelectedDayStyle-CssClass) -
+   n2's CalendarTeaser styles its calendar entirely through those.
+
+   Selecting a day and changing month raise SelectionChanged / VisibleMonthChanged, and
+   OnDayRender is called for each cell before it renders, which is where an application
+   marks the days it has content for. *@
+@if (Visible)
+{
+    <table @attributes="ExtraAttributes" style="@ComputedStyle" id="@ClientID"
+           class="@CssClass" cellspacing="0" cellpadding="2" border="@(ShowGridLines ? "1" : "0")">
+        @if (!string.IsNullOrEmpty(Caption))
+        {
+            <caption>@Caption</caption>
+        }
+        @if (ShowTitle)
+        {
+            <tr class="@TitleStyleCssClass" style="@TitleStyleBackground">
+                @if (ShowNextPrevMonth)
+                {
+                    <th><a href="javascript:void(0)" @onclick="PreviousMonth">@((MarkupString)PrevMonthText)</a></th>
+                }
+                <th colspan="@(ShowNextPrevMonth ? 5 : 7)">@MonthTitle</th>
+                @if (ShowNextPrevMonth)
+                {
+                    <th><a href="javascript:void(0)" @onclick="NextMonth">@((MarkupString)NextMonthText)</a></th>
+                }
+            </tr>
+        }
+        @if (ShowDayHeader)
+        {
+            <tr class="@DayHeaderStyleCssClass">
+                @foreach (var day in HeaderDays)
+                {
+                    <th scope="col" abbr="@day">@day</th>
+                }
+            </tr>
+        }
+        @foreach (var week in Weeks)
+        {
+            <tr>
+                @foreach (var day in week)
+                {
+                    <td class="@CellClass(day)">
+                        <a href="javascript:void(0)" @onclick="() => SelectDay(day.Date)">@day.DayNumberText</a>
+                    </td>
+                }
+            </tr>
+        }
+    </table>
+}
+
+@code {
+    private DateTime _visibleDate = DateTime.Today;
+    private DateTime _selectedDate = DateTime.MinValue;
+
+    [Parameter]
+    public DateTime VisibleDate
+    {
+        get => _visibleDate == DateTime.MinValue ? DateTime.Today : _visibleDate;
+        set => SetAndRefresh(ref _visibleDate, value);
+    }
+
+    /// <summary>
+    /// WebForms SelectedDate. DateTime.MinValue means "nothing selected", as there - a
+    /// calendar does not open with today already picked.
+    /// </summary>
+    [Parameter]
+    public DateTime SelectedDate
+    {
+        get => _selectedDate;
+        set => SetAndRefresh(ref _selectedDate, value);
+    }
+
+    [Parameter] public DateTime TodaysDate { get; set; } = DateTime.Today;
+    [Parameter] public bool ShowGridLines { get; set; }
+    [Parameter] public bool ShowTitle { get; set; } = true;
+    [Parameter] public bool ShowDayHeader { get; set; } = true;
+    [Parameter] public bool ShowNextPrevMonth { get; set; } = true;
+    [Parameter] public string PrevMonthText { get; set; } = "&lt;";
+    [Parameter] public string NextMonthText { get; set; } = "&gt;";
+    [Parameter] public string Caption { get; set; }
+    [Parameter] public string DayNameFormat { get; set; } = "Short";
+    [Parameter] public int FirstDayOfWeek { get; set; } = -1;
+
+    /// <summary>Accepted; the accessible header is what this renders anyway (th/scope/abbr).</summary>
+    [Parameter] public bool UseAccessibleHeader { get; set; } = true;
+
+    // The style slots the corpora actually set. Each is a class or a colour the cell
+    // carries; nothing here invents a visual the markup did not ask for.
+    [Parameter] public string TitleStyleCssClass { get; set; }
+    [Parameter] public string TitleStyleBackColor { get; set; }
+    [Parameter] public string DayHeaderStyleCssClass { get; set; }
+    [Parameter] public string DayStyleCssClass { get; set; }
+    [Parameter] public string OtherMonthDayStyleCssClass { get; set; }
+    [Parameter] public string SelectedDayStyleCssClass { get; set; }
+    [Parameter] public string TodayDayStyleCssClass { get; set; }
+    [Parameter] public string WeekendDayStyleCssClass { get; set; }
+
+    [Parameter] public EventHandler OnSelectionChanged { get; set; }
+    [Parameter] public MonthChangedEventHandler OnVisibleMonthChanged { get; set; }
+
+    /// <summary>
+    /// WebForms DayRender. Raised for every cell before it renders - an application marks
+    /// the days it has content for here, which is the whole point of n2's calendar part.
+    /// </summary>
+    [Parameter] public Action<CalendarDay> OnDayRender { get; set; }
+
+    public event EventHandler SelectionChanged
+    {
+        add => OnSelectionChanged += value;
+        remove => OnSelectionChanged -= value;
+    }
+
+    public event MonthChangedEventHandler VisibleMonthChanged
+    {
+        add => OnVisibleMonthChanged += value;
+        remove => OnVisibleMonthChanged -= value;
+    }
+
+    private string TitleStyleBackground
+        => string.IsNullOrEmpty(TitleStyleBackColor) ? null : $"background-color:{TitleStyleBackColor};";
+
+    private string MonthTitle => VisibleDate.ToString("MMMM yyyy", CultureInfo.CurrentCulture);
+
+    private DayOfWeek StartDay
+        => FirstDayOfWeek is >= 0 and <= 6
+            ? (DayOfWeek)FirstDayOfWeek
+            : CultureInfo.CurrentCulture.DateTimeFormat.FirstDayOfWeek;
+
+    private IEnumerable<string> HeaderDays
+    {
+        get
+        {
+            var names = CultureInfo.CurrentCulture.DateTimeFormat;
+            for (var offset = 0; offset < 7; offset++)
+            {
+                var day = (DayOfWeek)(((int)StartDay + offset) % 7);
+                yield return DayNameFormat switch
+                {
+                    "Full" => names.GetDayName(day),
+                    "FirstLetter" => names.GetAbbreviatedDayName(day)[..1],
+                    "FirstTwoLetters" => names.GetAbbreviatedDayName(day)[..Math.Min(2, names.GetAbbreviatedDayName(day).Length)],
+                    "Shortest" => names.GetShortestDayName(day),
+                    _ => names.GetAbbreviatedDayName(day),
+                };
+            }
+        }
+    }
+
+    /// <summary>
+    /// Six weeks starting from the first StartDay on or before the 1st - the same grid
+    /// WebForms drew, so a month never changes the table's height.
+    /// </summary>
+    private IEnumerable<IEnumerable<CalendarDay>> Weeks
+    {
+        get
+        {
+            var first = new DateTime(VisibleDate.Year, VisibleDate.Month, 1);
+            var offset = ((int)first.DayOfWeek - (int)StartDay + 7) % 7;
+            var cursor = first.AddDays(-offset);
+
+            for (var week = 0; week < 6; week++)
+            {
+                yield return BuildWeek(cursor.AddDays(week * 7));
+            }
+        }
+    }
+
+    private IEnumerable<CalendarDay> BuildWeek(DateTime weekStart)
+    {
+        for (var index = 0; index < 7; index++)
+        {
+            var date = weekStart.AddDays(index);
+            var day = new CalendarDay
+            {
+                Date = date,
+                DayNumberText = date.Day.ToString(CultureInfo.CurrentCulture),
+                IsOtherMonth = date.Month != VisibleDate.Month,
+                IsToday = date.Date == TodaysDate.Date,
+                IsSelected = date.Date == SelectedDate.Date,
+                IsWeekend = date.DayOfWeek is DayOfWeek.Saturday or DayOfWeek.Sunday,
+                IsSelectable = true,
+            };
+
+            OnDayRender?.Invoke(day);
+            yield return day;
+        }
+    }
+
+    private string CellClass(CalendarDay day)
+    {
+        var classes = new List<string>();
+        if (!string.IsNullOrEmpty(DayStyleCssClass))
+        {
+            classes.Add(DayStyleCssClass);
+        }
+        if (day.IsOtherMonth && !string.IsNullOrEmpty(OtherMonthDayStyleCssClass))
+        {
+            classes.Add(OtherMonthDayStyleCssClass);
+        }
+        if (day.IsWeekend && !string.IsNullOrEmpty(WeekendDayStyleCssClass))
+        {
+            classes.Add(WeekendDayStyleCssClass);
+        }
+        if (day.IsToday && !string.IsNullOrEmpty(TodayDayStyleCssClass))
+        {
+            classes.Add(TodayDayStyleCssClass);
+        }
+        if (day.IsSelected && !string.IsNullOrEmpty(SelectedDayStyleCssClass))
+        {
+            classes.Add(SelectedDayStyleCssClass);
+        }
+        return classes.Count == 0 ? null : string.Join(' ', classes);
+    }
+
+    private void SelectDay(DateTime date)
+    {
+        SelectedDate = date;
+        OnSelectionChanged?.Invoke(this, EventArgs.Empty);
+        Host?.HostCore.NotifyPostBackEvent();
+    }
+
+    private void PreviousMonth() => MoveMonth(-1);
+
+    private void NextMonth() => MoveMonth(1);
+
+    private void MoveMonth(int months)
+    {
+        var previous = VisibleDate;
+        VisibleDate = previous.AddMonths(months);
+        OnVisibleMonthChanged?.Invoke(this, new MonthChangedEventArgs(VisibleDate, previous));
+        Host?.HostCore.NotifyPostBackEvent();
+    }
+}

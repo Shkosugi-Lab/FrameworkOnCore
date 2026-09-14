@@ -2156,3 +2156,30 @@ BlogEngine の登録ページは処理(ロール付与、認証クッキー、�
 共通属性を通すようにしています。
 
 **総残差 666 → 662。** ビルドエラー不変、パリティ 30/30、回帰 13/13。
+
+## `Calendar` — 描画するコンポーネントと、基底としての `LegacyCalendar`
+
+`Calendar` は**マークアップのコントロールであると同時に、移植コードの基底**でもあります
+(BlogEngine の `PostCalendar : Calendar` は自前で描画します)。
+コンポーネントにすると、平のクラスは `ComponentBase` を継承できないので壊れます。
+
+`Panel → LegacyPanel` と同じ手を使いました。
+
+- 描画する `Calendar` は Blazor コンポーネント(月グリッド、タイトル行、曜日見出し)
+- 基底に使われる方は `LegacyCalendar` に改名し、`CompatBaseReplacements` で
+  `Calendar` → `LegacyCalendar` に差し替え
+
+**これは 1 つ前のセッションで「やるな」と書かれていた変更です。**
+
+> TreeView, Menu, MultiView and Calendar are declaration shims that ALREADY derive from
+> LegacyWebControl, and redirecting those would throw away the members the shim carries
+
+その指摘は正しく、**シムのメンバを捨てる形で**やれば退行でした。捨てずに
+名前を変えて両方残せば、どちらも成立します(be は `PostCalendar` ごと不変、n2 −2)。
+
+セルのクラスはマークアップが指定したものだけを付けます
+(`OtherMonthDayStyle-CssClass`、`SelectedDayStyle-CssClass`)。
+n2 の CalendarTeaser はこれだけで見た目を作っています。
+`OnDayRender` も発火します — アプリが「予定のある日」に印を付ける場所です。
+
+**総残差 662 → 660。** ビルドエラー不変、パリティ 30/30、回帰 13/13。

@@ -61,6 +61,9 @@ public static class ControlMappings
         "AlternatingItemStyle", "EditItemStyle", "SelectedItemStyle", "SeparatorStyle",
         "InsertItemStyle", "InsertRowStyle", "CommandRowStyle", "FieldHeaderStyle",
         "EmptyItemStyle", "GroupSeparatorStyle",
+        // Calendar's style slots, flattened the same way
+        "TitleStyle", "DayHeaderStyle", "DayStyle", "OtherMonthDayStyle",
+        "SelectedDayStyle", "TodayDayStyle", "WeekendDayStyle", "NextPrevStyle",
     };
 
     /// <summary>Data-bound templates (RenderFragment with a context).</summary>
@@ -325,6 +328,25 @@ public static class ControlMappings
         // own (CreateUserStep, ContinueDestinationPageUrl, UserName, Password), and its
         // markup nests named templates a plain WizardStep does not accept. Making it work
         // means a component of its own, not an alias for this one.
+        ["Calendar"] = new()
+        {
+            Component = "Calendar",
+            AssertPresence = true,
+            Attributes = WithCommon(Rename(Map(
+                "ID", "Visible", "CssClass", "VisibleDate", "SelectedDate", "TodaysDate",
+                "ShowGridLines", "ShowTitle", "ShowDayHeader", "ShowNextPrevMonth",
+                "PrevMonthText", "NextMonthText", "Caption", "DayNameFormat",
+                "FirstDayOfWeek", "UseAccessibleHeader",
+                "OnSelectionChanged", "OnVisibleMonthChanged", "OnDayRender"),
+                ("TitleStyle-CssClass", "TitleStyleCssClass"),
+                ("TitleStyle-BackColor", "TitleStyleBackColor"),
+                ("DayHeaderStyle-CssClass", "DayHeaderStyleCssClass"),
+                ("DayStyle-CssClass", "DayStyleCssClass"),
+                ("OtherMonthDayStyle-CssClass", "OtherMonthDayStyleCssClass"),
+                ("SelectedDayStyle-CssClass", "SelectedDayStyleCssClass"),
+                ("TodayDayStyle-CssClass", "TodayDayStyleCssClass"),
+                ("WeekendDayStyle-CssClass", "WeekendDayStyleCssClass"))),
+        },
         ["PasswordRecovery"] = new()
         {
             Component = "PasswordRecovery",

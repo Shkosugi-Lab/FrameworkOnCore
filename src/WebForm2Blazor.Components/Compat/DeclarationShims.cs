@@ -101,8 +101,13 @@ public class CalendarDay
     public string DayNumberText { get; set; }
 }
 
-/// <summary>System.Web.UI.WebControls.Calendar equivalent (declaration surface).</summary>
-public class Calendar : LegacyWebControl
+/// <summary>
+/// System.Web.UI.WebControls.Calendar as a BASE for a ported control that renders itself.
+/// Named Legacy* like LegacyPanel: the rendering Calendar is a Blazor component, which a
+/// plain ported class cannot derive from, so the base it gets is this - carrying the
+/// members the subclass reads back. BlogEngine's PostCalendar is one.
+/// </summary>
+public class LegacyCalendar : LegacyWebControl
 {
     protected override string TagName => "table";
 

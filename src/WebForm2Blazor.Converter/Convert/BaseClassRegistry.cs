@@ -150,32 +150,47 @@ public sealed class BaseClassRegistry
     /// </summary>
     public string? GetRootBaseNameOf(string fullName)
     {
-        var key = DeclarationKey(fullName, 0);
-        if (!_baseByFullName.TryGetValue(key, out var baseName))
+        if (LookupBase(fullName) is not { } found)
         {
-            key = _baseByFullName.Keys.FirstOrDefault(candidate => KeyName(candidate) == fullName);
-            if (key is null)
-            {
-                return GetRootBaseName(LastSegment(fullName));
-            }
-            baseName = _baseByFullName[key];
+            return GetRootBaseName(LastSegment(fullName));
         }
 
-        if (baseName is null)
+        if (found is not { Length: > 0 })
         {
             return null;
         }
 
-        // The chain above the immediate base is only reachable by short name (a base is
-        // written as it appears in the source, which is usually unqualified), so the walk
-        // continues there - but it now starts from the RIGHT class.
-        var baseSimpleName = LastSegment(
-            baseName.Contains('<', StringComparison.Ordinal)
-                ? baseName[..baseName.IndexOf('<')]
-                : baseName);
-        return _declarations.Keys.Any(candidate => KeyName(candidate) == baseSimpleName)
-            ? GetRootBaseName(baseSimpleName)
-            : baseSimpleName;
+        var written = found.Contains('<', StringComparison.Ordinal)
+            ? found[..found.IndexOf('<')]
+            : found;
+
+        // A QUALIFIED base is resolved as written. Otherwise a class whose base shares its
+        // own simple name looks like its own base: n2 declares
+        // "N2.Web.UI.WebControls.Repeater : System.Web.UI.WebControls.Repeater", and the
+        // short-name walk went straight back to the class it started from and gave up with
+        // "root unknown".
+        if (written.Contains('.', StringComparison.Ordinal))
+        {
+            return LookupBase(written) is null
+                ? LastSegment(written)     // declared nowhere here - the chain ends outside
+                : GetRootBaseNameOf(written);
+        }
+
+        return _declarations.Keys.Any(candidate => KeyName(candidate) == written)
+            ? GetRootBaseName(written)
+            : written;
+    }
+
+    /// <summary>The base of a class named in full, or null when no such class was scanned.</summary>
+    private string? LookupBase(string fullName)
+    {
+        if (_baseByFullName.TryGetValue(DeclarationKey(fullName, 0), out var baseName))
+        {
+            return baseName ?? string.Empty;
+        }
+
+        var key = _baseByFullName.Keys.FirstOrDefault(candidate => KeyName(candidate) == fullName);
+        return key is null ? null : _baseByFullName[key] ?? string.Empty;
     }
 
     public string? GetRootBaseName(string className)

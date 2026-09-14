@@ -3096,3 +3096,66 @@ WebForms のパーサがそれを組み立てていました。
 | ビルドエラー | 216 | **50**(−77%) |
 | 未対応コントロール | 113 | **50** |
 | 標準コントロール未実装 | 34 | **0** |
+
+---
+
+## 基底が自分と同じ短名のとき、クラスが自分自身の基底に見えていた
+
+未対応コントロール 42 件の中に `root=不明` が 2 件(`n2:Repeater`)残っていました。
+
+```csharp
+// 元
+public class Repeater : System.Web.UI.WebControls.Repeater
+// 移植後
+public class Repeater : LegacyWebControl
+```
+
+**WebForms でごく普通の書き方**です(自作コントロールを同名で被せる)。
+ところが `BaseClassRegistry` の基底連鎖は完全名で始めたあと、
+上の階層は短名で辿っていました。基底 `System.Web.UI.WebControls.Repeater` の
+短名は `Repeater` — つまり**そのクラス自身**。循環検出に引っかかって
+「根は不明」になっていました。
+
+基底が**完全修飾で書かれている**場合は、完全名で引き直すようにしました。
+スキャン済みのクラスに無ければ、そこで連鎖は外部に出たということなので、
+最後のセグメントを根として返します。
+
+### 計測
+
+| | 変更前 | 変更後 |
+|---|---:|---:|
+| n2 総残差 | 140 | **139** |
+| 合計総残差 | 540 | **539** |
+| ビルドエラー | 50 | **50** |
+
+パリティ 30/30、bUnit 30/30、回帰ゲート 13/13。
+
+### 残り 41 件の未対応コントロールは「直せないもの」が大半
+
+| 分類 | 件数 | 判断 |
+|---|---:|---|
+| DataGrid の列(`dnn:textcolumn` 等) | 13 | 下記 |
+| 外部ライブラリのバイナリ(ZedGraph / DotNetNuke.WebControls / ClientDependency) | 15 | ユーザーが .NET ビルドを供給 |
+| `<ItemTemplate>`(データ項目ごとの実体化) | 5 | 文字列でも型名でも運べない |
+| `UserControl` 基底 / 名前空間未登録 / その他 | 8 | |
+
+**DataGrid の列 13 件について。** `dnn:textcolumn` の実体は
+
+```csharp
+public class TextColumn : TemplateColumn
+{
+    public override void Initialize()
+    {
+        this.ItemTemplate = this.CreateTemplate(ListItemType.Item);
+        this.HeaderTemplate = this.CreateTemplate(ListItemType.Header);
+    }
+}
+```
+
+で、**WebForms の列プロトコル**(`Initialize()` が `ITemplate` を組み、
+グリッドが行ごとにセルへ実体化する)に乗っています。
+忠実に動かすなら互換 `DataGrid` がこのプロトコルを実装する必要があり、
+`TemplateColumn.Initialize` / `ItemTemplate` / `TableCell` の子コントロール描画まで
+連動します。**「名前から BoundField に読み替える」のは推測**であって、
+`imagecommandcolumn` のような列では間違った描画になります。
+規模が大きいので独立した作業として残します。

@@ -3752,3 +3752,43 @@ CS1501 引数 1 を指定するメソッド 'Eval' のオーバーロードは�
 
 数値はベースラインどおり(総残差 507 / ビルドエラー 46)、
 パリティ 30/30、bUnit 30/30、回帰ゲート 13/13。
+
+### 切り分けの結果(確定した事実)
+
+前節の「機序が不明」を 3 回の実験で詰めました。
+
+| 実験 | yaf ビルドエラー | 結論 |
+|---|---:|---|
+| `Semantics = null`(既定) | 1 | 基準 |
+| **索引を作るだけで使わない** | **1** | **索引の構築は無実** |
+| 索引を使う(override を 1 つ落とす) | 2135 | **override 削除そのものが原因** |
+
+つまり `ProfiledProviderFactory.CreatePermission` の `override` を外すこと自体が
+2135 件を生んでいます。生成された当該メソッドは正しく、しかも:
+
+- `BoardContext` は**除外型スタブ**で、`BoardSettings` は**元から宣言されていません**。
+  それでも `Semantics = null` のとき生のビルドエラーは **2 行(実質 1 件)**しかなく、
+  `BoardContext.Current.BoardSettings` を使う `PageLinkExtensions.cs` は通っています。
+- `UserPageBase` は基底も実装インターフェイスも持たない `abstract class` です。
+
+**この 2 つは両立しないはず**で、そこが未解明の核心です。
+`Semantics = null` のときに `BoardSettings` がどう解決されているのかが分かれば、
+なぜ無関係な override 削除でそれが壊れるのかも分かるはずです。
+
+### 試して外した案
+
+メンバーが `#if` ブロックにあることに着目し
+「条件付きコンパイル領域のメンバーは書き換えない」(`member.ContainsDirectives`)を入れましたが、
+**効きませんでした**(yaf 2135 のまま、mojo が 13→14 に悪化)。
+`#endif` はメンバーの内側ではなく**外側**にあるため、`ContainsDirectives` は false です。
+撤回しました。
+
+### 現状
+
+`SemanticBaseIndex` はコードとして残し、**未配線**(`Semantics = null`)。
+数値はベースラインどおり(総残差 507 / ビルドエラー 46)。
+
+次に確かめること: `Semantics = null` のビルドで `BoardContext.Current.BoardSettings` が
+**どの宣言に解決されているのか**。`dotnet build` に `/p:EmitCompilerGeneratedFiles` か、
+出力プロジェクトを Roslyn で開いて `SemanticModel` に聞くのが確実です。
+それが分かるまで配線しません。

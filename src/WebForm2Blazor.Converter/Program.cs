@@ -592,7 +592,14 @@ do
             continue;
         }
 
-        if (goneTypes.FirstOrDefault(gone => UsesGoneType(source, gone)) is { Type.Length: > 0 } goneType)
+        // Blanked FIRST, so a type named in a STRING is not read as a dependency. That is
+        // the same mistake PortabilityRules made and the same fix: BlogEngine's
+        // CodeExpressionBuilder carries
+        //     [ExpressionEditor("BlogEngine.Core.Compilation.Design.CodeExpressionEditor, BlogEngine.Core")]
+        // and four of its expression builders were excluded for a string literal - the
+        // attribute names the editor by TEXT precisely because it does not reference it.
+        var code = WebForm2Blazor.Converter.Convert.PortabilityRules.WithoutStringsAndComments(source);
+        if (goneTypes.FirstOrDefault(gone => UsesGoneType(code, gone)) is { Type.Length: > 0 } goneType)
         {
             excludedCandidates.Add(i);
             cascadeChanged = true;

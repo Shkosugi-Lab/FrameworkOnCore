@@ -3485,3 +3485,65 @@ ConfigurationManager.RefreshSection("BlogEngine/blogFileSystemProvider");
 
 パリティ 30/30、bUnit 30/30、回帰ゲート 13/13。
 **9 ファイル戻してビルドエラーが増えていない**のが要点です。
+
+---
+
+## 同じ罠を 2 度目 — 連鎖除外も文字列リテラルを読んでいた
+
+連鎖除外 22 件の「根」を数えると:
+
+| 根 | 件数 |
+|---|---:|
+| n2 `ControlPanel` / `Tree` / `Link` ほか | 12 |
+| **be `BlogEngine.Core.Compilation.Design.*ExpressionEditor`** | **4** |
+| dnn MVC 系(範囲外) | 3 |
+| その他 | 3 |
+
+be の 4 件を見に行くと、依存の実体はこれだけでした。
+
+```csharp
+[ExpressionEditor("BlogEngine.Core.Compilation.Design.CodeExpressionEditor, BlogEngine.Core")]
+public class CodeExpressionBuilder : ExpressionBuilder
+```
+
+**文字列リテラルです。** しかもこの属性が型名を文字列で書いているのは、
+**参照していないから**です(デザイナ専用の型を実行時に読み込ませないための書き方)。
+それを「依存」と読んで 4 ファイルを捨てていました。
+
+`UsesGoneType` は素の `source.Contains(...)` でした。
+`PortabilityRules.FindQualifiedFrameworkReference` は**まったく同じ誤りを既に直して**います
+(DNN の `Reflection.CreateType("System.Data.Linq.DataContext", true)` で
+1 ファイル除外 → 連鎖して百件近く、という記録がこの README にあります)。
+片方を直したときにもう片方を直さなかったので、別の場所で同じ形が残っていました。
+
+**このセッションで同じ構図は 3 度目です**:
+- 基底リストの先頭がインターフェイス(override 判定 → 基底連鎖)
+- 描画可能な基底の手書きリストが 2 つ
+- 文字列リテラルを依存と読む(移植性判定 → 連鎖除外)
+
+いずれも「片方で学んだことを、同じことをしている別の場所に適用していなかった」だけです。
+`WithoutStringsAndComments` を `internal` にして共有しました。
+
+### 計測
+
+| | 変更前 | 変更後 |
+|---|---:|---:|
+| be 移植 .cs | 257 | **261** |
+| dnn 移植 .cs | 2053 | **2055** |
+| be 総残差 | 68 | **64** |
+| dnn 総残差 | 154 | **152** |
+| 合計総残差 | 513 | **507** |
+| **ビルドエラー** | 50 | **49** |
+
+パリティ 30/30、bUnit 30/30、回帰ゲート 13/13。
+6 ファイル戻してビルドエラーが**減った**のは、戻ったファイルが
+他のファイルの未解決参照を埋めたからです。
+
+### このセッションの累計
+
+| | 開始時 | 現在 |
+|---|---:|---:|
+| 総残差 | 702 | **507**(−28%) |
+| ビルドエラー | 216 | **49**(−77%) |
+| 未対応コントロール | 113 | **28** |
+| 標準コントロール未実装 | 34 | **0** |

@@ -123,7 +123,7 @@ public static class PortabilityRules
     /// The characters are replaced rather than removed so that every offset - and so the
     /// surrounding-character test below - keeps working.
     /// </summary>
-    private static string WithoutStringsAndComments(string source)
+    internal static string WithoutStringsAndComments(string source)
     {
         var text = new System.Text.StringBuilder(source);
 

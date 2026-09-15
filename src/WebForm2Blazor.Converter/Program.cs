@@ -634,7 +634,7 @@ var portedTypes = WebForm2Blazor.Converter.Convert.PortedTypeIndex.Build(portedS
 // 2135, in files that have nothing to do with it. The output for the dropped member is
 // correct, so the damage is somewhere else in the pipeline and is not understood yet.
 // Shipping it in that state would trade one honest error for two thousand.
-WebForm2Blazor.Converter.Convert.CodeBehindRewriter.Semantics = null;
+WebForm2Blazor.Converter.Convert.CodeBehindRewriter.Semantics = WebForm2Blazor.Converter.Convert.SemanticBaseIndex.Build(portedSources);
 
 // A global using does not appear in the file it reaches, so the disambiguator has to be
 // told about them. The web project's stay global (its pages' generated halves rely on

@@ -164,7 +164,34 @@ public static partial class BuildVerifier
         => diagnostics.Any(diagnostic => ParseErrorCodes.Contains(diagnostic.Code))
             || (diagnostics.Count > 0
                 && !diagnostics.Any(diagnostic =>
-                    diagnostic.Code.StartsWith("CS", StringComparison.Ordinal)));
+                    diagnostic.Code.StartsWith("CS", StringComparison.Ordinal)))
+            || StoppedAtDeclarations(diagnostics);
+
+    /// <summary>
+    /// Errors a SIGNATURE can have, which is all the Razor SDK's first pass checks.
+    ///
+    /// A Blazor project compiles twice: a declaration-only pass, then the real one with the
+    /// generated .razor code. An error in the first pass stops the build before the second,
+    /// and only signature-level diagnostics are reported - method BODIES were never bound.
+    /// </summary>
+    private static readonly HashSet<string> DeclarationErrorCodes = new(StringComparer.Ordinal)
+    {
+        "CS0115", "CS0534", "CS0507", "CS0533", "CS0106", "CS0111", "CS0101", "CS0509",
+        "CS0549", "CS0238", "CS0539", "CS0736", "CS0738",
+    };
+
+    /// <summary>
+    /// True when every error is one the declaration pass could have raised, which means the
+    /// build may never have reached the pass that binds method bodies.
+    ///
+    /// YAF reported ONE build error for a long time. Removing that one error - an override
+    /// of DbProviderFactory.CreatePermission, a member .NET deleted - took the count to
+    /// 2135, because the declaration pass had been failing on it and the real compile had
+    /// never run. The number was a floor and nothing said so. It says so now.
+    /// </summary>
+    private static bool StoppedAtDeclarations(List<Diagnostic> diagnostics)
+        => diagnostics.Count > 0
+           && diagnostics.All(diagnostic => DeclarationErrorCodes.Contains(diagnostic.Code));
 
     /// <summary>
     /// Diagnostics caused by a vendored DLL whose replacement package the user has not

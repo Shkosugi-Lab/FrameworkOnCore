@@ -486,15 +486,17 @@ public static class CodeBehindRewriter
                 : typeof(WebForm2Blazor.Components.WebFormsControlBase).Assembly
                     .GetType("WebForm2Blazor.Components." + simpleName);
 
-            // Resolving the base against the FRAMEWORK was tried here and reverted. A base
-            // is written unqualified, so the lookup goes through the file's System.*
-            // imports by simple name - and matching a base by simple name is the trap this
-            // file has been burned by before. Measured: residuals 507 -> 580 and build
-            // errors 46 -> 65, both worse, which is what a wrong override drop looks like.
-            // Judging a framework base needs the base to be RESOLVED, not name-matched.
-            if (baseType is null && !portedBase)
+            // Neither the compat layer's nor the application's. It may still be a type a
+            // real compilation can resolve - the framework's - and SemanticBaseIndex asks
+            // that question properly. Name-matching it was tried and reverted (residuals
+            // 507 -> 580, build errors 46 -> 65): a base is written unqualified, and
+            // matching a base by simple name is the trap this file has been burned by
+            // repeatedly. The semantic answer is null unless the whole chain resolved.
+            var metadataName = MetadataNameOf(classDeclaration);
+            if (baseType is null && !portedBase
+                && (metadataName is null || Semantics is null))
             {
-                // Third-party. Its members are not ours to judge.
+                // Third-party, and nothing can resolve it. Its members are not ours to judge.
                 return classDeclaration;
             }
 
@@ -514,11 +516,20 @@ public static class CodeBehindRewriter
                     continue;
                 }
 
-                var found = portedBase
+                bool? found = portedBase
                     ? portedTypes!.AnyBaseDeclares(baseKey, name, CompatDeclares)
-                    : DeclaresMember(baseType!, name);
+                    : baseType is not null
+                        ? DeclaresMember(baseType, name)
+                        : Semantics!.BaseDeclaresMember(metadataName!, name);
 
-                if (found)
+                if (found is null)
+                {
+                    // The base chain could not be resolved all the way. Nothing is known,
+                    // so nothing is changed - the same answer as a third-party base.
+                    continue;
+                }
+
+                if (found == true)
                 {
                     if (baseType is null)
                     {
@@ -1082,6 +1093,34 @@ public static class CodeBehindRewriter
     /// way; looking only at the file-level list left every System.Web import in place
     /// and the compatibility namespace unimported, so nothing in those files resolved.
     /// </summary>
+    /// <summary>
+    /// The semantic index for this conversion, or null outside one. Ambient rather than
+    /// threaded through eight signatures; the converter builds one per run and the rewrite
+    /// runs on a single thread.
+    /// </summary>
+    internal static SemanticBaseIndex? Semantics { get; set; }
+
+    /// <summary>
+    /// A class's metadata name ("YAF.Data.ProfiledProviderFactory", "N2.Web.Page`1"), which
+    /// is how a compilation is asked for a type. Null for a nested class, where the
+    /// metadata name uses "+" and the extra cases are not worth guessing at.
+    /// </summary>
+    private static string? MetadataNameOf(ClassDeclarationSyntax declaration)
+    {
+        if (declaration.Parent is TypeDeclarationSyntax)
+        {
+            return null;
+        }
+
+        var namespaceName = declaration.Ancestors()
+            .OfType<BaseNamespaceDeclarationSyntax>()
+            .FirstOrDefault()?.Name.ToString();
+        var arity = declaration.TypeParameterList?.Parameters.Count ?? 0;
+
+        var name = declaration.Identifier.Text + (arity == 0 ? string.Empty : "`" + arity);
+        return string.IsNullOrEmpty(namespaceName) ? name : namespaceName + "." + name;
+    }
+
     private static List<UsingDirectiveSyntax> AllUsings(CompilationUnitSyntax root)
         => [.. root.Usings,
             .. root.DescendantNodes().OfType<BaseNamespaceDeclarationSyntax>().SelectMany(ns => ns.Usings)];

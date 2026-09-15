@@ -3685,3 +3685,70 @@ override 削除パスは「互換層の基底」と「アプリ自身の基底�
 | 合計総残差 | 507 | 507 |
 
 パリティ 30/30、bUnit 30/30、回帰ゲート 13/13。
+
+---
+
+## セマンティックモデルで基底を解決する(実装済み・未配線)
+
+「単純名で基底を照合する」を根本から直すため、`SemanticBaseIndex` を実装しました。
+
+```csharp
+// 移植前の元ソース全部を CSharpCompilation に入れ、この変換器が動いている
+// フレームワークの参照アセンブリ(TRUSTED_PLATFORM_ASSEMBLIES)を付ける。
+// あとは C# 自身の名前解決に任せる — 囲っている名前空間が先、次に using。
+public bool? BaseDeclaresMember(string metadataName, string memberName)
+```
+
+**`bool?` にしたのが肝**です。`null` =「基底連鎖を最後まで解決できなかった」。
+これらのアプリは大半が `System.Web` の型を継いでおり、それはここに存在しません。
+**連鎖が object まで全部解決できたときだけ** `false`(= メンバは本当に無い)を返し、
+override を落とすのはその場合だけにしました。
+
+### 結果: yaf が 1 → 2135 ビルドエラー
+
+落ちた override は**ちょうど 1 つ**、しかも**正しいもの**でした。
+
+```
+ProfiledProviderFactory.CreatePermission の override を外しました
+```
+
+`DbProviderFactory.CreatePermission` は Code Access Security とともに .NET から削除された
+メンバーで、これは間違いなく CS0115 になる override です。生成結果も正しい:
+
+```csharp
+public virtual System.Security.CodeAccessPermission CreatePermission(PermissionState state) =>
+    WrappedFactory.CreatePermission(state);
+```
+
+ところがビルドエラーは **1 → 2135**。しかも中身が無関係です。
+
+```
+CS1061 'BoardContext' に 'BoardSettings' の定義が含まれておらず…   1138
+CS1929 'BoardContext' に 'Get' の定義が含まれておらず…              476
+CS1501 引数 1 を指定するメソッド 'Eval' のオーバーロードはありません      202
+```
+
+**`override` を 1 つ外しただけで、これらが出る筋道がまだ分かっていません。**
+切り分けは済んでいます(`Semantics = null` にすると 1 に戻る)ので、原因は確かに
+この経路ですが、機序は不明です。仮説:
+
+- `BoardContext` は出力に `BoardContext.cs` として存在しない。
+  除外型スタブか partial の片割れの可能性がある。
+- その場合、原因は override 削除そのものではなく、
+  **セマンティック索引を作る過程で何かが変わっている**(全ソースの再パース、
+  参照アセンブリの読み込み等)。
+
+### 配線しないことにしました
+
+**正しいエラー 1 件を、原因不明のエラー 2135 件と引き換えにはできません。**
+`SemanticBaseIndex` はコードとして残し、`Program.cs` では `Semantics = null` にしてあります。
+配線を戻すのは 1 行です。
+
+次にやること:
+1. `BoardContext` が出力のどこで宣言されているかを特定する
+   (スタブか、partial か、別名のファイルか)。
+2. `Semantics` を作るだけで(使わずに)変換して、数値が動くかを見る。
+   動けば原因は索引の構築、動かなければ override 削除の下流。
+
+数値はベースラインどおり(総残差 507 / ビルドエラー 46)、
+パリティ 30/30、bUnit 30/30、回帰ゲート 13/13。

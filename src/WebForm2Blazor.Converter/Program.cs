@@ -626,6 +626,16 @@ var compatImports = WebForm2Blazor.Converter.Convert.CompatImportDisambiguator.B
 // the whole chain rather than only a direct compat base.
 var portedTypes = WebForm2Blazor.Converter.Convert.PortedTypeIndex.Build(portedSources);
 
+// The same question asked of a real compilation: what a base actually IS, rather than what
+// its written name looks like. Only used where the name-based lookups have nothing to say.
+// NOT WIRED YET - see corpora/README.md. Building it and letting the override-drop pass
+// use it made YAF drop exactly one override (the right one, DbProviderFactory.CreatePermission,
+// removed from .NET with Code Access Security) and took that corpus from 1 build error to
+// 2135, in files that have nothing to do with it. The output for the dropped member is
+// correct, so the damage is somewhere else in the pipeline and is not understood yet.
+// Shipping it in that state would trade one honest error for two thousand.
+WebForm2Blazor.Converter.Convert.CodeBehindRewriter.Semantics = null;
+
 // A global using does not appear in the file it reaches, so the disambiguator has to be
 // told about them. The web project's stay global (its pages' generated halves rely on
 // them) and so does the compat namespace the generated project imports for everyone.

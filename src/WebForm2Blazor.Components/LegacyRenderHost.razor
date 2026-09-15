@@ -216,77 +216,12 @@
         _endHtml = null;
     }
 
+    // "Find the type, apply the markup attributes" lives in LegacyActivator, which the
+    // grid's legacy columns use as well. Two copies of a rule is how this codebase has
+    // repeatedly gone wrong - two hand-written lists of renderable base classes disagreed
+    // and cost 69 unmapped controls - so there is one, and this delegates to it.
     private static void SetProperty(Type type, object instance, string name, string value)
-    {
-        if (value is null)
-        {
-            return;
-        }
-        var property = type.GetProperty(name,
-            System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance
-            | System.Reflection.BindingFlags.IgnoreCase);
-        if (property is null || !property.CanWrite)
-        {
-            return;
-        }
+        => LegacyActivator.SetProperty(type, instance, name, value);
 
-        property.SetValue(instance, ConvertMarkupValue(value, property.PropertyType));
-    }
-
-    /// <summary>
-    /// A markup attribute's text as the property's type.
-    ///
-    /// Convert.ChangeType alone is not enough, and the failure was total rather than
-    /// partial: it only handles IConvertible, so Width="90%" on a ported control threw
-    /// "Invalid cast from 'System.String' to 'Unit'" and the WHOLE control rendered as
-    /// "[render error]" - one attribute taking down BlogEngine's PostCalendar. WebForms
-    /// parsed markup attributes through TypeConverter, so that is what is used here, with
-    /// IConvertible as the fallback rather than the first choice.
-    /// </summary>
-    private static object ConvertMarkupValue(string value, Type targetType)
-    {
-        var type = Nullable.GetUnderlyingType(targetType) ?? targetType;
-
-        if (type == typeof(string))
-        {
-            return value;
-        }
-        if (type.IsEnum)
-        {
-            return Enum.Parse(type, value, ignoreCase: true);
-        }
-
-        var converter = System.ComponentModel.TypeDescriptor.GetConverter(type);
-        if (converter is not null && converter.CanConvertFrom(typeof(string)))
-        {
-            return converter.ConvertFromInvariantString(value);
-        }
-
-        // A type with a public T(string) constructor - the compat Unit is written that way
-        // because ported code says new Unit("250").
-        if (type.GetConstructor([typeof(string)]) is { } fromString)
-        {
-            return fromString.Invoke([value]);
-        }
-
-        return Convert.ChangeType(value, type, System.Globalization.CultureInfo.InvariantCulture);
-    }
-
-    private static Type ResolveType(string typeName)
-    {
-        var direct = Type.GetType(typeName);
-        if (direct is not null)
-        {
-            return direct;
-        }
-        foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
-        {
-            var type = assembly.GetType(typeName);
-            if (type is not null)
-            {
-                return type;
-            }
-        }
-        return null;
-    }
+    private static Type ResolveType(string typeName) => LegacyActivator.ResolveType(typeName);
 }

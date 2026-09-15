@@ -36,6 +36,15 @@ public static class ConfigurationManager
     /// Still null when the section is genuinely absent, so callers keep their
     /// "section missing" branch.
     /// </summary>
+    /// <summary>
+    /// System.Configuration.ConfigurationManager.RefreshSection: discards the cached
+    /// section so the next read re-parses it. Forwarded to the real one, which is what the
+    /// ported code is asking for - the sections come from the App.config the converter
+    /// carried over, and that is exactly what it caches.
+    /// </summary>
+    public static void RefreshSection(string sectionName)
+        => System.Configuration.ConfigurationManager.RefreshSection(sectionName);
+
     public static object GetSection(string sectionName)
     {
         try

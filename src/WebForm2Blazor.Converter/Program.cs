@@ -1896,6 +1896,10 @@ static (string Prefix, string Id, string Version)[] KnownPackages()
         ("System.Configuration", "System.Configuration.ConfigurationManager", RuntimeLibraryVersion),
         ("System.Drawing", "System.Drawing.Common", RuntimeLibraryVersion),
         ("Ionic.Zip", "DotNetZip", "1.16.0"),
+        // SharpZipLib. Referenced on 4.8 as a checked-in DLL, which leaves no NuGet trace
+        // to carry over. The modern package is the SAME library - it has shipped
+        // netstandard2.0 since 1.0 - so the ported code resolves against it.
+        ("ICSharpCode.SharpZipLib", "SharpZipLib", "1.4.2"),
         ("System.ServiceModel.Syndication", "System.ServiceModel.Syndication", RuntimeLibraryVersion),
         ("System.DirectoryServices", "System.DirectoryServices", RuntimeLibraryVersion),
         // MEF. Referenced on 4.8 as a GAC assembly ("<Reference Include=" with no HintPath),

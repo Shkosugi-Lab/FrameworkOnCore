@@ -67,7 +67,12 @@ public static class PortabilityRules
         // are exactly that. A WCF service is not a WebForms page.
         "System.ServiceModel.Activation", "System.ServiceModel.Web",
         // Framework-only third-party libraries with no .NET build
-        "Microsoft.Ajax", "BlogML", "ICSharpCode",
+        //
+        // ICSharpCode was here and cost 7 files across BlogEngine, DNN and n2. That was
+        // simply wrong: SharpZipLib has shipped netstandard2.0 since 1.0 and targets .NET
+        // today, so it is not Framework-only at all. The namespace now resolves through
+        // the SharpZipLib package (see KnownPackages) and those files port.
+        "Microsoft.Ajax", "BlogML",
     ];
 
     public static bool IsFrameworkOnly(string ns)

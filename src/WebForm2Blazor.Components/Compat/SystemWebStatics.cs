@@ -391,7 +391,49 @@ public static class WebConfigurationManager
 
     public static object GetWebApplicationSection(string sectionName) => null;
 
-    public static object OpenWebConfiguration(string path) => null;
+    /// <summary>
+    /// System.Web.Configuration.WebConfigurationManager.OpenWebConfiguration equivalent.
+    ///
+    /// Used to return null, so "config.GetSection(...)" was a compile error on the object
+    /// it handed back - BlogEngine's FileSystemUtilities opens the configuration, reads a
+    /// section, changes the default provider and saves. Returning a real object lets that
+    /// code say what it always said; what it CANNOT do is silently pretend to save.
+    /// </summary>
+    public static Configuration OpenWebConfiguration(string path) => new();
+}
+
+/// <summary>
+/// System.Configuration.Configuration equivalent - the object an application gets back
+/// when it opens its own configuration to read or change a section.
+/// </summary>
+public sealed class Configuration
+{
+    /// <summary>Same source as everything else: the App.config carried over from Web.config.</summary>
+    public object GetSection(string sectionName) => Compat.ConfigurationManager.GetSection(sectionName);
+
+    public Compat.ConfigurationManager.AppSettingsSection AppSettings => Compat.ConfigurationManager.AppSettings;
+
+    public Compat.ConfigurationManager.ConnectionStringsSection ConnectionStrings
+        => Compat.ConfigurationManager.ConnectionStrings;
+
+    /// <summary>Where the configuration was read from (the carried-over App.config).</summary>
+    public string FilePath => System.IO.Path.Combine(
+        AppContext.BaseDirectory,
+        System.Reflection.Assembly.GetEntryAssembly()?.GetName().Name + ".dll.config");
+
+    /// <summary>
+    /// Writing the configuration back is NOT done here, and it throws rather than doing
+    /// nothing. An application saves its configuration to change its own behaviour -
+    /// BlogEngine switches file-system providers this way - and a no-op would report
+    /// success while the setting stayed as it was, which is the worst of the three
+    /// possible answers. Persisting it needs a decision about where the converted
+    /// application's configuration lives, so it is raised at the call site.
+    /// </summary>
+    public void Save() => throw new NotSupportedException(
+        "設定ファイルへの書き戻しは変換後アプリでは未対応です"
+        + "(黙って何もしないと、変更できたように見えて実際は変わりません)。");
+
+    public void Save(object saveMode) => Save();
 }
 
 /// <summary>

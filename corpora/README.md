@@ -3416,3 +3416,72 @@ WebForms は変換できない属性を**パース時**に弾くので、実行�
 すべて据え置き(総残差 522 / ビルドエラー 50)。
 パリティ 30/30、bUnit 30/30、回帰ゲート 13/13。
 **数字が動かないのが正しい変更**です(同じ規則を 1 箇所にまとめただけなので)。
+
+---
+
+## `ICSharpCode` は Framework 専用ではなかった
+
+除外の原因を名前空間別に数え直すと、最大は `ICSharpCode.SharpZipLib.Zip` の **7 ファイル**でした
+(be / dnn / n2)。除外リストでの分類は
+
+```
+// Framework-only third-party libraries with no .NET build
+"Microsoft.Ajax", "BlogML", "ICSharpCode",
+```
+
+でしたが、**SharpZipLib は 1.0(2018)から netstandard2.0 を出しており、
+今は .NET を直接ターゲットしています**。「.NET ビルドが無い」は事実ではありません。
+除外をやめ、`KnownPackages` に `ICSharpCode.SharpZipLib → SharpZipLib 1.4.*` を足して、
+移植コードが**本物のパッケージに解決される**ようにしました。
+
+### 露出した欠陥: `OpenWebConfiguration` が null を返していた
+
+9 ファイル戻した結果、be のビルドエラーが 0 → 6 になりました。
+**SharpZipLib のエラーではありません。**
+
+```csharp
+var config = WebConfigurationManager.OpenWebConfiguration("~");
+var section = (BlogFileSystemProviderSection)config.GetSection("BlogEngine/blogFileSystemProvider");
+section.DefaultProvider = NewProviderName;
+config.Save();
+ConfigurationManager.RefreshSection("BlogEngine/blogFileSystemProvider");
+```
+
+`OpenWebConfiguration` は `object` の `null` を返していたので、
+`config.GetSection(...)` がコンパイルエラー。`RefreshSection` も未宣言でした。
+
+- `Configuration` 型を追加(`GetSection` / `AppSettings` / `ConnectionStrings` / `FilePath`)。
+- `ConfigurationManager.RefreshSection` は**本物へ転送**します。
+  セクションの出所は変換器が引き継いだ App.config で、キャッシュしているのもそれなので、
+  ported code が求めているものと一致します。
+
+### `Save()` は「何もしない」ではなく例外にしました
+
+ここは判断が要る箇所なので明記します。BlogEngine はこのコードで
+**ファイルシステムプロバイダを切り替えます**。`Save()` を無言の no-op にすると、
+画面上は成功したように見えて設定は元のまま — 3 つの選択肢のうち最悪です。
+
+| 選択肢 | 評価 |
+|---|---|
+| 無言の no-op | **最悪**。成功したように見えて変わらない |
+| 実際に書き戻す | 変換後アプリの設定がどこに住むかの決定が要る(別作業) |
+| 呼び出し箇所で例外 | **採用**。壊れている場所がその場で分かる |
+
+除外型スタブが採っているのと同じ方針です
+(「a stub that does not compile helps no one / methods throw」)。
+
+### 計測
+
+| | 変更前 | 変更後 |
+|---|---:|---:|
+| be 移植 .cs | 255 | **257** |
+| dnn 移植 .cs | 2049 | **2053** |
+| n2 移植 .cs | 1676 | **1679** |
+| be 総残差 | 70 | **68** |
+| dnn 総残差 | 158 | **154** |
+| n2 総残差 | 139 | **136** |
+| 合計総残差 | 522 | **513** |
+| ビルドエラー | 50 | **50**(変化なし) |
+
+パリティ 30/30、bUnit 30/30、回帰ゲート 13/13。
+**9 ファイル戻してビルドエラーが増えていない**のが要点です。

@@ -1,8 +1,8 @@
 {
     "be":  {
                "convertible":  2,
-               "portedCs":  255,
-               "residuals":  70,
+               "portedCs":  257,
+               "residuals":  68,
                "buildErrors":  0
            },
     "mojo":  {
@@ -19,14 +19,14 @@
             },
     "dnn":  {
                 "convertible":  10,
-                "portedCs":  2049,
-                "residuals":  158,
+                "portedCs":  2053,
+                "residuals":  154,
                 "buildErrors":  20
             },
     "n2":  {
                "convertible":  11,
-               "portedCs":  1676,
-               "residuals":  139,
+               "portedCs":  1679,
+               "residuals":  136,
                "buildErrors":  13
            },
     "wt":  {

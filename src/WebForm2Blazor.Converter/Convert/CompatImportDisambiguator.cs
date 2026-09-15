@@ -108,6 +108,7 @@ public sealed class CompatImportDisambiguator
     {
         var unit = CodeBehindRewriter.ParseUnit(source);
         unit = QualifyNamesBrokenByMerging(unit);
+        unit = QualifyGenericsTheFrameworkNowAlsoDeclares(unit);
         var imports = unit.Usings
             .Where(directive => directive.Alias is null && directive.StaticKeyword.RawKind == 0)
             .Select(directive => directive.Name?.ToString())
@@ -178,6 +179,88 @@ public sealed class CompatImportDisambiguator
     /// An alias cannot fix this: namespace members are looked up before using aliases at
     /// every level. The name has to be written out.
     /// </summary>
+    /// <summary>
+    /// Writes out in full a GENERIC name that the application declares and the framework
+    /// has since grown a type of the same name and arity for.
+    ///
+    /// .NET 10 added System.Collections.Generic.OrderedDictionary&lt;TKey,TValue&gt;, and
+    /// System.Collections.Generic is an implicit using. YAF vendors J2N, whose
+    /// J2N.Collections.Generic.OrderedDictionary&lt;TKey,TValue&gt; it imports by namespace, so
+    /// every use in Lucene.Net's BufferedUpdates became CS0104 - code that was correct when
+    /// it was written and that nobody touched.
+    ///
+    /// An alias cannot fix it: C# has no alias for an OPEN generic. The name has to be
+    /// written out, and the application's own type is the one that wins, because it is the
+    /// one the code meant.
+    /// </summary>
+    private CompilationUnitSyntax QualifyGenericsTheFrameworkNowAlsoDeclares(CompilationUnitSyntax unit)
+    {
+        var imports = unit.Usings
+            .Where(directive => directive.Alias is null && directive.StaticKeyword.RawKind == 0)
+            .Select(directive => directive.Name?.ToString())
+            .OfType<string>()
+            .ToList();
+
+        if (imports.Count == 0)
+        {
+            return unit;
+        }
+
+        var rewrites = new Dictionary<GenericNameSyntax, string>();
+        foreach (var generic in unit.DescendantNodes().OfType<GenericNameSyntax>())
+        {
+            // Already qualified ("JCG.OrderedDictionary<...>") - nothing ambiguous about it.
+            if (generic.Parent is QualifiedNameSyntax { Right: var right } && right == generic)
+            {
+                continue;
+            }
+
+            var name = generic.Identifier.Text;
+            var arity = generic.TypeArgumentList.Arguments.Count;
+
+            // The AMBIENT namespace that now also declares this name. Ambient means a
+            // project-wide implicit using - nothing in the file asked for it.
+            var ambient = _ambientImports.FirstOrDefault(ns =>
+                FrameworkTypeIndex.Contains($"{ns}.{name}`{arity}"));
+            if (ambient is null)
+            {
+                continue;
+            }
+
+            // The file's own import that mirrors it. A library reimplementing a BCL
+            // namespace mirrors its tail on purpose - J2N.Collections.Generic against
+            // System.Collections.Generic - and the file importing it by name is the
+            // evidence of which one the code meant. An implicit using is not a choice
+            // anybody made in this file; an explicit one is.
+            var owner = imports.FirstOrDefault(ns =>
+                ns != ambient && SharesNamespaceTail(ns, ambient));
+            if (owner is not null)
+            {
+                rewrites[generic] = owner;
+            }
+        }
+
+        return rewrites.Count == 0
+            ? unit
+            : unit.ReplaceNodes(rewrites.Keys, (original, _) => SyntaxFactory
+                .ParseTypeName($"{rewrites[original]}.{original.ToString()}")
+                .WithTriviaFrom(original));
+    }
+
+    /// <summary>
+    /// Whether two namespaces agree on everything after their first segment
+    /// ("J2N.Collections.Generic" and "System.Collections.Generic"). That is what a
+    /// library reimplementing part of the BCL looks like, and it is deliberate on the
+    /// library's part - the tail is the promise that the types line up.
+    /// </summary>
+    private static bool SharesNamespaceTail(string one, string other)
+    {
+        var first = one.IndexOf('.');
+        var second = other.IndexOf('.');
+        return first > 0 && second > 0
+               && string.Equals(one[(first + 1)..], other[(second + 1)..], StringComparison.Ordinal);
+    }
+
     private CompilationUnitSyntax QualifyNamesBrokenByMerging(CompilationUnitSyntax unit)
     {
         var imports = unit.Usings

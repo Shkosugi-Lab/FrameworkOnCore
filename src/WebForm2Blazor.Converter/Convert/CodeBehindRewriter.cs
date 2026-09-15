@@ -486,6 +486,12 @@ public static class CodeBehindRewriter
                 : typeof(WebForm2Blazor.Components.WebFormsControlBase).Assembly
                     .GetType("WebForm2Blazor.Components." + simpleName);
 
+            // Resolving the base against the FRAMEWORK was tried here and reverted. A base
+            // is written unqualified, so the lookup goes through the file's System.*
+            // imports by simple name - and matching a base by simple name is the trap this
+            // file has been burned by before. Measured: residuals 507 -> 580 and build
+            // errors 46 -> 65, both worse, which is what a wrong override drop looks like.
+            // Judging a framework base needs the base to be RESOLVED, not name-matched.
             if (baseType is null && !portedBase)
             {
                 // Third-party. Its members are not ours to judge.
@@ -1096,6 +1102,15 @@ public static class CodeBehindRewriter
            // compiles a CodeDom graph, so the types only need to exist. Dropping the
            // import lets them bind to the compat ones.
            || name == "System.CodeDom" || name.StartsWith("System.CodeDom.", StringComparison.Ordinal)
+           // .NET Remoting was removed outright. The namespace does not exist, so the
+           // IMPORT itself is the error (CS0234) - YAF's HelpMenu.cs carries a
+           // "using System.Runtime.Remoting.Contexts;" it never uses. Dropping it removes
+           // the error; a file that really used a remoting type gets a CS0246 naming that
+           // type, which says far more than "the namespace does not exist".
+           // System.Runtime.Remoting.Messaging is excepted: the compat layer declares
+           // CallContext there, and ported code does use it.
+           || (name.StartsWith("System.Runtime.Remoting", StringComparison.Ordinal)
+               && !name.StartsWith("System.Runtime.Remoting.Messaging", StringComparison.Ordinal))
            || name == "AjaxControlToolkit" || name.StartsWith("AjaxControlToolkit.", StringComparison.Ordinal)
            || name == "FredCK" || name.StartsWith("FredCK.", StringComparison.Ordinal);
 

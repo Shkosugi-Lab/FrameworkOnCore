@@ -1532,9 +1532,25 @@ public static class CodeBehindRewriter
     /// (a theme's Site.master), which emits plain fields and would otherwise leave the
     /// @ref target undeclared.
     /// </summary>
+    /// <summary>
+    /// The field a code-behind uses for a legacy-hosted control: the host is captured by
+    /// @ref and the named field reaches through it to the control instance.
+    ///
+    /// The field is typed with the PORTED CONTROL'S OWN TYPE where one is known, not
+    /// dynamic. Dynamic compiles anything, which is why it was used - but it spreads: an
+    /// expression with a dynamic operand is dynamically dispatched, and extension methods
+    /// cannot be dispatched that way. YAF writes
+    ///
+    ///     this.GetRepository&lt;UserAlbumImage&gt;().ListPaged(..., this.PagerTop.PageSize)
+    ///
+    /// and one dynamic argument turned the whole call into CS1973, 44 times. A cast is
+    /// what the type actually is, so nothing is lost by writing it down.
+    /// </summary>
     internal static string EmitLegacyHostField(Emit.ControlField field, string indent)
         => $"{indent}private global::WebForm2Blazor.Components.LegacyRenderHost __{field.Name}_host;\r\n"
-         + $"{indent}protected {field.Type} {field.Name} => __{field.Name}_host?.ControlInstance;\r\n";
+         + (field.Type == "dynamic"
+             ? $"{indent}protected dynamic {field.Name} => __{field.Name}_host?.ControlInstance;\r\n"
+             : $"{indent}protected {field.Type} {field.Name} => __{field.Name}_host?.ControlInstance as {field.Type};\r\n");
 
     /// <summary>
     /// Whether a stand-in of this type can be constructed and can record assignments.

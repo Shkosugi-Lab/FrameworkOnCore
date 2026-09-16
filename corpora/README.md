@@ -4150,3 +4150,67 @@ CS0104  'Constants' があいまい                    25
 
 `FindControlAs` と `ListPaged` は YAF 自身の拡張メソッドで、
 レシーバの型が互換層の型と合っていないために効いていません。次はそこです。
+
+---
+
+## `dynamic` は伝染する — yaf 448 → 1
+
+### RepeaterItem はコントロールではなかった
+
+`'RepeaterItem' に 'FindControlAs' の定義が含まれておらず` 106 件。
+YAF は `e.Item.FindControlAs<Label>("x")` と書きます。これは `Control` の拡張メソッドで、
+変換器は `Control` 引数を `IWebFormsControl` に書き換えます(正しい)。
+ところが**互換層で `IWebFormsControl` を実装していない唯一のものが行そのもの**でした。
+
+WebForms では `RepeaterItem : Control` です。実装しました。
+描画に関わるメンバー(`Visible` / `CssClass` / `Attributes`)は行にとっては不活性ですが、
+**コントロールを期待する場所に行を渡せること**と、
+**その行の `FindControl` がその行のコントロールに届くこと**が要点で、後者は元から出来ていました。
+
+### `dynamic` が 447 件を生んでいた
+
+残り 352 件の正体はこれでした。
+
+```
+CS1973: 'IRepository<UserAlbumImage>' には 'ListPaged' という該当するメソッドがありませんが、
+        同じ名前の拡張メソッドがあるようです。拡張メソッドは動的ディスパッチできません。
+```
+
+該当コード:
+
+```csharp
+this.GetRepository<UserAlbumImage>().ListPaged(
+    this.UserAlbum.ID,
+    this.PagerTop.CurrentPageIndex,   // ← PagerTop が dynamic
+    this.PagerTop.PageSize);
+```
+
+`PagerTop` は LegacyRenderHost 経由のコントロールで、フィールドは `dynamic` でした。
+**引数が 1 つでも dynamic なら、呼び出し全体が動的ディスパッチになります。**
+そして**拡張メソッドは動的ディスパッチできません**。
+
+`dynamic` にしていた理由は「コードビハインドが何を触っても通るから」です。
+しかし**型はその場で分かっています** —— `EmitLegacyRenderHost` は
+`legacyTypeName`(移植済みクラスの完全名)を持っています。
+
+```csharp
+private LegacyRenderHost __PagerTop_host;
+protected global::YAF.Controls.Pager PagerTop
+    => __PagerTop_host?.ControlInstance as global::YAF.Controls.Pager;
+```
+
+**書き下しても失うものはありません。** 型はそれで合っているのですから。
+
+### 計測
+
+| | 変更前 | 変更後 |
+|---|---:|---:|
+| **yaf ビルドエラー** | **448** | **1** |
+| 合計ビルドエラー | 584 | **137** |
+| 合計総残差 | 530 | 530 |
+
+内訳: be 0 / mojo 15 / yaf 1 / dnn 67 / n2 54 / wt 0。
+パリティ 30/30、bUnit 30/30、回帰ゲート 13/13。
+
+`dynamic` の除去は**このセッションで単発としては最大の効果**(447 件)でした。
+「何でも通る型」は、通らないものを作ります。

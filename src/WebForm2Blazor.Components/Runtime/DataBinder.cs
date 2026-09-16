@@ -23,7 +23,7 @@ public enum ListItemType
 /// updates DataItem/ItemIndex on re-bind, so controls registered inside the row stay
 /// resolvable across DataBind calls.
 /// </summary>
-public sealed class RepeaterItem(object dataItem, int itemIndex)
+public sealed class RepeaterItem(object dataItem, int itemIndex) : IWebFormsControl
 {
     private readonly Dictionary<string, IWebFormsControl> _controls = new(StringComparer.Ordinal);
 
@@ -61,6 +61,49 @@ public sealed class RepeaterItem(object dataItem, int itemIndex)
     /// <summary>WebForms Container.FindControl equivalent (controls inside this row).</summary>
     public IWebFormsControl FindControl(string id)
         => id != null && _controls.TryGetValue(id, out var control) ? control : null;
+
+    // --- IWebFormsControl. A row IS a control in WebForms (RepeaterItem : Control), and
+    //     applications write extension methods against Control and call them on the row:
+    //     YAF's "e.Item.FindControlAs<Label>(...)" is 106 of its build errors, because the
+    //     converter rewrites a Control parameter to IWebFormsControl - correctly - and the
+    //     row was the one thing in the compat layer that did not implement it.
+    //
+    //     The members that describe a rendered element are inert here: a row is a position
+    //     in a data-bound control, and Blazor renders its contents from the template. What
+    //     matters is that the row can be passed where a control is expected, and that
+    //     FindControl on it reaches the controls of THAT row - which it already did. ---
+
+    /// <summary>The row has no ID of its own; WebForms names it by position.</summary>
+    public string ID => NamingContainerId is { Length: > 0 } owner
+        ? $"{owner}{ClientIndex}"
+        : ClientIndex.ToString(System.Globalization.CultureInfo.InvariantCulture);
+
+    public string ClientID => ID;
+
+    public bool Visible { get; set; } = true;
+
+    public bool Enabled { get; set; } = true;
+
+    public string CssClass { get; set; } = string.Empty;
+
+    public AttributeCollection Attributes { get; } = new(() => { });
+
+    /// <summary>
+    /// The controls of this row, as a collection. Backed by the same registrations
+    /// FindControl reads, so the two never disagree.
+    /// </summary>
+    public ControlCollection Controls
+    {
+        get
+        {
+            var collection = new ControlCollection();
+            collection.AddRange(_controls.Values);
+            return collection;
+        }
+    }
+
+    /// <summary>A row is not hosted by a page of its own.</summary>
+    public Page Page => null;
 }
 
 /// <summary>WebForms System.Web.UI.DataBinder equivalent (Eval).</summary>

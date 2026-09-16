@@ -1100,7 +1100,11 @@ public sealed partial class MarkupEmitter(EmitContext context)
             // the named field directly is what BlogEngine's "recaptcha.UserUniqueIdentifier"
             // and "pager1.Posts" hit: both resolved against LegacyRenderHost and threw.
             attributes.Add($"@ref=\"__{id}_host\"");
-            context.Fields.Add(new ControlField("dynamic", id, LegacyHost: true));
+
+            // The ported control's own type, not dynamic: the type IS known here, and a
+            // dynamic field spreads into every expression it touches - an extension method
+            // called with a dynamic argument is CS1973, which cost YAF 44 errors.
+            context.Fields.Add(new ControlField("global::" + legacyTypeName, id, LegacyHost: true));
         }
 
         context.Report.Info(context.SourceName,

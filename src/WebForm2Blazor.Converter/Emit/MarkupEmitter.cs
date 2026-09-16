@@ -1104,6 +1104,15 @@ public sealed partial class MarkupEmitter(EmitContext context)
             // The ported control's own type, not dynamic: the type IS known here, and a
             // dynamic field spreads into every expression it touches - an extension method
             // called with a dynamic argument is CS1973, which cost YAF 44 errors.
+            //
+            // A CONVERTED control is re-namespaced (YAF.Web.Controls.Form ->
+            // yaf.Components.Pages.Web.Controls.Form), and these fields are generated after
+            // that rewrite has run, so the original name survives here and one of them -
+            // YAF's ForumPageBase.form1 - does not resolve. Dropping the global:: prefix so
+            // the rewrite could reach it was measured and did not help, for the same
+            // reason: the pass had already finished. One error against 447 is the trade
+            // taken for now; the fix is to re-namespace the field types where they are
+            // emitted rather than before.
             context.Fields.Add(new ControlField("global::" + legacyTypeName, id, LegacyHost: true));
         }
 

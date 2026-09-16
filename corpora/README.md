@@ -4214,3 +4214,28 @@ protected global::YAF.Controls.Pager PagerTop
 
 `dynamic` の除去は**このセッションで単発としては最大の効果**(447 件)でした。
 「何でも通る型」は、通らないものを作ります。
+
+### 撤回: `global::` を外しても再名前空間は効かない(記録)
+
+yaf に残る 1 件はこれでした。
+
+```
+Components/Pages/ForumPageBase.razor.cs(18,27):
+  error CS0400: 型名または名前空間名 'YAF' がグローバル名前空間に見つかりませんでした
+  protected global::YAF.Web.Controls.Form form1 => __form1_host?.ControlInstance as global::YAF.Web.Controls.Form;
+```
+
+同じ `.razor` 側は**再名前空間済み**です。
+
+```razor
+<LegacyRenderHost TypeName="yaf.Components.Pages.Web.Controls.Form" ... />
+```
+
+書き換えの正規表現は `(?<![\w.])Original\.` なので、`global::` の直後(`:` の次)でも
+**マッチするはず**です。そこで `global::` を外してみましたが、**変わりませんでした**。
+
+理由は位置でした。**このフィールドは再名前空間パスが終わった後に生成されます。**
+正規表現の問題ではなく、順序の問題です。
+
+447 件に対して 1 件なので、`global::` 付き(測定上最良)に戻しました。
+正しい直し方は、フィールドの型を**生成時点で**再名前空間することです。

@@ -250,8 +250,25 @@ public sealed class HttpContext
     private HttpContext(Microsoft.AspNetCore.Http.HttpContext aspNetContext)
         => _aspNetContext = aspNetContext;
 
+    [ThreadStatic]
+    private static HttpContext _explicitCurrent;
+
+    /// <summary>
+    /// WebForms HttpContext.Current. Settable, as the original was: code that runs outside
+    /// a request - a background job, a console-mode migration step, a test - assigns it so
+    /// the rest of the application finds a context where it expects one. YAF's installer
+    /// and its scheduler both do.
+    ///
+    /// An assignment is per-thread and wins over the ambient request context until it is
+    /// cleared; setting null restores the request. Making it read-only did not prevent
+    /// anything, it only stopped that code compiling.
+    /// </summary>
     public static HttpContext Current
-        => new(Services?.GetService<Microsoft.AspNetCore.Http.IHttpContextAccessor>()?.HttpContext);
+    {
+        get => _explicitCurrent
+               ?? new(Services?.GetService<Microsoft.AspNetCore.Http.IHttpContextAccessor>()?.HttpContext);
+        set => _explicitCurrent = value;
+    }
 
     /// <summary>
     /// WebForms HttpContext.User equivalent. Settable like the original (a module used to

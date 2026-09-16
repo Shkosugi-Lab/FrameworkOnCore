@@ -9,6 +9,44 @@ public sealed class AttributeCollection(Action onChanged)
 {
     private readonly Dictionary<string, string> _items = new(StringComparer.OrdinalIgnoreCase);
 
+    private CssStyleCollection _cssStyle;
+
+    /// <summary>
+    /// WebForms Control.Attributes.CssStyle: the style attribute addressed one property at
+    /// a time. "Attributes.CssStyle["display"] = "none"" is how code-behind hides something
+    /// without disturbing the rest of the inline style.
+    ///
+    /// It is a VIEW of the "style" attribute, not a second collection - writing through it
+    /// recomposes "a:b;c:d" into this["style"], which is what the original rendered and
+    /// what anything reading Attributes["style"] expects to find.
+    /// </summary>
+    public CssStyleCollection CssStyle
+    {
+        get
+        {
+            if (_cssStyle is null)
+            {
+                _cssStyle = new CssStyleCollection(() => Recompose());
+                foreach (var declaration in (this["style"] ?? string.Empty)
+                             .Split(';', StringSplitOptions.RemoveEmptyEntries))
+                {
+                    var colon = declaration.IndexOf(':');
+                    if (colon > 0)
+                    {
+                        _cssStyle[declaration[..colon].Trim()] = declaration[(colon + 1)..].Trim();
+                    }
+                }
+            }
+            return _cssStyle;
+        }
+    }
+
+    private void Recompose()
+    {
+        var composed = string.Join(';', _cssStyle.Items.Select(pair => $"{pair.Key}:{pair.Value}"));
+        this["style"] = composed.Length == 0 ? null : composed;
+    }
+
     public string this[string key]
     {
         get => _items.TryGetValue(key, out var value) ? value : null;

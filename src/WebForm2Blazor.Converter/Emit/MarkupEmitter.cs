@@ -2092,11 +2092,16 @@ public sealed partial class MarkupEmitter(EmitContext context)
         return single.Length <= 60 ? single : single[..60] + "…";
     }
 
-    // The negative lookbehind keeps DataBinder.Eval(Container.DataItem, "X") - the
-    // long-form idiom common in DNN-era code - untouched: Container resolves to the
-    // row item, so the compat DataBinder.Eval(object, string) works as written.
-    // Only the bare Eval("X") shorthand needs the Container injection.
-    [GeneratedRegex(@"(?<!\.)\bEval\s*\(")]
+    // DataBinder.Eval(Container.DataItem, "X") - the long-form idiom common in DNN-era
+    // code - is left untouched: Container resolves to the row item, so the compat
+    // DataBinder.Eval(object, string) works as written. Only the shorthand needs the
+    // Container injection.
+    //
+    // "this.Eval(...)" IS the shorthand. The lookbehind used to reject any preceding dot,
+    // which rejected it too - and YAF writes it that way throughout, so 203 of its build
+    // errors were "no overload for Eval takes 1 argument". An explicit this is a style
+    // choice, not a different call.
+    [GeneratedRegex(@"(?<![\w.])(?:this\.)?Eval\s*\(")]
     private static partial Regex EvalCallRegex();
 
     [GeneratedRegex(@"(?<![\w.])(?:Item|BindItem)\.")]

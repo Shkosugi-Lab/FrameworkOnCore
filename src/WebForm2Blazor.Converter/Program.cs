@@ -818,10 +818,17 @@ foreach (var component in components)
     }
     else if (component.Fields.Count > 0)
     {
-        // Even a markup-only page (no code-behind) needs a receptacle for @ref
+        // Even a markup-only page (no code-behind) needs a receptacle for @ref.
+        //
+        // Through ApplyNamespaceMap like every other generated file. It was the one output
+        // that skipped it, and the fields name PORTED control types - which are
+        // re-namespaced - so YAF's ForumPageBase ended up with
+        // "global::YAF.Web.Controls.Form" beside a .razor that correctly said
+        // "yaf.Components.Pages.Web.Controls.Form". One file, one error, and the cause was
+        // simply that this branch wrote straight to disk.
         File.WriteAllText(
             Path.Combine(directory, component.ComponentName + ".razor.cs"),
-            GenerateFieldOnlyCodeBehind(component));
+            ApplyNamespaceMap(GenerateFieldOnlyCodeBehind(component)));
         report.Info(component.ComponentName, "コードビハインドがないため、コントロールのフィールドのみを生成しました。");
     }
 }

@@ -323,6 +323,24 @@ public class HierarchicalDataSourceControl : LegacyWebControl
 /// <summary>System.Web.UI.HtmlControls.HtmlTextArea equivalent (declaration surface).</summary>
 public class HtmlTextArea : LegacyWebControl
 {
+    /// <summary>
+    /// WebForms HtmlTextArea.InnerText / InnerHtml. A textarea's content IS its value -
+    /// the element has no separate children - so all three names read and write the same
+    /// string, which is what HtmlTextArea did on 4.8. Code-behind uses whichever it
+    /// happens to prefer: 186 of YAF's build errors were InnerText alone.
+    /// </summary>
+    public string InnerText
+    {
+        get => Value;
+        set => Value = value;
+    }
+
+    public string InnerHtml
+    {
+        get => Value;
+        set => Value = value;
+    }
+
     public string Value { get; set; }
 
     public int Rows { get; set; }

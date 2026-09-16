@@ -4239,3 +4239,85 @@ Components/Pages/ForumPageBase.razor.cs(18,27):
 
 447 件に対して 1 件なので、`global::` 付き(測定上最良)に戻しました。
 正しい直し方は、フィールドの型を**生成時点で**再名前空間することです。
+
+---
+
+## `GenerateFieldOnlyCodeBehind` だけが再名前空間パスを通っていなかった
+
+前節で「フィールドは書き換えパスの後に生成される」と書きましたが、**間違いでした**。
+生成経路は 2 つあります。
+
+```csharp
+if (component.CodeBehindSourcePath is not null)
+{
+    ...
+    File.WriteAllText(..., ApplyNamespaceMap(compatImports.Apply(rewritten)));   // ← 通る
+}
+else if (component.Fields.Count > 0)
+{
+    File.WriteAllText(..., GenerateFieldOnlyCodeBehind(component));              // ← 通らない
+}
+```
+
+**コードビハインドを持たないコンポーネント**(マークアップだけのページ)の
+フィールド専用ファイルが、唯一 `ApplyNamespaceMap` を素通りしていました。
+そこに書かれるのは**移植済みコントロールの型名**で、それは再名前空間されるものです。
+YAF の `ForumPageBase` が `global::YAF.Web.Controls.Form` を持ち、
+隣の `.razor` は正しく `yaf.Components.Pages.Web.Controls.Form` と書いている、
+という食い違いはこれでした。**1 ファイル、1 行の欠落**です。
+
+### また下限値だった(5 回目)
+
+直した結果、yaf は **1 → 337**。`CS0400`("global:: の X がグローバル名前空間にない")も
+宣言パスのエラーなので、`DeclarationErrorCodes` に追加しました。
+
+### 集計表の読み方を間違えていた
+
+337 件の内訳表はこう出ます。
+
+```
+| CS1061 | 186 | 'HtmlTextArea' に 'InnerText' の定義が含まれておらず… |
+```
+
+**186 は CS1061 の総数で、メッセージは代表例 1 件**です。
+`HtmlTextArea.InnerText` を直したら **−4** でした。
+メッセージ別に数え直すと、最大クラスタでも 24 件の長い尾でした。
+
+| メッセージ別 | 件数 |
+|---|---:|
+| `Constants` があいまい | 24 |
+| `HttpRequestBase` に `MapPath` | 24 |
+| `Enumerable.Distinct` の呼び出しがあいまい | 16 |
+| `HttpContext.Current` は読み取り専用 | 8 |
+| `HttpResponseBase` に `ClearContent` / `ClearHeaders` | 16 |
+
+### 塞いだ互換シムの穴
+
+| 追加 | 理由 |
+|---|---|
+| `HtmlTextArea.InnerText` / `InnerHtml` | textarea の中身は値そのもの。3 つの名前が同じ文字列を指すのが 4.8 の挙動 |
+| `HttpRequestBase.MapPath` | 4.8 では `Server.MapPath` と同じメソッドで、どちらからでも呼べた |
+| `HttpResponseBase.ClearContent` / `ClearHeaders` | ファイルやフィードを書く前の「ページの出力は捨てる」。Blazor に捨てる緩衝は無いが、続く Content-Type と書き込みに到達させる必要がある |
+
+### 計測
+
+| | 変更前 | 変更後 |
+|---|---:|---:|
+| yaf ビルドエラー | 1(下限値) | **292**(実数) |
+| 合計ビルドエラー | 137 | 428 |
+| 合計総残差 | 530 | 530 |
+
+パリティ 30/30、bUnit 30/30、回帰ゲート 13/13。
+
+### 付記: バックグラウンド実行の重複でビルドが壊れる
+
+検証が `失敗: converter build` を出しました。原因は変換器ではなく
+
+```
+error MSB3027: ... WebForm2Blazor.Components.dll をコピーできませんでした。
+               このファイルは ".NET Host (6164)" によってロックされています。
+```
+
+**変換とビルドを並行で走らせた自分のせい**でした。
+`dotnet` プロセスを落として直列で回すと全て緑です。
+検証結果を読むときは、失敗が変換器のものか環境のものかを先に確かめること。

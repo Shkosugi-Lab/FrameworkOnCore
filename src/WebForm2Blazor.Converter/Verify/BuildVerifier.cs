@@ -185,6 +185,9 @@ public static partial class BuildVerifier
         // 2, then 10), and every one of those was CS0234/CS0246. Saying "this may be a
         // floor" when it is not costs a sentence; not saying it cost four wrong readings.
         "CS0234", "CS0246", "CS0012", "CS1069",
+        // CS0400 is the same failure written differently: "global::X not found in the
+        // global namespace". It hid yaf's count at 1 while 337 errors waited behind it.
+        "CS0400",
     };
 
     /// <summary>

@@ -80,6 +80,21 @@ public abstract class HttpResponseBase
     /// <summary>Null outside a component (HttpContext.Current.Response): Redirect no-ops.</summary>
     public virtual void Redirect(string url) => _navigation?.NavigateTo(UrlMapper.ResolveUrl(url));
 
+    /// <summary>
+    /// WebForms Response.ClearContent / ClearHeaders. Both are what code calls before
+    /// writing a file or a feed - "throw away whatever the page produced, this response is
+    /// mine now". Blazor owns the response here, so there is nothing buffered to discard;
+    /// the calls exist so the ported sequence still compiles and runs to the part that
+    /// does matter (the content type and the write).
+    /// </summary>
+    public virtual void ClearContent()
+    {
+    }
+
+    public virtual void ClearHeaders()
+    {
+    }
+
     public virtual void Redirect(string url, bool endResponse)
     {
         _ = endResponse; // Blazor has no notion of terminating the response
@@ -258,6 +273,22 @@ public abstract class HttpRequestBase
     }
 
     protected HttpRequestBase(NavigationManager navigation) => _navigation = navigation;
+
+    /// <summary>
+    /// WebForms Request.MapPath: a virtual path as a path on disk. The same answer
+    /// Server.MapPath gives - it was the same method on 4.8, reachable from either object,
+    /// and ported code picks whichever it had in scope.
+    /// </summary>
+    public virtual string MapPath(string virtualPath)
+    {
+        var relative = (virtualPath ?? string.Empty).TrimStart('~').TrimStart('/', '\\');
+        return System.IO.Path.Combine(
+            System.IO.Directory.GetCurrentDirectory(),
+            relative.Replace('/', System.IO.Path.DirectorySeparatorChar));
+    }
+
+    public virtual string MapPath(string virtualPath, string baseVirtualDir, bool allowCrossAppMapping)
+        => MapPath(virtualPath);
 
     protected internal HttpRequestBase(Microsoft.AspNetCore.Http.HttpContext aspNetContext)
         => _aspNetContext = aspNetContext;

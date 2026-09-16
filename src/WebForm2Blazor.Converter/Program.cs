@@ -415,11 +415,26 @@ static string OutOfScopeFrameworkNote(string unportable)
 }
 
 var excludedCandidates = new HashSet<int>();
+
+// Files excluded because they belong to a framework this converter does not convert.
+// Kept apart from the rest because that exclusion is reversible: see the restore pass
+// below the loop.
+var outOfScopeExclusions = new HashSet<int>();
+
 for (var i = 0; i < candidateNamespaces.Count; i++)
 {
     if (FindUnportableNamespace(candidateNamespaces[i].candidate.Source) is { } unportable)
     {
         excludedCandidates.Add(i);
+
+        // Only a file belonging to ANOTHER FRAMEWORK is a candidate for restoring. A file
+        // built on a namespace whose API is simply gone (System.Data.Linq, LINQ to SQL) is
+        // not: restoring one of those cost BlogEngine 55 errors, because every line of it
+        // needs types that do not exist. The other framework's file needs a handful.
+        if (OutOfScopeFrameworkNote(unportable).Contains("この変換器は WebForms のみ", StringComparison.Ordinal))
+        {
+            outOfScopeExclusions.Add(i);
+        }
         report.Residual(candidateNamespaces[i].candidate.ReportName, ResidualKind.CodeBehind,
             OutOfScopeFrameworkNote(unportable), disposition: ResidualDisposition.OutOfScope);
         continue;
@@ -548,6 +563,70 @@ HashSet<string> ComputeFullyExcludedNamespaces()
         .Where(group => group.All(pair => excludedCandidates.Contains(pair.index)))
         .Select(group => group.Key)
         .ToHashSet(StringComparer.Ordinal);
+
+// An exclusion exists to avoid local errors. When the file it removes is one that
+// SURVIVING files use, it stops doing that and starts a cascade instead - and
+// PortabilityRules' own caveat is that "an exclusion cascade produces far more damage than
+// the local errors do".
+//
+// YAF's AspNetUsers is the case that made this visible. It is a data model - a table POCO -
+// that happens to implement Microsoft.AspNet.Identity's IUser<TKey>, so it was excluded as
+// Identity code. That took BoardContext with it, and BoardContext is the thing half the
+// application reads its settings from: 1614 of YAF's 2135 build errors were
+// "BoardContext has no definition for ...".
+//
+// So an out-of-scope exclusion is undone when a surviving file names one of its types.
+// Ported, the file costs a handful of local errors for the interface that is not here.
+// Excluded, it costs everything that depends on it. The evidence is the same qualified
+// reference the cascade uses, so a file nobody names stays excluded.
+bool restoredAny;
+do
+{
+    restoredAny = false;
+    foreach (var index in outOfScopeExclusions.ToList())
+    {
+        var offered = declaredTypes[index];
+        if (offered.Count == 0)
+        {
+            continue;
+        }
+
+        // ONE surviving reference is enough, and a threshold of two was measured and
+        // discarded: YAF's AspNetUsers is named by exactly one surviving file -
+        // BoardContext - and it is BoardContext that half the application reads from. What
+        // matters is the size of the cascade, not the number of direct references, and a
+        // direct reference is the only part of that this pass can see cheaply.
+        var wanted = 0;
+        for (var other = 0; other < candidateNamespaces.Count && wanted < 1; other++)
+        {
+            if (other == index || excludedCandidates.Contains(other))
+            {
+                continue;
+            }
+
+            var code = PortabilityRules.WithoutStringsAndComments(
+                candidateNamespaces[other].candidate.Source);
+            if (offered.Any(declared => UsesGoneType(code, (declared.Type, declared.Namespace))))
+            {
+                wanted++;
+            }
+        }
+
+        if (wanted < 1)
+        {
+            continue;
+        }
+
+        excludedCandidates.Remove(index);
+        outOfScopeExclusions.Remove(index);
+        restoredAny = true;
+        report.Residual(candidateNamespaces[index].candidate.ReportName, ResidualKind.CodeBehind,
+            "別フレームワークのコードとして除外しましたが、移植されるファイルがこのファイルの型を使っているため移植します"
+            + "(除外すると連鎖でそちら側が落ちます。このファイル内には未解決の型が残ります)。",
+            disposition: ResidualDisposition.Backlog);
+    }
+}
+while (restoredAny);
 
 // Cascade: a namespace counts as gone only when EVERY file declaring it is excluded
 // (shared namespaces with surviving files must keep their importers)

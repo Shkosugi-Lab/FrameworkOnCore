@@ -44,3 +44,68 @@ public interface IRole<out TKey>
 public interface IRole : IRole<string>
 {
 }
+
+/// <summary>
+/// Microsoft.AspNet.Identity.IdentityResult: what an Identity operation returned. Pure
+/// data - a flag and a list of messages - so the application's own signatures that mention
+/// it compile. Nothing here performs an Identity operation.
+/// </summary>
+public class IdentityResult
+{
+    public IdentityResult()
+    {
+    }
+
+    public IdentityResult(params string[] errors) => Errors = errors ?? [];
+
+    public IdentityResult(bool success) => Succeeded = success;
+
+    public bool Succeeded { get; protected set; }
+
+    public System.Collections.Generic.IEnumerable<string> Errors { get; protected set; } = [];
+
+    public static IdentityResult Success { get; } = new(true);
+
+    public static IdentityResult Failed(params string[] errors) => new(errors);
+}
+
+/// <summary>
+/// Microsoft.AspNet.Identity.UserLoginInfo: an external login, as data.
+/// </summary>
+public class UserLoginInfo(string loginProvider, string providerKey)
+{
+    public string LoginProvider { get; set; } = loginProvider;
+
+    public string ProviderKey { get; set; } = providerKey;
+}
+
+/// <summary>Microsoft.AspNet.Identity.PasswordVerificationResult.</summary>
+public enum PasswordVerificationResult
+{
+    Failed,
+    Success,
+    SuccessRehashNeeded,
+}
+
+/// <summary>
+/// Microsoft.AspNet.Identity.IPasswordHasher - the CONTRACT only.
+///
+/// No implementation is supplied and none should be: hashing a password is the thing a
+/// migration has to decide deliberately, and an inert default would silently accept or
+/// reject logins. An application that implements this interface itself keeps its own
+/// hashing; one that expected Identity's has nowhere to go, which is the honest state.
+/// </summary>
+public interface IPasswordHasher
+{
+    string HashPassword(string password);
+
+    PasswordVerificationResult VerifyHashedPassword(string hashedPassword, string providedPassword);
+}
+
+/// <summary>Microsoft.AspNet.Identity.IPasswordHasher&lt;TUser&gt;: the generic form.</summary>
+public interface IPasswordHasher<in TUser>
+{
+    string HashPassword(TUser user, string password);
+
+    PasswordVerificationResult VerifyHashedPassword(TUser user, string hashedPassword, string providedPassword);
+}

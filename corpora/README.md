@@ -4078,3 +4078,75 @@ UsesGoneType(code, (declared.Type, declared.Namespace))
 移植ファイルは be 261 / mojo 754 / yaf 2729 / dnn 2066 / n2 1706 / wt 13。
 
 パリティ 30/30、bUnit 30/30、回帰ゲート 13/13。
+
+---
+
+## 4 回目で、下限値の判定に型解決エラーを入れた
+
+Identity の残り(`IdentityResult` / `UserLoginInfo` / `IPasswordHasher`)を宣言したら、
+yaf が **10 → 459** になりました。**4 回目**です。
+
+| 回 | 見えていた数 | 実数 |
+|---:|---:|---:|
+| 1 | 1 | 2135 |
+| 2 | 2 | 838 |
+| 3 | 10 | 459 |
+| 4 | — | — |
+
+`CS0234` / `CS0246`(型・名前空間が見つからない)は**シグネチャにも本体にも出る**ので、
+最初は下限値判定から外していました。**外した判断が 3 回とも間違いでした。**
+シグネチャは型を名指しするので、解決できなければ宣言パスで落ちます。
+
+```csharp
+"CS0234", "CS0246", "CS0012", "CS1069",
+```
+
+を `DeclarationErrorCodes` に追加しました。
+**下限値でないものを「下限値かもしれない」と言う代償は一文です。
+言わなかった代償は、読み違いが 4 回です。**
+
+現在、6 コーパス全てで**下限値フラグは立っていません**(= 実数)。
+
+### 宣言したもの(契約とデータのみ)
+
+| 型 | 中身 |
+|---|---|
+| `IdentityResult` | `Succeeded` と `Errors`。ただのデータ |
+| `UserLoginInfo` | `LoginProvider` / `ProviderKey`。ただのデータ |
+| `IPasswordHasher` / `IPasswordHasher<TUser>` | **インターフェイスのみ。実装は置きません** |
+| `PasswordVerificationResult` | 列挙 |
+
+`IPasswordHasher` に既定実装を置かないのは意図的です。
+パスワードのハッシュは移行時に**明示的に決めるべきこと**で、
+無害そうな既定を置くと**ログインを黙って通したり弾いたり**します。
+自前実装を持つアプリはそのまま動き、Identity の実装を期待していたアプリは
+行き先が無い —— それが正直な状態です。
+
+### `ListItem.Attributes`
+
+yaf 459 件の最大は `'ListItem' に 'Attributes' の定義が含まれておらず` 155 件。
+WebForms の `ListItem` は `Attributes` を持ち、コードビハインドが
+option に `data-*` や class を載せるのに使います。追加しました
+(実測 −11。155 件の残りは別の `ListItem` を指しており、次に切り分けます)。
+
+### 計測
+
+| | 変更前 | 変更後 |
+|---|---:|---:|
+| yaf ビルドエラー | 10(下限値) | **448**(実数) |
+| 合計ビルドエラー | 146 | 584 |
+| 合計総残差 | 530 | 530 |
+
+パリティ 30/30、bUnit 30/30、回帰ゲート 13/13。
+
+### yaf 448 の残り
+
+```
+CS1061  'ListItem' に 'Attributes' …            155 → 一部解消
+CS1929  'RepeaterItem' に 'FindControlAs' …     106
+CS1973  'IRepository<T>' に 'ListPaged' …        44
+CS0104  'Constants' があいまい                    25
+```
+
+`FindControlAs` と `ListPaged` は YAF 自身の拡張メソッドで、
+レシーバの型が互換層の型と合っていないために効いていません。次はそこです。

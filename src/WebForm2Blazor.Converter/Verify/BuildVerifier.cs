@@ -178,6 +178,13 @@ public static partial class BuildVerifier
     {
         "CS0115", "CS0534", "CS0507", "CS0533", "CS0106", "CS0111", "CS0101", "CS0509",
         "CS0549", "CS0238", "CS0539", "CS0736", "CS0738",
+        // Type resolution belongs here too. A signature names types, so an unresolved one
+        // fails the declaration pass just as a bad override does - and these codes also
+        // occur in method bodies, which is why they were left out at first. Four times in
+        // one session a small count turned out to be a floor hiding hundreds (YAF: 1, then
+        // 2, then 10), and every one of those was CS0234/CS0246. Saying "this may be a
+        // floor" when it is not costs a sentence; not saying it cost four wrong readings.
+        "CS0234", "CS0246", "CS0012", "CS1069",
     };
 
     /// <summary>

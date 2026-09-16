@@ -39,6 +39,14 @@ public class ListItem : ComponentBase
     [CascadingParameter] internal IListItemContainer Container { get; set; }
 
     /// <summary>When Value is unset, Text doubles as the value - same as WebForms.</summary>
+    /// <summary>
+    /// WebForms ListItem.Attributes: the extra attributes the option tag renders with.
+    /// Code-behind sets them to carry data on an option ("data-id", a css class per item),
+    /// and the list controls render them - which is why the property has to be here and not
+    /// merely accepted: 155 of YAF's build errors were code writing to it.
+    /// </summary>
+    public AttributeCollection Attributes { get; } = new(() => { });
+
     public string ResolvedValue => Value ?? Text ?? string.Empty;
 
     public string ResolvedText => Text ?? Value ?? string.Empty;

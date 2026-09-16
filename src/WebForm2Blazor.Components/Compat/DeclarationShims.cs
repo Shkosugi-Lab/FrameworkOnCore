@@ -981,19 +981,38 @@ public class HtmlButton : LegacyWebControl
 /// System.Web.UI.HtmlControls.HtmlInputFile equivalent. PostedFile is always null: there
 /// is no postback, so nothing was ever uploaded through it.
 /// </summary>
-public class HtmlInputFile : LegacyWebControl
+/// <summary>
+/// System.Web.UI.HtmlControls.HtmlInputFile equivalent.
+///
+/// Derives from <see cref="FileUpload"/> because they are the same control: WebForms
+/// renders both as &lt;input type="file"&gt;, and both expose the uploaded file through
+/// PostedFile. This used to be a bare LegacyWebControl whose PostedFile returned null,
+/// which is why 281 of YAF's build errors were "HtmlGenericControl has no definition for
+/// PostedFile" - the converter emitted a generic control because there was nothing better
+/// to emit, and the code-behind asked the one question the shim could not answer.
+///
+/// Inheriting rather than re-declaring keeps the buffering, HasFile / FileName / SaveAs
+/// and the rendering in one place.
+/// </summary>
+public class HtmlInputFile : FileUpload
 {
+    /// <summary>WebForms HtmlInputFile.Accept - the accept attribute of the input.</summary>
     public string Accept { get; set; } = string.Empty;
 
     public int MaxLength { get; set; }
 
     public int Size { get; set; }
 
-    public string Value { get; set; } = string.Empty;
-
-    public object PostedFile => null;
-
-    protected override string TagName => "input";
+    /// <summary>
+    /// WebForms HtmlInputFile.Value. A file input's value cannot be set from the server
+    /// (browsers forbid it), so it reports the selected file's name and ignores writes -
+    /// which is what the original did once the browser had the page.
+    /// </summary>
+    public string Value
+    {
+        get => FileName;
+        set { }
+    }
 }
 
 /// <summary>System.Web.UI.HtmlControls.HtmlInputHidden equivalent.</summary>

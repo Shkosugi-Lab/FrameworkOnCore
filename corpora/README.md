@@ -4004,3 +4004,77 @@ CS1061 'HtmlGenericControl' に 'PostedFile' の定義が含まれておらず  
 WebForms はこれを `HtmlInputFile` にします(`PostedFile` を持つのはそちら)。
 互換層の `HtmlInputFile` は `LegacyWebControl` のプレーンクラスなので、
 `@ref` で結ぶにはコンポーネント化が要ります。次の作業です。
+
+---
+
+## `<input type="file">` と、復帰規則の証拠の強さ
+
+### HtmlInputFile は FileUpload と同じコントロール
+
+yaf の 281 件は `<input type="file" runat="server">` を
+`HtmlGenericControl` として出していたためでした。WebForms はこれを `HtmlInputFile` にします
+(`PostedFile` を持つのはそちら)。
+
+互換層には既に `FileUpload`(コンポーネント、`PostedFile` は `HttpPostedFileShim`)と
+`HtmlInputFile`(`LegacyWebControl`、`PostedFile` は `object` の null)の**両方**がありました。
+**この 2 つは同じコントロールです** — WebForms はどちらも `<input type="file">` として描き、
+どちらもアップロードされたファイルを `PostedFile` で渡します。
+`HtmlInputFile : FileUpload` にして、バッファリングも `HasFile`/`FileName`/`SaveAs` も
+描画も 1 箇所にまとめました。
+
+変換器側は `HtmlInputControlFor` を追加し、`runat="server"` の `<input>` を
+**WebForms のパーサと同じく type 属性で**振り分けます。
+
+### 復帰規則: 証拠の強さで基準を分ける
+
+`IAspNetUsersHelper` が 346 件(残り 549 件の 63%)を出していました。
+Identity のコードとして除外され、復帰規則に拾われていません。理由は
+
+```csharp
+// 修飾名でしか探していなかった
+UsesGoneType(code, (declared.Type, declared.Namespace))
+```
+
+呼び出し側は `this.Get<IAspNetUsersHelper>()` と**非修飾で書きます**。
+235 箇所あっても 1 件も見えません。
+
+非修飾の識別子は弱い証拠です。この README には
+「除外する方向に使うと毎回暴走した(1 件 → 28 件 → 705 件)」と記録があります。
+しかし**復帰する方向には安全**です。最悪でもファイルが移植されてローカルエラーが数個増えるだけで、
+それは既に「連鎖より安い」と結論した取引そのものです。
+
+**基準を証拠の強さで分けました。**
+
+| 証拠 | 必要数 |
+|---|---:|
+| 修飾名(`YAF.Types.Interfaces.Identity.IAspNetUsersHelper`) | **1** |
+| 単純名(`IAspNetUsersHelper`) | **5** |
+
+単純名 1 件でも復帰させる版を測りました。
+
+| | 既定 | 単純名 1 件 | 単純名 5 件 |
+|---|---:|---:|---:|
+| yaf | 598 | **46** | **10** |
+| dnn | 19 | 169 | 67 |
+| n2 | 32 | 96 | 54 |
+| mojo | 13 | 40 | 15 |
+| **合計** | **613** | 351 | **146** |
+
+1 件では、たった 1 回の偶発的な言及で**本物の MVC ファイル**が戻ってきます。
+5 件は「分類を間違えられた基盤コード」の形です(`IAspNetUsersHelper` は 235 箇所)。
+
+### 計測
+
+| | 変更前 | 変更後 |
+|---|---:|---:|
+| **yaf ビルドエラー** | **598** | **10** |
+| dnn | 19 | 67 |
+| n2 | 32 | 54 |
+| mojo | 13 | 15 |
+| **合計ビルドエラー** | **613** | **146** |
+| 合計総残差 | 505 | 530 |
+
+残差 +25 は**復帰の報告そのもの**です(1 ファイル 1 行)。
+移植ファイルは be 261 / mojo 754 / yaf 2729 / dnn 2066 / n2 1706 / wt 13。
+
+パリティ 30/30、bUnit 30/30、回帰ゲート 13/13。

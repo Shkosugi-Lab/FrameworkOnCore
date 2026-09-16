@@ -767,8 +767,38 @@ public sealed partial class MarkupEmitter(EmitContext context)
     /// ID becomes a code-behind field (the WebForms designer declared HtmlGenericControl /
     /// HtmlTableRow / ... the same way), and the remaining attributes pass through.
     /// </summary>
+    /// <summary>
+    /// The HtmlControl WebForms creates for a runat="server" &lt;input&gt;, decided by its type
+    /// attribute exactly as the WebForms parser decided it.
+    ///
+    /// Every one of them used to come out as HtmlGenericControl, which has none of the
+    /// members that make the specific control useful: 281 of YAF's build errors were
+    /// "HtmlGenericControl has no definition for PostedFile" from
+    /// &lt;input type="file" runat="server"&gt;. The tag survives either way; what differs is
+    /// whether the code-behind can still talk to it.
+    /// </summary>
+    private static string? HtmlInputControlFor(ElementNode element)
+    {
+        if (!element.Name.Equals("input", StringComparison.OrdinalIgnoreCase))
+        {
+            return null;
+        }
+
+        return element.Attributes.GetValueOrDefault("type")?.ToLowerInvariant() switch
+        {
+            "file" => "HtmlInputFile",
+            _ => null,
+        };
+    }
+
     private string EmitHtmlGenericControl(ElementNode element)
     {
+        // A typed HtmlControl renders its own tag, so it does not take TagName.
+        if (HtmlInputControlFor(element) is { } inputControl)
+        {
+            return EmitComponent(element, inputControl, mapping: null, createsField: true);
+        }
+
         var id = element.Id;
         var attributes = new List<string> { $"TagName=\"{element.Name.ToLowerInvariant()}\"" };
         if (id is not null)

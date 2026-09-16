@@ -499,6 +499,17 @@ List<(string Type, string Namespace)> ComputeGoneTypes()
 /// bare type name as well was tried and cascades out of control: one gone type in a
 /// widely imported namespace then drags out every file that happens to use the word.
 /// </summary>
+/// <summary>
+/// Whether the code writes this type's simple name as an identifier.
+///
+/// Only used to decide that an excluded file should be RESTORED, never to exclude one -
+/// see the note above <see cref="UsesGoneType"/> for why the other direction is closed.
+/// </summary>
+static bool MentionsTypeName(string code, string typeName)
+    => !string.IsNullOrEmpty(typeName)
+       && System.Text.RegularExpressions.Regex.IsMatch(
+           code, @"(?<![\w.])" + System.Text.RegularExpressions.Regex.Escape(typeName) + @"\b");
+
 static bool UsesGoneType(string source, (string Type, string Namespace) gone)
 {
     // Qualified, in full or partially: C# lets "BlogEngine.Core.FileSystem.FileStoreFile"
@@ -591,13 +602,22 @@ do
             continue;
         }
 
-        // ONE surviving reference is enough, and a threshold of two was measured and
-        // discarded: YAF's AspNetUsers is named by exactly one surviving file -
-        // BoardContext - and it is BoardContext that half the application reads from. What
-        // matters is the size of the cascade, not the number of direct references, and a
-        // direct reference is the only part of that this pass can see cheaply.
-        var wanted = 0;
-        for (var other = 0; other < candidateNamespaces.Count && wanted < 1; other++)
+        // Two kinds of evidence, with different bars.
+        //
+        // A QUALIFIED reference is unambiguous, so one is enough - and a threshold of two
+        // was measured and discarded: YAF's AspNetUsers is named by exactly one surviving
+        // file, BoardContext, and it is BoardContext that half the application reads from.
+        // The size of the cascade is what matters, and a direct reference is the only part
+        // of that this pass can see cheaply.
+        //
+        // The SIMPLE name is weak evidence - the same identifier can be anything - so it
+        // takes several. Accepting one measured badly: yaf fell 598 -> 46 but DNN rose
+        // 19 -> 169, n2 32 -> 96 and mojoPortal 13 -> 40, because a single incidental
+        // mention dragged back genuinely-MVC files. Several call sites is what a piece of
+        // wrongly-classified infrastructure looks like: YAF's IAspNetUsersHelper has 235.
+        var qualified = 0;
+        var mentions = 0;
+        for (var other = 0; other < candidateNamespaces.Count && qualified < 1 && mentions < 5; other++)
         {
             if (other == index || excludedCandidates.Contains(other))
             {
@@ -606,13 +626,27 @@ do
 
             var code = PortabilityRules.WithoutStringsAndComments(
                 candidateNamespaces[other].candidate.Source);
+
+            // The SIMPLE name counts here, not only the qualified one. Almost nothing is
+            // written qualified - YAF asks for its user helper as
+            // "this.Get<IAspNetUsersHelper>()" - so a qualified-only test saw none of the
+            // 346 errors that interface was responsible for.
+            //
+            // Weak evidence is safe in this direction and only in this direction. Used to
+            // EXCLUDE a file it has run away every time it was tried (see the note above
+            // UsesGoneType: 1 error became 28, then 705); used to KEEP one, the worst case
+            // is a file that ports and contributes a few local errors.
             if (offered.Any(declared => UsesGoneType(code, (declared.Type, declared.Namespace))))
             {
-                wanted++;
+                qualified++;
+            }
+            else if (offered.Any(declared => MentionsTypeName(code, declared.Type)))
+            {
+                mentions++;
             }
         }
 
-        if (wanted < 1)
+        if (qualified < 1 && mentions < 5)
         {
             continue;
         }

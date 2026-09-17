@@ -765,6 +765,31 @@ compatImports.WithAmbientImports(
             .OfType<string>())
         .Append("WebForm2Blazor.Components"));
 
+// The WEB project's global usings, as plain namespace names.
+//
+// They are about to stop being global - left that way they are in force for the whole
+// merged compilation, and YAF's "global using YAF.Types.Constants;" reached the vendored
+// Lucene.Net sources, where Constants then meant two different types. The generated half
+// of each page is where they belong instead: those files ARE the web project, and the
+// imports a file sees have to be the imports it had.
+var webProjectGlobalUsings = Enumerable.Range(0, candidateNamespaces.Count)
+    .Where(index => !excludedCandidates.Contains(index))
+    .Where(index => !candidateNamespaces[index].candidate.Included)
+    .SelectMany(index => CodeBehindRewriter.ParseUnit(
+            candidateNamespaces[index].candidate.Source).Usings
+        .Where(directive => directive.GlobalKeyword.RawKind
+                            == (int)Microsoft.CodeAnalysis.CSharp.SyntaxKind.GlobalKeyword)
+        .Where(directive => directive.Alias is null && directive.StaticKeyword.RawKind == 0)
+        .Select(directive => directive.Name?.ToString()))
+    .OfType<string>()
+    // Not the ones the conversion removes. A "global using System.Web.UI;" is exactly what
+    // the rewriter strips from every file it touches - writing it back into the generated
+    // half re-imports a namespace that does not exist, which is 171 CS0234 in YAF.
+    .Where(name => name != "System.Web"
+                   && !name.StartsWith("System.Web.", StringComparison.Ordinal))
+    .Distinct(StringComparer.Ordinal)
+    .ToList();
+
 foreach (var component in components)
 {
     var directory = Path.Combine(output, component.OutputDirectory.Replace('/', Path.DirectorySeparatorChar));
@@ -808,6 +833,7 @@ foreach (var component in components)
         // actually mentions, to avoid dragging in same-named controls from other folders.
         var controlUsings = component.UsedControlNamespaces
             .Concat(UserControlNamespacesNamedIn(codeBehindSource, userControlRegistry, baseRegistry))
+            .Concat(webProjectGlobalUsings)
             .Distinct(StringComparer.Ordinal)
             .ToList();
         var rewritten = CodeBehindRewriter.Rewrite(
@@ -889,11 +915,13 @@ for (var i = 0; i < candidateNamespaces.Count; i++)
         continue;
     }
     var (candidate, _) = candidateNamespaces[i];
-    if (!candidate.Included)
-    {
-        continue;
-    }
 
+    // The WEB project's global usings are collected too, under the "" owner. They used to
+    // be left global on the grounds that the pages' generated halves would lose them -
+    // which is true, and handled by giving those halves the same usings explicitly. What
+    // leaving them global actually did was put them in force for the WHOLE merged
+    // compilation: YAF's "global using YAF.Types.Constants;" reached the vendored
+    // Lucene.Net sources, where Constants then meant two different types (24 CS0104).
     var owner = OwningProjectOf(candidate.OutputRelative, candidate.Included);
     foreach (var directive in CodeBehindRewriter.ParseUnit(candidate.Source).Usings)
     {

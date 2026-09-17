@@ -204,6 +204,14 @@ public abstract class LegacyWebControl : IWebFormsControl, IDisposable
     /// <summary>WebForms Control.ViewState equivalent (per-instance; no persistence).</summary>
     protected StateBag ViewState { get; } = new();
 
+    /// <summary>
+    /// WebForms Control.Events: the delegate store a control uses to declare an event
+    /// without a field per event ("add { this.Events.AddHandler(ClickKey, value); }").
+    /// YAF's ThemeButton writes its Click that way. Without it the property is missing and
+    /// the event does not compile at all.
+    /// </summary>
+    protected EventHandlerList Events { get; } = new();
+
     /// <summary>WebForms Control.Controls equivalent (children added programmatically).</summary>
     public virtual ControlCollection Controls { get; } = [];
 

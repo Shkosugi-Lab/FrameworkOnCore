@@ -43,6 +43,62 @@ public sealed class StaticMarkupTemplate(string markup) : ITemplate
 }
 
 /// <summary>
+/// System.ComponentModel.EventHandlerList equivalent - WebForms Control.Events.
+///
+/// A control with many rarely-used events declares them against this instead of carrying a
+/// delegate field each:
+///
+///     public event EventHandler Click
+///     {
+///         add { this.Events.AddHandler(ClickEventKey, value); }
+///         remove { this.Events.RemoveHandler(ClickEventKey, value); }
+///     }
+///
+/// YAF's ThemeButton is written that way. The real type is in System.ComponentModel and
+/// still exists on .NET, but it is not reachable from a control that no longer derives
+/// from System.Web.UI.Control, so the compatibility layer carries its own.
+/// </summary>
+public sealed class EventHandlerList : IDisposable
+{
+    private readonly Dictionary<object, Delegate> _handlers = [];
+
+    public Delegate this[object key]
+    {
+        get => key is not null && _handlers.TryGetValue(key, out var handler) ? handler : null;
+        set
+        {
+            if (key is null)
+            {
+                return;
+            }
+            if (value is null)
+            {
+                _handlers.Remove(key);
+                return;
+            }
+            _handlers[key] = value;
+        }
+    }
+
+    public void AddHandler(object key, Delegate value)
+        => this[key] = Delegate.Combine(this[key], value);
+
+    public void RemoveHandler(object key, Delegate value)
+        => this[key] = Delegate.Remove(this[key], value);
+
+    /// <summary>WebForms AddHandlers: merges another list into this one.</summary>
+    public void AddHandlers(EventHandlerList listToAddFrom)
+    {
+        foreach (var pair in listToAddFrom?._handlers ?? [])
+        {
+            AddHandler(pair.Key, pair.Value);
+        }
+    }
+
+    public void Dispose() => _handlers.Clear();
+}
+
+/// <summary>
 /// The render-based counterpart of <see cref="TableCell"/> - a &lt;td&gt; whose contents are the
 /// controls put into it, written to an HtmlTextWriter.
 ///

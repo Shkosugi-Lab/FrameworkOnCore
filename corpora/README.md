@@ -4525,3 +4525,61 @@ public static IEnumerable<TSource> DistinctBy<TSource, TKey>(
 yaf は 5 回にわたり「宣言パスで止まっていた下限値」を表示しており
 (1 → 2135 → 838 → 459 → 337)、実数が見えるたびに跳ねました。
 `StoppedAtDeclarations` を入れた今は 6 コーパスとも実数です。
+
+---
+
+## ライフサイクルは「オーバーライド」だけでなく「イベント」でもある
+
+yaf の残りから 2 つ。どちらも **WebForms の面をオーバーライド点としてしか持っていなかった**ぶんです。
+
+### `this.Load += ...`
+
+```
+CS1061 'ForumPage' に 'Load' の定義が含まれておらず…      6
+CS1061 'ForumPage' に 'PreRender' の定義が含まれておらず…  6
+```
+
+互換層は `protected virtual void OnLoad(EventArgs e)` を持っていましたが、
+**イベントの方がありません**でした。WebForms のデザイナが生成するのは
+
+```csharp
+this.Load += this.ForumPage_Load;
+```
+
+で、YAF は手書きでも同じ書き方をします。**自分のライフサイクルを購読する**のは
+オーバーライドと並ぶ正規の書き方です。`Init` / `Load` / `PreRender` / `Unload` を
+イベントとして追加し、対応する `On*` から発火します(WebForms と同じ順序 ——
+オーバーライドが先、購読者が後)。
+
+### `this.Events.AddHandler(...)`
+
+```
+CS1061 'ThemeButton' に 'Events' の定義が含まれておらず…  6
+```
+
+イベントが多い(そして多くは使われない)コントロールは、
+イベントごとにデリゲートのフィールドを持つ代わりにこう書きます。
+
+```csharp
+public event EventHandler Click
+{
+    add { this.Events.AddHandler(ClickEventKey, value); }
+    remove { this.Events.RemoveHandler(ClickEventKey, value); }
+}
+```
+
+YAF の `ThemeButton` がそれです。`Control.Events` が無いと、
+**プロパティが無いのではなくイベント宣言自体がコンパイルできません**。
+`EventHandlerList` を互換層に置き、`LegacyWebControl.Events` を足しました
+(実物は `System.ComponentModel` に今もありますが、
+`System.Web.UI.Control` を継がなくなったコントロールからは辿れません)。
+
+### 計測
+
+| | 変更前 | 変更後 |
+|---|---:|---:|
+| yaf ビルドエラー | 234 | **208** |
+| 合計ビルドエラー | 370 | **344** |
+| 合計総残差 | 530 | 530 |
+
+パリティ 30/30、bUnit 30/30、回帰ゲート 13/13。

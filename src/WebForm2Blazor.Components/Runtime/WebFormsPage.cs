@@ -522,21 +522,28 @@ public abstract class WebFormsUserControl : UserControl, IWebFormsHost, IWebForm
     }
 
     // WebForms Control lifecycle virtuals (see WebFormsPage for the rationale)
-    protected virtual void OnInit(EventArgs e)
-    {
-    }
+    // WebForms Control.Init / Load / PreRender / Unload as EVENTS. A control subscribes to
+    // its own - "this.Load += this.ForumPage_Load;" is what the WebForms designer generated
+    // and what YAF writes by hand - and only the On* overrides existed here, so every one
+    // of those subscriptions failed to compile.
+    //
+    // Raised from the matching On* below, in WebForms' order: the override runs, then the
+    // subscribers.
+    public event EventHandler Init;
 
-    protected virtual void OnLoad(EventArgs e)
-    {
-    }
+    public event EventHandler Load;
 
-    protected virtual void OnPreRender(EventArgs e)
-    {
-    }
+    public event EventHandler PreRender;
 
-    protected virtual void OnUnload(EventArgs e)
-    {
-    }
+    public event EventHandler Unload;
+
+    protected virtual void OnInit(EventArgs e) => Init?.Invoke(this, e);
+
+    protected virtual void OnLoad(EventArgs e) => Load?.Invoke(this, e);
+
+    protected virtual void OnPreRender(EventArgs e) => PreRender?.Invoke(this, e);
+
+    protected virtual void OnUnload(EventArgs e) => Unload?.Invoke(this, e);
 
     /// <summary>WebForms Render override point. Never invoked (Blazor renders the tree);
     /// a ported control overriding it compiles and its override is inert.</summary>
@@ -653,21 +660,28 @@ public abstract class WebFormsLayout : LayoutComponentBase, IWebFormsHost
     }
 
     // WebForms Control lifecycle virtuals (see WebFormsPage for the rationale)
-    protected virtual void OnInit(EventArgs e)
-    {
-    }
+    // WebForms Control.Init / Load / PreRender / Unload as EVENTS. A control subscribes to
+    // its own - "this.Load += this.ForumPage_Load;" is what the WebForms designer generated
+    // and what YAF writes by hand - and only the On* overrides existed here, so every one
+    // of those subscriptions failed to compile.
+    //
+    // Raised from the matching On* below, in WebForms' order: the override runs, then the
+    // subscribers.
+    public event EventHandler Init;
 
-    protected virtual void OnLoad(EventArgs e)
-    {
-    }
+    public event EventHandler Load;
 
-    protected virtual void OnPreRender(EventArgs e)
-    {
-    }
+    public event EventHandler PreRender;
 
-    protected virtual void OnUnload(EventArgs e)
-    {
-    }
+    public event EventHandler Unload;
+
+    protected virtual void OnInit(EventArgs e) => Init?.Invoke(this, e);
+
+    protected virtual void OnLoad(EventArgs e) => Load?.Invoke(this, e);
+
+    protected virtual void OnPreRender(EventArgs e) => PreRender?.Invoke(this, e);
+
+    protected virtual void OnUnload(EventArgs e) => Unload?.Invoke(this, e);
 
     /// <summary>WebForms Render override point. Never invoked (Blazor renders the tree);
     /// a ported control overriding it compiles and its override is inert.</summary>

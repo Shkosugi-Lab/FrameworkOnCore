@@ -51,7 +51,9 @@ $corpora = @(
        # types and takes none of them; the deployed database is picked here.
        Include = @('mojoportal-3.1.6\mojoPortal.Data.MSSQL')
        # <mp:mojoGridView> は独自コントロール。マップが無いと未対応コントロール扱いになる。
-       ControlMap = 'mojo-control-map.json' },
+       ControlMap = 'mojo-control-map.json'
+       # .NET 版へ移行する第三者ライブラリ(旧/新の両アセンブリを読んで名前を突き合わせる)
+       PackageMap = 'mojo-package-map.json' },
 
     @{ Name = 'yaf'
        Input = 'YAFNET-3.2.15\yafsrc\YetAnotherForum.NET'
@@ -174,6 +176,7 @@ foreach ($c in $corpora) {
     if ($c.Project) { $arguments += @('--project', (Join-Path $Root $c.Project)) }
     if ($c.WebConfig)  { $arguments += @('--web-config',  (Join-Path $Root $c.WebConfig)) }
     if ($c.ControlMap) { $arguments += @('--control-map', (Join-Path $PSScriptRoot $c.ControlMap)) }
+    if ($c.PackageMap) { $arguments += @('--package-map', (Join-Path $PSScriptRoot $c.PackageMap)) }
     if ($c.ExpressionMap) { $arguments += @('--expression-map', (Join-Path $PSScriptRoot $c.ExpressionMap)) }
     if (-not $SkipAnalyzers -and $c.AnalyzerProject) {
         $analyzerDll = Join-Path $Root $c.AnalyzerAssembly

@@ -739,6 +739,68 @@ var compatImports = WebForm2Blazor.Converter.Convert.CompatImportDisambiguator.B
 // the whole chain rather than only a direct compat base.
 var portedTypes = WebForm2Blazor.Converter.Convert.PortedTypeIndex.Build(portedSources);
 
+// Read here rather than beside CollectDeclaredPackages: the library migration below needs
+// it, and that has to be built before any generated file is written.
+var packageMap = packageMapPath is not null ? LoadPackageMap(packageMapPath) : null;
+
+// Libraries the user pointed at a .NET replacement AND gave its assembly for. Both sides
+// are read and the names that match are rewritten; what does not match is reported, not
+// guessed at. Built once, applied to every generated file.
+var libraryMigrations = new List<(string Assembly, WebForm2Blazor.Converter.Convert.AssemblyTypeMigration Migration)>();
+foreach (var (assemblyName, replacementPath) in
+         WebForm2Blazor.Converter.Convert.AssemblyTypeMigration.ReplacementAssemblies)
+{
+    // The ORIGINAL assembly, found in the repository the same way the undecided-dependency
+    // scan finds it. Both sides are needed: the migration is a comparison, and one list of
+    // names on its own says nothing about what moved where.
+    var originalPath = FindBuiltAssembly(input, assemblyName)
+        ?? includeDirectories.Select(directory => FindBuiltAssembly(directory, assemblyName))
+            .FirstOrDefault(found => found is not null);
+
+    if (originalPath is null)
+    {
+        report.Residual("(project)", ResidualKind.Configuration,
+            $"--package-map の {assemblyName} に dll を指定しましたが、元のアセンブリが見つからないため"
+            + "名前の対応を取れません(元と新の両方を読んで初めて突き合わせられます)。",
+            disposition: ResidualDisposition.NeedsInput);
+        continue;
+    }
+
+    if (WebForm2Blazor.Converter.Convert.AssemblyTypeMigration.Build(originalPath, replacementPath)
+        is not { } migration || migration.IsEmpty)
+    {
+        report.Residual("(project)", ResidualKind.Configuration,
+            $"{assemblyName} と置き換え先のあいだに、名前が一致する型が見つかりませんでした"
+            + "(別物のライブラリか、dll の指定先が違います)。",
+            disposition: ResidualDisposition.NeedsInput);
+        continue;
+    }
+
+    libraryMigrations.Add((assemblyName, migration));
+    report.Info("(project)",
+        $"{assemblyName} を置き換え先へ移行します: 型 {migration.RenamedTypeCount} 件を対応付け、"
+        + $"名前空間 {migration.RenamedNamespaces.Count} 件を書き換えます。");
+
+    if (migration.Unmatched.Count > 0)
+    {
+        report.Residual("(project)", ResidualKind.CodeBehind,
+            $"{assemblyName} の型 {migration.Unmatched.Count} 件は置き換え先に同名のものがありません: "
+            + string.Join(", ", migration.Unmatched.Take(10))
+            + (migration.Unmatched.Count > 10 ? " ほか" : string.Empty)
+            + "(名前が変わったか、なくなったかのどちらかで、機械的には決められません)。",
+            disposition: ResidualDisposition.NeedsInput);
+    }
+}
+
+string ApplyLibraryMigrations(string code)
+{
+    foreach (var (_, migration) in libraryMigrations)
+    {
+        code = migration.Apply(code);
+    }
+    return code;
+}
+
 // The same question asked of a real compilation: what a base actually IS, rather than what
 // its written name looks like. Only used where the name-based lookups have nothing to say.
 // NOT WIRED YET - see corpora/README.md. Building it and letting the override-drop pass
@@ -847,7 +909,7 @@ foreach (var component in components)
             codeBehindSource, component, sourceName, report,
             controlUsings, baseRegistry, portedTypes);
         File.WriteAllText(Path.Combine(directory, component.ComponentName + ".razor.cs"),
-            ApplyNamespaceMap(compatImports.Apply(rewritten)));
+            ApplyLibraryMigrations(ApplyNamespaceMap(compatImports.Apply(rewritten))));
     }
     else if (component.Fields.Count > 0)
     {
@@ -861,7 +923,7 @@ foreach (var component in components)
         // simply that this branch wrote straight to disk.
         File.WriteAllText(
             Path.Combine(directory, component.ComponentName + ".razor.cs"),
-            ApplyNamespaceMap(GenerateFieldOnlyCodeBehind(component)));
+            ApplyLibraryMigrations(ApplyNamespaceMap(GenerateFieldOnlyCodeBehind(component))));
         report.Info(component.ComponentName, "コードビハインドがないため、コントロールのフィールドのみを生成しました。");
     }
 }
@@ -983,11 +1045,11 @@ for (var i = 0; i < candidateNamespaces.Count; i++)
     // namespace is not there any more - so the using itself has to go, exactly as
     // StripDeadUsings does for @using in .razor.
     File.WriteAllText(destination,
-        ApplyNamespaceMap(StripDeadCodeUsings(
+        ApplyLibraryMigrations(ApplyNamespaceMap(StripDeadCodeUsings(
             compatImports.Apply(
                 CodeBehindRewriter.RewritePlainCodeFile(
                     candidateSource, candidate.ReportName, report, portedTypes)),
-            fullyExcludedNamespaces, report, candidate.ReportName)));
+            fullyExcludedNamespaces, report, candidate.ReportName))));
     report.CopiedCodeFiles++;
 
     // BinaryFormatter still compiles (the generated project suppresses SYSLIB0011) but the
@@ -1022,7 +1084,7 @@ var excludedTypeStubs = GenerateExcludedTypeStubs(
 
 if (stubbedTypeCount > 0)
 {
-    File.WriteAllText(Path.Combine(output, "ExcludedTypeStubs.g.cs"), ApplyNamespaceMap(excludedTypeStubs));
+    File.WriteAllText(Path.Combine(output, "ExcludedTypeStubs.g.cs"), ApplyLibraryMigrations(ApplyNamespaceMap(excludedTypeStubs)));
     report.Residual("(project)", ResidualKind.CodeBehind,
         $"移植から除外したファイルが宣言していた型 {stubbedTypeCount} 個を空のスタブとして生成しました"
         + "(ExcludedTypeStubs.g.cs)。参照側はコンパイルできます(除外の理由は各ファイルの残差を参照)。", disposition: ResidualDisposition.Backlog);
@@ -1155,7 +1217,6 @@ if (assemblyAttributesPorted)
 // NuGet references: what the original projects declared (csproj PackageReference /
 // packages.config) carries over first, then references implied by the ported code's
 // usings (EF6, JSON.NET etc.). Framework-only web packages are skipped with a report.
-var packageMap = packageMapPath is not null ? LoadPackageMap(packageMapPath) : null;
 if (packageMap is not null)
 {
     report.Info("(project)", $"--package-map から {packageMap.Count} 件のパッケージ指定を読み込みました。");
@@ -1686,6 +1747,16 @@ static Dictionary<string, (string? Package, string? Version)> LoadPackageMap(str
         map[assemblyName] = (
             entry.TryGetProperty("package", out var package) ? package.GetString() : null,
             entry.TryGetProperty("version", out var version) ? version.GetString() : null);
+
+        // Optional: a path to the replacement's own assembly. Naming it turns the entry
+        // from "add this PackageReference" into "move the code onto this library" - the
+        // converter reads both assemblies and rewrites the names that match. See
+        // AssemblyTypeMigration.
+        if (entry.TryGetProperty("dll", out var dll) && dll.GetString() is { Length: > 0 } dllPath)
+        {
+            WebForm2Blazor.Converter.Convert.AssemblyTypeMigration
+                .ReplacementAssemblies[assemblyName] = dllPath;
+        }
     }
     return map;
 }

@@ -825,6 +825,13 @@ foreach (var component in components)
     {
         var sourceName = project.RelativePath(component.CodeBehindSourcePath);
         var codeBehindSource = File.ReadAllText(component.CodeBehindSourcePath);
+
+        // A PAGE's imports imply packages too. Only the plain library files were scanned,
+        // so a library used exclusively from a page went unreferenced: mojoPortal charts
+        // from SiteStatisticsModule.razor.cs and SalesByItemPage.razor.cs, and nothing
+        // added ZedGraph because no library file mentions it.
+        CollectUsingNamespaces(codeBehindSource, portedNamespaces);
+        CollectQualifiedPackageNamespaces(codeBehindSource, portedNamespaces);
         // Page code-behind holds fields of user controls, so add the namespaces of the
         // user controls this component actually references to the usings. Markup is only
         // half the story: code-behind also names a user control's type without placing it
@@ -2065,6 +2072,21 @@ static (string Prefix, string Id, string Version)[] KnownPackages()
         // to carry over. The modern package is the SAME library - it has shipped
         // netstandard2.0 since 1.0 - so the ported code resolves against it.
         ("ICSharpCode.SharpZipLib", "SharpZipLib", "1.4.2"),
+        // Libraries whose .NET build keeps the SAME namespace and API, so the ported code
+        // binds to it unchanged. Only these are mapped automatically; a library whose .NET
+        // successor renamed its namespace or changed its API is a migration decision and
+        // stays in package-map.template.json for the user to answer (Lucene.Net 3 -> 4.8,
+        // MetaDataExtractor -> MetadataExtractor, ClientDependency -> Smidge, AppFabric ->
+        // Redis). See corpora/README.md for the survey behind this list.
+        //
+        // Novell's LDAP client: the .NET Standard fork keeps namespace
+        // Novell.Directory.Ldap and targets .NET 6/8/9.
+        ("Novell.Directory.Ldap", "Novell.Directory.Ldap.NETStandard", "4.0.0"),
+        // ZedGraph's charting core still ships, targeting .NET 6 (so .NET 10 resolves it),
+        // with namespace ZedGraph unchanged. Its ASP.NET WebForms half - the separate
+        // ZedGraph.Web package - stopped at .NET Framework in 2011 and is NOT mapped: a
+        // WebForms chart control has no .NET build to bind to.
+        ("ZedGraph", "ZedGraph", "5.2.1"),
         ("System.ServiceModel.Syndication", "System.ServiceModel.Syndication", RuntimeLibraryVersion),
         ("System.DirectoryServices", "System.DirectoryServices", RuntimeLibraryVersion),
         // MEF. Referenced on 4.8 as a GAC assembly ("<Reference Include=" with no HintPath),

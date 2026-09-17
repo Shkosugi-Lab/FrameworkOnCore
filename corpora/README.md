@@ -4672,3 +4672,65 @@ CS1061 / CS0117 を型.メンバ で集計 → 84 件
 | 合計総残差 | 528 | 528 |
 
 パリティ 30/30、bUnit 30/30、回帰ゲート 13/13。
+
+---
+
+## .NET 対応の外部ライブラリを調べた
+
+コーパスのビルドを止めている第三者ライブラリについて、現在の .NET 対応状況を調べました。
+**判断の分かれ目は「名前空間と API が同じか」**です。同じなら変換器が自動で紐付けられます。
+違うなら**移行の判断**であり、`package-map.template.json` でユーザーが答えるものです。
+
+### 自動で紐付けたもの(名前空間・API が同一)
+
+| 元 | .NET 版 | 根拠 |
+|---|---|---|
+| `Novell.Directory.Ldap` | **`Novell.Directory.Ldap.NETStandard` 4.0.0** | 名前空間そのまま。.NET 6/8/9 対象 |
+| `ZedGraph` | **`ZedGraph` 5.2.1**(2025-10) | 名前空間そのまま。.NET 6 対象(= .NET 10 で解決) |
+| `ICSharpCode.SharpZipLib` | `SharpZipLib` 1.4.2(既出) | 1.0 から netstandard2.0 |
+| `Ionic.Zip` | `DotNetZip`(既出) | |
+
+### 紐付けなかったもの(移行の判断が要る)
+
+| 元 | 状況 | なぜ自動化しないか |
+|---|---|---|
+| `Lucene.Net` 3.0.3 | **4.8.0-beta18**(2026-06 更新、まだ beta) | 3.x → 4.8 は**移植ではなく書き直し**。API が別物 |
+| `MetaDataExtractor` | **`MetadataExtractor` 2.9.3**(活発) | 名前空間が `com.drew.*` → `MetadataExtractor` に変わっている |
+| `ClientDependency.Core` | **開発終了**。後継は `Smidge` | API が別物。DNN 自身も離脱済み |
+| `ZedGraph.Web` | **2011 年で停止**、.NET 版なし | WebForms のチャートコントロールに .NET の器が無い |
+| `Microsoft.ApplicationServer.Caching`(AppFabric) | **2022 年に完全終了**。MS 推奨は Redis / NCache | API が別物 |
+| `DotNetNuke.*` / `effority.ealo` 等 | アプリ同梱のバイナリ | ユーザーが供給するもの |
+
+`ZedGraph.Web` は特に注意が要ります。**チャートの中核は .NET で動きますが、
+それを WebForms のページに貼る部分だけが無い**という形で、
+「ライブラリを差し替えれば済む」ではなく「表示のしかたを決め直す」案件です。
+
+### 露出した欠陥: ページの using からパッケージを検出していなかった
+
+`Novell` は自動で入ったのに `ZedGraph` は入りませんでした。原因は収集範囲です。
+
+```csharp
+CollectUsingNamespaces(candidateSource, portedNamespaces);   // ← プレーンコードのループ 1 箇所だけ
+```
+
+mojoPortal がチャートを使っているのは `SiteStatisticsModule.razor.cs` と
+`SalesByItemPage.razor.cs` ——**ページのコードビハインド**です。
+ライブラリ側のファイルは 1 つも ZedGraph を名指ししないので、
+「using から必要なパッケージを足す」仕組みが**ページを見ていなかった**ぶん、丸ごと漏れていました。
+コンポーネントのコードビハインドも収集対象にしました。
+
+### 計測
+
+カウント上のエラーは変化しません(これらは元から「外部ライブラリ」として除外枠)。
+**効いたのは実ビルド**です。
+
+| | 変更前 | 変更後 |
+|---|---:|---:|
+| **mojo 実ビルドエラー** | **135** | **115** |
+| 合計総残差 | 528 | 528 |
+| 合計カウント上エラー | 290 | 290 |
+
+内訳: LDAP 12 件と ZedGraph の中核 8 件が解決。
+残る 115 は Lucene 約 62、MetaDataExtractor 18、ZedGraph.Web 8、その他。
+
+パリティ 30/30、bUnit 30/30、回帰ゲート 13/13。

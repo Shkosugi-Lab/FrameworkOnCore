@@ -4628,3 +4628,47 @@ CS1061 'ImageListBox' に 'Items' の定義が含まれておらず…
 | 合計総残差 | 530 | **528** |
 
 パリティ 30/30、bUnit 30/30、回帰ゲート 13/13。
+
+---
+
+## 1 件ずつではなく、不足メンバを全コーパスで一括集計した
+
+`Control.Events` → ライフサイクルのイベント → リストの `Items` と、
+**3 回続けて同じ種類の穴**(型の名前はあるが、その型が持っていた面が無い)でした。
+1 件ずつ潰すのをやめ、**全コーパスの「型 X にメンバ Y が無い」を一度に数え**ました。
+
+```
+CS1061 / CS0117 を型.メンバ で集計 → 84 件
+```
+
+| 不足 | 件数 |
+|---|---:|
+| `TextBoxMode.Date` / `.Number` | 8 |
+| `ClientScriptManagerShim.GetPostBackClientHyperlink` | 4 |
+| `ScriptManager.ScriptResourceMapping` | 4 |
+| `IWebFormsControl.FindControl` / `.Parent` / `.Site` | 7 |
+| `HttpContext.ApplicationInstance` | 3 |
+| `HttpSessionStateBase.SessionID` | 2 |
+| (以下 2 件以下の尾) | |
+
+**すべて小さなクラスタ**でした。つまり「大きな型が丸ごと抜けている」のではなく、
+**細かい面が満遍なく欠けている**状態です。今回はそのうち確実なものを塞ぎました。
+
+### 塞いだもの
+
+| | 中身 |
+|---|---|
+| `TextBoxMode` に HTML5 の値 | WebForms 4.5 が追加した `Date` / `Number` / `Email` ほか。**ブラウザで日付ピッカーや数値入力にする指定**そのもの。3 つしか無かったので `TextBoxMode.Date` がコンパイルできなかった |
+| `IWebFormsControl.FindControl` / `Parent` / `Site` | 既定実装付き。この interface は**描画系とコンポーネント系の両方**を跨ぐので、多くは意味を持たないが、**宣言が無いと呼ぶ側がコンパイルできない** |
+| `HttpSessionStateBase.SessionID` | アプリは訪問者ごとの状態(キャッシュ、アップロード先)をこれで区切る。セッション内で不変・セッション間で一意 |
+| `ClientScriptManager.GetPostBackClientHyperlink` / `GetPostBackEventReference` | `javascript:__doPostBack(...)` を作る面。Blazor に `__doPostBack` は無いので `javascript:void(0)` を返す —— **null を返すとマークアップに "null" が出ます**。宣言が無いとコントロール自体が通らない |
+
+### 計測
+
+| | 変更前 | 変更後 |
+|---|---:|---:|
+| yaf ビルドエラー | 164 | **154** |
+| 合計ビルドエラー | 300 | **290** |
+| 合計総残差 | 528 | 528 |
+
+パリティ 30/30、bUnit 30/30、回帰ゲート 13/13。

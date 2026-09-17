@@ -42,6 +42,30 @@ public interface IWebFormsControl
 
     /// <summary>The hosting page, or null outside one.</summary>
     Page Page { get; }
+
+    // The rest of what ported code asks of a Control. Defaults, because the interface spans
+    // two families: a render-based LegacyWebControl and a Blazor component, and most of
+    // these are meaningful for neither. Declaring them is what matters - ported code takes
+    // a control and calls them, and without the declaration it does not compile at all.
+
+    /// <summary>
+    /// WebForms Control.FindControl. Implementers that keep a child collection override
+    /// it; the default finds nothing, which is the honest answer for a control that holds
+    /// no children of its own.
+    /// </summary>
+    IWebFormsControl FindControl(string id) => null;
+
+    /// <summary>
+    /// WebForms Control.Parent. Blazor owns the tree and does not expose a parent, so this
+    /// is null unless something placed the control explicitly.
+    /// </summary>
+    IWebFormsControl Parent => null;
+
+    /// <summary>
+    /// WebForms Control.Site - the designer's hook. There is no designer here, and code
+    /// reads it to ask "am I in the designer?", where null means no.
+    /// </summary>
+    object Site => null;
 }
 
 /// <summary>A control holding an input value (can be the target of a validator).</summary>

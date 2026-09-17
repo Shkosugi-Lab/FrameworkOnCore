@@ -538,6 +538,13 @@ public abstract class HttpSessionStateBase
 {
     private readonly Dictionary<string, object> _items = new(StringComparer.Ordinal);
 
+    /// <summary>
+    /// WebForms Session.SessionID. Applications key their own per-visitor state on it -
+    /// a cache entry, an upload folder - so it has to be stable for the life of the
+    /// session and unique between sessions, which is what this is.
+    /// </summary>
+    public virtual string SessionID { get; } = Guid.NewGuid().ToString("N");
+
     public virtual object this[string key]
     {
         get => _items.TryGetValue(key, out var value) ? value : null;

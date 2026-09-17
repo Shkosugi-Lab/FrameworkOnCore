@@ -338,6 +338,29 @@ public sealed class ClientScriptManagerShim
 
     public bool IsStartupScriptRegistered(string key) => false;
 
+    /// <summary>
+    /// WebForms ClientScriptManager.GetPostBackClientHyperlink / GetPostBackEventReference.
+    ///
+    /// These produce the "javascript:__doPostBack('id','arg')" a control puts in an href or
+    /// an onclick. Blazor has no __doPostBack, so the string is a no-op javascript: URL -
+    /// the link renders and clicking it does nothing, which is the same visible state as
+    /// the rest of the postback surface here. Returning null instead would put "null" in
+    /// the markup; not declaring it stopped the control compiling at all.
+    /// </summary>
+    public string GetPostBackClientHyperlink(IWebFormsControl control, string argument)
+        => "javascript:void(0)";
+
+    public string GetPostBackClientHyperlink(
+        IWebFormsControl control, string argument, bool registerForEventValidation)
+        => GetPostBackClientHyperlink(control, argument);
+
+    public string GetPostBackEventReference(IWebFormsControl control, string argument)
+        => "void(0)";
+
+    public string GetPostBackEventReference(
+        IWebFormsControl control, string argument, bool registerForEventValidation)
+        => GetPostBackEventReference(control, argument);
+
     public bool IsClientScriptBlockRegistered(string key) => false;
 
     public string GetPostBackEventReference(object control, string argument) => string.Empty;

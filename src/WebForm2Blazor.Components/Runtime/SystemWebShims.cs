@@ -900,6 +900,22 @@ public enum TextBoxMode
     SingleLine,
     MultiLine,
     Password,
+    // WebForms 4.5 added the HTML5 input types, and applications use them: they are what
+    // makes a field a date picker or a numeric spinner in the browser. Only the first
+    // three were here, so "TextBoxMode.Date" did not compile at all.
+    Color,
+    Date,
+    DateTime,
+    DateTimeLocal,
+    Email,
+    Month,
+    Number,
+    Range,
+    Search,
+    Phone,
+    Time,
+    Url,
+    Week,
 }
 
 /// <summary>System.Web.UI.WebControls.AutoCompleteType equivalent (rendering ignores it).</summary>

@@ -4583,3 +4583,48 @@ YAF の `ThemeButton` がそれです。`Control.Events` が無いと、
 | 合計総残差 | 530 | 530 |
 
 パリティ 30/30、bUnit 30/30、回帰ゲート 13/13。
+
+---
+
+## リスト系の基底は、リストを持っていなければならない
+
+```
+CS1061 'ImageListBox' に 'Items' の定義が含まれておらず…
+```
+
+`ImageListBox` は YAF の `ListBox` 派生です。移植時の基底置換表はこうなっていました。
+
+```csharp
+["DropDownList"] = "LegacyWebControl",
+["ListBox"]      = "LegacyWebControl",
+```
+
+`LegacyWebControl` はライフサイクルと描画の仮想メソッドを持ちますが、
+**リストをリストたらしめるものは何も持ちません**。
+派生クラスは `Items` も `SelectedValue` もデータバインドのフィールドも全部失い、
+コードでリストを組む行が軒並み落ちていました。
+
+`LegacyCalendar` / `LegacyPanel` と同じ形で `LegacyListControl` を用意し、
+`DropDownList` / `ListBox` / `ListControl` / `CheckBoxList` / `RadioButtonList` を
+そこへ向けました。
+
+**選択は本物の状態**です。`SelectedValue` を代入して読み戻すコードは元どおり動きます。
+`DataSource` + `DataBind()` も、`DataTextField` / `DataValueField` /
+`DataTextFormatString` / `AppendDataBoundItems` を含めて元と同じ項目を作ります。
+起きないのは**変更時のポストバック**で、対話的なリストは
+手作業での移植対象として別途報告されます。
+
+`SelectedValue` に一致しない値を入れると選択が外れるのも 4.8 の挙動です
+(だから「あるかどうか分からない値」を代入するコードが書ける)。
+
+### 計測
+
+| | 変更前 | 変更後 |
+|---|---:|---:|
+| yaf ビルドエラー | 208 | **164** |
+| mojo 総残差 | 77 | 76 |
+| dnn 総残差 | 161 | 160 |
+| 合計ビルドエラー | 344 | **300** |
+| 合計総残差 | 530 | **528** |
+
+パリティ 30/30、bUnit 30/30、回帰ゲート 13/13。

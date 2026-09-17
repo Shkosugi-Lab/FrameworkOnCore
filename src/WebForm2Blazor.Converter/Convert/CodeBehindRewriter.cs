@@ -378,8 +378,15 @@ public static class CodeBehindRewriter
         ["Button"] = "LegacyWebControl",
         ["LinkButton"] = "LegacyWebControl",
         ["ImageButton"] = "LegacyWebControl",
-        ["DropDownList"] = "LegacyWebControl",
-        ["ListBox"] = "LegacyWebControl",
+        // A list control's base has to carry the list: Items, SelectedValue and the data
+        // binding fields. LegacyWebControl has the lifecycle and the render virtuals and
+        // nothing else, so a ported subclass lost all of it - YAF's ImageListBox fills its
+        // Items in code and every line failed. Same arrangement as LegacyCalendar.
+        ["DropDownList"] = "LegacyListControl",
+        ["ListBox"] = "LegacyListControl",
+        ["ListControl"] = "LegacyListControl",
+        ["CheckBoxList"] = "LegacyListControl",
+        ["RadioButtonList"] = "LegacyListControl",
         ["GridView"] = "LegacyWebControl",
         ["DataGrid"] = "LegacyWebControl",
         ["Repeater"] = "LegacyWebControl",

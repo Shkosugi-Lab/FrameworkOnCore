@@ -693,10 +693,64 @@ public static class CodeBehindRewriter
         => DeepSyntaxWork.Run(() =>
             RewritePlainCodeFileCore(source, sourceName, report, portedTypes));
 
+    /// <summary>
+    /// Public static methods System.Linq.Enumerable declares, by name and shape.
+    /// </summary>
+    private static readonly Lazy<HashSet<string>> LinqExtensionShapes = new(()
+        => typeof(System.Linq.Enumerable)
+            .GetMethods(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Static)
+            .Select(method =>
+                $"{method.Name}`{method.GetGenericArguments().Length}({method.GetParameters().Length})")
+            .ToHashSet(StringComparer.Ordinal));
+
+    /// <summary>
+    /// Removes a vendored LINQ extension the framework has since grown an identical one of.
+    ///
+    /// YAF carries its own DistinctBy, written when .NET Framework had none:
+    ///
+    ///     public static IEnumerable&lt;TSource&gt; DistinctBy&lt;TSource, TKey&gt;(
+    ///         this IEnumerable&lt;TSource&gt; source, Func&lt;TSource, TKey&gt; keySelector)
+    ///
+    /// .NET 6 added exactly that, with the same semantics, so both apply at every call site
+    /// and every one is CS0121. Neither can be preferred by a using: they are extension
+    /// methods, so an alias cannot reach them.
+    ///
+    /// The vendored copy is what goes, because keeping it is what makes the call ambiguous
+    /// and the framework's does the same thing - that is WHY it was added. Matched on name,
+    /// generic arity and parameter count, with an IEnumerable first parameter, so a
+    /// same-named method of a different shape is left alone.
+    /// </summary>
+    private static CompilationUnitSyntax DropLinqExtensionsTheFrameworkNowHas(
+        CompilationUnitSyntax root, string? sourceName, ConversionReport? report)
+    {
+        var redundant = root.DescendantNodes().OfType<MethodDeclarationSyntax>()
+            .Where(method =>
+                method.Modifiers.Any(modifier => modifier.RawKind == (int)SyntaxKind.StaticKeyword)
+                && method.Modifiers.Any(modifier => modifier.RawKind == (int)SyntaxKind.PublicKeyword)
+                && method.ParameterList.Parameters.FirstOrDefault() is { } first
+                && first.Modifiers.Any(modifier => modifier.RawKind == (int)SyntaxKind.ThisKeyword)
+                && first.Type?.ToString().StartsWith("IEnumerable<", StringComparison.Ordinal) == true
+                && LinqExtensionShapes.Value.Contains(
+                    $"{method.Identifier.Text}`{method.TypeParameterList?.Parameters.Count ?? 0}"
+                    + $"({method.ParameterList.Parameters.Count})"))
+            .ToList();
+
+        foreach (var method in redundant)
+        {
+            report?.Info(sourceName ?? string.Empty,
+                $"拡張メソッド {method.Identifier.Text} は .NET が同じものを持つようになったため削除しました"
+                + "(両方あると呼び出しがあいまいになり、動作は同一です)。");
+        }
+
+        return redundant.Count == 0
+            ? root
+            : root.RemoveNodes(redundant, SyntaxRemoveOptions.KeepNoTrivia)!;
+    }
+
     private static string RewritePlainCodeFileCore(
         string source, string? sourceName, ConversionReport? report, PortedTypeIndex? portedTypes)
     {
-        var root = ParseUnit(source);
+        var root = DropLinqExtensionsTheFrameworkNowHas(ParseUnit(source), sourceName, report);
 
         var replacedAny = false;
         var targets = new Dictionary<BaseTypeSyntax, BaseTypeSyntax>();

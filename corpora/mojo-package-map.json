@@ -1,4 +1,13 @@
-﻿[
+[
   { "assembly": "MetaDataExtractor", "package": "MetadataExtractor", "version": "2.9.3",
-    "dll": "C:\\Users\\admin\\.nuget\\packages\\metadataextractor\\2.9.3\\lib\\net8.0\\MetadataExtractor.dll" }
+    "dll": "C:\\Users\\admin\\.nuget\\packages\\metadataextractor\\2.9.3\\lib\\net8.0\\MetadataExtractor.dll" },
+
+  { "assembly": "Lucene.Net", "package": "Lucene.Net", "version": "4.8.0-beta00018",
+    "dll": "C:\\Users\\admin\\.nuget\\packages\\lucene.net\\4.8.0-beta00018\\lib\\net8.0\\Lucene.Net.dll" },
+
+  { "assembly": "Lucene.Net.Contrib.Analyzers", "package": "Lucene.Net.Analysis.Common", "version": "4.8.0-beta00018",
+    "dll": "C:\\Users\\admin\\.nuget\\packages\\lucene.net.analysis.common\\4.8.0-beta00018\\lib\\net8.0\\Lucene.Net.Analysis.Common.dll" },
+
+  { "assembly": "Lucene.Net.Contrib.Highlighter", "package": "Lucene.Net.Highlighter", "version": "4.8.0-beta00018",
+    "dll": "C:\\Users\\admin\\.nuget\\packages\\lucene.net.highlighter\\4.8.0-beta00018\\lib\\net8.0\\Lucene.Net.Highlighter.dll" }
 ]

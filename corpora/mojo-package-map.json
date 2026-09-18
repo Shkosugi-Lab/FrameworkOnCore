@@ -19,5 +19,17 @@
   { "assembly": "Lucene.Net.Contrib.Analyzers", "package": "Lucene.Net.ICU", "version": "4.8.0-beta00018" },
 
   { "assembly": "Lucene.Net.Contrib.Highlighter", "package": "Lucene.Net.Highlighter", "version": "4.8.0-beta00018",
-    "dll": "C:\\Users\\admin\\.nuget\\packages\\lucene.net.highlighter\\4.8.0-beta00018\\lib\\net8.0\\Lucene.Net.Highlighter.dll" }
+    "dll": "C:\\Users\\admin\\.nuget\\packages\\lucene.net.highlighter\\4.8.0-beta00018\\lib\\net8.0\\Lucene.Net.Highlighter.dll" },
+
+  { "_readme": "以下は .NET 版が存在しないライブラリ。package を空にすると「置き換えない」という決定になり、依存するファイルは移植対象外になる(型はスタブ、参照側はコンパイルできる)。名前空間はアセンブリ自身から読む。" },
+
+  { "assembly": "Microsoft.ApplicationServer.Caching.Client", "package": "", "version": "" },
+  { "assembly": "Microsoft.ApplicationServer.Caching.Core", "package": "", "version": "" },
+  { "assembly": "Subkismet", "package": "", "version": "" },
+  { "assembly": "CSSFriendly", "package": "", "version": "" },
+  { "assembly": "TimelineNet", "package": "", "version": "" },
+  { "assembly": "ZedGraph.Web", "package": "", "version": "" },
+  { "assembly": "Argotic.Common", "package": "", "version": "" },
+  { "assembly": "Argotic.Core", "package": "", "version": "" },
+  { "assembly": "Argotic.Extensions", "package": "", "version": "" }
 ]

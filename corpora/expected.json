@@ -7,9 +7,9 @@
            },
     "mojo":  {
                  "convertible":  12,
-                 "portedCs":  754,
-                 "residuals":  80,
-                 "buildErrors":  8
+                 "portedCs":  747,
+                 "residuals":  92,
+                 "buildErrors":  6
              },
     "yaf":  {
                 "convertible":  5,

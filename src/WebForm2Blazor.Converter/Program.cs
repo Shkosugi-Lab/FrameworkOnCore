@@ -168,6 +168,11 @@ static string? FindPropertyCatalog()
     return candidates.FirstOrDefault(File.Exists);
 }
 
+// Read here, ahead of everything: the porting pass below decides what to exclude, and a
+// library the user has declared unreplaceable has to be known by then. The library
+// MIGRATION built further down uses the same map.
+var packageMap = packageMapPath is not null ? LoadPackageMap(packageMapPath) : null;
+
 // Which library projects to port alongside the app is stated by the app's .csproj, so it
 // is read rather than guessed. Getting this set wrong is the most expensive mistake in a
 // conversion and it does not announce itself: the missing types surface as hundreds of
@@ -483,6 +488,77 @@ static string OutOfScopeFrameworkNote(string unportable)
           + "別途移行してください。"
         : $".NET Framework 専用の名前空間 {unportable} を使用しているため移植から除外しました"
           + "(認証/ルーティング等の基盤コードは手動移行が必要)。";
+}
+
+// Libraries declined in the package map (an entry naming the assembly and no package).
+// Their namespaces come from the assembly, so the exclusion covers exactly what the
+// library declared - nothing guessed from the name.
+//
+// EXCEPT a namespace the application itself declares. HtmlDiff.dll puts its three types in
+// a namespace called "Helpers", and mojoPortal has its own Helpers; declining the library
+// therefore condemned 42 of the application's own files, none of which had ever heard of
+// HtmlDiff. A namespace that still has code in it after the library is gone is not the
+// library's to take away.
+if (packageMap is not null)
+{
+    var portDeclares = new HashSet<string>(
+        candidateNamespaces.SelectMany(entry => entry.Declared), StringComparer.Ordinal);
+
+    var declined = new List<string>();
+    var kept = new List<string>();
+    foreach (var (assemblyName, choices) in packageMap)
+    {
+        if (choices.Any(choice => !string.IsNullOrEmpty(choice.Package)))
+        {
+            continue;
+        }
+
+        var assemblyPath = FindBuiltAssembly(input, assemblyName)
+            ?? includeDirectories.Select(directory => FindBuiltAssembly(directory, assemblyName))
+                .FirstOrDefault(found => found is not null);
+        if (assemblyPath is null)
+        {
+            continue;
+        }
+
+        var namespaces = new HashSet<string>(StringComparer.Ordinal);
+        WebForm2Blazor.Converter.Convert.FrameworkTypeIndex.ReadPublicTypes(
+            assemblyPath, (typeNamespace, _) => namespaces.Add(typeNamespace));
+
+        var shared = namespaces.Where(portDeclares.Contains).ToList();
+        namespaces.ExceptWith(shared);
+        if (shared.Count > 0)
+        {
+            kept.Add($"{assemblyName}({string.Join("/", shared)})");
+        }
+
+        if (namespaces.Count == 0)
+        {
+            continue;
+        }
+
+        WebForm2Blazor.Converter.Convert.PortabilityRules.Decline(namespaces);
+        declined.Add($"{assemblyName}({namespaces.Count} 名前空間)");
+    }
+
+    if (declined.Count > 0)
+    {
+        report.Info("(project)",
+            "--package-map で「置き換え先なし」と指定されたライブラリを移植対象外にしました: "
+            + string.Join(", ", declined)
+            + "。これらに依存するファイルは除外し、宣言していた型はスタブにします"
+            + "(参照側はコンパイルできます)。");
+    }
+
+    if (kept.Count > 0)
+    {
+        report.Residual("(project)", ResidualKind.Configuration,
+            "置き換え先なしと指定されたライブラリが、アプリ自身も宣言している名前空間を使っています: "
+            + string.Join(", ", kept)
+            + "。その名前空間は除外対象にしていません(アプリのコードまで巻き込むため)。"
+            + "このライブラリの型を参照している箇所は CS0246 として残ります。",
+            disposition: ResidualDisposition.NeedsInput);
+    }
 }
 
 var excludedCandidates = new HashSet<int>();
@@ -809,10 +885,6 @@ var compatImports = WebForm2Blazor.Converter.Convert.CompatImportDisambiguator.B
 // What the ported classes declare and derive from, so an override can be checked against
 // the whole chain rather than only a direct compat base.
 var portedTypes = WebForm2Blazor.Converter.Convert.PortedTypeIndex.Build(portedSources);
-
-// Read here rather than beside CollectDeclaredPackages: the library migration below needs
-// it, and that has to be built before any generated file is written.
-var packageMap = packageMapPath is not null ? LoadPackageMap(packageMapPath) : null;
 
 // Libraries the user pointed at a .NET replacement AND gave its assembly for. Both sides
 // are read and the names that match are rewritten; what does not match is reported, not
@@ -1661,7 +1733,8 @@ static string? FindUnportableNamespace(string source)
 
     // Generated proxies (WCF "Service References") write every type fully qualified and
     // import nothing, so a using-only scan sees a portable file and lets it through
-    return PortabilityRules.FindQualifiedFrameworkReference(source);
+    return PortabilityRules.FindQualifiedFrameworkReference(source)
+           ?? PortabilityRules.FindServiceHostBase(source);
 }
 
 static void CollectUsingNamespaces(string source, HashSet<string> namespaces)

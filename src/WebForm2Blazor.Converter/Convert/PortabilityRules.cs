@@ -75,10 +75,41 @@ public static class PortabilityRules
         "Microsoft.Ajax", "BlogML",
     ];
 
+    /// <summary>
+    /// Namespaces of libraries the USER declared unreplaceable, via a --package-map entry
+    /// with no package.
+    ///
+    /// The list above is hand-written, and this converter keeps learning that a
+    /// hand-written list of what exists is the wrong shape. Here it cannot be anything
+    /// else: whether a vendored DLL has a .NET successor is not a fact any artifact in the
+    /// repository holds. But the two halves of the answer are, and neither is a guess -
+    /// the user says WHICH assembly has no replacement, and the assembly itself says which
+    /// namespaces that covers. Nothing is inferred from a name.
+    ///
+    /// Until an assembly is declined, its types stay as CS0246 and are counted separately
+    /// (undecided dependencies), because a missing decision must not look like a made one.
+    /// </summary>
+    private static readonly HashSet<string> DeclinedNamespaces = new(StringComparer.Ordinal);
+
+    /// <summary>Records the namespaces of a declined library. Read from its assembly.</summary>
+    public static void Decline(IEnumerable<string> namespaces)
+    {
+        foreach (var ns in namespaces)
+        {
+            if (!string.IsNullOrEmpty(ns))
+            {
+                DeclinedNamespaces.Add(ns);
+            }
+        }
+    }
+
+    public static int DeclinedNamespaceCount => DeclinedNamespaces.Count;
+
     public static bool IsFrameworkOnly(string ns)
-        => Prefixes.Any(prefix =>
-            ns.Equals(prefix, StringComparison.Ordinal)
-            || ns.StartsWith(prefix + ".", StringComparison.Ordinal));
+        => DeclinedNamespaces.Contains(ns)
+           || Prefixes.Any(prefix =>
+               ns.Equals(prefix, StringComparison.Ordinal)
+               || ns.StartsWith(prefix + ".", StringComparison.Ordinal));
 
     /// <summary>
     /// The first Framework-only namespace referenced by a fully qualified name in the
@@ -100,10 +131,49 @@ public static class PortabilityRules
     /// file names. The prefix must also start a name rather than end one, so
     /// "MyPayPal.Helper" does not count.
     /// </summary>
+    /// <summary>
+    /// WCF SERVICE HOSTS, which the client-side namespace happens to share.
+    ///
+    /// System.ServiceModel is deliberately NOT in the prefix list: ChannelFactory and the
+    /// contract attributes have .NET packages, and excluding the namespace would take out
+    /// code that ports fine. But ServiceHost itself is the hosting side, it is in the same
+    /// namespace as the client types, and it has no .NET counterpart - .Activation and
+    /// .Web are already excluded for exactly that reason. mojoPortal's mojoServiceHost
+    /// derives from it, and its only caller (mojoServiceHostFactory) is already out of
+    /// scope.
+    ///
+    /// Matched on the BASE LIST, not on a mention: a name this common needs the file to be
+    /// making itself one of these before it counts.
+    /// </summary>
+    private static readonly string[] ServiceHostBases =
+        ["ServiceHost", "ServiceHostFactory", "WebServiceHost", "WebServiceHostFactory"];
+
+    /// <summary>
+    /// "System.ServiceModel" when the file declares a WCF service host, otherwise null.
+    /// </summary>
+    public static string? FindServiceHostBase(string source)
+    {
+        if (!source.Contains("System.ServiceModel", StringComparison.Ordinal))
+        {
+            return null;
+        }
+
+        var root = CodeBehindRewriter.ParseUnit(source);
+        var declaresHost = root.DescendantNodes()
+            .OfType<Microsoft.CodeAnalysis.CSharp.Syntax.ClassDeclarationSyntax>()
+            .Any(declaration => declaration.BaseList?.Types
+                .Select(baseType => baseType.Type.ToString())
+                .Any(name => ServiceHostBases.Contains(
+                    name.Split('.').Last(), StringComparer.Ordinal)) == true);
+
+        return declaresHost ? "System.ServiceModel" : null;
+    }
+
     public static string? FindQualifiedFrameworkReference(string source)
     {
         var code = WithoutStringsAndComments(source);
-        return Prefixes.FirstOrDefault(prefix => HasQualifiedReference(code, prefix));
+        return Prefixes.Concat(DeclinedNamespaces)
+            .FirstOrDefault(prefix => HasQualifiedReference(code, prefix));
     }
 
     /// <summary>

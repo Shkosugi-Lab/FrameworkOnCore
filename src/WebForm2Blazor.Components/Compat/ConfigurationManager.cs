@@ -68,6 +68,40 @@ public static class ConfigurationManager
     public sealed class AppSettingsSection
     {
         public string this[string key] => Configuration[$"AppSettings:{key}"];
+
+        /// <summary>
+        /// The keys appsettings.json carries under AppSettings, as WebForms'
+        /// AppSettings.AllKeys gave them.
+        /// </summary>
+        public string[] AllKeys => Pairs().Select(pair => pair.Key).ToArray();
+
+        public int Count => Pairs().Count();
+
+        /// <summary>
+        /// WebForms AppSettings IS a NameValueCollection, and ported code assigns it to
+        /// one - a settings loader takes the whole collection and copies it. The
+        /// conversion is a COPY: this section reads live configuration, and a caller
+        /// holding a NameValueCollection expects a value it can keep and mutate without
+        /// that reaching back into the application's settings.
+        /// </summary>
+        public static implicit operator System.Collections.Specialized.NameValueCollection(
+            AppSettingsSection section)
+        {
+            var values = new System.Collections.Specialized.NameValueCollection(
+                StringComparer.OrdinalIgnoreCase);
+            if (section is not null)
+            {
+                foreach (var pair in Pairs())
+                {
+                    values[pair.Key] = pair.Value;
+                }
+            }
+            return values;
+        }
+
+        private static IEnumerable<KeyValuePair<string, string>> Pairs()
+            => Configuration.GetSection("AppSettings").GetChildren()
+                .Select(child => new KeyValuePair<string, string>(child.Key, child.Value));
     }
 
     public sealed class ConnectionStringsSection

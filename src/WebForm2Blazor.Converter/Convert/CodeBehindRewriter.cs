@@ -181,6 +181,19 @@ public static class CodeBehindRewriter
         // lifecycle off while the build still passes.
         updated = DropOverridesTheCompatBaseDoesNotHave(updated, sourceName, report, portedTypes);
         updated = AddParameterAttributes(updated, component, sourceName, report);
+
+        // Before the members are generated, so it works on the code the file WROTE rather
+        // than on the converter's own output (which never passes a control by reference).
+        var byReference = RefArgumentControls.Apply(
+            updated, component.Fields.Select(field => field.Name).Distinct(StringComparer.Ordinal).ToList());
+        if (byReference != updated)
+        {
+            report.Info(sourceName,
+                "コントロールを ref / out 引数に渡している呼び出しを、ローカル変数を経由する形に書き換えました"
+                + "(コントロールはプロパティとして生成するため、そのままでは ref に渡せません)。");
+            updated = byReference;
+        }
+
         updated = InsertGeneratedMembers(updated, component, sourceName, report);
 
         root = root.ReplaceNode(classDeclaration, updated);

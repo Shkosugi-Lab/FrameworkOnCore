@@ -328,21 +328,18 @@ public sealed class DetachedPage : Page
 /// WebForms HtmlHead equivalent (Page.Header). Title / metadata set from code-behind
 /// are accepted; Blazor pages declare head content with PageTitle / HeadContent.
 /// </summary>
-public sealed class PageHeaderShim
+/// <remarks>
+/// Derives from <see cref="HtmlHead"/>, because on 4.8 Page.Header IS an HtmlHead and
+/// ported code is written against that type - YAF writes "Page.Header ?? someHtmlHead",
+/// which needs the two to have a common type or it is not even an expression.
+///
+/// Two independent declarations of the same thing is the mistake this converter keeps
+/// re-learning: the header shim and HtmlHead were written separately, each with its own
+/// Title and Controls, and nothing connected them. Title / Attributes / Controls / DataBind
+/// come from the base now, so there is one of each.
+/// </remarks>
+public sealed class PageHeaderShim : HtmlHead
 {
-    public string Title { get; set; }
-
-    public AttributeCollection Attributes { get; } = new(() => { });
-
-    public ControlCollection Controls { get; } = [];
-
-    /// <summary>
-    /// WebForms Control.DataBind equivalent. The head is assembled from markup and
-    /// HeadContent in Blazor, so there is no deferred binding to resolve here.
-    /// </summary>
-    public void DataBind()
-    {
-    }
 }
 
 /// <summary>

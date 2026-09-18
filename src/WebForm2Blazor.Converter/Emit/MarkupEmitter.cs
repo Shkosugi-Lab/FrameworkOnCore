@@ -1617,7 +1617,7 @@ public sealed partial class MarkupEmitter(EmitContext context)
             : (isLayout || isGroup) && inner.Contains("@ItemsPlaceholder", StringComparison.Ordinal)
                 ? " Context=\"ItemsPlaceholder\""
                 : string.Empty;
-        var tagName = ControlMappings.TemplateParameterNames.GetValueOrDefault(element.Name, element.Name);
+        var tagName = ControlMappings.TemplateParameterName(element.Name);
         return $"<{tagName}{contextAttribute}>{inner}</{tagName}>";
     }
 

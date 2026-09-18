@@ -3,10 +3,20 @@
     "dll": "C:\\Users\\admin\\.nuget\\packages\\metadataextractor\\2.9.3\\lib\\net8.0\\MetadataExtractor.dll" },
 
   { "assembly": "Lucene.Net", "package": "Lucene.Net", "version": "4.8.0-beta00018",
-    "dll": "C:\\Users\\admin\\.nuget\\packages\\lucene.net\\4.8.0-beta00018\\lib\\net8.0\\Lucene.Net.dll" },
+    "dll": [
+      "C:\\Users\\admin\\.nuget\\packages\\lucene.net\\4.8.0-beta00018\\lib\\net8.0\\Lucene.Net.dll",
+      "C:\\Users\\admin\\.nuget\\packages\\lucene.net.queryparser\\4.8.0-beta00018\\lib\\net8.0\\Lucene.Net.QueryParser.dll"
+    ] },
+
+  { "assembly": "Lucene.Net", "package": "Lucene.Net.QueryParser", "version": "4.8.0-beta00018" },
 
   { "assembly": "Lucene.Net.Contrib.Analyzers", "package": "Lucene.Net.Analysis.Common", "version": "4.8.0-beta00018",
-    "dll": "C:\\Users\\admin\\.nuget\\packages\\lucene.net.analysis.common\\4.8.0-beta00018\\lib\\net8.0\\Lucene.Net.Analysis.Common.dll" },
+    "dll": [
+      "C:\\Users\\admin\\.nuget\\packages\\lucene.net.analysis.common\\4.8.0-beta00018\\lib\\net8.0\\Lucene.Net.Analysis.Common.dll",
+      "C:\\Users\\admin\\.nuget\\packages\\lucene.net.icu\\4.8.0-beta00018\\lib\\net8.0\\Lucene.Net.ICU.dll"
+    ] },
+
+  { "assembly": "Lucene.Net.Contrib.Analyzers", "package": "Lucene.Net.ICU", "version": "4.8.0-beta00018" },
 
   { "assembly": "Lucene.Net.Contrib.Highlighter", "package": "Lucene.Net.Highlighter", "version": "4.8.0-beta00018",
     "dll": "C:\\Users\\admin\\.nuget\\packages\\lucene.net.highlighter\\4.8.0-beta00018\\lib\\net8.0\\Lucene.Net.Highlighter.dll" }

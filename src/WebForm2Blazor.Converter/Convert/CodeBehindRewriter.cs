@@ -1064,6 +1064,10 @@ public static class CodeBehindRewriter
         "System.Web.Services.Protocols",
         "System.Web.Services",
         "System.Web.Routing",
+        // MVC sat beside WebForms in the same application, and its view-model types cross
+        // into WebForms code. Only the names the compat layer actually declares are
+        // rewritten (CompatTypeNameFor decides), so this cannot drag the rest of MVC in.
+        "System.Web.Mvc",
         "System.Security.Permissions",
         "System.Web.Configuration",
         "System.Web.Security",

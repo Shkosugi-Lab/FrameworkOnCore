@@ -1,4 +1,5 @@
 using System.Globalization;
+using System.Reflection;
 using Microsoft.AspNetCore.Components;
 
 namespace WebForm2Blazor.Components;
@@ -97,12 +98,68 @@ public abstract class ValidatorBase : WebFormsControlBase, IWebFormsValidator
 
         var target = host.FindControl(ControlToValidate) as IValueControl;
         var value = target?.GetControlValue() ?? string.Empty;
-        _isValid = EvaluateIsValid(value, host);
+
+        // A ported validator overrides BaseValidator.EvaluateIsValid(), which takes no
+        // arguments and reads the value itself. When it does, THAT is the rule the
+        // application wrote and it is the one that decides - mojoPortal's EmailValidator
+        // deliberately skips the regular expression on the server and tests the address a
+        // different way, so running the compat RegularExpressionValidator's check instead
+        // would give a different answer to the same input.
+        _isValid = OverridesParameterlessEvaluate
+            ? EvaluateIsValidWith(host, EvaluateIsValid)
+            : EvaluateIsValid(value, host);
         StateHasChanged();
         return _isValid;
     }
 
+    /// <summary>
+    /// Whether the concrete validator declares WebForms' BaseValidator.EvaluateIsValid().
+    /// Asked of the type rather than kept as a flag the derived class would have to set:
+    /// the override either exists or it does not, and the type knows.
+    /// </summary>
+    private bool OverridesParameterlessEvaluate
+        => GetType().GetMethod(
+               nameof(EvaluateIsValid),
+               BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public,
+               binder: null,
+               types: Type.EmptyTypes,
+               modifiers: null)
+           is { DeclaringType: { } declaring } && declaring != typeof(ValidatorBase);
+
+    private bool EvaluateIsValidWith(WebFormsHostCore host, Func<bool> evaluate)
+    {
+        var previous = _validationHost;
+        _validationHost = host;
+        try
+        {
+            return evaluate();
+        }
+        finally
+        {
+            _validationHost = previous;
+        }
+    }
+
+    private WebFormsHostCore _validationHost;
+
     protected abstract bool EvaluateIsValid(string value, WebFormsHostCore host);
+
+    /// <summary>
+    /// WebForms BaseValidator.EvaluateIsValid(). Ported validators override it; the compat
+    /// layer's own validators use the two-argument form above, which already has the value
+    /// and the host in hand.
+    /// </summary>
+    protected virtual bool EvaluateIsValid() => true;
+
+    /// <summary>
+    /// WebForms BaseValidator.GetControlValidationValue(string): the validation value of
+    /// the named control, which is what an overriding EvaluateIsValid() reads.
+    /// </summary>
+    protected string GetControlValidationValue(string controlName)
+    {
+        var host = _validationHost ?? Host?.HostCore;
+        return (host?.FindControl(controlName) as IValueControl)?.GetControlValue() ?? string.Empty;
+    }
 
     /// <summary>
     /// WebForms ValidationDataType-compatible conversion.

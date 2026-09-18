@@ -4839,3 +4839,111 @@ Lucene.Net.Contrib.Analyzers を置き換え先へ移行します: 型 58 件を
 旧 `Lucene.Net.dll` 1 本にあった型が、新しい版では**複数パッケージに分かれています**。
 今の実装は旧 1 本 -> 新 1 本しか見ないので、分割先が見えません。
 1 つの旧アセンブリに複数の置き換え先を許すのが正しい直し方です。
+
+## mojo 実ビルド 43 -> 28、カウント上 24 -> 8
+
+前節で残した 4 区分のうち 3 つを片付けました。
+
+### 1. 1 つの旧アセンブリに複数の置き換え先を許した
+
+`Lucene.Net.QueryParsers` の 5 件は、旧 `Lucene.Net.dll` 1 本にあった型が
+4.8 では `Lucene.Net.QueryParser` パッケージに分かれたものでした。
+`"dll"` に配列を書けるようにし、置き換え先の型は**全部まとめてから**突き合わせます
+(片方ずつ読むと、両方にある名前が「一意」に見えてしまう)。
+同じ仕組みで `Lucene.Net.ICU`(ThaiAnalyzer)も足しました。
+
+### 2. 名前空間の証拠で曖昧さを解いた
+
+`ParseException` は旧側に 2 つ(`QueryParsers` と `Analysis.Standard`)、
+新側に 3 つ(`Classic` / `Flexible.Standard.Parser` / `Surround.Parser`)あり、
+名前だけでは 5 通りのどれとも決められません。
+
+ところが旧 `QueryParsers` には `QueryParserConstants` と `QueryParserTokenManager` もあり、
+これらは両側で一意で、**どちらも `QueryParsers.Classic` に着地**しています。
+3 つの新 `ParseException` のうち `Classic` にあるのは 1 つだけ。答えは 1 つに決まります。
+
+`Analysis.Standard.ParseException` は、着地先の名前空間に `ParseException` が
+1 つもないので未対応のまま残ります。これも正しい — 無くなった型です。
+
+> 単独では弱い証拠でも、**同じ名前空間で既に確定した移動**は弱くありません。
+> 変換器の他の判断と同じ原則です。
+
+型の対応付けは Lucene.Net が 77 -> 86 件、Analyzers が 58 -> 63 件に増えました。
+
+### 3. コンポーネント化で名前空間が変わった型を、残った側から届くようにした
+
+これが一番効きました(**11 件**)。
+
+`Controls/MetaContent.ascx.cs` は `mojoPortal.Web.UI` から
+`mojo.Components.Controls.Controls` へ動きます。ところが `mojoPortal.Web.UI` の**残り**は
+動きません。ただのライブラリコードで、`MetaContent` を修飾なしで書き続けます。
+
+名前空間マップはここでは使えません。名前空間を**丸ごと**付け替えるものなので、
+移動しない移植コードが残っている名前空間では正しく「やらない」と判断します。
+しかしやらないと移動した型に届かなくなる。これは「.NET に無い依存」ではなく
+**変換器自身が動かした型**です。mojoBasePage が `MetaContent` と `StyleSheetCombiner` を、
+PageEditFeaturesLink が `CmsPage` を、こうして失っていました。
+
+`RelocatedTypeIndex` が移動を記録し、**名前空間単位ではなく型単位で**使用側に戻します。
+修飾された参照は書き換え、修飾なしの参照には `using X = ...;` を補います。
+どちらも変換器が実際にやったことから決まります。
+
+### 4. 互換層の穴 4 つ
+
+| 型 | 元 | 件数 |
+|---|---|---:|
+| `CompositeDataBoundControl` | System.Web.UI.WebControls | 1 |
+| `TargetConverter` | System.Web.UI.WebControls | 1 |
+| `ICertificatePolicy` | System.Net(.NET で削除) | 1 |
+| `SelectListItem` / `SelectListGroup` | System.Web.Mvc | 2 |
+
+`SelectListItem` のために `System.Web.Mvc` を互換名前空間の探索対象に足しました。
+互換層が実際に宣言している名前しか書き換えないので、MVC 全体を引き込むことはありません。
+
+さらに `BaseValidator.EvaluateIsValid()` と `GetControlValidationValue(string)` を
+`ValidatorBase` に足しました。**引数なしの override を持つ検証コントロールは、
+そちらが優先されます** — mojoPortal の EmailValidator はサーバ側で正規表現を
+意図的に使わないので、互換 RegularExpressionValidator の判定を走らせると
+同じ入力に違う答えが出ます。override の有無は型に聞きます(フラグを持たせない)。
+
+### 5. テンプレートタグの大小文字
+
+`<emptydatatemplate>` は .aspx では GridView.EmptyDataTemplate に一致しますが、
+Razor のコンポーネントパラメータは大小文字を区別します。そのまま出すと
+RZ9996 で **GridView ごと落ちます**。マッピング表は大小無視のキーで
+WebForms の綴りを**保持している**ので、`TryGetValue` でその綴りを取り出します
+(別表を作ると食い違うため)。
+
+### 6. カレントディレクトリで結果が変わっていた
+
+作業中に見つけた欠陥です。`webforms-property-catalog.json` を
+**カレントディレクトリからだけ**探していたため、
+`corpora\convert-all.ps1` をリポジトリルートから実行すると読み込まれ、
+`corpora\` から実行すると読み込まれませんでした。6 コーパス合計で残差が 80 違います。
+変換器の隣を先に探すようにし、csproj で出力先へコピーするようにしました。
+**見つからなければ残差として言います** — 黙っているほうが問題でした。
+
+### 測定
+
+| | 変更前 | 変更後 |
+|---|---:|---:|
+| **mojo 実ビルドエラー(重複除去)** | **43** | **28** |
+| mojo カウント上エラー | 24 | **8** |
+| mojo 総残差 | 79 | 80 |
+
+他 5 コーパスは完全に一致(be 64/2/0、yaf 54/5/154、dnn 160/10/67、n2 141/11/54、wt 33/3/0)。
+パリティ 30/30、bUnit 30/30、回帰ゲート 13/13。
+
+**mojo の 8 件は下限値です。** 残りが全部「宣言段階のエラー」になったため、
+Blazor の 2 回コンパイルの 1 回目で止まり、本体の意味解析が走っていません。
+ゲートはこれを検出して警告します(この状態の数値を前後比較に使ってはいけません)。
+
+残り 8 件の内訳:
+
+| 区分 | 件数 | 性質 |
+|---|---:|---|
+| `com.drew` の改名(`AbstractDirectory` → `Directory` 等) | 6 | 名前一致では取れない。**AI 層の入力** |
+| `ServiceHost`(WCF) | 1 | スコープ外 |
+| `RecentContentConfiguration` | 1 | Argotic 除外からの連鎖 |
+
+決定論的に取れるものは取り切りました。ここから先は AI 層の仕事です。

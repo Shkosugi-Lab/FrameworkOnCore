@@ -1173,3 +1173,53 @@ public class ProfileInfoCollection : System.Collections.ObjectModel.KeyedCollect
     protected override string GetKeyForItem(ProfileInfo item) => item?.UserName ?? string.Empty;
 }
 
+
+/// <summary>
+/// System.Net.ICertificatePolicy equivalent.
+///
+/// .NET removed it along with ServicePointManager.CertificatePolicy; the replacement is
+/// ServerCertificateValidationCallback, which takes different arguments. A ported
+/// implementation (mojoPortal's TrustAllCertificatePolicy) therefore names an interface
+/// that no longer exists, and the file does not compile.
+///
+/// Declared here so it does, and NOTHING calls it - which is the honest outcome, because
+/// nothing in .NET would have called it either. A conversion that silently rewired the
+/// policy onto the new callback would be changing what the application trusts.
+/// </summary>
+public interface ICertificatePolicy
+{
+    bool CheckValidationResult(
+        System.Net.ServicePoint srvPoint,
+        System.Security.Cryptography.X509Certificates.X509Certificate certificate,
+        System.Net.WebRequest request,
+        int certificateProblem);
+}
+
+/// <summary>
+/// System.Web.Mvc.SelectListItem equivalent.
+///
+/// A WebForms application of any age has MVC alongside it, and a view model built there
+/// travels into WebForms code. The type is a plain carrier - text, value, selected - and
+/// ASP.NET Core declares the same one under Microsoft.AspNetCore.Mvc.Rendering, so this is
+/// a name that moved rather than behaviour that has to be reproduced.
+/// </summary>
+public class SelectListItem
+{
+    public bool Disabled { get; set; }
+
+    public SelectListGroup Group { get; set; }
+
+    public bool Selected { get; set; }
+
+    public string Text { get; set; }
+
+    public string Value { get; set; }
+}
+
+/// <summary>System.Web.Mvc.SelectListGroup equivalent.</summary>
+public class SelectListGroup
+{
+    public bool Disabled { get; set; }
+
+    public string Name { get; set; }
+}

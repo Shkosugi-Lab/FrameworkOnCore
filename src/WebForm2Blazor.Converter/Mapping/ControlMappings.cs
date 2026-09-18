@@ -95,6 +95,33 @@ public static class ControlMappings
     };
 
     /// <summary>
+    /// The template's name as a Razor component parameter.
+    ///
+    /// .aspx is case-insensitive and Razor is not. mojoPortal writes
+    /// &lt;emptydatatemplate&gt; in lower case, which WebForms matched to
+    /// GridView.EmptyDataTemplate without comment; emitted verbatim it is a parameter
+    /// GridView does not have, and Razor rejects the whole element (RZ9996) - so the page
+    /// lost its GridView over the casing of a tag.
+    ///
+    /// The sets above are keyed case-insensitively but STORE the WebForms spelling, which
+    /// is the spelling the compat components declare. TryGetValue hands back the stored
+    /// one, so the answer comes from the mapping itself rather than from a second list
+    /// that could disagree with it.
+    /// </summary>
+    public static string TemplateParameterName(string writtenName)
+    {
+        if (TemplateParameterNames.TryGetValue(writtenName, out var renamed))
+        {
+            return renamed;
+        }
+        if (DataBoundTemplates.TryGetValue(writtenName, out var dataBound))
+        {
+            return dataBound;
+        }
+        return PlainTemplates.TryGetValue(writtenName, out var plain) ? plain : writtenName;
+    }
+
+    /// <summary>
     /// Templates that may contain unclosed HTML.
     /// (In WebForms it is idiomatic to open a &lt;ul&gt; in HeaderTemplate and close it in
     ///  FooterTemplate, but Razor requires matching tags, so that cannot convert as-is.)

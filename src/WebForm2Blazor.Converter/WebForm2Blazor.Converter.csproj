@@ -14,6 +14,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <!-- Travels with the build. Without it the catalog was only found when the caller's
+         current directory happened to be the repository root, and the conversion quietly
+         produced different residuals depending on where the shell stood. -->
+    <None Include="..\..\webforms-property-catalog.json"
+          Link="webforms-property-catalog.json"
+          CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <ItemGroup>
     <!-- References the compatibility components' public API via reflection, used by the
          code-behind used-API inventory and the property coverage audit -->
     <FrameworkReference Include="Microsoft.AspNetCore.App" />

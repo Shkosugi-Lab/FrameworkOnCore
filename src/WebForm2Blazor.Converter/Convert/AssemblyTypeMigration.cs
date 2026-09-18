@@ -25,10 +25,16 @@ namespace WebForm2Blazor.Converter.Convert;
 internal sealed class AssemblyTypeMigration
 {
     /// <summary>
-    /// Old assembly name -> the replacement library's own assembly, as named by the
-    /// package map's optional "dll" field. Set once per conversion.
+    /// Old assembly name -> the replacement library's assemblies, as named by the package
+    /// map's optional "dll" field (one path, or several). Set once per conversion.
+    ///
+    /// Several, because a replacement is free to split. Lucene.Net 3.x shipped its query
+    /// parsers inside Lucene.Net.dll; Lucene.Net 4.8 puts them in Lucene.Net.QueryParser.
+    /// One old assembly against one new one cannot see that, and the types that moved to the
+    /// other package look identical to types that were deleted - which is exactly the wrong
+    /// answer, because it sends a solvable name to the AI layer.
     /// </summary>
-    public static readonly Dictionary<string, string> ReplacementAssemblies =
+    public static readonly Dictionary<string, List<string>> ReplacementAssemblies =
         new(StringComparer.OrdinalIgnoreCase);
 
     private readonly Dictionary<string, string> _namespaceRenames;
@@ -56,10 +62,17 @@ internal sealed class AssemblyTypeMigration
     /// <summary>
     /// Builds the migration, or null when either assembly cannot be read.
     /// </summary>
-    public static AssemblyTypeMigration? Build(string oldAssemblyPath, string newAssemblyPath)
+    public static AssemblyTypeMigration? Build(
+        string oldAssemblyPath,
+        IReadOnlyList<string> newAssemblyPaths)
     {
         var oldTypes = ReadTypes(oldAssemblyPath);
-        var newTypes = ReadTypes(newAssemblyPath);
+
+        // Every replacement assembly is read into ONE list before matching. Uniqueness has
+        // to be judged across the whole replacement, not per file: if Analysis.Common and
+        // QueryParser both declare a QueryParser, the old name is genuinely ambiguous and
+        // must stay unmatched, and reading them separately would hide that.
+        var newTypes = newAssemblyPaths.SelectMany(ReadTypes).ToList();
         if (oldTypes.Count == 0 || newTypes.Count == 0)
         {
             return null;
@@ -73,16 +86,39 @@ internal sealed class AssemblyTypeMigration
             .Where(group => group.Count() == 1)
             .ToDictionary(group => group.Key, group => group.Single(), StringComparer.Ordinal);
 
+        // Every new type by simple name, ambiguous groups included - the second pass needs
+        // to see the candidates the first pass refused to choose between.
+        var newCandidates = newTypes
+            .GroupBy(type => type.Name, StringComparer.Ordinal)
+            .ToDictionary(group => group.Key, group => group.ToList(), StringComparer.Ordinal);
+
         var typeRenames = new Dictionary<string, string>(StringComparer.Ordinal);
         var unmatched = new List<string>();
         var namespaceVotes = new Dictionary<string, HashSet<string>>(StringComparer.Ordinal);
 
-        foreach (var group in oldTypes.GroupBy(type => type.Name, StringComparer.Ordinal))
+        // Old types whose name exists in the replacement but more than once. Held back
+        // rather than discarded: the second pass has evidence this one does not.
+        var ambiguous = new List<(string Namespace, string Name, string FullName)>();
+
+        var oldNameCounts = oldTypes
+            .GroupBy(type => type.Name, StringComparer.Ordinal)
+            .ToDictionary(group => group.Key, group => group.Count(), StringComparer.Ordinal);
+
+        foreach (var old in oldTypes)
         {
-            var old = group.First();
-            if (group.Count() > 1 || !newByName.TryGetValue(old.Name, out var replacement))
+            // Unique on BOTH sides is the only match this pass will make, and the only one
+            // allowed to vote for where a namespace went. Duplicated on the old side means
+            // two different types would be sent to the same replacement.
+            if (oldNameCounts[old.Name] > 1 || !newByName.TryGetValue(old.Name, out var replacement))
             {
-                unmatched.AddRange(group.Select(type => type.FullName));
+                if (newCandidates.ContainsKey(old.Name))
+                {
+                    ambiguous.Add(old);
+                }
+                else
+                {
+                    unmatched.Add(old.FullName);
+                }
                 continue;
             }
 
@@ -93,6 +129,46 @@ internal sealed class AssemblyTypeMigration
                 namespaceVotes[old.Namespace] = targets = new HashSet<string>(StringComparer.Ordinal);
             }
             targets.Add(replacement.Namespace);
+        }
+
+        // Second pass: a name that is ambiguous on its own stops being ambiguous once you
+        // ask where the REST of its namespace went.
+        //
+        // Old Lucene.Net declares ParseException twice - QueryParsers and
+        // Analysis.Standard - and new Lucene.Net declares it three times - Classic,
+        // Flexible.Standard.Parser, Surround.Parser. Five-way, on the name alone.
+        //
+        // But QueryParsers also held QueryParserConstants and QueryParserTokenManager,
+        // unique on both sides, and both landed in QueryParsers.Classic. Exactly one of the
+        // three new ParseException is in there, so QueryParsers.ParseException has one
+        // answer. Analysis.Standard votes for a namespace that declares no ParseException
+        // at all, so that one stays unmatched - which is right: it is gone.
+        //
+        // This is the same rule the rest of the converter runs on. Weak evidence may not
+        // decide anything on its own, but evidence already proven elsewhere in the same
+        // namespace is not weak.
+        //
+        // Votes come from the first pass only, so this never depends on iteration order.
+        foreach (var old in ambiguous)
+        {
+            if (!namespaceVotes.TryGetValue(old.Namespace, out var targets))
+            {
+                unmatched.Add(old.FullName);
+                continue;
+            }
+
+            var reachable = newCandidates[old.Name]
+                .Where(candidate => targets.Contains(candidate.Namespace))
+                .ToList();
+
+            if (reachable.Count == 1)
+            {
+                typeRenames[old.FullName] = reachable[0].FullName;
+            }
+            else
+            {
+                unmatched.Add(old.FullName);
+            }
         }
 
         // An import can only be rewritten when every type that came from that namespace

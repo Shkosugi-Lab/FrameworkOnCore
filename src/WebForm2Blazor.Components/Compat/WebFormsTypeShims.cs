@@ -300,6 +300,39 @@ public class DataBoundControl : LegacyWebControl
 }
 
 /// <summary>
+/// System.Web.UI.WebControls.CompositeDataBoundControl equivalent.
+///
+/// A data-bound control that builds its own control tree per row - mojoPortal's
+/// EventCalendarControl derives from it. CreateChildControls(dataSource, dataBinding) is
+/// already declared on LegacyWebControl, so an override finds it.
+/// </summary>
+public abstract class CompositeDataBoundControl : DataBoundControl, INamingContainer
+{
+}
+
+/// <summary>
+/// System.Web.UI.WebControls.TargetConverter equivalent.
+///
+/// A design-time converter naming the frame targets (_blank, _parent, _search, _self,
+/// _top). It appears in ported code only as [TypeConverter(typeof(...))] on a Target
+/// property, where it has no effect at run time - but the attribute has to name a type
+/// that exists, or the file does not compile.
+/// </summary>
+public class TargetConverter : System.ComponentModel.StringConverter
+{
+    private static readonly string[] Targets = ["_blank", "_parent", "_search", "_self", "_top"];
+
+    public override bool GetStandardValuesSupported(
+        System.ComponentModel.ITypeDescriptorContext context) => true;
+
+    public override bool GetStandardValuesExclusive(
+        System.ComponentModel.ITypeDescriptorContext context) => false;
+
+    public override StandardValuesCollection GetStandardValues(
+        System.ComponentModel.ITypeDescriptorContext context) => new(Targets);
+}
+
+/// <summary>
 /// System.Web.UI.WebControls.DataSourceControl equivalent.
 /// </summary>
 /// <remarks>

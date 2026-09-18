@@ -123,12 +123,49 @@ if (expressionMapPath is not null)
 }
 
 // The property catalog makes expando-attribute decisions exactly like WebForms
-// (by property existence). Defaults to the catalog next to the current directory.
-propertyCatalogPath ??= File.Exists("webforms-property-catalog.json") ? "webforms-property-catalog.json" : null;
+// (by property existence).
+//
+// Looked for BESIDE THE CONVERTER, not in the current directory. It used to be the
+// current directory alone, which made the conversion depend on where the caller happened
+// to stand: running corpora\convert-all.ps1 from the repository root loaded the catalog
+// and running it from corpora\ did not, and the residual counts differed by 80 across the
+// six corpora with no change to the converter at all. A measurement that moves with the
+// shell's working directory is not a measurement.
+//
+// Silence was the worse half of that. Not finding the catalog is now said out loud, so the
+// numbers can never quietly mean something else again.
+propertyCatalogPath ??= FindPropertyCatalog();
 if (propertyCatalogPath is not null && File.Exists(propertyCatalogPath))
 {
     WebForm2Blazor.Converter.Mapping.PropertyKnowledge.Load(propertyCatalogPath);
     report.Info("(project)", $"プロパティカタログを読み込みました: {propertyCatalogPath}(expando 属性判定を実プロパティ基準で行います)。");
+}
+else
+{
+    report.Residual("(project)", ResidualKind.Configuration,
+        "プロパティカタログ webforms-property-catalog.json が見つかりません。expando 属性の判定を"
+        + "実プロパティではなく既定のマッピング表だけで行うため、残差が増えます"
+        + "(--property-catalog で明示するか、変換器の出力先に配置してください)。",
+        disposition: ResidualDisposition.NeedsInput);
+}
+
+static string? FindPropertyCatalog()
+{
+    const string fileName = "webforms-property-catalog.json";
+
+    // Beside the converter first: that copy travels with the build and is the one the
+    // project file guarantees. Then the current directory, which is what callers used to
+    // rely on. Then up from the assembly, for a run straight out of bin\Debug in a
+    // working tree.
+    var candidates = new List<string> { Path.Combine(AppContext.BaseDirectory, fileName), fileName };
+    for (var directory = new DirectoryInfo(AppContext.BaseDirectory);
+         directory is not null;
+         directory = directory.Parent)
+    {
+        candidates.Add(Path.Combine(directory.FullName, fileName));
+    }
+
+    return candidates.FirstOrDefault(File.Exists);
 }
 
 // Which library projects to port alongside the app is stated by the app's .csproj, so it
@@ -301,6 +338,8 @@ if (masters.Count > 1)
 // (Old.Web.Admin.Modules.SomeControl) must follow the re-namespacing. Map original ->
 // target namespace where the mapping is unambiguous and no ported plain code stays there.
 var namespaceMap = new Dictionary<string, List<string>>(StringComparer.Ordinal);
+var componentMoves =
+    new List<(string OriginalNamespace, string ClassName, string TargetFullName)>();
 foreach (var component in components)
 {
     if (component.CodeBehindSourcePath is null)
@@ -314,7 +353,18 @@ foreach (var component in components)
         continue;
     }
     var originalNamespace = namespaceMatch.Groups[1].Value;
-    if (originalNamespace == component.TargetNamespace || baseRegistry.HasNamespace(originalNamespace))
+    if (originalNamespace == component.TargetNamespace)
+    {
+        continue;
+    }
+
+    // Recorded whether or not the namespace as a whole can be mapped. When it can, the
+    // rewrite below moves every reference and this list goes unused; when it cannot -
+    // because ordinary ported code stays in that namespace - this is the only record that
+    // the type went anywhere, and the code left behind still names it.
+    componentMoves.Add((originalNamespace, component.SourceClassName, component.FullName));
+
+    if (baseRegistry.HasNamespace(originalNamespace))
     {
         continue;
     }
@@ -326,9 +376,30 @@ foreach (var component in components)
 }
 var namespaceRewrites = namespaceMap.OrderByDescending(pair => pair.Key.Length).ToList();
 
+// Only the moves the namespace map will NOT make. Doing both would be the same rewrite
+// twice, and the second one would be looking at a name that is already gone.
+var unmappedNamespaces = new HashSet<string>(
+    componentMoves.Select(move => move.OriginalNamespace)
+        .Where(ns => !namespaceMap.TryGetValue(ns, out var targets)
+                     || targets.Distinct(StringComparer.Ordinal).Count() != 1),
+    StringComparer.Ordinal);
+
+var relocatedTypes = WebForm2Blazor.Converter.Convert.RelocatedTypeIndex.Build(
+    componentMoves.Where(move => unmappedNamespaces.Contains(move.OriginalNamespace)));
+
+if (!relocatedTypes.IsEmpty)
+{
+    report.Info("(project)",
+        $"コンポーネントになって名前空間が変わった型 {relocatedTypes.Count} 件について、"
+        + "元の名前で参照している移植コードに別名(using X = ...)を補いました"
+        + "(その名前空間には移動しない移植コードが残るため、名前空間ごとの付け替えはできません)。");
+}
+
 string ApplyNamespaceMap(string code, bool razorContent = false)
 {
-    _ = razorContent;
+    // Before the namespace rewrite below, which deletes the imports this reads.
+    code = razorContent ? relocatedTypes.RewriteQualified(code) : relocatedTypes.Apply(code);
+
     foreach (var (originalNamespace, targets) in namespaceRewrites)
     {
         var distinct = targets.Distinct(StringComparer.Ordinal).ToList();
@@ -747,7 +818,7 @@ var packageMap = packageMapPath is not null ? LoadPackageMap(packageMapPath) : n
 // are read and the names that match are rewritten; what does not match is reported, not
 // guessed at. Built once, applied to every generated file.
 var libraryMigrations = new List<(string Assembly, WebForm2Blazor.Converter.Convert.AssemblyTypeMigration Migration)>();
-foreach (var (assemblyName, replacementPath) in
+foreach (var (assemblyName, replacementPaths) in
          WebForm2Blazor.Converter.Convert.AssemblyTypeMigration.ReplacementAssemblies)
 {
     // The ORIGINAL assembly, found in the repository the same way the undecided-dependency
@@ -766,7 +837,7 @@ foreach (var (assemblyName, replacementPath) in
         continue;
     }
 
-    if (WebForm2Blazor.Converter.Convert.AssemblyTypeMigration.Build(originalPath, replacementPath)
+    if (WebForm2Blazor.Converter.Convert.AssemblyTypeMigration.Build(originalPath, replacementPaths)
         is not { } migration || migration.IsEmpty)
     {
         report.Residual("(project)", ResidualKind.Configuration,
@@ -1732,9 +1803,16 @@ static void WriteUserControlCatalog(
     _ = project;
 }
 
-static Dictionary<string, (string? Package, string? Version)> LoadPackageMap(string path)
+/// <summary>
+/// Reads --package-map. One old assembly may appear on SEVERAL entries: a replacement is
+/// free to split one Framework assembly across several packages (Lucene.Net 3.x had its
+/// query parsers in Lucene.Net.dll; 4.8 has them in Lucene.Net.QueryParser), and the answer
+/// to "what replaces Lucene.Net" is then more than one package. Entries accumulate instead
+/// of overwriting, so writing the split down is enough to express it.
+/// </summary>
+static Dictionary<string, List<(string? Package, string? Version)>> LoadPackageMap(string path)
 {
-    var map = new Dictionary<string, (string?, string?)>(StringComparer.OrdinalIgnoreCase);
+    var map = new Dictionary<string, List<(string?, string?)>>(StringComparer.OrdinalIgnoreCase);
     using var document = System.Text.Json.JsonDocument.Parse(File.ReadAllText(path));
     foreach (var entry in document.RootElement.EnumerateArray())
     {
@@ -1744,18 +1822,34 @@ static Dictionary<string, (string? Package, string? Version)> LoadPackageMap(str
             continue;
         }
 
-        map[assemblyName] = (
-            entry.TryGetProperty("package", out var package) ? package.GetString() : null,
-            entry.TryGetProperty("version", out var version) ? version.GetString() : null);
-
-        // Optional: a path to the replacement's own assembly. Naming it turns the entry
-        // from "add this PackageReference" into "move the code onto this library" - the
-        // converter reads both assemblies and rewrites the names that match. See
-        // AssemblyTypeMigration.
-        if (entry.TryGetProperty("dll", out var dll) && dll.GetString() is { Length: > 0 } dllPath)
+        if (!map.TryGetValue(assemblyName, out var choices))
         {
-            WebForm2Blazor.Converter.Convert.AssemblyTypeMigration
-                .ReplacementAssemblies[assemblyName] = dllPath;
+            map[assemblyName] = choices = new List<(string?, string?)>();
+        }
+        choices.Add((
+            entry.TryGetProperty("package", out var package) ? package.GetString() : null,
+            entry.TryGetProperty("version", out var version) ? version.GetString() : null));
+
+        // Optional: a path to the replacement's own assembly, or several. Naming it turns
+        // the entry from "add this PackageReference" into "move the code onto this library"
+        // - the converter reads both sides and rewrites the names that match. See
+        // AssemblyTypeMigration.
+        if (entry.TryGetProperty("dll", out var dll))
+        {
+            var paths = dll.ValueKind == System.Text.Json.JsonValueKind.Array
+                ? dll.EnumerateArray().Select(element => element.GetString())
+                : new[] { dll.GetString() };
+
+            foreach (var dllPath in paths.OfType<string>().Where(value => value.Length > 0))
+            {
+                if (!WebForm2Blazor.Converter.Convert.AssemblyTypeMigration.ReplacementAssemblies
+                        .TryGetValue(assemblyName, out var replacements))
+                {
+                    WebForm2Blazor.Converter.Convert.AssemblyTypeMigration
+                        .ReplacementAssemblies[assemblyName] = replacements = new List<string>();
+                }
+                replacements.Add(dllPath);
+            }
         }
     }
     return map;
@@ -1804,7 +1898,7 @@ static string? FindBuiltAssembly(string? projectDirectory, string assembly)
 static List<(string Id, string Version)> CollectDeclaredPackages(
     IEnumerable<string> projectDirectories,
     ConversionReport report,
-    Dictionary<string, (string? Package, string? Version)>? packageMap = null,
+    Dictionary<string, List<(string? Package, string? Version)>>? packageMap = null,
     string? templatePath = null,
     IEnumerable<string>? foreignLanguageProjects = null)
 {
@@ -2006,19 +2100,22 @@ static List<(string Id, string Version)> CollectDeclaredPackages(
     var declined = new List<string>();
     foreach (var assembly in binaryReferences.Keys)
     {
-        if (packageMap is null || !packageMap.TryGetValue(assembly, out var choice))
+        if (packageMap is null || !packageMap.TryGetValue(assembly, out var choices))
         {
             continue;
         }
 
-        if (string.IsNullOrEmpty(choice.Package))
+        foreach (var choice in choices)
         {
-            declined.Add(assembly);
-        }
-        else
-        {
-            carried.Add((choice.Package!, choice.Version ?? "*"));
-            mapped.Add($"{assembly} -> {choice.Package} {choice.Version}");
+            if (string.IsNullOrEmpty(choice.Package))
+            {
+                declined.Add(assembly);
+            }
+            else
+            {
+                carried.Add((choice.Package!, choice.Version ?? "*"));
+                mapped.Add($"{assembly} -> {choice.Package} {choice.Version}");
+            }
         }
     }
     if (mapped.Count > 0)

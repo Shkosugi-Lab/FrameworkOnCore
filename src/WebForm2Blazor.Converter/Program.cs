@@ -737,6 +737,12 @@ HashSet<string> ComputeFullyExcludedNamespaces()
 // Ported, the file costs a handful of local errors for the interface that is not here.
 // Excluded, it costs everything that depends on it. The evidence is the same qualified
 // reference the cascade uses, so a file nobody names stays excluded.
+// The files this pass hands back. They are known to carry unresolved types - that is the
+// deal being struck - so the build gate counts their errors separately, the way it already
+// counts the ones from a dependency nobody has chosen a package for. Written down rather
+// than inferred later: the moment of the decision is the only place that knows.
+var restoredOutOfScopeFiles = new List<string>();
+
 bool restoredAny;
 do
 {
@@ -801,6 +807,7 @@ do
         excludedCandidates.Remove(index);
         outOfScopeExclusions.Remove(index);
         restoredAny = true;
+        restoredOutOfScopeFiles.Add(candidateNamespaces[index].candidate.OutputRelative);
         report.Residual(candidateNamespaces[index].candidate.ReportName, ResidualKind.CodeBehind,
             "別フレームワークのコードとして除外しましたが、移植されるファイルがこのファイルの型を使っているため移植します"
             + "(除外すると連鎖でそちら側が落ちます。このファイル内には未解決の型が残ります)。",
@@ -1231,6 +1238,18 @@ if (stubbedTypeCount > 0)
     report.Residual("(project)", ResidualKind.CodeBehind,
         $"移植から除外したファイルが宣言していた型 {stubbedTypeCount} 個を空のスタブとして生成しました"
         + "(ExcludedTypeStubs.g.cs)。参照側はコンパイルできます(除外の理由は各ファイルの残差を参照)。", disposition: ResidualDisposition.Backlog);
+}
+
+// What the build gate needs in order to read the restored out-of-scope files correctly.
+// See the restore pass: these were excluded as another framework's code and handed back
+// only so the ported code naming their types keeps compiling. They carry that framework's
+// unresolved types by construction.
+if (restoredOutOfScopeFiles.Count > 0)
+{
+    File.WriteAllLines(
+        Path.Combine(output, "restored-out-of-scope-files.txt"),
+        restoredOutOfScopeFiles.Distinct(StringComparer.OrdinalIgnoreCase)
+            .OrderBy(path => path, StringComparer.OrdinalIgnoreCase));
 }
 
 // Virtual path -> converted component type, so LoadControl can resolve at runtime.

@@ -21,13 +21,13 @@
                 "convertible":  10,
                 "portedCs":  2066,
                 "residuals":  160,
-                "buildErrors":  67
+                "buildErrors":  19
             },
     "n2":  {
                "convertible":  11,
                "portedCs":  1706,
                "residuals":  141,
-               "buildErrors":  54
+               "buildErrors":  13
            },
     "wt":  {
                "convertible":  3,

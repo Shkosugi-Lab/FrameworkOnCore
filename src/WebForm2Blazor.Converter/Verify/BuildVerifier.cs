@@ -140,7 +140,9 @@ public static partial class BuildVerifier
         // whether or not an undecided dependency is also in the file.
         var stoppedAtParse = StoppedAtParse(diagnostics);
         var undecidedTypes = ReadUndecidedDependencyTypes(outputDirectory);
-        var counted = diagnostics.Count(d => UndecidedDependency(d, undecidedTypes) is null);
+        var restored = ReadRestoredOutOfScopeFiles(outputDirectory);
+        var counted = diagnostics.Count(d =>
+            UndecidedDependency(d, undecidedTypes) is null && !InRestoredOutOfScopeFile(d, restored));
         return new BuildOutcome(counted, stoppedAtParse);
     }
 
@@ -217,6 +219,58 @@ public static partial class BuildVerifier
     /// unresolved-dependency-types.txt next to the package-map template while it still has
     /// the DLL in hand. A prefix rule would have to guess; this reads the answer.
     /// </summary>
+    /// <summary>
+    /// Files the converter excluded as ANOTHER FRAMEWORK'S code and then handed back.
+    ///
+    /// The restore pass does that when a file that IS being ported names one of their
+    /// types: excluded, the exclusion cascades through everything downstream, which costs
+    /// far more than keeping them. The converter records the trade at the moment it makes
+    /// it ("このファイル内には未解決の型が残ります") - so the unresolved types inside are
+    /// not a defect being discovered here, they are the price that was already reported.
+    ///
+    /// DNN is the case: 50 of its 67 counted errors were MVC types inside six restored
+    /// MVC files. Counting them as conversion defects is the same mistake as counting a
+    /// vendored DLL nobody has chosen a package for - numerous enough to dominate, and
+    /// nothing in the converter can remove them while the file has to stay.
+    /// </summary>
+    private static HashSet<string> ReadRestoredOutOfScopeFiles(string outputDirectory)
+    {
+        var files = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        var path = Path.Combine(outputDirectory, "restored-out-of-scope-files.txt");
+        if (!File.Exists(path))
+        {
+            return files;
+        }
+
+        foreach (var line in File.ReadLines(path))
+        {
+            if (line.Length > 0)
+            {
+                files.Add(Path.GetFullPath(Path.Combine(
+                    outputDirectory, line.Replace('/', Path.DirectorySeparatorChar))));
+            }
+        }
+        return files;
+    }
+
+    /// <summary>Whether this diagnostic landed in one of those files.</summary>
+    private static bool InRestoredOutOfScopeFile(Diagnostic diagnostic, HashSet<string> restored)
+    {
+        if (restored.Count == 0 || diagnostic.File.Length == 0)
+        {
+            return false;
+        }
+
+        try
+        {
+            return restored.Contains(Path.GetFullPath(diagnostic.File));
+        }
+        catch (ArgumentException)
+        {
+            return false;
+        }
+    }
+
     private static Dictionary<string, string> ReadUndecidedDependencyTypes(string outputDirectory)
     {
         var byName = new Dictionary<string, string>(StringComparer.Ordinal);
@@ -340,6 +394,7 @@ public static partial class BuildVerifier
 
         var stoppedAtParse = StoppedAtParse(diagnostics);
         var undecidedTypes = ReadUndecidedDependencyTypes(outputDirectory);
+        var restored = ReadRestoredOutOfScopeFiles(outputDirectory);
         var undecided = diagnostics
             .Select(diagnostic => (
                 diagnostic,
@@ -351,7 +406,10 @@ public static partial class BuildVerifier
                                  && NeedsSystemWeb(diagnostic) is null)
             .ToList();
 
-        var report = BuildReport(projectPath, diagnostics, undecided!);
+        var outOfScope = diagnostics.Where(d => InRestoredOutOfScopeFile(d, restored)).ToList();
+        diagnostics = diagnostics.Where(d => !InRestoredOutOfScopeFile(d, restored)).ToList();
+
+        var report = BuildReport(projectPath, diagnostics, undecided!, outOfScope);
         if (stoppedAtParse)
         {
             // Blank line between: a block quote running straight into the "#" heading would
@@ -366,6 +424,12 @@ public static partial class BuildVerifier
             Console.WriteLine(
                 $"別に、未決の依存(package-map 未指定)によるエラーが {undecided.Count} 件あります"
                 + "(変換の欠陥ではないため件数に含めていません)。");
+        }
+        if (outOfScope.Count > 0)
+        {
+            Console.WriteLine(
+                $"別に、スコープ外(MVC 等)のまま復元したファイル内のエラーが {outOfScope.Count} 件あります"
+                + "(除外の連鎖を避けるために残したファイルで、件数に含めていません)。");
         }
         if (stoppedAtParse)
         {
@@ -458,6 +522,40 @@ public static partial class BuildVerifier
         builder.AppendLine();
     }
 
+    /// <summary>
+    /// Errors inside files the converter restored from an out-of-scope exclusion. Same
+    /// treatment as an undecided dependency, for the same reason: reported in full, and
+    /// not counted as conversion defects, because the trade that produced them was made
+    /// and reported deliberately.
+    /// </summary>
+    private static void AppendRestoredOutOfScope(StringBuilder builder, List<Diagnostic> outOfScope)
+    {
+        if (outOfScope.Count == 0)
+        {
+            return;
+        }
+
+        builder.AppendLine("## スコープ外のまま復元したファイル内のエラー(件数に含めていません)");
+        builder.AppendLine();
+        builder.AppendLine($"**{outOfScope.Count} 件**は、別フレームワーク(MVC / Web API / Identity 等)の");
+        builder.AppendLine("コードとして移植対象外にしたものの、**移植されるファイルがその型を使っているため**");
+        builder.AppendLine("残したファイルの中にあります。");
+        builder.AppendLine();
+        builder.AppendLine("除外すると連鎖でそちら側が落ちるので残す、という判断の代償で、");
+        builder.AppendLine("**そのファイル内に未解決の型が残ることは変換時点で報告済み**です");
+        builder.AppendLine("(各ファイルの残差を参照)。変換器がこれを消す方法はありません。");
+        builder.AppendLine();
+        builder.AppendLine("| ファイル | 件数 |");
+        builder.AppendLine("| --- | ---: |");
+        foreach (var group in outOfScope
+                     .GroupBy(diagnostic => Path.GetFileName(diagnostic.File), StringComparer.Ordinal)
+                     .OrderByDescending(group => group.Count()))
+        {
+            builder.AppendLine($"| `{group.Key}` | {group.Count()} |");
+        }
+        builder.AppendLine();
+    }
+
     private static string UnparsedReport(string projectPath, int exitCode, string output)
     {
         var builder = new StringBuilder();
@@ -504,7 +602,8 @@ public static partial class BuildVerifier
     private static string BuildReport(
         string projectPath,
         List<Diagnostic> diagnostics,
-        List<(Diagnostic Diagnostic, string Assembly)> undecidedDependencies)
+        List<(Diagnostic Diagnostic, string Assembly)> undecidedDependencies,
+        List<Diagnostic> restoredOutOfScope)
     {
         var builder = new StringBuilder();
         builder.AppendLine("# ビルド検証レポート");
@@ -514,17 +613,19 @@ public static partial class BuildVerifier
 
         if (diagnostics.Count == 0)
         {
-            builder.AppendLine(undecidedDependencies.Count == 0
+            builder.AppendLine(undecidedDependencies.Count == 0 && restoredOutOfScope.Count == 0
                 ? "**ビルド成功(エラー 0 件)**。"
                 : "**変換側のエラーは 0 件です。**");
             builder.AppendLine();
             AppendUndecidedDependencies(builder, undecidedDependencies);
+            AppendRestoredOutOfScope(builder, restoredOutOfScope);
             builder.AppendLine("注意: ビルドが通ることと動作が一致することは別です。");
             builder.AppendLine("実際の描画一致は ParityTest(旧アプリのゴールデンマスター照合)で確認してください。");
             return builder.ToString();
         }
 
         AppendUndecidedDependencies(builder, undecidedDependencies);
+        AppendRestoredOutOfScope(builder, restoredOutOfScope);
 
         var primary = diagnostics.Where(diagnostic => !IsCascade(diagnostic)).ToList();
         builder.AppendLine("## サマリー");

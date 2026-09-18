@@ -131,6 +131,14 @@ public static class ConfigurationManager
 /// </summary>
 public sealed class ConnectionStringSettings(string name, string connectionString)
 {
+    /// <summary>
+    /// The three-argument form System.Configuration also has. An installer builds a
+    /// connection string entry and names the provider in the same breath - YAF's
+    /// ConfigHelper does - and without this overload that line does not compile.
+    /// </summary>
+    public ConnectionStringSettings(string name, string connectionString, string providerName)
+        : this(name, connectionString) => ProviderName = providerName;
+
     public string Name { get; } = name;
     public string ConnectionString { get; } = connectionString;
 

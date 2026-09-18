@@ -36,7 +36,19 @@ public class ScriptManager : LegacyWebControl
 
     public bool EnablePageMethods { get; set; }
 
-    public static ScriptManager GetCurrent(object page) => null;
+    /// <summary>
+    /// WebForms ScriptManager.GetCurrent(page): the page's ScriptManager, or null when the
+    /// page declares none.
+    ///
+    /// Returns an instance rather than null. On 4.8 a page that reaches for it has one -
+    /// YAF's PageElementRegister calls GetCurrent(...).Scripts.Add(...) with no null check,
+    /// because YAF's master page declares a ScriptManager - so null here is not "the same
+    /// as WebForms", it is a NullReferenceException where the original had an object.
+    /// Registration is inert either way (see Scripts).
+    /// </summary>
+    public static ScriptManager GetCurrent(object page) => Ambient;
+
+    private static readonly ScriptManager Ambient = new();
 
     public static void RegisterStartupScript(
         object control, Type type, string key, string script, bool addScriptTags)
@@ -84,6 +96,17 @@ public class ScriptManager : LegacyWebControl
     /// is absent is only the framework's OWN scripts, which no converted page loads.
     /// </summary>
     public static ScriptResourceMapping ScriptResourceMapping { get; } = new();
+
+    /// <summary>
+    /// WebForms ScriptManager.Scripts: the script references registered for this page.
+    ///
+    /// Collected, not emitted. Blazor's layout owns the &lt;script&gt; tags, and a script
+    /// added here after the page has started rendering could not be written into the
+    /// document anyway. Keeping the list means code that registers and then reads back
+    /// (checking whether a script is already there before adding it again, which is the
+    /// usual shape) behaves as it did.
+    /// </summary>
+    public List<ScriptReference> Scripts { get; } = [];
 }
 
 /// <summary>System.Web.UI.ScriptResourceDefinition equivalent.</summary>

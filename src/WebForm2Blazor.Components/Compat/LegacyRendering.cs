@@ -470,6 +470,26 @@ public abstract class LegacyWebControl : IWebFormsControl, IDisposable
     public bool HasControls() => Controls.Count > 0;
 
     /// <summary>
+    /// WebForms Control.Parent. Same reason as Focus() above: it was an interface default
+    /// and therefore invisible from the class. Defaults to the naming container, which is
+    /// the parent for every control the compat layer actually places, and is settable for
+    /// the ones ported code builds by hand.
+    /// </summary>
+    public IWebFormsControl Parent
+    {
+        get => _parent ?? NamingContainer;
+        set => _parent = value;
+    }
+
+    private IWebFormsControl _parent;
+
+    /// <summary>
+    /// WebForms Control.Site - the designer's hook. There is no designer, and code reads
+    /// it to ask "am I in the designer?", where null means no.
+    /// </summary>
+    public object Site => null;
+
+    /// <summary>
     /// WebForms Control.Unload. Nothing raises it here (a Blazor component is disposed),
     /// so a subscription is accepted and never fires.
     /// </summary>

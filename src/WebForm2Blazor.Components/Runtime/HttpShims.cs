@@ -210,6 +210,36 @@ public abstract class HttpResponseBase
         Cookies.Remove(cookie.Name);
         Cookies.Add(cookie);
     }
+
+    /// <summary>
+    /// WebForms Response.AppendCookie: adds a cookie without replacing one of the same
+    /// name. The collection here is keyed, so a repeat name overwrites - which is what
+    /// the browser would end up doing with the last Set-Cookie anyway.
+    /// </summary>
+    public virtual void AppendCookie(HttpCookie cookie) => Cookies.Add(cookie);
+
+    /// <summary>
+    /// WebForms Response.RedirectLocation: the Location header, settable on its own for
+    /// code that writes a 301/302 by hand instead of calling Redirect.
+    ///
+    /// Assigning it NAVIGATES, exactly as Redirect does. Holding the string and doing
+    /// nothing would be the quiet kind of wrong: the ported code has said where the user
+    /// should go, and a circuit that stays put looks like the page simply did not work.
+    /// </summary>
+    public virtual string RedirectLocation
+    {
+        get => _redirectLocation;
+        set
+        {
+            _redirectLocation = value;
+            if (!string.IsNullOrEmpty(value))
+            {
+                Redirect(value);
+            }
+        }
+    }
+
+    private string _redirectLocation;
 }
 
 /// <summary>

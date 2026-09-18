@@ -5346,3 +5346,30 @@ WebForms と同じ位置です。
 | 6 コーパス合計 | 187 | 183 |
 
 他 5 コーパスは完全に一致。パリティ 30/30、bUnit 30/30。
+
+## 互換層の穴をさらに 6 種 — yaf 56 -> 51
+
+| 追加したもの | 何をするか |
+|---|---|
+| `LegacyWebControl.Parent` / `Site` | **クラスから呼べる実体**として(既定実装では届かない、2 度目) |
+| `Response.RedirectLocation` | 代入で**実際に遷移する** |
+| `Response.AppendCookie` | 同名は上書き(ブラウザも最後の Set-Cookie で同じ結果) |
+| `ScriptManager.Scripts` | 集めるが出力はしない |
+| `ScriptManager.GetCurrent()` が **null を返さない** | 元では null ではなかったから |
+| `ConnectionStringSettings(name, cs, provider)` | System.Configuration にある 3 引数形 |
+
+`RedirectLocation` を「持つだけ」にはしませんでした。移植コードは
+**ユーザーをどこへ送るか言っている**のであって、回線がその場に留まるのは
+「ページが動かなかった」ようにしか見えません。
+
+`ScriptManager.GetCurrent()` は null を返していました。4.8 では、これを呼ぶページは
+ScriptManager を持っています(YAF のマスターページは持っている)。
+だから null は「WebForms と同じ」ではなく、**元がオブジェクトだった場所での
+NullReferenceException** です。
+
+| | 変更前 | 変更後 |
+|---|---:|---:|
+| **yaf ビルドエラー** | **56** | **51** |
+| 6 コーパス合計 | 183 | 178 |
+
+他 5 コーパスは完全に一致。パリティ 30/30、bUnit 30/30。

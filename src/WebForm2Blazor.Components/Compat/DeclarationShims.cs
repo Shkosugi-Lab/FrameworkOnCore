@@ -1453,3 +1453,25 @@ public interface ISite
 
     object Container { get; }
 }
+
+/// <summary>
+/// WindowsIdentity.Impersonate(), which .NET removed in favour of
+/// WindowsIdentity.RunImpersonated.
+///
+/// An extension rather than a rewrite, because the two shapes do not correspond: the old
+/// one returns a scope the caller undoes later - possibly from another method, as YAF's
+/// background task does - and the new one takes a callback. A deterministic rewrite would
+/// have to restructure the caller's control flow.
+///
+/// Returns a context that undoes nothing, matching <see cref="WindowsImpersonationContext"/>:
+/// impersonation is Windows-only and the converted application does not perform it.
+/// </summary>
+public static class WindowsIdentityCompatExtensions
+{
+    public static WindowsImpersonationContext Impersonate(
+        this System.Security.Principal.WindowsIdentity identity)
+    {
+        _ = identity;
+        return new WindowsImpersonationContext();
+    }
+}

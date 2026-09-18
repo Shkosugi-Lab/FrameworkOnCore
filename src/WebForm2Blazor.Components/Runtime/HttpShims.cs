@@ -52,6 +52,68 @@ public sealed class HttpBrowserCapabilitiesShim(string userAgent)
             : _agent.Contains("Linux", StringComparison.OrdinalIgnoreCase) ? "Linux"
             : "Unknown";
 
+    /// <summary>
+    /// WebForms Browser.Version / MajorVersion / MinorVersion, read off the User-Agent
+    /// token for the browser this is. Applications log it or branch on "is this old" -
+    /// YAF records it with the page request - so an empty string would be a quieter lie
+    /// than the number the agent actually carries.
+    ///
+    /// "0" when the agent does not say, which is what 4.8 returned for an agent its
+    /// capabilities database did not recognise.
+    /// </summary>
+    public string Version
+    {
+        get
+        {
+            var token = Browser switch
+            {
+                "Edge" => "Edg/",
+                "Chrome" => "Chrome/",
+                "Firefox" => "Firefox/",
+                "Safari" => "Version/",
+                _ => null,
+            };
+
+            if (token is null)
+            {
+                return "0.0";
+            }
+
+            var start = _agent.IndexOf(token, StringComparison.OrdinalIgnoreCase);
+            if (start < 0)
+            {
+                return "0.0";
+            }
+
+            start += token.Length;
+            var end = start;
+            while (end < _agent.Length && (char.IsDigit(_agent[end]) || _agent[end] == '.'))
+            {
+                end++;
+            }
+            return end > start ? _agent[start..end] : "0.0";
+        }
+    }
+
+    /// <inheritdoc cref="Version"/>
+    public int MajorVersion
+        => int.TryParse(Version.Split('.')[0], out var major) ? major : 0;
+
+    /// <inheritdoc cref="Version"/>
+    public double MinorVersion
+    {
+        get
+        {
+            var parts = Version.Split('.');
+            return parts.Length > 1
+                   && double.TryParse(
+                       "0." + parts[1], System.Globalization.NumberStyles.Float,
+                       System.Globalization.CultureInfo.InvariantCulture, out var minor)
+                ? minor
+                : 0;
+        }
+    }
+
     public override string ToString() => Browser;
 }
 

@@ -12,6 +12,19 @@ public sealed class AttributeCollection(Action onChanged)
     private CssStyleCollection _cssStyle;
 
     /// <summary>
+    /// WebForms AttributeCollection(StateBag): a control builds its own collection over its
+    /// view state - "this.Attributes = new AttributeCollection(this.ViewState)" is the
+    /// standard way a custom control exposes expando attributes, and YAF's ThemeButton does
+    /// it in its constructor.
+    ///
+    /// The bag is not used as the backing store here (this collection holds its own
+    /// strings, and view state is per-circuit rather than serialized), so the attributes
+    /// live and are read back exactly as they were - they simply do not travel through the
+    /// bag on the way.
+    /// </summary>
+    public AttributeCollection(StateBag bag) : this(() => { }) => _ = bag;
+
+    /// <summary>
     /// WebForms Control.Attributes.CssStyle: the style attribute addressed one property at
     /// a time. "Attributes.CssStyle["display"] = "none"" is how code-behind hides something
     /// without disturbing the rest of the inline style.

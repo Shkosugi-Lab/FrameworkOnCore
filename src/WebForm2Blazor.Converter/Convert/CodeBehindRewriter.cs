@@ -388,9 +388,13 @@ public static class CodeBehindRewriter
         ["CheckBox"] = "LegacyWebControl",
         ["RadioButton"] = "LegacyWebControl",
         ["TextBox"] = "LegacyWebControl",
-        ["Button"] = "LegacyWebControl",
-        ["LinkButton"] = "LegacyWebControl",
-        ["ImageButton"] = "LegacyWebControl",
+        // A button's base has to carry Text / CommandName / CommandArgument. On
+        // LegacyWebControl they are not there, and YAF's CollapseButton - a LinkButton that
+        // sets its own Text in OnPreRender - lost the property it renders through. Same
+        // arrangement as LegacyListControl below.
+        ["Button"] = "LegacyButton",
+        ["LinkButton"] = "LegacyButton",
+        ["ImageButton"] = "LegacyButton",
         // A list control's base has to carry the list: Items, SelectedValue and the data
         // binding fields. LegacyWebControl has the lifecycle and the render virtuals and
         // nothing else, so a ported subclass lost all of it - YAF's ImageListBox fills its

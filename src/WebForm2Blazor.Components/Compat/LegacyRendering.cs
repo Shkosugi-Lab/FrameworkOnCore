@@ -650,6 +650,50 @@ public abstract class LegacyLiteral : LegacyWebControl
     protected override void Render(HtmlTextWriter writer) => writer.Write(Text ?? string.Empty);
 }
 
+/// <summary>
+/// Substitute base for classes deriving Button / LinkButton / ImageButton.
+///
+/// Those were mapped to LegacyWebControl, which carries the lifecycle and the render
+/// virtuals and nothing else - so a ported button base lost Text, CommandName and the rest,
+/// and every line of the subclass that touched them failed. Same arrangement as
+/// LegacyListControl, and for the same reason: the base has to carry what the control IS,
+/// not only what every control has.
+///
+/// The click surface is declared and never raised. A postback is what fired it, and a
+/// render-hosted legacy control has no event wiring on the Blazor side; the residual for
+/// the control records that separately.
+/// </summary>
+public abstract class LegacyButton : LegacyWebControl
+{
+    public string Text { get; set; }
+
+    public string CommandName { get; set; }
+
+    public string CommandArgument { get; set; }
+
+    public string PostBackUrl { get; set; }
+
+    public string OnClientClick { get; set; }
+
+    public bool CausesValidation { get; set; } = true;
+
+    public string ValidationGroup { get; set; }
+
+    public string ImageUrl { get; set; }
+
+    public string AlternateText { get; set; }
+
+    /// <summary>WebForms Button.Command, beside Click on LegacyWebControl.</summary>
+    public event CommandEventHandler Command;
+
+    protected virtual void OnCommand(CommandEventArgs e) => Command?.Invoke(this, e);
+
+    protected override string TagName => "a";
+
+    protected override void RenderContents(HtmlTextWriter writer)
+        => writer.Write(Text ?? string.Empty);
+}
+
 /// <summary>Substitute base for classes deriving System.Web.UI.WebControls.HyperLink.</summary>
 public abstract class LegacyHyperLink : LegacyWebControl
 {

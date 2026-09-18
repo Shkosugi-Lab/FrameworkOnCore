@@ -5656,3 +5656,37 @@ MetadataExtractor.ErrorDirectory, MetadataExtractor.Face, ...
 
 残差が 2 増えるのは、**曖昧な 3 件が具体的な 5 件になった**からです。
 ビルドエラーは 6 のまま(下限値)、他 5 コーパスは完全に一致。
+
+## ボタンの基底が Text を持っていなかった — yaf 21 -> 16
+
+`Button` / `LinkButton` / `ImageButton` を基底に持つ移植コントロールは
+`LegacyWebControl` に付け替えられていました。これは**ライフサイクルと描画の仮想メソッド
+しか持ちません**。YAF の `CollapseButton` は `LinkButton` の派生で、
+`OnPreRender` で `this.Text` に自分のアイコン HTML を入れて描画します。
+その `Text` が無くなっていました。
+
+`LegacyButton` を足して、`Text` / `CommandName` / `CommandArgument` /
+`PostBackUrl` / `OnClientClick` / `CausesValidation` / `ValidationGroup` /
+`Command` を持たせました。`LegacyListControl` のときとまったく同じ理由です —
+**基底はそのコントロールが「何であるか」を持っていないといけない**。
+どのコントロールにも共通のものだけでは足りません。
+
+クリック面は宣言だけで、発火しません。発火させていたのはポストバックで、
+描画ホスト上の legacy コントロールには Blazor 側のイベント配線がありません
+(そのことはコントロールごとの残差に出ます)。
+
+### そのほか 4 つ
+
+| 追加 | 理由 |
+|---|---|
+| `AttributeCollection(StateBag)` | `new AttributeCollection(this.ViewState)` はカスタムコントロールの定石 |
+| `RegisterForEventValidation(PostBackOptions)` | オーバーロード違い |
+| `HttpBrowserCapabilities.Version` / `MajorVersion` / `MinorVersion` | User-Agent から読む。**空文字のほうが静かな嘘** |
+| `WindowsIdentity.Impersonate()` 拡張メソッド | 新 API はコールバック形式で**形が対応しない**(スコープを別のメソッドで戻す書き方がある) |
+
+| | 変更前 | 変更後 |
+|---|---:|---:|
+| **yaf ビルドエラー** | **21** | **16** |
+| 6 コーパス合計 | 52 | 47 |
+
+他 5 コーパスは完全に一致。パリティ 30/30、bUnit 30/30。

@@ -414,6 +414,11 @@ public sealed class ClientScriptManagerShim
     {
     }
 
+    /// <inheritdoc cref="RegisterForEventValidation(string)"/>
+    public void RegisterForEventValidation(PostBackOptions options)
+    {
+    }
+
     /// <summary>
     /// WebForms client-callback plumbing (ICallbackEventHandler). Blazor's own circuit
     /// carries server round-trips, so no script is emitted; callers get an empty

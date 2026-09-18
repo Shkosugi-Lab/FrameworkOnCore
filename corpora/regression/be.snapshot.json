@@ -174,10 +174,11 @@
           "Style": {}
         },
         "txtMessage": {
-          "Tag": "input",
+          "Tag": "textarea",
           "Attributes": {
-            "type": "text",
-            "class": "form-control"
+            "class": "form-control",
+            "rows": "5",
+            "cols": "30"
           },
           "Style": {}
         },

@@ -1946,10 +1946,13 @@ public sealed partial class MarkupEmitter(EmitContext context)
                 return $"@(new string[] {{ {string.Join(", ", items)} }})";
             }
 
-            // WebForms writes the bare member name (RepeatDirection="Horizontal")
+            // WebForms writes the bare member name (RepeatDirection="Horizontal"), and
+            // .aspx matches it without regard to case - so the ENUM's spelling is what
+            // gets emitted, not the markup's.
             case ParameterKind.Enum:
                 return System.Text.RegularExpressions.Regex.IsMatch(normalized, @"^[A-Za-z_]\w*$")
-                    ? $"@({parameterType.FullTypeName}.{normalized})"
+                       && parameterType.MemberFor(normalized) is { } member
+                    ? $"@({parameterType.FullTypeName}.{member})"
                     : null;
 
             // A business-typed property (Product etc.) cannot take a markup literal

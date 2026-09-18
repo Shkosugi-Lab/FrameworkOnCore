@@ -5134,3 +5134,67 @@ WebForms の `Page` は `Control` を継承します。移植されたヘルパ�
 | 6 コーパス合計 | 232 | 224 |
 
 他 5 コーパスは完全に一致。パリティ 30/30、bUnit 30/30。
+
+## TextBox.TextMode を文字列から enum に — yaf 97 -> 87
+
+yaf の最大の残りは `CS0029: 'TextBoxMode' を 'string' に変換できません`(実 10 件)でした。
+原因は互換層の `TextBox.TextMode` が **string** だったことです。
+System.Web では `TextBoxMode` 列挙で、コードビハインドが
+`textBox.TextMode = TextBoxMode.Number` と書くのは**それ以外に書きようがない**からです。
+
+これは両面で壊れていました。
+
+1. **コンパイル**: 列挙を string に代入できない。
+2. **描画**: レンダラは `TextMode == "MultiLine"` と `== "Password"` の
+   2 つの文字列比較しか見ておらず、**HTML5 のモードは全部 `type="text"`** でした。
+   WebForms 4.5 が Email / Date / Number を足したのは、ブラウザに日付ピッカーや
+   数値スピナーを出させるためです。`type="text"` に落とすのは見た目の差ではなく、
+   **設定した機能をコントロールが失う**ことです。
+
+enum にし、各モードを WebForms と同じ input type に対応付けました
+(Phone は `tel`、DateTimeLocal は `datetime-local`、DateTime は `datetime` —
+どのブラウザも実装していませんが 4.8 が出すのがこれです)。
+
+### .aspx は大文字小文字を区別しない(2 度目)
+
+これで be が 0 -> 1 に悪化しました。BlogEngine は `TextMode="multiline"` と
+**小文字で**書いていて、WebForms は黙って `TextBoxMode.MultiLine` に対応付けます。
+変換器は属性値をそのまま列挙メンバー名として出していたので
+`TextBoxMode.multiline` になり、そんなメンバーはありません。
+
+テンプレートタグのときと同じ直し方です。**列挙自身にメンバー名を聞き**、
+大文字小文字を無視して一致させ、**列挙の綴りで出力**します。
+一致しなければ何も出さず属性は残差として報告します(名前を創作しない)。
+
+| | 変更前 | 変更後 |
+|---|---:|---:|
+| **yaf ビルドエラー** | **97** | **87** |
+| 6 コーパス合計 | 224 | 214 |
+
+他 5 コーパスは完全に一致。パリティ 30/30、bUnit 30/30。
+
+### 回帰ゲートが本当の不具合を捕まえた
+
+この変更で be の回帰ゲートが 1 件差分を出しました。記録済み DOM と比べると:
+
+```diff
+ "txtMessage": {
+-  "Tag": "input",
+-  "type": "text",
+-  "class": "form-control"
++  "Tag": "textarea",
++  "class": "form-control",
++  "rows": "5",
++  "cols": "30"
+ }
+```
+
+BlogEngine の問い合わせフォームのメッセージ欄は `TextMode="multiline"` です。
+WebForms は `<textarea rows="5" cols="30">` を描画します。
+**変換後はこれまで 1 行の `<input type="text">` でした。**
+レンダラの比較が `TextMode == "MultiLine"` で、
+小文字の `"multiline"` はどちらの分岐にも当たらなかったからです。
+
+記録済みスナップショットのほうが間違っていた、ということです。
+ゲートは「元アプリと同じ」を測るものではなく「前回の変換結果と同じ」を測るものなので、
+**差分が出たこと自体が正しい動作**です。理由が説明できるので記録し直しました。

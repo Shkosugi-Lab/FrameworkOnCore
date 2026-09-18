@@ -23,7 +23,29 @@ public enum ParameterKind
 }
 
 /// <summary>The resolved type of one component parameter.</summary>
-public sealed record ParameterTypeInfo(ParameterKind Kind, string FullTypeName);
+/// <param name="EnumMembers">
+/// For an enum parameter, the members as the enum DECLARES them.
+///
+/// .aspx is case-insensitive and C# is not: BlogEngine writes
+/// TextMode="multiline" and WebForms matched it to TextBoxMode.MultiLine without comment.
+/// Emitted verbatim it is "TextBoxMode.multiline", a member that does not exist, and the
+/// page does not compile. The declared spelling comes from the enum itself rather than a
+/// second table that could disagree with it.
+/// </param>
+public sealed record ParameterTypeInfo(
+    ParameterKind Kind,
+    string FullTypeName,
+    IReadOnlyList<string>? EnumMembers = null)
+{
+    /// <summary>
+    /// The member this markup value names, in the enum's own spelling, or null when the
+    /// enum has no such member - in which case nothing is emitted and the attribute is
+    /// reported, rather than a name being invented.
+    /// </summary>
+    public string? MemberFor(string writtenValue)
+        => EnumMembers?.FirstOrDefault(member =>
+            string.Equals(member, writtenValue, StringComparison.OrdinalIgnoreCase));
+}
 
 /// <summary>
 /// Parameter types of the compatibility components, read by reflection from the
@@ -104,7 +126,10 @@ public static class ComponentParameterTypes
 
         if (effective.IsEnum)
         {
-            return new ParameterTypeInfo(ParameterKind.Enum, "global::" + effective.FullName!.Replace('+', '.'));
+            return new ParameterTypeInfo(
+                ParameterKind.Enum,
+                "global::" + effective.FullName!.Replace('+', '.'),
+                Enum.GetNames(effective));
         }
         if (effective == typeof(string[]))
         {

@@ -4,7 +4,7 @@
 
 @if (Visible)
 {
-    @if (TextMode == "MultiLine")
+    @if (TextMode == TextBoxMode.MultiLine)
     {
         @* MultiLine renders cols="20" even when Columns is unset (WebForms default rendering) *@
         <textarea @attributes="ExtraAttributes" style="@ComputedStyle" id="@ClientID" class="@CssClass"
@@ -40,8 +40,15 @@
     /// <summary>MultiLine wrapping (false renders wrap="off", WebForms compatible).</summary>
     [Parameter] public bool Wrap { get; set; } = true;
 
-    /// <summary>SingleLine / MultiLine / Password.</summary>
-    [Parameter] public string TextMode { get; set; } = "SingleLine";
+    /// <summary>
+    /// WebForms TextBox.TextMode.
+    ///
+    /// The ENUM, as in System.Web. It was a string, and that broke both halves of the job:
+    /// code-behind assigning "textBox.TextMode = TextBoxMode.Number" - which is the only
+    /// way WebForms lets you write it - did not compile, and the renderer compared against
+    /// two string literals, so every HTML5 mode silently rendered type="text".
+    /// </summary>
+    [Parameter] public TextBoxMode TextMode { get; set; } = TextBoxMode.SingleLine;
 
     /// <summary>
     /// WebForms TextBox.ValidationGroup equivalent. Only meaningful with AutoPostBack
@@ -52,7 +59,34 @@
     /// <summary>WebForms AutoCompleteType equivalent. No effect in modern browsers; accepted as a no-op.</summary>
     public string AutoCompleteType { get; set; }
 
-    private string HtmlInputType => TextMode == "Password" ? "password" : "text";
+    /// <summary>
+    /// The input type WebForms renders for each mode. 4.5 added the HTML5 modes precisely
+    /// so the browser would show a date picker or a numeric spinner, so rendering them all
+    /// as type="text" is not a cosmetic difference - the control loses the behaviour it
+    /// was set to have.
+    ///
+    /// The names that differ from the enum member are WebForms' own: Phone renders "tel",
+    /// DateTimeLocal renders "datetime-local", and DateTime renders "datetime" (a type no
+    /// browser implements any more, which is what 4.8 emits and therefore what matches).
+    /// </summary>
+    private string HtmlInputType => TextMode switch
+    {
+        TextBoxMode.Password => "password",
+        TextBoxMode.Color => "color",
+        TextBoxMode.Date => "date",
+        TextBoxMode.DateTime => "datetime",
+        TextBoxMode.DateTimeLocal => "datetime-local",
+        TextBoxMode.Email => "email",
+        TextBoxMode.Month => "month",
+        TextBoxMode.Number => "number",
+        TextBoxMode.Range => "range",
+        TextBoxMode.Search => "search",
+        TextBoxMode.Phone => "tel",
+        TextBoxMode.Time => "time",
+        TextBoxMode.Url => "url",
+        TextBoxMode.Week => "week",
+        _ => "text",
+    };
 
     /// <summary>
     /// WebForms renders no value attribute when Text is empty, letting an expando

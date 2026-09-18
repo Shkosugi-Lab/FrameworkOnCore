@@ -954,15 +954,82 @@ foreach (var (assemblyName, replacementPaths) in
         $"{assemblyName} を置き換え先へ移行します: 型 {migration.RenamedTypeCount} 件を対応付け、"
         + $"名前空間 {migration.RenamedNamespaces.Count} 件を書き換えます。");
 
-    if (migration.Unmatched.Count > 0)
+    // What is left over, reported ONE TYPE AT A TIME and only for the types the code
+    // actually uses.
+    //
+    // It used to be a single residual listing ten names and "ほか". That is a fact, not a
+    // task: MetaDataExtractor alone leaves 50 unmatched names and mojoPortal references
+    // two of them. Forty-eight of those names describe a library the application never
+    // touched, and burying the two that matter among them is how a report stops being
+    // read.
+    //
+    // Each one that IS used becomes its own entry, with the files that name it and the
+    // types the replacement actually declares in the namespace the rest of its neighbours
+    // went to. That is a question with a short answer list, which is what the AI layer can
+    // work from - as opposed to "what did com.drew.metadata.AbstractDirectory become",
+    // which asks it to remember.
+    var usedUnmatched = migration.Unmatched
+        .Select(name => (Name: name, Users: FilesReferencing(name)))
+        .Where(entry => entry.Users.Count > 0)
+        .OrderBy(entry => entry.Name, StringComparer.Ordinal)
+        .ToList();
+
+    foreach (var (unmatchedName, users) in usedUnmatched)
     {
+        var candidates = migration.CandidatesFor(unmatchedName);
         report.Residual("(project)", ResidualKind.CodeBehind,
-            $"{assemblyName} の型 {migration.Unmatched.Count} 件は置き換え先に同名のものがありません: "
-            + string.Join(", ", migration.Unmatched.Take(10))
-            + (migration.Unmatched.Count > 10 ? " ほか" : string.Empty)
-            + "(名前が変わったか、なくなったかのどちらかで、機械的には決められません)。",
+            $"{assemblyName} の {unmatchedName} は置き換え先に同名の型がありません"
+            + "(改名されたか、なくなったかのどちらかです)。"
+            + $"参照しているファイル: {string.Join(", ", users.Take(5))}"
+            + (users.Count > 5 ? $" ほか {users.Count - 5} 件" : string.Empty)
+            + (candidates.Count > 0
+                ? $"。同じ名前空間の移行先が宣言している型: {string.Join(", ", candidates)}"
+                : "。置き換え先に対応する名前空間がありません"),
             disposition: ResidualDisposition.NeedsInput);
     }
+
+    if (migration.Unmatched.Count > usedUnmatched.Count)
+    {
+        report.Info("(project)",
+            $"{assemblyName} の型 {migration.Unmatched.Count - usedUnmatched.Count} 件も置き換え先に"
+            + "同名のものがありませんが、移植コードは参照していないため残差にしていません。");
+    }
+}
+
+/// <summary>
+/// Ported files that name this type - fully qualified, or by its simple name with the
+/// namespace imported. Both spellings count: a using alias
+/// ("using MetadataDirectory = com.drew.metadata.AbstractDirectory;") is the qualified
+/// form, and the code around it uses the alias.
+/// </summary>
+List<string> FilesReferencing(string fullName)
+{
+    var simpleName = fullName[(fullName.LastIndexOf('.') + 1)..];
+    var namespaceName = fullName[..Math.Max(0, fullName.LastIndexOf('.'))];
+
+    var qualified = new System.Text.RegularExpressions.Regex(
+        @"(?<![\w.])" + System.Text.RegularExpressions.Regex.Escape(fullName) + @"(?![\w])");
+    var bare = new System.Text.RegularExpressions.Regex(
+        @"(?<![\w.])" + System.Text.RegularExpressions.Regex.Escape(simpleName) + @"(?![\w])");
+    var imports = new System.Text.RegularExpressions.Regex(
+        @"(?m)^\s*using\s+" + System.Text.RegularExpressions.Regex.Escape(namespaceName) + @"\s*;");
+
+    var users = new List<string>();
+    for (var index = 0; index < candidateNamespaces.Count; index++)
+    {
+        if (excludedCandidates.Contains(index))
+        {
+            continue;
+        }
+
+        var code = PortabilityRules.WithoutStringsAndComments(
+            candidateNamespaces[index].candidate.Source);
+        if (qualified.IsMatch(code) || (imports.IsMatch(code) && bare.IsMatch(code)))
+        {
+            users.Add(candidateNamespaces[index].candidate.ReportName);
+        }
+    }
+    return users;
 }
 
 string ApplyLibraryMigrations(string code)

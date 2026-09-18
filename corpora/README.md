@@ -5600,3 +5600,59 @@ n2 の `AbstractDisplayableAttribute` は移植後
 | 6 コーパス合計 | 54 | 52 |
 
 他 5 コーパスは完全に一致。
+
+## 移行の残りかすを「事実」から「タスク」に変えた
+
+`AssemblyTypeMigration` が対応付けられなかった型は、これまで **1 行にまとめて**
+報告していました。
+
+```
+MetaDataExtractor の型 50 件は置き換え先に同名のものがありません:
+  com.codec.jpeg.JPEGDecodeParam, com.drew.metadata.AbstractTagDescriptor, ... ほか
+```
+
+これは**事実であってタスクではありません**。mojoPortal がこの 50 件のうち実際に
+参照しているのは **2 件**です。残り 48 件は、アプリが一度も触っていないライブラリの
+説明で、**大事な 2 件をその中に埋める**のがレポートの読まれなくなり方です。
+
+3 つ直しました。
+
+### 1. 使っている型だけを残差にする
+
+移植コードが参照している型だけを残差に出します。修飾名でも、
+名前空間を import した上での裸の名前でも拾います
+(`using MetadataDirectory = com.drew.metadata.AbstractDirectory;` は前者、
+その周りのコードは別名を使うので)。
+
+mojo では **181 件の未対応型 → 5 件の実タスク**になりました。
+残りは件数だけ Info で言います(隠さない)。
+
+### 2. 参照しているファイルを書く
+
+### 3. **置き換え先が実際に宣言している型の一覧**を添える
+
+これが一番効きます。`com.drew.metadata.AbstractDirectory` に対して、
+`com.drew.metadata` の**残りの型が着地した名前空間**が宣言している型を並べます:
+
+```
+MetadataExtractor.Age, MetadataExtractor.Directory, MetadataExtractor.DirectoryExtensions,
+MetadataExtractor.ErrorDirectory, MetadataExtractor.Face, ...
+```
+
+**ここでは何も決めません。**似ているから決める、というのはこの変換器が拒否している
+ことそのもので、それが AI 層の仕事です。ただし
+**「アセンブリが本当に宣言しているこの一覧から選べ」は、
+「com.drew.metadata.AbstractDirectory が何になったか思い出せ」とは別の問題**です。
+前者は照合で、後者は記憶です。
+
+名前空間が散らばる場合(Lucene の `Index` は Index / Codecs / Util など十数か所へ)
+**投票の多い名前空間から順に**並べ、上限で切ります。全部貼ると誰も読まない一覧になり、
+それはこのレポートが直前まで陥っていた状態です。
+
+| | 変更前 | 変更後 |
+|---|---:|---:|
+| mojo の未対応型の残差 | 3 件(合計 181 型を要約) | **5 件(実際に使われている型ごと)** |
+| mojo 総残差 | 92 | 94 |
+
+残差が 2 増えるのは、**曖昧な 3 件が具体的な 5 件になった**からです。
+ビルドエラーは 6 のまま(下限値)、他 5 コーパスは完全に一致。

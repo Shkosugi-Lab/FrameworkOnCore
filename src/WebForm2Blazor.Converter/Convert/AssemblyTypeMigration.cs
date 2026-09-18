@@ -40,14 +40,60 @@ internal sealed class AssemblyTypeMigration
     private readonly Dictionary<string, string> _namespaceRenames;
     private readonly Dictionary<string, string> _typeRenames;
 
+    /// <summary>Old namespace -> the new namespaces its matched types landed in.</summary>
+    private readonly Dictionary<string, Dictionary<string, int>> _namespaceVotes;
+
+    /// <summary>New namespace -> the type names it declares.</summary>
+    private readonly Dictionary<string, List<string>> _newTypesByNamespace;
+
     private AssemblyTypeMigration(
         Dictionary<string, string> namespaceRenames,
         Dictionary<string, string> typeRenames,
-        IReadOnlyList<string> unmatched)
+        IReadOnlyList<string> unmatched,
+        Dictionary<string, Dictionary<string, int>> namespaceVotes,
+        Dictionary<string, List<string>> newTypesByNamespace)
     {
         _namespaceRenames = namespaceRenames;
         _typeRenames = typeRenames;
         Unmatched = unmatched;
+        _namespaceVotes = namespaceVotes;
+        _newTypesByNamespace = newTypesByNamespace;
+    }
+
+    /// <summary>
+    /// The names the replacement offers for an unmatched type: everything declared in the
+    /// namespace(s) the REST of its namespace landed in.
+    ///
+    /// This is what turns "com.drew.metadata.AbstractDirectory has no counterpart" from a
+    /// dead end into a question with a short answer list. The rest of com.drew.metadata
+    /// went to MetadataExtractor, and MetadataExtractor declares about twenty types - one
+    /// of which is Directory. Nothing here decides which; deciding by resemblance is
+    /// exactly what this converter refuses to do, and what the AI layer exists for. But
+    /// asking it to CHOOSE FROM the list the assembly really declares is a different
+    /// question from asking it to recall what a library did five versions ago.
+    /// </summary>
+    public IReadOnlyList<string> CandidatesFor(string oldFullName, int limit = 40)
+    {
+        var cut = oldFullName.LastIndexOf('.');
+        if (cut < 0 || !_namespaceVotes.TryGetValue(oldFullName[..cut], out var targets))
+        {
+            return [];
+        }
+
+        // Most-voted namespace first, and capped. An old namespace can scatter - Lucene's
+        // Index types went to Index, Codecs, Util and a dozen more - and pasting every
+        // type from all of them back is a list nobody reads, which is the state this
+        // report was in before. The namespace most of its neighbours went to is the one
+        // worth reading first.
+        return targets
+            .OrderByDescending(target => target.Value)
+            .ThenBy(target => target.Key, StringComparer.Ordinal)
+            .SelectMany(target => _newTypesByNamespace.TryGetValue(target.Key, out var names)
+                ? names.OrderBy(name => name, StringComparer.Ordinal)
+                    .Select(name => target.Key + "." + name)
+                : [])
+            .Take(limit)
+            .ToList();
     }
 
     /// <summary>Types the old assembly declares that the new one has no name for.</summary>
@@ -94,7 +140,7 @@ internal sealed class AssemblyTypeMigration
 
         var typeRenames = new Dictionary<string, string>(StringComparer.Ordinal);
         var unmatched = new List<string>();
-        var namespaceVotes = new Dictionary<string, HashSet<string>>(StringComparer.Ordinal);
+        var namespaceVotes = new Dictionary<string, Dictionary<string, int>>(StringComparer.Ordinal);
 
         // Old types whose name exists in the replacement but more than once. Held back
         // rather than discarded: the second pass has evidence this one does not.
@@ -126,9 +172,9 @@ internal sealed class AssemblyTypeMigration
 
             if (!namespaceVotes.TryGetValue(old.Namespace, out var targets))
             {
-                namespaceVotes[old.Namespace] = targets = new HashSet<string>(StringComparer.Ordinal);
+                namespaceVotes[old.Namespace] = targets = new Dictionary<string, int>(StringComparer.Ordinal);
             }
-            targets.Add(replacement.Namespace);
+            targets[replacement.Namespace] = targets.GetValueOrDefault(replacement.Namespace) + 1;
         }
 
         // Second pass: a name that is ambiguous on its own stops being ambiguous once you
@@ -158,7 +204,7 @@ internal sealed class AssemblyTypeMigration
             }
 
             var reachable = newCandidates[old.Name]
-                .Where(candidate => targets.Contains(candidate.Namespace))
+                .Where(candidate => targets.ContainsKey(candidate.Namespace))
                 .ToList();
 
             if (reachable.Count == 1)
@@ -175,10 +221,18 @@ internal sealed class AssemblyTypeMigration
         // landed in the same new one. Otherwise the file needs its names written out, which
         // the type rewrite below does anyway.
         var namespaceRenames = namespaceVotes
-            .Where(pair => pair.Value.Count == 1 && pair.Key != pair.Value.Single())
-            .ToDictionary(pair => pair.Key, pair => pair.Value.Single(), StringComparer.Ordinal);
+            .Where(pair => pair.Value.Count == 1 && pair.Key != pair.Value.Keys.Single())
+            .ToDictionary(pair => pair.Key, pair => pair.Value.Keys.Single(), StringComparer.Ordinal);
 
-        return new AssemblyTypeMigration(namespaceRenames, typeRenames, unmatched);
+        var newTypesByNamespace = newTypes
+            .GroupBy(type => type.Namespace, StringComparer.Ordinal)
+            .ToDictionary(
+                group => group.Key,
+                group => group.Select(type => type.Name).Distinct(StringComparer.Ordinal).ToList(),
+                StringComparer.Ordinal);
+
+        return new AssemblyTypeMigration(
+            namespaceRenames, typeRenames, unmatched, namespaceVotes, newTypesByNamespace);
     }
 
     /// <summary>Rewrites imports and qualified names onto the replacement library.</summary>

@@ -10,7 +10,7 @@ namespace WebForm2Blazor.Components;
 /// IsPostBack / IsValid / FindControl - under the same names, so code-behind can be
 /// ported without modification.
 /// </summary>
-public abstract class Page : ComponentBase, IWebFormsHost
+public abstract class Page : ComponentBase, IWebFormsHost, IWebFormsControl
 {
     private HttpResponseShim _response;
     private HttpRequestShim _request;
@@ -242,6 +242,41 @@ public abstract class Page : ComponentBase, IWebFormsHost
     /// bases override it (n2's TemplatePage returns "P" when none was assigned).
     /// </summary>
     public virtual string ID { get; set; }
+
+    // WebForms Page derives from Control, and ported helpers are written against that:
+    // they take a Control and call ResolveUrl / HtmlEncode / FindControl on it, and the
+    // page is what they are handed. Without the interface, "Utils.HtmlEncode(this)" from a
+    // page did not compile, and neither did any extension method on IWebFormsControl.
+    //
+    // A page has no rendering of its own here - Blazor renders it - so the display members
+    // answer the way a page always did: visible, enabled, no class of its own.
+
+    /// <summary>WebForms Control.ClientID. A page is not a naming container, so its id is its id.</summary>
+    public string ClientID => ID ?? string.Empty;
+
+    /// <summary>WebForms Control.Visible.</summary>
+    public bool Visible { get; set; } = true;
+
+    /// <summary>WebForms Control.Enabled.</summary>
+    public bool Enabled { get; set; } = true;
+
+    /// <summary>WebForms Control.CssClass (a page renders no element of its own).</summary>
+    public string CssClass { get; set; }
+
+    /// <summary>WebForms Control.Attributes.</summary>
+    public AttributeCollection Attributes { get; } = new(() => { });
+
+    /// <summary>
+    /// WebForms Control.Controls. Holds what code added; the markup's children are
+    /// Blazor's, as everywhere else in the compat layer.
+    /// </summary>
+    public ControlCollection Controls { get; } = [];
+
+    /// <summary>
+    /// WebForms Control.Page. Implemented explicitly: C# forbids a member named the same
+    /// as its enclosing type, and code reaching for it holds an IWebFormsControl anyway.
+    /// </summary>
+    Page IWebFormsControl.Page => this;
 
     /// <summary>
     /// WebForms Page.EnableTheming / Theme equivalents. Themes and skins are a WebForms

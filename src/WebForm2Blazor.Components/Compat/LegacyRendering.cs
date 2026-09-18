@@ -452,6 +452,33 @@ public abstract class LegacyWebControl : IWebFormsControl, IDisposable
     {
     }
 
+    // Declared on the CLASS, not only on IWebFormsControl. A default interface member is
+    // reachable through the interface and not through a class that implements it, so
+    // putting these on the interface alone left every ported control that derives from
+    // this base unable to call them - YAF's ThemeButton could not call Focus(), which is
+    // the exact thing the interface default was added for.
+
+    /// <summary>
+    /// WebForms Control.Focus(). Focus is a client concern in Blazor
+    /// (ElementReference.FocusAsync), so a ported call is accepted and does nothing.
+    /// </summary>
+    public void Focus()
+    {
+    }
+
+    /// <summary>WebForms Control.HasControls(): whether anything was added to Controls.</summary>
+    public bool HasControls() => Controls.Count > 0;
+
+    /// <summary>
+    /// WebForms Control.Unload. Nothing raises it here (a Blazor component is disposed),
+    /// so a subscription is accepted and never fires.
+    /// </summary>
+    public event EventHandler Unload
+    {
+        add { }
+        remove { }
+    }
+
     protected virtual void OnDataBinding(EventArgs e) => DataBinding?.Invoke(this, e);
 
     /// <summary>

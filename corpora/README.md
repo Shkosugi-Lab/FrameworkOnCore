@@ -5104,3 +5104,33 @@ multipart のポストは無く、返すべき投稿ファイル集合が存在�
 | 6 コーパス合計 | 260 | 232 |
 
 他 5 コーパスは完全に一致。
+
+## 既定実装はクラスからは呼べない — yaf 105 -> 97
+
+前節で `IWebFormsControl` に `Focus()` / `HasControls()` / `DesignMode` / `Unload` を
+**既定実装**で足しました。ところが yaf の `ThemeButton.Focus` エラーは消えませんでした。
+
+C# の既定インターフェース実装は、**インターフェース型の参照からしか呼べません**。
+クラスが実装していても、そのクラス型の変数からは見えません。
+`LegacyWebControl` 由来の移植コントロールは全部これに当たっていました。
+つまり、足したその機能のために足したものが、そこには届いていなかったわけです。
+
+同じメンバーを `LegacyWebControl` にも実体として置きました。
+
+### Page はコントロールである
+
+WebForms の `Page` は `Control` を継承します。移植されたヘルパーはそれ前提で書かれていて、
+`Control` を受け取って `ResolveUrl` / `HtmlEncode` / `FindControl` を呼び、
+呼び出し側はページを渡します。互換層の `Page` が `IWebFormsControl` を実装していなかったので、
+ページからの `Utils.HtmlEncode(this)` も、`IWebFormsControl` の拡張メソッドも通りませんでした。
+
+`Page` に `IWebFormsControl` を実装させ、`ClientID` / `Visible` / `Enabled` /
+`CssClass` / `Attributes` / `Controls` を足しました。`Page` プロパティだけは
+明示実装です — C# は**囲む型と同名のメンバーを禁止**しているので。
+
+| | 変更前 | 変更後 |
+|---|---:|---:|
+| **yaf ビルドエラー** | **105** | **97** |
+| 6 コーパス合計 | 232 | 224 |
+
+他 5 コーパスは完全に一致。パリティ 30/30、bUnit 30/30。

@@ -877,6 +877,29 @@ do
 } while (cascadeChanged);
 
 var fullyExcludedNamespaces = ComputeFullyExcludedNamespaces();
+
+// Namespaces ExcludedTypeStubs.g.cs re-creates.
+//
+// A fully-excluded namespace is NOT empty after the port - the stub file declares its
+// types again, which is the whole point of that file. Dropping an "@using" that names one
+// was right before stubs existed and has been wrong since: YAF's AlbumImageList writes
+// &lt;%@ Import Namespace="YAF.Core.Context.Start" %&gt; and reads WebApiConfig.UrlPrefix
+// from it, and the import was removed under the reason "移植後に型が残らない" while the
+// stub for WebApiConfig sat in the generated file.
+//
+// Computed from the excluded sources rather than assumed equal to the fully-excluded set,
+// so that a namespace the generator cannot stub still counts as gone.
+var stubbedNamespaces = Enumerable.Range(0, candidateNamespaces.Count)
+    .Where(excludedCandidates.Contains)
+    .SelectMany(index => EnumerateTopLevelTypes(candidateNamespaces[index].candidate.Source))
+    .Select(type => type.Namespace)
+    .Where(ns => !string.IsNullOrEmpty(ns))
+    .ToHashSet(StringComparer.Ordinal);
+
+var deadNamespacesForMarkup = fullyExcludedNamespaces
+    .Where(ns => !stubbedNamespaces.Contains(ns))
+    .ToHashSet(StringComparer.Ordinal);
+
 var unsafeCodePorted = false;
 var assemblyAttributesPorted = false;
 
@@ -1002,6 +1025,32 @@ var webProjectGlobalUsings = Enumerable.Range(0, candidateNamespaces.Count)
     .Distinct(StringComparer.Ordinal)
     .ToList();
 
+// The same, over EVERY ported project rather than only the web one.
+//
+// Used where the question is "what could this file's names have resolved to", not "what
+// does the generated web project import". Each project has its own GlobalUsings.cs -
+// YAF has nine - so a type declared in YAF.Types resolves its own neighbours through
+// YAF.Types' list, which the web project's does not contain.
+//
+// A union is wider than any single project's list, and that is a real cost: a simple name
+// declared in two ported namespaces could resolve to the wrong one. It is bounded by
+// resolution only accepting names that actually exist, and it is only used for stub
+// signatures, where the alternative measured worse - the member is dropped entirely and
+// the error moves to whoever called it.
+var portedProjectGlobalUsings = Enumerable.Range(0, candidateNamespaces.Count)
+    .Where(index => !excludedCandidates.Contains(index))
+    .SelectMany(index => CodeBehindRewriter.ParseUnit(
+            candidateNamespaces[index].candidate.Source).Usings
+        .Where(directive => directive.GlobalKeyword.RawKind
+                            == (int)Microsoft.CodeAnalysis.CSharp.SyntaxKind.GlobalKeyword)
+        .Where(directive => directive.Alias is null && directive.StaticKeyword.RawKind == 0)
+        .Select(directive => directive.Name?.ToString()))
+    .OfType<string>()
+    .Where(name => name != "System.Web"
+                   && !name.StartsWith("System.Web.", StringComparison.Ordinal))
+    .Distinct(StringComparer.Ordinal)
+    .ToList();
+
 foreach (var component in components)
 {
     var directory = Path.Combine(output, component.OutputDirectory.Replace('/', Path.DirectorySeparatorChar));
@@ -1030,7 +1079,9 @@ foreach (var component in components)
     LintGeneratedRazor(component, report);
     File.WriteAllText(Path.Combine(directory, component.ComponentName + ".razor"),
         ApplyNamespaceMap(
-            StripDeadUsings(component.RazorContent, fullyExcludedNamespaces, report, component.ComponentName),
+            StripDeadUsings(
+                WithGlobalUsings(component.RazorContent, webProjectGlobalUsings, component.TargetNamespace),
+                deadNamespacesForMarkup, report, component.ComponentName),
             razorContent: true));
 
     if (component.CodeBehindSourcePath is not null)
@@ -1230,6 +1281,7 @@ var excludedTypeStubs = GenerateExcludedTypeStubs(
     [.. Enumerable.Range(0, candidateNamespaces.Count)
         .Where(index => !excludedCandidates.Contains(index))
         .Select(index => candidateNamespaces[index].candidate.Source)],
+    portedProjectGlobalUsings,
     out var stubbedTypeCount);
 
 if (stubbedTypeCount > 0)
@@ -2403,6 +2455,76 @@ static string StripDeadCodeUsings(
     return string.Join("\n", kept);
 }
 
+/// <summary>
+/// Gives the .razor the web project's GLOBAL usings, which the markup had and the
+/// generated component did not.
+///
+/// A markup expression resolves through the imports the page was compiled with. The
+/// code-behind half already gets these (see webProjectGlobalUsings); the markup half was
+/// left with only the imports written in the .ascx and in the code-behind FILE, and a
+/// global using is in neither. YAF writes
+/// "&lt;%# ... WebApiConfig.UrlPrefix %&gt;" in two of its controls and that name comes
+/// from a global using, so the markup could not compile - and the error lands on the
+/// generated Razor, where nothing is wrong.
+///
+/// The lines go in as the ORIGINAL namespace names, so the namespace map rewrites them and
+/// StripDeadUsings drops the ones whose types did not survive - the same two passes every
+/// other import in the file goes through.
+/// </summary>
+static string WithGlobalUsings(
+    string razorContent, IReadOnlyList<string> globalUsings, string ownNamespace)
+{
+    if (globalUsings.Count == 0)
+    {
+        return razorContent;
+    }
+
+    var lines = razorContent.Replace("\r\n", "\n").Split('\n').ToList();
+
+    var present = new HashSet<string>(
+        lines.Where(line => line.StartsWith("@using ", StringComparison.Ordinal))
+            .Select(line => line["@using ".Length..].Trim()),
+        StringComparer.Ordinal);
+
+    var additions = globalUsings
+        .Where(ns => ns != ownNamespace && !present.Contains(ns))
+        .Distinct(StringComparer.Ordinal)
+        .OrderBy(ns => ns, StringComparer.Ordinal)
+        .Select(ns => "@using " + ns)
+        .ToList();
+
+    if (additions.Count == 0)
+    {
+        return razorContent;
+    }
+
+    // After the last directive at the top of the file. A @using has to precede the markup,
+    // and @namespace / @inherits / @layout have to stay where they are.
+    var insertAt = 0;
+    for (var index = 0; index < lines.Count; index++)
+    {
+        if (lines[index].StartsWith('@') && !lines[index].StartsWith("@using ", StringComparison.Ordinal)
+            && !lines[index].StartsWith("@page", StringComparison.Ordinal)
+            && !lines[index].StartsWith("@namespace", StringComparison.Ordinal)
+            && !lines[index].StartsWith("@inherits", StringComparison.Ordinal)
+            && !lines[index].StartsWith("@layout", StringComparison.Ordinal)
+            && !lines[index].StartsWith("@implements", StringComparison.Ordinal)
+            && !lines[index].StartsWith("@attribute", StringComparison.Ordinal))
+        {
+            break;
+        }
+        if (lines[index].StartsWith('@') || lines[index].Trim().Length == 0)
+        {
+            insertAt = index + 1;
+            continue;
+        }
+        break;
+    }
+
+    lines.InsertRange(insertAt, additions);
+    return string.Join("\r\n", lines);
+}
+
 static string StripDeadUsings(
     string razor, HashSet<string> deadNamespaces, ConversionReport report, string componentName)
 {
@@ -2436,7 +2558,10 @@ static string StripDeadUsings(
 /// used the type fails at the member rather than silently getting a working-looking stub.
 /// </summary>
 static string GenerateExcludedTypeStubs(
-    IReadOnlyList<string> excludedSources, IReadOnlyList<string> survivingSources, out int typeCount)
+    IReadOnlyList<string> excludedSources,
+    IReadOnlyList<string> survivingSources,
+    IReadOnlyList<string> globalUsings,
+    out int typeCount)
 {
     typeCount = 0;
 
@@ -2602,7 +2727,8 @@ static string GenerateExcludedTypeStubs(
         foreach (var stub in members.OrderBy(member => member.Name, StringComparer.Ordinal))
         {
             builder.AppendLine(RenderStubType(
-                stub, known, classesBySimpleName, abstractClasses, indent, declaredNamespace));
+                stub, known, classesBySimpleName, abstractClasses, indent, declaredNamespace,
+                globalUsings));
             typeCount++;
         }
         if (!string.IsNullOrEmpty(declaredNamespace))
@@ -2622,7 +2748,8 @@ static string RenderStubType(
     IReadOnlyDictionary<string, string?> classesBySimpleName,
     IReadOnlySet<string> abstractClasses,
     string indent,
-    string declaredNamespace)
+    string declaredNamespace,
+    IReadOnlyList<string> globalUsings)
 {
     var declaration = stub.Declaration;
 
@@ -2740,7 +2867,7 @@ static string RenderStubType(
     var lines = new List<string>();
     if (typeDeclaration is not null)
     {
-        var lookupNamespaces = LookupNamespacesFor(typeDeclaration, declaredNamespace);
+        var lookupNamespaces = LookupNamespacesFor(typeDeclaration, declaredNamespace, globalUsings);
         foreach (var member in typeDeclaration.Members)
         {
             var text = RenderStubMember(
@@ -2790,8 +2917,15 @@ static string? RenderStubMember(
     // subclass OVERRIDES are usually protected, and the subclasses are being ported. Left
     // out, DNN's EditControl stub loses RenderEditMode / RenderViewMode / StringValue and
     // every control deriving from it fails on CS0115 - the single biggest cluster of them.
+    //
+    // An INTERFACE member carries no modifier at all and is public by definition. Reading
+    // "no public keyword" as "not public" emptied every stubbed interface: YAF's
+    // IAspNetRoleManager became "public interface IAspNetRoleManager { }" and its four
+    // members vanished, so AspNetRolesHelper - which is ported and calls all four - could
+    // not compile. The error then names the caller, which is the one file that was right.
     bool IsPublic(Microsoft.CodeAnalysis.SyntaxTokenList modifiers)
-        => Has(modifiers, Microsoft.CodeAnalysis.CSharp.SyntaxKind.PublicKeyword)
+        => containerIsInterface
+           || Has(modifiers, Microsoft.CodeAnalysis.CSharp.SyntaxKind.PublicKeyword)
            || Has(modifiers, Microsoft.CodeAnalysis.CSharp.SyntaxKind.InternalKeyword)
            || Has(modifiers, Microsoft.CodeAnalysis.CSharp.SyntaxKind.ProtectedKeyword);
 
@@ -3140,7 +3274,9 @@ static string MetadataName(string qualifiedName, int arity)
 /// one, then its imports - the order the compiler would try.
 /// </summary>
 static List<string> LookupNamespacesFor(
-    Microsoft.CodeAnalysis.CSharp.Syntax.BaseTypeDeclarationSyntax declaration, string declaredNamespace)
+    Microsoft.CodeAnalysis.CSharp.Syntax.BaseTypeDeclarationSyntax declaration,
+    string declaredNamespace,
+    IReadOnlyList<string> globalUsings)
 {
     var namespaces = new List<string>();
 
@@ -3164,6 +3300,14 @@ static List<string> LookupNamespacesFor(
             namespaces.Add(name.ToString());
         }
     }
+
+    // The web project's GLOBAL usings. A stub member is only emitted when every type in
+    // its signature resolves, and a file that relies on a global using names its types
+    // with nothing in the file to resolve them by: YAF's IAspNetRoleManager returns
+    // AspNetRoles, which lives two namespaces away and is reached globally. Without these
+    // the interface stubbed out to one member and three dropped, and the error landed on
+    // the file that CALLS all four.
+    namespaces.AddRange(globalUsings);
 
     namespaces.Add("System");
     return namespaces;

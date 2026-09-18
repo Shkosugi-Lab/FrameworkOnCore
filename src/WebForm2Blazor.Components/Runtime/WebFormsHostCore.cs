@@ -65,7 +65,7 @@ public interface IWebFormsControl
     /// WebForms Control.Site - the designer's hook. There is no designer here, and code
     /// reads it to ask "am I in the designer?", where null means no.
     /// </summary>
-    object Site => null;
+    ISite Site => null;
 
     /// <summary>
     /// WebForms Control.DesignMode. Always false: the converted application only ever

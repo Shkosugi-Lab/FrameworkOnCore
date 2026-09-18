@@ -74,6 +74,25 @@ public sealed class AttributeCollection(Action onChanged)
     public void Add(string key, string value) => this[key] = value;
     public void Remove(string key) => this[key] = null;
 
+    /// <summary>
+    /// WebForms AttributeCollection.Render(HtmlTextWriter): writes every attribute onto
+    /// the tag being built. A control that renders itself calls this after writing the
+    /// attributes it controls by hand - YAF's Form does - so leaving it out was not only a
+    /// compile error, it would have dropped every expando attribute on that element.
+    /// </summary>
+    public void Render(HtmlTextWriter writer)
+    {
+        if (writer is null)
+        {
+            return;
+        }
+
+        foreach (var key in _items.Keys)
+        {
+            writer.WriteAttribute(key, _items[key]);
+        }
+    }
+
     public void Clear()
     {
         if (_items.Count > 0)

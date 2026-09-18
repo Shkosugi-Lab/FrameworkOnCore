@@ -398,6 +398,23 @@ public sealed class ClientScriptManagerShim
     public string GetPostBackEventReference(object control, string argument) => string.Empty;
 
     /// <summary>
+    /// WebForms ClientScriptManager.RegisterForEventValidation.
+    ///
+    /// Event validation rejected a postback whose target or argument was not one the
+    /// server had rendered. There are no postbacks on a circuit - an event handler is
+    /// invoked directly on the component that rendered it - so the attack it guarded
+    /// against has no route in, and registering is accepted and does nothing.
+    /// </summary>
+    public void RegisterForEventValidation(string uniqueId)
+    {
+    }
+
+    /// <inheritdoc cref="RegisterForEventValidation(string)"/>
+    public void RegisterForEventValidation(string uniqueId, string argument)
+    {
+    }
+
+    /// <summary>
     /// WebForms client-callback plumbing (ICallbackEventHandler). Blazor's own circuit
     /// carries server round-trips, so no script is emitted; callers get an empty
     /// reference, matching the other script-registration members here.
@@ -606,8 +623,16 @@ public abstract class WebFormsUserControl : UserControl, IWebFormsHost, IWebForm
     {
     }
 
-    /// <summary>WebForms LoadControl equivalent (see WebFormsPage.LoadControl).</summary>
-    public object LoadControl(string virtualPath) => UserControlCatalog.Create(virtualPath);
+    /// <summary>
+    /// WebForms LoadControl equivalent (see WebFormsPage.LoadControl).
+    ///
+    /// Returns IWebFormsControl, as Page.LoadControl does. It used to return object here
+    /// and IWebFormsControl there, which is one method with two answers depending on which
+    /// base the file happened to inherit - YAF Forum.cs does
+    /// "this.Controls.Add(this.LoadControl(path))" from a user control and could not,
+    /// because Controls takes a control and it had been handed an object.
+    /// </summary>
+    public IWebFormsControl LoadControl(string virtualPath) => UserControlCatalog.Create(virtualPath);
 
     /// <summary>WebForms Control.DataBind equivalent (custom bases override it).</summary>
     public virtual void DataBind()
@@ -744,8 +769,16 @@ public abstract class WebFormsLayout : LayoutComponentBase, IWebFormsHost
     {
     }
 
-    /// <summary>WebForms LoadControl equivalent (see WebFormsPage.LoadControl).</summary>
-    public object LoadControl(string virtualPath) => UserControlCatalog.Create(virtualPath);
+    /// <summary>
+    /// WebForms LoadControl equivalent (see WebFormsPage.LoadControl).
+    ///
+    /// Returns IWebFormsControl, as Page.LoadControl does. It used to return object here
+    /// and IWebFormsControl there, which is one method with two answers depending on which
+    /// base the file happened to inherit - YAF Forum.cs does
+    /// "this.Controls.Add(this.LoadControl(path))" from a user control and could not,
+    /// because Controls takes a control and it had been handed an object.
+    /// </summary>
+    public IWebFormsControl LoadControl(string virtualPath) => UserControlCatalog.Create(virtualPath);
 
     /// <summary>WebForms Control.DataBind equivalent (custom bases override it).</summary>
     public virtual void DataBind()

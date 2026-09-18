@@ -436,17 +436,24 @@ public abstract class LegacyWebControl : IWebFormsControl, IDisposable
 
     // WebForms Control lifecycle virtuals: ported controls override these to build
     // state before Render. LegacyRenderHost drives them via RunLifecycle.
-    protected virtual void OnInit(EventArgs e)
-    {
-    }
+    // The lifecycle EVENTS beside the virtuals. WebForms exposes both, and ported code
+    // uses whichever fits: a control overrides OnLoad, while the page holding it writes
+    // "themeButton.Load += ...". Raised from the virtuals so a subscriber and an override
+    // see the same moment - declaring them inert would have been the easy half and the
+    // wrong half, because the handler is where the control gets its text.
+    public event EventHandler Init;
 
-    protected virtual void OnLoad(EventArgs e)
-    {
-    }
+    /// <inheritdoc cref="Init"/>
+    public event EventHandler Load;
 
-    protected virtual void OnPreRender(EventArgs e)
-    {
-    }
+    /// <inheritdoc cref="Init"/>
+    public event EventHandler PreRender;
+
+    protected virtual void OnInit(EventArgs e) => Init?.Invoke(this, e);
+
+    protected virtual void OnLoad(EventArgs e) => Load?.Invoke(this, e);
+
+    protected virtual void OnPreRender(EventArgs e) => PreRender?.Invoke(this, e);
 
     protected virtual void OnUnload(EventArgs e)
     {
@@ -487,7 +494,7 @@ public abstract class LegacyWebControl : IWebFormsControl, IDisposable
     /// WebForms Control.Site - the designer's hook. There is no designer, and code reads
     /// it to ask "am I in the designer?", where null means no.
     /// </summary>
-    public object Site => null;
+    public ISite Site => null;
 
     /// <summary>
     /// WebForms Control.Unload. Nothing raises it here (a Blazor component is disposed),

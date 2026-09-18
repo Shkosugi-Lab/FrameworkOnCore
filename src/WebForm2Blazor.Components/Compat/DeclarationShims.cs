@@ -1424,3 +1424,26 @@ public class MembershipSection
 
     public ProviderSettingsCollection Providers { get; } = [];
 }
+
+/// <summary>
+/// System.ComponentModel.ISite equivalent - what Control.Site is typed as.
+///
+/// Control.Site used to be typed "object" here, and ported code does not read it as one:
+/// the idiom is "currentControl.Site is { DesignMode: true }", a pattern that needs the
+/// member to exist on the static type. YAF asks it before touching BoardContext, on every
+/// control, so the whole extension class failed to compile over a property nobody ever
+/// reads at run time.
+///
+/// Always null in practice (there is no designer), which makes the pattern false - the
+/// same answer 4.8 gives a control that is running rather than being designed.
+/// </summary>
+public interface ISite
+{
+    bool DesignMode { get; }
+
+    string Name { get; set; }
+
+    object Component { get; }
+
+    object Container { get; }
+}

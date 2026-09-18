@@ -536,21 +536,46 @@ public abstract class WebFormsControlBase : ComponentBase, IWebFormsControl, IDi
     // the source, whereas silently skipped state handling would not be.
     // ---------------------------------------------------------------------------------
 
-    protected virtual void OnInit(EventArgs e)
-    {
-    }
+    /// <summary>
+    /// The lifecycle EVENTS beside the virtuals above. WebForms exposes both, and ported
+    /// code uses whichever fits: a control overrides OnLoad, while the page holding it
+    /// writes "control.Load += ...". Raised from the virtuals, so a subscriber and an
+    /// override see the same moment.
+    /// </summary>
+    public event EventHandler Init;
 
-    protected virtual void OnLoad(EventArgs e)
-    {
-    }
+    /// <inheritdoc cref="Init"/>
+    public event EventHandler Load;
 
-    protected virtual void OnPreRender(EventArgs e)
-    {
-    }
+    /// <inheritdoc cref="Init"/>
+    public event EventHandler PreRender;
 
-    protected virtual void OnUnload(EventArgs e)
-    {
-    }
+    /// <inheritdoc cref="Init"/>
+    public event EventHandler Unload;
+
+    protected virtual void OnInit(EventArgs e) => Init?.Invoke(this, e);
+
+    protected virtual void OnLoad(EventArgs e) => Load?.Invoke(this, e);
+
+    protected virtual void OnPreRender(EventArgs e) => PreRender?.Invoke(this, e);
+
+    protected virtual void OnUnload(EventArgs e) => Unload?.Invoke(this, e);
+
+    /// <summary>
+    /// WebForms Control.DesignMode. Always false: the converted application only ever
+    /// runs. Declared on the CLASS, because a default interface member is not reachable
+    /// through a class that implements the interface.
+    /// </summary>
+    public bool DesignMode => false;
+
+    /// <summary>
+    /// WebForms Control.Site - the designer's hook. No designer here, and code reads it to
+    /// ask "am I in the designer?", where null means no.
+    /// </summary>
+    public ISite Site => null;
+
+    /// <summary>WebForms Control.HasControls(): whether anything was added to Controls.</summary>
+    public bool HasControls() => Controls.Count > 0;
 
     protected virtual void OnDataBinding(EventArgs e) => DataBinding?.Invoke(this, e);
 

@@ -5415,3 +5415,47 @@ dnn のカウント上 67 件を 1 件ずつ見ると、**50 件近くが 6 つ�
 be / mojo / yaf / wt は 1 件も動きません(復元されたファイルが無い)。
 
 これで dnn と n2 の残り(19 / 13)は**本当に変換器の課題**になりました。
+
+## ライフサイクルイベントと ISite — yaf 51 -> 37
+
+### Load / Init / PreRender は「宣言だけ」にしなかった
+
+WebForms は仮想メソッドと**イベントの両方**を出していて、移植コードは場面で使い分けます。
+コントロール自身は `OnLoad` を override し、それを持つページは
+`themeButton.Load += ...` と書きます。互換層には**仮想メソッドしかありません**でした。
+
+仮想メソッドから raise するようにしました。**購読側と override が同じ瞬間を見ます**。
+空のイベントを宣言するだけなら簡単ですが、それは半分で、しかも**間違ったほうの半分**です
+— ハンドラはコントロールが文字列を受け取る場所だからです。
+
+### Site は object ではなく ISite
+
+`currentControl.Site is { DesignMode: true }` — これが YAF の全コントロールの入口にあります。
+互換層の `Site` は `object` だったので、このパターンは静的型にメンバーが無く成立せず、
+**実行時には誰も読まないプロパティのせいで拡張クラス全体が落ちていました**。
+
+`ISite` を足して `Site` の型にしました。中身は null(デザイナはいない)なので
+パターンは false になり、それは **4.8 で「実行中の」コントロールが返す答え**と同じです。
+
+### LoadControl の戻り値が基底によって違った
+
+`Page.LoadControl` は `IWebFormsControl`、`WebFormsUserControl.LoadControl` と
+`WebFormsLayout.LoadControl` は `object` を返していました。
+**1 つのメソッドが、どの基底を継承したかで 2 つの答えを返す**状態です。
+YAF の Forum.cs はユーザーコントロールから `this.Controls.Add(this.LoadControl(path))` と
+書いていて、`Controls` はコントロールを取るのに object を渡されて落ちていました。
+
+### そのほか
+
+- `AttributeCollection.Render(writer)` — 自分で描画するコントロールが、手で書いた属性の
+  あとに呼びます。無いとコンパイルが落ちるだけでなく、**expando 属性が全部消えます**。
+- `ClientScriptManager.RegisterForEventValidation` — 回線にポストバックは無く、
+  これが防いでいた経路自体が存在しないので、受け取って何もしません。
+- `DesignMode` / `HasControls()` を Blazor コンポーネント側の基底にも実体で。
+
+| | 変更前 | 変更後 |
+|---|---:|---:|
+| **yaf ビルドエラー** | **51** | **37** |
+| 6 コーパス合計 | 89 | 75 |
+
+他 5 コーパスは完全に一致。パリティ 30/30、bUnit 30/30。

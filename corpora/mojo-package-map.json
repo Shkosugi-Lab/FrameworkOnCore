@@ -5,7 +5,9 @@
   { "assembly": "Lucene.Net", "package": "Lucene.Net", "version": "4.8.0-beta00018",
     "dll": [
       "C:\\Users\\admin\\.nuget\\packages\\lucene.net\\4.8.0-beta00018\\lib\\net8.0\\Lucene.Net.dll",
-      "C:\\Users\\admin\\.nuget\\packages\\lucene.net.queryparser\\4.8.0-beta00018\\lib\\net8.0\\Lucene.Net.QueryParser.dll"
+      "C:\\Users\\admin\\.nuget\\packages\\lucene.net.queryparser\\4.8.0-beta00018\\lib\\net8.0\\Lucene.Net.QueryParser.dll",
+      "C:\\Users\\admin\\.nuget\\packages\\lucene.net.analysis.common\\4.8.0-beta00018\\lib\\net8.0\\Lucene.Net.Analysis.Common.dll",
+      "C:\\Users\\admin\\.nuget\\packages\\lucene.net.highlighter\\4.8.0-beta00018\\lib\\net8.0\\Lucene.Net.Highlighter.dll"
     ] },
 
   { "assembly": "Lucene.Net", "package": "Lucene.Net.QueryParser", "version": "4.8.0-beta00018" },

@@ -5690,3 +5690,55 @@ MetadataExtractor.ErrorDirectory, MetadataExtractor.Face, ...
 | 6 コーパス合計 | 52 | 47 |
 
 他 5 コーパスは完全に一致。パリティ 30/30、bUnit 30/30。
+
+## 「残りは AI 層」は間違いだった — StandardAnalyzer はまた分割だった
+
+未対応 5 件を「AI 層の入力」と書きましたが、1 件ずつ実体を確かめたら
+**`Lucene.Net.Analysis.Standard.StandardAnalyzer` は改名でも削除でもありませんでした**。
+
+```
+旧 Lucene.Net.dll          : Lucene.Net.Analysis.Standard.StandardAnalyzer
+新 Lucene.Net.dll          : (無い)
+新 Analysis.Common.dll     : Lucene.Net.Analysis.Standard.StandardAnalyzer  ← 完全同名
+```
+
+**まったく同じ完全修飾名**が別パッケージにあります。QueryParser のときと同じ
+**パッケージ分割**で、`Lucene.Net` の `"dll"` に Analysis.Common と Highlighter を
+足すだけで解決しました。型の対応付けは 86 -> **104** 件。
+
+同じ形の見落としを 2 度したことになります。教訓は
+**「対応付かなかった型は AI 層送り」と決める前に、置き換え先の全パッケージを見る**。
+一覧を出す機能を作ったのに、その一覧を自分で読んでいませんでした。
+
+### 残り 4 件の性質(ここは本当に決定論では取れない)
+
+| 型 | 実体 | AI 層でできること |
+|---|---|---|
+| `com.drew.metadata.AbstractDirectory` | `MetadataExtractor.Directory` への**改名** | 名前の置換 |
+| `com.drew.metadata.exif.ExifDirectory` | `ExifIfd0Directory` / `ExifSubIfdDirectory` 等への**改名 + 分割** | どれかの選択(判断が要る) |
+| `Lucene.Net.Index.TermEnum` | 4.x で `TermsEnum` 系に**再設計** | 同上 |
+| `com.drew.metadata.Metadata` | **型ごと消滅** | **名前の置換では済まない** |
+
+最後の 1 つが質的に違います。MetadataExtractor 2.x は `Metadata` という入れ物をやめ、
+`ImageMetadataReader.ReadMetadata(path)` が `IReadOnlyList<Directory>` を返す形にしました。
+mojoPortal は `new Metadata()`、`data.GetDirectory(typeof(IptcDirectory))`、
+`data.GetDirectoryCount()`、`data.GetDirectoryIterator()`、
+さらにキャッシュから `(Metadata)cached` と書いています。**どれも存在しません。**
+名前を置き換えるのではなく、**呼び出しの形を書き直す**作業です。
+
+### ここで詰まりが 1 つある
+
+この書き直しの合否は「ビルドが通ること」では測れません。この変換器の判定基準は
+**元と同じ動きをすること**で、そのゲートが ParityTest です。
+ところが mojo は**ビルドが通るまでゲートに入れられません**。
+つまり「ゲートに入れるために直したいが、直したことを確かめるゲートがまだ無い」状態です。
+
+| | 変更前 | 変更後 |
+|---|---:|---:|
+| Lucene.Net の型対応付け | 86 | **104** |
+| mojo 総残差 | 94 | 93 |
+| mojo ビルドエラー | 6 | 6(下限値) |
+
+ビルドエラーが動かないのは、`StandardAnalyzer` が残差にはなっていたものの
+カウント対象のビルドエラーは出していなかったためです。
+他 5 コーパスは完全に一致。

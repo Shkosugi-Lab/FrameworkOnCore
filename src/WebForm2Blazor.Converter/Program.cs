@@ -2875,7 +2875,25 @@ static string? RenderStubMember(
                 {
                     return null;
                 }
-                parameters.Add($"{passing}{parameterType} {parameter.Identifier.Text}");
+                // An OPTIONAL parameter stays optional. The stub exists so that calls to
+                // the excluded member still compile, and a call is written against the
+                // signature the author saw: YAF's SelectForumsLoadJs has six parameters,
+                // the last two optional, and every one of its six call sites passes five.
+                // Dropping "= null" turned each of them into CS7036 - an error about the
+                // caller, produced by the stub.
+                //
+                // Only a default that is a LITERAL is carried. Anything else can name a
+                // type that did not port, which would put an unresolvable expression in a
+                // file whose whole purpose is to compile; "= default" keeps the parameter
+                // optional and is honest about the value being gone.
+                var defaultValue = parameter.Default is null
+                    ? string.Empty
+                    : parameter.Default.Value is Microsoft.CodeAnalysis.CSharp.Syntax.LiteralExpressionSyntax
+                      or Microsoft.CodeAnalysis.CSharp.Syntax.DefaultExpressionSyntax
+                        ? " = " + parameter.Default.Value.ToString()
+                        : " = default";
+
+                parameters.Add($"{passing}{parameterType} {parameter.Identifier.Text}{defaultValue}");
             }
             var message = $"{method.Identifier.Text} は変換対象外です(元の実装は移植されていません)。";
             return $"{Prefix(method.Modifiers, method.Identifier.Text, method.ParameterList.Parameters.Count)}{returnType} {method.Identifier.Text}({string.Join(", ", parameters)})"

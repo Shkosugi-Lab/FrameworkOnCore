@@ -5324,3 +5324,25 @@ public static string SelectForumsLoadJs(
 | 6 コーパス合計 | 193 | 187 |
 
 他 5 コーパスは完全に一致。
+
+## Repeater.Items は行であってデータではない — yaf 60 -> 56
+
+`item.FindControlAs<Label>("GroupID")` が「object に FindControlAs は無い」で
+落ちていました。`this.UserGroups.Items[i]` の型が `object` だったからです。
+
+互換層の `Repeater.Items` は **DataItem の一覧**を返していました。
+自然に読めますが、WebForms の意味ではありません。
+`RepeaterItem` は**コントロール**で、移植コードは Items を歩いて各行の
+`FindControl` を呼び、描画した入力を読み取ります
+(YAF の EditUsersGroups はグループごとのチェックボックスとラベルをこうして集めます)。
+データ項目の一覧を相手にすると、**見つけるものが何もありません**。
+
+行を返すようにしました。データは `Items[i].DataItem` と一歩先にあり、
+WebForms と同じ位置です。
+
+| | 変更前 | 変更後 |
+|---|---:|---:|
+| **yaf ビルドエラー** | **60** | **56** |
+| 6 コーパス合計 | 187 | 183 |
+
+他 5 コーパスは完全に一致。パリティ 30/30、bUnit 30/30。

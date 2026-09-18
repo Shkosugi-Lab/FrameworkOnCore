@@ -87,7 +87,17 @@
     /// </summary>
     [Parameter] public string DataMember { get; set; }
 
-    public IReadOnlyList<object> Items => _containers.Select(container => container.DataItem).ToList();
+    /// <summary>
+    /// WebForms Repeater.Items: the ROWS, not the data behind them.
+    ///
+    /// This used to hand back the DataItems, which reads naturally and is not what
+    /// WebForms means. A RepeaterItem is a control: ported code walks Items and calls
+    /// FindControl on each row to read the inputs it rendered - YAF's EditUsersGroups
+    /// collects a checkbox and a label per group that way, and against a list of data
+    /// items there is nothing to find. The data is still one step away, on
+    /// Items[i].DataItem, exactly as it was in WebForms.
+    /// </summary>
+    public IReadOnlyList<RepeaterItem> Items => _containers;
 
     internal void RaiseItemCommand(object commandSource, RepeaterItem item, CommandEventArgs args)
         => OnItemCommand?.Invoke(this, new RepeaterCommandEventArgs(item, commandSource, args));

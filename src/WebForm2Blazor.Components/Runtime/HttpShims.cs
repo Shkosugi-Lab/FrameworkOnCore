@@ -166,6 +166,50 @@ public abstract class HttpResponseBase
     public virtual void AppendHeader(string name, string value)
     {
     }
+
+    /// <summary>
+    /// WebForms Response.Output: a TextWriter over the response body. Ported code writes a
+    /// feed or a generated file through it instead of Response.Write.
+    ///
+    /// Delegates to <see cref="Write(object)"/> rather than buffering separately, so the
+    /// two agree no matter which one the code picked - which today means both are dropped,
+    /// since a Blazor circuit has no response stream. If Write ever gains one, Output gets
+    /// it in the same moment and cannot drift from it.
+    /// </summary>
+    public virtual System.IO.TextWriter Output => _output ??= new ResponseWriter(this);
+
+    private System.IO.TextWriter _output;
+
+    private sealed class ResponseWriter(HttpResponseBase response) : System.IO.TextWriter
+    {
+        public override System.Text.Encoding Encoding => System.Text.Encoding.UTF8;
+
+        public override void Write(char value) => response.Write(value.ToString());
+
+        public override void Write(string value) => response.Write(value);
+    }
+
+    /// <summary>
+    /// WebForms Response.StatusDescription. Kept as written: the reason phrase is not
+    /// settable once ASP.NET Core has started the response, and code that sets it is
+    /// usually reading it back to build an error page.
+    /// </summary>
+    public virtual string StatusDescription { get; set; } = "OK";
+
+    /// <summary>
+    /// WebForms Response.SetCookie: replaces a cookie already in
+    /// <see cref="Cookies"/> rather than appending a second one with the same name.
+    /// Same limits as Cookies - accepted, not sent.
+    /// </summary>
+    public virtual void SetCookie(HttpCookie cookie)
+    {
+        if (cookie is null)
+        {
+            return;
+        }
+        Cookies.Remove(cookie.Name);
+        Cookies.Add(cookie);
+    }
 }
 
 /// <summary>
@@ -289,6 +333,17 @@ public abstract class HttpRequestBase
 
     public virtual string MapPath(string virtualPath, string baseVirtualDir, bool allowCrossAppMapping)
         => MapPath(virtualPath);
+
+    /// <summary>
+    /// WebForms Request.Files: the files posted with this request.
+    ///
+    /// Empty here, and that is not a shortcut. A Blazor page uploads through InputFile over
+    /// the circuit, not as a multipart form post, so there is no posted-file collection to
+    /// hand back - the compat FileUpload control already routes uploads that way. The
+    /// collection exists so a generic handler that loops over it compiles and finds
+    /// nothing, which is exactly what it would find.
+    /// </summary>
+    public virtual HttpFileCollection Files { get; } = new();
 
     protected internal HttpRequestBase(Microsoft.AspNetCore.Http.HttpContext aspNetContext)
         => _aspNetContext = aspNetContext;
@@ -556,6 +611,19 @@ public abstract class HttpSessionStateBase
     public virtual void Remove(string key) => _items.Remove(key);
     public virtual void Clear() => _items.Clear();
     public virtual void Abandon() => _items.Clear();
+
+    /// <summary>
+    /// WebForms Session.IsNewSession: true until something has been stored.
+    ///
+    /// On 4.8 it meant "created during THIS request", which a circuit has no equivalent of
+    /// - a Blazor session outlives the request that made it. An empty session is the
+    /// closest thing that is still true rather than invented, and it answers the question
+    /// the callers actually ask ("is there anything of mine in here yet?").
+    /// </summary>
+    public virtual bool IsNewSession => _items.Count == 0;
+
+    /// <summary>WebForms Session.Add: same as the indexer, which is what it was.</summary>
+    public virtual void Add(string key, object value) => this[key] = value;
 }
 
 /// <summary>

@@ -37,7 +37,7 @@ public abstract class Page : ComponentBase, IWebFormsHost
 
     protected StateBag ViewState => HostCore.ViewState;
     public bool IsPostBack => HostCore.IsPostBack;
-    protected HttpResponseShim Response => _response ??= new HttpResponseShim(NavigationManager);
+    public HttpResponseShim Response => _response ??= new HttpResponseShim(NavigationManager);
     public HttpRequestShim Request => _request ??= new HttpRequestShim(NavigationManager);
 
     /// <summary>WebForms Control.ResolveUrl equivalent ("~/x" onto an app-root path).</summary>
@@ -508,7 +508,7 @@ public abstract class WebFormsUserControl : UserControl, IWebFormsHost, IWebForm
 
     protected StateBag ViewState => HostCore.ViewState;
     public bool IsPostBack => HostCore.IsPostBack;
-    protected HttpResponseShim Response => _response ??= new HttpResponseShim(NavigationManager);
+    public HttpResponseShim Response => _response ??= new HttpResponseShim(NavigationManager);
     public HttpRequestShim Request => _request ??= new HttpRequestShim(NavigationManager);
 
     /// <summary>WebForms Control.Context equivalent.</summary>
@@ -636,7 +636,7 @@ public abstract class WebFormsLayout : LayoutComponentBase, IWebFormsHost
 
     protected StateBag ViewState => HostCore.ViewState;
     public bool IsPostBack => HostCore.IsPostBack;
-    protected HttpResponseShim Response => _response ??= new HttpResponseShim(NavigationManager);
+    public HttpResponseShim Response => _response ??= new HttpResponseShim(NavigationManager);
     public HttpRequestShim Request => _request ??= new HttpRequestShim(NavigationManager);
 
     /// <summary>WebForms Control.Context equivalent.</summary>

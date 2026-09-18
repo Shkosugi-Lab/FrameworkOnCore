@@ -313,6 +313,21 @@ public class DataGridItem(int itemIndex, int dataSetIndex, ListItemType itemType
     public ListItemType ItemType { get; } = itemType;
 
     public object DataItem { get; set; }
+
+    /// <summary>
+    /// How this item finds the controls in its row, when it stands for a row of a LIVE
+    /// grid rather than one a ported control built itself.
+    ///
+    /// DataGrid's Items and GridView's Rows are the same rows under two names, and ported
+    /// code reaches the controls in a row through whichever name its control had - YAF's
+    /// EditLanguage walks "Locals.Items.Cast&lt;DataGridItem&gt;()" and calls FindControl on
+    /// each. Without this the cast succeeds and every lookup comes back null, which is
+    /// worse than not compiling: the page would render and quietly save nothing.
+    /// </summary>
+    internal Func<string, IWebFormsControl> RowFinder { get; set; }
+
+    public override IWebFormsControl FindControl(string id)
+        => RowFinder is not null ? RowFinder(id) : base.FindControl(id);
 }
 
 /// <summary>System.Web.UI.WebControls.DataGridItemEventArgs equivalent.</summary>

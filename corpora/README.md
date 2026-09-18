@@ -5059,3 +5059,48 @@ mojo が AI 層待ちになったので、次に大きい数を見ます。yaf �
 | 6 コーパス合計 | 281 | 260 |
 
 他 5 コーパスは完全に一致。
+
+## 互換層の穴をもう 12 種 — yaf 133 -> 105
+
+同じ調子で yaf のエラーコード別の上位を順に潰しました。
+
+| 追加したもの | 何をするか |
+|---|---|
+| `HttpContext.ApplicationInstance` | `CompleteRequest()` に届く(YAF はアバターと添付をこれで返す) |
+| `Response.Output` | `Write` に委譲する TextWriter |
+| `Response.StatusDescription` / `SetCookie` | 書いたとおりに保持 |
+| `HttpCookieCollection.Count` / `[int]` / `Clear` | 添字ループが通る |
+| `Request.Files` + `HttpFileCollection` | **空**。Blazor の投稿は multipart ではない |
+| `Session.IsNewSession` / `Add` | 空かどうか |
+| `Page.Response` を public に | WebForms でも public |
+| `Literal : ITextControl` | WebForms でもそう |
+| `DropDownList.Text` / `AutoPostBack` | Text は**選択値**(キャプションではない) |
+| `GridView.Items` + `DataGridItem.FindControl` | DataGrid 名義の同じ行 |
+| `IWebFormsControl.DesignMode` / `HasControls()` / `Focus()` / `Unload` | 両系統に届く |
+
+### 気をつけた点
+
+`DropDownList.Text` は**キャプションではありません**。WebForms の ListControl では
+Text は選択値の読み書きで、だからコードビハインドは `ddl.Text = savedValue` と書いて
+選択を復元します。ここを別のものに割り当てると、リストが「選ばれている」と
+表示する項目が黙って変わります。
+
+`GridView.Items` は `Rows` と**同じ行**を DataGrid の名前で返します。
+各 `DataGridItem` は `FindControl` を行に転送します。転送しないと、
+キャストは成功して検索は全部 null になり、**ページは描画されて何も保存しない**という、
+コンパイルが通らないより悪い状態になります(YAF の EditLanguage がこの形)。
+
+`Request.Files` は空です。Blazor のページは InputFile で回線越しに上げるので
+multipart のポストは無く、返すべき投稿ファイル集合が存在しません。
+ループするハンドラがコンパイルでき、何も見つけない — 実際に何も無いので正しい答えです。
+
+`Focus()` は `WebFormsControlBase`(Blazor コンポーネント側)にしかなく、
+`LegacyWebControl` 由来の移植コントロールからは呼べませんでした。
+`IWebFormsControl` に既定実装で移し、両系統に届くようにしています。
+
+| | 変更前 | 変更後 |
+|---|---:|---:|
+| **yaf ビルドエラー** | **133** | **105** |
+| 6 コーパス合計 | 260 | 232 |
+
+他 5 コーパスは完全に一致。

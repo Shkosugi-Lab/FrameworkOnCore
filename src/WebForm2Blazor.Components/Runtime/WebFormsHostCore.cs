@@ -66,6 +66,42 @@ public interface IWebFormsControl
     /// reads it to ask "am I in the designer?", where null means no.
     /// </summary>
     object Site => null;
+
+    /// <summary>
+    /// WebForms Control.DesignMode. Always false: the converted application only ever
+    /// runs, and a control that asks is usually skipping work it cannot do at design time.
+    /// </summary>
+    bool DesignMode => false;
+
+    /// <summary>
+    /// WebForms Control.HasControls(): whether anything was added to
+    /// <see cref="Controls"/>. Markup children are Blazor's, not this collection's, so
+    /// this answers for the programmatically-added ones - which is the set the callers
+    /// are asking about, since they are the ones that put them there.
+    /// </summary>
+    bool HasControls() => Controls.Count > 0;
+
+    /// <summary>
+    /// WebForms Control.Focus(). Focus is a client concern in Blazor
+    /// (ElementReference.FocusAsync), so a ported call is accepted and does nothing.
+    /// Declared here so it reaches BOTH control families - it was on the Blazor component
+    /// base only, and a ported control that derives from LegacyWebControl could not call
+    /// it.
+    /// </summary>
+    void Focus()
+    {
+    }
+
+    /// <summary>
+    /// WebForms Control.Unload. A Blazor component is disposed rather than unloaded, and
+    /// the compat bases raise nothing here, so a subscription is accepted and never
+    /// fires - the same shape as HttpApplication's pipeline events.
+    /// </summary>
+    event EventHandler Unload
+    {
+        add { }
+        remove { }
+    }
 }
 
 /// <summary>A control holding an input value (can be the target of a validator).</summary>

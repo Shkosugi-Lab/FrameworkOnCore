@@ -145,6 +145,18 @@ public sealed class HttpCookieCollection
     public void Remove(string name) => _cookies.Remove(name);
 
     public IEnumerable<string> AllKeys => _cookies.Keys;
+
+    /// <summary>
+    /// WebForms Cookies.Count. Ported code loops the collection by index to clear or
+    /// inspect every cookie, and without this the loop does not compile.
+    /// </summary>
+    public int Count => _cookies.Count;
+
+    /// <summary>WebForms Cookies[int]: the collection is ordered as well as keyed.</summary>
+    public HttpCookie this[int index]
+        => index >= 0 && index < _cookies.Count ? _cookies.Values.ElementAt(index) : null;
+
+    public void Clear() => _cookies.Clear();
 }
 
 /// <summary>System.Web.HttpException equivalent.</summary>
@@ -338,6 +350,15 @@ public sealed class HttpContext
 
     /// <summary>System.Web HttpContext.Request equivalent (connection-sourced).</summary>
     public HttpRequestShim Request => new(_aspNetContext);
+
+    /// <summary>
+    /// WebForms HttpContext.ApplicationInstance: the HttpApplication handling this
+    /// request. Ported code reaches it to end the request early -
+    /// "HttpContext.Current.ApplicationInstance.CompleteRequest()" after writing a file
+    /// straight to the response, which YAF's Resources handler does for every avatar and
+    /// attachment it serves.
+    /// </summary>
+    public HttpApplication ApplicationInstance { get; set; } = new();
 
     /// <summary>System.Web HttpContext.Response equivalent. Redirect cannot navigate a
     /// circuit from arbitrary code and no-ops (components use their own Response).</summary>
@@ -1339,3 +1360,35 @@ public abstract class HttpServerUtility : HttpServerUtilityBase
 /// WebForms Server (HttpServerUtility) equivalent.
 /// </summary>
 public sealed class ServerUtilityShim(NavigationManager navigation) : HttpServerUtility(navigation);
+
+/// <summary>
+/// System.Web.HttpFileCollection equivalent: the files posted with a request, by name and
+/// by position, as ported handlers read them.
+/// </summary>
+public sealed class HttpFileCollection
+{
+    private readonly List<HttpPostedFileShim> _files = [];
+
+    public int Count => _files.Count;
+
+    public HttpPostedFileShim this[int index]
+        => index >= 0 && index < _files.Count ? _files[index] : null;
+
+    public HttpPostedFileShim this[string name]
+        => _files.FirstOrDefault(file =>
+            string.Equals(file.FileName, name, StringComparison.OrdinalIgnoreCase));
+
+    public HttpPostedFileShim Get(int index) => this[index];
+
+    public HttpPostedFileShim Get(string name) => this[name];
+
+    public IEnumerable<string> AllKeys => _files.Select(file => file.FileName);
+
+    internal void Add(HttpPostedFileShim file)
+    {
+        if (file is not null)
+        {
+            _files.Add(file);
+        }
+    }
+}

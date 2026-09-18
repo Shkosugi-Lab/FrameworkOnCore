@@ -71,6 +71,27 @@
     public ListItem SelectedItem => Items.FirstOrDefault(item => item.ResolvedValue == SelectedValue);
 
     /// <summary>
+    /// WebForms ListControl.Text. It is NOT a caption: on a ListControl, Text reads and
+    /// writes the SELECTED VALUE, which is why code-behind sets "ddl.Text = savedValue" to
+    /// restore a selection. Mapping it to anything else would silently change what the
+    /// list shows as chosen.
+    /// </summary>
+    [Parameter]
+    public string Text
+    {
+        get => SelectedValue;
+        set => SelectedValue = value;
+    }
+
+    /// <summary>
+    /// WebForms AutoPostBack. A Blazor @onchange already raises
+    /// SelectedIndexChanged on every change, so the list behaves as AutoPostBack="true"
+    /// always did; setting it false does NOT suppress the event, because the compat list
+    /// has no deferred postback to hold it until.
+    /// </summary>
+    [Parameter] public bool AutoPostBack { get; set; } = true;
+
+    /// <summary>
     /// WebForms ListControl.ClearSelection equivalent. Code-behind calls it before
     /// selecting a new item; the selection here is the value, so clearing it is enough.
     /// </summary>

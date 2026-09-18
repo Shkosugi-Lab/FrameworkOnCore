@@ -523,6 +523,37 @@
     /// <summary>WebForms Rows equivalent (the rows of the current page, with FindControl).</summary>
     public IReadOnlyList<GridViewRow> Rows => _gridRows;
 
+    /// <summary>
+    /// WebForms DataGrid.Items equivalent: THE SAME ROWS as <see cref="Rows"/>, under the
+    /// name DataGrid gave them.
+    ///
+    /// This component stands in for both controls, and a .aspx written against DataGrid
+    /// reaches its rows through Items - YAF's EditLanguage does, and casts each to
+    /// DataGridItem. Every item forwards FindControl to its row, so a lookup through Items
+    /// finds the same control a lookup through Rows finds.
+    /// </summary>
+    public DataGridItemCollection Items
+    {
+        get
+        {
+            var items = new DataGridItemCollection();
+            foreach (var row in _gridRows)
+            {
+                items.Add(new DataGridItem(
+                    row.RowIndex,
+                    row.RowIndex,
+                    row.RowState == DataControlRowState.Alternate
+                        ? ListItemType.AlternatingItem
+                        : ListItemType.Item)
+                {
+                    DataItem = row.DataItem,
+                    RowFinder = row.FindControl,
+                });
+            }
+            return items;
+        }
+    }
+
     void IColumnContainer.AddColumn(DataControlField column)
     {
         _columns.Add(column);

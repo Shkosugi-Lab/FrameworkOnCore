@@ -108,6 +108,7 @@ public sealed class CompatImportDisambiguator
     {
         var unit = CodeBehindRewriter.ParseUnit(source);
         unit = QualifyNamesBrokenByMerging(unit);
+        unit = QualifyNamesShadowedByAnEnclosingNamespace(unit);
         unit = QualifyGenericsTheFrameworkNowAlsoDeclares(unit);
         var imports = unit.Usings
             .Where(directive => directive.Alias is null && directive.StaticKeyword.RawKind == 0)
@@ -320,6 +321,149 @@ public sealed class CompatImportDisambiguator
                 (original, _) => SyntaxFactory.ParseName(replacements[original])
                     .WithTriviaFrom(original));
     }
+
+    /// <summary>
+    /// Writes out in full a name that an ENCLOSING namespace now hides, because the import
+    /// that used to supply it has been moved above the namespace declaration.
+    ///
+    /// YAF's HttpRuntimeCache sits in YAF.Core.Services.Cache and writes
+    /// "Cache.NoSlidingExpiration", meaning System.Web.Caching.Cache. That compiled because
+    /// C# checks a namespace declaration's OWN USINGS before it looks outward, and the file
+    /// wrote its usings inside "namespace YAF.Core.Services.Cache;". The conversion lifts
+    /// the usings to the top of the file, where they rank below every enclosing namespace -
+    /// so "Cache" now finds the sibling namespace YAF.Core.Services.Cache and the reference
+    /// dies on a namespace that has no NoSlidingExpiration in it.
+    ///
+    /// An alias cannot fix it, for the same reason the original worked: namespace members
+    /// are looked up before using aliases at every level. The name has to be written out.
+    ///
+    /// Three conditions, all of them checkable:
+    ///   - the head really does bind to a namespace through the enclosing chain,
+    ///   - that namespace has no type of the tail's name (so the code cannot have meant it),
+    ///   - exactly one import declares a TYPE of the head's name.
+    /// Anything less and nothing is written: a guess here changes what the code means.
+    /// </summary>
+    private CompilationUnitSyntax QualifyNamesShadowedByAnEnclosingNamespace(CompilationUnitSyntax unit)
+    {
+        var imports = unit.Usings
+            .Where(directive => directive.Alias is null && directive.StaticKeyword.RawKind == 0)
+            .Select(directive => directive.Name?.ToString())
+            .OfType<string>()
+            .Concat(_ambientImports)
+            .Distinct(StringComparer.Ordinal)
+            .ToList();
+
+        if (imports.Count == 0)
+        {
+            return unit;
+        }
+
+        // Names the FILE declares, nested ones included. A nested type beats every import
+        // and every namespace, and reading it as anything else is how "Field.Index.NO"
+        // became "System.Index.NO" - System.Index is a real BCL type, so the rewrite
+        // looked settled and compiled into nonsense.
+        var declaredHere = new HashSet<string>(
+            unit.DescendantNodes().OfType<BaseTypeDeclarationSyntax>()
+                .Select(declaration => declaration.Identifier.Text),
+            StringComparer.Ordinal);
+
+        var replacements = new Dictionary<SyntaxNode, string>();
+
+        foreach (var node in unit.DescendantNodes())
+        {
+            // Both spellings of "head.tail": a type reference (QualifiedName) and a static
+            // member read (MemberAccess). The cache case is the second one.
+            var (head, tail) = node switch
+            {
+                QualifiedNameSyntax
+                {
+                    Left: IdentifierNameSyntax left, Right: IdentifierNameSyntax right,
+                } when node.Parent is not QualifiedNameSyntax
+                    => (left.Identifier.Text, right.Identifier.Text),
+                MemberAccessExpressionSyntax
+                {
+                    Expression: IdentifierNameSyntax target, Name: IdentifierNameSyntax member,
+                } when node.Parent is not MemberAccessExpressionSyntax { Expression: var parentTarget }
+                       || !ReferenceEquals(parentTarget, node)
+                    => (target.Identifier.Text, member.Identifier.Text),
+                _ => (null, null),
+            };
+
+            if (head is null || tail is null || declaredHere.Contains(head))
+            {
+                continue;
+            }
+
+            var enclosing = node.Ancestors().OfType<BaseNamespaceDeclarationSyntax>().FirstOrDefault();
+            if (enclosing is null)
+            {
+                continue;
+            }
+
+            var shadow = ShadowingNamespace(enclosing.Name.ToString(), head);
+            if (shadow is null
+                || (_typesByNamespace.TryGetValue(shadow, out var inShadow) && inShadow.Contains(tail)))
+            {
+                continue;
+            }
+
+            var owners = imports.Where(import => DeclaresType(import, head)).Distinct(StringComparer.Ordinal).ToList();
+            if (owners.Count == 1)
+            {
+                replacements[node] = $"{owners[0]}.{head}.{tail}";
+            }
+        }
+
+        return replacements.Count == 0
+            ? unit
+            : unit.ReplaceNodes(
+                replacements.Keys,
+                (original, _) => (original is QualifiedNameSyntax
+                        ? SyntaxFactory.ParseName(replacements[original])
+                        : (SyntaxNode)SyntaxFactory.ParseExpression(replacements[original]))
+                    .WithTriviaFrom(original));
+    }
+
+    /// <summary>
+    /// The namespace a bare name binds to through the enclosing chain, or null when it
+    /// binds to no namespace at all. Innermost first, as C# resolves it.
+    /// </summary>
+    private string? ShadowingNamespace(string enclosingNamespace, string name)
+    {
+        for (var scope = enclosingNamespace; scope.Length > 0;)
+        {
+            var candidate = scope + "." + name;
+            if (_typesByNamespace.ContainsKey(candidate)
+                || _typesByNamespace.Keys.Any(ns =>
+                    ns.StartsWith(candidate + ".", StringComparison.Ordinal)))
+            {
+                return candidate;
+            }
+
+            var cut = scope.LastIndexOf('.');
+            if (cut < 0)
+            {
+                break;
+            }
+            scope = scope[..cut];
+        }
+
+        return null;
+    }
+
+    /// <summary>
+    /// Whether a namespace declares a type of this name.
+    ///
+    /// The application's own types and the compat layer's ONLY - deliberately not the BCL.
+    /// "using System;" is in every file, System declares several hundred types, and letting
+    /// it answer here turns any shadowed name that happens to collide with one into a
+    /// confident rewrite onto a type the code never meant. The names this pass exists to
+    /// rescue are the ones the conversion moved, and those are exactly these two sets.
+    /// </summary>
+    private bool DeclaresType(string ns, string name)
+        => (_typesByNamespace.TryGetValue(ns, out var ported) && ported.Contains(name))
+           || (ns == CompatNamespace
+               && CodeBehindRewriter.CompatTypeNamesForDisambiguation.Contains(name));
 
     /// <summary>
     /// The namespace this name should resolve to, or null when there is nothing to settle

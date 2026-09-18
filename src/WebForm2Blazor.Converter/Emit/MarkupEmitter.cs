@@ -2027,7 +2027,7 @@ public sealed partial class MarkupEmitter(EmitContext context)
         {
             return code;
         }
-        var cast = $"((global::{_currentItemType})Container.DataItem).";
+        var cast = $"((global::{_currentItemType})Container.DataItem)";
         return TypedItemRegex().Replace(code, cast);
     }
 
@@ -2150,7 +2150,12 @@ public sealed partial class MarkupEmitter(EmitContext context)
     [GeneratedRegex(@"(?<![\w.])(?:this\.)?Eval\s*\(")]
     private static partial Regex EvalCallRegex();
 
-    [GeneratedRegex(@"(?<![\w.])(?:Item|BindItem)\.")]
+    // The trailing "." used to be part of the pattern, so only "Item.Something" was
+    // rewritten and a BARE "Item" was left as an identifier that nothing declares.
+    // ItemType="System.String" makes the item a string, and a string is used whole far more
+    // often than it is dereferenced - YAF's OpenAuthProviders writes CommandArgument="<%#:
+    // Item %>" three times in one tag. The "." moves into the replacement instead.
+    [GeneratedRegex(@"(?<![\w.])(?:Item|BindItem)(?![\w])")]
     private static partial Regex TypedItemRegex();
 
     [GeneratedRegex(@"\bContainer\b|\bEval\s*\(|\bBind\s*\(")]

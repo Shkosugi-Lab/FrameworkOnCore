@@ -141,8 +141,11 @@ public static partial class BuildVerifier
         var stoppedAtParse = StoppedAtParse(diagnostics);
         var undecidedTypes = ReadUndecidedDependencyTypes(outputDirectory);
         var restored = ReadRestoredOutOfScopeFiles(outputDirectory);
+        var undecidedByFile = UndecidedAssemblyByFile(diagnostics, undecidedTypes);
         var counted = diagnostics.Count(d =>
-            UndecidedDependency(d, undecidedTypes) is null && !InRestoredOutOfScopeFile(d, restored));
+            UndecidedDependency(d, undecidedTypes) is null
+            && UndecidedBaseClass(d, undecidedByFile) is null
+            && !InRestoredOutOfScopeFile(d, restored));
         return new BuildOutcome(counted, stoppedAtParse);
     }
 
@@ -320,6 +323,64 @@ public static partial class BuildVerifier
     }
 
     /// <summary>
+    /// Errors about an INHERITANCE CONTRACT - "no suitable method to override", "does not
+    /// implement inherited abstract member". Every one of them is a statement about a base
+    /// class, so when the base class is the thing that went missing, they are the same
+    /// dependency reported a second time.
+    ///
+    /// DNN's DnnBodyProvider derives from ClientDependency.Core's
+    /// WebFormsFileRegistrationProvider, which is a vendored DLL nobody has chosen a
+    /// package for. The CS0246 for the base is attributed; the four CS0534 / CS0115 the
+    /// missing base then produces name only DNN's own types, so they read as conversion
+    /// defects. Sixteen of DNN's nineteen counted errors were that.
+    /// </summary>
+    private static readonly HashSet<string> InheritanceContractCodes = new(StringComparer.Ordinal)
+    {
+        "CS0115", "CS0506", "CS0507", "CS0533", "CS0534", "CS0535", "CS0537", "CS0540",
+    };
+
+    /// <summary>
+    /// The undecided assembly a follow-on error belongs to, judged by its FILE.
+    ///
+    /// Deliberately file-scoped and deliberately narrow: only the inheritance codes, and
+    /// only in a file that already has an error naming a type from that assembly. A base
+    /// class lives in one file with its subclass, so "this file could not find a type from
+    /// X, and this file cannot satisfy a base contract" is one fact, not two. Any other
+    /// error in the same file is still counted - a missing dependency does not excuse
+    /// whatever else is wrong there.
+    /// </summary>
+    private static string? UndecidedBaseClass(
+        Diagnostic diagnostic, IReadOnlyDictionary<string, string> undecidedByFile)
+        => InheritanceContractCodes.Contains(diagnostic.Code)
+           && undecidedByFile.TryGetValue(diagnostic.File, out var assembly)
+            ? assembly
+            : null;
+
+    /// <summary>
+    /// File -> the dependency a diagnostic in it already named.
+    ///
+    /// Both kinds count: a vendored DLL with no package chosen, AND a library whose public
+    /// API still needs System.Web. DNN's DnnBodyProvider is the second - its base comes
+    /// from ClientDependency.Core, which is built for .NET Framework, and the compiler
+    /// says so as CS7069 ("'Control' is defined in System.Web"). The base is unusable
+    /// either way, and the CS0534 / CS0115 that follow say nothing new.
+    /// </summary>
+    private static Dictionary<string, string> UndecidedAssemblyByFile(
+        List<Diagnostic> diagnostics, IReadOnlyDictionary<string, string> undecidedTypes)
+    {
+        var byFile = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+        foreach (var diagnostic in diagnostics)
+        {
+            if ((UndecidedDependency(diagnostic, undecidedTypes) ?? NeedsSystemWeb(diagnostic))
+                is { } assembly)
+            {
+                byFile.TryAdd(diagnostic.File, assembly);
+            }
+        }
+        return byFile;
+    }
+
+    /// <summary>
     /// The System.Web assembly a REFERENCED LIBRARY still needs, or null.
     ///
     /// CS7069 and CS0012 are the compiler saying "an assembly you reference declares this
@@ -395,14 +456,18 @@ public static partial class BuildVerifier
         var stoppedAtParse = StoppedAtParse(diagnostics);
         var undecidedTypes = ReadUndecidedDependencyTypes(outputDirectory);
         var restored = ReadRestoredOutOfScopeFiles(outputDirectory);
+        var undecidedByFile = UndecidedAssemblyByFile(diagnostics, undecidedTypes);
         var undecided = diagnostics
             .Select(diagnostic => (
                 diagnostic,
-                assembly: UndecidedDependency(diagnostic, undecidedTypes) ?? NeedsSystemWeb(diagnostic)))
+                assembly: UndecidedDependency(diagnostic, undecidedTypes)
+                          ?? UndecidedBaseClass(diagnostic, undecidedByFile)
+                          ?? NeedsSystemWeb(diagnostic)))
             .Where(pair => pair.assembly is not null)
             .ToList();
         diagnostics = diagnostics
             .Where(diagnostic => UndecidedDependency(diagnostic, undecidedTypes) is null
+                                 && UndecidedBaseClass(diagnostic, undecidedByFile) is null
                                  && NeedsSystemWeb(diagnostic) is null)
             .ToList();
 

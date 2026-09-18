@@ -252,7 +252,7 @@ public sealed class HttpResponseShim(NavigationManager navigation) : HttpRespons
 /// WebForms HttpCachePolicy equivalent. Output caching is configured by middleware in
 /// ASP.NET Core, so these calls are accepted and do nothing.
 /// </summary>
-public sealed class HttpCachePolicyShim
+public class HttpCachePolicyShim
 {
     public void SetCacheability(object cacheability)
     {
@@ -301,6 +301,19 @@ public sealed class HttpCachePolicyShim
     public HttpCacheVaryByHeaders VaryByHeaders { get; } = new();
 
     public HttpCacheVaryByParams VaryByParams { get; } = new();
+}
+
+/// <summary>
+/// System.Web.HttpCachePolicy under its own name.
+///
+/// Response.Cache hands back <see cref="HttpCachePolicyShim"/>, but a ported method that
+/// takes the policy as a PARAMETER writes the System.Web name - DNN's BaseHttpHandler has
+/// "SetResponseCachePolicy(HttpCachePolicy cache)" - and nothing declared it, so the
+/// handler did not compile. Deriving keeps them the same object rather than two
+/// look-alikes that cannot be passed to each other.
+/// </summary>
+public class HttpCachePolicy : HttpCachePolicyShim
+{
 }
 
 /// <summary>WebForms HttpCacheVaryByHeaders equivalent (accepted, inert).</summary>

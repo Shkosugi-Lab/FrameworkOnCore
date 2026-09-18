@@ -1223,3 +1223,204 @@ public class SelectListGroup
 
     public string Name { get; set; }
 }
+
+/// <summary>
+/// System.Web.UI.ViewStateException equivalent.
+///
+/// Thrown when view state fails to decode. It cannot happen here - a Blazor circuit keeps
+/// state on the server and there is no __VIEWSTATE to tamper with - but applications TEST
+/// for it: YAF's error handler asks whether the exception it caught was this one, so that
+/// a tampered postback is logged quietly instead of raised. The type has to exist for that
+/// test to compile, and it correctly never matches.
+/// </summary>
+public class ViewStateException : Exception
+{
+    public ViewStateException()
+    {
+    }
+
+    public ViewStateException(string message) : base(message)
+    {
+    }
+
+    public ViewStateException(string message, Exception innerException)
+        : base(message, innerException)
+    {
+    }
+
+    public string Path { get; set; }
+
+    public string PersistedState { get; set; }
+
+    public string Referer { get; set; }
+
+    public string RemoteAddress { get; set; }
+
+    public string RemotePort { get; set; }
+
+    public string UserAgent { get; set; }
+}
+
+/// <summary>
+/// System.Web.HttpRequestValidationException equivalent. Same shape of use as
+/// <see cref="ViewStateException"/>: caught and classified, never constructed.
+/// </summary>
+public class HttpRequestValidationException : HttpException
+{
+    public HttpRequestValidationException() : base("A potentially dangerous value was detected.")
+    {
+    }
+
+    public HttpRequestValidationException(string message) : base(message)
+    {
+    }
+
+    public HttpRequestValidationException(string message, Exception innerException)
+        : base(500, message, innerException)
+    {
+    }
+}
+
+/// <summary>
+/// System.Security.Principal.WindowsImpersonationContext equivalent.
+///
+/// .NET removed WindowsIdentity.Impersonate() in favour of RunImpersonated, which takes a
+/// callback rather than returning a scope. Ported code holds the scope and calls Undo() in
+/// a finally block, which cannot be rewritten into a callback deterministically - the
+/// scope may be stored in a field and undone somewhere else entirely, as YAF's background
+/// task does.
+///
+/// So the type exists and does NOTHING, and that is the honest answer: impersonation is
+/// Windows-only and the converted application does not perform it. Undo() undoes nothing
+/// because nothing was done.
+/// </summary>
+public sealed class WindowsImpersonationContext : IDisposable
+{
+    public void Undo()
+    {
+    }
+
+    public void Dispose()
+    {
+    }
+}
+
+/// <summary>
+/// System.Web.UI.WebControls.PagedDataSource equivalent.
+///
+/// NOT a declaration shim: this one pages. Ported code wraps a list in it, sets PageSize
+/// and CurrentPageIndex and binds a Repeater to the result (YAF's BuddyList), so a version
+/// that enumerated everything would silently show every row on every page.
+/// </summary>
+public class PagedDataSource : System.Collections.IEnumerable
+{
+    public System.Collections.IEnumerable DataSource { get; set; }
+
+    public bool AllowPaging { get; set; }
+
+    public bool AllowCustomPaging { get; set; }
+
+    public bool AllowServerPaging { get; set; }
+
+    public int PageSize { get; set; } = 10;
+
+    public int CurrentPageIndex { get; set; }
+
+    public int VirtualCount { get; set; }
+
+    public bool IsFirstPage => !AllowPaging || CurrentPageIndex == 0;
+
+    public bool IsLastPage => !AllowPaging || CurrentPageIndex == PageCount - 1;
+
+    /// <summary>Rows in the underlying source, or VirtualCount under custom paging.</summary>
+    public int DataSourceCount
+        => AllowCustomPaging ? VirtualCount : Items.Count;
+
+    public int Count => AllowPaging && !AllowCustomPaging
+        ? Math.Max(0, Math.Min(PageSize, DataSourceCount - FirstIndexInPage))
+        : DataSourceCount;
+
+    public int PageCount
+        => !AllowPaging || PageSize <= 0
+            ? 1
+            : (DataSourceCount + PageSize - 1) / PageSize;
+
+    /// <summary>
+    /// WebForms FirstIndexInPage. Zero under custom paging: the caller has already fetched
+    /// only the page it wants, which is the whole point of custom paging.
+    /// </summary>
+    public int FirstIndexInPage
+        => AllowPaging && !AllowCustomPaging && PageSize > 0 ? CurrentPageIndex * PageSize : 0;
+
+    private List<object> Items
+    {
+        get
+        {
+            var items = new List<object>();
+            if (DataSource is not null)
+            {
+                foreach (var item in DataSource)
+                {
+                    items.Add(item);
+                }
+            }
+            return items;
+        }
+    }
+
+    public System.Collections.IEnumerator GetEnumerator()
+    {
+        var items = Items;
+        if (!AllowPaging || AllowCustomPaging || PageSize <= 0)
+        {
+            return items.GetEnumerator();
+        }
+
+        return items.Skip(CurrentPageIndex * PageSize).Take(PageSize).ToList().GetEnumerator();
+    }
+}
+
+/// <summary>
+/// System.Configuration.ProviderSettings equivalent: one &lt;add&gt; under a providers
+/// section, with the attributes the provider itself defines.
+/// </summary>
+public class ProviderSettings
+{
+    public string Name { get; set; }
+
+    public string Type { get; set; }
+
+    public System.Collections.Specialized.NameValueCollection Parameters { get; } = new();
+}
+
+/// <summary>System.Configuration.ProviderSettingsCollection equivalent.</summary>
+public class ProviderSettingsCollection : System.Collections.ObjectModel.KeyedCollection<string, ProviderSettings>
+{
+    protected override string GetKeyForItem(ProviderSettings item) => item?.Name ?? string.Empty;
+
+    /// <summary>
+    /// KeyedCollection's indexer THROWS for a key it does not hold, and configuration code
+    /// reads a provider by name expecting null when it is absent.
+    /// </summary>
+    public new ProviderSettings this[string name]
+        => name is not null && Contains(name) ? base[name] : null;
+}
+
+/// <summary>
+/// System.Web.Configuration.MembershipSection equivalent (declaration surface).
+///
+/// Ported code casts the "system.web/membership" section to it to read the default
+/// provider's hash settings. The converted application has no membership section, so the
+/// cast produces null and the caller's own error handling runs - which is what happens on
+/// 4.8 too when the section is absent.
+/// </summary>
+public class MembershipSection
+{
+    public string DefaultProvider { get; set; }
+
+    public string HashAlgorithmType { get; set; }
+
+    public TimeSpan UserIsOnlineTimeWindow { get; set; } = TimeSpan.FromMinutes(15);
+
+    public ProviderSettingsCollection Providers { get; } = [];
+}

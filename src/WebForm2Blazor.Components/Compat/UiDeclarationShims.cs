@@ -59,6 +59,86 @@ public class ScriptManager : LegacyWebControl
     public void RegisterPostBackControl(object control)
     {
     }
+
+    /// <summary>
+    /// WebForms ScriptManager.EnableCdn / EnableCdnFallback / EnableScriptLocalization.
+    /// They choose where the framework's own scripts come from - Microsoft's CDN or the
+    /// application - and the converted application serves none of them, so setting them
+    /// changes nothing. Accepted so the module that configures them ports unchanged.
+    /// </summary>
+    public bool EnableCdn { get; set; }
+
+    /// <inheritdoc cref="EnableCdn"/>
+    public bool EnableCdnFallback { get; set; } = true;
+
+    /// <inheritdoc cref="EnableCdn"/>
+    public bool EnableScriptLocalization { get; set; }
+
+    /// <summary>
+    /// WebForms ScriptManager.ScriptResourceMapping.
+    ///
+    /// This one is NOT inert. An application registers its scripts here by name and then
+    /// asks for them by that name (YAF's ScriptsLoaderModule registers "forumExtensions"
+    /// and PageElementRegister writes the tag for it), so a mapping that forgot its entries
+    /// would emit nothing and the page would lose its behaviour. The registry is real; what
+    /// is absent is only the framework's OWN scripts, which no converted page loads.
+    /// </summary>
+    public static ScriptResourceMapping ScriptResourceMapping { get; } = new();
+}
+
+/// <summary>System.Web.UI.ScriptResourceDefinition equivalent.</summary>
+public class ScriptResourceDefinition
+{
+    public string Path { get; set; }
+
+    public string DebugPath { get; set; }
+
+    public string CdnPath { get; set; }
+
+    public string CdnDebugPath { get; set; }
+
+    public bool CdnSupportsSecureConnection { get; set; }
+
+    public string LoadSuccessExpression { get; set; }
+
+    public string ResourceName { get; set; }
+
+    public System.Reflection.Assembly ResourceAssembly { get; set; }
+}
+
+/// <summary>
+/// System.Web.UI.ScriptResourceMapping equivalent: name -> script definition.
+/// </summary>
+public class ScriptResourceMapping
+{
+    private readonly Dictionary<string, ScriptResourceDefinition> _definitions =
+        new(StringComparer.Ordinal);
+
+    public void AddDefinition(string name, ScriptResourceDefinition definition)
+        => _definitions[name] = definition;
+
+    public void AddDefinition(string name, string assembly, ScriptResourceDefinition definition)
+        => _definitions[name] = definition;
+
+    public ScriptResourceDefinition GetDefinition(string name)
+        => name is not null && _definitions.TryGetValue(name, out var definition) ? definition : null;
+
+    public ScriptResourceDefinition GetDefinition(string name, string assembly)
+        => GetDefinition(name);
+
+    public ScriptResourceDefinition RemoveDefinition(string name)
+    {
+        if (name is null || !_definitions.Remove(name, out var definition))
+        {
+            return null;
+        }
+        return definition;
+    }
+
+    public ScriptResourceDefinition RemoveDefinition(string name, string assembly)
+        => RemoveDefinition(name);
+
+    public void Clear() => _definitions.Clear();
 }
 
 /// <summary>System.Web.UI.PersistChildrenAttribute equivalent (metadata only).</summary>

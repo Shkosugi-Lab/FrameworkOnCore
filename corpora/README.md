@@ -5015,3 +5015,47 @@ mojoPortal の mojoServiceHost がこれで、唯一の呼び出し元
 **決定論的に取れるものは取り切りました。ここから先は AI 層です。**
 
 未決として残る 2 件は HtmlDiff。数には含まれません。
+
+## yaf のビルドエラー 154 -> 133(互換層の穴 7 種)
+
+mojo が AI 層待ちになったので、次に大きい数を見ます。yaf の 154 は下限値ではなく実数です。
+エラーコード別で数えると、上位は「互換層にメンバーが無い」でした。
+
+| 追加したもの | 元 | 実エラー |
+|---|---|---:|
+| `ScriptManager.ScriptResourceMapping` + `ScriptResourceDefinition` | System.Web.UI | 8 |
+| `ScriptManager.EnableCdn` / `EnableCdnFallback` / `EnableScriptLocalization` | 同上 | 3 |
+| `HttpRuntime.UnloadAppDomain()` | System.Web | 2 |
+| `PagedDataSource` | System.Web.UI.WebControls | 1 |
+| `MembershipSection` + `ProviderSettings(Collection)` | System.Web.Configuration | 1 |
+| `ViewStateException` / `HttpRequestValidationException` | System.Web(.UI) | 2 |
+| `WindowsImpersonationContext` | System.Security.Principal(.NET で削除) | 1 |
+
+### 何を「動かす」かを分けた
+
+`ScriptResourceMapping` は**空振りにしていません**。アプリは自分のスクリプトを
+名前で登録して名前で取り出します(YAF の ScriptsLoaderModule が `forumExtensions` を
+登録し、PageElementRegister がそれを書き出す)。登録を忘れる実装だと
+タグが出力されず、**ページの挙動が変わります**。無いのはフレームワーク自身の
+スクリプトのほうで、変換後のページはどれも読み込みません。
+
+`PagedDataSource` も同じで、こちらは**本当にページングします**。
+全件返す実装にすると、どのページにも全行が出ます。
+
+逆に `WindowsImpersonationContext` は**何もしません**。.NET は
+`WindowsIdentity.Impersonate()` を `RunImpersonated`(コールバック形式)に
+置き換えており、スコープを保持して finally で `Undo()` する書き方は
+決定論的には書き換えられません(YAF の背景タスクのようにフィールドに持って
+別の場所で戻すこともある)。なりすましは Windows 専用で、変換後のアプリは
+それを行いません。`Undo()` が何も戻さないのは、何もしていないからです。
+
+`HttpRuntime.UnloadAppDomain()` も同じ理由で何もしません。
+**ホストを落として再現することはしません** — それは他の全ユーザーの回線を
+切ることで、WebForms の呼び出しもそこまではしませんでした(排出してから落とす)。
+
+| | 変更前 | 変更後 |
+|---|---:|---:|
+| **yaf ビルドエラー** | **154** | **133** |
+| 6 コーパス合計 | 281 | 260 |
+
+他 5 コーパスは完全に一致。

@@ -316,6 +316,21 @@ public static class HttpRuntime
     public static string BinDirectory => AppContext.BaseDirectory;
 
     public static bool IsOnUNCShare => false;
+
+    /// <summary>
+    /// System.Web.HttpRuntime.UnloadAppDomain(): recycles the application so the next
+    /// request starts fresh. It is how a WebForms admin page applies a change that only
+    /// takes effect at startup - YAF's RestartApp and EditLanguage both call it.
+    ///
+    /// There is no app domain to unload. Doing nothing is right and is also the behaviour
+    /// difference: whatever the caller changed will apply when the process is next
+    /// restarted, not at the end of this request. Reported as a residual rather than
+    /// hidden, and NOT emulated by tearing down the host - that would drop every other
+    /// user's circuit, which the WebForms call did not do either (it drained first).
+    /// </summary>
+    public static void UnloadAppDomain()
+    {
+    }
 }
 
 /// <summary>System.Web.VirtualPathUtility equivalent.</summary>

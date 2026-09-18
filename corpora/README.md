@@ -5459,3 +5459,36 @@ YAF の Forum.cs はユーザーコントロールから `this.Controls.Add(this
 | 6 コーパス合計 | 89 | 75 |
 
 他 5 コーパスは完全に一致。パリティ 30/30、bUnit 30/30。
+
+## 互換層の細かい穴 6 種 — yaf 37 -> 31
+
+| 追加 / 修正 | 理由 |
+|---|---|
+| `ListControl.Items` を `ListItemCollection` に | `FindByValue` / `FindByText` / `Add(string)` が要る。素の List は**最初の `Items.FindByText(...)` まで**通る |
+| `HttpContext.Application` | **DI が配っているのと同じインスタンス**を返す(別物を返すと Application 状態の意味が消える) |
+| `HttpCookieCollection()` を public に | System.Web でも public。**アプリ側のコンパイルエラーになっていた** |
+| `Server.Execute` | 受け取って何もしない。**遷移させるほうが悪い** — Execute は現在のページを離れない |
+| `ConnectionStringSettings` → System.Configuration への暗黙変換 | インストーラが本物の設定に書き足す。**コピー**であって同一物の主張ではない |
+| `HttpApplicationStateWrapper` | HttpContextWrapper と同じ、境界のためのアダプタ |
+
+| | 変更前 | 変更後 |
+|---|---:|---:|
+| **yaf ビルドエラー** | **37** | **31** |
+| 6 コーパス合計 | 75 | 69 |
+
+他 5 コーパスは完全に一致。パリティ 30/30、bUnit 30/30。
+
+### この turn の通し
+
+| コーパス | turn 開始 | 現在 |
+|---|---:|---:|
+| be | 0 | 0 |
+| mojo(実ビルド) | 43 | **8** |
+| yaf | 154 | **31** |
+| dnn | 67 | **19** |
+| n2 | 54 | **13** |
+| wt | 0 | 0 |
+| **合計** | **296** | **69** |
+
+dnn と n2 の下がり幅の大半(89 件)は**分類の修正**で、直したものではありません
+(「スコープ外のまま復元したファイル」の節を参照)。

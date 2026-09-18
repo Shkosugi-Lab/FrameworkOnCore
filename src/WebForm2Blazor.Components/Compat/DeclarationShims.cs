@@ -149,7 +149,13 @@ public enum PathDirection
 /// <summary>System.Web.UI.WebControls.ListControl equivalent (declaration surface).</summary>
 public class ListControl : LegacyWebControl
 {
-    public List<ListItem> Items { get; } = [];
+    /// <summary>
+    /// A ListItemCollection, not a bare List. WebForms' collection carries FindByValue /
+    /// FindByText and an Add(string) overload, and ported code uses them - a plain List
+    /// compiles until the first "Items.FindByText(...)", which is where a list control is
+    /// usually driven from.
+    /// </summary>
+    public ListItemCollection Items { get; } = [];
 
     public int SelectedIndex { get; set; } = -1;
 

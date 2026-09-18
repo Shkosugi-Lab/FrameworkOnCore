@@ -143,6 +143,19 @@ public sealed class ConnectionStringSettings(string name, string connectionStrin
     public string ConnectionString { get; } = connectionString;
 
     /// <summary>
+    /// Ported code hands this to the REAL System.Configuration - adding an entry to a
+    /// ConnectionStringsSection it opened through OpenWebConfiguration, which is how an
+    /// installer writes its connection string. The two types carry the same three values,
+    /// so the conversion is a copy rather than a claim that they are the same object.
+    /// </summary>
+    public static implicit operator System.Configuration.ConnectionStringSettings(
+        ConnectionStringSettings settings)
+        => settings is null
+            ? null
+            : new System.Configuration.ConnectionStringSettings(
+                settings.Name, settings.ConnectionString, settings.ProviderName);
+
+    /// <summary>
     /// WebForms ConnectionStringSettings.ProviderName. Web.config carried it next to
     /// the connection string, and ported data layers switch on it.
     /// </summary>

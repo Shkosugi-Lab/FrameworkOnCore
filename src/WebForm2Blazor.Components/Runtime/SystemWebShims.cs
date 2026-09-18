@@ -114,7 +114,12 @@ public sealed class HttpCookieCollection
 {
     private readonly Dictionary<string, HttpCookie> _cookies = new(StringComparer.OrdinalIgnoreCase);
 
-    internal HttpCookieCollection()
+    /// <summary>
+    /// Public, as System.Web's is. Ported code builds one to collect cookies before
+    /// writing them, and an internal constructor made that a compile error in the
+    /// application rather than a decision taken here.
+    /// </summary>
+    public HttpCookieCollection()
     {
     }
 
@@ -359,6 +364,17 @@ public sealed class HttpContext
     /// attachment it serves.
     /// </summary>
     public HttpApplication ApplicationInstance { get; set; } = new();
+
+    /// <summary>
+    /// WebForms HttpContext.Application: the application-wide state bag. The same object
+    /// the DI container hands out, so a write through the context and a read through an
+    /// injected WebFormsApplicationState see each other - which is the whole point of
+    /// Application state and would be quietly lost if this returned its own instance.
+    /// </summary>
+    public WebFormsApplicationState Application
+        => Services?.GetService<WebFormsApplicationState>() ?? SharedApplicationState;
+
+    private static readonly WebFormsApplicationState SharedApplicationState = new();
 
     /// <summary>System.Web HttpContext.Response equivalent. Redirect cannot navigate a
     /// circuit from arbitrary code and no-ops (components use their own Response).</summary>
@@ -1336,6 +1352,34 @@ public abstract class HttpServerUtilityBase
 
     public virtual void Transfer(string url, bool preserveForm) => Transfer(url);
 
+    /// <summary>
+    /// WebForms Server.Execute: runs another page and splices ITS output into the current
+    /// response, then returns here.
+    ///
+    /// A circuit has no second response to splice, and NAVIGATING instead would be worse
+    /// than doing nothing - Execute deliberately does not leave the current page, so a
+    /// redirect would take the user somewhere the original never sent them. Accepted and
+    /// inert; the caller's own page continues, which is the part that still holds.
+    /// </summary>
+    public virtual void Execute(string path)
+    {
+    }
+
+    /// <inheritdoc cref="Execute(string)"/>
+    public virtual void Execute(string path, System.IO.TextWriter writer)
+    {
+    }
+
+    /// <inheritdoc cref="Execute(string)"/>
+    public virtual void Execute(string path, bool preserveForm)
+    {
+    }
+
+    /// <inheritdoc cref="Execute(string)"/>
+    public virtual void Execute(string path, System.IO.TextWriter writer, bool preserveForm)
+    {
+    }
+
     /// <summary>No error-page pipeline exists here; always null (guarded by callers).</summary>
     public virtual Exception GetLastError() => null;
 
@@ -1391,4 +1435,32 @@ public sealed class HttpFileCollection
             _files.Add(file);
         }
     }
+}
+
+/// <summary>
+/// System.Web.HttpApplicationStateWrapper equivalent: adapts the live application state
+/// onto <see cref="HttpApplicationStateBase"/>, the way HttpContextWrapper does for the
+/// context. Ported code writes "new HttpApplicationStateWrapper(HttpContext.Current
+/// .Application)" at the boundary between its own code and a method typed against the
+/// abstraction.
+/// </summary>
+public sealed class HttpApplicationStateWrapper(HttpApplicationStateBase state) : HttpApplicationStateBase
+{
+    private readonly HttpApplicationStateBase _state = state;
+
+    public override object this[string key]
+    {
+        get => _state?[key];
+        set
+        {
+            if (_state is not null)
+            {
+                _state[key] = value;
+            }
+        }
+    }
+
+    public override void Remove(string key) => _state?.Remove(key);
+
+    public override void Clear() => _state?.Clear();
 }

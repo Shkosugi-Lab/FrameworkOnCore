@@ -3233,6 +3233,23 @@ static string? ResolveType(
 static string? ResolveTypeName(
     string name, int arity, HashSet<string> known, IReadOnlyList<string> lookupNamespaces)
 {
+    // System.Web.UI.Control becomes IWebFormsControl in ported code, so a stub has to say
+    // the same thing. It used to resolve to the compat layer's Control CLASS, which is a
+    // different type: N2's AbstractDisplayableAttribute declares
+    // "AddTo(ContentItem, string, IWebFormsControl)" after porting, and the stub for a
+    // subclass wrote "AddTo(ContentItem, string, Control)" - an override of a method that
+    // does not exist, and the error names the stub rather than the divergence.
+    //
+    // The port's own Control wins, as everywhere else: a project that declares one means
+    // that one, and the check below runs first.
+    if (arity == 0
+        && (name == "Control" || name == "System.Web.UI.Control")
+        && !known.Contains("Control")
+        && !lookupNamespaces.Any(ns => known.Contains(QualifiedName(ns, "Control"))))
+    {
+        return "global::WebForm2Blazor.Components.IWebFormsControl";
+    }
+
     // A name already written in full needs no prefix.
     if (known.Contains(name) || WebForm2Blazor.Converter.Convert.FrameworkTypeIndex.Contains(MetadataName(name, arity)))
     {

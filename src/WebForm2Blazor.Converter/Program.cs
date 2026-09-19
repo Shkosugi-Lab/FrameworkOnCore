@@ -1159,19 +1159,35 @@ foreach (var component in components)
     // (OWIN auth etc.) or on a namespace whose files were all excluded cannot work by
     // porting - emit an honest placeholder that keeps the route and the component name
     string? unportablePage = null;
+    IReadOnlyDictionary<string, string> codeBehindProperties =
+        new Dictionary<string, string>(StringComparer.Ordinal);
     if (component.Kind is not CodeBehindKind.Layout && component.CodeBehindSourcePath is not null)
     {
         var codeBehindSource = File.ReadAllText(component.CodeBehindSourcePath);
         unportablePage = FindUnportableNamespace(codeBehindSource)
             ?? EnumerateUsingNamespaces(codeBehindSource)
                 .FirstOrDefault(ns => fullyExcludedNamespaces.Contains(ns));
+
+        // The placeholder keeps the SURFACE as well as the name. A user control that
+        // cannot be ported is still set up by whoever hosts it, and dropping its
+        // properties moved the failure to the caller: mojoPortal's ImageCropper depends
+        // on Microsoft.Ajax.Utilities, and the dialog that opens it sets 14 properties on
+        // it - 14 errors in a file that converted perfectly well.
+        //
+        // Same rule as the excluded-type stubs: re-declare what the type offered, so the
+        // code that only MENTIONS it compiles, and the residual above still says the
+        // component itself needs hand-migration.
+        if (unportablePage is not null)
+        {
+            codeBehindProperties = AspxConverters.PublicPropertyTypes(codeBehindSource);
+        }
     }
     if (unportablePage is not null)
     {
         report.Residual(project.RelativePath(component.CodeBehindSourcePath), ResidualKind.CodeBehind,
             $".NET Framework 専用の名前空間 {unportablePage} に依存するため、ページ全体をプレースホルダー化しました(認証/OWIN は別フレームワーク)。", disposition: ResidualDisposition.OutOfScope);
         File.WriteAllText(Path.Combine(directory, component.ComponentName + ".razor"),
-            GenerateUnportablePlaceholder(component, unportablePage));
+            GenerateUnportablePlaceholder(component, unportablePage, codeBehindProperties));
         continue;
     }
 
@@ -1865,7 +1881,22 @@ static void CleanGeneratedOutput(string outputDirectory)
 /// routes and the component name (parent markup and menus keep working) and absorbs any
 /// attributes / child content the parent passes.
 /// </summary>
-static string GenerateUnportablePlaceholder(ConvertedComponent component, string unportableNamespace)
+/// <summary>
+/// The property types an unportable placeholder may re-declare: the ones that resolve
+/// with no import at all. See the loop below for why the list is this short.
+/// </summary>
+static bool IsBuiltInParameterType(string type)
+    => type is "string" or "bool" or "int" or "long" or "short" or "byte" or "sbyte"
+        or "uint" or "ulong" or "ushort" or "double" or "float" or "decimal" or "char"
+        or "object"
+        or "string?" or "bool?" or "int?" or "long?" or "short?" or "byte?" or "double?"
+        or "float?" or "decimal?" or "char?"
+        or "String" or "Boolean" or "Int32" or "Int64" or "Double" or "Decimal" or "Object";
+
+static string GenerateUnportablePlaceholder(
+    ConvertedComponent component,
+    string unportableNamespace,
+    IReadOnlyDictionary<string, string> properties)
 {
     var builder = new System.Text.StringBuilder();
     foreach (var route in component.Routes ?? [])
@@ -1892,6 +1923,29 @@ static string GenerateUnportablePlaceholder(ConvertedComponent component, string
     builder.AppendLine("    public Dictionary<string, object> AdditionalAttributes { get; set; }");
     builder.AppendLine();
     builder.AppendLine("    [Parameter] public RenderFragment ChildContent { get; set; }");
+
+    // The properties the original code-behind declared. Nothing reads them - this
+    // component renders its "needs hand-migration" panel and nothing else - but the host
+    // still sets them, and without the declarations that host stops compiling for a
+    // decision taken about a DIFFERENT file.
+    //
+    // Only types that resolve HERE. This file is a bare .razor with an @namespace and no
+    // imports of its own, so a property typed with one of the application's own types
+    // does not compile - which is how this moved YAF from 16 errors to 2 and a floor,
+    // its DisplayPost placeholder asking for a PagedMessage nothing had imported.
+    //
+    // A built-in type is the one thing knowable without resolving anything, and it covers
+    // what a host actually sets across a control boundary. Anything else is left out; the
+    // caller still fails on it, but on the line that names the real type rather than on a
+    // declaration this converter invented.
+    foreach (var (name, type) in properties.OrderBy(pair => pair.Key, StringComparer.Ordinal))
+    {
+        if (name != "ChildContent" && IsBuiltInParameterType(type))
+        {
+            builder.AppendLine($"    [Parameter] public {type} {name} {{ get; set; }}");
+        }
+    }
+
     builder.AppendLine("}");
     return builder.ToString();
 }

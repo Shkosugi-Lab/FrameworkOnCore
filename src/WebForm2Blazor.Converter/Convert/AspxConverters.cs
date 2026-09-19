@@ -495,14 +495,20 @@ public static partial class AspxConverters
     /// value of a non-string parameter as a C# expression).
     /// </summary>
     private static IReadOnlyDictionary<string, string> CollectPublicPropertyTypes(string? codeBehindPath)
+        => codeBehindPath is not null && File.Exists(codeBehindPath)
+            ? PublicPropertyTypes(File.ReadAllText(codeBehindPath))
+            : new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+
+    /// <summary>
+    /// Name -> declared type for every public property a code-behind declares.
+    ///
+    /// Public because the unportable-page placeholder needs the same answer: a component
+    /// that cannot be ported still has to accept what its host sets on it.
+    /// </summary>
+    public static IReadOnlyDictionary<string, string> PublicPropertyTypes(string codeBehindSource)
     {
         var types = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
-        if (codeBehindPath is null || !File.Exists(codeBehindPath))
-        {
-            return types;
-        }
-
-        foreach (var property in CodeBehindRewriter.ParseUnit(File.ReadAllText(codeBehindPath))
+        foreach (var property in CodeBehindRewriter.ParseUnit(codeBehindSource)
                      .DescendantNodes().OfType<PropertyDeclarationSyntax>())
         {
             if (property.Modifiers.Any(modifier => modifier.ValueText == "public"))

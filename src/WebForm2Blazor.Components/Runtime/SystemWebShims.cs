@@ -1145,11 +1145,106 @@ public sealed class Cache
 /// <summary>System.Web.Caching.CacheDependency equivalent (dependencies are not tracked).</summary>
 public class CacheDependency
 {
+    public CacheDependency()
+    {
+    }
+
     public CacheDependency(string filename)
     {
     }
 
     public CacheDependency(string[] filenames)
+    {
+    }
+
+    public CacheDependency(string[] filenames, string[] cacheKeys)
+    {
+    }
+
+    /// <summary>WebForms CacheDependency.HasChanged. Nothing is watched, so nothing changes.</summary>
+    public virtual bool HasChanged => false;
+
+    public virtual void Dispose()
+    {
+    }
+}
+
+/// <summary>
+/// System.Web.Caching.AggregateCacheDependency equivalent.
+///
+/// Holds the dependencies it is given and watches none of them, like the
+/// <see cref="CacheDependency"/> it aggregates - the compat Cache has no invalidation
+/// pipeline for a dependency to reach. mojoPortal builds one per cached page so that
+/// editing any of several files evicts the entry; here the entry simply lives out its
+/// absolute expiry, which is the behaviour the cache already had.
+/// </summary>
+public class AggregateCacheDependency : CacheDependency
+{
+    private readonly List<CacheDependency> _dependencies = [];
+
+    public void Add(params CacheDependency[] dependencies)
+    {
+        if (dependencies is not null)
+        {
+            _dependencies.AddRange(dependencies.Where(dependency => dependency is not null));
+        }
+    }
+}
+
+/// <summary>
+/// System.Web.UI.IStateManager equivalent.
+///
+/// The view-state protocol. Ported controls implement it and cast their style objects to
+/// it ("((IStateManager)currentNodeStyle).TrackViewState()"), so the interface has to
+/// exist for those casts to compile. Nothing here tracks anything: a Blazor component's
+/// fields are its state, and <see cref="IsTrackingViewState"/> answering false is what
+/// makes the guarded call sites skip work that would do nothing.
+/// </summary>
+public interface IStateManager
+{
+    bool IsTrackingViewState => false;
+
+    void TrackViewState()
+    {
+    }
+
+    object SaveViewState() => null;
+
+    void LoadViewState(object state)
+    {
+    }
+}
+
+/// <summary>
+/// System.Web.UI.ClientIDMode equivalent. Accepted so ported code compiles; the compat
+/// ClientID is always the Predictable form (measured against 4.8), so setting this
+/// changes nothing - which the control's own residual records.
+/// </summary>
+public enum ClientIDMode
+{
+    Inherit,
+    AutoID,
+    Predictable,
+    Static,
+}
+
+/// <summary>
+/// System.Web.Security.MembershipPasswordException equivalent. Membership is gone, so
+/// nothing here throws it - it exists because ported code catches it around a provider
+/// call that now comes from the application's own provider.
+/// </summary>
+public class MembershipPasswordException : Exception
+{
+    public MembershipPasswordException()
+    {
+    }
+
+    public MembershipPasswordException(string message) : base(message)
+    {
+    }
+
+    public MembershipPasswordException(string message, Exception innerException)
+        : base(message, innerException)
     {
     }
 }

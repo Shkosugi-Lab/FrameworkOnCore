@@ -682,6 +682,9 @@ public class TreeNodeEventArgs(TreeNode node) : EventArgs
     public TreeNode Node { get; } = node;
 }
 
+/// <summary>System.Web.UI.WebControls.TreeNodeEventHandler equivalent.</summary>
+public delegate void TreeNodeEventHandler(object sender, TreeNodeEventArgs e);
+
 /// <summary>
 /// System.Web.UI.WebControls.TreeView as a BASE for a ported control that renders itself
 /// (mojoPortal's mojoTreeView). The rendering TreeView is a Blazor component, which a
@@ -867,6 +870,26 @@ public class MenuItemCollection : System.Collections.ObjectModel.Collection<Menu
 }
 
 /// <summary>System.Web.UI.WebControls.MenuEventArgs equivalent.</summary>
+/// <summary>System.Web.UI.WebControls.MenuEventHandler equivalent.</summary>
+public delegate void MenuEventHandler(object sender, MenuEventArgs e);
+
+/// <summary>
+/// System.Web.UI.WebControls.MenuItemTemplateContainer equivalent: what a menu's
+/// StaticItemTemplate / DynamicItemTemplate is instantiated into.
+///
+/// A naming container holding one item, which is what the template binds against.
+/// mojoPortal's menu adapters build one per item to render the template themselves.
+/// </summary>
+public class MenuItemTemplateContainer(int itemIndex, MenuItem item) : LegacyWebControl
+{
+    public int ItemIndex { get; } = itemIndex;
+
+    public MenuItem Item { get; } = item;
+
+    /// <summary>What a data-binding expression inside the template binds against.</summary>
+    public object DataItem { get; set; } = item;
+}
+
 public class MenuEventArgs(MenuItem item) : EventArgs
 {
     public MenuItem Item { get; } = item;
@@ -1191,6 +1214,26 @@ public class WizardStepBase : LegacyWebControl
     public bool AllowReturn { get; set; } = true;
 
     protected override string TagName => "div";
+}
+
+/// <summary>
+/// System.Web.UI.WebControls.TemplatedWizardStep equivalent: a wizard step whose chrome
+/// the application supplies as templates.
+///
+/// The templates are null and the containers are this step, on the same terms as
+/// ChangePassword.ChangePasswordTemplateContainer - a lookup through the container finds
+/// the controls where they actually are. mojoPortal's CreateUserWizardAdapter casts
+/// ActiveStep to this to reach them.
+/// </summary>
+public class TemplatedWizardStep : WizardStepBase
+{
+    public ITemplate ContentTemplate { get; set; }
+
+    public ITemplate CustomNavigationTemplate { get; set; }
+
+    public IWebFormsControl ContentTemplateContainer => this;
+
+    public IWebFormsControl CustomNavigationTemplateContainer => this;
 }
 
 

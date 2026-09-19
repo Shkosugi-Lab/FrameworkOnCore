@@ -71,6 +71,9 @@ public class LoginCancelEventArgs : EventArgs
     public bool Cancel { get; set; }
 }
 
+/// <summary>WebForms LoginCancelEventHandler equivalent.</summary>
+public delegate void LoginCancelEventHandler(object sender, LoginCancelEventArgs e);
+
 /// <summary>WebForms DataControlRowType equivalent (RowDataBound guards).</summary>
 public enum DataControlRowType
 {

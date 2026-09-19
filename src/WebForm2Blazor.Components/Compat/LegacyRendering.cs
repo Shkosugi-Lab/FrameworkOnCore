@@ -41,6 +41,15 @@ public enum HtmlTextWriterStyle
 public class HtmlTextWriter(TextWriter inner) : TextWriter
 {
     public const char TagRightChar = '>';
+    public const char TagLeftChar = '<';
+    public const char SlashChar = '/';
+    public const char SpaceChar = ' ';
+    public const char EqualsChar = '=';
+    public const char SemicolonChar = ';';
+    public const char StyleEqualsChar = ':';
+    public const char SingleQuoteChar = '\'';
+    public const string EndTagLeftChars = "</";
+    public const string SelfClosingTagEndWithSlash = "/>";
     public const string SelfClosingTagEnd = " />";
     public const string SelfClosingChars = " /";
     public const char DoubleQuoteChar = '"';

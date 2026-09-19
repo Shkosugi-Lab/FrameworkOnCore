@@ -14,6 +14,28 @@ namespace WebForm2Blazor.Converter.Parsing;
 public static class AspxParser
 {
     /// <summary>Known child/template elements treated as elements only when the parent is a server control.</summary>
+    /// <summary>
+    /// A prefix-less element named "...Template" inside a server control.
+    ///
+    /// <see cref="ChildElements"/> is the list of the BUILT-IN controls' slots. A
+    /// third-party control declares its own - mojoPortal's SiteMapPath has NodeTemplate,
+    /// RootNodeTemplate and CurrentNodeTemplate - and a name missing from that list was
+    /// not parsed as an element at all. It came through as TEXT, so the tag appeared in
+    /// the output while the emitter never knew it had entered a template: every
+    /// "&lt;%# Eval(...) %&gt;" inside was reported as a data-bound expression OUTSIDE a
+    /// template and dropped. The breadcrumb rendered links with no href and no text.
+    ///
+    /// The residual said "outside a template" while the expression was inside one, which
+    /// is what made this hard to find - the report was describing the parser's belief.
+    ///
+    /// Matched on the NAME because that is what WebForms itself goes on: a template
+    /// property is found by name on the control, and there is no registry of them. The
+    /// enclosing element is already known to be a server control (the root is excluded
+    /// below), so a plain HTML "&lt;template&gt;" outside one is unaffected.
+    /// </summary>
+    private static bool IsTemplateName(string name)
+        => name.EndsWith("Template", StringComparison.OrdinalIgnoreCase);
+
     private static readonly HashSet<string> ChildElements = new(StringComparer.OrdinalIgnoreCase)
     {
         "Columns", "Items", "Fields", "Triggers",
@@ -225,7 +247,7 @@ public static class AspxParser
             var isServerControl =
                 serverPrefixes.Contains(tag.Prefix)
                 || (string.IsNullOrEmpty(tag.Prefix)
-                    && ChildElements.Contains(tag.Name)
+                    && (ChildElements.Contains(tag.Name) || IsTemplateName(tag.Name))
                     && !ReferenceEquals(stack.Peek(), root))
                 || tag.Attributes.TryGetValue("runat", out var runat)
                     && runat.Equals("server", StringComparison.OrdinalIgnoreCase);

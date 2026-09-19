@@ -6,10 +6,10 @@
                "buildErrors":  0
            },
     "mojo":  {
-                 "convertible":  25,
+                 "convertible":  21,
                  "portedCs":  748,
-                 "residuals":  104,
-                 "buildErrors":  390
+                 "residuals":  101,
+                 "buildErrors":  389
              },
     "yaf":  {
                 "convertible":  5,

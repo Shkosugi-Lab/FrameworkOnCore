@@ -167,6 +167,16 @@ public static partial class BuildVerifier
     /// </summary>
     private static bool StoppedAtParse(List<Diagnostic> diagnostics)
         => diagnostics.Any(diagnostic => ParseErrorCodes.Contains(diagnostic.Code))
+            // ANY Razor error. RZ means the Razor compiler refused a .razor, so the C#
+            // it would have generated for that file never existed and nothing in it was
+            // ever bound - the same stop as a syntax error, one stage earlier.
+            //
+            // The "no CS diagnostic at all" rule below does not catch it: a project can
+            // have an RZ error in one file and ordinary CS errors in another, which is
+            // exactly what happened - mojoPortal reported "390 -> 2, improvement" with no
+            // floor warning while two RZ9996 were stopping the build.
+            || diagnostics.Any(diagnostic =>
+                diagnostic.Code.StartsWith("RZ", StringComparison.Ordinal))
             || (diagnostics.Count > 0
                 && !diagnostics.Any(diagnostic =>
                     diagnostic.Code.StartsWith("CS", StringComparison.Ordinal)))

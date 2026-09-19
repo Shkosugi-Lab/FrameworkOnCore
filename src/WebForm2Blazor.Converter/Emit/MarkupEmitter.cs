@@ -158,6 +158,9 @@ public sealed partial class MarkupEmitter(EmitContext context)
     /// </summary>
     private string? _currentItemType;
 
+    /// <summary>The component whose children are being emitted (for template naming).</summary>
+    private string? _currentComponent;
+
     public EmitContext Context => context;
 
     public string EmitNodes(IEnumerable<AspxNode> nodes)
@@ -610,6 +613,19 @@ public sealed partial class MarkupEmitter(EmitContext context)
             {
                 return EmitTemplate(element, dataBound: false);
             }
+
+            // A template the built-in lists do not name. The parser now hands these over
+            // (a third-party control declares its own slots), so the emitter has to place
+            // them - left to fall through, "<usernametemplate>" became an
+            // HtmlGenericControl inside PasswordRecovery and Razor rejected the whole
+            // component (RZ9996).
+            //
+            // Not data-bound: a slot that instantiates per item is one of the names in
+            // DataBoundTemplates, which was checked first. What is left renders once.
+            if (element.Name.EndsWith("Template", StringComparison.OrdinalIgnoreCase))
+            {
+                return EmitTemplate(element, dataBound: false);
+            }
             if (ControlMappings.StyleChildElements.Contains(element.Name))
             {
                 // Already flattened into attributes by the parent control's EmitComponent
@@ -724,11 +740,26 @@ public sealed partial class MarkupEmitter(EmitContext context)
             // (child control declarations the legacy control builds itself), which still
             // take the stub path. n2's Zone is nine of these and its templates are
             // "<div class=\"list\">" and "</div>".
+            // The test is on the SHAPE of the name, not on the three hand-written lists.
+            //
+            // Those lists hold the templates of the BUILT-IN controls. A third-party
+            // control declares its own - mojoPortal's SiteMapPath has NodeTemplate,
+            // RootNodeTemplate and CurrentNodeTemplate - and none of them appear in any of
+            // the lists, so this answered "no templates here", the control was hosted, and
+            // its template children were emitted as ordinary content at data-binding depth
+            // zero. Every "<%# Eval(...) %>" inside them was then reported as a data-bound
+            // expression OUTSIDE a template and dropped: the breadcrumb rendered links
+            // with no href and no text, which is worse than not rendering it.
+            //
+            // The residual said "outside a template" and it was inside one. That is the
+            // part that made this hard to find, and it is why the check reads the name
+            // rather than a list something has to be added to.
             var hasTemplateChildren = element.Children.OfType<ElementNode>().Any(child =>
                 string.IsNullOrEmpty(child.Prefix)
                 && !IsHostableTemplate(child)
                 && !IsHostableCollection(child)
-                && (ControlMappings.DataBoundTemplates.Contains(child.Name)
+                && (child.Name.EndsWith("Template", StringComparison.OrdinalIgnoreCase)
+                    || ControlMappings.DataBoundTemplates.Contains(child.Name)
                     || ControlMappings.PlainTemplates.Contains(child.Name)
                     || ControlMappings.StyleChildElements.Contains(child.Name)));
             string? legacyReason = null;
@@ -979,7 +1010,18 @@ public sealed partial class MarkupEmitter(EmitContext context)
     /// </summary>
     private static bool IsHostableTemplate(ElementNode child)
         => (LegacyHostableTemplates.ContainsKey(child.Name)
-            || LegacyTemplateProperties.Contains(child.Name))
+            || LegacyTemplateProperties.Contains(child.Name)
+            // Any other "...Template" slot a third-party control declares, provided the
+            // content is static. n2's ControlPanel has six of its own
+            // (DragDropFooterTemplate, HiddenTemplate, ...) and they are plain divs; the
+            // control decides which one to show, so handing it the markup keeps that
+            // decision where it was. Listing only the built-in names sent the whole
+            // control to the stub instead, which rendered none of them.
+            //
+            // The parser now surfaces these as elements at all - before, they came
+            // through as text and the host emitted every template's markup at once,
+            // unconditionally, which is not what any of them meant.
+            || child.Name.EndsWith("Template", StringComparison.OrdinalIgnoreCase))
            && IsStaticMarkup(child);
 
     /// <summary>
@@ -1199,7 +1241,10 @@ public sealed partial class MarkupEmitter(EmitContext context)
                 continue;
             }
 
-            if (LegacyTemplateProperties.Contains(template.Name))
+            // Everything hostable EXCEPT the two that travel as render fragments: those
+            // are placed around the control's output by the host itself, and sending them
+            // as markup too would draw them twice.
+            if (!LegacyHostableTemplates.ContainsKey(template.Name))
             {
                 templateMarkup.Add(
                     $"[\"{template.Name}\"] = {Quote(EmitStaticMarkup(template.Children))}");
@@ -1250,6 +1295,11 @@ public sealed partial class MarkupEmitter(EmitContext context)
                 ? null
                 : string.IsNullOrEmpty(groupPlaceholderId) ? "groupPlaceholder" : groupPlaceholderId;
         }
+
+        // The component the children are being placed INTO, so a template child can ask
+        // it for the canonical spelling of its own parameter (see EmitTemplate).
+        var previousComponent = _currentComponent;
+        _currentComponent = component;
 
         // Model binding (4.5): typed Item references in the templates cast to this type
         var previousItemType = _currentItemType;
@@ -1509,6 +1559,7 @@ public sealed partial class MarkupEmitter(EmitContext context)
         _layoutPlaceholderId = previousPlaceholderId;
         _listViewGroupPlaceholderId = previousGroupPlaceholderId;
         _currentItemType = previousItemType;
+        _currentComponent = previousComponent;
         return result;
     }
 
@@ -1651,8 +1702,35 @@ public sealed partial class MarkupEmitter(EmitContext context)
             : (isLayout || isGroup) && inner.Contains("@ItemsPlaceholder", StringComparison.Ordinal)
                 ? " Context=\"ItemsPlaceholder\""
                 : string.Empty;
-        var tagName = ControlMappings.TemplateParameterName(element.Name);
+        var tagName = TemplateParameterNameFor(element.Name);
         return $"<{tagName}{contextAttribute}>{inner}</{tagName}>";
+    }
+
+    /// <summary>
+    /// The parameter name to emit for a template element, asking the COMPONENT first.
+    ///
+    /// The mapping table answers for the built-in slots and stores the WebForms spelling,
+    /// so a lower-case "&lt;itemtemplate&gt;" comes back as ItemTemplate. It cannot answer
+    /// for a slot it does not list - mojoPortal writes "&lt;usernametemplate&gt;" on a
+    /// PasswordRecovery, and emitting that spelling is a parameter the component does not
+    /// have, which Razor rejects as unrecognized child content (RZ9996).
+    ///
+    /// The component itself does know: its [Parameter] names are read off the compat
+    /// assembly. Asking it is the same rule the enum and template spellings already
+    /// follow - the artifact, not a second list that can disagree with it.
+    /// </summary>
+    private string TemplateParameterNameFor(string writtenName)
+    {
+        var mapped = ControlMappings.TemplateParameterName(writtenName);
+        if (!string.Equals(mapped, writtenName, StringComparison.Ordinal))
+        {
+            return mapped;
+        }
+
+        return _currentComponent is not null
+               && ComponentParameterTypes.ParameterNameOf(_currentComponent, writtenName) is { } declared
+            ? declared
+            : mapped;
     }
 
     /// <summary>

@@ -95,6 +95,38 @@ public static class ComponentParameterTypes
         return parameters.GetValueOrDefault(parameterName);
     }
 
+    /// <summary>
+    /// The component's own spelling of a parameter name, or null when it has no such
+    /// parameter.
+    ///
+    /// Markup is case-insensitive and WebForms matched a slot to the property regardless
+    /// of case; Razor does not. This answers "what does the component call it", which is
+    /// the only place the answer exists for a slot no mapping table lists.
+    /// </summary>
+    public static string? ParameterNameOf(string componentName, string writtenName)
+    {
+        if (string.IsNullOrEmpty(componentName) || componentName.Contains('.'))
+        {
+            return null;
+        }
+
+        if (!ByComponent.TryGetValue(componentName, out var parameters))
+        {
+            parameters = BuildParameterMap(componentName);
+            ByComponent[componentName] = parameters;
+        }
+
+        // The dictionary is OrdinalIgnoreCase, so the KEY carries the declared spelling.
+        foreach (var name in parameters.Keys)
+        {
+            if (string.Equals(name, writtenName, StringComparison.OrdinalIgnoreCase))
+            {
+                return name;
+            }
+        }
+        return null;
+    }
+
     private static Dictionary<string, ParameterTypeInfo> BuildParameterMap(string componentName)
     {
         var map = new Dictionary<string, ParameterTypeInfo>(StringComparer.OrdinalIgnoreCase);

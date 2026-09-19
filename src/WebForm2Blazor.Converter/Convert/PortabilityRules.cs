@@ -249,6 +249,22 @@ public static class PortabilityRules
                 continue;
             }
 
+            // A name preceded by a DOT is a member, not the root of a namespace.
+            //
+            // "CultureInfo.CurrentCulture.Calendar.GetWeekOfYear(...)" reads as the
+            // declined namespace "Calendar" followed by an uppercase letter, and it is a
+            // property access on a BCL type. That one line excluded mojoPortal's
+            // DateTimeHelper, and with it the ToUtc/ToLocalTime extensions the whole
+            // application converts dates through.
+            //
+            // A qualified type reference always starts at the beginning of a name, so
+            // nothing legitimate is lost: "using X; ... Calendar.Foo" still matches, and
+            // "System.Web.UI.Control" is matched at "System", not at "UI".
+            if (before == '.')
+            {
+                continue;
+            }
+
             var after = index + needle.Length;
             if (after < source.Length && (char.IsUpper(source[after]) || source[after] == '_'))
             {

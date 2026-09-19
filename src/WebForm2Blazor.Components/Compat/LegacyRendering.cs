@@ -506,7 +506,20 @@ public abstract class LegacyWebControl : IWebFormsControl, IDisposable
     public virtual bool EnableViewState { get; set; } = true;
 
     /// <inheritdoc cref="EnableViewState"/>
-    public virtual string ViewStateMode { get; set; } = "Inherit";
+    public virtual ViewStateMode ViewStateMode { get; set; } = ViewStateMode.Inherit;
+
+    /// <summary>
+    /// WebForms Control.SkinID / EnableTheming equivalents.
+    ///
+    /// Themes and skins were a Web.config + App_Themes mechanism that the conversion does
+    /// not carry, so both are state a control reads back and nothing applies. Declaring
+    /// them is what matters: markup and code-behind set them on every themed control, and
+    /// the residual for the theme records what was not carried.
+    /// </summary>
+    public virtual string SkinID { get; set; } = string.Empty;
+
+    /// <inheritdoc cref="SkinID"/>
+    public virtual bool EnableTheming { get; set; } = true;
 
     /// <summary>
     /// WebForms WebControl.Width / Height equivalents. The compat COMPONENTS render these

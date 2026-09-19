@@ -74,6 +74,32 @@ public class LoginCancelEventArgs : EventArgs
 /// <summary>WebForms LoginCancelEventHandler equivalent.</summary>
 public delegate void LoginCancelEventHandler(object sender, LoginCancelEventArgs e);
 
+/// <summary>
+/// System.Web.UI.WebControls.MailDefinition equivalent.
+///
+/// State only. The membership controls used this to compose the mail they sent; nothing
+/// here sends any, so these are the settings an application reads back when it sends the
+/// message itself from a SendingMail handler - the path that still works.
+/// </summary>
+public sealed class MailDefinition
+{
+    public string From { get; set; } = string.Empty;
+    public string Subject { get; set; } = string.Empty;
+    public string BodyFileName { get; set; } = string.Empty;
+    public string CC { get; set; } = string.Empty;
+    public string Priority { get; set; } = "Normal";
+    public bool IsBodyHtml { get; set; }
+}
+
+// MailMessageEventArgs and SendMailErrorEventArgs already live in WebFormsTypeShims;
+// only the delegates that name them were missing.
+
+/// <summary>WebForms MailMessageEventHandler equivalent.</summary>
+public delegate void MailMessageEventHandler(object sender, MailMessageEventArgs e);
+
+/// <summary>WebForms SendMailErrorEventHandler equivalent.</summary>
+public delegate void SendMailErrorEventHandler(object sender, SendMailErrorEventArgs e);
+
 /// <summary>WebForms DataControlRowType equivalent (RowDataBound guards).</summary>
 public enum DataControlRowType
 {

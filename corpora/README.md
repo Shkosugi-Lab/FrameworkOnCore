@@ -139,12 +139,12 @@ YAF はサイトルートに `Web.config` が無く、配布時に `recommended.
 ```
 コーパス  移植 .cs  総残差  変換可能  ビルドエラー
 be            261      64         2             0
-mojo          747      92        12           642
+mojo          747      92        12           593
 yaf          2729      54         5            16
 dnn          2066     160        10            14
 n2           1706     141        11            11
 wt             13      33         3             0
-合計                  544        43           683
+合計                  544        43           634
 ```
 
 **この表は `expected.json` の実値です。** 以前ここには合計 216 と書いてありましたが、
@@ -6385,5 +6385,46 @@ override の不一致は**構造上ぜんぶ宣言段階**です — コンパ�
 |---|---:|---:|
 | **mojo ビルドエラー** | **690** | **642** |
 | 6 コーパス合計 | 731 | 683 |
+
+他 5 コーパスは完全に一致。パリティ 30/30、bUnit 30/30、回帰ゲート 13/13。
+
+## 足した宣言が、次の食い違いを見せた — mojo 642 -> 593
+
+前の節で `MenuEventHandler` / `TreeNodeEventHandler` を足したら、
+**新しいエラーが出ました。**
+
+```
+CS0029 型 'WebForm2Blazor.Components.MenuEventHandler' を 'System...' に変換できません
+```
+
+互換層の `Menu.MenuItemClick` は `EventHandler<MenuEventArgs>` でした。
+**WebForms は `MenuEventHandler` で宣言します。** デリゲート型が無かったあいだは
+`+= new MenuEventHandler(...)` が `CS0246` で止まっていて、その先が見えていませんでした。
+
+型を足すと**次の食い違いが見える**、という進み方です。イベントを WebForms の
+デリゲート型に付け替えました(`Menu` 2 件、`LegacyTreeView` 3 件)。
+
+### 文字列で持っていた列挙型
+
+| | 変更前 | 変更後 |
+|---|---|---|
+| `Menu.Orientation` | `string = "Vertical"` | `Orientation.Vertical` |
+| `Control.ViewStateMode` | `string = "Inherit"` | `ViewStateMode.Inherit` |
+
+移植コードは列挙型のメンバーと比較します。**文字列とは比較できません。**
+
+### そのほか
+
+| 追加 | 判断 |
+|---|---|
+| `Control.SkinID` / `EnableTheming` | テーマとスキンは Web.config + App_Themes の仕掛けで、変換は運びません。**宣言することが要点**で、マークアップとコードビハインドが全テーマ付きコントロールに設定します |
+| `PasswordRecovery` の宣言面 21 件 + `MailDefinition` | `ChangePassword` と同じ条件。**送信はしません** — アプリが `SendingMail` ハンドラで自分で送る経路は生きていて、そこが読み返す設定です |
+| `MailMessageEventHandler` / `SendMailErrorEventHandler` | EventArgs は**既にありました**。デリゲートだけが無かった |
+| `MailMessageEventArgs` を `LoginCancelEventArgs` 派生に | 元がそうです。`SendingMail` ハンドラが `Cancel` を立てて送信を止めます |
+
+| | 変更前 | 変更後 |
+|---|---:|---:|
+| **mojo ビルドエラー** | **642** | **593** |
+| 6 コーパス合計 | 683 | 634 |
 
 他 5 コーパスは完全に一致。パリティ 30/30、bUnit 30/30、回帰ゲート 13/13。

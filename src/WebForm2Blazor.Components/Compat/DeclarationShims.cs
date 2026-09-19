@@ -771,11 +771,11 @@ public class LegacyTreeView : LegacyWebControl
         return found;
     }
 
-    public event EventHandler<TreeNodeEventArgs> SelectedNodeChanged;
+    public event TreeNodeEventHandler SelectedNodeChanged;
 
-    public event EventHandler<TreeNodeEventArgs> TreeNodePopulate;
+    public event TreeNodeEventHandler TreeNodePopulate;
 
-    public event EventHandler<TreeNodeEventArgs> TreeNodeExpanded;
+    public event TreeNodeEventHandler TreeNodeExpanded;
 
     public void ExpandAll()
     {
@@ -901,6 +901,21 @@ public class UpdatePanel : LegacyWebControl
 /// <summary>System.Web.UI.WebControls.MenuEventHandler equivalent.</summary>
 public delegate void MenuEventHandler(object sender, MenuEventArgs e);
 
+/// <summary>System.Web.UI.WebControls.Orientation equivalent.</summary>
+public enum Orientation
+{
+    Horizontal,
+    Vertical,
+}
+
+/// <summary>System.Web.UI.WebControls.MenuRenderingMode equivalent.</summary>
+public enum MenuRenderingMode
+{
+    Default,
+    Table,
+    List,
+}
+
 /// <summary>
 /// System.Web.UI.WebControls.MenuItemTemplateContainer equivalent: what a menu's
 /// StaticItemTemplate / DynamicItemTemplate is instantiated into.
@@ -936,7 +951,17 @@ public class Menu : LegacyWebControl
 
     public object DataSource { get; set; }
 
-    public string Orientation { get; set; } = "Vertical";
+    /// <summary>
+    /// WebForms Menu.Orientation equivalent. The enum, not a string: ported code compares
+    /// it against Orientation members and the compiler will not do that against a string.
+    /// </summary>
+    public Orientation Orientation { get; set; } = Orientation.Vertical;
+
+    /// <summary>WebForms Menu.RenderingMode / IncludeStyleBlock (how the menu draws itself).</summary>
+    public MenuRenderingMode RenderingMode { get; set; } = MenuRenderingMode.Default;
+
+    /// <inheritdoc cref="RenderingMode"/>
+    public bool IncludeStyleBlock { get; set; } = true;
 
     public int StaticDisplayLevels { get; set; } = 1;
 
@@ -993,9 +1018,9 @@ public class Menu : LegacyWebControl
         return found;
     }
 
-    public event EventHandler<MenuEventArgs> MenuItemClick;
+    public event MenuEventHandler MenuItemClick;
 
-    public event EventHandler<MenuEventArgs> MenuItemDataBound;
+    public event MenuEventHandler MenuItemDataBound;
 
     public void DataBind()
     {

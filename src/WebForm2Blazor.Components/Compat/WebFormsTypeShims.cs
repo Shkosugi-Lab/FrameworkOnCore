@@ -819,8 +819,15 @@ public sealed class SendMailErrorEventArgs(Exception exception) : EventArgs
     public bool Handled { get; set; }
 }
 
-/// <summary>System.Web.UI.WebControls.MailMessageEventArgs equivalent.</summary>
-public sealed class MailMessageEventArgs(object message) : EventArgs
+/// <summary>
+/// System.Web.UI.WebControls.MailMessageEventArgs equivalent.
+///
+/// Derives LoginCancelEventArgs, as the original does - a SendingMail handler sets Cancel
+/// to stop the message going out, and mojoPortal's password-recovery page does exactly
+/// that. Cancel is honoured in the only sense available here: nothing composes or sends
+/// mail, so an application that cancels and one that does not see the same outcome.
+/// </summary>
+public sealed class MailMessageEventArgs(object message) : LoginCancelEventArgs
 {
     public object Message { get; } = message;
 }

@@ -37,6 +37,34 @@ public abstract class DataControlField : ComponentBase
     [Parameter] public string HeaderStyleCssClass { get; set; }
     [Parameter] public string FooterStyleCssClass { get; set; }
 
+    // --- The same styles as OBJECTS (the WebForms spelling code-behind uses).
+    //     Views over the parameters above, so the markup form and "field.ItemStyle.Width"
+    //     are one value rather than two that disagree. ---
+    private TableItemStyle _itemStyleObject;
+    private TableItemStyle _headerStyleObject;
+    private TableItemStyle _footerStyleObject;
+
+    public TableItemStyle ItemStyle => _itemStyleObject ??= new BoundTableItemStyle(
+        () => ItemStyleCssClass, value => ItemStyleCssClass = value,
+        getHorizontalAlign: () => ItemStyleHorizontalAlign,
+        setHorizontalAlign: value => ItemStyleHorizontalAlign = value);
+
+    public TableItemStyle HeaderStyle => _headerStyleObject ??= new BoundTableItemStyle(
+        () => HeaderStyleCssClass, value => HeaderStyleCssClass = value,
+        getHorizontalAlign: () => HeaderStyleHorizontalAlign,
+        setHorizontalAlign: value => HeaderStyleHorizontalAlign = value);
+
+    public TableItemStyle FooterStyle => _footerStyleObject ??= new BoundTableItemStyle(
+        () => FooterStyleCssClass, value => FooterStyleCssClass = value);
+
+    /// <summary>
+    /// WebForms DataControlField.Visible equivalent: whether the column renders at all.
+    ///
+    /// True by default. Code-behind hides columns conditionally (mojoPortal does it 11
+    /// times, by role), so this has to be settable from code and not only from markup.
+    /// </summary>
+    [Parameter] public bool Visible { get; set; } = true;
+
     /// <summary>align attribute for data cells (WebForms renders HorizontalAlign as align="center" etc.).</summary>
     internal string ItemAlignAttribute => NormalizeAlign(ItemStyleHorizontalAlign);
 

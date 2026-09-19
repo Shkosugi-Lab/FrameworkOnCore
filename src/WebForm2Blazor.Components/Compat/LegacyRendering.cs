@@ -301,6 +301,31 @@ public abstract class LegacyWebControl : IWebFormsControl, IDisposable
 
     public virtual string CssClass { get; set; }
 
+    /// <summary>
+    /// WebForms WebControl.ApplyStyle / MergeStyle.
+    ///
+    /// Declared on the CLASS as well as on <see cref="IWebFormsControl"/>, because a
+    /// default interface member is not callable through the class - the same lesson the
+    /// lifecycle methods already recorded here. Ported code holds a concrete control
+    /// (mojoPortal's breadcrumb holds a SiteMapNodeItem) and calls it directly.
+    /// </summary>
+    public virtual void ApplyStyle(Style style)
+    {
+        if (!string.IsNullOrEmpty(style?.CssClass))
+        {
+            CssClass = style.CssClass;
+        }
+    }
+
+    /// <inheritdoc cref="ApplyStyle"/>
+    public virtual void MergeStyle(Style style)
+    {
+        if (string.IsNullOrEmpty(CssClass) && !string.IsNullOrEmpty(style?.CssClass))
+        {
+            CssClass = style.CssClass;
+        }
+    }
+
     public virtual bool Visible { get; set; } = true;
 
     public virtual bool Enabled { get; set; } = true;

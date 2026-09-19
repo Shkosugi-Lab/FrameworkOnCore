@@ -139,12 +139,12 @@ YAF はサイトルートに `Web.config` が無く、配布時に `recommended.
 ```
 コーパス  移植 .cs  総残差  変換可能  ビルドエラー
 be            261      64         2             0
-mojo          747      93        12          1685
+mojo          747      93        12          1443
 yaf          2729      54         5            16
 dnn          2066     160        10            14
 n2           1706     141        11            11
 wt             13      33         3             0
-合計                  545        43          1726
+合計                  545        43          1484
 ```
 
 **この表は `expected.json` の実値です。** 以前ここには合計 216 と書いてありましたが、
@@ -5984,3 +5984,106 @@ mojoPortal にはそのモジュールがあります。
 その系統が無いように見えます。**1 つずつ足す前に、系統ごと無いのかを先に確かめてください** —
 同じ形の見落としは、このログに既に 2 回出てきます
 (「リスト系の基底は、リストを持っていなければならない」「ボタンの基底が Text を持っていなかった」)。
+
+## `Style` の系統と、`Control` という名前のプロパティ — mojo 1685 -> 1443
+
+### 仮説は半分外れた
+
+前の節で「`*Style` 系 130 件以上はたぶん 1 種の欠落」と書きました。
+確かめると **`Style` / `TableStyle` / `TableItemStyle` は既に存在していました。**
+欠けていたのは**コントロールが部位ごとの Style を公開していないこと**と `ApplyStyle` です。
+系統ごと無かったのではなく、**系統はあって配線されていなかった**。
+
+### 二重に持つと嘘になる
+
+`GridView` は既に**平坦化済みのパラメータ**を持っています —
+変換器が `<HeaderStyle CssClass="x"/>` を `HeaderStyle-CssClass` に畳むからです。
+ここに独立した `HeaderStyle` オブジェクトを足すと、
+**マークアップが片方に書き、コードビハインドがもう片方を読む**ことになり、読み取りは空を返します。
+
+`BoundTableItemStyle` を作って、**パラメータを読み書きするビュー**にしました。
+値は 1 つ、綴りが 2 つです。
+
+> A second set of fields would answer every one of those reads with an empty string
+> while the real value sat in the parameter.
+
+`null` が `null` のまま通ることも効いています。`Style` の既定は `string.Empty`(4.8 の実挙動)ですが、
+`HeaderStyleCssClass` が `""` になると Blazor は **`class=""` を描いてしまいます**。
+ビュー越しならパラメータの `null` がそのまま見えます。
+
+一方 `ChangePassword` / `CreateUserWizard` には平坦化パラメータが**ありません**。
+mojoPortal のマークアップもこれらを宣言していません
+(宣言していれば未対応属性として残差に出ます)。
+なので素のオブジェクトで、**4.8 と同じ「空」の既定**が忠実です。
+
+### 宣言したなら描画も従わせる
+
+`DataControlField.Visible` を足すとき、GridView の列ループは `_columns` を直接回していました。
+**プロパティだけ足すと、`Visible = false` にしてもコンパイルは通って列は出ます。**
+`VisibleColumns` を通すようにし、`colspan` も可視列数にしました。
+既定が true なので、触っていないグリッドの出力は 1 文字も動きません。
+
+### 同じ間違いを 2 度した — 既定実装はクラスからは呼べない
+
+`ApplyStyle` を `IWebFormsControl` の**既定実装**として足しました。**0 件も減りませんでした。**
+このログに既にある話です(「既定実装はクラスからは呼べない — yaf 105 -> 97」)。
+移植コードは具象コントロールを持っているので、`LegacyWebControl` と
+`WebFormsControlBase` の**両方に実体で**足す必要があります。
+
+`ApplyStyle` が運ぶのは `CssClass` だけです。これは手抜きではなく、
+**互換層が描画するのがそれだけ**だからです。`BackColor` を写すと、
+誰も読まない値を持って**設定済みに見えるコントロール**ができます。
+空は上書きしません(元がそうで、mojoPortal の breadcrumb は同じ item に
+`NodeStyle` と `RootNodeStyle` を続けて適用してそれに依存します)。
+
+### `Control` という名前のプロパティを型名に書き換えていた(CS0119 117 件)
+
+こちらは**変換器の欠陥**でした。
+
+`System.Web.UI.Control` → `IWebFormsControl` の書き換えは、
+基底リスト・`new`・`typeof`・メンバーアクセスの左辺を除外していました。
+除外し忘れていたのは **`Control` という名前のメンバーが見えている場合**です。
+
+WebForms の**コントロールアダプタ**は全部それを継承しています —
+`ControlAdapter.Control` は「適応対象のコントロール」で、mojoPortal は
+アダプタを 11 個持っています。結果:
+
+```csharp
+TreeView treeView = IWebFormsControl as TreeView;   // ← 元は "Control as TreeView"
+```
+
+**117 件の CS0119**(「IWebFormsControl は種類です」)が、
+メニュー・グリッド・パスワードフォームを描くファイルに散っていました。
+
+これはヒューリスティックではなく**言語規則そのもの**です —
+C# は単純名を、同名の型より先に**囲む型のメンバー**に束縛します。
+囲む型と基底連鎖に `Control` があれば書き換えません
+(基底連鎖は override 判定と同じオラクルに聞きます)。
+**修飾形は影響を受けません** — `System.Web.UI.Control` は何がスコープにあっても型です。
+
+### そのほか
+
+| 追加 | 件数 | 判断 |
+|---|---:|---|
+| `TreeNodeStyle` / `TreeNodeStyleCollection` | 39 | `ImageUrl` を持つ。`LevelStyles` は**空**で作る — アダプタが `Count > Depth` で守ってから添字を引くので、勝手に埋めるとマークアップが宣言していない style を返す |
+| `TreeView.FindNode` / `PathSeparator` / 各 ImageUrl・ToolTip | 30 | `Menu` と同じ形 |
+| `TreeNode.ShowCheckBox` | 12 | **`bool?`。** null は「ツリーの `ShowCheckBoxes` を継承」で、`false` とは別の主張 |
+| `ChangePassword.ChangePasswordTemplateContainer` | 34 | このコントロール自身を返す。`FindControl` が既にホスト越しに解決する。**違いは doc に明記**(元はテンプレートの部分木だけを探す) |
+
+### 測定
+
+| | 変更前 | 変更後 |
+|---|---:|---:|
+| **mojo ビルドエラー** | **1685** | **1443** |
+| 6 コーパス合計 | 1726 | 1484 |
+
+他 5 コーパスは完全に一致。パリティ 30/30、bUnit 30/30、回帰ゲート 13/13。
+
+### 次に触る人へ
+
+`ControlMappings.StyleChildElements` に **`LabelStyle` / `TextBoxStyle` /
+`ValidatorTextStyle` / `TitleTextStyle` などメンバーシップ系のスタイルが入っていません。**
+このリストのコメント自身が「1 つ欠けると子マークアップのまま残り RZ9996 で
+コンポーネントごとコンパイルに失敗する」と警告しています。
+**どのコーパスもまだ踏んでいない**ので入れていません(踏んでいないものを推測で足すと、
+平坦化先のパラメータも揃える必要が出ます)。踏んだら、両方同時に足してください。

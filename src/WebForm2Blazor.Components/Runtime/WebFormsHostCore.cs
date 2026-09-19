@@ -62,6 +62,38 @@ public interface IWebFormsControl
     IWebFormsControl Parent => null;
 
     /// <summary>
+    /// WebForms WebControl.ApplyStyle equivalent: copy a style's settings onto this control.
+    ///
+    /// Only CssClass is carried, and that is not a shortcut - it is the only one of the
+    /// style's settings this layer renders. A compat control puts CssClass on the element
+    /// and leaves colours and sizes to the stylesheet, so copying BackColor here would
+    /// store a value nothing ever reads and make the control look configured when it is not.
+    ///
+    /// Empty does not overwrite, as in the original: ApplyStyle copies the properties that
+    /// were SET, so applying a style that declares no class must leave the control's own
+    /// class alone. mojoPortal's breadcrumb applies NodeStyle and then RootNodeStyle to the
+    /// same item and relies on exactly that.
+    /// </summary>
+    void ApplyStyle(Style style)
+    {
+        if (!string.IsNullOrEmpty(style?.CssClass))
+        {
+            CssClass = style.CssClass;
+        }
+    }
+
+    /// <summary>
+    /// WebForms WebControl.MergeStyle equivalent: the same copy, but the control wins.
+    /// </summary>
+    void MergeStyle(Style style)
+    {
+        if (string.IsNullOrEmpty(CssClass) && !string.IsNullOrEmpty(style?.CssClass))
+        {
+            CssClass = style.CssClass;
+        }
+    }
+
+    /// <summary>
     /// WebForms Control.Site - the designer's hook. There is no designer here, and code
     /// reads it to ask "am I in the designer?", where null means no.
     /// </summary>

@@ -76,6 +76,31 @@ public abstract class WebFormsControlBase : ComponentBase, IWebFormsControl, IDi
     [Parameter] public virtual string ID { get => _id; set => SetAndRefresh(ref _id, value); }
     [Parameter] public string CssClass { get => _cssClass; set => SetAndRefresh(ref _cssClass, value); }
 
+    /// <summary>
+    /// WebForms WebControl.ApplyStyle / MergeStyle.
+    ///
+    /// On the class as well as on <see cref="IWebFormsControl"/>: a default interface
+    /// member cannot be called through the class, and ported code holds concrete controls.
+    /// Only CssClass is carried - see the interface for why copying colours here would
+    /// store values nothing renders.
+    /// </summary>
+    public virtual void ApplyStyle(Style style)
+    {
+        if (!string.IsNullOrEmpty(style?.CssClass))
+        {
+            CssClass = style.CssClass;
+        }
+    }
+
+    /// <inheritdoc cref="ApplyStyle"/>
+    public virtual void MergeStyle(Style style)
+    {
+        if (string.IsNullOrEmpty(CssClass) && !string.IsNullOrEmpty(style?.CssClass))
+        {
+            CssClass = style.CssClass;
+        }
+    }
+
     /// <summary>WebForms Visible equivalent. Renders nothing when false.</summary>
     [Parameter] public bool Visible { get => _visible; set => SetAndRefresh(ref _visible, value); }
 

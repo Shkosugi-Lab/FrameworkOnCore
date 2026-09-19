@@ -881,12 +881,67 @@ public static class CodeBehindRewriter
 
         public override SyntaxNode? VisitIdentifierName(IdentifierNameSyntax node)
         {
-            if (node.Identifier.Text == "Control" && IsReferencePosition(node))
+            if (node.Identifier.Text == "Control"
+                && IsReferencePosition(node)
+                && !NamesAMemberInScope(node))
             {
                 return Replacement(node);
             }
             return base.VisitIdentifierName(node);
         }
+
+        /// <summary>
+        /// True when a MEMBER called "Control" is in scope here, so the bare name is not
+        /// the type at all.
+        ///
+        /// This is the language rule rather than a heuristic: C# binds a simple name to a
+        /// member of the enclosing type before it looks for a type of that name. Every
+        /// WebForms control ADAPTER inherits exactly such a member - ControlAdapter.Control
+        /// is the control being adapted - and mojoPortal ships eleven of them, so
+        /// "IWebFormsControl as TreeView" is what this rewrite used to produce out of
+        /// "Control as TreeView": 117 CS0119 ("IWebFormsControl is a type, which is not
+        /// valid in the given context"), spread over the files that render its menus,
+        /// grids and password forms.
+        ///
+        /// The QUALIFIED spelling is unaffected - System.Web.UI.Control can only be the
+        /// type, whatever is in scope.
+        /// </summary>
+        private static bool NamesAMemberInScope(SyntaxNode node)
+        {
+            foreach (var declaration in node.Ancestors().OfType<TypeDeclarationSyntax>())
+            {
+                if (declaration.Members.Any(DeclaresControl))
+                {
+                    return true;
+                }
+
+                // The base chain is asked the same way the override check asks it, so a
+                // member inherited from the compat layer counts as well as a declared one.
+                var baseName = declaration.BaseList?.Types.FirstOrDefault()?.Type switch
+                {
+                    IdentifierNameSyntax identifier => identifier.Identifier.Text,
+                    GenericNameSyntax generic => generic.Identifier.Text,
+                    QualifiedNameSyntax qualified => qualified.Right.Identifier.Text,
+                    _ => null,
+                };
+
+                if (baseName is not null && CompatDeclares(baseName, "Control") == true)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private static bool DeclaresControl(MemberDeclarationSyntax member)
+            => member switch
+            {
+                PropertyDeclarationSyntax property => property.Identifier.Text == "Control",
+                FieldDeclarationSyntax field
+                    => field.Declaration.Variables.Any(v => v.Identifier.Text == "Control"),
+                MethodDeclarationSyntax method => method.Identifier.Text == "Control",
+                _ => false,
+            };
 
         private static SyntaxNode Replacement(SyntaxNode node)
             => SyntaxFactory.IdentifierName("IWebFormsControl")

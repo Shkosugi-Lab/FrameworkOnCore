@@ -36,7 +36,7 @@
                 <tr @attributes="_headerRow?.AttributeBag"
                     class="@(_headerRow?.CssClass ?? HeaderStyleCssClass)"
                     style="@ComposeRowStyle(HeaderStyleBackColor, HeaderStyleForeColor, HeaderStyleFontBold)">
-                    @foreach (var column in _columns)
+                    @foreach (var column in VisibleColumns)
                     {
                         <th scope="col" align="@column.HeaderAlignAttribute" class="@column.HeaderStyleCssClass" style="@column.HeaderCellStyle">
                             @if (column is TemplateField { HeaderTemplate: not null } headerTemplateField)
@@ -66,7 +66,7 @@
                     <tr @attributes="_headerRow?.AttributeBag"
                         class="@(_headerRow?.CssClass ?? HeaderStyleCssClass)"
                         style="@ComposeRowStyle(HeaderStyleBackColor, HeaderStyleForeColor, HeaderStyleFontBold)">
-                        @foreach (var column in _columns)
+                        @foreach (var column in VisibleColumns)
                         {
                             @if (UseAccessibleHeader)
                             {
@@ -90,7 +90,7 @@
                     var commandContext = new GridViewRowCommandContext(this, rowIndex);
                     <tr @attributes="gridRow.AttributeBag"
                         class="@(gridRow.CssClass ?? RowClass(rowIndex))" style="@RowInlineStyle(rowIndex)">
-                        @foreach (var column in _columns)
+                        @foreach (var column in VisibleColumns)
                         {
                             <td align="@column.ItemAlignAttribute" class="@column.ItemStyleCssClass" style="@column.ItemCellStyle">
                                 @if (column is TemplateField templateField && SelectRowTemplate(templateField, rowIndex) is { } rowTemplate)
@@ -122,7 +122,7 @@
                 {
                     @* The legacy DataGrid keeps its footer inside tbody, like its header *@
                     <tr class="@FooterStyleCssClass">
-                        @foreach (var column in _columns)
+                        @foreach (var column in VisibleColumns)
                         {
                             <td class="@column.FooterStyleCssClass">@FooterContent(column)</td>
                         }
@@ -134,7 +134,7 @@
                        Matching the structure is what makes the parity comparison with the
                        pre-conversion app hold. *@
                     <tr class="@PagerStyleCssClass">
-                        <td colspan="@_columns.Count">
+                        <td colspan="@VisibleColumns.Count()">
                             <table>
                                 <tbody>
                                     <tr>
@@ -164,7 +164,7 @@
                 @* WebForms puts the footer row in its own tfoot, after tbody (measured on 4.8) *@
                 <tfoot>
                     <tr class="@FooterStyleCssClass">
-                        @foreach (var column in _columns)
+                        @foreach (var column in VisibleColumns)
                         {
                             <td class="@column.FooterStyleCssClass">@FooterContent(column)</td>
                         }
@@ -196,6 +196,15 @@
     /// register here as they initialise, and code-behind can add more before DataBind.
     /// </summary>
     public List<DataControlField> Columns => _columns;
+
+    /// <summary>
+    /// The columns that actually render. WebForms honours DataControlField.Visible, and
+    /// mojoPortal hides columns by role from code-behind; declaring the property without
+    /// acting on it would compile and then show the column anyway.
+    ///
+    /// Visible defaults to true, so a grid that never touches it renders exactly as before.
+    /// </summary>
+    private IEnumerable<DataControlField> VisibleColumns => _columns.Where(column => column.Visible);
     [Parameter] public bool AutoGenerateColumns { get; set; } = true;
     [Parameter] public string EmptyDataText { get; set; }
 
@@ -314,6 +323,53 @@
     [Parameter] public string AlternatingRowStyleBackColor { get; set; }
     [Parameter] public string AlternatingRowStyleForeColor { get; set; }
     [Parameter] public bool AlternatingRowStyleFontBold { get; set; }
+
+    // --- The same styles as OBJECTS, which is how code-behind asks for them.
+    //
+    // "gridView.HeaderStyle.CssClass" is the WebForms spelling and mojoPortal's grid
+    // adapters use it 34 times. These are views over the parameters above, not separate
+    // state: the markup writes the parameter, the code-behind reads the object, and both
+    // see one value. A second set of fields would answer every one of those reads with
+    // an empty string while the real value sat in the parameter.
+    //
+    // Built once and cached: a fresh object per get would make "HeaderStyle.CssClass = x"
+    // write to a temporary and vanish.
+    private TableItemStyle _headerStyleObject;
+    private TableItemStyle _rowStyleObject;
+    private TableItemStyle _alternatingRowStyleObject;
+    private TableItemStyle _footerStyleObject;
+    private TableItemStyle _pagerStyleObject;
+    private TableItemStyle _selectedRowStyleObject;
+    private TableItemStyle _editRowStyleObject;
+
+    public TableItemStyle HeaderStyle => _headerStyleObject ??= new BoundTableItemStyle(
+        () => HeaderStyleCssClass, value => HeaderStyleCssClass = value,
+        () => HeaderStyleBackColor, value => HeaderStyleBackColor = value,
+        () => HeaderStyleForeColor, value => HeaderStyleForeColor = value);
+
+    public TableItemStyle RowStyle => _rowStyleObject ??= new BoundTableItemStyle(
+        () => RowStyleCssClass, value => RowStyleCssClass = value,
+        () => RowStyleBackColor, value => RowStyleBackColor = value,
+        () => RowStyleForeColor, value => RowStyleForeColor = value);
+
+    public TableItemStyle AlternatingRowStyle => _alternatingRowStyleObject ??= new BoundTableItemStyle(
+        () => AlternatingRowStyleCssClass, value => AlternatingRowStyleCssClass = value,
+        () => AlternatingRowStyleBackColor, value => AlternatingRowStyleBackColor = value,
+        () => AlternatingRowStyleForeColor, value => AlternatingRowStyleForeColor = value);
+
+    public TableItemStyle FooterStyle => _footerStyleObject ??= new BoundTableItemStyle(
+        () => FooterStyleCssClass, value => FooterStyleCssClass = value);
+
+    public TableItemStyle PagerStyle => _pagerStyleObject ??= new BoundTableItemStyle(
+        () => PagerStyleCssClass, value => PagerStyleCssClass = value);
+
+    // No flattened parameter behind these two: the compat GridView renders neither a
+    // selected-row nor an edit-row class, so there is nothing to be a view OVER. They hold
+    // their own value so the property round-trips, and the control ignores it - which the
+    // per-control residual already says.
+    public TableItemStyle SelectedRowStyle => _selectedRowStyleObject ??= new TableItemStyle();
+
+    public TableItemStyle EditRowStyle => _editRowStyleObject ??= new TableItemStyle();
 
     /// <summary>WebForms DataKeys equivalent (aligned with the rows of the current page).</summary>
     public DataKeyCollection DataKeys { get; private set; } = new(new List<DataKey>());

@@ -92,4 +92,22 @@ public class CreateUserWizard : Wizard
     }
 
     private bool _created;
+
+    // --- Style slots. The compat wizard renders none of them; mojoPortal's
+    //     CreateUserWizardAdapter does its own rendering and reads the CssClass off each.
+    //     Plain objects with the original's empty default - see ChangePassword for why
+    //     these are not views over parameters. ---
+    public TableItemStyle LabelStyle { get; } = new();
+    public TableItemStyle TextBoxStyle { get; } = new();
+    public TableItemStyle ValidatorTextStyle { get; } = new();
+    public TableItemStyle TitleTextStyle { get; } = new();
+    public TableItemStyle InstructionTextStyle { get; } = new();
+    public TableItemStyle HeaderStyle { get; } = new();
+    public TableItemStyle ErrorMessageStyle { get; } = new();
+    public TableItemStyle HyperLinkStyle { get; } = new();
+    public TableItemStyle CompleteSuccessTextStyle { get; } = new();
+    public TableItemStyle CreateUserButtonStyle { get; } = new();
+    public TableItemStyle ContinueButtonStyle { get; } = new();
+    public TableItemStyle CancelButtonStyle { get; } = new();
+    public TableItemStyle PasswordHintStyle { get; } = new();
 }

@@ -293,11 +293,17 @@ public class Html32TextWriter(System.IO.TextWriter inner) : HtmlTextWriter(inner
 /// </summary>
 public class Style
 {
-    public string CssClass { get; set; } = string.Empty;
+    // virtual so a style can be a VIEW over values that already live somewhere else.
+    //
+    // A control whose markup carries "HeaderStyle-CssClass" has that value on a flattened
+    // [Parameter] already; giving it a second, independent HeaderStyle object would mean
+    // the markup sets one and the code-behind reads the other, and the read answers empty.
+    // BoundStyle (below) delegates instead, so there is one value with two spellings.
+    public virtual string CssClass { get; set; } = string.Empty;
 
-    public string BackColor { get; set; } = string.Empty;
+    public virtual string BackColor { get; set; } = string.Empty;
 
-    public string ForeColor { get; set; } = string.Empty;
+    public virtual string ForeColor { get; set; } = string.Empty;
 
     public string BorderColor { get; set; } = string.Empty;
 
@@ -350,11 +356,121 @@ public class TableStyle : Style
 /// <summary>System.Web.UI.WebControls.TableItemStyle equivalent.</summary>
 public class TableItemStyle : Style
 {
-    public string HorizontalAlign { get; set; } = string.Empty;
+    public virtual string HorizontalAlign { get; set; } = string.Empty;
 
     public string VerticalAlign { get; set; } = string.Empty;
 
     public bool Wrap { get; set; } = true;
+}
+
+/// <summary>
+/// A <see cref="TableItemStyle"/> that IS the control's flattened style parameters.
+///
+/// The converter turns "&lt;HeaderStyle CssClass=... /&gt;" into a HeaderStyleCssClass
+/// parameter, so by the time a control is rendering, the value lives there. Code-behind
+/// asks for it the other way round - "gridView.HeaderStyle.CssClass" - and mojoPortal's
+/// grid and menu adapters do that 34 times.
+///
+/// Holding a separate style object would answer those reads with an empty string while the
+/// markup value sat in the parameter, which is the kind of quiet disagreement this layer
+/// exists to avoid. This one reads and writes THROUGH the parameter, so there is a single
+/// value with two spellings - and a null parameter stays null, which is what keeps an
+/// unset class from rendering as class="".
+/// </summary>
+public sealed class BoundTableItemStyle(
+    Func<string> getCssClass,
+    Action<string> setCssClass,
+    Func<string> getBackColor = null,
+    Action<string> setBackColor = null,
+    Func<string> getForeColor = null,
+    Action<string> setForeColor = null,
+    Func<string> getHorizontalAlign = null,
+    Action<string> setHorizontalAlign = null) : TableItemStyle
+{
+    public override string CssClass
+    {
+        get => getCssClass();
+        set => setCssClass(value);
+    }
+
+    public override string BackColor
+    {
+        get => getBackColor is null ? base.BackColor : getBackColor();
+        set
+        {
+            if (setBackColor is null)
+            {
+                base.BackColor = value;
+            }
+            else
+            {
+                setBackColor(value);
+            }
+        }
+    }
+
+    public override string ForeColor
+    {
+        get => getForeColor is null ? base.ForeColor : getForeColor();
+        set
+        {
+            if (setForeColor is null)
+            {
+                base.ForeColor = value;
+            }
+            else
+            {
+                setForeColor(value);
+            }
+        }
+    }
+
+    public override string HorizontalAlign
+    {
+        get => getHorizontalAlign is null ? base.HorizontalAlign : getHorizontalAlign();
+        set
+        {
+            if (setHorizontalAlign is null)
+            {
+                base.HorizontalAlign = value;
+            }
+            else
+            {
+                setHorizontalAlign(value);
+            }
+        }
+    }
+}
+
+/// <summary>
+/// System.Web.UI.WebControls.TreeNodeStyle equivalent.
+///
+/// A node style is a TableItemStyle plus the image and spacing a tree draws around a node.
+/// mojoPortal's tree adapters read ImageUrl off RootNodeStyle / ParentNodeStyle /
+/// LeafNodeStyle and off LevelStyles[depth] to pick each node's icon.
+/// </summary>
+public class TreeNodeStyle : TableItemStyle
+{
+    public string ImageUrl { get; set; } = string.Empty;
+
+    public Unit ChildNodesPadding { get; set; }
+
+    public Unit HorizontalPadding { get; set; }
+
+    public Unit NodeSpacing { get; set; }
+
+    public Unit VerticalPadding { get; set; }
+}
+
+/// <summary>
+/// System.Web.UI.WebControls.TreeNodeStyleCollection equivalent (TreeView.LevelStyles).
+///
+/// Indexed by depth. Empty rather than pre-filled: the adapters guard with
+/// "LevelStyles.Count &gt; item.Depth" before indexing, so a collection that invented
+/// entries would hand back a style the markup never declared.
+/// </summary>
+public class TreeNodeStyleCollection : System.Collections.ObjectModel.Collection<TreeNodeStyle>
+{
 }
 
 /// <summary>
@@ -498,6 +614,13 @@ public class TreeNode
 
     public bool Checked { get; set; }
 
+    /// <summary>
+    /// WebForms TreeNode.ShowCheckBox equivalent. Nullable, as the original is: null means
+    /// "inherit the tree's ShowCheckBoxes", which is a different statement from "false",
+    /// and the adapters branch on all three.
+    /// </summary>
+    public bool? ShowCheckBox { get; set; }
+
     public bool PopulateOnDemand { get; set; }
 
     public string SelectAction { get; set; } = string.Empty;
@@ -555,6 +678,65 @@ public class LegacyTreeView : LegacyWebControl
     public string DataSourceID { get; set; } = string.Empty;
 
     public object DataSource { get; set; }
+
+    // --- Node styles. Nothing else holds these values (this control does not render), so
+    //     they are plain objects rather than views over parameters. The tree adapters read
+    //     ImageUrl off them to choose each node's icon. ---
+    public TreeNodeStyle NodeStyle { get; } = new();
+
+    public TreeNodeStyle RootNodeStyle { get; } = new();
+
+    public TreeNodeStyle ParentNodeStyle { get; } = new();
+
+    public TreeNodeStyle LeafNodeStyle { get; } = new();
+
+    public TreeNodeStyle SelectedNodeStyle { get; } = new();
+
+    public TreeNodeStyle HoverNodeStyle { get; } = new();
+
+    /// <summary>WebForms TreeView.LevelStyles equivalent: per-depth styles, indexed by depth.</summary>
+    public TreeNodeStyleCollection LevelStyles { get; } = [];
+
+    public string PathSeparator { get; set; } = "/";
+
+    public string ExpandImageToolTip { get; set; } = string.Empty;
+
+    public string CollapseImageToolTip { get; set; } = string.Empty;
+
+    public string ExpandImageUrl { get; set; } = string.Empty;
+
+    public string CollapseImageUrl { get; set; } = string.Empty;
+
+    public string NoExpandImageUrl { get; set; } = string.Empty;
+
+    /// <summary>
+    /// WebForms TreeView.FindNode equivalent: the node at a value path, or null.
+    ///
+    /// Walks the tree splitting on <see cref="PathSeparator"/>, matching on Value, as the
+    /// original does. An empty path names no single node and answers null rather than
+    /// guessing at the first one.
+    /// </summary>
+    public TreeNode FindNode(string valuePath)
+    {
+        if (string.IsNullOrEmpty(valuePath))
+        {
+            return null;
+        }
+
+        TreeNode found = null;
+        IList<TreeNode> level = Nodes;
+        foreach (var segment in valuePath.Split(PathSeparator))
+        {
+            found = level?.FirstOrDefault(node =>
+                string.Equals(node.Value, segment, StringComparison.Ordinal));
+            if (found is null)
+            {
+                return null;
+            }
+            level = found.ChildNodes;
+        }
+        return found;
+    }
 
     public event EventHandler<TreeNodeEventArgs> SelectedNodeChanged;
 

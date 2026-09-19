@@ -550,7 +550,49 @@ public abstract class LegacyWebControl : IWebFormsControl, IDisposable
     protected void RaiseBubbleEvent(object source, EventArgs args) => OnBubbleEvent(source, args);
 
     /// <summary>The element the default rendering wraps (WebControl defaults to span).</summary>
-    protected virtual string TagName => "span";
+    protected LegacyWebControl()
+    {
+    }
+
+    /// <summary>
+    /// WebForms WebControl(HtmlTextWriterTag) equivalent: the element the control renders
+    /// as, chosen at construction.
+    ///
+    /// A ported control passes it through ("public DayNumberDiv(...) : base(Div)") and
+    /// then never mentions the tag again, so the constructor has to exist for the subclass
+    /// to compile - and it has to actually set the tag, or the control would render a span
+    /// where the original rendered a div.
+    /// </summary>
+    protected LegacyWebControl(HtmlTextWriterTag tag) => _tagName = tag.ToString().ToLowerInvariant();
+
+    private readonly string _tagName;
+
+    protected virtual string TagName => _tagName ?? "span";
+
+    /// <summary>
+    /// WebForms WebControl.ControlStyleCreated / Initialized.
+    ///
+    /// False. Both answer "has this been through the step that would have created it",
+    /// and neither step exists here: the compat layer has no lazily-created style object
+    /// and no Init phase that flips a flag. Ported controls guard work with them
+    /// ("if (ControlStyleCreated) ..."), and false is the branch that skips work which
+    /// would do nothing.
+    /// </summary>
+    protected bool ControlStyleCreated => false;
+
+    /// <inheritdoc cref="ControlStyleCreated"/>
+    protected bool Initialized => false;
+
+    /// <summary>
+    /// WebForms DataBoundControl.OnDataPropertyChanged equivalent: "a property that
+    /// decides what I show has changed, re-bind".
+    ///
+    /// Inert. Re-binding is what Blazor's render loop does when the property is assigned,
+    /// so the notification has nowhere to go that it has not already been.
+    /// </summary>
+    protected virtual void OnDataPropertyChanged()
+    {
+    }
 
     public virtual void RenderControl(HtmlTextWriter writer)
     {

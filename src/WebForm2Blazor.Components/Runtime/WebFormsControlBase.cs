@@ -195,6 +195,20 @@ public abstract class WebFormsControlBase : ComponentBase, IWebFormsControl, IDi
     /// </summary>
     public bool EnableViewState { get; set; } = true;
 
+    /// <summary>
+    /// WebForms Control.ViewState equivalent (per-instance; no persistence).
+    ///
+    /// LegacyWebControl has carried this since the start; the COMPONENT family did not,
+    /// and a ported control that derives from a compat component lands here. mojoPortal's
+    /// SiteLogin derives from Login and stores fourteen of its own properties in
+    /// ViewState, which is the ordinary way a WebForms control holds a property.
+    ///
+    /// Per-instance and never serialised, as on the other family: a Blazor component's
+    /// fields are its state, so there is no payload to round-trip - the store exists so
+    /// the property that reads and writes it works.
+    /// </summary>
+    protected StateBag ViewState { get; } = new();
+
     /// <inheritdoc cref="EnableViewState"/>
     public ViewStateMode ViewStateMode { get; set; } = ViewStateMode.Inherit;
 

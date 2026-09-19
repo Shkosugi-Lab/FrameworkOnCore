@@ -920,6 +920,22 @@ var portedTypes = WebForm2Blazor.Converter.Convert.PortedTypeIndex.Build(portedS
 // are read and the names that match are rewritten; what does not match is reported, not
 // guessed at. Built once, applied to every generated file.
 var libraryMigrations = new List<(string Assembly, WebForm2Blazor.Converter.Convert.AssemblyTypeMigration Migration)>();
+
+// Types the replacement library has no name for AND the ported code still mentions.
+//
+// These are why the numbers below can be read at all. Six unresolvable using-aliases in
+// mojoPortal (com.drew.metadata.Metadata and AbstractDirectory) failed the Razor SDK's
+// DECLARATION pass, which stops the build before the real compile ever runs - so the
+// corpus reported "6 build errors" for as long as they were there, while the actual
+// figure behind them was 2202. A floor that low reads as "almost done" and makes every
+// before/after comparison on that corpus meaningless.
+//
+// They get exactly the treatment the excluded-type stubs get, for exactly the same reason
+// (see GenerateExcludedTypeStubs): re-declare the name and nothing else. Code that only
+// MENTIONS the type compiles; code that used its members fails at the member, which is
+// where the migration work actually is. Nothing is hidden - each one is already a
+// NeedsInput residual above, and stays one.
+var migratedAwayTypes = new List<(string FullName, WebForm2Blazor.Converter.Convert.FrameworkTypeIndex.TypeShape Shape)>();
 foreach (var (assemblyName, replacementPaths) in
          WebForm2Blazor.Converter.Convert.AssemblyTypeMigration.ReplacementAssemblies)
 {
@@ -986,6 +1002,8 @@ foreach (var (assemblyName, replacementPaths) in
                 ? $"。同じ名前空間の移行先が宣言している型: {string.Join(", ", candidates)}"
                 : "。置き換え先に対応する名前空間がありません"),
             disposition: ResidualDisposition.NeedsInput);
+
+        migratedAwayTypes.Add((unmatchedName, migration.ShapeOf(unmatchedName)));
     }
 
     if (migration.Unmatched.Count > usedUnmatched.Count)
@@ -1357,6 +1375,19 @@ if (stubbedTypeCount > 0)
     report.Residual("(project)", ResidualKind.CodeBehind,
         $"移植から除外したファイルが宣言していた型 {stubbedTypeCount} 個を空のスタブとして生成しました"
         + "(ExcludedTypeStubs.g.cs)。参照側はコンパイルできます(除外の理由は各ファイルの残差を参照)。", disposition: ResidualDisposition.Backlog);
+}
+
+// NOT passed through ApplyLibraryMigrations/ApplyNamespaceMap, unlike the stubs above.
+// The whole point is to declare the OLD name: that is the name the ported code still
+// spells, precisely because the migration found nothing to rewrite it to.
+var migratedAwayStubs = GenerateMigratedAwayTypeStubs(migratedAwayTypes, out var migratedAwayCount);
+if (migratedAwayCount > 0)
+{
+    File.WriteAllText(Path.Combine(output, "MigratedAwayTypeStubs.g.cs"), migratedAwayStubs);
+    report.Info("(project)",
+        $"置き換え先に同名が無い型 {migratedAwayCount} 個を空のスタブとして生成しました"
+        + "(MigratedAwayTypeStubs.g.cs)。型名だけを再宣言するので、メンバーを使っている箇所は"
+        + "ビルドエラーとして残ります — 移行先の判断はそこで必要です(型ごとの残差は上記)。");
 }
 
 // What the build gate needs in order to read the restored out-of-scope files correctly.
@@ -1955,6 +1986,66 @@ static void WriteUndecidedDependencyTypes(
 }
 
 /// <summary>
+/// What each undecided vendored DLL declares, as "namespace TAB name TAB shape".
+///
+/// Written for the build gate, which uses it to get PAST these names rather than to count
+/// them. The gate already refuses to count them - the decision is the reader's, not the
+/// converter's - but an uncounted error still stops the compiler, and the Razor SDK
+/// compiles twice: an unresolved name fails the declaration pass, so the real compile never
+/// runs and every other error in the project goes unseen. mojoPortal reported "6 build
+/// errors" that way while the true figure behind two uncounted HtmlDiff errors was 2236.
+/// Excluding an error from the count and letting it decide the whole measurement are not
+/// consistent positions.
+///
+/// The stubs are NOT written here, and deliberately so. Writing them into the conversion
+/// output declares a type inside the project, and a type declared in the project BEATS the
+/// same name from a referenced package - which is how this was first tried and how
+/// BlogEngine went from 0 errors to 23, its real SharpZipLib shadowed by a stub for the
+/// vendored copy. The gate stubs only the names the compiler has actually reported as
+/// missing, where by definition nothing is being shadowed.
+/// </summary>
+static void WriteUndecidedDependencyShapes(
+    IEnumerable<(string Assembly, string? DllPath)> undecided, string path)
+{
+    var lines = new SortedSet<string>(StringComparer.Ordinal);
+
+    foreach (var (_, dllPath) in undecided)
+    {
+        if (dllPath is null || !File.Exists(dllPath))
+        {
+            continue;
+        }
+
+        WebForm2Blazor.Converter.Convert.FrameworkTypeIndex.ReadPublicTypeShapes(
+            dllPath,
+            (typeNamespace, typeName, shape) =>
+            {
+                if (shape == WebForm2Blazor.Converter.Convert.FrameworkTypeIndex.TypeShape.Unsupported
+                    || typeNamespace.Length == 0
+                    // Metadata spells generic arity with a backtick, which is not an
+                    // identifier. A stub written from one would be a SYNTAX error - the one
+                    // failure that costs more than the problem this file solves, because it
+                    // stops the compiler earlier still.
+                    || typeName.IndexOfAny(['`', '<', '>']) >= 0)
+                {
+                    return;
+                }
+
+                lines.Add($"{typeNamespace}\t{typeName}\t{shape}");
+            });
+    }
+
+    if (lines.Count == 0)
+    {
+        // Left behind from an earlier run it would be read as still current.
+        File.Delete(path);
+        return;
+    }
+
+    File.WriteAllLines(path, lines);
+}
+
+/// <summary>
 /// Emits UserControlCatalog.g.cs: the virtual path of every converted .ascx mapped to the
 /// component type it became, registered with the compatibility layer at startup.
 ///
@@ -2347,12 +2438,22 @@ static List<(string Id, string Version)> CollectDeclaredPackages(
         .OrderBy(assembly => assembly, StringComparer.OrdinalIgnoreCase)
         .ToList();
 
-    // What the build gate needs in order to not count these against the conversion.
+    // What the build gate needs in order to not count these against the conversion, and -
+    // from the shapes file - in order to get past them and see what they were hiding.
     if (templatePath is not null)
     {
+        var outputDirectory = Path.GetDirectoryName(templatePath)!;
+        var undecidedWithPaths = undecided
+            .Select(assembly => (assembly, binaryReferences[assembly]))
+            .ToList();
+
         WriteUndecidedDependencyTypes(
-            undecided.Select(assembly => (assembly, binaryReferences[assembly])),
-            Path.Combine(Path.GetDirectoryName(templatePath)!, "unresolved-dependency-types.txt"));
+            undecidedWithPaths,
+            Path.Combine(outputDirectory, "unresolved-dependency-types.txt"));
+
+        WriteUndecidedDependencyShapes(
+            undecidedWithPaths,
+            Path.Combine(outputDirectory, "unresolved-dependency-shapes.txt"));
     }
 
     // A list in a report is something to read; a file with the assembly names already in
@@ -2616,6 +2717,66 @@ static string StripDeadUsings(
     }
 
     return string.Join("\n", kept);
+}
+
+/// <summary>
+/// Empty declarations for types the replacement library has no name for.
+///
+/// The shape (class / interface / enum / struct, and whether it was abstract) is read out
+/// of the ORIGINAL assembly, never inferred: an interface re-declared as a class breaks
+/// every implementer, and a type the original made abstract must not become newable here.
+/// A type whose shape the old assembly does not state - a delegate, or a name it merely
+/// forwarded - gets no stub, because the only alternative is to invent one.
+/// </summary>
+static string GenerateMigratedAwayTypeStubs(
+    IReadOnlyList<(string FullName, WebForm2Blazor.Converter.Convert.FrameworkTypeIndex.TypeShape Shape)> types,
+    out int typeCount)
+{
+    using var writer = new StringWriter();
+    writer.WriteLine("// <auto-generated />");
+    writer.WriteLine("// 置き換え先のライブラリに同名の型が無く、移植コードがまだその名前を書いている型です。");
+    writer.WriteLine("// 名前だけを再宣言します。メンバーは意図的に空で、使っている箇所はビルドエラーになります。");
+    writer.WriteLine("// 移行先の判断はそこで必要です(CONVERSION-REPORT.md の該当残差を参照)。");
+    writer.WriteLine();
+
+    typeCount = 0;
+    var seen = new HashSet<string>(StringComparer.Ordinal);
+
+    foreach (var group in types
+        .Where(type => type.Shape != WebForm2Blazor.Converter.Convert.FrameworkTypeIndex.TypeShape.Unsupported)
+        // A generic arity survives in metadata as a backtick ("Foo`1"), which is not a C#
+        // identifier. Emitting one would be a SYNTAX error - the single failure mode that
+        // would cost more than the problem this file solves, because it stops the compiler
+        // before declarations and hides everything, which is exactly what we are undoing.
+        .Where(type => type.FullName.IndexOfAny(['`', '<', '>']) < 0)
+        .Where(type => type.FullName.LastIndexOf('.') > 0)
+        .Where(type => seen.Add(type.FullName))
+        .GroupBy(type => type.FullName[..type.FullName.LastIndexOf('.')], StringComparer.Ordinal)
+        .OrderBy(group => group.Key, StringComparer.Ordinal))
+    {
+        writer.WriteLine($"namespace {group.Key}");
+        writer.WriteLine("{");
+        foreach (var (fullName, shape) in group.OrderBy(type => type.FullName, StringComparer.Ordinal))
+        {
+            var name = fullName[(fullName.LastIndexOf('.') + 1)..];
+            var keyword = shape switch
+            {
+                WebForm2Blazor.Converter.Convert.FrameworkTypeIndex.TypeShape.Interface => "interface",
+                WebForm2Blazor.Converter.Convert.FrameworkTypeIndex.TypeShape.Enum => "enum",
+                WebForm2Blazor.Converter.Convert.FrameworkTypeIndex.TypeShape.Struct => "struct",
+                WebForm2Blazor.Converter.Convert.FrameworkTypeIndex.TypeShape.AbstractClass => "abstract class",
+                _ => "class",
+            };
+            writer.WriteLine($"    public {keyword} {name}");
+            writer.WriteLine("    {");
+            writer.WriteLine("    }");
+            typeCount++;
+        }
+        writer.WriteLine("}");
+        writer.WriteLine();
+    }
+
+    return writer.ToString();
 }
 
 /// <summary>

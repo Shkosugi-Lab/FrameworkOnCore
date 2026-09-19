@@ -46,19 +46,34 @@ internal sealed class AssemblyTypeMigration
     /// <summary>New namespace -> the type names it declares.</summary>
     private readonly Dictionary<string, List<string>> _newTypesByNamespace;
 
+    /// <summary>Old full name -> the shape the ORIGINAL assembly declared it with.</summary>
+    private readonly Dictionary<string, FrameworkTypeIndex.TypeShape> _oldShapes;
+
     private AssemblyTypeMigration(
         Dictionary<string, string> namespaceRenames,
         Dictionary<string, string> typeRenames,
         IReadOnlyList<string> unmatched,
         Dictionary<string, Dictionary<string, int>> namespaceVotes,
-        Dictionary<string, List<string>> newTypesByNamespace)
+        Dictionary<string, List<string>> newTypesByNamespace,
+        Dictionary<string, FrameworkTypeIndex.TypeShape> oldShapes)
     {
         _namespaceRenames = namespaceRenames;
         _typeRenames = typeRenames;
         Unmatched = unmatched;
         _namespaceVotes = namespaceVotes;
         _newTypesByNamespace = newTypesByNamespace;
+        _oldShapes = oldShapes;
     }
+
+    /// <summary>
+    /// How the ORIGINAL assembly declared a type, for the stub that re-declares it.
+    ///
+    /// <see cref="FrameworkTypeIndex.TypeShape.Unsupported"/> when the old assembly only
+    /// forwarded the type, or declared it as a delegate - in both cases this assembly does
+    /// not say enough to re-declare it, and no stub is written.
+    /// </summary>
+    public FrameworkTypeIndex.TypeShape ShapeOf(string oldFullName)
+        => _oldShapes.GetValueOrDefault(oldFullName, FrameworkTypeIndex.TypeShape.Unsupported);
 
     /// <summary>
     /// The names the replacement offers for an unmatched type: everything declared in the
@@ -231,8 +246,19 @@ internal sealed class AssemblyTypeMigration
                 group => group.Select(type => type.Name).Distinct(StringComparer.Ordinal).ToList(),
                 StringComparer.Ordinal);
 
+        // Read once here rather than on demand: the stub pass asks about a handful of names,
+        // but each question would otherwise re-open and re-scan the whole PE file.
+        var oldShapes = new Dictionary<string, FrameworkTypeIndex.TypeShape>(StringComparer.Ordinal);
+        FrameworkTypeIndex.ReadPublicTypeShapes(oldAssemblyPath, (typeNamespace, typeName, shape) =>
+        {
+            if (typeNamespace.Length > 0 && !typeName.Contains('<', StringComparison.Ordinal))
+            {
+                oldShapes[typeNamespace + "." + typeName] = shape;
+            }
+        });
+
         return new AssemblyTypeMigration(
-            namespaceRenames, typeRenames, unmatched, namespaceVotes, newTypesByNamespace);
+            namespaceRenames, typeRenames, unmatched, namespaceVotes, newTypesByNamespace, oldShapes);
     }
 
     /// <summary>Rewrites imports and qualified names onto the replacement library.</summary>

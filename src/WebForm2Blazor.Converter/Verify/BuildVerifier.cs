@@ -129,7 +129,7 @@ public static partial class BuildVerifier
             return null;
         }
 
-        var (output, exitCode) = RunBuild(projectPath);
+        var (output, exitCode) = RunBuildPastUndecided(projectPath, outputDirectory, out _);
         var diagnostics = Parse(output);
         if (exitCode != 0 && diagnostics.Count == 0)
         {
@@ -222,6 +222,196 @@ public static partial class BuildVerifier
     /// unresolved-dependency-types.txt next to the package-map template while it still has
     /// the DLL in hand. A prefix rule would have to guess; this reads the answer.
     /// </summary>
+    /// <summary>
+    /// The file name of the scaffold the gate writes, builds against, and deletes.
+    /// </summary>
+    private const string ScaffoldFile = "_UndecidedDependencyScaffold.g.cs";
+
+    /// <summary>
+    /// Re-declared names read from unresolved-dependency-shapes.txt.
+    /// </summary>
+    private sealed record UndecidedType(string Namespace, string Name, string Shape)
+    {
+        public string FullName => Namespace + "." + Name;
+
+        /// <summary>The first segment, which is what a "namespace not found" error names.</summary>
+        public string RootNamespace => Namespace.Split('.')[0];
+    }
+
+    private static List<UndecidedType> ReadUndecidedDependencyShapes(string outputDirectory)
+    {
+        var types = new List<UndecidedType>();
+        var path = Path.Combine(outputDirectory, "unresolved-dependency-shapes.txt");
+        if (!File.Exists(path))
+        {
+            return types;
+        }
+
+        foreach (var line in File.ReadLines(path))
+        {
+            var parts = line.Split('\t');
+            if (parts.Length == 3 && parts[0].Length > 0 && parts[1].Length > 0)
+            {
+                types.Add(new UndecidedType(parts[0], parts[1], parts[2]));
+            }
+        }
+        return types;
+    }
+
+    /// <summary>
+    /// Every single-quoted token in a "name not found" diagnostic.
+    ///
+    /// Read this way rather than by matching the sentence, because the SDK localizes
+    /// message text and this file already learned once to key off codes only. Extra tokens
+    /// are harmless: nothing is done with a token unless the shapes file also has it, so a
+    /// name the compiler was merely mentioning cannot cause anything to be declared.
+    /// </summary>
+    private static HashSet<string> UnresolvedNames(List<Diagnostic> diagnostics)
+    {
+        var names = new HashSet<string>(StringComparer.Ordinal);
+        foreach (var diagnostic in diagnostics)
+        {
+            if (diagnostic.Code is not ("CS0246" or "CS0234" or "CS0400" or "CS0103"))
+            {
+                continue;
+            }
+            foreach (Match match in QuotedToken().Matches(diagnostic.Message))
+            {
+                names.Add(match.Groups[1].Value);
+            }
+        }
+        return names;
+    }
+
+    [GeneratedRegex("'([^']+)'")]
+    private static partial Regex QuotedToken();
+
+    /// <summary>
+    /// Builds, and if the build stopped before binding method bodies BECAUSE of a vendored
+    /// DLL whose replacement nobody has chosen, re-declares exactly the missing names and
+    /// builds again.
+    ///
+    /// Why this exists: the gate does not COUNT those errors - the decision is the reader's,
+    /// not the converter's - but an uncounted error still stops the compiler. A Blazor
+    /// project compiles twice, and an unresolved name fails the first pass, so the real
+    /// compile never runs and every other error goes unseen. mojoPortal reported "6 build
+    /// errors" for that reason while the figure behind two uncounted HtmlDiff errors was
+    /// 2236. Excluding an error from the count and letting it decide the entire measurement
+    /// are not consistent positions.
+    ///
+    /// Only names the compiler ITSELF reported as missing are declared. That distinction is
+    /// the whole design: declaring the vendored DLL's types up front - which was tried -
+    /// shadows the real library where the project also references a package that provides
+    /// it, and took BlogEngine from 0 errors to 23 against a SharpZipLib that had resolved
+    /// perfectly well. A name the compiler says is missing is shadowing nothing.
+    ///
+    /// The scaffold is deleted again afterwards. It is measurement apparatus, not output:
+    /// left in place it would keep resolving those names after the user fills in
+    /// --package-map and rebuilds, which is the same shadowing by a slower route.
+    /// </summary>
+    private static (string Output, int ExitCode) RunBuildPastUndecided(
+        string projectPath, string outputDirectory, out int scaffoldedTypeCount)
+    {
+        scaffoldedTypeCount = 0;
+        var scaffoldPath = Path.Combine(outputDirectory, ScaffoldFile);
+        // A scaffold left behind by an interrupted run would resolve names silently.
+        File.Delete(scaffoldPath);
+
+        var (output, exitCode) = RunBuild(projectPath);
+
+        var shapes = ReadUndecidedDependencyShapes(outputDirectory);
+        if (shapes.Count == 0)
+        {
+            return (output, exitCode);
+        }
+
+        var declared = new List<UndecidedType>();
+        var declaredNames = new HashSet<string>(StringComparer.Ordinal);
+
+        // Bounded: a round that declares nothing new stops the loop anyway, and the cap
+        // keeps a pathological project from rebuilding indefinitely.
+        for (var round = 0; round < 3; round++)
+        {
+            var diagnostics = Parse(output);
+            if (!StoppedAtParse(diagnostics))
+            {
+                break;
+            }
+
+            var missing = UnresolvedNames(diagnostics);
+            if (missing.Count == 0)
+            {
+                break;
+            }
+
+            // A missing NAMESPACE brings its whole namespace in - a namespace exists only
+            // by way of the types in it, and the compiler saying the namespace is absent
+            // is the evidence that none of them resolve.
+            var additions = shapes
+                .Where(type => !declaredNames.Contains(type.FullName))
+                .Where(type => missing.Contains(type.RootNamespace)
+                               || missing.Contains(type.Namespace)
+                               || missing.Contains(type.Name))
+                .ToList();
+
+            if (additions.Count == 0)
+            {
+                break;
+            }
+
+            declared.AddRange(additions);
+            foreach (var type in additions)
+            {
+                declaredNames.Add(type.FullName);
+            }
+
+            File.WriteAllText(scaffoldPath, RenderScaffold(declared));
+            (output, exitCode) = RunBuild(projectPath);
+        }
+
+        scaffoldedTypeCount = declared.Count;
+        File.Delete(scaffoldPath);
+        return (output, exitCode);
+    }
+
+    private static string RenderScaffold(List<UndecidedType> types)
+    {
+        var writer = new StringBuilder();
+        writer.AppendLine("// <auto-generated />");
+        writer.AppendLine("// ビルド検証のための一時ファイルです(検証後に削除されます)。");
+        writer.AppendLine("// 置き換え先が未決の同梱 DLL の型のうち、コンパイラが「見つからない」と");
+        writer.AppendLine("// 報告した名前だけを再宣言します。実装ではありません。");
+        writer.AppendLine();
+
+        foreach (var group in types
+            .GroupBy(type => type.Namespace, StringComparer.Ordinal)
+            .OrderBy(group => group.Key, StringComparer.Ordinal))
+        {
+            writer.AppendLine($"namespace {group.Key}");
+            writer.AppendLine("{");
+            foreach (var type in group
+                .DistinctBy(type => type.Name, StringComparer.Ordinal)
+                .OrderBy(type => type.Name, StringComparer.Ordinal))
+            {
+                var keyword = type.Shape switch
+                {
+                    "Interface" => "interface",
+                    "Enum" => "enum",
+                    "Struct" => "struct",
+                    "AbstractClass" => "abstract class",
+                    _ => "class",
+                };
+                writer.AppendLine($"    public {keyword} {type.Name}");
+                writer.AppendLine("    {");
+                writer.AppendLine("    }");
+            }
+            writer.AppendLine("}");
+            writer.AppendLine();
+        }
+
+        return writer.ToString();
+    }
+
     /// <summary>
     /// Files the converter excluded as ANOTHER FRAMEWORK'S code and then handed back.
     ///
@@ -437,7 +627,7 @@ public static partial class BuildVerifier
         }
 
         Console.WriteLine($"ビルド検証: {projectPath}");
-        var (output, exitCode) = RunBuild(projectPath);
+        var (output, exitCode) = RunBuildPastUndecided(projectPath, outputDirectory, out var scaffolded);
         var diagnostics = Parse(output);
 
         reportPath ??= Path.Combine(outputDirectory, "BUILD-REPORT.md");
@@ -475,6 +665,23 @@ public static partial class BuildVerifier
         diagnostics = diagnostics.Where(d => !InRestoredOutOfScopeFile(d, restored)).ToList();
 
         var report = BuildReport(projectPath, diagnostics, undecided!, outOfScope);
+        if (scaffolded > 0)
+        {
+            // In the report as well as on the console, because the number below came from a
+            // build the reader cannot reproduce with "dotnet build" here - the scaffold that
+            // produced it has been deleted again.
+            report =
+                $"""
+                > **この件数は、一時的な足場を置いて計測したものです。**
+                > 置き換え先が未決の同梱 DLL の型のうち、コンパイラが「見つからない」と報告した
+                > {scaffolded} 件を空の宣言で補ってからビルドしています。その名前は declaration パスで
+                > ビルドを止めてしまい、**残りのエラーを全部隠していました**(mojoPortal はこれで
+                > 「6 件」と報告し続けていました。実際は 2200 件超です)。
+                > 足場は計測後に削除済みで、出力には含まれていません。`--package-map` を埋めれば
+                > 本物のライブラリが入り、足場は不要になります。
+
+                """ + Environment.NewLine + report;
+        }
         if (stoppedAtParse)
         {
             // Blank line between: a block quote running straight into the "#" heading would
@@ -495,6 +702,15 @@ public static partial class BuildVerifier
             Console.WriteLine(
                 $"別に、スコープ外(MVC 等)のまま復元したファイル内のエラーが {outOfScope.Count} 件あります"
                 + "(除外の連鎖を避けるために残したファイルで、件数に含めていません)。");
+        }
+        if (scaffolded > 0)
+        {
+            // Said out loud because the count came from a build the user cannot reproduce
+            // by running dotnet build on this directory - the scaffold is gone again.
+            Console.WriteLine(
+                $"注記: 置き換え先が未決の同梱 DLL の型 {scaffolded} 件を一時的に宣言して計測しました"
+                + "(その名前が declaration パスでビルドを止め、残りのエラーを隠していたため)。"
+                + "一時ファイルは削除済みです。");
         }
         if (stoppedAtParse)
         {

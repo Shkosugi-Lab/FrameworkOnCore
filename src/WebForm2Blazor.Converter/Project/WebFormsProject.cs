@@ -395,6 +395,7 @@ public sealed class ConvertedComponent
 
     /// <summary>Placeholder components generated for unmapped controls (tag -> stub name).</summary>
     public Dictionary<string, string> StubComponents { get; init; } = new(StringComparer.OrdinalIgnoreCase);
+
 }
 
 public enum CodeBehindKind

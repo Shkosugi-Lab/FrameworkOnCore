@@ -769,7 +769,18 @@ public sealed partial class MarkupEmitter(EmitContext context)
                     string.IsNullOrEmpty(element.Prefix) ? element.Name : $"{element.Prefix}_{element.Name}");
                 context.StubComponents[element.QualifiedName] = stubName;
                 context.UsedControlNamespaces.Add(context.StubNamespace);
-                return EmitComponent(element, stubName, mapping: null, createsField: true);
+
+                // Said out loud, because dropping the children also drops whatever the
+                // children would have been reported for. The control above is already a
+                // residual; this names what went with it.
+                if (element.Children.Count > 0)
+                {
+                    context.Report.Info(context.SourceName,
+                        $"<{element.QualifiedName}> の子マークアップ(テンプレート等)は出力していません"
+                        + "(プレースホルダは何も描画しないため)。置き換え先を決めると復活します。");
+                }
+
+                return EmitComponent(WithoutChildren(element), stubName, mapping: null, createsField: true);
             }
 
             return $"@* TODO(W2B): unmapped control <{element.QualifiedName}> *@"
@@ -1999,8 +2010,7 @@ public sealed partial class MarkupEmitter(EmitContext context)
             return string.Empty;
         }
 
-        var rewritten = RewriteContainerReferences(code);
-        rewritten = EvalCallRegex().Replace(rewritten, $"Eval({ContainerName}, ");
+        var rewritten = RewriteBindingExpression(code);
         // Eval returns object; a typed parameter needs a conversion. Convert.ToX handles
         // the DB-ish values WebForms bound this way (boxed ints, "True", DBNull).
         return parameterType.Kind switch
@@ -2035,9 +2045,45 @@ public sealed partial class MarkupEmitter(EmitContext context)
             return string.Empty;
         }
 
+        var rewritten = RewriteBindingExpression(code);
+        return $"@(global::System.Convert.ToString({rewritten}))";
+    }
+
+    /// <summary>
+    /// The whole data-binding rewrite, in one place: container renaming, Eval's implicit
+    /// container, then Bind() degraded to Eval().
+    ///
+    /// One method because there are THREE emit sites - text position, a string attribute
+    /// and a typed attribute - and only the first one degraded Bind(). The other two
+    /// passed "Bind(...)" through verbatim into the generated .razor, where nothing
+    /// declares it: 13 of mojoPortal's "the name Bind does not exist in the current
+    /// context", in the converter's own output. An attribute is where Bind() is USUALLY
+    /// written, so the one path that had the rule was the one that needed it least.
+    ///
+    /// The ORDER is load-bearing and is why this is not three copies. Eval's rewrite has
+    /// to run BEFORE Bind's, because Bind's produces an "Eval(Container, " that the Eval
+    /// rewrite would then match again - "Eval(Container, Container, \"X\")", which is 13
+    /// CS1503 where 13 CS0103 used to be. Copying the two lines to the other two sites is
+    /// exactly how that was introduced.
+    /// </summary>
+    private string RewriteBindingExpression(string code)
+    {
         var rewritten = RewriteContainerReferences(code);
         rewritten = EvalCallRegex().Replace(rewritten, $"Eval({ContainerName}, ");
-        return $"@(global::System.Convert.ToString({rewritten}))";
+        return DegradeBindToEval(rewritten, code);
+    }
+
+    /// <inheritdoc cref="RewriteBindingExpression"/>
+    private string DegradeBindToEval(string rewritten, string original)
+    {
+        if (!BindCallRegex().IsMatch(rewritten))
+        {
+            return rewritten;
+        }
+
+        Residual(ResidualKind.DataBinding,
+            $"双方向バインド Bind() は片方向の Eval() として出力しました: {Truncate(original)}");
+        return BindCallRegex().Replace(rewritten, $"Eval({ContainerName}, ");
     }
 
     /// <summary>
@@ -2070,18 +2116,42 @@ public sealed partial class MarkupEmitter(EmitContext context)
             return $"@* TODO(W2B): <%# {code} %> *@";
         }
 
-        var rewritten = RewriteContainerReferences(code);
-        rewritten = EvalCallRegex().Replace(rewritten, $"Eval({ContainerName}, ");
-
-        if (BindCallRegex().IsMatch(rewritten))
-        {
-            Residual(ResidualKind.DataBinding,
-                $"双方向バインド Bind() は片方向の Eval() として出力しました: {Truncate(code)}");
-            rewritten = BindCallRegex().Replace(rewritten, $"Eval({ContainerName}, ");
-        }
-
+        var rewritten = RewriteBindingExpression(code);
         return $"@({rewritten})";
     }
+
+    /// <summary>
+    /// The element with its children dropped, for the generated-stub path.
+    ///
+    /// A stub renders nothing but an HTML comment - its own documentation says the child
+    /// markup "is intentionally not rendered" - so emitting that markup produced code
+    /// nobody runs, and that code did not compile. A data-bound template carries
+    /// Context="Container" and a body full of Container.DataItem, which needs a
+    /// RenderFragment&lt;T&gt; parameter the stub does not have: 9 of mojoPortal's "the
+    /// name Container does not exist in the current context", in the converter's own
+    /// generated .razor.
+    ///
+    /// Declaring the slots on the stub instead was tried and is worse. Blazor takes every
+    /// child element as ChildContent only while a component declares NO named
+    /// RenderFragment; the first one switches it to parameter matching, and then any child
+    /// that is not a parameter is RZ9996. The set cannot be written down in advance -
+    /// n2's Repeater stub is handed a WrapperTemplate (this converter's own split-wrapper,
+    /// synthesised after the children are read) and an EmptyTemplate (a name n2 invented,
+    /// which the parser does not even see as an element). That attempt took n2 from 11
+    /// build errors to 13.
+    ///
+    /// Nothing is hidden by dropping it: the control is already an UnmappedControl
+    /// residual naming the tag, and the stub's comment names it again in the page source.
+    /// </summary>
+    private static ElementNode WithoutChildren(ElementNode element)
+        => new()
+        {
+            Prefix = element.Prefix,
+            Name = element.Name,
+            Attributes = element.Attributes,
+            SelfClosing = true,
+            Line = element.Line,
+        };
 
     /// <summary>
     /// True for markup attributes that are expando (plain HTML) attributes in WebForms:

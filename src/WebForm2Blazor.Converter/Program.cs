@@ -1441,7 +1441,9 @@ if (stubComponents.Count > 0)
     Directory.CreateDirectory(stubDirectory);
     foreach (var stub in stubComponents)
     {
-        File.WriteAllText(Path.Combine(stubDirectory, stub.Name + ".razor"), GenerateStubComponent(appName, stub.Name, stub.Tag));
+        File.WriteAllText(
+            Path.Combine(stubDirectory, stub.Name + ".razor"),
+            GenerateStubComponent(appName, stub.Name, stub.Tag));
     }
     report.Info("(project)", $"未対応コントロール {stubComponents.Count} 種のプレースホルダを Components/Stubs に生成しました。");
 }

@@ -6,10 +6,10 @@
                "buildErrors":  0
            },
     "mojo":  {
-                 "convertible":  12,
+                 "convertible":  25,
                  "portedCs":  747,
-                 "residuals":  92,
-                 "buildErrors":  544
+                 "residuals":  105,
+                 "buildErrors":  521
              },
     "yaf":  {
                 "convertible":  5,
@@ -20,7 +20,7 @@
     "dnn":  {
                 "convertible":  10,
                 "portedCs":  2066,
-                "residuals":  160,
+                "residuals":  155,
                 "buildErrors":  14
             },
     "n2":  {

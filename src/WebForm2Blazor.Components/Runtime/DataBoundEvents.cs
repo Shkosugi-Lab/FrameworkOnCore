@@ -132,6 +132,17 @@ public sealed class GridViewRow
     internal IReadOnlyList<DataControlField> Fields { get; init; } = [];
 
     /// <summary>WebForms RowState equivalent (Normal / Alternate by position).</summary>
+    /// <summary>
+    /// WebForms GridViewRow.Visible equivalent.
+    ///
+    /// Carried and not acted on: the grid renders its rows from the data it was bound to,
+    /// so hiding one here would have to remove it from that list, and a row object handed
+    /// to a RowDataBound handler is a view of the row rather than the row itself. Ported
+    /// adapters set it while walking the grid; the control's residual records that the
+    /// walk does not reach the rendering.
+    /// </summary>
+    public bool Visible { get; set; } = true;
+
     public DataControlRowState RowState
         => RowIndex % 2 == 0 ? DataControlRowState.Normal : DataControlRowState.Alternate;
 

@@ -57,6 +57,25 @@
     public TreeNodeStyleCollection LevelStyles { get; } = [];
 
     [Parameter] public string PathSeparator { get; set; } = "/";
+
+    /// <summary>
+    /// WebForms TreeView.EnableClientScript / PopulateNodesFromClient. The same pair
+    /// LegacyTreeView carries - both describe the callback mechanism 4.8 used to expand a
+    /// node without a full postback, and Blazor re-renders over the circuit instead.
+    /// </summary>
+    [Parameter] public bool EnableClientScript { get; set; } = true;
+
+    /// <inheritdoc cref="EnableClientScript"/>
+    [Parameter] public bool PopulateNodesFromClient { get; set; } = true;
+
+    /// <summary>WebForms TreeView.TreeNodeDataBound, raised as each node is built.</summary>
+    [Parameter] public TreeNodeEventHandler OnTreeNodeDataBound { get; set; }
+
+    public event TreeNodeEventHandler TreeNodeDataBound
+    {
+        add => OnTreeNodeDataBound += value;
+        remove => OnTreeNodeDataBound -= value;
+    }
     [Parameter] public string ExpandImageToolTip { get; set; } = string.Empty;
     [Parameter] public string CollapseImageToolTip { get; set; } = string.Empty;
     [Parameter] public string ExpandImageUrl { get; set; } = string.Empty;

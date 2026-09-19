@@ -139,12 +139,12 @@ YAF はサイトルートに `Web.config` が無く、配布時に `recommended.
 ```
 コーパス  移植 .cs  総残差  変換可能  ビルドエラー
 be            261      64         2             0
-mojo          748     104        25           469
+mojo          748     104        25           435
 yaf          2729      54         5            16
 dnn          2066     155        10            14
 n2           1706     141        11            11
 wt             13      33         3             0
-合計                  551        56           520
+合計                  551        56           486
 ```
 
 **この表は `expected.json` の実値です。** 以前ここには合計 216 と書いてありましたが、
@@ -6645,5 +6645,34 @@ int firstWeek = CultureInfo.CurrentCulture.Calendar.GetWeekOfYear(...)
 | **mojo ビルドエラー** | **498** | **469** |
 | mojo 移植 .cs | 747 | **748** |
 | 6 コーパス合計 | 549 | 520 |
+
+他 5 コーパスは完全に一致。パリティ 30/30、bUnit 30/30、回帰ゲート 13/13。
+
+## 型が違っていたもの、宣言が無かったもの — mojo 469 -> 435
+
+残りの尾を型ごとに当たりました。**半分は「型が違う」で、足りないのではありませんでした。**
+
+| 直したもの | 件数 | 何が違っていたか |
+|---|---:|---|
+| `MailMessageEventArgs.Message` を `MailMessage` に | 4 | **`object` でした。** WebForms が入れるのは本物の `System.Net.Mail.MailMessage` で、`SendingMail` ハンドラはそれを編集します(mojoPortal は本文に `{SiteName}` を差し込む)。.NET にそのまま在る型なので、近似するものが何もありません。null ではなくインスタンスを渡します — 本文を編集するハンドラが、**「送られません」と伝わる前に落ちる**ため |
+| `Page.Form` を `HtmlForm` に | 3 | WebForms の `Page.Form` は `HtmlForm` **そのもの**です。基底で持っていたので `page.Form.Action = url` が全部落ちていました |
+| `Uri.ParseQueryString()` | 2 | System.Web.Extensions が**拡張メソッド**で生やしていたもの。.NET の `HttpUtility` はクラス側にしか持ちません |
+
+### 宣言が無かっただけのもの
+
+`Page.AppRelativeVirtualPath`、`TreeView.EnableClientScript` / `PopulateNodesFromClient` /
+`TreeNodeDataBound`(**コンポーネント側にだけ無かった** — `LegacyTreeView` には足してありました)、
+`MenuItem.DataItem`、`GridViewRow.Visible`、`ListControl.VerifyMultiSelect`、
+`ClientScript.RegisterOnSubmitStatement` / `IsClientScriptIncludeRegistered`、
+`PasswordRecovery` のテンプレートコンテナ 3 種。
+
+`GridViewRow.Visible` は**運ぶだけ**です。グリッドは束縛されたデータから行を描くので、
+ここで隠すにはその一覧から消すしかなく、`RowDataBound` に渡る行オブジェクトは
+**行そのものではなく行の見え方**です。
+
+| | 変更前 | 変更後 |
+|---|---:|---:|
+| **mojo ビルドエラー** | **469** | **435** |
+| 6 コーパス合計 | 520 | 486 |
 
 他 5 コーパスは完全に一致。パリティ 30/30、bUnit 30/30、回帰ゲート 13/13。

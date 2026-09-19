@@ -827,9 +827,20 @@ public sealed class SendMailErrorEventArgs(Exception exception) : EventArgs
 /// that. Cancel is honoured in the only sense available here: nothing composes or sends
 /// mail, so an application that cancels and one that does not see the same outcome.
 /// </summary>
-public sealed class MailMessageEventArgs(object message) : LoginCancelEventArgs
+public sealed class MailMessageEventArgs(System.Net.Mail.MailMessage message) : LoginCancelEventArgs
 {
-    public object Message { get; } = message;
+    /// <summary>
+    /// The real System.Net.Mail.MailMessage, not object.
+    ///
+    /// That is what WebForms puts here, and a SendingMail handler edits it - mojoPortal's
+    /// password-recovery page substitutes {SiteName} into e.Message.Body. Typed as object,
+    /// every one of those edits was "object has no definition for Body". The type exists
+    /// in .NET unchanged, so there is nothing to approximate.
+    ///
+    /// An instance is supplied rather than null: a handler that edits the body would
+    /// otherwise throw before it could be told the mail is not sent.
+    /// </summary>
+    public System.Net.Mail.MailMessage Message { get; } = message ?? new System.Net.Mail.MailMessage();
 }
 
 // ---------------------------------------------------------------------------------------

@@ -132,3 +132,19 @@ public static class GlobalizationExtensions
         }
     }
 }
+
+/// <summary>
+/// System.Web's Uri extensions. System.Web.HttpUtility put ParseQueryString on the class;
+/// the .NET one does too, but ported code calls it as an EXTENSION on the Uri
+/// (uri.ParseQueryString()), which System.Web.Extensions supplied and .NET does not.
+/// </summary>
+public static class WebFormsUriExtensions
+{
+    /// <summary>
+    /// WebForms uri.ParseQueryString() equivalent: the query string of this URI as a
+    /// name/value collection. Reads Uri.Query, as the original did - the fragment and the
+    /// path are not part of it.
+    /// </summary>
+    public static System.Collections.Specialized.NameValueCollection ParseQueryString(this Uri uri)
+        => HttpUtility.ParseQueryString(uri?.Query ?? string.Empty);
+}

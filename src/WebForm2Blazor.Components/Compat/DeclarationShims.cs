@@ -170,6 +170,17 @@ public class ListControl : LegacyWebControl
         }
         SelectedIndex = -1;
     }
+
+    /// <summary>
+    /// WebForms ListControl.VerifyMultiSelect equivalent.
+    ///
+    /// Protected and inert. The original threw when a single-select list was handed more
+    /// than one selection; a ported list control calls it from its own state-loading path,
+    /// which this layer does not run, so there is nothing to verify.
+    /// </summary>
+    protected virtual void VerifyMultiSelect()
+    {
+    }
 }
 
 /// <summary>
@@ -889,6 +900,15 @@ public class MenuItem
     public int Depth { get; set; }
 
     public string ValuePath => Value;
+
+    /// <summary>
+    /// WebForms MenuItem.DataItem / DataPath equivalents: the object this item was built
+    /// from. What a MenuItemDataBound handler casts back to its own node type.
+    /// </summary>
+    public object DataItem { get; set; }
+
+    /// <inheritdoc cref="DataItem"/>
+    public string DataPath { get; set; } = string.Empty;
 
     public MenuItem Parent { get; internal set; }
 

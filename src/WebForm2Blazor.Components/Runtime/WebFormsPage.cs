@@ -54,8 +54,25 @@ public abstract class Page : ComponentBase, IWebFormsHost, IWebFormsControl
     /// HeadContent, so mutations here are accepted and inert.</summary>
     public PageHeaderShim Header { get; } = new();
 
-    /// <summary>WebForms Page.Form equivalent (no server form exists here).</summary>
-    public LegacyWebControl Form { get; } = new Control();
+    /// <summary>
+    /// WebForms Page.Form equivalent (no server form exists here).
+    ///
+    /// HtmlForm, not the bare control it used to be: Page.Form IS an HtmlForm in WebForms,
+    /// and ported code reaches through it for the form's own properties
+    /// ("page.Form.Action = url" is how mojoPortal points a page's postback elsewhere).
+    /// Typed as the base, every one of those was "LegacyWebControl has no definition for
+    /// Action". Inert either way - there is no server form to carry the value to.
+    /// </summary>
+    public HtmlForm Form { get; } = new();
+
+    /// <summary>
+    /// WebForms Page.AppRelativeVirtualPath equivalent ("~/Admin/x.aspx").
+    ///
+    /// The route this component is serving, with "~" in front - the application is at the
+    /// site root here, so that is the whole of the conversion. Empty outside a request.
+    /// </summary>
+    public virtual string AppRelativeVirtualPath
+        => Request?.AppRelativeCurrentExecutionFilePath ?? string.Empty;
 
     /// <summary>WebForms Page.MasterPageFile equivalent (the layout is fixed at conversion time).</summary>
     public string MasterPageFile { get; set; }
@@ -381,6 +398,23 @@ public sealed class ClientScriptManagerShim
     }
 
     public bool IsStartupScriptRegistered(string key) => false;
+
+    /// <inheritdoc cref="IsStartupScriptRegistered"/>
+    public bool IsClientScriptIncludeRegistered(string key) => false;
+
+    /// <inheritdoc cref="IsStartupScriptRegistered"/>
+    public bool IsClientScriptIncludeRegistered(Type type, string key) => false;
+
+    /// <summary>
+    /// WebForms ClientScript.RegisterOnSubmitStatement equivalent.
+    ///
+    /// Accepted and inert, like the rest of this shim: the statement it registers ran on
+    /// the form's submit, and there is no form post here. A Blazor page runs its handler
+    /// over the circuit instead, which the control's residual records.
+    /// </summary>
+    public void RegisterOnSubmitStatement(Type type, string key, string script)
+    {
+    }
 
     /// <summary>
     /// WebForms ClientScriptManager.GetPostBackClientHyperlink / GetPostBackEventReference.

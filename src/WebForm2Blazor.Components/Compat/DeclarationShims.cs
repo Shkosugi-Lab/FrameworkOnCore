@@ -463,6 +463,32 @@ public class TreeNodeStyle : TableItemStyle
 }
 
 /// <summary>
+/// System.Web.UI.WebControls.TreeNodeTypes equivalent.
+///
+/// Flags, as the original is: TreeView.ShowCheckBoxes is one of these and NOT a bool -
+/// "which kinds of node get a checkbox" rather than "are there checkboxes". mojoPortal's
+/// tree adapters compare against All / Leaf / Parent to decide per node.
+/// </summary>
+[Flags]
+public enum TreeNodeTypes
+{
+    None = 0,
+    Root = 1,
+    Parent = 2,
+    Leaf = 4,
+    All = Root | Parent | Leaf,
+}
+
+/// <summary>System.Web.UI.WebControls.TreeNodeSelectAction equivalent.</summary>
+public enum TreeNodeSelectAction
+{
+    Select,
+    Expand,
+    SelectExpand,
+    None,
+}
+
+/// <summary>
 /// System.Web.UI.WebControls.TreeNodeStyleCollection equivalent (TreeView.LevelStyles).
 ///
 /// Indexed by depth. Empty rather than pre-filled: the adapters guard with
@@ -623,7 +649,9 @@ public class TreeNode
 
     public bool PopulateOnDemand { get; set; }
 
-    public string SelectAction { get; set; } = string.Empty;
+    /// <summary>WebForms TreeNode.SelectAction equivalent. The enum, not a string:
+    /// ported code compares it against TreeNodeSelectAction members.</summary>
+    public TreeNodeSelectAction SelectAction { get; set; } = TreeNodeSelectAction.Select;
 
     public int Depth { get; set; }
 
@@ -673,7 +701,9 @@ public class LegacyTreeView : LegacyWebControl
 
     public bool ShowExpandCollapse { get; set; } = true;
 
-    public bool ShowCheckBoxes { get; set; }
+    /// <summary>WebForms TreeView.ShowCheckBoxes equivalent: WHICH node kinds get a
+    /// checkbox, not whether any do. TreeNodeTypes, as the original types it.</summary>
+    public TreeNodeTypes ShowCheckBoxes { get; set; } = TreeNodeTypes.None;
 
     public string DataSourceID { get; set; } = string.Empty;
 

@@ -221,6 +221,20 @@ public abstract class HttpResponseBase
     /// </summary>
     public virtual bool SuppressContent { get; set; }
 
+    /// <summary>
+    /// WebForms Response.Buffer / BufferOutput equivalents.
+    ///
+    /// Carried as plain state and acted on by nothing: a Blazor circuit does not build a
+    /// response body that could be buffered or flushed early, so there is no pipeline for
+    /// the flag to reach. Ported code sets it at the top of a handler and never reads it
+    /// back, which is why carrying it is enough - and why inventing a behaviour for it
+    /// would be inventing one the original did not have here.
+    /// </summary>
+    public virtual bool Buffer { get; set; } = true;
+
+    /// <inheritdoc cref="Buffer"/>
+    public virtual bool BufferOutput { get; set; } = true;
+
     public virtual void AddHeader(string name, string value)
     {
     }

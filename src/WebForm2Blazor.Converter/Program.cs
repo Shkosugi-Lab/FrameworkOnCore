@@ -1099,14 +1099,28 @@ var webProjectGlobalUsings = Enumerable.Range(0, candidateNamespaces.Count)
             candidateNamespaces[index].candidate.Source).Usings
         .Where(directive => directive.GlobalKeyword.RawKind
                             == (int)Microsoft.CodeAnalysis.CSharp.SyntaxKind.GlobalKeyword)
-        .Where(directive => directive.Alias is null && directive.StaticKeyword.RawKind == 0)
-        .Select(directive => directive.Name?.ToString()))
-    .OfType<string>()
+        .Where(directive => directive.Alias is null)
+        // "global using static System.FormattableString;" carried MEMBERS, not a
+        // namespace, and dropping it left every call to Invariant($"...") as "the name
+        // Invariant does not exist in the current context" - 19 of them across mojoPortal's
+        // code-behinds, which is the whole point of a project-wide static import.
+        //
+        // The "static" is kept beside the name rather than glued in front of it, because
+        // the System.Web filter below reads the NAME. Prefixing first was tried and hid
+        // "global using static System.Web.Security.AntiXss.AntiXssEncoder;" from that
+        // filter, which put an import of a namespace that does not exist into 385 files -
+        // and, being a declaration-stage error, floored the whole count at 385.
+        .Select(directive => (
+            Name: directive.Name?.ToString(),
+            IsStatic: directive.StaticKeyword.RawKind
+                      == (int)Microsoft.CodeAnalysis.CSharp.SyntaxKind.StaticKeyword)))
+    .Where(entry => entry.Name is not null)
     // Not the ones the conversion removes. A "global using System.Web.UI;" is exactly what
     // the rewriter strips from every file it touches - writing it back into the generated
     // half re-imports a namespace that does not exist, which is 171 CS0234 in YAF.
-    .Where(name => name != "System.Web"
-                   && !name.StartsWith("System.Web.", StringComparison.Ordinal))
+    .Where(entry => entry.Name != "System.Web"
+                   && !entry.Name!.StartsWith("System.Web.", StringComparison.Ordinal))
+    .Select(entry => entry.IsStatic ? "static " + entry.Name : entry.Name!)
     .Distinct(StringComparer.Ordinal)
     .ToList();
 

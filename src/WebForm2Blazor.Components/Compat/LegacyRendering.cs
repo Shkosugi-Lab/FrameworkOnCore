@@ -498,6 +498,14 @@ public abstract class LegacyWebControl : IWebFormsControl, IDisposable
     /// <inheritdoc cref="Width"/>
     public virtual Unit Height { get; set; }
 
+    /// <summary>
+    /// WebForms IStateManager.IsTrackingViewState equivalent. Always false: there is no
+    /// view state to start tracking here, and ported code guards its TrackViewState calls
+    /// with it ("if (IsTrackingViewState) ((IStateManager)style).TrackViewState();"), so
+    /// false is the answer that skips work that would do nothing.
+    /// </summary>
+    protected bool IsTrackingViewState => false;
+
     protected virtual void TrackViewState()
     {
     }

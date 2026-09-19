@@ -28,10 +28,66 @@
 
     [Parameter] public bool ShowLines { get; set; }
     [Parameter] public bool ShowExpandCollapse { get; set; } = true;
-    [Parameter] public bool ShowCheckBoxes { get; set; }
+    /// <summary>WebForms TreeView.ShowCheckBoxes equivalent: WHICH node kinds get a
+    /// checkbox, not whether any do. TreeNodeTypes, as the original types it.</summary>
+    [Parameter] public TreeNodeTypes ShowCheckBoxes { get; set; } = TreeNodeTypes.None;
 
     /// <summary>WebForms declarative binding. A SiteMapDataSource supplies the tree.</summary>
     [Parameter] public string DataSourceID { get; set; } = string.Empty;
+
+    // --- Node styles and value-path navigation.
+    //
+    //     The same set LegacyTreeView carries, declared again rather than shared: the two
+    //     are the compat layer's two families (a Blazor component and a render-based
+    //     control) and are siblings, not a chain. mojoPortal's tree adapters take whichever
+    //     one the markup produced and read ImageUrl off these to pick each node's icon.
+    //
+    //     Not [Parameter]: the converter flattens <RootNodeStyle ImageUrl=.../> only for
+    //     the style slots in ControlMappings.StyleChildElements, and the tree's are not in
+    //     it - so markup that declares one is reported as an unmapped element rather than
+    //     silently absorbed here. ---
+    public TreeNodeStyle NodeStyle { get; } = new();
+    public TreeNodeStyle RootNodeStyle { get; } = new();
+    public TreeNodeStyle ParentNodeStyle { get; } = new();
+    public TreeNodeStyle LeafNodeStyle { get; } = new();
+    public TreeNodeStyle SelectedNodeStyle { get; } = new();
+    public TreeNodeStyle HoverNodeStyle { get; } = new();
+
+    /// <summary>WebForms TreeView.LevelStyles equivalent: per-depth styles, indexed by depth.</summary>
+    public TreeNodeStyleCollection LevelStyles { get; } = [];
+
+    [Parameter] public string PathSeparator { get; set; } = "/";
+    [Parameter] public string ExpandImageToolTip { get; set; } = string.Empty;
+    [Parameter] public string CollapseImageToolTip { get; set; } = string.Empty;
+    [Parameter] public string ExpandImageUrl { get; set; } = string.Empty;
+    [Parameter] public string CollapseImageUrl { get; set; } = string.Empty;
+    [Parameter] public string NoExpandImageUrl { get; set; } = string.Empty;
+
+    /// <summary>
+    /// WebForms TreeView.FindNode equivalent: the node at a value path, or null.
+    /// Walks the tree splitting on <see cref="PathSeparator"/>, matching on Value.
+    /// </summary>
+    public TreeNode FindNode(string valuePath)
+    {
+        if (string.IsNullOrEmpty(valuePath))
+        {
+            return null;
+        }
+
+        TreeNode found = null;
+        IList<TreeNode> level = Nodes;
+        foreach (var segment in valuePath.Split(PathSeparator))
+        {
+            found = level?.FirstOrDefault(node =>
+                string.Equals(node.Value, segment, StringComparison.Ordinal));
+            if (found is null)
+            {
+                return null;
+            }
+            level = found.ChildNodes;
+        }
+        return found;
+    }
 
     public object DataSource { get; set; }
 
@@ -114,7 +170,7 @@
                         <a href="javascript:void(0)" class="treeview-toggle"
                            @onclick="() => Toggle(current)">@(expanded ? "-" : "+")</a>
                     }
-                    @if (ShowCheckBoxes)
+                    @if (ShowCheckBoxes != TreeNodeTypes.None)
                     {
                         <input type="checkbox" checked="@current.Checked"
                                @onchange="e => current.Checked = e.Value is true" />

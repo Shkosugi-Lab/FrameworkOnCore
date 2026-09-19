@@ -36,6 +36,10 @@ public class ListItem : ComponentBase
     [Parameter] public string Value { get; set; }
     [Parameter] public bool Selected { get; set; }
 
+    /// <summary>WebForms ListItem.Enabled equivalent: a disabled option renders the
+    /// disabled attribute. True by default, as the original is.</summary>
+    [Parameter] public bool Enabled { get; set; } = true;
+
     [CascadingParameter] internal IListItemContainer Container { get; set; }
 
     /// <summary>When Value is unset, Text doubles as the value - same as WebForms.</summary>

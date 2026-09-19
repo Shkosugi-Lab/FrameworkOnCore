@@ -205,6 +205,30 @@
     /// Visible defaults to true, so a grid that never touches it renders exactly as before.
     /// </summary>
     private IEnumerable<DataControlField> VisibleColumns => _columns.Where(column => column.Visible);
+
+    /// <summary>
+    /// WebForms GridView.HeaderRow / FooterRow / TopPagerRow / BottomPagerRow equivalents.
+    ///
+    /// HeaderRow is the row this grid actually renders (null when ShowHeader is off, as in
+    /// the original). The other three answer null: this grid renders its footer and its
+    /// pager inline rather than as addressable row objects, so there is no row to hand
+    /// back - and a fabricated one would let a caller style something that is not there.
+    ///
+    /// mojoPortal's grid adapters walk these to reach the pager's inner table
+    /// ("BottomPagerRow.Cells[0].Controls[0]"). That walk now compiles and finds nothing,
+    /// which is the honest answer for a tree Blazor builds from markup - the same bargain
+    /// DataControlFieldCell.Controls already records.
+    /// </summary>
+    public GridViewRow HeaderRow => _headerRow;
+
+    /// <inheritdoc cref="HeaderRow"/>
+    public GridViewRow FooterRow => null;
+
+    /// <inheritdoc cref="HeaderRow"/>
+    public GridViewRow TopPagerRow => null;
+
+    /// <inheritdoc cref="HeaderRow"/>
+    public GridViewRow BottomPagerRow => null;
     [Parameter] public bool AutoGenerateColumns { get; set; } = true;
     [Parameter] public string EmptyDataText { get; set; }
 

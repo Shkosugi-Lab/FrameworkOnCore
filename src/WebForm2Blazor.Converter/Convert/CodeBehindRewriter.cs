@@ -1376,8 +1376,12 @@ public static class CodeBehindRewriter
         // Added at file level: these are fully qualified, so they mean the same wherever
         // the file's own usings happen to live
         var kept = new List<UsingDirectiveSyntax>(root.Usings);
+        // A static import is recorded under the "static X" spelling the caller asks for,
+        // so a file that already has one is not given a second copy of it.
         var seen = new HashSet<string>(
-            AllUsings(root).Select(directive => directive.Name?.ToString() ?? string.Empty),
+            AllUsings(root).Select(directive =>
+                (directive.StaticKeyword.IsKind(SyntaxKind.StaticKeyword) ? "static " : string.Empty)
+                + (directive.Name?.ToString() ?? string.Empty)),
             StringComparer.Ordinal);
 
         // A GlobalUsings.cs holds "global using" directives that serve the WHOLE project.

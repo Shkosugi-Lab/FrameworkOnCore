@@ -139,12 +139,12 @@ YAF はサイトルートに `Web.config` が無く、配布時に `recommended.
 ```
 コーパス  移植 .cs  総残差  変換可能  ビルドエラー
 be            261      64         2             0
-mojo          747      93        12          1333
+mojo          747      93        12          1159
 yaf          2729      54         5            16
 dnn          2066     160        10            14
 n2           1706     141        11            11
 wt             13      33         3             0
-合計                  545        43          1374
+合計                  545        43          1200
 ```
 
 **この表は `expected.json` の実値です。** 以前ここには合計 216 と書いてありましたが、
@@ -6152,3 +6152,64 @@ override protected void OnInit(EventArgs e)
 
 **パリティが 30/30 のままなのは、サンプルが全部 `AutoEventWireup="true"`(既定)だからです。**
 挙動が変わったのは false のページだけで、それを持つのは mojo だけです。
+
+## `global using static` を捨てていた、ほか — mojo 1333 -> 1159
+
+### 拾い忘れの形が特徴的だった
+
+`CS0103 'Invariant' という名前は存在しません` が 19 件。
+`Invariant($"theme_{id}")` — `System.FormattableString` の静的メンバーです。
+
+mojoPortal は `GlobalUsings.cs` に `global using static System.FormattableString;` と書いています。
+変換器は global using を収集していましたが、この行にフィルタがありました。
+
+```csharp
+.Where(directive => directive.Alias is null && directive.StaticKeyword.RawKind == 0)
+```
+
+**静的 using を明示的に捨てていました。** 理由は再構築側が
+`using {name};` という形しか組み立てられなかったからです。
+プロジェクト全体に静的メンバーを配るのが `global using static` の唯一の用途なので、
+捨てると使っている側が全部落ちます。
+
+### そして、直した直後に下限値を作った
+
+`"static " + name` を付けてから既存のフィルタに渡しました。フィルタはこれです。
+
+```csharp
+.Where(name => name != "System.Web" && !name.StartsWith("System.Web.", ...))
+```
+
+mojoPortal には `global using static System.Web.Security.AntiXss.AntiXssEncoder;` もあります。
+**接頭辞を付けたあとなので `System.Web.` で始まらなくなり**、フィルタをすり抜けました。
+存在しない名前空間の import が **385 ファイル**に入り、
+それは宣言段階のエラーなので**全体が 385 で床を打ちました。**
+
+| | |
+|---|---:|
+| 見かけの数字 | 1333 -> **385**(「改善」と表示された) |
+| 実際 | **下限値**。意味解析は走っていない |
+
+**`convert-all.ps1` が「構文エラーによりビルドエラー数が下限値です」と言ったので気づきました。**
+この警告が無ければ、948 件の「改善」としてベースラインに書き戻していたところです。
+名前と `static` を別々に持ち回り、**フィルタは名前だけを見る**ようにして直しました。
+
+### そのほか
+
+| 追加 | 件数 | 判断 |
+|---|---:|---|
+| `TreeNodeTypes` / `TreeNodeSelectAction` enum | 24 | **`TreeView.ShowCheckBoxes` は bool ではありません。** 「どの種類のノードにチェックボックスを出すか」であって「出すか出さないか」ではない。`TreeNode.SelectAction` も string から enum へ |
+| `TreeView.razor` にノードスタイル一式 | 39 | `LegacyTreeView` と**別に**宣言。互換層の 2 系統は兄弟であって連鎖ではないので共有できない |
+| `Table.Rows` / `TableRow.Cells` | 20 | **空のまま。** Blazor は行ツリーをマークアップから作るので渡すリストが無い。**足しても行は描かれません** — 歩いて何も見つけないのが正直な答え |
+| `GridView.HeaderRow` ほか 3 つ | 20 | `HeaderRow` は実在する行。Footer / Pager は **null** — このグリッドは行オブジェクトとしては描かないので、でっち上げると無いものにスタイルを当てられる |
+| `IWebFormsControl.UniqueID` | 6 | **両クラスにはあったのにインターフェースに無かった。** `Control` 書き換えの結果を持っているコードが届かない |
+| `IsTrackingViewState` / `ListItem.Enabled` / `Response.Buffer` | 20 | いずれも既定値が意味を持つ |
+
+### 測定
+
+| | 変更前 | 変更後 |
+|---|---:|---:|
+| **mojo ビルドエラー** | **1333** | **1159** |
+| 6 コーパス合計 | 1374 | 1200 |
+
+他 5 コーパスは完全に一致。パリティ 30/30、bUnit 30/30、回帰ゲート 13/13。

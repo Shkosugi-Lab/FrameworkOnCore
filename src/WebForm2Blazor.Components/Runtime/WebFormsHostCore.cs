@@ -18,6 +18,13 @@ public interface IWebFormsControl
     /// <summary>The rendered DOM id (naming containers already applied).</summary>
     string ClientID { get; }
 
+    /// <summary>
+    /// WebForms Control.UniqueID equivalent. Both families already declare it; it was
+    /// missing from the interface, so code holding a control as IWebFormsControl - which
+    /// is what the Control rewrite produces - could not reach it.
+    /// </summary>
+    string UniqueID => ClientID;
+
     bool Visible { get; set; }
 
     bool Enabled { get; set; }

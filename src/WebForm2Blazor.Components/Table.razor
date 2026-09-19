@@ -16,4 +16,18 @@
     [Parameter] public RenderFragment ChildContent { get; set; }
     [Parameter] public int CellPadding { get; set; } = -1;
     [Parameter] public int CellSpacing { get; set; } = -1;
+
+    /// <summary>
+    /// WebForms Table.Rows equivalent.
+    ///
+    /// Empty, and it stays empty: Blazor builds the row tree from the markup inside
+    /// ChildContent, so there is no per-table row list to hand back. Ported code that
+    /// walks a table ("innerTable.Rows.Count") compiles and finds nothing, which is what
+    /// it would find - the same bargain DataControlFieldCell.Controls records.
+    ///
+    /// Adding to it does NOT render a row. A table built entirely in code-behind is
+    /// reported as a residual against the control rather than silently made to look as
+    /// though it worked.
+    /// </summary>
+    public List<TableRow> Rows { get; } = [];
 }

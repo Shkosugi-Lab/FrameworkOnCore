@@ -201,6 +201,17 @@ public class HtmlTextWriter(TextWriter inner) : TextWriter
         inner.Write($" {name}=\"{(encode ? System.Net.WebUtility.HtmlEncode(value) : value)}\"");
     }
 
+    /// <summary>
+    /// WebForms HtmlTextWriter.WriteBreak: a line break element.
+    ///
+    /// "&lt;br /&gt;" - the XHTML form, which is what 4.8 writes, so the DOM matches.
+    /// </summary>
+    public void WriteBreak()
+    {
+        OutputTabs();
+        inner.Write("<br />");
+    }
+
     public void WriteEncodedText(string text)
     {
         OutputTabs();

@@ -93,6 +93,74 @@ public class CreateUserWizard : Wizard
 
     private bool _created;
 
+    // --- The rest of the WebForms CreateUserWizard declaration surface.
+    //     Same terms as ChangePassword: carried for the adapter that does the rendering,
+    //     and the DEFAULTS are the substance - each one below is what 4.8 declares. ---
+    public string HeaderText { get; set; } = "Sign Up for Your New Account";
+    public string InstructionText { get; set; } = string.Empty;
+    public string CompleteSuccessText { get; set; } = "Your account has been successfully created.";
+
+    public string UserNameLabelText { get; set; } = "User Name:";
+    public string PasswordLabelText { get; set; } = "Password:";
+    public string ConfirmPasswordLabelText { get; set; } = "Confirm Password:";
+    public string EmailLabelText { get; set; } = "E-mail:";
+    public string QuestionLabelText { get; set; } = "Security Question:";
+    public string AnswerLabelText { get; set; } = "Security Answer:";
+    public string PasswordHintText { get; set; } = string.Empty;
+
+    public string CreateUserButtonText { get; set; } = "Create User";
+    public string CancelButtonText { get; set; } = "Cancel";
+    public string ContinueButtonText { get; set; } = "Continue";
+    public bool DisplayCancelButton { get; set; }
+
+    public ButtonType CreateUserButtonType { get; set; } = ButtonType.Button;
+    public ButtonType CancelButtonType { get; set; } = ButtonType.Button;
+    public ButtonType ContinueButtonType { get; set; } = ButtonType.Button;
+
+    public string CreateUserButtonImageUrl { get; set; } = string.Empty;
+    public string CancelButtonImageUrl { get; set; } = string.Empty;
+    public string ContinueButtonImageUrl { get; set; } = string.Empty;
+
+    public string FinishDestinationPageUrl { get; set; } = string.Empty;
+    public string EditProfileText { get; set; } = string.Empty;
+    public string EditProfileUrl { get; set; } = string.Empty;
+    public string EditProfileIconUrl { get; set; } = string.Empty;
+    public string HelpPageText { get; set; } = string.Empty;
+    public string HelpPageUrl { get; set; } = string.Empty;
+    public string HelpPageIconUrl { get; set; } = string.Empty;
+
+    public string PasswordRegularExpression { get; set; } = string.Empty;
+    public string PasswordRegularExpressionErrorMessage { get; set; } = string.Empty;
+    public string EmailRegularExpression { get; set; } = string.Empty;
+    public string EmailRegularExpressionErrorMessage { get; set; } = string.Empty;
+
+    public string UserNameRequiredErrorMessage { get; set; } = "User Name is required.";
+    public string PasswordRequiredErrorMessage { get; set; } = "Password is required.";
+    public string ConfirmPasswordRequiredErrorMessage { get; set; } = "Confirm Password is required.";
+    public string ConfirmPasswordCompareErrorMessage { get; set; }
+        = "The Password and Confirmation Password must match.";
+    public string EmailRequiredErrorMessage { get; set; } = "E-mail is required.";
+    public string QuestionRequiredErrorMessage { get; set; } = "Security question is required.";
+    public string AnswerRequiredErrorMessage { get; set; } = "Security answer is required.";
+
+    public string DuplicateUserNameErrorMessage { get; set; }
+        = "Please enter a different user name.";
+    public string DuplicateEmailErrorMessage { get; set; }
+        = "Please enter a different e-mail address.";
+    public string InvalidPasswordErrorMessage { get; set; }
+        = "Password length minimum: {0}. Non-alphanumeric characters required: {1}.";
+    public string InvalidEmailErrorMessage { get; set; } = "Please enter a valid e-mail address.";
+    public string InvalidQuestionErrorMessage { get; set; } = "Please enter a different security question.";
+    public string InvalidAnswerErrorMessage { get; set; } = "Please enter a different security answer.";
+    public string UnknownErrorMessage { get; set; }
+        = "Your account was not created. Please try again.";
+
+    /// <summary>
+    /// WebForms CreateUserWizard.LayoutTemplate. Null, and the compat wizard renders its
+    /// own layout when it is - the branch an application that supplies none would take.
+    /// </summary>
+    public ITemplate LayoutTemplate { get; set; }
+
     // --- Style slots. The compat wizard renders none of them; mojoPortal's
     //     CreateUserWizardAdapter does its own rendering and reads the CssClass off each.
     //     Plain objects with the original's empty default - see ChangePassword for why

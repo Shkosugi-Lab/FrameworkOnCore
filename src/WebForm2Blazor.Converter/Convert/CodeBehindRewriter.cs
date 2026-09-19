@@ -867,11 +867,30 @@ public static class CodeBehindRewriter
     {
         private static readonly SyntaxAnnotation Rewritten = new();
 
+        /// <summary>
+        /// The universal control bases, and the namespace each is written under when it is
+        /// written qualified.
+        ///
+        /// WebControl is here for the same reason Control is: the compat WebControl is an
+        /// EMPTY class in the legacy family, so a method declared "void F(WebControl c)"
+        /// cannot be handed a Blazor component at all - 57 CS1503 in mojoPortal, where the
+        /// helpers that add an onclick to a button take exactly that parameter.
+        ///
+        /// Nothing below WebControl is here. ListControl, TreeView and Menu DECLARE
+        /// members (Items, Nodes) that the interface does not, so rewriting those would
+        /// trade an argument error for a missing-member error one line further in.
+        /// </summary>
+        private static readonly Dictionary<string, string> UniversalControlBases = new(StringComparer.Ordinal)
+        {
+            ["Control"] = "System.Web.UI",
+            ["WebControl"] = "System.Web.UI.WebControls",
+        };
+
         public override SyntaxNode? VisitQualifiedName(QualifiedNameSyntax node)
         {
             // System.Web.UI.Control -> IWebFormsControl (the qualifier proves the origin)
-            if (node.Right.Identifier.Text == "Control"
-                && node.Left.ToString() == "System.Web.UI"
+            if (UniversalControlBases.TryGetValue(node.Right.Identifier.Text, out var declaringNamespace)
+                && node.Left.ToString() == declaringNamespace
                 && IsReferencePosition(node))
             {
                 return Replacement(node);
@@ -881,7 +900,7 @@ public static class CodeBehindRewriter
 
         public override SyntaxNode? VisitIdentifierName(IdentifierNameSyntax node)
         {
-            if (node.Identifier.Text == "Control"
+            if (UniversalControlBases.ContainsKey(node.Identifier.Text)
                 && IsReferencePosition(node)
                 && (IsTypePosition(node) || !NamesAMemberInScope(node)))
             {
@@ -938,9 +957,20 @@ public static class CodeBehindRewriter
         /// </summary>
         private static bool NamesAMemberInScope(SyntaxNode node)
         {
+            var name = node switch
+            {
+                IdentifierNameSyntax identifier => identifier.Identifier.Text,
+                QualifiedNameSyntax qualified => qualified.Right.Identifier.Text,
+                _ => null,
+            };
+            if (name is null)
+            {
+                return false;
+            }
+
             foreach (var declaration in node.Ancestors().OfType<TypeDeclarationSyntax>())
             {
-                if (declaration.Members.Any(DeclaresControl))
+                if (declaration.Members.Any(member => DeclaresMemberNamed(member, name)))
                 {
                     return true;
                 }
@@ -955,7 +985,7 @@ public static class CodeBehindRewriter
                     _ => null,
                 };
 
-                if (baseName is not null && CompatDeclares(baseName, "Control") == true)
+                if (baseName is not null && CompatDeclares(baseName, name) == true)
                 {
                     return true;
                 }
@@ -963,13 +993,13 @@ public static class CodeBehindRewriter
             return false;
         }
 
-        private static bool DeclaresControl(MemberDeclarationSyntax member)
+        private static bool DeclaresMemberNamed(MemberDeclarationSyntax member, string name)
             => member switch
             {
-                PropertyDeclarationSyntax property => property.Identifier.Text == "Control",
+                PropertyDeclarationSyntax property => property.Identifier.Text == name,
                 FieldDeclarationSyntax field
-                    => field.Declaration.Variables.Any(v => v.Identifier.Text == "Control"),
-                MethodDeclarationSyntax method => method.Identifier.Text == "Control",
+                    => field.Declaration.Variables.Any(v => v.Identifier.Text == name),
+                MethodDeclarationSyntax method => method.Identifier.Text == name,
                 _ => false,
             };
 

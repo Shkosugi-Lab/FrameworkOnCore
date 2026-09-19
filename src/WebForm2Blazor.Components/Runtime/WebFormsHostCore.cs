@@ -107,6 +107,27 @@ public interface IWebFormsControl
     ISite Site => null;
 
     /// <summary>
+    /// WebForms Control.DataBind equivalent. Both families declare it; it was missing from
+    /// the interface, so code that holds a control as IWebFormsControl - which is what the
+    /// Control rewrite produces - could not call it.
+    /// </summary>
+    void DataBind()
+    {
+    }
+
+    /// <summary>
+    /// WebForms Control.EnableViewState / WebControl.ToolTip.
+    ///
+    /// EnableViewState is true and inert: a Blazor component's fields ARE its state, so
+    /// there is nothing to switch off. ToolTip defaults to null so a control that never
+    /// sets one renders no title attribute.
+    /// </summary>
+    bool EnableViewState { get => true; set { } }
+
+    /// <inheritdoc cref="EnableViewState"/>
+    string ToolTip { get => null; set { } }
+
+    /// <summary>
     /// WebForms Control.DesignMode. Always false: the converted application only ever
     /// runs, and a control that asks is usually skipping work it cannot do at design time.
     /// </summary>

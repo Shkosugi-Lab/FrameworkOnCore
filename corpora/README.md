@@ -139,12 +139,12 @@ YAF はサイトルートに `Web.config` が無く、配布時に `recommended.
 ```
 コーパス  移植 .cs  総残差  変換可能  ビルドエラー
 be            261      64         2             0
-mojo          747      92        12           922
+mojo          747      92        12           690
 yaf          2729      54         5            16
 dnn          2066     160        10            14
 n2           1706     141        11            11
 wt             13      33         3             0
-合計                  544        43           963
+合計                  544        43           731
 ```
 
 **この表は `expected.json` の実値です。** 以前ここには合計 216 と書いてありましたが、
@@ -6299,5 +6299,63 @@ override の不一致は**構造上ぜんぶ宣言段階**です — コンパ�
 |---|---:|---:|
 | **mojo ビルドエラー** | **1043** | **922** |
 | 6 コーパス合計 | 1084 | 963 |
+
+他 5 コーパスは完全に一致。パリティ 30/30、bUnit 30/30、回帰ゲート 13/13。
+
+## membership の宣言面と、`WebControl` も両系統を受け取れていなかった — mojo 922 -> 690
+
+### membership コントロールの宣言プロパティ 73 件
+
+`ChangePassword` 26 件、`CreateUserWizard` 47 件。全部テキスト・URL・ボタン種別です。
+
+互換コントロールは自前の既定フォームを描き、これらをほとんど読みません。
+**mojoPortal は描画ごと `ChangePasswordAdapter` / `CreateUserWizardAdapter` に
+差し替えていて、全部読みます。** 値を運ぶのがここの仕事の全部です。
+
+**そして既定値が中身です。** 4.8 が `"Change Password"` を入れている場所で
+アダプタが空文字を見つけると、**ラベルの無いボタン**が描かれます。
+全部 4.8 が宣言している既定値にしてあります。
+
+### `WebControl` を引数に取るメソッドが両系統を受け取れていなかった
+
+`CS1503` を変換元→先で集計すると、上位が全部これでした。
+
+```
+31  mojoPortal.Web.UI.mojoButton -> WebControl
+11  ImageButton                  -> WebControl
+ 8  Menu                         -> WebControl
+ 7  IWebFormsControl             -> WebControl
+```
+
+互換層の `WebControl` は `LegacyWebControl` を継承する**空のクラス**です。
+`void AddConfirmationDialog(WebControl button, ...)` は
+**Blazor コンポーネントを渡せません。** `Control` とまったく同じ問題が 1 段下にありました。
+
+`Control` の書き換え規則を `WebControl` にも広げました。
+基底リストは除外済みなので `class X : WebControl` は `LegacyWebControl` のままです。
+
+**その下の型は入れていません。** `ListControl` / `TreeView` / `Menu` は
+`Items` / `Nodes` という**インターフェースに無いメンバーを宣言**しているので、
+書き換えると引数のエラーを 1 行先の「メンバーが無い」に付け替えるだけになります。
+
+推測ではなく測りました。受け側の本体は `button.Attributes` しか使っておらず、
+それは `IWebFormsControl` にあります。**776 -> 690。**
+
+### そのほか
+
+| 追加 | 判断 |
+|---|---|
+| `IWebFormsControl.DataBind` / `EnableViewState` / `ToolTip` | 両クラスにはあったのに**インターフェースに無かった**。`Control` 書き換えの結果を持っているコードが届かない |
+| `Request.AppRelativeCurrentExecutionFilePath` / `PathInfo` / `BinaryRead` ほか | `PathInfo` は**空**。ルーティングは Blazor のもので、コンポーネントのルートは区切りをパラメータとして取るので、ページが解析する余りが残りません |
+| `Response.ApplyAppPathModifier` | **パスをそのまま返します。** cookieless セッション id を URL に差し込むためのもので、ここに cookieless はありません。**cookie 有りの 4.8 が返すのと同じ**です |
+| `Response.TransmitFile` / `Status` / `TrySkipIisCustomErrors`、`Cache.SetSlidingExpiration`、`Session.Timeout` | いずれも**受け取って何もしません**。回線が組み立てないレスポンスに書いても何も送られません |
+| `HtmlTextWriter.WriteBreak` | `<br />` — **4.8 が書く XHTML 形**なので DOM が一致します |
+
+### 測定
+
+| | 変更前 | 変更後 |
+|---|---:|---:|
+| **mojo ビルドエラー** | **922** | **690** |
+| 6 コーパス合計 | 963 | 731 |
 
 他 5 コーパスは完全に一致。パリティ 30/30、bUnit 30/30、回帰ゲート 13/13。

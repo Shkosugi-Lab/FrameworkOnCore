@@ -251,6 +251,45 @@ public abstract class HttpResponseBase
     /// <inheritdoc cref="Expires"/>
     public virtual string CacheControl { get; set; } = "private";
 
+    /// <summary>
+    /// WebForms Response.Status / TrySkipIisCustomErrors equivalents. Carried like
+    /// <see cref="Expires"/> - there is no response for either to reach.
+    /// </summary>
+    public virtual string Status { get; set; } = "200 OK";
+
+    /// <inheritdoc cref="Status"/>
+    public virtual bool TrySkipIisCustomErrors { get; set; }
+
+    /// <summary>
+    /// WebForms Response.ApplyAppPathModifier equivalent.
+    ///
+    /// Returns the path unchanged. This existed to insert a cookieless session id into a
+    /// URL, and there is no cookieless mode here - the compat session is keyed by a
+    /// cookie. Unchanged is exactly what 4.8 returns with cookies on.
+    /// </summary>
+    public virtual string ApplyAppPathModifier(string virtualPath) => virtualPath;
+
+    /// <summary>
+    /// WebForms Response.TransmitFile / AddFileDependency equivalents.
+    ///
+    /// Accepted and inert. Writing a file into a response that a circuit does not build
+    /// would send nothing; a component that serves a download does it through a real
+    /// endpoint, which the control's residual records.
+    /// </summary>
+    public virtual void TransmitFile(string filename)
+    {
+    }
+
+    /// <inheritdoc cref="TransmitFile"/>
+    public virtual void TransmitFile(string filename, long offset, long length)
+    {
+    }
+
+    /// <inheritdoc cref="TransmitFile"/>
+    public virtual void AddFileDependency(string filename)
+    {
+    }
+
     public virtual void AddHeader(string name, string value)
     {
     }
@@ -346,6 +385,19 @@ public sealed class HttpResponseShim(NavigationManager navigation) : HttpRespons
 /// </summary>
 public class HttpCachePolicyShim
 {
+    /// <summary>
+    /// WebForms Cache.SetSlidingExpiration / AppendCacheExtension. Inert, like every other
+    /// member here: these wrote Cache-Control on a response the circuit does not build.
+    /// </summary>
+    public void SetSlidingExpiration(bool slide)
+    {
+    }
+
+    /// <inheritdoc cref="SetSlidingExpiration"/>
+    public void AppendCacheExtension(string extension)
+    {
+    }
+
     public void SetCacheability(object cacheability)
     {
     }
@@ -523,6 +575,40 @@ public abstract class HttpRequestBase
 
     /// <summary>WebForms Request.Path / FilePath equivalent (no query string).</summary>
     public virtual string Path => CurrentUri.AbsolutePath;
+
+    /// <summary>
+    /// WebForms Request.AppRelativeCurrentExecutionFilePath equivalent ("~/Admin/x.aspx").
+    /// The application is at the site root here, so the path is the one above with "~"
+    /// in front of it.
+    /// </summary>
+    public virtual string AppRelativeCurrentExecutionFilePath => "~" + Path;
+
+    /// <summary>
+    /// WebForms Request.PathInfo equivalent: what followed the handler's own path.
+    ///
+    /// Empty. Routing is Blazor's, and a component route captures its segments as
+    /// parameters rather than leaving a trailing remainder for the page to parse.
+    /// </summary>
+    public virtual string PathInfo => string.Empty;
+
+    /// <summary>WebForms Request.RequestType / ContentLength / ContentEncoding equivalents.</summary>
+    public virtual string RequestType => HttpMethod;
+
+    /// <inheritdoc cref="RequestType"/>
+    public virtual int ContentLength => (int)(EffectiveAspNetContext?.Request.ContentLength ?? 0);
+
+    /// <inheritdoc cref="RequestType"/>
+    public virtual System.Text.Encoding ContentEncoding => System.Text.Encoding.UTF8;
+
+    /// <summary>
+    /// WebForms Request.BinaryRead equivalent.
+    ///
+    /// Empty, for the same reason Files is: a Blazor page receives an upload over the
+    /// circuit rather than as a request body, so there is no posted body to read. Ported
+    /// code that reads it gets an empty buffer rather than a stream position that moves
+    /// while nothing arrives.
+    /// </summary>
+    public virtual byte[] BinaryRead(int count) => [];
 
     public virtual string FilePath => CurrentUri.AbsolutePath;
 
@@ -757,6 +843,13 @@ public abstract class HttpSessionStateBase
     /// session and unique between sessions, which is what this is.
     /// </summary>
     public virtual string SessionID { get; } = Guid.NewGuid().ToString("N");
+
+    /// <summary>
+    /// WebForms Session.Timeout equivalent, in minutes. Carried and inert: the compat
+    /// session store is keyed by the session cookie and evicted with it, so there is no
+    /// sliding timeout for this to set. 20 is the ASP.NET default.
+    /// </summary>
+    public virtual int Timeout { get; set; } = 20;
 
     public virtual object this[string key]
     {

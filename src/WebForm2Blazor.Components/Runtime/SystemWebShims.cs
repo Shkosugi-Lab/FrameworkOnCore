@@ -99,6 +99,9 @@ public sealed class HttpCookie
     public System.Collections.Specialized.NameValueCollection Values { get; }
         = new(StringComparer.OrdinalIgnoreCase);
 
+    /// <summary>WebForms HttpCookie.HasKeys: whether this is a multi-value cookie.</summary>
+    public bool HasKeys => Values.Count > 0;
+
     public DateTime Expires { get; set; }
     public bool HttpOnly { get; set; }
     public bool Secure { get; set; }

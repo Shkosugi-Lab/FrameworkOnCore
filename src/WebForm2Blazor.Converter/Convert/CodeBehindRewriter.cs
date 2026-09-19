@@ -1817,9 +1817,22 @@ public static class CodeBehindRewriter
 
         // The same ID can appear more than once in markup (mutually exclusive branches,
         // tab panels); the field is declared once, as the designer did.
-        var emittedFields = component.Fields
-            .DistinctBy(field => field.Name)
+        var candidateFields = component.Fields.DistinctBy(field => field.Name).ToList();
+        var emittedFields = candidateFields
             .Where(field => !declaredMembers.Contains(field.Name))
+            .ToList();
+
+        // A legacy-hosted control whose NAME the source already declares still needs its
+        // host: "@ref=__divCenter_host" is the converter's own plumbing, not part of the
+        // WebForms surface, so the source cannot have declared it. Skipping the whole
+        // field because the source won the name left the @ref pointing at nothing -
+        // "the name __divCenter_host does not exist in the current context", in the
+        // generated .razor, which is the converter's own output.
+        //
+        // Only the host half is emitted here. The named field stays the source's, which is
+        // the point of the rule above: the hand-written declaration carries the real type.
+        var orphanedHosts = candidateFields
+            .Where(field => field.LegacyHost && declaredMembers.Contains(field.Name))
             .ToList();
 
         if (emittedFields.Count > 0)
@@ -1829,6 +1842,17 @@ public static class CodeBehindRewriter
             foreach (var field in emittedFields)
             {
                 generated.Append(EmitControlField(field, indent));
+            }
+            generated.Append("\r\n");
+        }
+
+        if (orphanedHosts.Count > 0)
+        {
+            generated.Append($"{indent}// @ref targets for controls the source declares itself.\r\n");
+            foreach (var field in orphanedHosts)
+            {
+                generated.Append(
+                    $"{indent}private global::WebForm2Blazor.Components.LegacyRenderHost __{field.Name}_host;\r\n");
             }
             generated.Append("\r\n");
         }

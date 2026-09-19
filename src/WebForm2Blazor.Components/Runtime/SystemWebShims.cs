@@ -929,6 +929,21 @@ public class SiteMapNode
     /// <summary>WebForms SiteMapNode.IsAccessibleToUser equivalent (no provider is configured, so nothing is trimmed).</summary>
     public bool IsAccessibleToUser(HttpContext context) => true;
     public Dictionary<string, string> Attributes { get; } = new(StringComparer.OrdinalIgnoreCase);
+
+    /// <summary>
+    /// WebForms SiteMapNode.Roles equivalent: the roles allowed to see this node.
+    ///
+    /// <see cref="System.Collections.IList"/> and null by default, both deliberately. The
+    /// original types it as the non-generic IList, and ported code passes it straight to
+    /// helpers declared that way (mojoPortal's WebUser.IsInRoles(IList)); a
+    /// List&lt;string&gt; would compile at the property and fail at every call.
+    ///
+    /// Null is the meaningful default, not an oversight - the original returns null for a
+    /// node with no role restriction, and the callers branch on exactly that
+    /// ("if (mapNode.Roles == null)" guards every use in mojoPortal). An empty list here
+    /// would turn "anyone may see this" into "nobody is in the allowed list".
+    /// </summary>
+    public System.Collections.IList Roles { get; set; }
 }
 
 /// <summary>System.Web.UI.WebControls.TextBoxMode equivalent.</summary>

@@ -55,19 +55,33 @@ public class SiteMapDataSource : ComponentBase, IWebFormsControl
 
     protected override void OnInitialized() => Host?.HostCore.RegisterControl(this);
 
+    private SiteMapProvider _provider;
+
     /// <summary>
     /// The provider this data source reads, or null when the app registered none.
+    ///
+    /// Public and settable, as the original is: ported code reaches through the data
+    /// source to the provider rather than going to SiteMap itself
+    /// ("siteMapDataSource.Provider.FindSiteMapNode(url)"), which mojoPortal does from 11
+    /// files. It was private here, so that idiom did not compile at all.
+    ///
+    /// An explicit assignment wins; otherwise the name in SiteMapProvider is resolved, and
+    /// failing that the default provider. That is the original's order of preference.
     ///
     /// Null is the normal case today: SiteMap.Provider is only non-null once the
     /// application's own provider has been instantiated, the same fail-closed rule the
     /// role provider follows. An empty menu is a visible gap; an invented one is
     /// navigation that does not exist.
     /// </summary>
-    private SiteMapProvider Provider
-        => string.IsNullOrEmpty(SiteMapProvider)
-            ? Components.SiteMap.Provider
-            : Components.SiteMap.Providers.GetValueOrDefault(SiteMapProvider)
-              ?? Components.SiteMap.Provider;
+    public SiteMapProvider Provider
+    {
+        get => _provider
+               ?? (string.IsNullOrEmpty(SiteMapProvider)
+                   ? Components.SiteMap.Provider
+                   : Components.SiteMap.Providers.GetValueOrDefault(SiteMapProvider)
+                     ?? Components.SiteMap.Provider);
+        set => _provider = value;
+    }
 
     /// <summary>WebForms SiteMapDataSource.GetStartNode equivalent.</summary>
     public SiteMapNode GetStartNode()

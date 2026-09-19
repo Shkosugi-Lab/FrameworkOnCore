@@ -66,25 +66,137 @@ public class HtmlTextWriter(TextWriter inner) : TextWriter
     // around a writer expect IDisposable. Deriving here reproduces both.
     public override Encoding Encoding => inner?.Encoding ?? Encoding.UTF8;
 
-    public override void Write(string value) => inner.Write(value);
-    public override void Write(char value) => inner.Write(value);
-    public override void Write(object value) => inner.Write(value);
-    public override void Write(string format, params object[] args) => inner.Write(format, args);
-    public override void WriteLine() => inner.WriteLine();
-    public override void WriteLine(string value) => inner.WriteLine(value);
-    public override void WriteLine(string format, params object[] args) => inner.WriteLine(format, args);
-    public override void WriteLine(char value) => inner.WriteLine(value);
-    public override void WriteLine(object value) => inner.WriteLine(value);
+    private int _indent;
+    private bool _tabsPending;
 
-    public void WriteBeginTag(string tagName) => inner.Write('<' + tagName);
-    public void WriteFullBeginTag(string tagName) => inner.Write('<' + tagName + '>');
-    public void WriteEndTag(string tagName) => inner.Write("</" + tagName + '>');
+    /// <summary>
+    /// System.Web.UI.HtmlTextWriter.Indent equivalent: how many tabs open each new line.
+    ///
+    /// This is real output, not a formatting preference - the original app's HTML contains
+    /// those tabs, so a writer that accepted the property and ignored it would render
+    /// something the parity gate is entitled to call a difference. mojoPortal's seven menu
+    /// adapters drive it directly (writer.Indent++ / writer.Indent--, 154 sites).
+    ///
+    /// Negative values are clamped, as the original does: the adapters decrement on paths
+    /// they did not always increment, and the original never wrote a negative number of
+    /// tabs.
+    /// </summary>
+    public int Indent
+    {
+        get => _indent;
+        set => _indent = value < 0 ? 0 : value;
+    }
+
+    /// <summary>
+    /// Writes the pending tabs, if a WriteLine left any owing.
+    ///
+    /// The flag is cleared BEFORE writing, not after: the tabs go out through the same
+    /// writer, and leaving it set would make a re-entrant write emit them a second time.
+    /// That is also the order the original uses.
+    /// </summary>
+    private void OutputTabs()
+    {
+        if (!_tabsPending)
+        {
+            return;
+        }
+        _tabsPending = false;
+        for (var i = 0; i < _indent; i++)
+        {
+            inner.Write('\t');
+        }
+    }
+
+    public override void Write(string value)
+    {
+        OutputTabs();
+        inner.Write(value);
+    }
+
+    public override void Write(char value)
+    {
+        OutputTabs();
+        inner.Write(value);
+    }
+
+    public override void Write(object value)
+    {
+        OutputTabs();
+        inner.Write(value);
+    }
+
+    public override void Write(string format, params object[] args)
+    {
+        OutputTabs();
+        inner.Write(format, args);
+    }
+
+    // No OutputTabs: the original does not indent a line it is only ending, so a blank
+    // line stays blank rather than becoming a line of tabs.
+    public override void WriteLine()
+    {
+        inner.WriteLine();
+        _tabsPending = true;
+    }
+
+    public override void WriteLine(string value)
+    {
+        OutputTabs();
+        inner.WriteLine(value);
+        _tabsPending = true;
+    }
+
+    public override void WriteLine(string format, params object[] args)
+    {
+        OutputTabs();
+        inner.WriteLine(format, args);
+        _tabsPending = true;
+    }
+
+    public override void WriteLine(char value)
+    {
+        OutputTabs();
+        inner.WriteLine(value);
+        _tabsPending = true;
+    }
+
+    public override void WriteLine(object value)
+    {
+        OutputTabs();
+        inner.WriteLine(value);
+        _tabsPending = true;
+    }
+
+    public void WriteBeginTag(string tagName)
+    {
+        OutputTabs();
+        inner.Write('<' + tagName);
+    }
+
+    public void WriteFullBeginTag(string tagName)
+    {
+        OutputTabs();
+        inner.Write('<' + tagName + '>');
+    }
+
+    public void WriteEndTag(string tagName)
+    {
+        OutputTabs();
+        inner.Write("</" + tagName + '>');
+    }
 
     // virtual: ported writers (URL-rewriting form writers etc.) override it
     public virtual void WriteAttribute(string name, string value, bool encode = false)
-        => inner.Write($" {name}=\"{(encode ? System.Net.WebUtility.HtmlEncode(value) : value)}\"");
+    {
+        OutputTabs();
+        inner.Write($" {name}=\"{(encode ? System.Net.WebUtility.HtmlEncode(value) : value)}\"");
+    }
 
-    public void WriteEncodedText(string text) => inner.Write(System.Net.WebUtility.HtmlEncode(text));
+    public void WriteEncodedText(string text)
+    {
+        OutputTabs();
+        inner.Write(System.Net.WebUtility.HtmlEncode(text));
+    }
 
     public void AddAttribute(HtmlTextWriterAttribute key, string value)
         => AddAttribute(key.ToString().ToLowerInvariant(), value);
@@ -106,6 +218,7 @@ public class HtmlTextWriter(TextWriter inner) : TextWriter
     /// </summary>
     public virtual void RenderBeginTag(string tagName)
     {
+        OutputTabs();
         inner.Write('<' + tagName);
         foreach (var attribute in _pendingAttributes)
         {
@@ -130,6 +243,7 @@ public class HtmlTextWriter(TextWriter inner) : TextWriter
     {
         if (_openTags.Count > 0)
         {
+            OutputTabs();
             inner.Write("</" + _openTags.Pop() + '>');
         }
     }

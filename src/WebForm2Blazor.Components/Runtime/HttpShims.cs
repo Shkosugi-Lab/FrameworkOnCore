@@ -643,6 +643,19 @@ public abstract class HttpRequestBase
 
     public virtual string UserHostAddress => EffectiveAspNetContext?.Connection.RemoteIpAddress?.ToString();
 
+    /// <summary>
+    /// WebForms Request.IsAuthenticated equivalent.
+    ///
+    /// Read off the CONTEXT's user rather than the connection's, because that is how the
+    /// original defines it (Context.User.Identity.IsAuthenticated) and because
+    /// HttpContext.User is settable - a module that assigned a principal during
+    /// AuthenticateRequest has to be visible here, or the request would disagree with the
+    /// context about who is signed in. mojoPortal has such a module and reads this property
+    /// from 109 files.
+    /// </summary>
+    public virtual bool IsAuthenticated
+        => (HttpContext.Current?.User ?? EffectiveAspNetContext?.User)?.Identity?.IsAuthenticated == true;
+
     private Microsoft.AspNetCore.Http.HttpContext EffectiveAspNetContext
         => _aspNetContext ?? AmbientAspNetContext;
 

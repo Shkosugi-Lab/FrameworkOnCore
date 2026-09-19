@@ -219,6 +219,22 @@ public sealed class DataControlFieldCell
     /// go through FindControl on the row instead.
     /// </summary>
     public ControlCollection Controls { get; } = [];
+
+    /// <summary>
+    /// WebForms TableCell.FindControl equivalent, answered by the ROW.
+    ///
+    /// The original searches this cell's own subtree. There is no such subtree here - see
+    /// <see cref="Controls"/> - so the search widens to the row, which is the naming
+    /// container the templated controls actually live in. The idiom this serves is
+    /// "row.Cells[1].FindControl(\"txtName\")", and WebForms requires ids to be unique
+    /// within a naming container, so widening finds the same control the original would.
+    ///
+    /// Where it differs: an id present in a DIFFERENT cell of the same row would be found
+    /// here and not by the original. Returning null instead was the alternative and it is
+    /// worse - it reads as "no such control" for the one lookup this type exists to serve,
+    /// and mojoPortal makes it from 21 files.
+    /// </summary>
+    public IWebFormsControl FindControl(string id) => Row?.FindControl(id);
 }
 
 /// <summary>WebForms GridViewRowEventArgs equivalent (RowDataBound).</summary>

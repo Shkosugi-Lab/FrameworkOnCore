@@ -630,6 +630,15 @@ public class MenuItem
 
     public bool Enabled { get; set; } = true;
 
+    /// <summary>
+    /// WebForms MenuItem.Selectable equivalent: whether clicking this item does anything.
+    ///
+    /// True by default, as the original is. mojoPortal's menu adapters read it to decide
+    /// between rendering an anchor and rendering plain text for a heading-only item, so
+    /// defaulting to false would silently turn every link into a label.
+    /// </summary>
+    public bool Selectable { get; set; } = true;
+
     public int Depth { get; set; }
 
     public string ValuePath => Value;
@@ -669,6 +678,57 @@ public class Menu : LegacyWebControl
     public int StaticDisplayLevels { get; set; } = 1;
 
     public int MaximumDynamicDisplayLevels { get; set; } = 3;
+
+    /// <summary>
+    /// WebForms Menu.StaticItemTemplate / DynamicItemTemplate equivalents.
+    ///
+    /// Null by default and that is the tested state: the menu adapters branch on
+    /// "template != null" and fall back to rendering the item's own Text when there is
+    /// none. An empty template object would take the other branch and render nothing.
+    /// </summary>
+    public ITemplate StaticItemTemplate { get; set; }
+
+    /// <inheritdoc cref="StaticItemTemplate"/>
+    public ITemplate DynamicItemTemplate { get; set; }
+
+    /// <summary>
+    /// WebForms Menu.PathSeparator equivalent: the character joining the values on a
+    /// MenuItem.ValuePath.
+    ///
+    /// A char, not a string - the original types it that way and ported code relies on it
+    /// ("valuePath.IndexOf(menu.PathSeparator)" binds to the char overload). The default
+    /// is '/', as in the original.
+    /// </summary>
+    public char PathSeparator { get; set; } = '/';
+
+    /// <summary>
+    /// WebForms Menu.FindItem equivalent: the item at a value path, or null.
+    ///
+    /// Walks the tree splitting on <see cref="PathSeparator"/>, which is what the original
+    /// does. Matching is ordinal on Value; an empty path is the whole menu and has no
+    /// single item, so it answers null rather than guessing at the first one.
+    /// </summary>
+    public MenuItem FindItem(string valuePath)
+    {
+        if (string.IsNullOrEmpty(valuePath))
+        {
+            return null;
+        }
+
+        MenuItem found = null;
+        IList<MenuItem> level = Items;
+        foreach (var segment in valuePath.Split(PathSeparator))
+        {
+            found = level?.FirstOrDefault(item =>
+                string.Equals(item.Value, segment, StringComparison.Ordinal));
+            if (found is null)
+            {
+                return null;
+            }
+            level = found.ChildItems;
+        }
+        return found;
+    }
 
     public event EventHandler<MenuEventArgs> MenuItemClick;
 

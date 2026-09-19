@@ -649,6 +649,21 @@ public class TreeNode
 
     public bool PopulateOnDemand { get; set; }
 
+    /// <summary>
+    /// WebForms TreeNode.DataItem / DataPath / DataBind equivalents.
+    ///
+    /// DataItem is what a TreeNodeDataBound handler reads to reach the object the node was
+    /// built from; mojoPortal's menus cast it back to their sitemap node. Null until
+    /// something sets it, which is what an unbound node carries.
+    /// </summary>
+    public object DataItem { get; set; }
+
+    /// <inheritdoc cref="DataItem"/>
+    public string DataPath { get; set; } = string.Empty;
+
+    /// <inheritdoc cref="DataItem"/>
+    public string DataBound { get; set; } = string.Empty;
+
     /// <summary>WebForms TreeNode.SelectAction equivalent. The enum, not a string:
     /// ported code compares it against TreeNodeSelectAction members.</summary>
     public TreeNodeSelectAction SelectAction { get; set; } = TreeNodeSelectAction.Select;
@@ -770,6 +785,23 @@ public class LegacyTreeView : LegacyWebControl
         }
         return found;
     }
+
+    /// <summary>
+    /// WebForms TreeView.EnableClientScript / PopulateNodesFromClient.
+    ///
+    /// Both describe the callback mechanism the 4.8 TreeView used to expand a node without
+    /// a full postback. Blazor re-renders over the circuit instead, so these are carried
+    /// and nothing reads them - the expansion still happens, by another route.
+    /// </summary>
+    public bool EnableClientScript { get; set; } = true;
+
+    /// <inheritdoc cref="EnableClientScript"/>
+    public bool PopulateNodesFromClient { get; set; } = true;
+
+    /// <summary>WebForms TreeView.TreeNodeDataBound, raised as each node is built.</summary>
+    public event TreeNodeEventHandler TreeNodeDataBound;
+
+    protected virtual void OnTreeNodeDataBound(TreeNodeEventArgs e) => TreeNodeDataBound?.Invoke(this, e);
 
     public event TreeNodeEventHandler SelectedNodeChanged;
 
@@ -900,6 +932,28 @@ public class UpdatePanel : LegacyWebControl
 
 /// <summary>System.Web.UI.WebControls.MenuEventHandler equivalent.</summary>
 public delegate void MenuEventHandler(object sender, MenuEventArgs e);
+
+/// <summary>
+/// System.Web.UI.WebControls.PagerSettings equivalent.
+///
+/// State only. The compat GridView renders the Numeric pager whose DOM the parity
+/// comparison is built on and does not switch on Mode; these are read back.
+/// </summary>
+public class PagerSettings
+{
+    public string Mode { get; set; } = "Numeric";
+    public int PageButtonCount { get; set; } = 10;
+    public string Position { get; set; } = "Bottom";
+    public bool Visible { get; set; } = true;
+    public string FirstPageText { get; set; } = string.Empty;
+    public string LastPageText { get; set; } = string.Empty;
+    public string NextPageText { get; set; } = string.Empty;
+    public string PreviousPageText { get; set; } = string.Empty;
+    public string FirstPageImageUrl { get; set; } = string.Empty;
+    public string LastPageImageUrl { get; set; } = string.Empty;
+    public string NextPageImageUrl { get; set; } = string.Empty;
+    public string PreviousPageImageUrl { get; set; } = string.Empty;
+}
 
 /// <summary>System.Web.UI.WebControls.Orientation equivalent.</summary>
 public enum Orientation

@@ -139,12 +139,12 @@ YAF はサイトルートに `Web.config` が無く、配布時に `recommended.
 ```
 コーパス  移植 .cs  総残差  変換可能  ビルドエラー
 be            261      64         2             0
-mojo          747      92        12           593
+mojo          747      92        12           548
 yaf          2729      54         5            16
 dnn          2066     160        10            14
 n2           1706     141        11            11
 wt             13      33         3             0
-合計                  544        43           634
+合計                  544        43           589
 ```
 
 **この表は `expected.json` の実値です。** 以前ここには合計 216 と書いてありましたが、
@@ -6428,3 +6428,46 @@ CS0029 型 'WebForm2Blazor.Components.MenuEventHandler' を 'System...' に変�
 | 6 コーパス合計 | 683 | 634 |
 
 他 5 コーパスは完全に一致。パリティ 30/30、bUnit 30/30、回帰ゲート 13/13。
+
+## 既定インターフェースメンバーで 3 度目をやった — mojo 593 -> 548
+
+前々節で `IWebFormsControl` に `DataBind` / `EnableViewState` / `ToolTip` を
+**既定実装として**足しました。**このログに既に 2 回書いてある間違い**です。
+
+> 既定実装はクラスからは呼べない — yaf 105 -> 97
+> 同じ間違いを 2 度した(`ApplyStyle`)
+
+3 度目でした。届いていなかったのは:
+
+| 型 | 理由 |
+|---|---|
+| `WebFormsUserControl` | 変換されたユーザーコントロールは**自分の型で**保持されます(`pageMenu.Parent`) |
+| `SiteMapDataSource` | `ComponentBase` を直接継承していて `WebFormsControlBase` を通りません |
+
+両方にクラスのメンバーとして足しました。`Parent` はホストしているページを返します
+— Blazor は親の連鎖を公開しないので、**入れ子のユーザーコントロールの中にある
+コントロールはページを答えます。** 利用可能な範囲で一番真に近い答えで、違いは残差に出ます。
+
+### そのほか
+
+| 追加 | 判断 |
+|---|---|
+| `TreeNode.DataItem` / `DataPath` | `TreeNodeDataBound` ハンドラがノードの元オブジェクトに戻るための口 |
+| `TreeView.EnableClientScript` / `PopulateNodesFromClient` | どちらも 4.8 が**全ポストバック無しでノードを開く**ための仕掛けの説明。Blazor は回線越しに描き直すので、**展開自体は別経路で起きます** |
+| `SiteMapNode.IsDescendantOf` | **参照で比較**します。元がそうで、同じ Url の 2 ノードは別のノードです |
+| `Table.GridLines` / `Menu.Orientation` | string ではなく列挙型 |
+| `GridView.PagerSettings` | 運ぶだけ。このグリッドは**パリティの土台になっている Numeric の DOM** を描いていて、`Mode` で切り替えません。変えるならゴールデンマスターのある描画変更です |
+| `Membership.PasswordStrengthRegularExpression` / `Providers` | **空と空。** ここで発明したパターンは、元が受け入れたパスワードを拒否します |
+
+| | 変更前 | 変更後 |
+|---|---:|---:|
+| **mojo ビルドエラー** | **593** | **548** |
+| 6 コーパス合計 | 634 | 589 |
+
+他 5 コーパスは完全に一致。パリティ 30/30、bUnit 30/30、回帰ゲート 13/13。
+
+### 残り 548 の性質
+
+**154 件(28%)がライブラリ移行**です — Lucene.Net 4.8 の API 再設計(`IndexHelper`
+ほか 69)、`com.drew.metadata.Metadata` の型ごと消滅(`AlbumControl` / `ImageInfo` 77)、
+Novell LDAP(8)。**互換層にメンバーを足しても 1 件も減りません。**

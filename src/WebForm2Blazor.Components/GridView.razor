@@ -229,6 +229,15 @@
 
     /// <inheritdoc cref="HeaderRow"/>
     public GridViewRow BottomPagerRow => null;
+
+    /// <summary>
+    /// WebForms GridView.PagerSettings equivalent.
+    ///
+    /// Carried; this grid renders the Numeric pager whose DOM the parity comparison is
+    /// built on, and does not switch on Mode. Changing that is a rendering change with a
+    /// golden master behind it, so the settings are read back rather than acted on.
+    /// </summary>
+    public PagerSettings PagerSettings { get; } = new();
     [Parameter] public bool AutoGenerateColumns { get; set; } = true;
     [Parameter] public string EmptyDataText { get; set; }
 

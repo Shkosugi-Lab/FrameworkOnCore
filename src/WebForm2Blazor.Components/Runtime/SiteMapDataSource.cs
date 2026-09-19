@@ -26,6 +26,11 @@ public class SiteMapDataSource : ComponentBase, IWebFormsControl
     public AttributeCollection Attributes { get; } = new(() => { });
     public ControlCollection Controls { get; } = [];
 
+    // On the class, not left to the interface's default: a default interface member is not
+    // callable through the class, and markup sets EnableViewState on this data source.
+    [Parameter] public bool EnableViewState { get; set; } = true;
+    [Parameter] public string ToolTip { get; set; }
+
     /// <summary>The hosting page, or null outside one.</summary>
     public Page Page => Host as Page;
 

@@ -30,4 +30,10 @@
     /// though it worked.
     /// </summary>
     public List<TableRow> Rows { get; } = [];
+
+    /// <summary>
+    /// WebForms Table.GridLines equivalent. The enum, not a string: ported code compares
+    /// it against GridLines members. None is the original's default.
+    /// </summary>
+    [Parameter] public GridLines GridLines { get; set; } = GridLines.None;
 }

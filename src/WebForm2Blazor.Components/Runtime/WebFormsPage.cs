@@ -603,6 +603,28 @@ public abstract class WebFormsUserControl : UserControl, IWebFormsHost, IWebForm
 
     protected void MarkPageLoaded() => HostCore.IsPostBack = true;
 
+    /// <summary>
+    /// WebForms Control.Parent / EnableViewState / ToolTip.
+    ///
+    /// Declared on the CLASS. <see cref="IWebFormsControl"/> carries defaults for all
+    /// three, and a default interface member is not callable through the class - the
+    /// lesson this file has now recorded three times. A converted user control is held by
+    /// its own type in the page that hosts it (mojoPortal's Layout reads
+    /// "pageMenu.Parent"), so the interface's copy was reachable from nowhere.
+    ///
+    /// Parent is the hosting page when there is one. Blazor owns the tree and does not
+    /// expose a parent chain, so a control nested inside another user control answers the
+    /// page rather than that control - which is the nearest true answer available, and the
+    /// residual for the control records the difference.
+    /// </summary>
+    public IWebFormsControl Parent => ParentHost as IWebFormsControl;
+
+    /// <inheritdoc cref="Parent"/>
+    public bool EnableViewState { get; set; } = true;
+
+    /// <inheritdoc cref="Parent"/>
+    public string ToolTip { get; set; }
+
     protected override void OnInitialized()
     {
         ParentHost?.HostCore.RegisterControl(this);

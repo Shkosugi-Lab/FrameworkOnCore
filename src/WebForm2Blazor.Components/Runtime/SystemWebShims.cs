@@ -931,6 +931,28 @@ public class SiteMapNode
 
     /// <summary>WebForms SiteMapNode.IsAccessibleToUser equivalent (no provider is configured, so nothing is trimmed).</summary>
     public bool IsAccessibleToUser(HttpContext context) => true;
+
+    /// <summary>
+    /// WebForms SiteMapNode.IsDescendantOf equivalent: walks ParentNode upward.
+    ///
+    /// Compared by reference, as the original does - two nodes with the same Url are still
+    /// two nodes, and a sitemap built twice would otherwise report itself as its own
+    /// ancestor.
+    /// </summary>
+    public bool IsDescendantOf(SiteMapNode node)
+    {
+        for (var current = ParentNode; current is not null; current = current.ParentNode)
+        {
+            if (ReferenceEquals(current, node))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /// <summary>WebForms SiteMapNode.HasChildNodes equivalent.</summary>
+    public bool HasChildNodes => ChildNodes.Count > 0;
     public Dictionary<string, string> Attributes { get; } = new(StringComparer.OrdinalIgnoreCase);
 
     /// <summary>

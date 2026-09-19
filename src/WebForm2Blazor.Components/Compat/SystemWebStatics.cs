@@ -470,6 +470,18 @@ public static class Membership
 
     public static bool EnablePasswordRetrieval => false;
 
+    /// <summary>
+    /// WebForms Membership.PasswordStrengthRegularExpression / Providers.
+    ///
+    /// Empty and empty. Membership is gone, so there is no configured provider to read
+    /// these off - and a pattern invented here would reject passwords the original
+    /// accepted. The application's own provider is what still enforces its rules.
+    /// </summary>
+    public static string PasswordStrengthRegularExpression => string.Empty;
+
+    /// <inheritdoc cref="PasswordStrengthRegularExpression"/>
+    public static Dictionary<string, object> Providers { get; } = new(StringComparer.OrdinalIgnoreCase);
+
     /// <summary>No provider is configured; ported code null-checks before using it.</summary>
     public static MembershipProvider Provider => null;
 

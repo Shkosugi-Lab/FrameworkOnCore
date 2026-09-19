@@ -216,7 +216,19 @@ public sealed class PreApplicationStartMethodAttribute(Type type, string methodN
 // ---------------------------------------------------------------------------------------
 
 /// <summary>System.Web.UI.WebControls.IButtonControl equivalent.</summary>
-public interface IButtonControl
+/// <remarks>
+/// Derives IWebFormsControl, which System.Web's does not, because that is what makes it
+/// useful HERE. This layer has two control families and they are siblings, so a method
+/// declared "void F(Button b)" cannot be handed a ported LinkButton at all - 18 CS1503 in
+/// mojoPortal, where the helper that assigns an access key takes exactly that parameter.
+/// IButtonControl is the name WebForms itself gives to "either kind of button", so the
+/// converter maps those parameters onto it; adding the control surface is what lets the
+/// body keep reading ID / AccessKey / CssClass off the argument.
+///
+/// It was declared here and implemented by NOTHING until now, which is why it could not
+/// be used for this.
+/// </remarks>
+public interface IButtonControl : IWebFormsControl
 {
     bool CausesValidation { get; set; }
 

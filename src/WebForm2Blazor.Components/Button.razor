@@ -1,4 +1,5 @@
 ﻿@namespace WebForm2Blazor.Components
+@implements IButtonControl
 @inherits WebFormsControlBase
 @inject IJSRuntime JSRuntime
 
@@ -58,6 +59,9 @@
 
     [Parameter] public string CommandName { get; set; }
     [Parameter] public string CommandArgument { get; set; }
+
+    /// <summary>WebForms PostBackUrl. Carried and inert - there is no postback to target.</summary>
+    [Parameter] public string PostBackUrl { get; set; }
 
     /// <summary>WebForms Command event equivalent. Fires after Click.</summary>
     [Parameter] public CommandEventHandler OnCommand { get; set; }

@@ -516,6 +516,12 @@ public abstract class LegacyWebControl : IWebFormsControl, IDisposable
     /// them is what matters: markup and code-behind set them on every themed control, and
     /// the residual for the theme records what was not carried.
     /// </summary>
+    /// <summary>
+    /// WebForms WebControl.AccessKey. On the interface as well, so code that takes a
+    /// control of either family can set it.
+    /// </summary>
+    public virtual string AccessKey { get; set; } = string.Empty;
+
     public virtual string SkinID { get; set; } = string.Empty;
 
     /// <inheritdoc cref="SkinID"/>
@@ -885,7 +891,7 @@ public abstract class LegacyLiteral : LegacyWebControl
 /// render-hosted legacy control has no event wiring on the Blazor side; the residual for
 /// the control records that separately.
 /// </summary>
-public abstract class LegacyButton : LegacyWebControl
+public abstract class LegacyButton : LegacyWebControl, IButtonControl
 {
     public string Text { get; set; }
 

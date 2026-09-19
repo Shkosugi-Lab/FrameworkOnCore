@@ -886,6 +886,29 @@ public static class CodeBehindRewriter
             ["WebControl"] = "System.Web.UI.WebControls",
         };
 
+        /// <summary>
+        /// The BUTTON bases, mapped onto IButtonControl rather than IWebFormsControl.
+        ///
+        /// Same problem one level down: a method declared "void F(Button b)" cannot be
+        /// handed a ported LinkButton, because the compat Button is a Blazor component and
+        /// a ported button derives from LegacyButton - siblings, not a chain. 18 CS1503 in
+        /// mojoPortal, where the helper that assigns an access key takes that parameter.
+        ///
+        /// IButtonControl rather than the universal interface because the bodies read Text
+        /// and CommandName off the argument. It is the name WebForms itself gives to
+        /// "either kind of button", and both families implement it here.
+        ///
+        /// Nothing below these is listed. ListControl, TreeView and Menu DECLARE members
+        /// (Items, Nodes) that no shared interface carries, so mapping them would trade an
+        /// argument error for a missing-member error one line further in.
+        /// </summary>
+        private static readonly Dictionary<string, string> ButtonBases = new(StringComparer.Ordinal)
+        {
+            ["Button"] = "System.Web.UI.WebControls",
+            ["LinkButton"] = "System.Web.UI.WebControls",
+            ["ImageButton"] = "System.Web.UI.WebControls",
+        };
+
         public override SyntaxNode? VisitQualifiedName(QualifiedNameSyntax node)
         {
             // System.Web.UI.Control -> IWebFormsControl (the qualifier proves the origin)
@@ -893,8 +916,16 @@ public static class CodeBehindRewriter
                 && node.Left.ToString() == declaringNamespace
                 && IsReferencePosition(node))
             {
-                return Replacement(node);
+                return Replacement(node, "IWebFormsControl");
             }
+
+            if (ButtonBases.TryGetValue(node.Right.Identifier.Text, out var buttonNamespace)
+                && node.Left.ToString() == buttonNamespace
+                && IsParameterPosition(node))
+            {
+                return Replacement(node, "IButtonControl");
+            }
+
             return base.VisitQualifiedName(node);
         }
 
@@ -904,10 +935,28 @@ public static class CodeBehindRewriter
                 && IsReferencePosition(node)
                 && (IsTypePosition(node) || !NamesAMemberInScope(node)))
             {
-                return Replacement(node);
+                return Replacement(node, "IWebFormsControl");
             }
+
+            // Only a PARAMETER. A local, a cast or a field typed Button is the code
+            // choosing that exact control, and widening those would stop it reading back
+            // the properties only the concrete type has.
+            if (ButtonBases.ContainsKey(node.Identifier.Text)
+                && IsReferencePosition(node)
+                && IsParameterPosition(node))
+            {
+                return Replacement(node, "IButtonControl");
+            }
+
             return base.VisitIdentifierName(node);
         }
+
+        /// <summary>
+        /// True when the node is the declared type of a method PARAMETER - the one place a
+        /// control type is naming "whatever the caller has" rather than a specific control.
+        /// </summary>
+        private static bool IsParameterPosition(SyntaxNode node)
+            => node.Parent is ParameterSyntax parameter && parameter.Type == node;
 
         /// <summary>
         /// True where C# is looking for a TYPE, so a member of the same name does not
@@ -1003,8 +1052,8 @@ public static class CodeBehindRewriter
                 _ => false,
             };
 
-        private static SyntaxNode Replacement(SyntaxNode node)
-            => SyntaxFactory.IdentifierName("IWebFormsControl")
+        private static SyntaxNode Replacement(SyntaxNode node, string interfaceName)
+            => SyntaxFactory.IdentifierName(interfaceName)
                 .WithTriviaFrom(node)
                 .WithAdditionalAnnotations(Rewritten);
 

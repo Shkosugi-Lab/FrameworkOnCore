@@ -1,4 +1,5 @@
 @namespace WebForm2Blazor.Components
+@implements IButtonControl
 @inherits WebFormsControlBase
 @inject IJSRuntime JSRuntime
 
@@ -43,6 +44,16 @@
     [Parameter] public string OnClientClick { get; set; }
     [Parameter] public string CommandName { get; set; }
     [Parameter] public string CommandArgument { get; set; }
+
+    /// <summary>WebForms PostBackUrl. Carried and inert - there is no postback to target.</summary>
+    [Parameter] public string PostBackUrl { get; set; }
+
+    /// <summary>
+    /// IButtonControl.Text. An ImageButton has no text of its own in WebForms either -
+    /// AlternateText is what it renders - so this maps onto that rather than inventing a
+    /// second caption the control would never draw.
+    /// </summary>
+    public string Text { get => AlternateText; set => AlternateText = value; }
     [Parameter] public CommandEventHandler OnCommand { get; set; }
 
     /// <summary>

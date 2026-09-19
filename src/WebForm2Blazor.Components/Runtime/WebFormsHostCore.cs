@@ -19,6 +19,18 @@ public interface IWebFormsControl
     string ClientID { get; }
 
     /// <summary>
+    /// WebForms WebControl.AccessKey.
+    ///
+    /// A DEFAULT, unlike the plain members above, and that does not repeat the
+    /// "a default is not callable through the class" mistake: both control bases declare
+    /// AccessKey as a real property, so a caller holding a concrete control still reaches
+    /// theirs. The default exists for the six types that implement this interface without
+    /// deriving from either base (Page, RepeaterItem, ObjectDataSource, ...), where a
+    /// plain member would be a compile error for a property none of them has a use for.
+    /// </summary>
+    string AccessKey { get => null; set { } }
+
+    /// <summary>
     /// WebForms Control.UniqueID equivalent. Both families already declare it; it was
     /// missing from the interface, so code holding a control as IWebFormsControl - which
     /// is what the Control rewrite produces - could not reach it.

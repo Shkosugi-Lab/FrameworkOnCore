@@ -870,6 +870,34 @@ public class MenuItemCollection : System.Collections.ObjectModel.Collection<Menu
 }
 
 /// <summary>System.Web.UI.WebControls.MenuEventArgs equivalent.</summary>
+/// <summary>
+/// System.Web.UI.UpdatePanel equivalent, for the FIELD the code-behind keeps.
+///
+/// The wrapper itself is gone from the markup - Blazor always renders diffs, so a
+/// partial-update region has nothing to be a region of. But code-behind still holds the
+/// panel and calls "upMeta.Update()" after changing something, and dropping the field with
+/// the element left 22 of those as "the name upMeta does not exist in the current context".
+///
+/// Update() does nothing, and that is the faithful answer rather than a shortcut: it asked
+/// for this region to be re-rendered, and the region is re-rendered anyway. UpdateMode and
+/// ChildrenAsTriggers are carried for the same reason - they tuned WHEN the partial
+/// refresh happened, and there is no longer a partial refresh to tune.
+/// </summary>
+public class UpdatePanel : LegacyWebControl
+{
+    public string UpdateMode { get; set; } = "Always";
+
+    public bool ChildrenAsTriggers { get; set; } = true;
+
+    public string RenderMode { get; set; } = "Block";
+
+    public ControlCollection ContentTemplateContainer => Controls;
+
+    public void Update()
+    {
+    }
+}
+
 /// <summary>System.Web.UI.WebControls.MenuEventHandler equivalent.</summary>
 public delegate void MenuEventHandler(object sender, MenuEventArgs e);
 

@@ -1697,6 +1697,14 @@ public static class CodeBehindRewriter
             return EmitLegacyHostField(field, indent);
         }
 
+        // A control whose markup element is deliberately gone (an UpdatePanel): there is
+        // no @ref to wait for, so the field holds an instance from the start. The usual
+        // pending/ref pair would leave it null forever, since nothing ever assigns it.
+        if (field.Instantiated)
+        {
+            return $"{indent}protected readonly {field.Type} {field.Name} = new();\r\n";
+        }
+
         if (!CanStandIn(field.Type))
         {
             return $"{indent}protected {field.Type} {field.Name};\r\n";

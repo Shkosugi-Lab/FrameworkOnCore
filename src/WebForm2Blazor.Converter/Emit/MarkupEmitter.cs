@@ -20,7 +20,14 @@ public delegate string? LegacyControlLookup(string prefix, string name, out stri
 /// LegacyRenderHost wrapper rather than the control itself, so the field has to reach
 /// through it - see CodeBehindRewriter.EmitControlField.
 /// </summary>
-public sealed record ControlField(string Type, string Name, bool LegacyHost = false);
+/// <param name="Instantiated">
+/// The field is given an instance instead of waiting for an @ref. Used where the markup
+/// element is deliberately gone but the code-behind still holds the control - an
+/// UpdatePanel, whose wrapper Blazor does not need and whose Update() calls still have to
+/// run rather than dereference null.
+/// </param>
+public sealed record ControlField(
+    string Type, string Name, bool LegacyHost = false, bool Instantiated = false);
 
 /// <summary>Prefix that makes a compat type name unambiguous against the page namespace.</summary>
 internal static class CompatNames
@@ -665,6 +672,22 @@ public sealed partial class MarkupEmitter(EmitContext context)
         {
             context.Report.Info(context.SourceName,
                 $"<{element.QualifiedName}> を展開しました(Blazor は常に差分描画のため部分更新の仕掛けは不要)。");
+
+            // The wrapper goes, the FIELD stays. Code-behind keeps the panel and calls
+            // Update() on it after changing something, and dropping both left every one of
+            // those calls as "the name does not exist in the current context" - 22 in
+            // mojoPortal. The field is a compat UpdatePanel whose Update() does nothing,
+            // which is what re-rendering the whole tree already does for it.
+            //
+            // No @ref: there is no element to bind one to. The field is assigned an
+            // instance so the calls run rather than dereferencing null.
+            if (element.Id is { Length: > 0 } panelId && _templateDepth == 0)
+            {
+                context.Fields.Add(new ControlField(
+                    "global::WebForm2Blazor.Components.UpdatePanel", panelId, Instantiated: true));
+                context.DeclaredControlIds.Add(panelId);
+            }
+
             var contentTemplate = element.Children.OfType<ElementNode>()
                 .FirstOrDefault(child => child.Name.Equals("ContentTemplate", StringComparison.OrdinalIgnoreCase));
             if (contentTemplate is not null)

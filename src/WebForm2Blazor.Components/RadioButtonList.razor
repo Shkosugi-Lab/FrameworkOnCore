@@ -95,6 +95,19 @@
         }
     }
 
+    /// <summary>
+    /// WebForms ListControl.ClearSelection equivalent: no radio selected. A radio list
+    /// holds its selection as a value, so clearing it is clearing that.
+    /// </summary>
+    public void ClearSelection()
+    {
+        foreach (var item in Items)
+        {
+            item.Selected = false;
+        }
+        SelectedValue = null;
+    }
+
     public ListItem SelectedItem => Items.FirstOrDefault(item => item.ResolvedValue == SelectedValue);
 
     private RenderFragment RenderItem(ListItem item, int index) => __builder =>

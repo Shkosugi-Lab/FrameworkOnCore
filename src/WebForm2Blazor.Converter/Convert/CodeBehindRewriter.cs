@@ -887,26 +887,29 @@ public static class CodeBehindRewriter
         };
 
         /// <summary>
-        /// The BUTTON bases, mapped onto IButtonControl rather than IWebFormsControl.
+        /// Control name -> the compat interface a PARAMETER of that type maps onto.
         ///
-        /// Same problem one level down: a method declared "void F(Button b)" cannot be
-        /// handed a ported LinkButton, because the compat Button is a Blazor component and
-        /// a ported button derives from LegacyButton - siblings, not a chain. 18 CS1503 in
-        /// mojoPortal, where the helper that assigns an access key takes that parameter.
+        /// The buttons, and only the buttons. A method declared "void F(Button b)" cannot
+        /// be handed a ported LinkButton - the compat Button is a Blazor component and a
+        /// ported button derives from LegacyButton, siblings rather than a chain - and
+        /// IButtonControl is the name WebForms itself gives to "either kind of button".
+        /// Its members are what the callers read: Text, CommandName and the control
+        /// surface underneath. 18 CS1503 in mojoPortal.
         ///
-        /// IButtonControl rather than the universal interface because the bodies read Text
-        /// and CommandName off the argument. It is the name WebForms itself gives to
-        /// "either kind of button", and both families implement it here.
+        /// THE LIST AND TREE FAMILIES ARE DELIBERATELY ABSENT, and this was measured, not
+        /// assumed. Adding IListControl / ITreeControl for them took mojoPortal from 390
+        /// to 427: the adapters read AutoPostBack, TextAlign, ExpandImageToolTip and the
+        /// node styles off the parameter, so a narrow interface trades an argument error
+        /// for a missing-member error one line further in - and a wide enough one stops
+        /// being an interface two families can share.
         ///
-        /// Nothing below these is listed. ListControl, TreeView and Menu DECLARE members
-        /// (Items, Nodes) that no shared interface carries, so mapping them would trade an
-        /// argument error for a missing-member error one line further in.
+        /// That is exactly what the note here said before the attempt. It was right.
         /// </summary>
-        private static readonly Dictionary<string, string> ButtonBases = new(StringComparer.Ordinal)
+        private static readonly Dictionary<string, string> ParameterInterfaces = new(StringComparer.Ordinal)
         {
-            ["Button"] = "System.Web.UI.WebControls",
-            ["LinkButton"] = "System.Web.UI.WebControls",
-            ["ImageButton"] = "System.Web.UI.WebControls",
+            ["Button"] = "IButtonControl",
+            ["LinkButton"] = "IButtonControl",
+            ["ImageButton"] = "IButtonControl",
         };
 
         public override SyntaxNode? VisitQualifiedName(QualifiedNameSyntax node)
@@ -919,11 +922,11 @@ public static class CodeBehindRewriter
                 return Replacement(node, "IWebFormsControl");
             }
 
-            if (ButtonBases.TryGetValue(node.Right.Identifier.Text, out var buttonNamespace)
-                && node.Left.ToString() == buttonNamespace
+            if (ParameterInterfaces.TryGetValue(node.Right.Identifier.Text, out var parameterInterface)
+                && node.Left.ToString() == "System.Web.UI.WebControls"
                 && IsParameterPosition(node))
             {
-                return Replacement(node, "IButtonControl");
+                return Replacement(node, parameterInterface);
             }
 
             return base.VisitQualifiedName(node);
@@ -941,11 +944,11 @@ public static class CodeBehindRewriter
             // Only a PARAMETER. A local, a cast or a field typed Button is the code
             // choosing that exact control, and widening those would stop it reading back
             // the properties only the concrete type has.
-            if (ButtonBases.ContainsKey(node.Identifier.Text)
+            if (ParameterInterfaces.TryGetValue(node.Identifier.Text, out var parameterInterface)
                 && IsReferencePosition(node)
                 && IsParameterPosition(node))
             {
-                return Replacement(node, "IButtonControl");
+                return Replacement(node, parameterInterface);
             }
 
             return base.VisitIdentifierName(node);

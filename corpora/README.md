@@ -6765,3 +6765,58 @@ false は**何もしない仕事を飛ばす枝**です。
 | 6 コーパス合計 | 459 | 441 |
 
 他 5 コーパスは完全に一致。パリティ 30/30、bUnit 30/30、回帰ゲート 13/13。
+
+## 撤回: リストとツリーにも共有インターフェースを作ってみた(390 -> 427)
+
+前の節で `IButtonControl` がうまくいったので、同じ形を `CS1503` の残りにも当てました。
+
+```
+7  ListBox         -> ListControl
+6  mojoTreeView    -> TreeView
+5  CheckBoxList    -> ListControl
+4  RadioButtonList -> ListControl
+```
+
+`IListControl` / `ITreeControl` を作り、両系統に実装させ、引数の型を写しました。
+**390 -> 427。**
+
+アダプタは引数から `AutoPostBack` / `TextAlign` / `ExpandImageToolTip` /
+ノードスタイルを読みます。**狭いインターフェースは「引数が合わない」を
+「メンバーが無い」に 1 行先送りするだけ**で、二系統が共有できる幅を超えたものは、
+もうインターフェースとして成立しません。
+
+### この理由は、試す前に自分で書いてあった
+
+`IButtonControl` を入れたときのコメントにこうあります。
+
+> Nothing below these is listed. ListControl, TreeView and Menu DECLARE members
+> (Items, Nodes) that no shared interface carries, so mapping them would trade an
+> argument error for a missing-member error one line further in.
+
+**書いた判断を自分で覆しました。** 測ったので戻せましたが、
+測らなければ 37 件の悪化をベースラインに書き戻していたところです。
+
+### ボタンとの違い
+
+| | ボタン | リスト / ツリー |
+|---|---|---|
+| 名前 | **WebForms 自身が `IButtonControl` を持つ** | WebForms は `ListControl` という**クラス**しか持たない |
+| 呼び先が読むもの | `Text` / `CommandName` / コントロール表面 | **そのコントロール固有の描画プロパティ** |
+| 結果 | 408 -> 390 | 390 -> **427** |
+
+WebForms がインターフェースを用意しているということは、
+**「どちらの実装でもよい」と設計者が考えた範囲がある**ということでした。
+用意していないところには、その範囲がありません。
+
+### 残したもの
+
+試行の途中で見つかった本物の欠落は残してあります。
+
+- `CheckBoxList.SelectedIndex` を**設定可能に**(元がそうです。get だけだと `list.SelectedIndex = 0` が通りません)
+- `CheckBoxList` / `RadioButtonList` の `ClearSelection()`
+
+| | |
+|---|---:|
+| **mojo ビルドエラー** | **390(変わらず)** |
+
+6 コーパスすべて一致。パリティ 30/30、bUnit 30/30、回帰ゲート 13/13。

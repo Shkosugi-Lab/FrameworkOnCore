@@ -89,7 +89,34 @@
 
     public string SelectedValue => SelectedItem?.ResolvedValue ?? string.Empty;
 
-    public int SelectedIndex => Items.FindIndex(item => item.Selected);
+    /// <summary>
+    /// WebForms ListControl.SelectedIndex. Settable, as the original is: assigning it
+    /// selects that item and clears the rest, which is what a single assignment means on
+    /// a list. A get-only property left "list.SelectedIndex = 0" as a compile error in
+    /// ported code, which is the ordinary way a list is driven.
+    /// </summary>
+    public int SelectedIndex
+    {
+        get => Items.FindIndex(item => item.Selected);
+        set
+        {
+            ClearSelection();
+            if (value >= 0 && value < Items.Count)
+            {
+                Items[value].Selected = true;
+            }
+            StateHasChanged();
+        }
+    }
+
+    /// <summary>WebForms ListControl.ClearSelection equivalent.</summary>
+    public void ClearSelection()
+    {
+        foreach (var item in Items)
+        {
+            item.Selected = false;
+        }
+    }
 
     private RenderFragment RenderItem(ListItem item, int index) => __builder =>
     {

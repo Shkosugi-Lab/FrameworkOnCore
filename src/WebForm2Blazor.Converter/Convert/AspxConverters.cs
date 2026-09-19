@@ -1,4 +1,4 @@
-﻿using System.Text;
+using System.Text;
 using System.Text.RegularExpressions;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -221,6 +221,7 @@ public static partial class AspxConverters
             Kind = CodeBehindKind.Layout,
             CodeBehindSourcePath = codeBehindPath,
             MarkupSourcePath = path,
+            AutoEventWireup = ReadAutoEventWireup(parsed),
             UsedControlNamespaces = [.. context.UsedControlNamespaces],
             StubComponents = context.StubComponents,
         };
@@ -297,6 +298,7 @@ public static partial class AspxConverters
             Kind = CodeBehindKind.UserControl,
             CodeBehindSourcePath = codeBehindPath,
             MarkupSourcePath = path,
+            AutoEventWireup = ReadAutoEventWireup(parsed),
             UsedControlNamespaces = [.. context.UsedControlNamespaces],
             StubComponents = context.StubComponents,
         };
@@ -460,6 +462,7 @@ public static partial class AspxConverters
             Kind = CodeBehindKind.Page,
             CodeBehindSourcePath = codeBehindPath,
             MarkupSourcePath = path,
+            AutoEventWireup = ReadAutoEventWireup(parsed),
             Routes = BuildRoutes(project.RelativePath(path)),
             SmokeControls = context.SmokeControls,
             UsedControlNamespaces = [.. context.UsedControlNamespaces],
@@ -1380,6 +1383,17 @@ public static partial class AspxConverters
     }
 
     /// <summary>Builds @page routes from the physical path (Default also gets "/").</summary>
+    /// <summary>
+    /// The directive's AutoEventWireup, defaulting to true as WebForms does.
+    ///
+    /// Only "false" turns it off; the attribute is read case-insensitively because the
+    /// directive is, and an unparseable value is treated as the default rather than as
+    /// off - the default is what an author who wrote nothing would get.
+    /// </summary>
+    private static bool ReadAutoEventWireup(Parsing.ParsedAspx parsed)
+        => parsed.MainDirective?.Get("AutoEventWireup") is not { } value
+           || !value.Trim().Equals("false", StringComparison.OrdinalIgnoreCase);
+
     public static List<string> BuildRoutes(string relativePath)
     {
         var withoutExtension = relativePath[..^Path.GetExtension(relativePath).Length].Replace('\\', '/');

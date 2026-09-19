@@ -168,21 +168,33 @@ public abstract class Page : ComponentBase, IWebFormsHost, IWebFormsControl
     {
     }
 
-    protected virtual void OnInit(EventArgs e)
-    {
-    }
+    // WebForms Page.Init / Load / PreRender / Unload as EVENTS.
+    //
+    // A page with AutoEventWireup="false" hooks its own lifecycle by hand - "this.Load +=
+    // new EventHandler(Page_Load);" inside OnInit - because the runtime wires nothing for
+    // it. WebFormsUserControl already carried these; the page did not, so every one of
+    // those subscriptions was "the name Load does not exist in the current context"
+    // (mojoPortal writes AutoEventWireup="false" on essentially every page: 47 sites).
+    //
+    // Raised from the matching On* below, in WebForms' order: the override runs, then the
+    // subscribers. The converter's generated driver calls OnLoad when the class either
+    // overrides it or subscribes, and does NOT also call Page_Load directly unless
+    // AutoEventWireup left it wired - otherwise the handler would run twice.
+    public event EventHandler Init;
 
-    protected virtual void OnLoad(EventArgs e)
-    {
-    }
+    public event EventHandler Load;
 
-    protected virtual void OnPreRender(EventArgs e)
-    {
-    }
+    public event EventHandler PreRender;
 
-    protected virtual void OnUnload(EventArgs e)
-    {
-    }
+    public event EventHandler Unload;
+
+    protected virtual void OnInit(EventArgs e) => Init?.Invoke(this, e);
+
+    protected virtual void OnLoad(EventArgs e) => Load?.Invoke(this, e);
+
+    protected virtual void OnPreRender(EventArgs e) => PreRender?.Invoke(this, e);
+
+    protected virtual void OnUnload(EventArgs e) => Unload?.Invoke(this, e);
 
     /// <summary>WebForms Page.OnPreRenderComplete override point (inert; custom bases override it).</summary>
     protected virtual void OnPreRenderComplete(EventArgs e)

@@ -1766,9 +1766,19 @@ public static class CodeBehindRewriter
             .Select(method => method.Identifier.Text)
             .ToHashSet(StringComparer.Ordinal);
 
-        var hasInit = methodNames.Contains("Page_Init");
-        var hasLoad = methodNames.Contains("Page_Load");
-        var hasPreRender = methodNames.Contains("Page_PreRender");
+        // AutoEventWireup="false" means the runtime wires NOTHING: a method called
+        // Page_Load is then just a method, and only an explicit subscription runs it.
+        // Calling it from the driver as well as raising the event the page subscribed to
+        // would run the handler twice, which is a behaviour difference, not a compile one.
+        var autoWireup = component.AutoEventWireup;
+        var hasInit = autoWireup && methodNames.Contains("Page_Init");
+        var hasLoad = autoWireup && methodNames.Contains("Page_Load");
+        var hasPreRender = autoWireup && methodNames.Contains("Page_PreRender");
+
+        // A hand-written subscription needs the event RAISED, which the compat On* does.
+        var subscribesInit = SubscribesToOwnLifecycleEvent(classDeclaration, "Init");
+        var subscribesLoad = SubscribesToOwnLifecycleEvent(classDeclaration, "Load");
+        var subscribesPreRender = SubscribesToOwnLifecycleEvent(classDeclaration, "PreRender");
 
         // AutoEventWireup is one way to hook the lifecycle; overriding OnLoad / OnPreRender
         // is the other, and a control library usually takes the second. Both are driven.
@@ -1776,10 +1786,13 @@ public static class CodeBehindRewriter
         // Only an override counts. A class that merely INHERITS OnLoad must not have it
         // called here - the base's OnLoad is the compat layer's own, and calling it from
         // OnAfterRender would run the base lifecycle twice.
-        var overridesLoad = OverridesLifecycleMethod(classDeclaration, "OnLoad");
-        var overridesPreRender = OverridesLifecycleMethod(classDeclaration, "OnPreRender");
+        var overridesLoad = OverridesLifecycleMethod(classDeclaration, "OnLoad")
+                            || subscribesLoad;
+        var overridesPreRender = OverridesLifecycleMethod(classDeclaration, "OnPreRender")
+                                 || subscribesPreRender;
 
-        if (hasInit || hasLoad || hasPreRender || overridesLoad || overridesPreRender)
+        if (hasInit || hasLoad || hasPreRender || overridesLoad || overridesPreRender
+            || subscribesInit)
         {
             generated.Append($"{indent}// Equivalent of the WebForms page lifecycle (Init -> Load -> PreRender).\r\n");
             generated.Append($"{indent}// In Blazor, child-component @ref values are assigned only after the first\r\n");
@@ -1883,6 +1896,31 @@ public static class CodeBehindRewriter
     /// an inherited OnLoad belongs to the compat base, which drives itself, and a same-named
     /// helper that is not an override is not a lifecycle hook at all.
     /// </summary>
+    /// <summary>
+    /// Whether the class subscribes to one of its OWN lifecycle events
+    /// ("this.Load += new EventHandler(Page_Load);" in OnInit).
+    ///
+    /// That is the other half of AutoEventWireup="false": the runtime wires nothing, so
+    /// the page does it by hand, and the generated driver has to raise the event or the
+    /// handler never runs. mojoPortal writes it this way on essentially every page - 47
+    /// sites of "the name Load does not exist in the current context".
+    ///
+    /// The left side is matched as the bare name or "this.Name": a subscription to some
+    /// OTHER object's event ("grid.Load += ...") is that object's business, not this
+    /// class's lifecycle.
+    /// </summary>
+    private static bool SubscribesToOwnLifecycleEvent(ClassDeclarationSyntax classDeclaration, string name)
+        => classDeclaration.DescendantNodes()
+            .OfType<AssignmentExpressionSyntax>()
+            .Where(assignment => assignment.OperatorToken.RawKind == (int)SyntaxKind.PlusEqualsToken)
+            .Any(assignment => assignment.Left switch
+            {
+                IdentifierNameSyntax identifier => identifier.Identifier.Text == name,
+                MemberAccessExpressionSyntax access
+                    => access.Expression is ThisExpressionSyntax && access.Name.Identifier.Text == name,
+                _ => false,
+            });
+
     private static bool OverridesLifecycleMethod(ClassDeclarationSyntax classDeclaration, string name) =>
         classDeclaration.Members
             .OfType<MethodDeclarationSyntax>()

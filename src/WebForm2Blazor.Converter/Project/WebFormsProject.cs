@@ -352,6 +352,18 @@ public sealed class ConvertedComponent
     public string? MarkupSourcePath { get; init; }
 
     /// <summary>
+    /// The directive's AutoEventWireup, which decides whether Page_Load is wired to the
+    /// Load event AT ALL.
+    ///
+    /// Default true, as WebForms defaults it. When the directive says false the page hooks
+    /// its own lifecycle by hand ("this.Load += new EventHandler(Page_Load);" in OnInit)
+    /// and the runtime wires nothing - so calling Page_Load from the generated driver AND
+    /// raising the Load event the page subscribed to would run the handler twice.
+    /// mojoPortal writes AutoEventWireup="false" on essentially every page.
+    /// </summary>
+    public bool AutoEventWireup { get; init; } = true;
+
+    /// <summary>
     /// Bodies of &lt;script runat="server"&gt; blocks from the markup. Appended to the
     /// generated partial class - it is code-behind, only written inline.
     /// </summary>

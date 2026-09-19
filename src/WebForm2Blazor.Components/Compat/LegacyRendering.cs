@@ -841,6 +841,81 @@ public abstract class LegacyButton : LegacyWebControl
         => writer.Write(Text ?? string.Empty);
 }
 
+/// <summary>
+/// Substitute base for classes deriving TextBox.
+///
+/// The third time the same shape has turned up: LegacyListControl had to carry Items,
+/// LegacyButton had to carry Text, and a TextBox base has to carry Text too. Mapping all
+/// three to LegacyWebControl gave them the lifecycle and the render virtuals and nothing
+/// that says what the control IS - so mojoPortal's CodeEditor (a TextBox that renders a
+/// syntax-highlighting editor) and its jDatePicker lost the property they exist to set.
+/// </summary>
+public abstract class LegacyTextBox : LegacyWebControl
+{
+    /// <summary>
+    /// virtual, as TextBox.Text is. A ported editor overrides it to read and write its own
+    /// backing store - mojoPortal's CKEditorControl does exactly that - and a non-virtual
+    /// property here is CS0506, which fails the DECLARATION pass and takes the whole
+    /// measurement down with it.
+    /// </summary>
+    public virtual string Text { get; set; } = string.Empty;
+
+    public virtual TextBoxMode TextMode { get; set; } = TextBoxMode.SingleLine;
+
+    public int Columns { get; set; }
+
+    public int Rows { get; set; }
+
+    public int MaxLength { get; set; }
+
+    public bool ReadOnly { get; set; }
+
+    public bool AutoPostBack { get; set; }
+
+    public bool CausesValidation { get; set; }
+
+    public string ValidationGroup { get; set; } = string.Empty;
+
+    public bool Wrap { get; set; } = true;
+
+    /// <summary>
+    /// WebForms TextBox.TextChanged. Declared and never raised: a postback is what fired
+    /// it, and a render-hosted legacy control has no Blazor-side event wiring - the
+    /// control's own residual records that.
+    /// </summary>
+    public event EventHandler TextChanged;
+
+    protected virtual void OnTextChanged(EventArgs e) => TextChanged?.Invoke(this, e);
+
+    protected override string TagName => "input";
+
+    protected override void RenderContents(HtmlTextWriter writer)
+        => writer.Write(Text ?? string.Empty);
+}
+
+/// <summary>
+/// Substitute base for classes deriving FileUpload.
+///
+/// Same rule as <see cref="LegacyTextBox"/>: the base has to carry what the control is.
+/// PostedFile is null and HasFile false, because a Blazor page uploads over the circuit
+/// rather than as a multipart post - the same answer Request.Files gives, and for the
+/// same reason.
+/// </summary>
+public abstract class LegacyFileUpload : LegacyWebControl
+{
+    public HttpPostedFile PostedFile => null;
+
+    public bool HasFile => false;
+
+    public string FileName => string.Empty;
+
+    public byte[] FileBytes => [];
+
+    public Stream FileContent => Stream.Null;
+
+    protected override string TagName => "input";
+}
+
 /// <summary>Substitute base for classes deriving System.Web.UI.WebControls.HyperLink.</summary>
 public abstract class LegacyHyperLink : LegacyWebControl
 {

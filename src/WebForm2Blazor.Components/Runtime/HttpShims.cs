@@ -235,6 +235,22 @@ public abstract class HttpResponseBase
     /// <inheritdoc cref="Buffer"/>
     public virtual bool BufferOutput { get; set; } = true;
 
+    /// <summary>
+    /// WebForms Response.Expires / ExpiresAbsolute / CacheControl equivalents.
+    ///
+    /// Carried as state and acted on by nothing, like <see cref="Buffer"/>: these set
+    /// response headers on a response the circuit does not build. Ported code sets them at
+    /// the top of a handler to stop a page being cached, and the honest report of that is
+    /// the control's residual - not a header written onto nothing.
+    /// </summary>
+    public virtual int Expires { get; set; }
+
+    /// <inheritdoc cref="Expires"/>
+    public virtual DateTime ExpiresAbsolute { get; set; } = DateTime.MinValue;
+
+    /// <inheritdoc cref="Expires"/>
+    public virtual string CacheControl { get; set; } = "private";
+
     public virtual void AddHeader(string name, string value)
     {
     }
@@ -656,6 +672,16 @@ public abstract class HttpRequestBase
     public virtual string ApplicationPath => "/";
 
     public virtual string UserHostAddress => EffectiveAspNetContext?.Connection.RemoteIpAddress?.ToString();
+
+    /// <summary>
+    /// WebForms Request.UserHostName equivalent.
+    ///
+    /// The ADDRESS, not a reverse-DNS lookup. IIS answered this from the connection
+    /// without resolving either unless the server was configured to, so the address is
+    /// what the original returned in the ordinary case - and a lookup here would put a
+    /// blocking network call on the render path.
+    /// </summary>
+    public virtual string UserHostName => UserHostAddress;
 
     /// <summary>
     /// WebForms Request.IsAuthenticated equivalent.

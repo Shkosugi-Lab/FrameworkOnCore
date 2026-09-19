@@ -1337,6 +1337,16 @@ public abstract class HttpServerUtilityBase
 {
     private readonly NavigationManager _navigation;
 
+    /// <summary>
+    /// WebForms Server.ScriptTimeout equivalent.
+    ///
+    /// Carried and acted on by nothing: it bounded how long ASP.NET let a REQUEST run, and
+    /// a Blazor circuit is not a request. Ported code raises it before a long import and
+    /// never reads it back, so carrying it is enough - and enforcing an invented timeout
+    /// here would end work the original would have finished.
+    /// </summary>
+    public virtual int ScriptTimeout { get; set; } = 110;
+
     /// <summary>For ported code that derives its own server utility (test doubles).</summary>
     protected HttpServerUtilityBase()
     {

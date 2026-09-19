@@ -193,6 +193,15 @@ public static partial class BuildVerifier
         // CS0400 is the same failure written differently: "global::X not found in the
         // global namespace". It hid yaf's count at 1 while 337 errors waited behind it.
         "CS0400",
+        // The rest of the "this override does not fit its base" family. CS0507 and CS0115
+        // were here and their siblings were not, which is the shape of an incomplete list:
+        // adding a non-virtual Text to the TextBox base produced CS0506 on the one ported
+        // editor that overrides it, the build stopped at declarations, and mojoPortal
+        // reported "1159 -> 1" as an IMPROVEMENT with no floor warning at all.
+        //
+        // An override error is a declaration error by construction - the compiler is
+        // matching a signature against a base, which is the only thing the first pass does.
+        "CS0506", "CS0505", "CS0508", "CS0239", "CS0546", "CS0545", "CS0550",
     };
 
     /// <summary>

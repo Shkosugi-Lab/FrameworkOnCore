@@ -18,8 +18,16 @@ namespace WebForm2Blazor.Components;
 /// </summary>
 public class ControlAdapter
 {
-    /// <summary>WebForms ControlAdapter.Control - the control being adapted (never set here).</summary>
-    protected LegacyWebControl Control { get; set; }
+    /// <summary>
+    /// WebForms ControlAdapter.Control - the control being adapted (never set here).
+    ///
+    /// IWebFormsControl, not LegacyWebControl: an adapter's whole job is to downcast to
+    /// the control it adapts ("Control as TreeView"), and the compat layer's two families
+    /// are siblings - a LegacyWebControl-typed value cannot be cast to a Blazor component
+    /// at all, which the compiler rejects outright rather than at runtime. mojoPortal
+    /// ships eleven adapters and every one of them opens with that cast.
+    /// </summary>
+    protected IWebFormsControl Control { get; set; }
 
     /// <summary>WebForms ControlAdapter.Page equivalent.</summary>
     protected Page Page => null;

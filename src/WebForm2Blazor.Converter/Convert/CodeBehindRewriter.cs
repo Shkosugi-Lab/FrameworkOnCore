@@ -387,7 +387,7 @@ public static class CodeBehindRewriter
         // still compile - LegacyWebControl carries the lifecycle/render virtuals
         ["CheckBox"] = "LegacyWebControl",
         ["RadioButton"] = "LegacyWebControl",
-        ["TextBox"] = "LegacyWebControl",
+        ["TextBox"] = "LegacyTextBox",
         // A button's base has to carry Text / CommandName / CommandArgument. On
         // LegacyWebControl they are not there, and YAF's CollapseButton - a LinkButton that
         // sets its own Text in OnPreRender - lost the property it renders through. Same
@@ -420,7 +420,7 @@ public static class CodeBehindRewriter
         // MultiView and Calendar are declaration shims that ALREADY derive from
         // LegacyWebControl, and redirecting those would throw away the members the shim
         // carries - a regression, not a fix.
-        ["FileUpload"] = "LegacyWebControl",
+        ["FileUpload"] = "LegacyFileUpload",
         ["CheckBoxList"] = "LegacyWebControl",
         ["RadioButtonList"] = "LegacyWebControl",
         ["DetailsView"] = "LegacyWebControl",
@@ -883,12 +883,42 @@ public static class CodeBehindRewriter
         {
             if (node.Identifier.Text == "Control"
                 && IsReferencePosition(node)
-                && !NamesAMemberInScope(node))
+                && (IsTypePosition(node) || !NamesAMemberInScope(node)))
             {
                 return Replacement(node);
             }
             return base.VisitIdentifierName(node);
         }
+
+        /// <summary>
+        /// True where C# is looking for a TYPE, so a member of the same name does not
+        /// shadow it.
+        ///
+        /// C# resolves simple names in two separate contexts. "Control btn = ..." and
+        /// "(Control)x" are type contexts, where an inherited property called Control is
+        /// invisible; "Control as TreeView" and "Control.Visible" are expression contexts,
+        /// where it wins. Judging on the member alone was tried and it stopped rewriting
+        /// both - which left "Control btn = container.FindControl(id);" unable to compile,
+        /// since FindControl hands back the interface.
+        /// </summary>
+        private static bool IsTypePosition(SyntaxNode node)
+            => node.Parent switch
+            {
+                VariableDeclarationSyntax declaration => declaration.Type == node,
+                ParameterSyntax parameter => parameter.Type == node,
+                CastExpressionSyntax cast => cast.Type == node,
+                ForEachStatementSyntax forEach => forEach.Type == node,
+                MethodDeclarationSyntax method => method.ReturnType == node,
+                PropertyDeclarationSyntax property => property.Type == node,
+                DeclarationPatternSyntax pattern => pattern.Type == node,
+                // "x as Control" / "x is Control" - the RIGHT operand is the type.
+                BinaryExpressionSyntax binary
+                    => binary.Right == node
+                       && (binary.IsKind(SyntaxKind.AsExpression) || binary.IsKind(SyntaxKind.IsExpression)),
+                // Control[], Control?, List<Control>, IEnumerable<Control> ...
+                ArrayTypeSyntax or NullableTypeSyntax or TypeArgumentListSyntax => true,
+                _ => false,
+            };
 
         /// <summary>
         /// True when a MEMBER called "Control" is in scope here, so the bare name is not

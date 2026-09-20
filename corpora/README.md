@@ -8658,3 +8658,125 @@ Server.MapPath / Request.MapPath →  Directory.GetCurrentDirectory() 基準
 
 他 5 本のコーパスには正解データがありません。wt は Web.config が実在しない
 Azure SQL を指す匿名化済みサンプル、mojo / yaf / dnn はデータベースが要ります。
+
+---
+
+# マスターページの `<head>` が丸ごと落ちていた(ABOUT 対 About)
+
+前任の引き継ぎで「一番安い」とされた `ABOUT` 対 `About` から入りました。
+指示は「CSS は複写済みなので、実際に読み込まれているかを確認」。**読み込まれていませんでした。**
+ただし理由は `<link>` のパスが 404 していたからではなく、**`<link>` が 1 本も出力されていなかった**からです。
+
+## 測った順序
+
+1. `styles.min.css` は `wwwroot` に実在し、`text-transform: uppercase` を 17 箇所持っている
+2. 変換後の `.razor` / `.cs` を `bootstrap.min.css` で検索 → **0 件**
+3. 生成された `Site.razor` は `<!-- START HEADER -->` から始まっている
+
+つまり元の `site.master` の `<!DOCTYPE html>` から `<body>` までが消えていました。
+変換器は `<form runat="server">` の**子だけ**を本文として取り、その手前を捨てます。
+
+## 原因は 2 段重なっていました
+
+**1 段目 — フィルタがサーバーコントロールだけを残していた。**
+
+```csharp
+.Where(child => !string.IsNullOrEmpty(child.Prefix) && !IsContentPlaceHolder(child))
+```
+
+この行のコメントにはこう書いてありました ——
+「head が持つサーバーコントロールは、捨てると**コードビハインドが存在しないフィールドを参照してビルドが壊れる**ので救済した」。
+
+**救済されたのはコンパイラが文句を言ったものだけです。**
+素の `<link>` / `<meta>` / `<script>` は何もコンパイルせず何も参照しないので、
+**エラーが 1 件も出ず、誰にも気づかれずに落ち続けていました。**
+前セッションの総括にある「ビルドエラーは代理指標だった」が、コードのこの 1 行に残っていた形です。
+
+**2 段目 — パーサは素の HTML に `ElementNode` を作らない。**
+
+```csharp
+/// <summary>A server control, template element, or HTML element with runat="server".</summary>
+public sealed class ElementNode : AspxNode
+```
+
+素の HTML は `TextNode` として素通りします。
+つまり 1 段目のフィルタを外しても `.OfType<ElementNode>()` が残っている限り `<link>` は見えません。
+**`head` の子ノードを全部取る**ように変えて初めて出力されました。
+
+## URL はマスターページ基準だった
+
+元の `site.master` の記述は相対パスです。
+
+```html
+<link href="src/css/bootstrap.min.css" rel="stylesheet" />
+```
+
+ASP.NET は `<head runat="server">` をマスター結合時に**マスターページの位置基準で付け替え**ます。
+だから `/archive` を開いても `Custom/Themes/Standard/src/css/...` を指しました。
+Blazor にその段はなく、`<base href="/" />` の下で素直に書けば `/src/css/...` を要求して 404 します。
+
+変換時に `NormalizeProjectPath` でアプリ絶対パスへ直しました。
+静的コンテンツは配置を保ったまま `wwwroot` へ複写されるので、プロジェクト相対パスがそのまま配信パスです。
+
+| 元の記述 | 出力 |
+|---|---|
+| `src/css/styles.min.css` | `/Custom/Themes/Standard/src/css/styles.min.css` |
+| `~/scripts/syntaxhighlighter/styles/shCore.css` | `/scripts/syntaxhighlighter/styles/shCore.css` |
+| `https://fonts.googleapis.com/...` | そのまま |
+| `<%# Utils.ApplicationRelativeWebRoot %>scripts/...` | `@(Utils.ApplicationRelativeWebRoot)scripts/...` |
+
+最後の行が式のままなのは意図どおりです。値が実行時にしか決まらない以上、
+変換時に静的なパスへ潰すと**元が持っていた解決の仕組みを壊します**。
+参照先 4 本はいずれも `wwwroot` に実在することを確認しました。
+
+## `wt` の二重 `<title>` を、出す前に実測で止めた
+
+`<title>` だけは `<HeadContent>` に出してはいけません。`<PageTitle>` が別途運ぶので、
+**1 つの文書に title が 2 つ**になり、ブラウザは先に出たほうを使います
+(`App.razor` のコメントが警告しているのはこの事故です)。
+
+最初はノード単位の正規表現で消していました。`be` では通ります。`be` の head に title が無いからです。
+**`wt` のマスターを見たら、通らない形でした。**
+
+```html
+<title><%: Page.Title %> - Wingtip Toys</title>
+```
+
+パーサはこれを `TextNode("<title>")` + `ExpressionNode` + `TextNode(" - Wingtip Toys</title>")` に割ります。
+**どの 1 ノードにも完結した title 要素が無い**ので、正規表現は 1 つも一致しません。
+
+推測で直さず、`-Only wt` で変換して生成物を見ました。**漏れていました。**
+
+```
+<title>@(Page.Title) - Wingtip Toys</title>     ← HeadContent の中
+```
+
+ノード列をまたいで状態を持つ除去に変えて、消えたことを確認しました。
+`<titlebar>` のような別タグを誤爆しないよう、`<title` の次は `>` / `/` / 空白のみを見ます。
+
+**回帰ゲートがこれを裏づけました。** `wt` は 8/8 OK のまま
+—— 二重 title のまま出していれば、ここが落ちていたはずです。
+
+## 数字
+
+| | 前 | 後 |
+|---|---:|---:|
+| `ABOUT` 対 `About` の不一致 | **7** | **0** |
+| 最初の相違行(search) | 4 行目 | **8 行目** |
+| 最初の相違行(post) | 12 行目 | **16 行目** |
+| be の本文(home) | 14 行 | **15 行**(期待 22) |
+| be の本文(archive) | 18 行 | **19 行**(期待 26) |
+| be の本文(post) | 22 行 | **23 行**(期待 27) |
+
+`DESIGNED BY BLOGENGINE` が新たに出るようになりました。これは正解データ側にもある行です。
+
+**6 コーパスの移植 .cs / 総残差 / 変換可能 / ビルドエラーは 1 つも動いていません**
+(be 261/63/2/0、mojo 746/99/8/320、yaf 2729/59/5/14、dnn 2066/154/10/14、n2 1633/131/3/6、wt 13/33/3/0)。
+サンプルのパリティ 30/30、bUnit 30/30、回帰ゲート 13/13。
+
+`be` の回帰スナップショットは DOM が意図どおり変わったため記録し直しました
+(`About` → `ABOUT`、`DESIGNED BY BLOGENGINE` の追加。いずれも正解データに近づく向き)。
+
+## パリティは 5/5 不一致のままです
+
+ベースラインは置いていません。残っているものは次節以降の対象です。

@@ -41,7 +41,7 @@ public static partial class AspxConverters
 
         HashSet<string> headPlaceholders;
         List<AspxNode> bodyNodes;
-        List<ElementNode> headControls = [];
+        List<AspxNode> headNodes = [];
 
         if (parent is not null)
         {
@@ -57,14 +57,27 @@ public static partial class AspxConverters
                     .Select(element => element.Id ?? string.Empty)
                     .ToHashSet(StringComparer.OrdinalIgnoreCase);
 
-            // Server controls the head holds beyond its placeholders (a PlaceHolder the
-            // code-behind fills with <link>/<meta>) were dropped with the rest of the head,
-            // which left the code-behind referencing a field that was never generated.
-            // Blazor renders head markup through <HeadContent>, so they are emitted there.
-            headControls = headElement?.Children
-                .OfType<ElementNode>()
-                .Where(child => !string.IsNullOrEmpty(child.Prefix) && !IsContentPlaceHolder(child))
-                .ToList() ?? [];
+            // Everything the head holds beyond its placeholders goes to <HeadContent>.
+            //
+            // This used to keep only server controls (a PlaceHolder the code-behind fills
+            // with <link>/<meta>), because those were the ones that BROKE THE BUILD when
+            // dropped - the code-behind referenced a field that was never generated. Plain
+            // <link>/<meta>/<script> compile to nothing and reference nothing, so no error
+            // ever pointed at them and they stayed dropped. BlogEngine's theme loads all of
+            // its CSS that way: three <link> tags, silently discarded, and the converted app
+            // rendered every page unstyled. Nothing but comparing against the original could
+            // see it - that comparison is what found this.
+            //
+            // <title> is the one exclusion: it is carried separately as <PageTitle> (the
+            // master composes it around the page's own), and two titles in one document
+            // means the browser takes the first.
+            //
+            // The parser only builds an ElementNode for SERVER controls - plain HTML rides
+            // along verbatim as TextNode. Selecting ElementNode here is what dropped the
+            // <link> tags, so every node the head holds is taken.
+            headNodes = headElement is null
+                ? []
+                : PrepareHeadNodes(headElement.Children, path, project);
 
             var formElement = FindServerHtmlElement(parsed, "form");
             bodyNodes = formElement?.Children ?? parsed.Nodes;
@@ -197,12 +210,15 @@ public static partial class AspxConverters
         razor.AppendLine($"@inherits {inheritsName}");
         AppendControlUsings(razor, context, parsed, targetNamespace, codeBehindPath, baseRegistry, project);
         razor.AppendLine();
-        if (headControls.Count > 0)
+        // Whitespace between the head's tags rides along as TextNode, so the node count
+        // says nothing about whether there is anything to emit - the emitted markup does.
+        var headMarkup = headNodes.Count > 0 ? Trim(emitter.EmitNodes([.. headNodes])) : string.Empty;
+        if (!string.IsNullOrWhiteSpace(headMarkup))
         {
             report.Info(sourceName,
-                $"<head runat=\"server\"> 内のサーバーコントロール {headControls.Count} 個を <HeadContent> に出力しました。");
+                "<head runat=\"server\"> の内容(<link>/<meta>/<script> とサーバーコントロール)を <HeadContent> に出力しました。");
             razor.AppendLine("<HeadContent>");
-            razor.AppendLine(Trim(emitter.EmitNodes([.. headControls])));
+            razor.AppendLine(headMarkup);
             razor.AppendLine("</HeadContent>");
         }
         razor.AppendLine("<WebFormsScope Owner=\"this\">");
@@ -614,6 +630,191 @@ public static partial class AspxConverters
         }
 
         return resolved is null ? declaredType : $"global::{resolved}.{name}";
+    }
+
+    /// <summary>
+    /// Prepares a master page's &lt;head&gt; children for emission into &lt;HeadContent&gt;:
+    /// drops the placeholders (carried separately), drops the &lt;title&gt; that
+    /// &lt;PageTitle&gt; already carries, and makes href/src app-absolute.
+    ///
+    /// The title is removed across the WHOLE RUN of nodes rather than per node, because a
+    /// title that interpolates anything is split by the parser - WingtipToys' is
+    /// "&lt;title&gt;" + &lt;%: Page.Title %&gt; + " - Wingtip Toys&lt;/title&gt;", three nodes,
+    /// and no single one of them contains a matchable title element. Missing it puts a
+    /// SECOND title in the document, and the browser uses the first.
+    /// </summary>
+    private static List<AspxNode> PrepareHeadNodes(
+        List<AspxNode> children, string masterPath, WebFormsProject project)
+    {
+        var prepared = new List<AspxNode>();
+        var insideTitle = false;
+
+        foreach (var child in children)
+        {
+            if (child is TextNode text)
+            {
+                var kept = StripTitleSpans(text.Text, ref insideTitle);
+                kept = RebaseUrlsInMarkup(kept, masterPath, project);
+                if (kept.Length > 0)
+                {
+                    prepared.Add(kept == text.Text ? text : new TextNode(kept) { Line = text.Line });
+                }
+                continue;
+            }
+
+            // Anything between <title> and </title> belongs to the title.
+            if (insideTitle)
+            {
+                continue;
+            }
+
+            if (child is ElementNode element)
+            {
+                if (IsContentPlaceHolder(element))
+                {
+                    continue;
+                }
+                RebaseHeadUrls(element, masterPath, project);
+            }
+
+            prepared.Add(child);
+        }
+
+        return prepared;
+    }
+
+    /// <summary>
+    /// Removes every &lt;title&gt;...&lt;/title&gt; span from one node's markup, carrying the
+    /// "currently inside a title" state across nodes.
+    /// </summary>
+    private static string StripTitleSpans(string markup, ref bool insideTitle)
+    {
+        var kept = new StringBuilder();
+        var index = 0;
+
+        while (index < markup.Length)
+        {
+            if (insideTitle)
+            {
+                var close = markup.IndexOf("</title", index, StringComparison.OrdinalIgnoreCase);
+                var closeEnd = close < 0 ? -1 : markup.IndexOf('>', close);
+                if (closeEnd < 0)
+                {
+                    return kept.ToString();
+                }
+                index = closeEnd + 1;
+                insideTitle = false;
+                continue;
+            }
+
+            var open = FindTitleStart(markup, index);
+            if (open < 0)
+            {
+                kept.Append(markup, index, markup.Length - index);
+                break;
+            }
+
+            kept.Append(markup, index, open - index);
+            var openEnd = markup.IndexOf('>', open);
+            insideTitle = true;
+            if (openEnd < 0)
+            {
+                break;
+            }
+            index = openEnd + 1;
+        }
+
+        return kept.ToString();
+    }
+
+    /// <summary>"&lt;title&gt;" or "&lt;title ...&gt;" - not "&lt;titlebar&gt;".</summary>
+    private static int FindTitleStart(string markup, int from)
+    {
+        for (var index = markup.IndexOf("<title", from, StringComparison.OrdinalIgnoreCase);
+             index >= 0;
+             index = markup.IndexOf("<title", index + 1, StringComparison.OrdinalIgnoreCase))
+        {
+            var after = index + "<title".Length;
+            if (after >= markup.Length || after < markup.Length
+                && (markup[after] == '>' || markup[after] == '/' || char.IsWhiteSpace(markup[after])))
+            {
+                return index;
+            }
+        }
+
+        return -1;
+    }
+
+    private static string RebaseUrlsInMarkup(string markup, string masterPath, WebFormsProject project)
+        => HeadUrlAttributeRegex().Replace(markup, match =>
+        {
+            var value = match.Groups["value"].Value;
+            return TryRebaseHeadUrl(value, masterPath, project, out var rebased)
+                ? $"{match.Groups["name"].Value}={match.Groups["quote"].Value}{rebased}{match.Groups["quote"].Value}"
+                : match.Value;
+        });
+
+    /// <summary>
+    /// An href/src with a fully quoted literal value. A value built from a server
+    /// expression is split across nodes and leaves the quote unclosed here, so it does not
+    /// match and is left for the expression to resolve at run time.
+    /// </summary>
+    [GeneratedRegex("(?<name>\\b(?:href|src))\\s*=\\s*(?<quote>[\"'])(?<value>[^\"'<>]*)\\k<quote>", RegexOptions.IgnoreCase)]
+    private static partial Regex HeadUrlAttributeRegex();
+
+    /// <summary>
+    /// Makes href/src in a master page's &lt;head&gt; app-absolute, so they resolve the same
+    /// from every route. Static content is copied to wwwroot keeping its layout, so a
+    /// project-relative path is already the served path.
+    /// </summary>
+    private static void RebaseHeadUrls(ElementNode element, string masterPath, WebFormsProject project)
+    {
+        foreach (var target in element.Descendants().Prepend(element))
+        {
+            foreach (var attribute in target.Attributes.ToList())
+            {
+                if (!string.Equals(attribute.Key, "href", StringComparison.OrdinalIgnoreCase)
+                    && !string.Equals(attribute.Key, "src", StringComparison.OrdinalIgnoreCase))
+                {
+                    continue;
+                }
+
+                if (TryRebaseHeadUrl(attribute.Value, masterPath, project, out var rebased))
+                {
+                    target.Attributes[attribute.Key] = rebased;
+                }
+            }
+        }
+    }
+
+    private static bool TryRebaseHeadUrl(
+        string value, string masterPath, WebFormsProject project, out string rebased)
+    {
+        rebased = string.Empty;
+        var trimmed = value.Trim();
+        if (trimmed.Length == 0)
+        {
+            return false;
+        }
+
+        // A server expression builds the path at run time - its value is not known here,
+        // and the expression already resolves through the app's own helper.
+        if (trimmed.Contains("<%", StringComparison.Ordinal))
+        {
+            return false;
+        }
+
+        // Already absolute, protocol-relative, a fragment, or an inline payload.
+        if (trimmed.StartsWith('/')
+            || trimmed.StartsWith('#')
+            || trimmed.StartsWith("//", StringComparison.Ordinal)
+            || Uri.TryCreate(trimmed, UriKind.Absolute, out _))
+        {
+            return false;
+        }
+
+        rebased = "/" + NormalizeProjectPath(trimmed, masterPath, project);
+        return true;
     }
 
     public static string NormalizeProjectPath(string reference, string referencingFile, WebFormsProject project)

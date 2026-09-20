@@ -9,8 +9,8 @@
         "Name of the blog",
         "Welcome to BlogEngine.NET",
         "ホーム",
-        "About",
-        "Example Page",
+        "ABOUT",
+        "EXAMPLE PAGE",
         "アーカイブ",
         "コンタクト",
         "Widget Search not found, check log for details.",
@@ -19,7 +19,8 @@
         "Widget Newsletter not found, check log for details.",
         "Widget TagCloud not found, check log for details.",
         "Widget TextBox not found, check log for details.",
-        "Widget BlogRoll not found, check log for details."
+        "Widget BlogRoll not found, check log for details.",
+        "DESIGNED BY BLOGENGINE"
       ],
       "Tables": [],
       "Inputs": {},
@@ -91,8 +92,8 @@
         "1 コメント",
         "0 レート数",
         "ホーム",
-        "About",
-        "Example Page",
+        "ABOUT",
+        "EXAMPLE PAGE",
         "アーカイブ",
         "コンタクト",
         "Widget Search not found, check log for details.",
@@ -101,7 +102,8 @@
         "Widget Newsletter not found, check log for details.",
         "Widget TagCloud not found, check log for details.",
         "Widget TextBox not found, check log for details.",
-        "Widget BlogRoll not found, check log for details."
+        "Widget BlogRoll not found, check log for details.",
+        "DESIGNED BY BLOGENGINE"
       ],
       "Tables": [],
       "Inputs": {},
@@ -159,8 +161,8 @@
         "Name of the blog",
         "検索",
         "ホーム",
-        "About",
-        "Example Page",
+        "ABOUT",
+        "EXAMPLE PAGE",
         "アーカイブ",
         "コンタクト",
         "Widget Search not found, check log for details.",
@@ -169,7 +171,8 @@
         "Widget Newsletter not found, check log for details.",
         "Widget TagCloud not found, check log for details.",
         "Widget TextBox not found, check log for details.",
-        "Widget BlogRoll not found, check log for details."
+        "Widget BlogRoll not found, check log for details.",
+        "DESIGNED BY BLOGENGINE"
       ],
       "Tables": [],
       "Inputs": {
@@ -235,8 +238,8 @@
         "メッセージ",
         "[App_Code.Controls.RecaptchaControl: render error]",
         "ホーム",
-        "About",
-        "Example Page",
+        "ABOUT",
+        "EXAMPLE PAGE",
         "アーカイブ",
         "コンタクト",
         "Widget Search not found, check log for details.",
@@ -245,7 +248,8 @@
         "Widget Newsletter not found, check log for details.",
         "Widget TagCloud not found, check log for details.",
         "Widget TextBox not found, check log for details.",
-        "Widget BlogRoll not found, check log for details."
+        "Widget BlogRoll not found, check log for details.",
+        "DESIGNED BY BLOGENGINE"
       ],
       "Tables": [],
       "Inputs": {
@@ -353,8 +357,8 @@
         "A search engine that has an out-of-date listing for us",
         "A miss-typed address",
         "ホーム",
-        "About",
-        "Example Page",
+        "ABOUT",
+        "EXAMPLE PAGE",
         "アーカイブ",
         "コンタクト",
         "Widget Search not found, check log for details.",
@@ -363,7 +367,8 @@
         "Widget Newsletter not found, check log for details.",
         "Widget TagCloud not found, check log for details.",
         "Widget TextBox not found, check log for details.",
-        "Widget BlogRoll not found, check log for details."
+        "Widget BlogRoll not found, check log for details.",
+        "DESIGNED BY BLOGENGINE"
       ],
       "Tables": [],
       "Inputs": {},

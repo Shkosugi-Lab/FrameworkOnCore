@@ -183,15 +183,38 @@ public static partial class BuildVerifier
             || StoppedAtDeclarations(diagnostics);
 
     /// <summary>
+    /// Errors about an INHERITANCE CONTRACT - "no suitable method to override", "does not
+    /// implement inherited abstract member". Every one of them is a statement about a base
+    /// class, so when the base class is the thing that went missing, they are the same
+    /// dependency reported a second time.
+    ///
+    /// DNN's DnnBodyProvider derives from ClientDependency.Core's
+    /// WebFormsFileRegistrationProvider, which is a vendored DLL nobody has chosen a
+    /// package for. The CS0246 for the base is attributed; the four CS0534 / CS0115 the
+    /// missing base then produces name only DNN's own types, so they read as conversion
+    /// defects. Sixteen of DNN's nineteen counted errors were that.
+    ///
+    /// Declared HERE, above the two sets that use it, because both of them need it and
+    /// they had drifted apart: CS0535 / CS0537 / CS0540 were in this set and missing from
+    /// <see cref="DeclarationErrorCodes"/>, which is the same incomplete-list shape that
+    /// let CS0506 floor mojoPortal's count at 1 while 1043 errors waited behind it.
+    /// One set, used twice, so they cannot disagree again.
+    /// </summary>
+    private static readonly HashSet<string> InheritanceContractCodes = new(StringComparer.Ordinal)
+    {
+        "CS0115", "CS0506", "CS0507", "CS0533", "CS0534", "CS0535", "CS0537", "CS0540",
+    };
+
+    /// <summary>
     /// Errors a SIGNATURE can have, which is all the Razor SDK's first pass checks.
     ///
     /// A Blazor project compiles twice: a declaration-only pass, then the real one with the
     /// generated .razor code. An error in the first pass stops the build before the second,
     /// and only signature-level diagnostics are reported - method BODIES were never bound.
     /// </summary>
-    private static readonly HashSet<string> DeclarationErrorCodes = new(StringComparer.Ordinal)
+    private static readonly HashSet<string> DeclarationErrorCodes = new(InheritanceContractCodes, StringComparer.Ordinal)
     {
-        "CS0115", "CS0534", "CS0507", "CS0533", "CS0106", "CS0111", "CS0101", "CS0509",
+        "CS0106", "CS0111", "CS0101", "CS0509",
         "CS0549", "CS0238", "CS0539", "CS0736", "CS0738",
         // Type resolution belongs here too. A signature names types, so an unresolved one
         // fails the declaration pass just as a bad override does - and these codes also
@@ -203,15 +226,16 @@ public static partial class BuildVerifier
         // CS0400 is the same failure written differently: "global::X not found in the
         // global namespace". It hid yaf's count at 1 while 337 errors waited behind it.
         "CS0400",
-        // The rest of the "this override does not fit its base" family. CS0507 and CS0115
-        // were here and their siblings were not, which is the shape of an incomplete list:
-        // adding a non-virtual Text to the TextBox base produced CS0506 on the one ported
-        // editor that overrides it, the build stopped at declarations, and mojoPortal
-        // reported "1159 -> 1" as an IMPROVEMENT with no floor warning at all.
+        // The rest of the "this override does not fit its base" family, beyond the shared
+        // set above. Those are follow-on-able (a missing base explains them); these are
+        // only ever a declaration-stage stop.
         //
         // An override error is a declaration error by construction - the compiler is
         // matching a signature against a base, which is the only thing the first pass does.
-        "CS0506", "CS0505", "CS0508", "CS0239", "CS0546", "CS0545", "CS0550",
+        // Adding a non-virtual Text to the TextBox base produced CS0506 on the one ported
+        // editor that overrides it, the build stopped at declarations, and mojoPortal
+        // reported "1159 -> 1" as an IMPROVEMENT with no floor warning at all.
+        "CS0505", "CS0508", "CS0239", "CS0546", "CS0545", "CS0550",
     };
 
     /// <summary>
@@ -530,23 +554,6 @@ public static partial class BuildVerifier
         }
         return null;
     }
-
-    /// <summary>
-    /// Errors about an INHERITANCE CONTRACT - "no suitable method to override", "does not
-    /// implement inherited abstract member". Every one of them is a statement about a base
-    /// class, so when the base class is the thing that went missing, they are the same
-    /// dependency reported a second time.
-    ///
-    /// DNN's DnnBodyProvider derives from ClientDependency.Core's
-    /// WebFormsFileRegistrationProvider, which is a vendored DLL nobody has chosen a
-    /// package for. The CS0246 for the base is attributed; the four CS0534 / CS0115 the
-    /// missing base then produces name only DNN's own types, so they read as conversion
-    /// defects. Sixteen of DNN's nineteen counted errors were that.
-    /// </summary>
-    private static readonly HashSet<string> InheritanceContractCodes = new(StringComparer.Ordinal)
-    {
-        "CS0115", "CS0506", "CS0507", "CS0533", "CS0534", "CS0535", "CS0537", "CS0540",
-    };
 
     /// <summary>
     /// The undecided assembly a follow-on error belongs to, judged by its FILE.

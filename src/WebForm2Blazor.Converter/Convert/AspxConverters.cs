@@ -117,9 +117,21 @@ public static partial class AspxConverters
         context.LegacyControlResolver = (string prefix, string name, out string? reason) => ResolveLegacyControl(prefixNamespaces, baseRegistry, prefix, name, out reason);
         context.AnyTypeResolver = (prefix, name) => ResolveAnyType(prefixNamespaces, baseRegistry, prefix, name);
 
+        // Under AutoID the master page is itself a naming container and joins every
+        // ClientID below it. "ctl00" is the name the page's ID generator gives the first
+        // control that has no ID of its own, and the master is that control - BlogEngine's
+        // original renders "ctl00_cphBody_divError" / "ctl00_aLogin".
+        //
+        // A NESTED master is excluded: it is not the page's direct child, so its generated
+        // name is not ctl00, and nothing measured here pairs AutoID with nesting. Guessing
+        // one would be inventing IDs no recording has confirmed.
+        var masterPrefix = parent is null && project.UsesAutoIdClientIds
+            ? "ctl00_"
+            : string.Empty;
+
         // The naming-container chain this master's own placeholders sit under. While the
         // emitter is inside an <asp:Content>, it is the parent's prefix for that slot.
-        var basePrefix = string.Empty;
+        var basePrefix = masterPrefix;
 
         context.SpecialElementHandler = (element, emitter) =>
         {
@@ -222,7 +234,20 @@ public static partial class AspxConverters
             razor.AppendLine("</HeadContent>");
         }
         razor.AppendLine("<WebFormsScope Owner=\"this\">");
-        razor.AppendLine(Trim(markup));
+        if (masterPrefix.Length > 0)
+        {
+            // Only the body. A control in the head is under the same container in WebForms,
+            // but nothing measured here renders one, and <HeadContent> reaches the document
+            // through HeadOutlet rather than in place - so that half stays as it was until
+            // there is a measurement that says what it should be.
+            razor.AppendLine($"<WebFormsNamingContainer Prefix=\"{masterPrefix}\">");
+            razor.AppendLine(Trim(markup));
+            razor.AppendLine("</WebFormsNamingContainer>");
+        }
+        else
+        {
+            razor.AppendLine(Trim(markup));
+        }
         razor.AppendLine("</WebFormsScope>");
 
         var component = new ConvertedComponent

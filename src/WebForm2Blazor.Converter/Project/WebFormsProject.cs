@@ -58,6 +58,26 @@ public sealed class WebFormsProject
     public List<string> ConfigNamespaceImports { get; } = [];
 
     /// <summary>
+    /// True when Web.config says &lt;pages clientIDMode="AutoID"&gt;.
+    ///
+    /// This decides whether the MASTER PAGE contributes to every ClientID under it. A
+    /// master is a control on the page with an auto-generated ID, and the two modes
+    /// disagree about what that means:
+    ///
+    ///   AutoID      - every naming container counts, generated ID or not, so the master's
+    ///                 own "ctl00" leads: "ctl00_cphBody_divError"
+    ///   Predictable - a naming container whose ID was generated is skipped, so the
+    ///                 chain starts at the placeholder: "cphMain_cphBody_pClickResult"
+    ///
+    /// .NET 4.0 made Predictable the default, and both spellings are live in the corpora:
+    /// BlogEngine / mojoPortal / YAF / n2 set AutoID explicitly, DNN and WingtipToys take
+    /// the default. Both ID shapes above are quoted from golden data recorded off the
+    /// ORIGINAL apps, which is what settled this - the converter had been emitting
+    /// Predictable for everything, so the samples matched exactly and BlogEngine could not.
+    /// </summary>
+    public bool UsesAutoIdClientIds { get; set; }
+
+    /// <summary>
     /// App_GlobalResources .resx files, which back &lt;%$ Resources: Class, Key %&gt;.
     /// Culture-specific variants (labels.ja.resx) are listed separately: embedding them
     /// next to the neutral file would collide, and satellite assemblies are a manual step.
@@ -353,6 +373,20 @@ public sealed class WebFormsProject
             if (!string.IsNullOrWhiteSpace(ns) && !project.ConfigNamespaceImports.Contains(ns))
             {
                 project.ConfigNamespaceImports.Add(ns.Trim());
+            }
+        }
+
+        // Only the root config decides this. A subfolder Web.config may narrow the mode for
+        // its own folder, but the master pages whose IDs this changes are shared by the
+        // whole app - taking a nested value would apply one folder's rule to every page.
+        if (scope.Length == 0)
+        {
+            var mode = document.Descendants("pages")
+                .Select(pages => pages.Attribute("clientIDMode")?.Value)
+                .FirstOrDefault(value => !string.IsNullOrWhiteSpace(value));
+            if (string.Equals(mode, "AutoID", StringComparison.OrdinalIgnoreCase))
+            {
+                project.UsesAutoIdClientIds = true;
             }
         }
     }

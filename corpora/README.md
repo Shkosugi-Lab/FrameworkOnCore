@@ -8780,3 +8780,115 @@ Blazor にその段はなく、`<base href="/" />` の下で素直に書けば `
 ## パリティは 5/5 不一致のままです
 
 ベースラインは置いていません。残っているものは次節以降の対象です。
+
+---
+
+# `ctl00_` は「忘れていた」のではなく「設定を読んでいなかった」
+
+引き継ぎではこう警告されていました ——
+「マスター自身の命名コンテナ。**samples は原文の ClientID と完全一致している**ので、
+触ると samples が動きます。単独で測ってから」。
+
+測ったら、**触っても samples は動きませんでした。** 理由がそのまま実装になりました。
+
+## 決め手は samples 自身の正解データだった
+
+`samples/MasterProbe/golden-webforms.json` は**元の WebForms アプリから採取した実描画**です。
+MasterProbe はマスターページを 2 段(`Root.master` / `Nested.master`)持っています。
+そこに記録されている ID は:
+
+```
+cphMain_cphBody_pClickResult
+cphMain_cphSide_ctrlSideWidget_pWidgetLabel
+```
+
+**`ctl00_` がありません。** 一方 BlogEngine の正解データは:
+
+```
+ctl00_cphBody_divError
+ctl00_aLogin
+ctl00_cphBody_ctl00 … ctl00_cphBody_ctl04
+```
+
+**同じ WebForms で、マスターページを使う 2 つのアプリが、違う ID を出しています。**
+どちらも元アプリの実描画なので、どちらも正しい。差は設定でした。
+
+```
+samples/MasterProbe/Web.config   (指定なし → 既定の Predictable)
+BlogEngine.NET/Web.config:98     <pages ... clientIDMode="AutoID">
+```
+
+## 2 つのモードが何を言っているか
+
+マスターページは**ページ上の 1 コントロール**で、自分の ID を持ちません。
+ID 生成器が付ける名前が `ctl00` です。2 つのモードはこれの扱いが違います。
+
+| モード | 生成 ID を持つ命名コンテナ | 結果 |
+|---|---|---|
+| `AutoID` | **数える** | `ctl00_cphBody_divError` |
+| `Predictable`(4.0 以降の既定) | **飛ばす** | `cphMain_cphBody_pClickResult` |
+
+変換器は `<pages clientIDMode>` を読んでおらず、**常に Predictable 相当**を出していました。
+だから samples は完全一致し、BlogEngine は一致しようがなかった。
+「`ctl00_` を忘れている」ではなく「**設定を読んでいない**」が正しい診断です。
+
+## 6 コーパスの内訳
+
+| コーパス | `clientIDMode` | この変更の影響 |
+|---|---|---|
+| be / mojo / yaf / n2 | **AutoID**(明示) | `ctl00_` が付く |
+| dnn / wt | 指定なし → Predictable | **変化なし** |
+| samples 全 5 本(MasterProbe 含む) | 指定なし → Predictable | **変化なし** |
+
+**設定駆動にしたので、引き継ぎが心配していた副作用は構造的に起きません。**
+`MasterProbe` は 3/3 OK のまま、サンプルのパリティは 30/30 を維持しました。
+
+## 実装
+
+ルートの Web.config だけを見ます。サブフォルダの Web.config が自分の配下だけモードを
+変えることはありますが、ID が変わる対象のマスターページはアプリ全体で共有されるので、
+入れ子の値を採ると**あるフォルダの規則を全ページに当ててしまいます**。
+
+入れ子マスター(`parent is not null`)は対象外にしました。
+入れ子マスターはページの直接の子ではないので、生成名は `ctl00` ではありません。
+そして **AutoID と入れ子マスターが同時に出てくる題材が手元にありません**。
+採取された実描画が無いまま決め打つのは、ID を発明することになります。
+
+## 数字
+
+`be` のパリティ差分行数:
+
+| | 差分行 |
+|---|---:|
+| 着手時 | **62** |
+| `<head>` 修正後 | 62(テキストのみ改善) |
+| `ctl00_` 後 | **40** |
+
+解消した内訳:
+
+- `contact` の入力欄 **8 行**(`ctl00_cphBody_txtEmail` ほか 4 件の欠落と、接頭辞なし 4 件の余剰)
+- 要素 **14 件**(`cphBody_divError` `cphBody_PostList1_posts` `cphBody_ulMenu`
+  `cphBody_h1Headline` `cphBody_divDirectHit` `cphBody_btnSend` ほか)
+
+6 コーパスの移植 .cs / 総残差 / 変換可能 / ビルドエラーは**再び 1 つも動いていません**。
+サンプルのパリティ 30/30、bUnit 30/30、回帰ゲート 13/13。
+
+`be` の回帰スナップショットは記録し直しました。差分 30 行は**全て ID 関連**で、
+**本文テキスト 0 件・テーブル 0 件・属性 0 件** —— 見た目は一切変えずに ID だけが変わった、
+という変更の性質と一致します。
+
+## 残った `ctl00_aLogin` について(未検証の観察)
+
+`archive` / `search` / `contact` / `post` で `ctl00_aLogin` / `ctl00_aLoginText` が
+「変換前には無い要素」と報告され続けます。`home` では解消しました。
+
+理由は変換側ではなく**正解データ側**にあります。ParityTest は
+`document.querySelectorAll('[id]')` で ID を持つ要素を全部拾いますが、
+採取された正解データを見ると `home` の Elements には `ctl00_aLogin` があり、
+`post` の Elements は 8 件で**それを含みません**。同じマスターが描くヘッダーのリンクなので、
+本来どのページにもあるはずです。
+
+つまり `home` で ID が一致したのは本物の前進で、残り 4 ページは
+**正解データがその要素を記録していない**ことによる報告です。
+採取時に何が起きたのかは**未検証**です。決めつけずにここに残します
+(差分 40 行のうち 8 行がこれに当たります)。

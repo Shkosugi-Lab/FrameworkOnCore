@@ -87,11 +87,57 @@ public static partial class ExpressionBuilders
 
         if (Templates.TryGetValue(prefix, out var template))
         {
-            expression = template.Replace("{value}", EscapeCSharpString(value));
+            expression = template.Replace(
+                "{value}",
+                LandsInsideAStringLiteral(template) ? EscapeCSharpString(value) : value);
             return true;
         }
         expression = string.Empty;
         return false;
+    }
+
+    /// <summary>
+    /// Whether {value} sits INSIDE a C# string literal in the template.
+    ///
+    /// This is the difference between a builder whose value is DATA and one whose value is
+    /// CODE, and the template already states it - no flag in the map, nothing for the user
+    /// to remember.
+    ///
+    ///   AppSettings : ConfigurationManager.AppSettings["{value}"]  -> inside, escape
+    ///   Code        : {value}                                      -> outside, verbatim
+    ///
+    /// Escaping unconditionally is why the Code prefix could not be mapped at all. n2
+    /// writes "&lt;%$ Code: "AutoZone2" %&gt;", whose value IS a C# string literal;
+    /// escaped, it came out as @(\"AutoZone2\") - invalid Razor - and the mapping was
+    /// withdrawn twice. The second withdrawal concluded that the emitter had to tell raw
+    /// code from a string value, which is what this does.
+    ///
+    /// Counted as quotes not already escaped, so a template that contains a literal
+    /// backslash-quote before the placeholder is read correctly. An odd count means the
+    /// placeholder is between an opening quote and its closing one.
+    /// </summary>
+    private static bool LandsInsideAStringLiteral(string template)
+    {
+        var placeholder = template.IndexOf("{value}", StringComparison.Ordinal);
+        if (placeholder < 0)
+        {
+            return false;
+        }
+
+        var quotes = 0;
+        for (var index = 0; index < placeholder; index++)
+        {
+            if (template[index] == '\\')
+            {
+                index++;
+                continue;
+            }
+            if (template[index] == '"')
+            {
+                quotes++;
+            }
+        }
+        return quotes % 2 == 1;
     }
 
     private static string EscapeCSharpString(string value)

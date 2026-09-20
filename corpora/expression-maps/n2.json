@@ -15,6 +15,11 @@
   {
     "prefix": "HasValue",
     "expression": "N2.Web.Compilation.HasValueExpressionBuilder.HasValue(\"{value}\")"
+  },
+  {
+    "_comment": "CodeExpressionBuilder returns new CodeSnippetExpression(entry.Expression) - the value IS the C# to emit, so the template is the bare placeholder. Registering this used to be impossible because the converter escaped {value} unconditionally, which turned '<%$ Code: \"AutoZone2\" %>' into @(\\\"AutoZone2\\\"). The escape now follows the template: a placeholder inside a string literal is data, one outside it is code.",
+    "prefix": "Code",
+    "expression": "{value}"
   }
 ]
 

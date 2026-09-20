@@ -605,26 +605,39 @@ public sealed partial class MarkupEmitter(EmitContext context)
 
         if (string.IsNullOrEmpty(element.Prefix))
         {
+            // The COMPONENT decides, where there is one.
+            //
+            // A slot's shape is its declared type - RenderFragment renders once,
+            // RenderFragment<T> is instantiated with T in scope - and the component holds
+            // that fact. The by-name lists below cannot: LayoutTemplate is
+            // RenderFragment<RenderFragment> on ListView and a plain RenderFragment on
+            // Login, and a name-keyed answer has to be wrong for one of them.
+            //
+            // They stay as the fallback for a converted user control or a stub, whose
+            // type is not in the compat assembly to ask.
+            if (_currentComponent is not null
+                && ComponentParameterTypes.TemplateContextOf(_currentComponent, element.Name)
+                    is { } declaredContext)
+            {
+                return EmitTemplate(element, declaredContext);
+            }
+
             if (ControlMappings.DataBoundTemplates.Contains(element.Name))
             {
-                return EmitTemplate(element, dataBound: true);
+                return EmitTemplate(element, ComponentParameterTypes.TemplateContextKind.DataItem);
             }
             if (ControlMappings.PlainTemplates.Contains(element.Name))
             {
-                return EmitTemplate(element, dataBound: false);
+                return EmitTemplate(element, ComponentParameterTypes.TemplateContextKind.None);
             }
 
-            // A template the built-in lists do not name. The parser now hands these over
-            // (a third-party control declares its own slots), so the emitter has to place
-            // them - left to fall through, "<usernametemplate>" became an
+            // A template neither the component nor the lists name - a third-party control's
+            // own slot on a stub. Left to fall through, "<usernametemplate>" became an
             // HtmlGenericControl inside PasswordRecovery and Razor rejected the whole
             // component (RZ9996).
-            //
-            // Not data-bound: a slot that instantiates per item is one of the names in
-            // DataBoundTemplates, which was checked first. What is left renders once.
             if (element.Name.EndsWith("Template", StringComparison.OrdinalIgnoreCase))
             {
-                return EmitTemplate(element, dataBound: false);
+                return EmitTemplate(element, ComponentParameterTypes.TemplateContextKind.None);
             }
             if (ControlMappings.StyleChildElements.Contains(element.Name))
             {
@@ -1638,8 +1651,9 @@ public sealed partial class MarkupEmitter(EmitContext context)
     private static string RawText(ElementNode element)
         => string.Concat(element.Children.OfType<TextNode>().Select(child => child.Text));
 
-    private string EmitTemplate(ElementNode element, bool dataBound)
+    private string EmitTemplate(ElementNode element, ComponentParameterTypes.TemplateContextKind contextKind)
     {
+        var dataBound = contextKind == ComponentParameterTypes.TemplateContextKind.DataItem;
         var isLayout = element.Name.Equals("LayoutTemplate", StringComparison.OrdinalIgnoreCase);
         var isGroup = element.Name.Equals("GroupTemplate", StringComparison.OrdinalIgnoreCase);
 
@@ -1693,15 +1707,23 @@ public sealed partial class MarkupEmitter(EmitContext context)
                 $"<{element.Name}> 内の不整合な HTML タグを raw 出力に退避しました(WebForms は許容するが Razor は構文エラーのため)。");
         }
 
-        // Context is only legal on a RenderFragment<T>, and it is only NEEDED when the
-        // template body actually names the value - which, for a layout, means the item
-        // placeholder was found and substituted above. Login also has a LayoutTemplate,
-        // a plain RenderFragment, and emitting Context there is RZ9997.
-        var contextAttribute = dataBound
-            ? $" Context=\"{containerName}\""
-            : (isLayout || isGroup) && inner.Contains("@ItemsPlaceholder", StringComparison.Ordinal)
+        // Context is only legal on a RenderFragment<T>, and which name it takes is the T.
+        // Both come from the component's declaration now, so there is nothing to infer:
+        // Login's LayoutTemplate is a plain RenderFragment and gets no Context (emitting
+        // one there is RZ9997), ListView's is RenderFragment<RenderFragment> and gets the
+        // placeholder. Before, the two were told apart by looking for "@ItemsPlaceholder"
+        // in the body - a guess that happened to work because ListView's layout always
+        // contains one.
+        var contextAttribute = contextKind switch
+        {
+            ComponentParameterTypes.TemplateContextKind.DataItem => $" Context=\"{containerName}\"",
+            ComponentParameterTypes.TemplateContextKind.Placeholder => " Context=\"ItemsPlaceholder\"",
+            _ => (isLayout || isGroup) && inner.Contains("@ItemsPlaceholder", StringComparison.Ordinal)
+                // A stub or a converted user control: no declaration to read, so the body
+                // is still the only evidence.
                 ? " Context=\"ItemsPlaceholder\""
-                : string.Empty;
+                : string.Empty,
+        };
         var tagName = TemplateParameterNameFor(element.Name);
         return $"<{tagName}{contextAttribute}>{inner}</{tagName}>";
     }

@@ -7006,3 +7006,72 @@ var txtResourceFile = (TextBox)grid.Rows[e.RowIndex].Cells[1].FindControl("txtRe
 | 6 コーパス合計(変換可能) | 49 | 36 |
 
 他 5 コーパスは完全に一致。パリティ 30/30、bUnit 30/30、回帰ゲート 13/13。
+
+## テンプレートが何を受け取るかは、コンポーネントが知っている(数字は動きません)
+
+**この節はどのコーパスの数字も動かしません。** 推測を実体に置き換えただけです。
+それでも書き残すのは、**今日の欠陥の大半がここと同じ形**だったからです。
+
+### 手書き一覧の棚卸し
+
+今日直した欠陥を並べると、**5 つの別々の一覧が同じ形で壊れて**いました。
+
+| 一覧 | 欠けていたもの | 結果 |
+|---|---|---|
+| `AspxParser.ChildElements` | `NodeTemplate` | 描画が壊れた(静かに) |
+| `DeclarationErrorCodes` | `CS0506` | 1158 件の「改善」 |
+| `StoppedAtParse` | `RZ*` | 387 件が隠れた |
+| `CompatBaseReplacements` | `Items` / `Text` / `PostedFile` / `ViewState` | 4 回 |
+| `ControlMappings.StyleChildElements` | membership 系 | 未踏(注記済み) |
+
+棚卸しをしたところ、**同じ構造で残っている最大のもの**が `DataBoundTemplates` でした。
+パーサ側は今日直しましたが、**エミッタ側は一覧のまま**です。
+
+### 名前では原理的に判定できない
+
+```
+ListView.LayoutTemplate : RenderFragment<RenderFragment>
+Login.LayoutTemplate    : RenderFragment
+```
+
+**1 つの名前で 2 つの型**です。名前を鍵にした答えは、**どちらかで必ず間違います。**
+
+エミッタはこれを**本文に `@ItemsPlaceholder` があるか**で見分けていました。
+ListView のレイアウトには必ずあるので通っていた、というだけの推測です。
+
+### 宣言された型が、そのまま 3 つの答え
+
+| 宣言 | 意味 | Context |
+|---|---|---|
+| `RenderFragment` | 一度描く | 付けない |
+| `RenderFragment<RenderFragment>` | ListView のレイアウト | `ItemsPlaceholder` |
+| `RenderFragment<その他>` | 項目ごとに実体化 | `Container` |
+
+コンポーネントに聞くようにしました。`DataBoundTemplates` の中身は
+**`RenderFragment<RepeaterItem>` の集合と名前ごと一致**していて、
+一覧はアセンブリが持っている事実の**古い写し**でした。
+
+一覧は残してあります — **変換されたユーザーコントロールとスタブには聞く相手がいない**からです。
+そこだけが推測で、そこには `@ItemsPlaceholder` の判定も残っています。
+
+### 数字が動かないことの意味
+
+6 コーパスすべて完全に一致。パリティ 30/30、bUnit 30/30、回帰ゲート 13/13。
+
+**今の 6 本では、推測と実体が同じ答えを出していました。** 7 本目で分かれます。
+
+### まだ残っている(次に触る人へ)
+
+棚卸しで**測定済みの欠落**が見つかっています。
+
+- **`AspxParser.ChildElements` に `WizardSteps` がありません。** `PlainTemplates` と
+  `TemplateParameterNames`(`WizardSteps` -> `WizardStepsContent`)には載っていて、
+  互換層も `WizardStepsContent` を宣言しているのに、**パーサが要素にしないので
+  その対応付けは一度も発火しません。** 4 コーパス 6 ファイルで使われています
+  (BlogEngine / mojoPortal / n2 / YAF の Register・install)
+- **Calendar のスタイルスロット 8 個**が `StyleChildElements` にあって `ChildElements` に無い。
+  **同じものの一覧が 2 つあって、既に食い違っています**
+- `DeclarationErrorCodes` と `InheritanceContractCodes` が食い違っている
+  (`CS0535` / `CS0537` / `CS0540` が前者に無い)
+- `ControlMappings.MayBeUnbalancedTemplates` は**どこからも参照されていません**。
+  `TagBalance` が実物を見て決めるようになった判断を、名前で狭め直す誘惑になります

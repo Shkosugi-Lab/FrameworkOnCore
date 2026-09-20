@@ -127,6 +127,77 @@ public static class ComponentParameterTypes
         return null;
     }
 
+    /// <summary>
+    /// What a template slot binds its body against, read off the component's own
+    /// declaration.
+    ///
+    /// The three shapes a RenderFragment parameter can have ARE the three answers:
+    ///
+    ///   RenderFragment                   -> rendered once, no context
+    ///   RenderFragment&lt;RenderFragment&gt;   -> the ListView layout, context is the placeholder
+    ///   RenderFragment&lt;anything else&gt;    -> instantiated per item, context is the row
+    ///
+    /// This replaces a by-NAME list, which cannot be right: LayoutTemplate is
+    /// RenderFragment&lt;RenderFragment&gt; on ListView and a plain RenderFragment on Login.
+    /// One name, two arities - the emitter used to tell them apart by sniffing the body
+    /// for "@ItemsPlaceholder", because a name is not enough information.
+    ///
+    /// Null when the component is unknown (a converted user control, a stub) or has no
+    /// such parameter; the caller falls back to the mapping tables.
+    /// </summary>
+    public static TemplateContextKind? TemplateContextOf(string componentName, string parameterName)
+    {
+        if (string.IsNullOrEmpty(componentName) || componentName.Contains('.'))
+        {
+            return null;
+        }
+
+        var type = ComponentType(componentName);
+        var property = type?.GetProperties()
+            .FirstOrDefault(candidate =>
+                string.Equals(candidate.Name, parameterName, StringComparison.OrdinalIgnoreCase));
+        if (property is null)
+        {
+            return null;
+        }
+
+        var declared = property.PropertyType;
+        if (declared == typeof(Microsoft.AspNetCore.Components.RenderFragment))
+        {
+            return TemplateContextKind.None;
+        }
+
+        if (!declared.IsGenericType
+            || declared.GetGenericTypeDefinition() != typeof(Microsoft.AspNetCore.Components.RenderFragment<>))
+        {
+            return null;
+        }
+
+        return declared.GetGenericArguments()[0] == typeof(Microsoft.AspNetCore.Components.RenderFragment)
+            ? TemplateContextKind.Placeholder
+            : TemplateContextKind.DataItem;
+    }
+
+    /// <summary>What a template slot's body is given, if anything.</summary>
+    public enum TemplateContextKind
+    {
+        /// <summary>Plain RenderFragment: rendered once, nothing in scope.</summary>
+        None,
+
+        /// <summary>RenderFragment&lt;T&gt;: instantiated per item, the row is in scope.</summary>
+        DataItem,
+
+        /// <summary>RenderFragment&lt;RenderFragment&gt;: the items placeholder is in scope.</summary>
+        Placeholder,
+    }
+
+    private static Type ComponentType(string componentName)
+        => typeof(WebForm2Blazor.Components.WebFormsControlBase).Assembly
+            .GetTypes()
+            .FirstOrDefault(candidate =>
+                candidate.IsClass
+                && string.Equals(candidate.Name, componentName, StringComparison.Ordinal));
+
     private static Dictionary<string, ParameterTypeInfo> BuildParameterMap(string componentName)
     {
         var map = new Dictionary<string, ParameterTypeInfo>(StringComparer.OrdinalIgnoreCase);

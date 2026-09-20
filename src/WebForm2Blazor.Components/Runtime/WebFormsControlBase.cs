@@ -47,7 +47,7 @@ public abstract class WebFormsControlBase : ComponentBase, IWebFormsControl, IDi
     private string _foreColor;
     private string _borderColor;
     private string _borderWidth;
-    private string _borderStyle;
+    private BorderStyle _borderStyle;
     private bool _fontBold;
     private bool _fontItalic;
     private bool _fontUnderline;
@@ -127,7 +127,12 @@ public abstract class WebFormsControlBase : ComponentBase, IWebFormsControl, IDi
 
     [Parameter] public string BorderColor { get => _borderColor; set => SetAndRefresh(ref _borderColor, value); }
     [Parameter] public string BorderWidth { get => _borderWidth; set => SetAndRefresh(ref _borderWidth, value); }
-    [Parameter] public string BorderStyle { get => _borderStyle; set => SetAndRefresh(ref _borderStyle, value); }
+    /// <summary>
+    /// WebForms WebControl.BorderStyle - the BorderStyle ENUM, not a string. It was a
+    /// string, so "grid.BorderStyle = BorderStyle.None;" did not compile: the name
+    /// BorderStyle existed only as this property, and there was no type to read None off.
+    /// </summary>
+    [Parameter] public BorderStyle BorderStyle { get => _borderStyle; set => SetAndRefresh(ref _borderStyle, value); }
 
     /// <summary>Correspond to Font-Bold / Font-Italic / Font-Underline / Font-Size / Font-Names in markup.</summary>
     [Parameter] public bool FontBold { get => _fontBold; set => SetAndRefresh(ref _fontBold, value); }
@@ -449,7 +454,12 @@ public abstract class WebFormsControlBase : ComponentBase, IWebFormsControl, IDi
             Append("color", ForeColor);
             Append("border-color", BorderColor);
             Append("border-width", CssSize(BorderWidth));
-            Append("border-style", BorderStyle?.ToLowerInvariant());
+            // NotSet renders nothing, as it did: the control has no opinion, so no
+            // declaration is emitted and whatever the stylesheet says stands. Every other
+            // member is its own CSS keyword in lower case ("None" -> "none").
+            Append("border-style", BorderStyle == BorderStyle.NotSet
+                ? null
+                : BorderStyle.ToString().ToLowerInvariant());
             if (FontBold)
             {
                 builder.Append("font-weight:bold;");

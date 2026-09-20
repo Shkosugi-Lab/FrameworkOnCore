@@ -531,6 +531,25 @@ public abstract class TemplateControl
 /// mechanical rewrite. Inert here: every member reports "not found" so a derived provider
 /// compiles and its Open/GetFile overrides are visible to whoever migrates it.
 /// </summary>
+/// <summary>
+/// System.Web.UI.WebControls.BorderStyle equivalent. The members are the CSS border-style
+/// keywords, which is why rendering is just the lower-cased name; NotSet is the "no
+/// opinion" default and renders nothing.
+/// </summary>
+public enum BorderStyle
+{
+    NotSet,
+    None,
+    Dotted,
+    Dashed,
+    Solid,
+    Double,
+    Groove,
+    Ridge,
+    Inset,
+    Outset,
+}
+
 public abstract class VirtualPathProvider
 {
     public virtual bool FileExists(string virtualPath) => false;

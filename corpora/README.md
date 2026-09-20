@@ -7865,3 +7865,43 @@ mojoPortal は 3 つとも override して自前の `VirtualFile` / `VirtualDire
 mojo **341 → 327**。6 コーパス計 **375 → 361**。
 be / yaf / dnn / n2 / wt は完全に不変。
 パリティ 30/30、bUnit 30/30、回帰ゲート 13/13。
+
+## `BorderStyle` を列挙型にする(mojo 327 → 324)
+
+```csharp
+grid.BorderStyle = BorderStyle.None;   // CS0103 'BorderStyle' という名前は存在しません
+```
+
+`WebFormsControlBase.BorderStyle` は **`string`** でした。つまり `BorderStyle` という名前は
+**このプロパティとしてしか存在せず**、`None` を読み出す型がどこにもありません。
+WebForms では `System.Web.UI.WebControls.BorderStyle` という列挙型です。
+またしても「**基底はコントロールが何であるかを運ばない**」です(6 回目)。
+
+### 描画は 1 バイトも変わりません
+
+| | 前(string) | 後(enum) |
+|---|---|---|
+| 未指定 | `null` → 何も出さない | `NotSet` → 何も出さない |
+| `BorderStyle="Solid"` | `"Solid".ToLower()` → `border-style:solid` | `Solid.ToString().ToLower()` → `border-style:solid` |
+| `BorderStyle="Fancy"` | `border-style:fancy` | **パースエラー** |
+
+**WebForms の正しい値すべてで出力は同一**です。変わるのは 3 行目だけで、
+そこは 4.8 でもページのパース時に落ちていました。
+
+### 正直に書いておくこと
+
+`DefaultsProbe` は `BorderStyle` を**使っていません**。
+ゴールデンマスターはこの描画経路を通っていないので、
+**ゲートが通ったことは、描画が正しいことの証明になっていません。**
+上の表が根拠のすべてです(コードを読んだ結果であって、実測ではありません)。
+
+README の規則は「変換器にコントロール/プロパティを追加したら必ず DefaultsProbe にも
+足す」です。今回は**既存プロパティの型の修正**なので新規追加ではありませんが、
+`BorderStyle` を `DefaultsProbe` に足して旧ランタイムから採り直すのが本来です。
+IIS Express と MSBuild でゴールデンマスターを録り直す作業になります。
+
+### 数字
+
+mojo **327 → 324**。6 コーパス計 **361 → 358**。
+be / yaf / dnn / n2 / wt は完全に不変。
+パリティ 30/30、bUnit 30/30、回帰ゲート 13/13。

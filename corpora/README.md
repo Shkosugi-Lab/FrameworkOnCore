@@ -8008,3 +8008,156 @@ dnn の 14 件は全て `DotNetNuke.Web.Client`(ClientDependency ライブラリ
   (今回の列挙型化は**描画経路がゲートを通っていません**)。
 - ルート README の**表以外**の記述はまだゲートに載っていません。
 - `corpora/out/*/build-errors.txt` が新しく出ます。次の的はここから選んでください。
+
+---
+
+# 根本対応 (A): 実在アプリを変換前と照合する
+
+「細かい修正が続いているが、もっと根本的な対応があるのでは」という指摘を受けて、
+数えました。**指摘は正しく、私は代理指標を最適化していました。**
+
+## 何が根本だったか
+
+| 検証 | 対象 |
+|---|---|
+| パリティ(**このプロジェクト自身が最終ゲートと定義**) | 手作りサンプル 4 本のみ |
+| 回帰ゲート | be / wt を**自分の過去のスナップショット**と照合 |
+| **実在 6 アプリ 対 変換前の実挙動** | **ゼロ** |
+
+BlogEngine は**ビルドエラー 0** です。そして元の挙動と一致する証拠は 1 つもありません。
+いまの「0」は「コンパイルが通る」であって「動く」ではない。
+
+ルート README 自身がこう書いています — 既定レンダリングの漏れは
+
+> 残差レポートもコンパイルエラーも「書かれているもの」しか捕捉できないため、
+> 既定値の漏れは旧アプリの実描画と突き合わせる以外に検出手段がない。
+> 実際にこの層が 4 件の既定値漏れを検出した
+
+**構造的にビルドエラーでは見えない欠陥の層がある**と分かっていて、
+実在アプリにはその層を当てていませんでした。
+
+そして「細かい修正が続く」のは**症状**です。エラー件数は必ず平坦な裾野を持つので、
+それを信号に選んだ時点で、作業が延々と小さな修正に見えることは確定します。
+
+残り 354 件の内訳も、そう読むと違って見えます:
+
+| | 件数 | 本来の担当 |
+|---|---:|---|
+| ライブラリ移行(Lucene 4.8 / com.drew / ClientDependency) | 130 (37%) | **第 3 層(AI)** |
+| 2 つのコントロール家系の断層 | 33 | アーキテクチャ |
+| その他 | 191 | 第 2 層 |
+
+130 件は layer 2 の仕事ではありません。**カテゴリ違いの作業を手でやっていました。**
+
+## 「環境が無い」は事実ではなかった
+
+最初の確認では、MSBuild も IIS Express も .NET Framework のターゲティングパックも
+見つかりませんでした。**そこで止めるのが正しいと思い、報告しました。**
+
+もう一段見たら、Windows 同梱の .NET Framework が丸ごとありました:
+
+```
+C:\Windows\Microsoft.NET\Framework64\v4.0.30319\  MSBuild.exe / csc.exe / System.Web.dll
+```
+
+足りないものは**すべて NuGet から入ります**:
+
+| 要るもの | 入手先 |
+|---|---|
+| v4.8 参照アセンブリ | `Microsoft.NETFramework.ReferenceAssemblies.net48` |
+| C# 6 以降のコンパイラ | `Microsoft.Net.Compilers`(同梱 csc は C# 5 まで) |
+| packages.config の復元 | `nuget.exe`(`dotnet restore` は packages.config を扱わない) |
+
+**「Visual Studio Build Tools が要る」は思い込みでした。**
+
+## できたこと: 旧アプリがビルドできる
+
+`corpora\build-original.ps1`。**BlogEngine.NET 3.3.8 が 23 アセンブリまで通ります。**
+
+つまずきは 3 つで、いずれも設定で越えられました:
+
+1. `Microsoft.WebApplication.targets` が無い → **`/p:VSToolsPath=`**。
+   インポートは `Condition="'$(VSToolsPath)' != ''"` なので空にすれば飛びます。
+   あれが要るのは発行で、ビルドには要りません。
+2. `$"..."` が **CS1056** → 同梱 csc は C# 5。
+   **`/p:CscToolPath=`** で Roslyn を指します。
+3. v4.5 の参照アセンブリが無い → **`/p:TargetFrameworkVersion=v4.8`** +
+   **`/p:TargetFrameworkRootPath=`**。v4.8 は上位互換です。
+
+道具のバージョンは固定しています。**採取した正解が何で作られたのか後から言えなくなる**ので。
+
+## できなかったこと: 旧アプリを動かす
+
+IIS Express が無いので、ASP.NET を自前でホストしようとしました。
+**ASP.NET は描画まで到達します** — System.Web が動き、ASP.NET 生成の HTML が返ります。
+しかし**返ってくるのは常に ASP.NET のエラーページ**で、アプリのページではありません。
+
+止まった順序(すべて実測):
+
+| 試したこと | 結果 |
+|---|---|
+| `ApplicationHost.CreateApplicationHost` | 新ドメイン内の `Type.GetType` がホスト型を見つけられない |
+| ホスト DLL を `bin` へ配置 | 変わらず |
+| アプリのルートへも配置 | 変わらず |
+| `.exe` ではなくライブラリに分離 | 変わらず |
+| ASP.NET 一時フォルダを削除 | そもそも存在しなかった |
+| 最小 .aspx で切り分け | **同じ失敗** → アプリ側ではなくホスト側 |
+| `ApplicationManager.CreateObject` | スタックは進むが同じ `Type.GetType` で失敗 |
+| AppDomain をやめ 5 引数 `SimpleWorkerRequest` | **HTTP 200 到達**。ただし「ファイル名が無効です」 |
+| domain data(`.appPath` 等)を設定 | 5 引数版が「アプリケーション パスを上書きできません」 |
+| 3 引数版へ戻す | **「構成システムは既に初期化されています」** |
+| ASP.NET を先にウォームアップ(要求) | 「開始前の初期化段階では呼び出せません」 |
+| 同(`WebConfigurationManager` で構成のみ) | 再び「構成システムは既に初期化されています」 |
+
+最後の原因はほぼ特定できています。**`HttpListener` が `<system.net>` を読んで
+既定の構成システムを先に初期化し、ASP.NET が自分のものを入れられなくなる。**
+`WebConfigurationManager` を先に触る手も、ホストされていない状態では
+既定側を初期化するだけでした。
+
+`tools\legacy\WebFormsHost` はソースだけ残してあります。
+**先頭に「DOES NOT WORK」と書いてあります。** 動かないものを動くように見せません。
+
+## いま効いたこと: 未検証が数字の場所に出るようになった
+
+`convert-all.ps1` が毎回これを出します:
+
+```
+=== 変換前アプリとの照合(ParityTest) ===
+コーパス ビルドエラー 変換前との照合
+be            0        未採取
+mojo        320        未採取
+yaf          14        未採取
+dnn          14        未採取
+n2            6        未採取
+wt            0        未採取
+
+6 本のコーパスに変換前アプリのゴールデンマスターがありません。
+これらのコーパスでは「ビルドエラー 0」は「コンパイルが通る」以上を意味しません。
+```
+
+**コメントに書いても読まれません。** 表だけ見た人が「検証済み」と受け取るのを止めるには、
+表に出ているしかない。このセッションの私の総括も、
+「パリティ 30/30」と「回帰ゲート 13/13」を並べて書いていて、
+**コーパスが未検証であることを隠していました。**
+
+## 次に触る人へ
+
+**IIS Express がある環境なら、残りは 1 手です。**
+ビルドは `build-original.ps1` で通り、シナリオ
+(`corpora\regression\be.scenario.json`)は旧・新の両方に使えます
+— ParityTest が `.aspx` の有無を正規化するので。手順は:
+
+```powershell
+.\corpora\build-original.ps1 -Only be
+& "C:\Program Files\IIS Express\iisexpress.exe" `
+    /path:"<...>\BlogEngine.NET" /port:8091
+dotnet run --project tools\WebForm2Blazor.ParityTest -- record `
+    --url http://localhost:8091/ --scenario corpora\regression\be.scenario.json `
+    --out corpora\parity\be.golden-webforms.json
+```
+
+`corpora\parity\<name>.golden-webforms.json` に置けば、
+上の表が自動で「照合あり」に変わります。**照合そのものを回すゲートはまだ書いていません**
+— 採取できていないものを検証するコードはテストできないからです。
+
+IIS Express が無い環境で続けるなら、上の表の最後の行から。

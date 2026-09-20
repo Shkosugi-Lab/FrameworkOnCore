@@ -65,3 +65,10 @@ ehthumbs.db
 Desktop.ini
 $RECYCLE.BIN/
 .DS_Store
+
+# 旧 WebForms アプリをビルドするために取得する道具(nuget.exe / 参照アセンブリ /
+# Roslyn コンパイラ)。corpora\build-original.ps1 が取得するので、コミットはしない。
+tools/legacy/nuget.exe
+tools/legacy/packages/
+tools/legacy/WebFormsHost/*.exe
+tools/legacy/WebFormsHost/*.dll

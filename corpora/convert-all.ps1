@@ -376,6 +376,42 @@ if (Test-Path $readmePath) {
     }
 }
 
+# 変換前アプリとの照合が取れているか。
+#
+# ここまでの表は「ビルドが通るか」と「残差がいくつか」しか言っていない。この
+# プロジェクトが最終ゲートと定義しているのは ParityTest —— 変換前の WebForms アプリを
+# 実際に動かして記録した描画との照合 —— で、それが存在するのは samples\ の 4 本だけ。
+#
+# 6 本のコーパスには 1 本も無い。つまり BlogEngine の「ビルドエラー 0」は
+# 「コンパイルが通る」であって「元と同じ挙動」ではない。0 になっても挙動については
+# 何も言えない。
+#
+# regression-gate.ps1 は be / wt を見ているが、比較相手は変換後アプリ自身の過去の
+# スナップショットで、「元と同じ」は言わない(あちらのヘッダにもそう書いてある)。
+#
+# 数字の隣に書くのは、コメントに書いても読まれないから。表だけ見た人が
+# 「検証済み」と受け取るのを止めるには、表に出ているしかない。
+$parityDir = Join-Path $PSScriptRoot 'parity'
+$parityRows = foreach ($key in @('be', 'mojo', 'yaf', 'dnn', 'n2', 'wt')) {
+    if (-not $baseline.ContainsKey($key)) { continue }
+    $golden = Join-Path $parityDir "$key.golden-webforms.json"
+    [pscustomobject]@{
+        コーパス          = $key
+        'ビルドエラー'    = $baseline[$key].buildErrors
+        '変換前との照合'  = if (Test-Path $golden) { '照合あり' } else { '未採取' }
+    }
+}
+
+Write-Host ""
+Write-Host '=== 変換前アプリとの照合(ParityTest) ===' -ForegroundColor Cyan
+$parityRows | Format-Table -AutoSize | Out-String | Write-Host
+$unverified = @($parityRows | Where-Object { $_.'変換前との照合' -eq '未採取' }).Count
+if ($unverified -gt 0) {
+    Write-Host ("$unverified 本のコーパスに変換前アプリのゴールデンマスターがありません。") -ForegroundColor Yellow
+    Write-Host 'これらのコーパスでは「ビルドエラー 0」は「コンパイルが通る」以上を意味しません。' -ForegroundColor Yellow
+    Write-Host '採取手順は corpora\README.md の「変換前アプリを動かす」を参照してください。' -ForegroundColor Yellow
+}
+
 Write-Host ""
 if ($problems.Count -gt 0) {
     Write-Host '要確認:' -ForegroundColor Red

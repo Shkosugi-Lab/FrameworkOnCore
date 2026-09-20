@@ -68,6 +68,12 @@ string? entryProjectPath = null;
 var deriveIncludes = true;
 var port = 5080;
 
+// Named once because the residual that tells the reader how to supply the catalog used to
+// spell it "--property-catalog", which is not a flag this converter has - the switch below
+// falls through to "不明な引数" and exits 1. The message was advice that could only fail.
+// A const cannot drift from the case label that uses it.
+const string PropertyCatalogFlag = "--catalog";
+
 for (var i = 0; i < args.Length; i++)
 {
     switch (args[i])
@@ -80,7 +86,7 @@ for (var i = 0; i < args.Length; i++)
         case "--control-map": controlMapPath = args[++i]; break;
         case "--expression-map": expressionMapPath = args[++i]; break;
         case "--package-map": packageMapPath = args[++i]; break;
-        case "--catalog": propertyCatalogPath = args[++i]; break;
+        case PropertyCatalogFlag: propertyCatalogPath = args[++i]; break;
         case "--include": includeDirectories.Add(args[++i]); break;
         case "--project": entryProjectPath = args[++i]; break;
         case "--analyzer": analyzerAssemblies.Add(args[++i]); break;
@@ -145,7 +151,7 @@ else
     report.Residual("(project)", ResidualKind.Configuration,
         "プロパティカタログ webforms-property-catalog.json が見つかりません。expando 属性の判定を"
         + "実プロパティではなく既定のマッピング表だけで行うため、残差が増えます"
-        + "(--property-catalog で明示するか、変換器の出力先に配置してください)。",
+        + $"({PropertyCatalogFlag} で明示するか、変換器の出力先に配置してください)。",
         disposition: ResidualDisposition.NeedsInput);
 }
 

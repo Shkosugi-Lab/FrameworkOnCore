@@ -20,13 +20,26 @@ public static class CodeBehindRewriter
         "UserControl", "System.Web.UI.UserControl", "global::System.Web.UI.UserControl",
     };
 
-    /// <summary>Lifecycle events that cannot be converted automatically (Init / Load / PreRender are supported).</summary>
-    private static readonly HashSet<string> UnsupportedLifecycleMethods = new(StringComparer.Ordinal)
+    /// <summary>
+    /// The three Page_* handlers the generated lifecycle driver calls.
+    ///
+    /// Everything else named Page_&lt;Something&gt; is a handler nothing wires up - it is
+    /// carried into the partial class, compiles, and never runs. That is the quietest
+    /// failure this converter can produce, so it is reported by SHAPE rather than from a
+    /// list of the WebForms page lifecycle: a list has to be complete to be right, and
+    /// this one was not. mojoPortal writes Page_OnPreLoad, which is not Page_PreLoad, so
+    /// it was carried in silence.
+    /// </summary>
+    private static readonly HashSet<string> WiredLifecycleMethods = new(StringComparer.Ordinal)
     {
-        "Page_PreInit", "Page_InitComplete", "Page_PreLoad", "Page_LoadComplete",
-        "Page_PreRenderComplete", "Page_SaveStateComplete", "Page_Unload",
-        "Page_Error", "Page_AbortTransaction",
+        "Page_Init", "Page_Load", "Page_PreRender",
     };
+
+    /// <inheritdoc cref="WiredLifecycleMethods"/>
+    private static bool IsUnwiredLifecycleHandler(string methodName)
+        => methodName.StartsWith("Page_", StringComparison.Ordinal)
+           && methodName.Length > "Page_".Length
+           && !WiredLifecycleMethods.Contains(methodName);
 
     private static readonly string[] RequiredUsings =
     [
@@ -2084,7 +2097,7 @@ public static class CodeBehindRewriter
     {
         foreach (var method in classDeclaration.Members.OfType<MethodDeclarationSyntax>())
         {
-            if (UnsupportedLifecycleMethods.Contains(method.Identifier.Text))
+            if (IsUnwiredLifecycleHandler(method.Identifier.Text))
             {
                 report.Residual(sourceName, ResidualKind.PageLifecycle,
                     $"{method.Identifier.Text} は自動変換の対象外です(呼び出し元が生成されないため、そのまま残しました)。");

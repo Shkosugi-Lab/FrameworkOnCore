@@ -1805,6 +1805,7 @@ if (Directory.Exists(appDataSource))
 // wwwroot, because that is the browser-visible root of an ASP.NET Core app - the direct
 // equivalent of the WebForms application root the original served these from.
 var copiedStatic = 0;
+var copiedProbeMarkup = 0;
 var staticSkipped = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 foreach (var file in Directory.EnumerateFiles(input, "*", SearchOption.AllDirectories))
 {
@@ -1827,6 +1828,29 @@ foreach (var file in Directory.EnumerateFiles(input, "*", SearchOption.AllDirect
     if (IsConvertedOrCodeAsset(extension))
     {
         staticSkipped.Add(extension.ToLowerInvariant());
+
+        // ...but "not served" and "not there" are different things, and the original tells
+        // them apart. BlogEngine picks the post template with
+        //
+        //     if (!File.Exists(Server.MapPath(".../Themes/<theme>/PostView.ascx")))
+        //         path = ".../Controls/Defaults/PostView.ascx";
+        //
+        // With the file gone the probe always failed, so EVERY theme silently fell back to
+        // the default view - the converted blog rendered <article class="post"> where the
+        // original renders <article class="post-home post-home-top">. Nothing was broken
+        // enough to report: the fallback is a legitimate branch, it just never stopped
+        // being taken.
+        //
+        // The markup goes to the CONTENT ROOT instead. VirtualPaths.Resolve probes wwwroot
+        // first and the content root second, so MapPath finds it, while the static file
+        // middleware - which serves wwwroot only - can never hand out a raw .aspx.
+        if (IsRuntimeProbedMarkup(extension))
+        {
+            var probeCopy = Path.Combine(output, relative.Replace('/', Path.DirectorySeparatorChar));
+            Directory.CreateDirectory(Path.GetDirectoryName(probeCopy)!);
+            File.Copy(file, probeCopy, overwrite: true);
+            copiedProbeMarkup++;
+        }
         continue;
     }
 
@@ -1860,6 +1884,14 @@ if (copiedStatic > 0)
         $"静的コンテンツ {copiedStatic} ファイルを wwwroot にコピーしました"
         + "(CSS / スクリプト / 画像と、アプリが実行時に読むファイル)。"
         + $"変換対象の拡張子は除外: {string.Join(" ", staticSkipped.OrderBy(value => value, StringComparer.Ordinal))}");
+
+    if (copiedProbeMarkup > 0)
+    {
+        report.Info("(project)",
+            $"変換済みマークアップ {copiedProbeMarkup} ファイルを wwwroot の外(コンテンツルート)に"
+            + "コピーしました。実行時に File.Exists / MapPath で存在を問うコードがあり、"
+            + "消すとその分岐が常に「無い」側に倒れます。wwwroot の外なので配信はされません。");
+    }
 }
 
 /// <summary>
@@ -1872,6 +1904,21 @@ static bool IsConvertedOrCodeAsset(string extension) => extension.ToLowerInvaria
     ".aspx" or ".ascx" or ".master" or ".asax" or ".ashx" or ".asmx" or ".svc" => true,
     ".cs" or ".vb" or ".resx" or ".csproj" or ".vbproj" or ".sln" or ".user" => true,
     ".config" => true,
+    _ => false,
+};
+
+/// <summary>
+/// Markup a running app asks about by path - LoadControl takes one, and code branches on
+/// whether one exists. It is kept outside wwwroot so the question can be answered without
+/// the file becoming browser-visible.
+///
+/// Only the three a page or control is addressed by. A handler (.ashx / .asmx / .svc) is
+/// reached by routing rather than looked up on disk, and Global.asax is not addressed at
+/// all - none of them is the subject of an existence check in the corpora.
+/// </summary>
+static bool IsRuntimeProbedMarkup(string extension) => extension.ToLowerInvariant() switch
+{
+    ".aspx" or ".ascx" or ".master" => true,
     _ => false,
 };
 

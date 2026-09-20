@@ -8892,3 +8892,99 @@ ID 生成器が付ける名前が `ctl00` です。2 つのモードはこれの
 **正解データがその要素を記録していない**ことによる報告です。
 採取時に何が起きたのかは**未検証**です。決めつけずにここに残します
 (差分 40 行のうち 8 行がこれに当たります)。
+
+---
+
+# 変換した .ascx を消したら、テーマが一度も使われなくなっていた
+
+引き継ぎの項目 2 は「投稿の本文 / `READ MORE` / `post0` の class ——
+`PostView` が `Location` / `Index` をどう使うか」でした。
+`PostView` の使い方は関係ありませんでした。**そもそもテーマの `PostView` が使われていませんでした。**
+
+## 測った
+
+正解データは `post0` の class を `post-home post-home-top` と記録しています。
+テーマの `PostView.ascx` は確かにその形を出します。
+
+```html
+<article class="post-home post-home-<%=postImagePosition %>" id="post<%=Index %>">
+```
+
+変換後は `class="post"`。テーマのどちらの `<article>` とも一致しません。探したら別の場所にありました。
+
+```html
+<!-- Custom/Controls/Defaults/PostView.ascx -->
+<article class="post" id="post<%=Index %>">
+```
+
+**既定のビューでした。** 変換器のカタログにはテーマ版も登録されています。
+呼び出し側を読むと、分岐はファイルの存在で決まっていました。
+
+```csharp
+var path = string.Format("{0}Custom/Themes/{1}/PostView.ascx", ...);
+if (!System.IO.File.Exists(Server.MapPath(path)))
+    path = string.Format("{0}Custom/Controls/Defaults/PostView.ascx", ...);
+```
+
+そして `.ascx` は静的コンテンツの複写から**意図的に除外**されています
+(前の節のとおり、生の `.aspx` が配信されるのを防ぐため)。
+**存在確認は必ず false になり、どのテーマも必ず既定へ落ちていました。**
+
+これは壊れ方として見えにくい形です。**フォールバックは正当な分岐**で、
+例外も出ず、ログも出ず、ビルドエラーにもなりません。ただ一度も選ばれなくなっただけです。
+
+## 「配信しない」と「存在しない」は別のこと
+
+除外の理由は**配信**でした。存在確認まで巻き添えにする必要はありません。
+
+`VirtualPaths.Resolve` は wwwroot → コンテンツルート → BaseDirectory の順に探します。
+**コンテンツルートは静的ファイルミドルウェアの配信対象外**です。
+そこへ置けば `MapPath` は見つけ、ブラウザには決して渡りません。
+
+対象は `.aspx` / `.ascx` / `.master` の 3 つだけにしました。
+ハンドラ(`.ashx` / `.asmx` / `.svc`)はルーティングで到達するものでディスクを引かれません。
+`Global.asax` はパスで指されません。コーパスでこれらが存在確認される箇所はありません。
+
+## 効果
+
+| | 前 | 後 |
+|---|---|---|
+| `post0` の class | `post` | **`post-home post-home-...`**(テーマ版) |
+| home の本文 | 15 行 | **17 行**(期待 22) |
+| home の最初の相違 | 3 行目 | **10 行目** |
+
+そして引き継ぎが「まだ出ない」としていた**投稿の本文が出ました**。
+
+```
+If you see this post it means that BlogEngine.NET is running and the hard part of
+creating your own blog is done. There is only a few things left to do....
+```
+
+回帰ゲートの差分は **2 行だけ**で、内訳は上の本文 1 行と `post0` の class 1 件。
+**どちらも正解データに近づく向き**なので記録し直しました。
+
+6 コーパスの数字は不変。サンプルのパリティ 30/30、bUnit 30/30、回帰ゲート 13/13。
+
+## 差分行数は 40 のまま動きませんでした
+
+**これは正直に書いておきます。** パリティの差分行数は `ctl00_` の後と同じ 40 行です。
+中身は明らかに正解へ近づいているのに、行数という粒度がそれを捉えません
+(`post0` の class は「不一致 1 行」のままで、前半が一致したことを数えない)。
+
+**行数を進捗の指標にすると、この変更は「効果なし」に見えます。** 見えるのは中身のほうです。
+
+## 次に出てきたもの: `CUSTOMFIELD` が未置換
+
+テーマ版が使われるようになって初めて見えた差分です。
+
+```
+期待 'post-home post-home-top'
+実際 'post-home post-home-[CUSTOMFIELD|THEME|Standard|Post Thumbnail position|top/]'
+```
+
+`[CUSTOMFIELD|THEME|<テーマ>|<項目>|<既定値>/]` は BlogEngine がテーマに持たせている構文で、
+`site.master` / `page.master` / `PostView.ascx` の 3 ファイルに出てきます。
+元アプリは描画後にこれを実際の値(未設定なら既定値。ここでは `top`)へ置換します。
+変換後はその置換が走っていません。
+
+**どこが置換しているかは未調査**です。次の対象にします。

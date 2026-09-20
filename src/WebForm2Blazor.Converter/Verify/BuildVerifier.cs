@@ -138,7 +138,7 @@ public static partial class BuildVerifier
 
         // StoppedAtParse is judged on ALL diagnostics: a syntax error hides real errors
         // whether or not an undecided dependency is also in the file.
-        var stoppedAtParse = StoppedAtParse(diagnostics);
+        var stoppedAtParse = StoppedAtParse(diagnostics, outputDirectory);
         var undecidedTypes = ReadUndecidedDependencyTypes(outputDirectory);
         var restored = ReadRestoredOutOfScopeFiles(outputDirectory);
         var undecidedByFile = UndecidedAssemblyByFile(diagnostics, undecidedTypes);
@@ -165,8 +165,9 @@ public static partial class BuildVerifier
     /// tool codes keeps it closed against MSB*, NETSDK*, RZ* and anything else that fails
     /// ahead of the compiler.
     /// </summary>
-    private static bool StoppedAtParse(List<Diagnostic> diagnostics)
-        => diagnostics.Any(diagnostic => ParseErrorCodes.Contains(diagnostic.Code))
+    private static bool StoppedAtParse(List<Diagnostic> diagnostics, string? outputDirectory = null)
+        => SourcesFailToParse(outputDirectory)
+            || diagnostics.Any(diagnostic => ParseErrorCodes.Contains(diagnostic.Code))
             // ANY Razor error. RZ means the Razor compiler refused a .razor, so the C#
             // it would have generated for that file never existed and nothing in it was
             // ever bound - the same stop as a syntax error, one stage earlier.
@@ -181,6 +182,63 @@ public static partial class BuildVerifier
                 && !diagnostics.Any(diagnostic =>
                     diagnostic.Code.StartsWith("CS", StringComparison.Ordinal)))
             || StoppedAtDeclarations(diagnostics);
+
+    /// <summary>
+    /// Whether the emitted C# actually parses - asked of Roslyn, not of a code list.
+    ///
+    /// <see cref="ParseErrorCodes"/> is 26 hand-picked codes out of the couple of hundred
+    /// the C# parser can produce: CS1002 is there and CS1005 is not, CS1513/1514 are there
+    /// and CS1515/1517/1518 are not. A build with one unlisted syntax code AND ordinary
+    /// semantic errors slips past every backstop - the "no CS diagnostic at all" rule
+    /// fails the moment any CS error exists, and StoppedAtDeclarations fails the moment
+    /// any non-declaration code does. It reports a floor as a total, silently. That shape
+    /// has now cost three wrong readings in one session (CS0506, RZ*, and the codes this
+    /// replaces).
+    ///
+    /// "Do these sources parse" is a question the converter can put to the parser directly,
+    /// in milliseconds, with no list to keep current and no dependence on the SDK's
+    /// localized message text.
+    ///
+    /// Only the files the converter WROTE. bin/ and obj/ hold generated and copied code
+    /// that is not the output's to answer for, and the Razor-generated .cs does not exist
+    /// until the build runs.
+    /// </summary>
+    private static bool SourcesFailToParse(string? outputDirectory)
+    {
+        if (outputDirectory is null || !Directory.Exists(outputDirectory))
+        {
+            return false;
+        }
+
+        foreach (var file in Directory.EnumerateFiles(outputDirectory, "*.cs", SearchOption.AllDirectories))
+        {
+            var relative = Path.GetRelativePath(outputDirectory, file).Replace('\\', '/');
+            if (relative.StartsWith("bin/", StringComparison.OrdinalIgnoreCase)
+                || relative.StartsWith("obj/", StringComparison.OrdinalIgnoreCase))
+            {
+                continue;
+            }
+
+            try
+            {
+                var tree = Microsoft.CodeAnalysis.CSharp.CSharpSyntaxTree.ParseText(
+                    File.ReadAllText(file),
+                    Microsoft.CodeAnalysis.CSharp.CSharpParseOptions.Default
+                        .WithPreprocessorSymbols("DEBUG"));
+                if (tree.GetDiagnostics().Any(diagnostic =>
+                        diagnostic.Severity == Microsoft.CodeAnalysis.DiagnosticSeverity.Error))
+                {
+                    return true;
+                }
+            }
+            catch (IOException)
+            {
+                // Unreadable is not "does not parse" - say nothing rather than guess.
+            }
+        }
+
+        return false;
+    }
 
     /// <summary>
     /// Errors about an INHERITANCE CONTRACT - "no suitable method to override", "does not
@@ -669,7 +727,7 @@ public static partial class BuildVerifier
             return 1;
         }
 
-        var stoppedAtParse = StoppedAtParse(diagnostics);
+        var stoppedAtParse = StoppedAtParse(diagnostics, outputDirectory);
         var undecidedTypes = ReadUndecidedDependencyTypes(outputDirectory);
         var restored = ReadRestoredOutOfScopeFiles(outputDirectory);
         var undecidedByFile = UndecidedAssemblyByFile(diagnostics, undecidedTypes);

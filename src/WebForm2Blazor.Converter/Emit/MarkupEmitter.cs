@@ -2159,8 +2159,26 @@ public sealed partial class MarkupEmitter(EmitContext context)
             return rewritten;
         }
 
+        // Backlog, not Convertible.
+        //
+        // The DISPLAY side is already right - Eval reads the same value Bind would. What
+        // is not carried is the write-back: WebForms used Bind's metadata to fill
+        // e.NewValues on update, and a TemplateField here extracts nothing.
+        //
+        // That is a converter/compat capability, not something a model can fix by
+        // rewriting this .razor - the correct .razor is the one already emitted. Left as
+        // Convertible it filled the AI layer with 13 tasks whose only honest answer was
+        // "no change", which is what made that layer's acceptance rate meaningless the
+        // last time (see the note on retiring ManualMigration).
+        //
+        // An application that reads edited values through FindControl on the cell - the
+        // idiom the compat GridView documents, and what mojoPortal does in every one of
+        // these 13 - loses nothing at all.
         Residual(ResidualKind.DataBinding,
-            $"双方向バインド Bind() は片方向の Eval() として出力しました: {Truncate(original)}");
+            $"双方向バインド Bind() は片方向の Eval() として出力しました: {Truncate(original)}"
+            + "(表示は同じ値です。書き戻し e.NewValues は運んでいません — "
+            + "編集値をセルの FindControl で読むコードは影響を受けません)。",
+            ResidualDisposition.Backlog);
         return BindCallRegex().Replace(rewritten, $"Eval({ContainerName}, ");
     }
 

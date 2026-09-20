@@ -395,22 +395,26 @@ $parityDir = Join-Path $PSScriptRoot 'parity'
 $parityRows = foreach ($key in @('be', 'mojo', 'yaf', 'dnn', 'n2', 'wt')) {
     if (-not $baseline.ContainsKey($key)) { continue }
     $golden = Join-Path $parityDir "$key.golden-webforms.json"
+    # 「採取済み」であって「合格」ではありません。正解が在るかどうかしか見ていない
+    # ので、照合して落ちていても在れば採取済みと出ます。実際 be は採取済みで、
+    # 5 スナップショット中 5 つが不一致です。合否は corpora\parity-gate.ps1。
     [pscustomobject]@{
-        コーパス          = $key
-        'ビルドエラー'    = $baseline[$key].buildErrors
-        '変換前との照合'  = if (Test-Path $golden) { '照合あり' } else { '未採取' }
+        コーパス            = $key
+        'ビルドエラー'      = $baseline[$key].buildErrors
+        '変換前の正解データ' = if (Test-Path $golden) { '採取済み' } else { '未採取' }
     }
 }
 
 Write-Host ""
 Write-Host '=== 変換前アプリとの照合(ParityTest) ===' -ForegroundColor Cyan
 $parityRows | Format-Table -AutoSize | Out-String | Write-Host
-$unverified = @($parityRows | Where-Object { $_.'変換前との照合' -eq '未採取' }).Count
+$unverified = @($parityRows | Where-Object { $_.'変換前の正解データ' -eq '未採取' }).Count
 if ($unverified -gt 0) {
-    Write-Host ("$unverified 本のコーパスに変換前アプリのゴールデンマスターがありません。") -ForegroundColor Yellow
+    Write-Host ("$unverified 本のコーパスに変換前アプリの正解データがありません。") -ForegroundColor Yellow
     Write-Host 'これらのコーパスでは「ビルドエラー 0」は「コンパイルが通る」以上を意味しません。' -ForegroundColor Yellow
-    Write-Host '採取手順は corpora\README.md の「変換前アプリを動かす」を参照してください。' -ForegroundColor Yellow
+    Write-Host '採取は corpora\record-webforms-golden.ps1(IIS が要ります)。' -ForegroundColor Yellow
 }
+Write-Host '「採取済み」は合格ではありません。照合は corpora\parity-gate.ps1 で行います。' -ForegroundColor Yellow
 
 Write-Host ""
 if ($problems.Count -gt 0) {

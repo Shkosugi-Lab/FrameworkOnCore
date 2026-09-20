@@ -1,0 +1,644 @@
+{
+  "SourceUrl": "http://localhost:8091/",
+  "Snapshots": [
+    {
+      "Name": "home",
+      "Path": "/",
+      "Title": "Name of the blog | Short description of the blog",
+      "Text": [
+        "Name of the blog",
+        "Welcome to BlogEngine.NET",
+        "If you see this post it means that BlogEngine.NET is running and the hard part of creating your own blog is done. There is only a few things left to do....",
+        "READ MORE",
+        "ホーム",
+        "ABOUT",
+        "EXAMPLE PAGE",
+        "アーカイブ",
+        "コンタクト",
+        "ログイン",
+        "POSTLIST",
+        "Welcome to BlogEngine.NET",
+        "NEWSLETTER",
+        "Get notified when a new post is published.",
+        "TAGCLOUD",
+        "BLOGGING",
+        "WELCOME",
+        "BLOGROLL",
+        "Ruslan Tur",
+        "Francis Bio",
+        "BlogEngine",
+        "DESIGNED BY BLOGENGINE"
+      ],
+      "Tables": [],
+      "Inputs": {
+        "txt-fd2436bb-68a7-47d1-9171-2753af201fa6": "",
+        "txtNewsletterEmail": ""
+      },
+      "Elements": {
+        "ctl00_cphBody_divError": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "ctl00_cphBody_PostList1_posts": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "posts"
+          },
+          "Style": {}
+        },
+        "post0": {
+          "Tag": "article",
+          "Attributes": {
+            "class": "post-home post-home-top"
+          },
+          "Style": {}
+        },
+        "postPaging": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "ctl00_cphBody_PostList1_hlNext": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {
+            "float": "right"
+          }
+        },
+        "ctl00_aLogin": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "ctl00_aLoginText": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "widgetzone_sidebar-Post": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "widgetzone"
+          },
+          "Style": {}
+        },
+        "searchbox": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txt-fd2436bb-68a7-47d1-9171-2753af201fa6": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "searchbutton": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "newsletterform": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtNewsletterEmail": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text",
+            "class": "form-control"
+          },
+          "Style": {
+            "width": "98%"
+          }
+        },
+        "btnSave": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button",
+            "class": "btn btn-primary"
+          },
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "archive",
+      "Path": "/archive",
+      "Title": "Name of the blog | アーカイブ",
+      "Text": [
+        "Name of the blog",
+        "アーカイブ",
+        "BlogEngine.NET",
+        "BlogEngine.NET (1)",
+        "Welcome to BlogEngine.NET",
+        "総数",
+        "1 投稿数",
+        "1 コメント",
+        "0 レート数",
+        "ホーム",
+        "ABOUT",
+        "EXAMPLE PAGE",
+        "アーカイブ",
+        "コンタクト",
+        "POSTLIST",
+        "Welcome to BlogEngine.NET",
+        "NEWSLETTER",
+        "Get notified when a new post is published.",
+        "TAGCLOUD",
+        "BLOGGING",
+        "WELCOME",
+        "BLOGROLL",
+        "Ruslan Tur",
+        "Francis Bio",
+        "BlogEngine",
+        "DESIGNED BY BLOGENGINE"
+      ],
+      "Tables": [
+        [
+          [
+            "日付",
+            "タイトル",
+            "コメント",
+            "レート"
+          ],
+          [
+            "2018-05-20",
+            "Welcome to BlogEngine.NET",
+            "1",
+            "None"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "txt-fd2436bb-68a7-47d1-9171-2753af201fa6": "",
+        "txtNewsletterEmail": ""
+      },
+      "Elements": {
+        "archive": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "archive-page page-global"
+          },
+          "Style": {}
+        },
+        "ctl00_cphBody_ulMenu": {
+          "Tag": "ul",
+          "Attributes": {
+            "class": "archive-page-menu"
+          },
+          "Style": {}
+        },
+        "cat-BlogEngineNET": {
+          "Tag": "h2",
+          "Attributes": {},
+          "Style": {}
+        },
+        "totals": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "archive-page-total"
+          },
+          "Style": {}
+        },
+        "widgetzone_sidebar-Post": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "widgetzone"
+          },
+          "Style": {}
+        },
+        "searchbox": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txt-fd2436bb-68a7-47d1-9171-2753af201fa6": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "searchbutton": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "newsletterform": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtNewsletterEmail": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text",
+            "class": "form-control"
+          },
+          "Style": {
+            "width": "98%"
+          }
+        },
+        "btnSave": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button",
+            "class": "btn btn-primary"
+          },
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "search",
+      "Path": "/search",
+      "Title": "Name of the blog | 検索",
+      "Text": [
+        "Name of the blog",
+        "検索",
+        "ホーム",
+        "ABOUT",
+        "EXAMPLE PAGE",
+        "アーカイブ",
+        "コンタクト",
+        "POSTLIST",
+        "Welcome to BlogEngine.NET",
+        "NEWSLETTER",
+        "Get notified when a new post is published.",
+        "TAGCLOUD",
+        "BLOGGING",
+        "WELCOME",
+        "BLOGROLL",
+        "Ruslan Tur",
+        "Francis Bio",
+        "BlogEngine",
+        "DESIGNED BY BLOGENGINE"
+      ],
+      "Tables": [],
+      "Inputs": {
+        "q": "",
+        "txt-fd2436bb-68a7-47d1-9171-2753af201fa6": "",
+        "txtNewsletterEmail": ""
+      },
+      "Elements": {
+        "ctl00_cphBody_h1Headline": {
+          "Tag": "h2",
+          "Attributes": {
+            "class": "page-global-title"
+          },
+          "Style": {}
+        },
+        "searchpage": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "search-page-searchbox clearfix"
+          },
+          "Style": {}
+        },
+        "q": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "widgetzone_sidebar-Post": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "widgetzone"
+          },
+          "Style": {}
+        },
+        "searchbox": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txt-fd2436bb-68a7-47d1-9171-2753af201fa6": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "searchbutton": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "newsletterform": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtNewsletterEmail": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text",
+            "class": "form-control"
+          },
+          "Style": {
+            "width": "98%"
+          }
+        },
+        "btnSave": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button",
+            "class": "btn btn-primary"
+          },
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "contact",
+      "Path": "/contact",
+      "Title": "Name of the blog | コンタクト",
+      "Text": [
+        "Name of the blog",
+        "コンタクト",
+        "I'll answer the mail as soon as I can.",
+        "名前",
+        "E-mail",
+        "タイトル",
+        "メッセージ",
+        "ホーム",
+        "ABOUT",
+        "EXAMPLE PAGE",
+        "アーカイブ",
+        "コンタクト",
+        "POSTLIST",
+        "Welcome to BlogEngine.NET",
+        "NEWSLETTER",
+        "Get notified when a new post is published.",
+        "TAGCLOUD",
+        "BLOGGING",
+        "WELCOME",
+        "BLOGROLL",
+        "Ruslan Tur",
+        "Francis Bio",
+        "BlogEngine",
+        "DESIGNED BY BLOGENGINE"
+      ],
+      "Tables": [],
+      "Inputs": {
+        "ctl00_cphBody_txtName": "",
+        "ctl00_cphBody_txtEmail": "",
+        "ctl00_cphBody_txtSubject": "",
+        "ctl00_cphBody_txtMessage": "",
+        "txt-fd2436bb-68a7-47d1-9171-2753af201fa6": "",
+        "txtNewsletterEmail": ""
+      },
+      "Elements": {
+        "contact": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "contact-page page-global"
+          },
+          "Style": {}
+        },
+        "ctl00_cphBody_divForm": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "ctl00_cphBody_txtName": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text",
+            "class": "field form-control"
+          },
+          "Style": {}
+        },
+        "ctl00_cphBody_ctl00": {
+          "Tag": "span",
+          "Attributes": {
+            "class": "required-field"
+          },
+          "Style": {}
+        },
+        "ctl00_cphBody_txtEmail": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text",
+            "class": "field form-control"
+          },
+          "Style": {}
+        },
+        "ctl00_cphBody_ctl01": {
+          "Tag": "span",
+          "Attributes": {
+            "class": "required-field"
+          },
+          "Style": {}
+        },
+        "ctl00_cphBody_ctl02": {
+          "Tag": "span",
+          "Attributes": {
+            "class": "required-field"
+          },
+          "Style": {}
+        },
+        "ctl00_cphBody_txtSubject": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text",
+            "class": "field form-control"
+          },
+          "Style": {}
+        },
+        "ctl00_cphBody_ctl03": {
+          "Tag": "span",
+          "Attributes": {
+            "class": "required-field"
+          },
+          "Style": {}
+        },
+        "ctl00_cphBody_txtMessage": {
+          "Tag": "textarea",
+          "Attributes": {
+            "rows": "5",
+            "cols": "30",
+            "class": "form-control"
+          },
+          "Style": {}
+        },
+        "ctl00_cphBody_ctl04": {
+          "Tag": "span",
+          "Attributes": {
+            "class": "required-field"
+          },
+          "Style": {}
+        },
+        "ctl00_cphBody_btnSend": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button",
+            "class": "btn btn-primary"
+          },
+          "Style": {}
+        },
+        "thanks": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "widgetzone_sidebar-Post": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "widgetzone"
+          },
+          "Style": {}
+        },
+        "searchbox": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txt-fd2436bb-68a7-47d1-9171-2753af201fa6": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "searchbutton": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "newsletterform": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtNewsletterEmail": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text",
+            "class": "form-control"
+          },
+          "Style": {
+            "width": "98%"
+          }
+        },
+        "btnSave": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button",
+            "class": "btn btn-primary"
+          },
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "post",
+      "Path": "/error404",
+      "Title": "Name of the blog | - Page not found",
+      "Text": [
+        "Name of the blog",
+        "Ooops! I can't find the page you're looking for",
+        "You might find one of the following links useful:",
+        "アーカイブ",
+        "Home page",
+        "You can also try to search for the page you were looking for.",
+        "You may not be able to find the page you were after because of:",
+        "An out-of-date bookmark/favorite",
+        "A search engine that has an out-of-date listing for us",
+        "A miss-typed address",
+        "ホーム",
+        "ABOUT",
+        "EXAMPLE PAGE",
+        "アーカイブ",
+        "コンタクト",
+        "POSTLIST",
+        "Welcome to BlogEngine.NET",
+        "NEWSLETTER",
+        "Get notified when a new post is published.",
+        "TAGCLOUD",
+        "BLOGGING",
+        "WELCOME",
+        "BLOGROLL",
+        "Ruslan Tur",
+        "Francis Bio",
+        "BlogEngine",
+        "DESIGNED BY BLOGENGINE"
+      ],
+      "Tables": [],
+      "Inputs": {
+        "txt-fd2436bb-68a7-47d1-9171-2753af201fa6": "",
+        "txtNewsletterEmail": ""
+      },
+      "Elements": {
+        "ctl00_cphBody_divDirectHit": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "widgetzone_sidebar-Post": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "widgetzone"
+          },
+          "Style": {}
+        },
+        "searchbox": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txt-fd2436bb-68a7-47d1-9171-2753af201fa6": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "searchbutton": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "newsletterform": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtNewsletterEmail": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text",
+            "class": "form-control"
+          },
+          "Style": {
+            "width": "98%"
+          }
+        },
+        "btnSave": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button",
+            "class": "btn btn-primary"
+          },
+          "Style": {}
+        }
+      }
+    }
+  ]
+}

@@ -8161,3 +8161,88 @@ dotnet run --project tools\WebForm2Blazor.ParityTest -- record `
 — 採取できていないものを検証するコードはテストできないからです。
 
 IIS Express が無い環境で続けるなら、上の表の最後の行から。
+
+---
+
+# 実在アプリを初めて変換前と照合した。5/5 で落ちた。
+
+BlogEngine は**ビルドエラー 0** です。変換前の実描画と突き合わせたところ、
+**5 スナップショット中 5 つが不一致**でした。
+
+## 通した経路
+
+```
+corpora\build-original.ps1        変換前 BlogEngine をビルド(23 アセンブリ)
+  ↓
+Windows 同梱 IIS                  サイト + アプリプール(v4.0 / Integrated)
+  ↓
+corpora\record-webforms-golden.ps1  実描画を採取 → corpora\parity\be.golden-webforms.json
+  ↓
+corpora\parity-gate.ps1           変換後アプリと照合
+```
+
+IIS は同梱機能で有効化しました。**`IIS-ASPNET45` が `EnablePending` のまま**だと
+`500.19` になり、IIS ログの `sc-substatus` を見るまで本文が空の 500 にしか見えません。
+`dism /online /enable-feature` で入れ直して解決しています。
+
+`/post` は旧アプリでも `/error404` に落ちます(post.aspx はスラッグ必須)。
+**変換後も同じ挙動**なので、ここは一致しています。
+
+## 何が違ったか
+
+| | 変換前 | 変換後 |
+|---|---|---|
+| タイトル | `Name of the blog \| アーカイブ` | **`Account Login`**(全ページ) |
+| 本文行数(home) | 22 | **1** |
+| サイト名・メニュー | `Name of the blog` `ホーム` `ABOUT` | **無し** |
+| 検索欄・ニュースレター欄 | あり | **無し** |
+| 言語 | `アーカイブ` `検索` `コンタクト` `名前` | `Archive` `Search` `Contact` `Name` |
+| `post0` の class | `post-home post-home-top` | `post` |
+
+## 原因は 1 つ
+
+```csharp
+// BlogEngine.Core\Web\Controls\BlogBasePage.cs:209
+MasterPageFile = GetSiteMaster();
+```
+
+**BlogEngine はマスターページを実行時に設定から決めています。**
+`App_Data\settings.xml` の `<theme>Standard</theme>` を読み、
+`Custom/Themes/Standard/site.master` を割り当てます。
+
+変換器はレイアウトを**静的に**束ねます。テーマの master 自体は変換されていて
+(`Components/Layout/Custom/Themes/Standard/Site.razor`)、**どのページからも使われていません。**
+変換後のページには `@layout` が 1 つもありません。
+
+上の差は**すべてこれ 1 つに由来**します。タイトルもメニューも検索欄も、
+言語(テーマのリソース経由)も、クラス名も、テーマが当たっていれば出るものです。
+
+## これがこの作業の要点です
+
+**ビルドエラー 0 は「コンパイルが通る」でした。** アプリはテーマ抜きで描画していて、
+残差レポートにもコンパイルエラーにも 1 件も出ていません。
+**構造上そこには出ません** — どちらも「書かれているもの」しか見ないからです。
+
+このセッションで私が 430 → 354 と減らした数字は、**この事実を 1 ミリも動かしていません。**
+
+## ベースラインは置きません
+
+`parity-gate.ps1` は現在 exit 1 です。**件数を固定して「合格」にはしません。**
+固定した瞬間、そのゲートが守るのは「元と同じ」ではなく「いつもの壊れ方」になります。
+
+`convert-all.ps1` の表も「照合あり」ではなく**「採取済み」**と出します
+— 正解が在るかどうかしか見ていないので、落ちていても在れば採取済みだからです。
+
+## 次に触る人へ
+
+**次の一手は「マスターページの実行時選択」です。** 小さな修正ではありません:
+
+- WebForms の `MasterPageFile` はページ単位・要求単位で差し替えられる。
+  Blazor の `@layout` はコンパイル時に決まる。
+- 対応するには、変換後ページが**レイアウトを実行時に選べる**必要がある
+  (`LayoutView` を使う、あるいは互換層に「テーマホスト」を置く)。
+- BlogEngine には Standard / Standard-2017 / RazorHost の 3 テーマがあり、
+  **3 つとも変換済み**です。選択機構だけが無い。
+
+wt / mojo / yaf / dnn は**データベースが要る**ので同じ経路には乗りません。
+wt の Web.config は実在しない Azure SQL を指す匿名化済みサンプルです。

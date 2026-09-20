@@ -1,4 +1,5 @@
 using System.Text.RegularExpressions;
+using WebForm2Blazor.Components;
 
 namespace WebForm2Blazor.Converter.Emit;
 
@@ -13,6 +14,9 @@ public static partial class TagBalance
     {
         "area", "base", "br", "col", "embed", "hr", "img", "input",
         "link", "meta", "param", "source", "track", "wbr",
+        // Void in HTML4 and still parsed that way. They arrive via HtmlTextWriterTag
+        // below, and without these they would be read as forever-unclosed opens.
+        "basefont", "bgsound", "frame", "isindex",
     };
 
     public static bool IsBalanced(string html)
@@ -52,19 +56,57 @@ public static partial class TagBalance
     }
 
     /// <summary>
-    /// Plain HTML tag names eligible for neutralization. A closed, case-SENSITIVE
-    /// lowercase set: PascalCase component tags (&lt;Label&gt;) and C# generics inside
-    /// @() expressions (Dictionary&lt;string, object&gt;) must never match.
+    /// HTML5 container elements that <see cref="HtmlTextWriterTag"/> predates. The enum is
+    /// the WebForms-era element list; it stops before HTML5, so these are added by hand -
+    /// but they are the ONLY hand-written part, and the part that cannot grow silently
+    /// wrong: a missing one is a tag this scan skips, and the enum covers everything
+    /// WebForms itself could render.
     /// </summary>
-    private static readonly HashSet<string> NeutralizableElements = new(StringComparer.Ordinal)
+    private static readonly string[] Html5ContainerElements =
     {
-        "a", "abbr", "article", "aside", "b", "big", "blockquote", "body", "button",
-        "caption", "center", "cite", "code", "dd", "div", "dl", "dt", "em", "fieldset",
-        "font", "footer", "form", "h1", "h2", "h3", "h4", "h5", "h6", "header", "hgroup",
-        "i", "label", "legend", "li", "main", "nav", "ol", "option", "p", "pre", "s",
-        "section", "select", "small", "span", "strike", "strong", "sub", "sup", "table",
-        "tbody", "td", "tfoot", "th", "thead", "tr", "u", "ul",
+        "abbr", "article", "aside", "audio", "bdi", "canvas", "data", "datalist",
+        "details", "dialog", "figcaption", "figure", "footer", "header", "hgroup",
+        "main", "mark", "meter", "output", "picture", "progress", "summary",
+        "template", "time", "video",
     };
+
+    /// <summary>
+    /// Plain HTML tag names eligible for neutralization. Case-SENSITIVE lowercase:
+    /// PascalCase component tags (&lt;Label&gt;) and C# generics inside @() expressions
+    /// (Dictionary&lt;string, object&gt;) must never match.
+    ///
+    /// This WAS a hand-written list of 57 names, and a name missing from it was a tag
+    /// the balance scan silently skipped - an unclosed &lt;textarea&gt; or &lt;blockquote&gt;
+    /// inside a template read as balanced, emitted as-is, and failed in Razor with the
+    /// error pointing somewhere else. The list happened to be right for elements the
+    /// corpora use, but only by having been extended each time one was found missing.
+    ///
+    /// So ask the artifact instead. <see cref="HtmlTextWriterTag"/> is WebForms' own
+    /// enumeration of the elements it can render; every element reachable from a
+    /// WebForms control is in it by construction. The old list was missing 35 of them
+    /// (textarea, blockquote's neighbours del/ins/q/samp/kbd/var, colgroup, iframe,
+    /// object, script, style, title, head, html, ...).
+    /// </summary>
+    private static readonly HashSet<string> NeutralizableElements = BuildNeutralizableElements();
+
+    private static HashSet<string> BuildNeutralizableElements()
+    {
+        var elements = new HashSet<string>(StringComparer.Ordinal);
+
+        foreach (var name in Enum.GetNames<HtmlTextWriterTag>())
+        {
+            elements.Add(name.ToLowerInvariant());
+        }
+
+        elements.UnionWith(Html5ContainerElements);
+
+        // "Unknown" is the enum's no-tag sentinel, not an element. The void elements
+        // have no close tag, so an unmatched one is not evidence of anything.
+        elements.Remove(nameof(HtmlTextWriterTag.Unknown).ToLowerInvariant());
+        elements.ExceptWith(VoidElements);
+
+        return elements;
+    }
 
     /// <summary>
     /// True when the fragment contains unbalanced PLAIN lowercase HTML tags (the set

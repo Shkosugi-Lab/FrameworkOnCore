@@ -7245,3 +7245,56 @@ Page_Error               1    一覧にある
 今日の他の 4 件とはそこが違うので、そう書いておきます。
 
 6 コーパスすべて完全に一致。パリティ 30/30、bUnit 30/30、回帰ゲート 13/13。
+
+## `NeutralizableElements` を `HtmlTextWriterTag` から作る(57 → 約 100)
+
+`TagBalance` は HeaderTemplate / FooterTemplate の中身をそのまま出せるかを判定します。
+判定に使う `NeutralizableElements` は**手書きの 57 要素**でした。
+
+**一覧に無い要素は、走査が黙って読み飛ばします。** テンプレート内の閉じていない
+`<textarea>` や `<blockquote>` は「釣り合っている」と判定されてそのまま出力され、
+Razor で落ちます。しかもエラー位置は**別の場所**を指します。
+
+一覧は 6 コーパスに対しては正しかったのですが、それは**見つかるたびに足してきた**からです。
+「完全でないと間違いになる一覧」の典型で、今日の他の 4 件と同じ形です。
+
+### 成果物に訊く
+
+`HtmlTextWriterTag` は **WebForms 自身が描画できる要素の列挙**です。
+WebForms コントロールから出てくる要素は、構成上すべてそこにあります。
+変換器は互換層への参照を持っているので、`Enum.GetNames` で取れます。
+
+手書き一覧が**落としていたのは 35 要素**:
+
+```
+textarea  del  ins  q  samp  kbd  var  colgroup  iframe  object  script
+style  title  head  html  acronym  address  bdo  dfn  dir  map  marquee
+menu  nobr  noframes  noscript  q  rt  ruby  tt  xml  ...
+```
+
+手書きが残るのは **HTML5 の 25 要素だけ**です(`article` `figure` `details` など)。
+列挙は WebForms 時代のもので HTML5 の手前で止まっているためで、ここは足すしかありません。
+ただし**この部分だけは黙って間違いにならない**ことが違います
+— WebForms が描けるものは全部列挙が持っているので。
+
+### 副次: `VoidElements` に 4 件
+
+`basefont` `bgsound` `frame` `isindex` を追加。HTML4 の空要素で、
+列挙経由で入ってくるようになったため、無いと**永遠に閉じない開きタグ**として読まれます。
+
+### 併せて: 死んだ `MayBeUnbalancedTemplates` を削除
+
+`ControlMappings` の `MayBeUnbalancedTemplates`(`HeaderTemplate` / `FooterTemplate` /
+`SeparatorTemplate`)は**どこからも参照されていません**。
+`TagBalance` が実際に釣り合いを見るようになった時点で役目を終えたのに残っていた一覧です。
+読む人に「テンプレートはこの 3 つだけ特別扱い」と誤解させるので削除。
+
+### 数字
+
+**6 コーパスすべて完全に一致。** 残差もビルドエラーも 1 つも動きません。
+
+これは予想どおりです。落としていた 35 要素は、**6 コーパスのテンプレート内で
+釣り合いを崩していなかった**ということです。直したのは壊れている現在ではなく、
+**次に `<textarea>` を含むテンプレートが来たときの壊れ方**です。
+
+パリティ 30/30、bUnit 30/30、回帰ゲート 13/13。

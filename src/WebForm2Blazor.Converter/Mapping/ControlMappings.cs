@@ -121,16 +121,6 @@ public static class ControlMappings
         return PlainTemplates.TryGetValue(writtenName, out var plain) ? plain : writtenName;
     }
 
-    /// <summary>
-    /// Templates that may contain unclosed HTML.
-    /// (In WebForms it is idiomatic to open a &lt;ul&gt; in HeaderTemplate and close it in
-    ///  FooterTemplate, but Razor requires matching tags, so that cannot convert as-is.)
-    /// </summary>
-    public static readonly HashSet<string> MayBeUnbalancedTemplates = new(StringComparer.OrdinalIgnoreCase)
-    {
-        "HeaderTemplate", "FooterTemplate", "SeparatorTemplate",
-    };
-
     private static Dictionary<string, string> Map(params string[] names)
     {
         var result = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);

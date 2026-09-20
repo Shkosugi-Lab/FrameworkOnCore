@@ -8362,3 +8362,73 @@ ClientID の接頭辞    ctl00_cphBody_X (原文) 対 cphBody_X (変換後)
 ここを触るとサンプル側が動きます。単独で測ってから入れるべき変更です。
 
 次の一手はウィジェットです — 残差の中で本文の差が一番大きいのはそこです。
+
+## ウィジェットを追って、行き着いたのは投稿データだった(未解決・絞り込みの記録)
+
+テーマが出るようになった後、本文の差が一番大きいのはウィジェットでした。追った結果を
+**修正なしで**記録します。次に触る人が同じ経路を辿り直さないために。
+
+### 分かったこと(すべて実測)
+
+**ウィジェットゾーンの枠は出ています。**
+
+```html
+<div id="widgetzone_sidebar-Post" class="widgetzone"><span id="WidgetZone2"></span></div>
+```
+
+つまり `WidgetZone.Render` の override は呼ばれていて、`base.Render` が描く子が空です。
+`LegacyRenderHost.RunLifecycle()` は `OnInit → OnLoad → OnPreRender` を正しく回しています。
+
+**データもパスも揃っています。**
+
+| 確認したもの | 結果 |
+|---|---|
+| `App_Data/datastore/widgets/sidebar-Post.xml` | **存在**(`<widget>` ノード 6 件) |
+| `bin/Debug/net10.0/App_Data/...` への複写 | **されている** |
+| `HostingEnvironment.MapPath` の解決先 | `AppContext.BaseDirectory` = bin 配下、**正しい** |
+| `App.config` の `<blogProvider defaultProvider="XmlBlogProvider">` | **あり**(`be.dll.config` にも) |
+| 互換 `Cache` の往復 | **動く**(ConcurrentDictionary) |
+| 互換 `ProvidersHelper.InstantiateProviders` | 実装あり(リフレクションで Add) |
+| `Controls.Add` した子の描画 | **実装済み**(`RenderDynamicChildren`。過去に直されている) |
+
+**例外は出ていません。** `LegacyRenderHost` は失敗時に
+`[TypeName: render error]` の span を出しますが、ウィジェットゾーンには出ていません
+(Recaptcha には出ているので、機構自体は効いています)。
+
+### 行き着いた先
+
+ウィジェットだけの問題ではありませんでした。**投稿も出ていません。**
+
+```html
+<div id="cphBody_divError"></div>
+<div id="cphBody_PostList1_posts" class="posts"></div>   ← 空
+```
+
+アーカイブページも `総数` の見出しだけで、件数が出ません。
+
+`PostList.BindPosts` は `Post.ApplicablePosts` → `Posts` を読み、
+`FindAll(p => p.IsVisible)` で絞ります。投稿 XML は
+**`ispublished=True` / `isdeleted=False` / `pubDate=2018-05-20`** なので、
+`IsVisible` の条件(`IsPublished && DateCreated <= FromUtc()`)は満たすはずです。
+`FromUtc()` も `TimeZoneInfo` を正しく使っています。
+
+**つまり `Post.Posts` 自体が空**、というところまで絞れています。
+
+### 次に見るべきもの(未検証の仮説)
+
+`Post.Posts` は静的にキャッシュされ、`BlogService.Provider.FillPosts()` で満たされます。
+**それが要求コンテキストの外で走ると `HttpContext.Current` が null** になり、
+`Blog.CurrentInstance`(`context.Items` を読む)が落ちて、
+**空のリストが恒久的にキャッシュされる**可能性があります。
+
+これは一般的な形です — 「静的初期化が要求コンテキストに依存している」。
+BlogEngine 固有の話ではありません。
+
+**検証するには実行時の計測が要ります**(ここまでは全部静的な突き合わせです)。
+`BlogService.Provider` が何になっているか、`FillPosts` がいつ呼ばれるか、
+`Blog.CurrentInstance` がそのとき何を返すかを見てください。
+
+### なぜ止めたか
+
+ここまで**コードを 1 行も変えていません**。読むだけで詰められる範囲を詰め切ったので、
+次は実行時計測が要ります。**推測で直し始めるより、絞り込みを残すほうが速い**と判断しました。

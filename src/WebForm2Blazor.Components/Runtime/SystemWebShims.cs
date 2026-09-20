@@ -1450,6 +1450,13 @@ public class LiteralControl : Control
     public string Text { get; set; }
 
     protected override string TagName => string.Empty;
+
+    /// <summary>
+    /// A LiteralControl IS its text - WebForms emits it with no tag around it at all.
+    /// Rendering it through the WebControl protocol (begin tag / contents / end tag)
+    /// would both lose the text and invent markup the original never had.
+    /// </summary>
+    protected override void Render(HtmlTextWriter writer) => writer?.Write(Text ?? string.Empty);
 }
 
 /// <summary>

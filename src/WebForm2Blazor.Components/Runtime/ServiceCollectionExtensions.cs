@@ -17,6 +17,13 @@ public static class ServiceCollectionExtensions
     {
         Compat.ConfigurationManager.Initialize(configuration);
 
+        // Where MapPath resolves from. Taken from configuration rather than assumed,
+        // because the content root is where "dotnet run" starts and where wwwroot sits,
+        // and it is NOT AppContext.BaseDirectory (which is bin/<config>/<tfm>).
+        VirtualPaths.ContentRoot = configuration["ContentRoot"]
+                                   ?? AppContext.GetData("ContentRootPath") as string
+                                   ?? Directory.GetCurrentDirectory();
+
         services.AddHttpContextAccessor();
         services.AddSingleton<WebFormsSessionStore>();
         services.AddSingleton<WebFormsApplicationState>();

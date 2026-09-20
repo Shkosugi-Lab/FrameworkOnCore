@@ -11,6 +11,23 @@
 }
 
 @code {
+    /// <summary>
+    /// A Literal CAN be written to a text writer, unlike a compat component in general:
+    /// its entire rendering is its Text, so there is nothing about it that only the Blazor
+    /// renderer knows.
+    ///
+    /// That matters where a ported legacy control builds its content in code and renders
+    /// it to a writer. BlogEngine's WidgetZone adds one Literal per widget and then writes
+    /// itself out; without this, every widget zone rendered as an empty div.
+    /// </summary>
+    public override void RenderControl(HtmlTextWriter writer)
+    {
+        if (Visible)
+        {
+            writer?.Write(Text ?? string.Empty);
+        }
+    }
+
     private string _text = string.Empty;
 
     [Parameter]

@@ -1790,6 +1790,91 @@ if (Directory.Exists(appDataSource))
     }
 }
 
+// Everything the application serves or reads that is NOT code: stylesheets, scripts,
+// images, fonts, and the content files an app opens at run time.
+//
+// None of it was carried over. A converted application had no CSS at all - BlogEngine's
+// entire theme, 2,000 files of it, simply was not there - and the pages rendered as
+// unstyled markup. Nothing reported it: static files are not compiled, not parsed and not
+// residuals, and the four sample apps ship no static content, so no gate could see it.
+//
+// It also breaks code. BlogEngine renders each widget from
+// "Custom/Widgets/<name>/widget.cshtml" at run time; with the file gone, every widget zone
+// rendered "Widget Search not found, check log for details."
+//
+// wwwroot, because that is the browser-visible root of an ASP.NET Core app - the direct
+// equivalent of the WebForms application root the original served these from.
+var copiedStatic = 0;
+var staticSkipped = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+foreach (var file in Directory.EnumerateFiles(input, "*", SearchOption.AllDirectories))
+{
+    var relative = Path.GetRelativePath(input, file).Replace('\\', '/');
+
+    // bin / obj / packages are build output, App_Data is copied above as data (and is not
+    // browser-visible - serving it would publish the blog's own database).
+    if (relative.StartsWith("bin/", StringComparison.OrdinalIgnoreCase)
+        || relative.StartsWith("obj/", StringComparison.OrdinalIgnoreCase)
+        || relative.StartsWith("packages/", StringComparison.OrdinalIgnoreCase)
+        || relative.StartsWith("App_Data/", StringComparison.OrdinalIgnoreCase))
+    {
+        continue;
+    }
+
+    // Anything the conversion itself produces an equivalent of. Copying these would put a
+    // second, un-converted copy of every page under wwwroot, where the static file
+    // middleware would happily serve the raw .aspx as text.
+    var extension = Path.GetExtension(file);
+    if (IsConvertedOrCodeAsset(extension))
+    {
+        staticSkipped.Add(extension.ToLowerInvariant());
+        continue;
+    }
+
+    var destination = Path.Combine(output, "wwwroot", relative.Replace('/', Path.DirectorySeparatorChar));
+    Directory.CreateDirectory(Path.GetDirectoryName(destination)!);
+    File.Copy(file, destination, overwrite: true);
+    copiedStatic++;
+}
+
+if (copiedStatic > 0)
+{
+    // The Razor SDK compiles **/*.cshtml and **/*.razor. The copied content includes
+    // templates the ORIGINAL parsed at run time with its own Razor engine - BlogEngine's
+    // widgets are Razor v2 - and handing those to this SDK is 25 syntax errors that also
+    // floor the reported build-error count, hiding everything behind them.
+    //
+    // They are content here, not source: the application opens them as files.
+    var csprojPath = Path.Combine(output, appName + ".csproj");
+    var csprojText = File.ReadAllText(csprojPath);
+    csprojText = csprojText.Replace("</Project>",
+        $"  <ItemGroup>{Environment.NewLine}"
+        + $"    <Content Remove=\"wwwroot\\**\\*.cshtml\" />{Environment.NewLine}"
+        + $"    <Content Remove=\"wwwroot\\**\\*.vbhtml\" />{Environment.NewLine}"
+        + $"    <Content Remove=\"wwwroot\\**\\*.razor\" />{Environment.NewLine}"
+        + $"    <None Include=\"wwwroot\\**\\*.cshtml\" />{Environment.NewLine}"
+        + $"    <None Include=\"wwwroot\\**\\*.vbhtml\" />{Environment.NewLine}"
+        + $"  </ItemGroup>{Environment.NewLine}{Environment.NewLine}</Project>");
+    File.WriteAllText(csprojPath, csprojText);
+
+    report.Info("(project)",
+        $"静的コンテンツ {copiedStatic} ファイルを wwwroot にコピーしました"
+        + "(CSS / スクリプト / 画像と、アプリが実行時に読むファイル)。"
+        + $"変換対象の拡張子は除外: {string.Join(" ", staticSkipped.OrderBy(value => value, StringComparer.Ordinal))}");
+}
+
+/// <summary>
+/// True for a file the conversion replaces with something of its own, or that is source
+/// rather than content. Matched on extension: the question is what the file IS, and a
+/// .aspx under any folder is a page this converter has already turned into a component.
+/// </summary>
+static bool IsConvertedOrCodeAsset(string extension) => extension.ToLowerInvariant() switch
+{
+    ".aspx" or ".ascx" or ".master" or ".asax" or ".ashx" or ".asmx" or ".svc" => true,
+    ".cs" or ".vb" or ".resx" or ".csproj" or ".vbproj" or ".sln" or ".user" => true,
+    ".config" => true,
+    _ => false,
+};
+
 if (project.WebConfigPath is not null)
 {
     var appConfig = WebConfigConverter.ExtractCustomSections(project.WebConfigPath, appName, report);

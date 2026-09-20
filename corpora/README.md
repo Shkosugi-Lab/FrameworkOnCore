@@ -8502,3 +8502,88 @@ Blazor では、`Controls` を持つコントロールは**コンポーネント
 **`WidgetZone.OnLoad` が `Controls.Add(lit)` する `Literal` の描画**が次の対象です
 — `LegacyRenderHost` 配下の `LegacyWebControl` は `WebFormsControlBase` ではないので、
 今回の通知の恩恵を受けていません。
+
+## 静的コンテンツが 1 ファイルも移植されていなかった
+
+ウィジェットの枠が出るようになった後、中身が
+
+```
+Widget Search not found, check log for details.
+```
+
+でした。`WidgetZone.OnLoad` は `Custom/Widgets/<name>/widget.cshtml` を実行時に読みます。
+探したら、**変換後にそのファイルがありません。** ついでに調べたら:
+
+```
+旧 Custom/Themes/Standard/   CommentForm.ascx PostView.ascx site.master
+                             newsletter.html theme.png theme.xml src/
+変換後 Custom/Themes/Standard/  (空)
+変換後 wwwroot/                  (存在しない)
+```
+
+**CSS も画像もスクリプトも、1 ファイルも移植されていませんでした。**
+変換器が複写していたのは `App_Data` だけです。
+
+### なぜどのゲートも捕まえなかったか
+
+静的ファイルは**コンパイルされず、構文解析されず、残差にもなりません**。
+そして `samples/` の 4 本は**静的コンテンツを 1 つも持っていません**。
+見る仕組みが 1 つも無く、見るべき題材も無い。
+
+**変換前アプリとの照合だけが見つけられる**種類の欠落です。
+
+### 直したこと
+
+**1. 静的コンテンツを `wwwroot` へ複写**(BlogEngine で 1,580 ファイル)。
+
+`wwwroot` にするのは、それが ASP.NET Core でブラウザから見えるルートだからです
+— 元がこれらを配っていた WebForms のアプリケーションルートの直接の対応物です。
+
+除外するのは、変換が自前の等価物を作るもの
+(`.aspx` `.ascx` `.master` `.asax` `.ashx` `.asmx` `.svc`)と、
+ソースであってコンテンツでないもの(`.cs` `.vb` `.resx` `.csproj` `.config`)。
+**これを外さないと、未変換の `.aspx` が静的ファイルとしてそのまま配信されます。**
+
+**2. Razor SDK のコンパイル対象から外す。**
+
+入れた直後、**ビルドエラーが 0 → 25 になり、しかも下限値**でした。
+Razor SDK は `**/*.cshtml` を拾います。BlogEngine のウィジェットは
+**元アプリが自前の Razor エンジンで実行時に解析する v2 のテンプレート**で、
+このコンパイラに渡せば構文エラーです。`Content Remove` + `None Include` で外しました。
+
+**3. `MapPath` の解決先を 1 つにした。**
+
+```
+HostingEnvironment.MapPath  →  AppContext.BaseDirectory 基準
+Server.MapPath / Request.MapPath →  Directory.GetCurrentDirectory() 基準
+```
+
+**同じ問いに 2 つの違う答え**がありました。移植コードはその場で手近なほうを呼ぶので、
+同じ仮想パスがどちらを呼んだかで別の場所を指していました。
+
+`VirtualPaths.Resolve` に統一し、**wwwroot → コンテンツルート → BaseDirectory の順に
+実在するものを探します**。アプリは同じ呼び出しでウィジェットのテンプレート(wwwroot 配下)
+とデータストア(App_Data、wwwroot の外)の両方を読むので、**単一のルートでは両方に答えられません**。
+どれも無ければ wwwroot のパスを返します — これから**作る**場所を訊いている呼び出しのためです。
+
+### 効果
+
+| | 前 | 後 |
+|---|---:|---:|
+| home の本文 | 7 行 | **14 行**(期待 22) |
+| archive の本文 | 11 行 | **18 行**(期待 26) |
+| wwwroot のファイル | 0 | **1,580** |
+| be ビルドエラー | 0 | **0** |
+
+サンプル 30/30、bUnit 30/30、他コーパス全て不変。
+
+### まだ残っているもの
+
+ウィジェットの中身は**まだ出ません**。ファイルは届くようになりましたが、
+`RazorHelpers.ParseRazor` が失敗します。BlogEngine は **自前の実行時 Razor エンジン**で
+`.cshtml` を解析しており、それが .NET 10 で動いていません。
+**これは静的資産の問題ではなくライブラリ移行の問題**で、第 3 層(AI)の担当範囲です。
+
+投稿の本文(`If you see this post...` / `READ MORE`)も未解決です。
+`post0` の class が `post-home post-home-top` でなく `post` なのと同じく、
+`PostView` が `Location` / `Index` をどう使うかに関わります。

@@ -510,13 +510,7 @@ public abstract class HttpRequestBase
     /// Server.MapPath gives - it was the same method on 4.8, reachable from either object,
     /// and ported code picks whichever it had in scope.
     /// </summary>
-    public virtual string MapPath(string virtualPath)
-    {
-        var relative = (virtualPath ?? string.Empty).TrimStart('~').TrimStart('/', '\\');
-        return System.IO.Path.Combine(
-            System.IO.Directory.GetCurrentDirectory(),
-            relative.Replace('/', System.IO.Path.DirectorySeparatorChar));
-    }
+    public virtual string MapPath(string virtualPath) => VirtualPaths.Resolve(virtualPath);
 
     public virtual string MapPath(string virtualPath, string baseVirtualDir, bool allowCrossAppMapping)
         => MapPath(virtualPath);

@@ -301,10 +301,15 @@ public static class HostingEnvironment
 
     public static VirtualPathProvider VirtualPathProvider { get; private set; }
 
-    public static string MapPath(string virtualPath)
-        => System.IO.Path.Combine(
-            AppContext.BaseDirectory,
-            (virtualPath ?? string.Empty).TrimStart('~', '/', '\\').Replace('/', System.IO.Path.DirectorySeparatorChar));
+    /// <summary>
+    /// The SAME resolution Server.MapPath and Request.MapPath use.
+    ///
+    /// These were two different answers to one question: this one combined with
+    /// AppContext.BaseDirectory, the request-side one with Directory.GetCurrentDirectory().
+    /// Ported code calls whichever it had in scope, so the same virtual path resolved to
+    /// two different places depending on which object was nearest.
+    /// </summary>
+    public static string MapPath(string virtualPath) => VirtualPaths.Resolve(virtualPath);
 }
 
 /// <summary>System.Web.HttpRuntime equivalent.</summary>

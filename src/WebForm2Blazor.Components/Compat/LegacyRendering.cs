@@ -670,9 +670,16 @@ public abstract class LegacyWebControl : IWebFormsControl, IDisposable
         }
     }
 
-    protected virtual void RenderContents(HtmlTextWriter writer)
-    {
-    }
+    /// <summary>
+    /// WebForms WebControl.RenderContents: what goes between the begin and end tags,
+    /// which by default is the control's children.
+    ///
+    /// It was empty, so a control that builds its content in code rendered its own tag
+    /// and nothing inside it. BlogEngine's WidgetZone is the shape: OnLoad adds a Literal
+    /// per widget and Render writes "&lt;div class=widgetzone&gt;" + base.Render + "&lt;/div&gt;",
+    /// and the page came back with an empty widget zone on every request.
+    /// </summary>
+    protected virtual void RenderContents(HtmlTextWriter writer) => RenderChildren(writer);
 
     // WebForms Control lifecycle virtuals: ported controls override these to build
     // state before Render. LegacyRenderHost drives them via RunLifecycle.

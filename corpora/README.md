@@ -7661,3 +7661,75 @@ Microsoft.AspNetCore.Components ...
 
 be / mojo / dnn / n2 / wt は完全に不変。
 パリティ 30/30、bUnit 30/30、回帰ゲート 13/13。
+
+## 全件ダンプを出すようにしたら、狙う先が変わった(mojo 389 → 352)
+
+### まず、レポートを読み違えた
+
+`BUILD-REPORT.md` の「エラーコード別(上位20)」はコード別に**代表メッセージを 1 つ**
+出します。これを**最頻メッセージだと読み**、`CS1061` 86 件の見出しに並んでいた
+`WebFormsSession.Contents` と、`CS1501` 45 件の見出しの `UrlEncode` を埋めました。
+
+結果は **-6 件**。86 件の見出しの下にあったのは、その形のエラー 6 件でした。
+
+グループ化した表は**読むには正しく、直す先を決めるには使えません**。
+「どのメッセージが一番多いか」に答えられないからです。
+そして `dotnet build` でも答えは出ません — declaration パスのエラーで
+**残りが報告される前にビルドが止まる**ので(mojo は 2 件で止まります)。
+
+### `build-errors.txt`
+
+ビルド検証器が診断を**全件 1 行ずつ**吐くようにしました。レポートの隣に置きます。
+
+```
+$ sed -E 's/^.*\([0-9]+\): //; s/ \[C:.*$//' build-errors.txt | sort | uniq -c | sort -rn
+     23 CS1501: 引数 3 を指定するメソッド 'AddAttribute' のオーバーロードはありません
+     14 CS0234: 'Version' が名前空間 'Lucene.Net.Util' に存在しません
+     11 CS1503: 引数 3: 'string' から 'Lucene.Net.Util.BytesRef' へ変換できません
+      ...
+```
+
+**本当の最頻は `AddAttribute` の 3 引数オーバーロードで、23 件**でした。
+
+### 埋めたもの
+
+| 追加 | 件数 |
+|---|---:|
+| `HtmlTextWriter.AddAttribute(..., bool fEncode)` | 23 |
+| `HttpUtility.HtmlEncode/HtmlAttributeEncode(string, TextWriter)` | 8 |
+| `HttpUtility.UrlEncode/UrlDecode(string, Encoding)` | 4 |
+| `HttpSessionStateBase.Contents` | 2 |
+
+`fEncode` は**フラグの意味どおり実装しました**。受け取って無視すると、
+呼び出し側が「安全でない値だ」と知っていて渡した情報を捨てることになります。
+mojoPortal の 23 箇所はすべて DB から出た URL かキャプションです。
+
+`UrlEncode(value, encoding)` も同じです。エンコーディングを**捨てずに使います**。
+渡す人は意味があって渡しているので、黙って UTF-8 で処理すると
+**ここで失敗する代わりに、相手側で壊れた URL になります**。
+既にあった `HttpServerUtility.UrlEncode(value, encoding)` は引数を捨てていたので、
+新しい方へ委譲するよう直しました。
+
+### `ListControl` 系 16 件には手を出していません
+
+非ライブラリの最大の塊は `ListBox`/`CheckBoxList`/`RadioButtonList` →
+`ListControl` の変換不可 16 件です。**これは以前測って棄却された道**で、
+`CodeBehindRewriter` のコメントに残っています:
+
+> Adding IListControl / ITreeControl for them took mojoPortal from 390 to 427: the
+> adapters read AutoPostBack, TextAlign, ExpandImageToolTip and the node styles off the
+> parameter, so a narrow interface trades an argument error for a missing-member error
+> one line further in - and a wide enough one stops being an interface two families
+> can share.
+
+**実測に基づく記録があるものを、記録を読んだ上でもう一度やる理由はありません。**
+
+### 残りの構成(mojo 352 件)
+
+```
+ライブラリ移行    117 件  (Lucene.Net 4.8 / com.drew / Novell LDAP)
+それ以外         235 件  最頻が 7 件という平坦な裾野
+```
+
+6 コーパス計 **423 → 386**。be / yaf / dnn / n2 / wt は完全に不変。
+パリティ 30/30、bUnit 30/30、回帰ゲート 13/13。

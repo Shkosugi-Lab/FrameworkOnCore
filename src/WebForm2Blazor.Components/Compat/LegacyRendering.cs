@@ -224,6 +224,18 @@ public class HtmlTextWriter(TextWriter inner) : TextWriter
     public void AddAttribute(string name, string value)
         => _pendingAttributes.Add(new KeyValuePair<string, string>(name, value));
 
+    /// <summary>
+    /// HtmlTextWriter.AddAttribute(..., bool fEncode). The flag is the whole point of the
+    /// overload - the caller has a value it knows is not yet safe for an attribute - so it
+    /// is honoured rather than accepted and ignored. mojoPortal's renderers call this 23
+    /// times, every one of them on a URL or a caption that came out of the database.
+    /// </summary>
+    public void AddAttribute(HtmlTextWriterAttribute key, string value, bool fEncode)
+        => AddAttribute(key.ToString().ToLowerInvariant(), value, fEncode);
+
+    public void AddAttribute(string name, string value, bool fEncode)
+        => AddAttribute(name, fEncode ? System.Net.WebUtility.HtmlEncode(value) : value);
+
     public void AddStyleAttribute(HtmlTextWriterStyle key, string value)
         => AddStyleAttribute(CssName(key), value);
 

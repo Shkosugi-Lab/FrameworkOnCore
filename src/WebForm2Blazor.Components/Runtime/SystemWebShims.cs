@@ -9,10 +9,88 @@ namespace WebForm2Blazor.Components;
 public static class HttpUtility
 {
     public static string UrlEncode(string value) => value is null ? null : Uri.EscapeDataString(value);
+
+    /// <summary>
+    /// System.Web.HttpUtility.UrlEncode(string, Encoding). The encoding decides which BYTES
+    /// the non-unreserved characters percent-encode to, and it is honoured rather than
+    /// dropped: a caller that passes one passes it because it matters, and silently
+    /// encoding as UTF-8 anyway would produce a URL that round-trips wrong on the other
+    /// side instead of failing here.
+    /// </summary>
+    public static string UrlEncode(string value, System.Text.Encoding encoding)
+    {
+        if (value is null)
+        {
+            return null;
+        }
+        if (encoding is null || Equals(encoding, System.Text.Encoding.UTF8))
+        {
+            return Uri.EscapeDataString(value);
+        }
+
+        var builder = new System.Text.StringBuilder(value.Length);
+        foreach (var b in encoding.GetBytes(value))
+        {
+            // RFC 3986 unreserved, the same set Uri.EscapeDataString leaves alone, so the
+            // two overloads agree on every character that does not depend on the encoding.
+            var c = (char)b;
+            if (char.IsAsciiLetterOrDigit(c) || c is '-' or '_' or '.' or '~')
+            {
+                builder.Append(c);
+            }
+            else
+            {
+                builder.Append('%').Append(b.ToString("X2"));
+            }
+        }
+        return builder.ToString();
+    }
+
     public static string UrlDecode(string value) => value is null ? null : WebUtility.UrlDecode(value);
+
+    /// <summary>System.Web.HttpUtility.UrlDecode(string, Encoding).</summary>
+    public static string UrlDecode(string value, System.Text.Encoding encoding)
+    {
+        if (value is null)
+        {
+            return null;
+        }
+        if (encoding is null || Equals(encoding, System.Text.Encoding.UTF8))
+        {
+            return WebUtility.UrlDecode(value);
+        }
+
+        var bytes = new List<byte>(value.Length);
+        for (var i = 0; i < value.Length; i++)
+        {
+            if (value[i] == '%' && i + 2 < value.Length
+                && byte.TryParse(value.AsSpan(i + 1, 2), System.Globalization.NumberStyles.HexNumber,
+                    System.Globalization.CultureInfo.InvariantCulture, out var decoded))
+            {
+                bytes.Add(decoded);
+                i += 2;
+            }
+            else
+            {
+                bytes.Add((byte)(value[i] == '+' ? ' ' : value[i]));
+            }
+        }
+        return encoding.GetString(bytes.ToArray());
+    }
     public static string HtmlEncode(string value) => value is null ? null : WebUtility.HtmlEncode(value);
     public static string HtmlDecode(string value) => value is null ? null : WebUtility.HtmlDecode(value);
     public static string HtmlAttributeEncode(string value) => HtmlEncode(value);
+
+    /// <summary>
+    /// System.Web.HttpUtility.HtmlEncode(string, TextWriter) - encode straight into the
+    /// writer instead of building a string. Control renderers use it in their Render
+    /// overrides, where the writer is what they already have.
+    /// </summary>
+    public static void HtmlEncode(string value, System.IO.TextWriter output)
+        => output?.Write(HtmlEncode(value));
+
+    public static void HtmlAttributeEncode(string value, System.IO.TextWriter output)
+        => output?.Write(HtmlAttributeEncode(value));
     public static string UrlPathEncode(string value)
         => value is null ? null : string.Join("/", value.Split('/').Select(Uri.EscapeDataString));
 
@@ -1477,9 +1555,9 @@ public abstract class HttpServerUtilityBase
     public virtual string HtmlEncode(string value) => HttpUtility.HtmlEncode(value);
     public virtual string HtmlDecode(string value) => HttpUtility.HtmlDecode(value);
     public virtual string UrlEncode(string value) => HttpUtility.UrlEncode(value);
-    public virtual string UrlEncode(string value, System.Text.Encoding encoding) => HttpUtility.UrlEncode(value);
+    public virtual string UrlEncode(string value, System.Text.Encoding encoding) => HttpUtility.UrlEncode(value, encoding);
     public virtual string UrlDecode(string value) => HttpUtility.UrlDecode(value);
-    public virtual string UrlDecode(string value, System.Text.Encoding encoding) => HttpUtility.UrlDecode(value);
+    public virtual string UrlDecode(string value, System.Text.Encoding encoding) => HttpUtility.UrlDecode(value, encoding);
 
     /// <summary>Maps "~/x" onto the content root (wwwroot for static assets lives beside it).</summary>
     public virtual string MapPath(string path)

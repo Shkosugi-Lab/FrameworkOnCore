@@ -331,6 +331,32 @@ public static partial class BuildVerifier
     /// <summary>
     /// Re-declared names read from unresolved-dependency-shapes.txt.
     /// </summary>
+    /// <summary>
+    /// Every diagnostic, one per line, next to the report.
+    ///
+    /// BUILD-REPORT.md groups by code and shows ONE representative message per group. That
+    /// is right for reading, and wrong for deciding what to fix: the representative is not
+    /// the most common message, and reading it as one sends you after a shim gap that
+    /// accounts for 6 of the 86 errors under its heading. The grouped view cannot answer
+    /// "which single message repeats most" at all - only the full list can, and
+    /// "dotnet build" cannot produce it either, because a declaration-pass error stops the
+    /// build long before the rest are reported.
+    /// </summary>
+    private static void WriteFullErrorList(string? outputDirectory, List<Diagnostic> diagnostics)
+    {
+        if (outputDirectory is null)
+        {
+            return;
+        }
+
+        var lines = diagnostics
+            .OrderBy(d => d.File, StringComparer.OrdinalIgnoreCase)
+            .ThenBy(d => d.Line)
+            .Select(d => $"{d.File}({d.Line}): {d.Code}: {d.Message}");
+
+        File.WriteAllLines(Path.Combine(outputDirectory, "build-errors.txt"), lines);
+    }
+
     private sealed record UndecidedType(string Namespace, string Name, string Shape)
     {
         public string FullName => Namespace + "." + Name;
@@ -773,6 +799,7 @@ public static partial class BuildVerifier
             report = ParseStopWarning + Environment.NewLine + Environment.NewLine + report;
         }
         File.WriteAllText(reportPath, report);
+        WriteFullErrorList(outputDirectory, diagnostics);
 
         Console.WriteLine($"エラー {diagnostics.Count} 件(うち連鎖 {diagnostics.Count(d => IsCascade(d))} 件)");
         if (undecided.Count > 0)

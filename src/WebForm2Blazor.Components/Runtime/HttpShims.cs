@@ -875,6 +875,13 @@ public abstract class HttpSessionStateBase
 
     /// <summary>WebForms Session.Add: same as the indexer, which is what it was.</summary>
     public virtual void Add(string key, object value) => this[key] = value;
+
+    /// <summary>
+    /// WebForms Session.Contents - the classic-ASP compatibility alias that returns the
+    /// session itself. "Session.Contents["x"]" and "Session["x"]" were always the same
+    /// object, and code written against ASP kept using the longer one.
+    /// </summary>
+    public HttpSessionStateBase Contents => this;
 }
 
 /// <summary>

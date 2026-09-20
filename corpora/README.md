@@ -7569,3 +7569,30 @@ yaf は 4 件の非コンパイルファイルがあるのに数字が動きま�
 `YAF-SqlServer.csproj` がワイルドカード include を持つため `ReadCompiledFiles` が
 `null` を返している可能性が高いです(`Include` に `*` があると全件保持に倒す設計)。
 **倒す方向は安全側なので放置して問題ありませんが、確認はしていません。**
+
+### 訂正: yaf が動かない理由はワイルドカードではなかった
+
+ひとつ上で「`YAF-SqlServer.csproj` がワイルドカード include を持つのだろう」と
+書きました。**外れです。** 確かめました:
+
+```
+SDK style      : False
+Compile items  : 363
+wildcard       : 0
+```
+
+`ReadCompiledFiles` は正しく 363 件を返しています。非コンパイルの 4 件はこれです:
+
+```
+Pages/Moderating.ascx.cs        .ascx が存在しない
+Pages/Moderating.ascx.designer.cs
+Pages/ModForumUser.ascx.cs      .ascx が存在しない
+Pages/ModForumUser.ascx.designer.cs
+```
+
+**マークアップの無いコードビハインドの残骸**でした。
+コードビハインドは `FindCodeBehind(マークアップのパス)` からしか辿られないので、
+`.ascx` が無ければ**元々一度も移植されていません**。`.designer.cs` も同様です。
+
+つまり yaf が動かなかったのは正しい動作で、**直すものはありません。**
+推測を書いて渡すより、確かめるほうが速かったので、そうしました。

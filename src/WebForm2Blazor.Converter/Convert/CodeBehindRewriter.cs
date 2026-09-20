@@ -422,7 +422,11 @@ public static class CodeBehindRewriter
         ["Repeater"] = "LegacyWebControl",
         ["DataList"] = "LegacyWebControl",
         ["CompositeControl"] = "LegacyWebControl",
-        ["PlaceHolder"] = "LegacyWebControl",
+        // Not LegacyWebControl: PlaceHolder derives from Control, so it renders its
+        // children and no tag of its own. The WebControl protocol wrapped every ported
+        // PlaceHolder in a <span id="..."> the original never rendered - BlogEngine's
+        // "WidgetZone : PlaceHolder" calls base.Render between its own <div> tags.
+        ["PlaceHolder"] = "LegacyPlaceHolder",
         ["Image"] = "LegacyWebControl",
         // Same reason as the block above, found by re-measuring CS0115: the compat
         // counterpart of each of these is a Blazor COMPONENT, which a ported plain class

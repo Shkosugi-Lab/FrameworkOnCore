@@ -8988,3 +8988,93 @@ creating your own blog is done. There is only a few things left to do....
 変換後はその置換が走っていません。
 
 **どこが置換しているかは未調査**です。次の対象にします。
+
+---
+
+# `PlaceHolder` はタグを描かない。描くものにマップされていた
+
+パリティに全 5 ページで出ていた差分です。
+
+```
+要素 'WidgetZone2' (<span>): 変換前には無い要素が描画されています
+```
+
+## 推測を 3 回重ねたので、測りに行った
+
+`WidgetZone.Render` が呼ばれていないのだろう、と考えました。基底の
+`WebFormsControlBase` には
+
+```csharp
+/// these are never invoked; they exist because ported controls override them
+protected virtual void Render(HtmlTextWriter writer) { }
+```
+
+と書いてあり、辻褄も合います。**しかし `WidgetZone` の基底は `LegacyWebControl` で、
+そちらは `RenderControl` から `Render` をきちんと呼びます。** 読むだけでは決まらないので、
+変換後アプリを起動して実際の HTML を取りました。
+
+```html
+<div id="widgetzone_sidebar-Post" class="widgetzone"><span id="WidgetZone2"><p ...
+```
+
+**`WidgetZone.Render` は動いていました。** `<div class="widgetzone">` は出ています。
+余分なのはその内側の `<span id="WidgetZone2">` —— つまり `Render` の中の `base.Render(writer)` です。
+
+## 原因
+
+```csharp
+// 元
+public class WidgetZone : PlaceHolder
+
+// 変換後
+public class WidgetZone : LegacyWebControl
+```
+
+`PlaceHolder` は `WebControl` ではなく **`Control` 派生**です。
+`Control.Render` は**子を描くだけでタグを出しません**。
+対して `LegacyWebControl.Render` は WebControl の作法そのままで、
+
+```
+RenderBeginTag(= TagName 既定 span + id) → RenderContents → RenderEndTag
+```
+
+を出します。`WidgetZone.Render` は自前の `<div>` の内側で `base.Render` を呼ぶので、
+**元では widget が並ぶ位置に、変換後は `<span>` が挟まりました。**
+
+基底クラスの対応表で `PlaceHolder` が `LegacyWebControl` に向いていたのが原因です。
+**タグを出さないコンテナを、タグを出すものにマップしていました。**
+
+`LegacyPlaceHolder : LegacyWebControl` を足し、`Render` を `RenderChildren` だけにして、
+対応表をそちらへ向けました。
+
+## 測ったものだけ直しました
+
+`Repeater` も `Control` 派生で同じ理屈が当てはまりますが、**そちらは測っていません**。
+対応表では今も `LegacyWebControl` を指しています。理屈が通ることと、
+実際にそう壊れていることは別です。直すなら先に差分を出してからにしてください。
+
+## 数字
+
+| | 前 | 後 |
+|---|---:|---:|
+| `be` のパリティ差分行 | 40 | **35** |
+| `WidgetZone2` の余剰報告 | 5 ページ全部 | **0** |
+
+回帰スナップショットは **25 行の削除のみ・追加 0**(5 ページ × `WidgetZone2` の要素エントリ)。
+余分な要素が消えただけ、という変更の性質と一致します。
+
+6 コーパスの数字は不変。サンプルのパリティ 30/30、bUnit 30/30、回帰ゲート 13/13。
+
+## 回帰ゲートはこの改善を「一致」と言いました
+
+記録し直す前、回帰ゲートは**差分なし**と報告しました。比較器は
+「変換側にしかない要素」だけを見て、**逆方向(正解側にあって変換側に無い)は意図的に黙ります**
+(UpdatePanel の div のように、変換が正当に落とすラッパーがあるため)。
+
+`<span>` が減ったことはこの向きに当たるので、ゲートには映りません。
+**ゲートが通ったこと自体は、何も起きていない証拠にはなりません。**
+スナップショットに実在しない要素が残ると、将来それが復活しても「正解側にある」ため
+見逃されます。だから一致していても記録し直しました。
+
+同じ理由で、**パリティの差分行数も欠落を数えていません**。
+本文テキストの行数(home は期待 22 / 実際 17)のほうが、残りの欠落をよく表します。

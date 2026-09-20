@@ -74,11 +74,6 @@
             "class": "widgetzone"
           },
           "Style": {}
-        },
-        "WidgetZone2": {
-          "Tag": "span",
-          "Attributes": {},
-          "Style": {}
         }
       }
     },
@@ -147,11 +142,6 @@
             "class": "widgetzone"
           },
           "Style": {}
-        },
-        "WidgetZone2": {
-          "Tag": "span",
-          "Attributes": {},
-          "Style": {}
         }
       }
     },
@@ -217,11 +207,6 @@
           "Attributes": {
             "class": "widgetzone"
           },
-          "Style": {}
-        },
-        "WidgetZone2": {
-          "Tag": "span",
-          "Attributes": {},
           "Style": {}
         }
       }
@@ -335,11 +320,6 @@
             "class": "widgetzone"
           },
           "Style": {}
-        },
-        "WidgetZone2": {
-          "Tag": "span",
-          "Attributes": {},
-          "Style": {}
         }
       }
     },
@@ -395,11 +375,6 @@
           "Attributes": {
             "class": "widgetzone"
           },
-          "Style": {}
-        },
-        "WidgetZone2": {
-          "Tag": "span",
-          "Attributes": {},
           "Style": {}
         }
       }

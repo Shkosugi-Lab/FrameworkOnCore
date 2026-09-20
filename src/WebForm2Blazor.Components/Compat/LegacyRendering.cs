@@ -1052,3 +1052,27 @@ public abstract class LegacyHyperLink : LegacyWebControl
         }
     }
 }
+
+/// <summary>
+/// System.Web.UI.WebControls.PlaceHolder equivalent: a container that renders ITS CHILDREN
+/// AND NO TAG OF ITS OWN.
+///
+/// PlaceHolder derives from Control, not WebControl, and Control.Render just renders the
+/// children. Mapping it onto <see cref="LegacyWebControl"/> gave it the WebControl
+/// protocol instead - begin tag + contents + end tag - so every ported PlaceHolder grew a
+/// &lt;span id="..."&gt; wrapper the original never had.
+///
+/// BlogEngine's WidgetZone is "class WidgetZone : PlaceHolder" and writes its own div:
+///
+///     writer.Write("&lt;div id=\"widgetzone_{0}\" class=\"widgetzone\"&gt;", zoneName);
+///     base.Render(writer);
+///     writer.Write("&lt;/div&gt;");
+///
+/// That base call is the whole issue. In the original it emits the widgets; here it was
+/// emitting a span around them, which the comparison against the original caught as an
+/// element the legacy app never rendered.
+/// </summary>
+public class LegacyPlaceHolder : LegacyWebControl
+{
+    protected override void Render(HtmlTextWriter writer) => RenderChildren(writer);
+}

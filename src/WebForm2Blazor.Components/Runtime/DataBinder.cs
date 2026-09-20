@@ -73,10 +73,23 @@ public sealed class RepeaterItem(object dataItem, int itemIndex) : IWebFormsCont
     //     matters is that the row can be passed where a control is expected, and that
     //     FindControl on it reaches the controls of THAT row - which it already did. ---
 
-    /// <summary>The row has no ID of its own; WebForms names it by position.</summary>
-    public string ID => NamingContainerId is { Length: > 0 } owner
-        ? $"{owner}{ClientIndex}"
-        : ClientIndex.ToString(System.Globalization.CultureInfo.InvariantCulture);
+    /// <summary>
+    /// The row has no ID of its own; WebForms names it by position.
+    ///
+    /// The setter exists because IWebFormsControl.ID is settable (a control built at
+    /// runtime gets named), and it is DISCARDED rather than stored: a row's name is its
+    /// position, the controls inside it already derive their DOM ids from that, and
+    /// keeping an assigned value would rename the row without renaming its children -
+    /// which is worse than ignoring it. Nothing in WebForms assigns to a RepeaterItem's
+    /// ID either; it is reachable only because the interface is one type.
+    /// </summary>
+    public string ID
+    {
+        get => NamingContainerId is { Length: > 0 } owner
+            ? $"{owner}{ClientIndex}"
+            : ClientIndex.ToString(System.Globalization.CultureInfo.InvariantCulture);
+        set { }
+    }
 
     public string ClientID => ID;
 

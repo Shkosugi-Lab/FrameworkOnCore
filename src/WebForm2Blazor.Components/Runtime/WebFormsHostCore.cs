@@ -13,7 +13,17 @@ namespace WebForm2Blazor.Components;
 /// </summary>
 public interface IWebFormsControl
 {
-    string ID { get; }
+    /// <summary>
+    /// WebForms Control.ID, and SETTABLE as it was there.
+    ///
+    /// It was get-only, which made the converter's own Control rewrite lose something the
+    /// original had: code that builds controls at runtime names them
+    /// ("var lbl = new Label(); lbl.ID = ...;"), and once the variable is an
+    /// IWebFormsControl - which is what "System.Web.UI.Control" becomes - the assignment
+    /// stops compiling. Every implementor already declares ID with a setter, so the
+    /// interface was the only thing narrowing it.
+    /// </summary>
+    string ID { get; set; }
 
     /// <summary>The rendered DOM id (naming containers already applied).</summary>
     string ClientID { get; }

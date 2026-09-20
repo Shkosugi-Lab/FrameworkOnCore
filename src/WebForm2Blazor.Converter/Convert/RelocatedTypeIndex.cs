@@ -101,6 +101,14 @@ public sealed class RelocatedTypeIndex
     }
 
     /// <summary>
+    /// The namespaces types were moved OUT of. Program.cs normalizes references written
+    /// relative to the file's own namespace ("UI.Pages.LoginPage") into full names before
+    /// any rewrite runs, and it has to know about these as well as the mapped ones -
+    /// otherwise the relative spelling of a relocated type survives here too.
+    /// </summary>
+    public IEnumerable<string> OriginalNamespaces => _moves.Keys;
+
+    /// <summary>
     /// Rewrites qualified references and adds an alias for every bare name the file's
     /// imports used to reach. Call BEFORE the namespace map, so a file whose dead import is
     /// about to be deleted is still seen to have had it.

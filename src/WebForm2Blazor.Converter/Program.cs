@@ -421,8 +421,79 @@ if (!relocatedTypes.IsEmpty)
         + "(その名前空間には移動しない移植コードが残るため、名前空間ごとの付け替えはできません)。");
 }
 
+/// <summary>
+/// Turns a reference written RELATIVE to the file's own namespace into the full name, so
+/// the rewrites below - which all match on the full name - can see it.
+///
+/// mojoBasePage.cs declares "namespace mojoPortal.Web" and writes
+///
+///     if (this is UI.Pages.LoginPage)
+///
+/// C# resolves that by walking outward from the declaration, so it names
+/// mojoPortal.Web.UI.Pages.LoginPage without the characters ever appearing. The namespace
+/// map moved that namespace and matched nothing, and the reference was left pointing at a
+/// namespace this converter had emptied.
+///
+/// Only spellings of two segments or more are expanded. A single segment ("Pages.Login")
+/// is equally likely to be a local variable or a property, and turning one of those into a
+/// namespace would be a much worse error than the one being fixed.
+/// </summary>
+string ExpandRelativeNamespaceReferences(string code)
+{
+    var enclosing = new HashSet<string>(StringComparer.Ordinal);
+    foreach (System.Text.RegularExpressions.Match match in
+             System.Text.RegularExpressions.Regex.Matches(code, @"namespace\s+([A-Za-z_][\w.]*)"))
+    {
+        var name = match.Groups[1].Value;
+        while (name.Length > 0)
+        {
+            enclosing.Add(name);
+            var cut = name.LastIndexOf('.');
+            name = cut < 0 ? string.Empty : name[..cut];
+        }
+    }
+
+    if (enclosing.Count == 0)
+    {
+        return code;
+    }
+
+    // Both rewriters that follow match on the full name, so both need the normalization:
+    // the map's namespaces AND the ones RelocatedTypeIndex moved types out of.
+    foreach (var original in namespaceRewrites.Select(pair => pair.Key)
+                 .Concat(relocatedTypes.OriginalNamespaces))
+    {
+        foreach (var scope in enclosing)
+        {
+            if (!original.StartsWith(scope + ".", StringComparison.Ordinal))
+            {
+                continue;
+            }
+
+            var relative = original[(scope.Length + 1)..];
+            if (!relative.Contains('.'))
+            {
+                continue;
+            }
+
+            code = System.Text.RegularExpressions.Regex.Replace(
+                code,
+                @"(?<![\w.])" + System.Text.RegularExpressions.Regex.Escape(relative) + @"\.(?=[A-Za-z_])",
+                _ => original + ".");
+        }
+    }
+
+    return code;
+}
+
 string ApplyNamespaceMap(string code, bool razorContent = false)
 {
+    // A .razor file has no namespace declaration to be relative to.
+    if (!razorContent)
+    {
+        code = ExpandRelativeNamespaceReferences(code);
+    }
+
     // Before the namespace rewrite below, which deletes the imports this reads.
     code = razorContent ? relocatedTypes.RewriteQualified(code) : relocatedTypes.Apply(code);
 

@@ -426,6 +426,29 @@ public class HtmlInputImage : LegacyWebControl
 /// <summary>System.Web.UI.WebControls.GridViewRowCollection equivalent.</summary>
 public sealed class GridViewRowCollection : List<GridViewRow>
 {
+    public GridViewRowCollection()
+    {
+    }
+
+    /// <summary>
+    /// WebForms GridViewRowCollection(ArrayList). A control adapter re-groups a grid's
+    /// rows into head / body / foot and wraps each group to hand to its own writer, so
+    /// this constructor is the only way the collection is ever built by ported code -
+    /// a derived List does not inherit its base's constructors, so it had none at all.
+    ///
+    /// Takes the non-generic IEnumerable because the caller's variable is an ArrayList:
+    /// that is what WebForms declared, and the ported line says "new ArrayList()".
+    /// </summary>
+    public GridViewRowCollection(System.Collections.IEnumerable rows)
+    {
+        foreach (var row in rows ?? System.Array.Empty<GridViewRow>())
+        {
+            if (row is GridViewRow gridViewRow)
+            {
+                Add(gridViewRow);
+            }
+        }
+    }
 }
 
 /// <summary>System.Web.UI.WebControls.DataGridItemCollection equivalent.</summary>

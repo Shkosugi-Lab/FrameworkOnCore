@@ -135,6 +135,12 @@ public sealed partial class MarkupEmitter(EmitContext context)
     private static readonly HashSet<string> FieldTransparentTemplates = new(StringComparer.OrdinalIgnoreCase)
     {
         "ContentTemplate",
+        // WizardSteps is a COLLECTION of declared controls, not a template: each
+        // <asp:WizardStep ID="..."> is one control that exists once, and the WebForms
+        // designer generates a field for every one of them. Counting it as a template
+        // took those fields away - 88 CS0103 for CreateUserWizardStep1 alone, the moment
+        // the parser started seeing <WizardSteps> at all.
+        "WizardSteps",
     };
 
     /// <summary>
@@ -605,44 +611,70 @@ public sealed partial class MarkupEmitter(EmitContext context)
 
         if (string.IsNullOrEmpty(element.Prefix))
         {
-            // The COMPONENT decides, where there is one.
-            //
-            // A slot's shape is its declared type - RenderFragment renders once,
-            // RenderFragment<T> is instantiated with T in scope - and the component holds
-            // that fact. The by-name lists below cannot: LayoutTemplate is
-            // RenderFragment<RenderFragment> on ListView and a plain RenderFragment on
-            // Login, and a name-keyed answer has to be wrong for one of them.
-            //
-            // They stay as the fallback for a converted user control or a stub, whose
-            // type is not in the compat assembly to ask.
-            if (_currentComponent is not null
-                && ComponentParameterTypes.TemplateContextOf(_currentComponent, element.Name)
-                    is { } declaredContext)
-            {
-                return EmitTemplate(element, declaredContext);
-            }
-
-            if (ControlMappings.DataBoundTemplates.Contains(element.Name))
-            {
-                return EmitTemplate(element, ComponentParameterTypes.TemplateContextKind.DataItem);
-            }
-            if (ControlMappings.PlainTemplates.Contains(element.Name))
-            {
-                return EmitTemplate(element, ComponentParameterTypes.TemplateContextKind.None);
-            }
-
-            // A template neither the component nor the lists name - a third-party control's
-            // own slot on a stub. Left to fall through, "<usernametemplate>" became an
-            // HtmlGenericControl inside PasswordRecovery and Razor rejected the whole
-            // component (RZ9996).
-            if (element.Name.EndsWith("Template", StringComparison.OrdinalIgnoreCase))
-            {
-                return EmitTemplate(element, ComponentParameterTypes.TemplateContextKind.None);
-            }
+            // A STYLE slot never becomes content: the parent flattened the ones it knows
+            // into attributes, and one it does not know is still a style slot rather than
+            // markup. Emitted as an element it becomes an HtmlGenericControl inside a
+            // component that has no such parameter, which is RZ9996 - YAF writes
+            // <StepStyle> on a Wizard.
             if (ControlMappings.StyleChildElements.Contains(element.Name))
             {
-                // Already flattened into attributes by the parent control's EmitComponent
                 return string.Empty;
+            }
+            if (IsStyleSlotName(element.Name))
+            {
+                Residual(ResidualKind.UnmappedAttribute,
+                    $"<{element.Name}> は互換コンポーネントが扱わないスタイルスロットです。除去しました。",
+                    ResidualDisposition.Backlog);
+                return string.Empty;
+            }
+
+            if (IsTemplateSlotName(element.Name)
+                || ControlMappings.DataBoundTemplates.Contains(element.Name)
+                || ControlMappings.PlainTemplates.Contains(element.Name))
+            {
+                // A slot the component provably does NOT have. Emitting it is RZ9996,
+                // which stops the Razor compile for the whole file: WebForms'
+                // CreateUserWizard has a StartNavigationTemplate and the compat one does
+                // not, and the compat Wizard has no LayoutTemplate - mojoPortal writes the
+                // first, YAF the second.
+                //
+                // Checked against the name that would actually be EMITTED, so the
+                // WizardSteps -> WizardStepsContent rename is included.
+                //
+                // "Provably" is the distinction: a converted user control or a stub is not
+                // in the compat assembly, so its parameters say nothing and the by-name
+                // fallback below still applies to it.
+                if (_currentComponent is not null
+                    && ComponentParameterTypes.IsCompatComponent(_currentComponent)
+                    && ComponentParameterTypes.ParameterNameOf(
+                        _currentComponent, TemplateParameterNameFor(element.Name)) is null)
+                {
+                    Residual(ResidualKind.UnmappedControl,
+                        $"<{element.Name}> は互換コンポーネント {_currentComponent} が持っていないスロットです。"
+                        + "中身は出力していません(出力すると Razor がファイルごと拒否するため)。",
+                        ResidualDisposition.Backlog);
+                    return string.Empty;
+                }
+
+                // The COMPONENT decides what the body binds against, where there is one.
+                //
+                // A slot's shape is its declared type - RenderFragment renders once,
+                // RenderFragment<T> is instantiated with T in scope - and the component
+                // holds that fact. The by-name lists cannot: LayoutTemplate is
+                // RenderFragment<RenderFragment> on ListView and a plain RenderFragment on
+                // Login, and a name-keyed answer has to be wrong for one of them.
+                if (_currentComponent is not null
+                    && ComponentParameterTypes.TemplateContextOf(_currentComponent, element.Name)
+                        is { } declaredContext)
+                {
+                    return EmitTemplate(element, declaredContext);
+                }
+
+                return EmitTemplate(
+                    element,
+                    ControlMappings.DataBoundTemplates.Contains(element.Name)
+                        ? ComponentParameterTypes.TemplateContextKind.DataItem
+                        : ComponentParameterTypes.TemplateContextKind.None);
             }
 
             // A server-side script block: its content is C# code, not markup. Emitting
@@ -771,7 +803,7 @@ public sealed partial class MarkupEmitter(EmitContext context)
                 string.IsNullOrEmpty(child.Prefix)
                 && !IsHostableTemplate(child)
                 && !IsHostableCollection(child)
-                && (child.Name.EndsWith("Template", StringComparison.OrdinalIgnoreCase)
+                && (IsTemplateSlotName(child.Name)
                     || ControlMappings.DataBoundTemplates.Contains(child.Name)
                     || ControlMappings.PlainTemplates.Contains(child.Name)
                     || ControlMappings.StyleChildElements.Contains(child.Name)));
@@ -1034,7 +1066,7 @@ public sealed partial class MarkupEmitter(EmitContext context)
             // The parser now surfaces these as elements at all - before, they came
             // through as text and the host emitted every template's markup at once,
             // unconditionally, which is not what any of them meant.
-            || child.Name.EndsWith("Template", StringComparison.OrdinalIgnoreCase))
+            || IsTemplateSlotName(child.Name))
            && IsStaticMarkup(child);
 
     /// <summary>
@@ -1642,6 +1674,21 @@ public sealed partial class MarkupEmitter(EmitContext context)
         }
         return builder.ToString();
     }
+
+    /// <summary>
+    /// A control's own template slot: "...Template" with something IN FRONT of it.
+    ///
+    /// The length guard matters - "template" is a real HTML element, and a bare
+    /// &lt;template&gt; is markup, not a slot. The parser applies the same rule.
+    /// </summary>
+    private static bool IsTemplateSlotName(string name)
+        => name.Length > "Template".Length
+           && name.EndsWith("Template", StringComparison.OrdinalIgnoreCase);
+
+    /// <inheritdoc cref="IsTemplateSlotName"/>
+    private static bool IsStyleSlotName(string name)
+        => name.Length > "Style".Length
+           && name.EndsWith("Style", StringComparison.OrdinalIgnoreCase);
 
     private static ElementNode? FindTemplate(ElementNode element, string templateName)
         => element.Children.OfType<ElementNode>()

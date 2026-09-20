@@ -34,11 +34,38 @@ public static class AspxParser
     /// below), so a plain HTML "&lt;template&gt;" outside one is unaffected.
     /// </summary>
     private static bool IsTemplateName(string name)
-        => name.EndsWith("Template", StringComparison.OrdinalIgnoreCase);
+        => IsSlotName(name, "Template");
+
+    /// <summary>
+    /// A style slot a control declares - the same shape rule as <see cref="IsTemplateName"/>.
+    ///
+    /// ControlMappings.StyleChildElements lists these for the flattener, and eight of the
+    /// Calendar's (TitleStyle, DayHeaderStyle, ...) are in that list and were never in
+    /// this one: two hand-written lists of the same thing, already disagreeing. A slot the
+    /// parser does not make an element can never reach the flattener at all.
+    /// </summary>
+    private static bool IsStyleName(string name)
+        => IsSlotName(name, "Style");
+
+    /// <summary>
+    /// "...Template" / "...Style" with something IN FRONT of it.
+    ///
+    /// The length guard is the whole point: "template" and "style" are real HTML
+    /// elements, and a bare &lt;style&gt; inside a server control is a stylesheet, not a
+    /// slot. A suffix test without it turns both into server controls.
+    /// </summary>
+    private static bool IsSlotName(string name, string suffix)
+        => name.Length > suffix.Length
+           && name.EndsWith(suffix, StringComparison.OrdinalIgnoreCase);
 
     private static readonly HashSet<string> ChildElements = new(StringComparer.OrdinalIgnoreCase)
     {
         "Columns", "Items", "Fields", "Triggers",
+        // WizardSteps is a COLLECTION, so no suffix rule reaches it. It was listed in
+        // ControlMappings (PlainTemplates and the WizardSteps -> WizardStepsContent
+        // rename) and missing here, so that rename could never fire: the tag came through
+        // as text and the steps landed in ChildContent. Four corpora write it.
+        "WizardSteps",
         "ItemTemplate", "AlternatingItemTemplate", "HeaderTemplate", "FooterTemplate",
         "SeparatorTemplate", "ItemSeparatorTemplate", "EditItemTemplate", "InsertItemTemplate",
         "SelectedItemTemplate", "EmptyDataTemplate", "EmptyItemTemplate",
@@ -247,7 +274,7 @@ public static class AspxParser
             var isServerControl =
                 serverPrefixes.Contains(tag.Prefix)
                 || (string.IsNullOrEmpty(tag.Prefix)
-                    && (ChildElements.Contains(tag.Name) || IsTemplateName(tag.Name))
+                    && (ChildElements.Contains(tag.Name) || IsTemplateName(tag.Name) || IsStyleName(tag.Name))
                     && !ReferenceEquals(stack.Peek(), root))
                 || tag.Attributes.TryGetValue("runat", out var runat)
                     && runat.Equals("server", StringComparison.OrdinalIgnoreCase);

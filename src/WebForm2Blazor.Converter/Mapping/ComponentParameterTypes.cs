@@ -191,6 +191,19 @@ public static class ComponentParameterTypes
         Placeholder,
     }
 
+    /// <summary>
+    /// Whether this name is a compat component at all - i.e. whether "it has no such
+    /// parameter" is a fact or just ignorance.
+    ///
+    /// A converted user control or a generated stub is not in this assembly, so nothing
+    /// can be concluded from its parameters; a compat component that does not declare a
+    /// slot genuinely does not have one, and emitting the slot is RZ9996.
+    /// </summary>
+    public static bool IsCompatComponent(string componentName)
+        => !string.IsNullOrEmpty(componentName)
+           && !componentName.Contains('.')
+           && ComponentType(componentName) is not null;
+
     private static Type ComponentType(string componentName)
         => typeof(WebForm2Blazor.Components.WebFormsControlBase).Assembly
             .GetTypes()

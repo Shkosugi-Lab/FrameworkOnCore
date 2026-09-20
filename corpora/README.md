@@ -8246,3 +8246,119 @@ MasterPageFile = GetSiteMaster();
 
 wt / mojo / yaf / dnn は**データベースが要る**ので同じ経路には乗りません。
 wt の Web.config は実在しない Azure SQL を指す匿名化済みサンプルです。
+
+---
+
+# マスターページの実行時選択を実装した。BlogEngine のテーマが出るようになった。
+
+前節で「ビルドエラー 0 のまま 5/5 不一致」と測ったものに手を入れました。
+
+## 直したのは 3 つで、どれも「宣言されていて呼ばれていない」でした
+
+### 1. `OnPreInit` が駆動されていなかった
+
+WebForms が「マスターページとテーマはここで選べ」と言っていた場所です。
+コントロールツリーができる直前の、最後の地点だからです。
+
+互換層には `protected virtual void OnPreInit(EventArgs e)` が**宣言だけ**ありました。
+BlogEngine の `BlogBasePage` はこれを override してテーマを選び、
+ついでに `deletepost` の処理もしています。**どちらも一度も走っていませんでした。**
+
+`InitializeCulture` → `OnPreInit` → `OnInit` の順に直しました(WebForms と同じ順)。
+
+### 2. `MasterPageFile` を誰も読んでいなかった
+
+```csharp
+/// <summary>WebForms Page.MasterPageFile equivalent (the layout is fixed at conversion time).</summary>
+public string MasterPageFile { get; set; }
+```
+
+コメントのとおり、**代入されて、保存されて、読まれない**プロパティでした。
+
+`@Page` にマスターを書くページは変換時に `@layout` で束ねられます。
+**実行時に決めるページには束ねる相手がありません。**
+
+- `MasterPageCatalog`(互換層)+ `MasterPageCatalog.g.cs`(生成)—
+  `UserControlCatalog` と同じ形。仮想パス → 変換後レイアウト型。
+  BlogEngine では **15 件**登録されました。
+- `WebFormsMasterHost`(互換層)— ページが描画時に `LayoutView` で自分を包みます。
+  **解決できないときは中身をそのまま出します**(何も無いページを、見栄えのために
+  適当なレイアウトで包まない)。
+- 変換器は、`@Page` にマスターが無いページを**すべて**このホストで包みます。
+  解析して「代入するページ」を選り分けません — **外したときの代償が
+  「そのページのテーマが丸ごと消える」で、しかも他のどの検査にも出ない**からです。
+
+### 3. `OnPreRenderComplete` も駆動されていなかった
+
+BlogEngine は**文書タイトル全体をここで組み立てます**:
+
+```csharp
+Page.Title = $"{BlogSettings.Instance.Name} | {Page.Title}";
+```
+
+生成される駆動コードの最後を `StateHasChanged()` から `CompletePageRender()` に
+変えました(`OnPreRenderComplete` → 再描画)。互換層の基底からは駆動できません
+— 生成コードが `OnAfterRender` を **override** するので、基底の処理は置き換わります。
+
+ユーザーコントロールとマスターは `StateHasChanged()` のままです。
+PreRenderComplete はページのライフサイクルの段で、
+**それらに「ページ」と名の付くメソッドを渡すのは嘘**になります。
+
+### おまけ: タイトルのフォールバックが別のマスターを拾っていた
+
+マスターを持たないページのタイトルは「静的なタイトルを持つ最初のマスター」から
+取られていました。BlogEngine の 5 ページが全部 **`Account Login`** だったのはこれです
+— 無関係な Account マスターのタイトル。
+
+`WebFormsPageTitle` を入れ、**`Page.Title` が設定されていればそれが勝つ**ようにしました。
+設定されるまでは従来の値を出します(空にすると Blazor の HeadOutlet が
+**前のページのタイトルを出し続けます**)。
+
+## もう 1 つ: 37 言語のリソースが落ちていた
+
+```
+旧: App_GlobalResources に 74 ファイル(37 言語)
+新: Resources に labels.resx のみ
+```
+
+残差レポートは「サテライトアセンブリ化が必要」と `Backlog` で報告していました。
+**必要ありませんでした。** SDK は `labels.ja.resx` を `labels.resx` の ja 版として読み、
+サテライトを自分で作ります。`ResourceManager.GetString` は `CurrentUICulture` で解決し、
+その `CurrentUICulture` は `UseWebFormsGlobalization` が Accept-Language から設定します
+— BlogEngine の Web.config は `culture="auto"` です。**仕組みは全部揃っていました。**
+
+思い込みの代償は実測可能で、かつ不可視でした:
+**元が日本語で描画する全ページが、変換後は英語**。エラーも、対処可能な残差もなし。
+**変換前との照合だけが見つけられるもの**です。
+
+## 数字
+
+| | 前 | 後 |
+|---|---|---|
+| タイトル(5 ページ) | 全部 `Account Login` | **5 ページとも一致** |
+| テーマ(ヘッダ・メニュー) | 出ない | **出る** |
+| 言語 | 英語 | **日本語(原文と一致)** |
+| home の本文 | 1 行 | 7 行(期待 22) |
+| be ビルドエラー | 0 | **0** |
+| be 総残差 | 64 | **63** |
+
+サンプル 30/30、bUnit 30/30 は**全工程で維持**(途中 1 回、生成コードが
+ユーザーコントロールにも `CompletePageRender()` を出して壊しましたが、
+サンプルのゲートがその場で捕まえました)。
+
+## まだ一致していないもの
+
+```
+ウィジェット         POSTLIST / NEWSLETTER / TAGCLOUD / BLOGROLL と
+                    searchbox / newsletterform の入力欄が出ない
+テーマの CSS        'ABOUT' (原文, text-transform) 対 'About' (変換後)
+ClientID の接頭辞    ctl00_cphBody_X (原文) 対 cphBody_X (変換後)
+アーカイブの表       1 表 対 0 表
+```
+
+`ctl00_` は**マスターページ自身の命名コンテナ**です。WebForms ではマスターも
+コントロールで、自動 ID `ctl00` を持ちます。変換後の命名連鎖は `cphBody` から始まります。
+**samples は原文の ClientID と完全一致しているので**(`CompareRawIds` の既定が true)、
+ここを触るとサンプル側が動きます。単独で測ってから入れるべき変更です。
+
+次の一手はウィジェットです — 残差の中で本文の差が一番大きいのはそこです。

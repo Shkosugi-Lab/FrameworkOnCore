@@ -74,7 +74,19 @@ public abstract class Page : ComponentBase, IWebFormsHost, IWebFormsControl
     public virtual string AppRelativeVirtualPath
         => Request?.AppRelativeCurrentExecutionFilePath ?? string.Empty;
 
-    /// <summary>WebForms Page.MasterPageFile equivalent (the layout is fixed at conversion time).</summary>
+    /// <summary>
+    /// WebForms Page.MasterPageFile.
+    ///
+    /// A page that names its master in the @Page directive has it bound at conversion time
+    /// and never touches this. A page that chooses at RUNTIME assigns it here, and
+    /// <see cref="WebFormsMasterHost"/> resolves it through
+    /// <see cref="MasterPageCatalog"/> when the page renders.
+    ///
+    /// It was a plain property that nothing read - "the layout is fixed at conversion
+    /// time". For BlogEngine, whose base page assigns it on every request, that meant the
+    /// theme never applied: the site rendered with no header, no menu and no title, and
+    /// built with zero errors while doing it.
+    /// </summary>
     public string MasterPageFile { get; set; }
 
     /// <summary>WebForms Page.Title equivalent (the initial value comes from the @Page directive's PageTitle emission).</summary>
@@ -150,6 +162,18 @@ public abstract class Page : ComponentBase, IWebFormsHost, IWebFormsControl
         // same holds here: it has to run before OnInit, not after.
         InitializeCulture();
 
+        // (CompletePageRender, declared below, closes this lifecycle at PreRenderComplete.)
+
+        // PreInit, in WebForms' order: InitializeCulture -> PreInit -> Init.
+        //
+        // It was DECLARED and never called. A base class overriding OnPreInit - which is
+        // where WebForms told you to choose the master page and the theme, because it is
+        // the last point before the control tree exists - compiled, and never ran.
+        // BlogEngine's BlogBasePage does exactly that, so the whole theme selection and
+        // the deletepost handling next to it were carried into the conversion as dead code.
+        // Nothing reported it: the method is present and the call site simply was not.
+        OnPreInit(EventArgs.Empty);
+
         // Init runs BEFORE the first render, not after it like Page_Load. Deferring it was
         // tried and reverted: OnInit bodies routinely produce the data the markup then
         // renders (BlogEngine's Post page assigns the Post the whole page binds to), so
@@ -213,7 +237,25 @@ public abstract class Page : ComponentBase, IWebFormsHost, IWebFormsControl
 
     protected virtual void OnUnload(EventArgs e) => Unload?.Invoke(this, e);
 
-    /// <summary>WebForms Page.OnPreRenderComplete override point (inert; custom bases override it).</summary>
+    /// <summary>
+    /// Ends the first-render lifecycle: PreRenderComplete, then re-render.
+    ///
+    /// The converter's generated driver calls this instead of StateHasChanged, because
+    /// OnPreRenderComplete cannot be driven from this class - the driver OVERRIDES
+    /// OnAfterRender, so anything done there is replaced rather than extended.
+    ///
+    /// OnPreRenderComplete was declared and never called. It is where WebForms told you to
+    /// finish composing what the page shows, after every handler has run: BlogEngine builds
+    /// its whole document title there ("{blog name} | {page title}"), and that line had
+    /// never executed once in a converted application.
+    /// </summary>
+    protected void CompletePageRender()
+    {
+        OnPreRenderComplete(EventArgs.Empty);
+        StateHasChanged();
+    }
+
+    /// <summary>WebForms Page.OnPreRenderComplete override point.</summary>
     protected virtual void OnPreRenderComplete(EventArgs e)
     {
     }

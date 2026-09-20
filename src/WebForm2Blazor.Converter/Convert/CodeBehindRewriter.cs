@@ -1986,7 +1986,21 @@ public static class CodeBehindRewriter
             {
                 generated.Append($"{indent}    Page_PreRender(this, EventArgs.Empty);\r\n");
             }
-            generated.Append($"{indent}    StateHasChanged();\r\n");
+            // For a PAGE, CompletePageRender rather than StateHasChanged: it raises
+            // PreRenderComplete first. That step was declared in the compat layer and never
+            // driven, and a base class finishing its work there - BlogEngine composes the
+            // entire document title in OnPreRenderComplete - had that code carried into the
+            // conversion and never run.
+            //
+            // Driven from here rather than from the compat base because THIS method
+            // overrides OnAfterRender; anything the base did there would be replaced.
+            //
+            // PreRenderComplete is a page-lifecycle step. A user control or a master has no
+            // such moment, so those keep the plain re-render and are not handed a method
+            // whose name would be a lie about what they are.
+            generated.Append(component.Kind == CodeBehindKind.Page
+                ? $"{indent}    CompletePageRender();\r\n"
+                : $"{indent}    StateHasChanged();\r\n");
             generated.Append($"{indent}}}\r\n");
             generated.Append("\r\n");
 

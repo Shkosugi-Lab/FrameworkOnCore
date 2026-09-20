@@ -431,7 +431,23 @@ public static partial class AspxConverters
         {
             if (ConvertTitleExpressions(title) is { } renderable)
             {
-                razor.AppendLine($"<PageTitle>{renderable}</PageTitle>");
+                // A page with no master in its directive has nothing here worth trusting.
+                // The value above came from a fallback that picks the first master
+                // declaring a static title - fine for a page that simply has none, wrong
+                // for a page that sets Page.Title in code, which is what a page choosing
+                // its master at runtime does. BlogEngine's five pages all showed
+                // "Account Login", the title of an unrelated master.
+                //
+                // So the runtime value wins when there is one, and this stays as what the
+                // document shows until then.
+                if (master is null)
+                {
+                    razor.AppendLine($"<WebFormsPageTitle Owner=\"this\">{renderable}</WebFormsPageTitle>");
+                }
+                else
+                {
+                    razor.AppendLine($"<PageTitle>{renderable}</PageTitle>");
+                }
                 razor.AppendLine();
             }
             else
@@ -443,9 +459,28 @@ public static partial class AspxConverters
             }
         }
 
+        // A page WITHOUT a master in its @Page directive may still have one: WebForms let a
+        // page choose in OnPreInit, and BlogEngine's base page computes the path from the
+        // theme in settings on every request. There is nothing here to bind, so the page is
+        // wrapped in a host that resolves Page.MasterPageFile when it renders.
+        //
+        // Emitted for every such page rather than for the ones an analysis says assign it.
+        // The host renders its content unchanged when nothing resolves, so being wrong
+        // costs nothing, while missing a page costs that page its entire theme - which is
+        // the failure this is here to fix, and it is invisible to every other check.
+        var wrapsRuntimeMaster = master is null;
+
+        if (wrapsRuntimeMaster)
+        {
+            razor.AppendLine("<WebFormsMasterHost Owner=\"this\">");
+        }
         razor.AppendLine("<WebFormsScope Owner=\"this\">");
         razor.AppendLine(Trim(markup));
         razor.AppendLine("</WebFormsScope>");
+        if (wrapsRuntimeMaster)
+        {
+            razor.AppendLine("</WebFormsMasterHost>");
+        }
 
         report.ConvertedPages++;
         report.Info(sourceName, $"ページ → {outputDirectory}/{componentName}.razor");

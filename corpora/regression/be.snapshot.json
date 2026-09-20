@@ -4,19 +4,25 @@
     {
       "Name": "home",
       "Path": "/",
-      "Title": "Account Login",
+      "Title": "Name of the blog | Short description of the blog",
       "Text": [
-        "Welcome to BlogEngine.NET"
+        "Name of the blog",
+        "Welcome to BlogEngine.NET",
+        "ホーム",
+        "About",
+        "Example Page",
+        "アーカイブ",
+        "コンタクト"
       ],
       "Tables": [],
       "Inputs": {},
       "Elements": {
-        "divError": {
+        "cphBody_divError": {
           "Tag": "div",
           "Attributes": {},
           "Style": {}
         },
-        "PostList1_posts": {
+        "cphBody_PostList1_posts": {
           "Tag": "div",
           "Attributes": {
             "class": "posts"
@@ -35,25 +41,53 @@
           "Attributes": {},
           "Style": {}
         },
-        "PostList1_hlNext": {
+        "cphBody_PostList1_hlNext": {
           "Tag": "a",
           "Attributes": {},
           "Style": {
             "float": "right"
           }
+        },
+        "aLogin": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "aLoginText": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "widgetzone_sidebar-Post": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "widgetzone"
+          },
+          "Style": {}
+        },
+        "WidgetZone2": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
         }
       }
     },
     {
       "Name": "archive",
       "Path": "/archive",
-      "Title": "Account Login",
+      "Title": "Name of the blog | アーカイブ",
       "Text": [
-        "Archive",
-        "Total",
-        "1 posts",
-        "1 comments",
-        "0 raters"
+        "Name of the blog",
+        "アーカイブ",
+        "総数",
+        "1 投稿数",
+        "1 コメント",
+        "0 レート数",
+        "ホーム",
+        "About",
+        "Example Page",
+        "アーカイブ",
+        "コンタクト"
       ],
       "Tables": [],
       "Inputs": {},
@@ -65,7 +99,7 @@
           },
           "Style": {}
         },
-        "ulMenu": {
+        "cphBody_ulMenu": {
           "Tag": "ul",
           "Attributes": {
             "class": "archive-page-menu"
@@ -78,22 +112,50 @@
             "class": "archive-page-total"
           },
           "Style": {}
+        },
+        "aLogin": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "aLoginText": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "widgetzone_sidebar-Post": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "widgetzone"
+          },
+          "Style": {}
+        },
+        "WidgetZone2": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
         }
       }
     },
     {
       "Name": "search",
       "Path": "/search",
-      "Title": "Account Login",
+      "Title": "Name of the blog | 検索",
       "Text": [
-        "Search"
+        "Name of the blog",
+        "検索",
+        "ホーム",
+        "About",
+        "Example Page",
+        "アーカイブ",
+        "コンタクト"
       ],
       "Tables": [],
       "Inputs": {
         "q": ""
       },
       "Elements": {
-        "h1Headline": {
+        "cphBody_h1Headline": {
           "Tag": "h2",
           "Attributes": {
             "class": "page-global-title"
@@ -113,28 +175,56 @@
             "type": "text"
           },
           "Style": {}
+        },
+        "aLogin": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "aLoginText": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "widgetzone_sidebar-Post": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "widgetzone"
+          },
+          "Style": {}
+        },
+        "WidgetZone2": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
         }
       }
     },
     {
       "Name": "contact",
       "Path": "/contact",
-      "Title": "Account Login",
+      "Title": "Name of the blog | コンタクト",
       "Text": [
-        "Contact",
+        "Name of the blog",
+        "コンタクト",
         "I'll answer the mail as soon as I can.",
-        "Name",
+        "名前",
         "E-mail",
-        "Subject",
-        "Message",
-        "[App_Code.Controls.RecaptchaControl: render error]"
+        "タイトル",
+        "メッセージ",
+        "[App_Code.Controls.RecaptchaControl: render error]",
+        "ホーム",
+        "About",
+        "Example Page",
+        "アーカイブ",
+        "コンタクト"
       ],
       "Tables": [],
       "Inputs": {
-        "txtName": "",
-        "txtEmail": "",
-        "txtSubject": "",
-        "txtMessage": ""
+        "cphBody_txtName": "",
+        "cphBody_txtEmail": "",
+        "cphBody_txtSubject": "",
+        "cphBody_txtMessage": ""
       },
       "Elements": {
         "contact": {
@@ -144,12 +234,12 @@
           },
           "Style": {}
         },
-        "divForm": {
+        "cphBody_divForm": {
           "Tag": "div",
           "Attributes": {},
           "Style": {}
         },
-        "txtName": {
+        "cphBody_txtName": {
           "Tag": "input",
           "Attributes": {
             "type": "text",
@@ -157,7 +247,7 @@
           },
           "Style": {}
         },
-        "txtEmail": {
+        "cphBody_txtEmail": {
           "Tag": "input",
           "Attributes": {
             "type": "text",
@@ -165,7 +255,7 @@
           },
           "Style": {}
         },
-        "txtSubject": {
+        "cphBody_txtSubject": {
           "Tag": "input",
           "Attributes": {
             "type": "text",
@@ -173,7 +263,7 @@
           },
           "Style": {}
         },
-        "txtMessage": {
+        "cphBody_txtMessage": {
           "Tag": "textarea",
           "Attributes": {
             "class": "form-control",
@@ -182,7 +272,7 @@
           },
           "Style": {}
         },
-        "btnSend": {
+        "cphBody_btnSend": {
           "Tag": "input",
           "Attributes": {
             "type": "button",
@@ -194,29 +284,79 @@
           "Tag": "div",
           "Attributes": {},
           "Style": {}
+        },
+        "aLogin": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "aLoginText": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "widgetzone_sidebar-Post": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "widgetzone"
+          },
+          "Style": {}
+        },
+        "WidgetZone2": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
         }
       }
     },
     {
       "Name": "post",
       "Path": "/error404",
-      "Title": "Account Login",
+      "Title": "Name of the blog | - Page not found",
       "Text": [
+        "Name of the blog",
         "Ooops! I can't find the page you're looking for",
         "You might find one of the following links useful:",
-        "Archive",
+        "アーカイブ",
         "Home page",
         "You can also try to search for the page you were looking for.",
         "You may not be able to find the page you were after because of:",
         "An out-of-date bookmark/favorite",
         "A search engine that has an out-of-date listing for us",
-        "A miss-typed address"
+        "A miss-typed address",
+        "ホーム",
+        "About",
+        "Example Page",
+        "アーカイブ",
+        "コンタクト"
       ],
       "Tables": [],
       "Inputs": {},
       "Elements": {
-        "divDirectHit": {
+        "cphBody_divDirectHit": {
           "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "aLogin": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "aLoginText": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "widgetzone_sidebar-Post": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "widgetzone"
+          },
+          "Style": {}
+        },
+        "WidgetZone2": {
+          "Tag": "span",
           "Attributes": {},
           "Style": {}
         }

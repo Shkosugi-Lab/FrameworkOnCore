@@ -52,3 +52,50 @@ public static class UserControlCatalog
     private static string Normalize(string virtualPath)
         => virtualPath.Replace('\\', '/').TrimStart('~').TrimStart('/');
 }
+
+/// <summary>
+/// Virtual path -> converted LAYOUT type, populated by the generated app at startup
+/// (MasterPageCatalog.g.cs) and read when a page assigns Page.MasterPageFile.
+///
+/// A .master is a layout here, and which one a page uses is usually written in its @Page
+/// directive - so the converter binds it at conversion time and this map is not consulted.
+/// It exists for the pages that choose at RUNTIME:
+///
+///     // BlogEngine.Core\Web\Controls\BlogBasePage.cs
+///     MasterPageFile = $"~/Custom/Themes/{BlogSettings.Instance.Theme}/site.master";
+///
+/// There is nothing in the markup to bind, and the string is only known once settings are
+/// read. MasterPageFile used to be an inert property - assigned, stored, never looked at -
+/// so BlogEngine rendered with no theme at all: no header, no menu, no site title. It
+/// built with zero errors while doing it, because nothing about it is a compile error.
+/// </summary>
+public static class MasterPageCatalog
+{
+    private static readonly Dictionary<string, Type> ByPath = new(StringComparer.OrdinalIgnoreCase);
+
+    /// <summary>Registers one converted master page. Called by generated startup code.</summary>
+    public static void Register(string virtualPath, Type layoutType)
+    {
+        if (!string.IsNullOrEmpty(virtualPath) && layoutType is not null)
+        {
+            ByPath[Normalize(virtualPath)] = layoutType;
+        }
+    }
+
+    /// <summary>
+    /// The layout a master's virtual path was converted into, or null when unknown.
+    ///
+    /// Null rather than a guess: an unknown path means the master was not converted, and
+    /// rendering the page with SOME other theme would be a difference invented here rather
+    /// than one carried over.
+    /// </summary>
+    public static Type Resolve(string virtualPath)
+        => string.IsNullOrEmpty(virtualPath)
+            ? null
+            : ByPath.GetValueOrDefault(Normalize(virtualPath));
+
+    public static int Count => ByPath.Count;
+
+    private static string Normalize(string virtualPath)
+        => virtualPath.Replace('\\', '/').TrimStart('~').TrimStart('/');
+}

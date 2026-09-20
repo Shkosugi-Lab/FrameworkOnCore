@@ -321,6 +321,61 @@ if ($UpdateBaseline) {
     exit 0
 }
 
+# ルート README のコーパス表を expected.json と突き合わせる。
+#
+# 表は手で書かれていて、どのゲートにも載っていなかった。結果、総残差 1,112 /
+# ビルドエラー 1,359 / n2cms 変換可能 59 という、実測より 2〜3 倍大きい数字が
+# 残り続けた。しかも mojoPortal の 237 は下限値で、実数は 2,218 件だった。
+# 「唯一の基準は expected.json」と書いてある文書自身がそれと合っていない状態は、
+# 数字を信じて読む人を確実に誤らせる。
+#
+# 表の各行は自分のキー(`be` のような ` で囲んだ印)を持っている。README 側が
+# 自分を名乗るので、スクリプトに「表示名 → キー」の対応表を持たせない
+# — それを持った時点で、また「完全でないと間違いになる一覧」が 1 つ増える。
+#
+# -Only で一部だけ流したときも比較する。見ているのは README と expected.json で、
+# どちらも今回の計測とは独立しているため。
+$readmePath = Join-Path $repo 'README.md'
+if (Test-Path $readmePath) {
+    $rows = @{}
+    foreach ($line in [IO.File]::ReadAllLines($readmePath)) {
+        # | BlogEngine.NET 3.3.8 (`be`) | 261 | 64 | 2 | **0** |
+        $m = [regex]::Match(
+            $line,
+            '^\|[^|]*`(?<key>be|mojo|yaf|dnn|n2|wt)`[^|]*\|(?<cells>.*)\|\s*$')
+        if (-not $m.Success) { continue }
+        # 太字や桁区切りは表記なので落とす。数字だけを見る。
+        $nums = @($m.Groups['cells'].Value -split '\|' | ForEach-Object {
+            ($_ -replace '[^\d]', '')
+        })
+        if ($nums.Count -ne 4) { continue }
+        $rows[$m.Groups['key'].Value] = $nums
+    }
+
+    $columns = @(
+        @{ Index = 0; Field = 'portedCs';    Label = '移植 .cs' },
+        @{ Index = 1; Field = 'residuals';   Label = '総残差' },
+        @{ Index = 2; Field = 'convertible'; Label = '変換可能' },
+        @{ Index = 3; Field = 'buildErrors'; Label = 'ビルドエラー' }
+    )
+
+    foreach ($key in @('be', 'mojo', 'yaf', 'dnn', 'n2', 'wt')) {
+        if (-not $baseline.ContainsKey($key)) { continue }
+        if (-not $rows.ContainsKey($key)) {
+            $problems += "README.md のコーパス表に ``$key`` の行がありません"
+            continue
+        }
+        foreach ($column in $columns) {
+            $shown = [int]$rows[$key][$column.Index]
+            $actual = [int]$baseline[$key].($column.Field)
+            if ($shown -ne $actual) {
+                $problems +=
+                    "README.md の $key / $($column.Label) が $shown、expected.json は $actual"
+            }
+        }
+    }
+}
+
 Write-Host ""
 if ($problems.Count -gt 0) {
     Write-Host '要確認:' -ForegroundColor Red

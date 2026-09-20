@@ -7298,3 +7298,71 @@ menu  nobr  noframes  noscript  q  rt  ruby  tt  xml  ...
 **次に `<textarea>` を含むテンプレートが来たときの壊れ方**です。
 
 パリティ 30/30、bUnit 30/30、回帰ゲート 13/13。
+
+## 同梱パッケージ判定を SDK の `PackageOverrides.txt` から作る(20 → 412)
+
+`CollectDeclaredPackages` の `inBoxOnModernDotNet` は**手書きの 20 件**でした。
+一覧に無いパッケージは生成プロジェクトに引き継がれ、**古い帯域外アセンブリが
+同梱版に勝ってバインドされ得ます**。何も報告されず、**挙動としてだけ現れます。**
+
+### 成果物に訊く
+
+ターゲティングパックの中に **`PackageOverrides.txt`** があります。
+**NuGet 自身が「この PackageReference は不要」(NU1510)を判断するのに読むファイル**で、
+使用中の SDK と一緒にバージョン管理された正解です。
+
+```
+C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\10.0.11\data\PackageOverrides.txt   272 行
+C:\Program Files\dotnet\packs\Microsoft.AspNetCore.App.Ref\10.0.11\data\PackageOverrides.txt 140 行
+```
+
+**計 412 件。手書きが当てていたのは 17 件、取りこぼしが 395 件**です。
+`Microsoft.Win32.Registry`、`System.Reflection.Emit`、`runtime.*` 一族など、
+WebForms 時代のプロジェクトが普通に抱えているものが並びます。
+
+### 読むのは 2 つのパックだけ
+
+`Microsoft.WindowsDesktop.App.Ref` は `System.Drawing.Common` と
+`System.Windows.Extensions` を同梱扱いにしますが、**Blazor アプリのフレームワーク参照は
+それを含みません**。読むと移植先が必要とするパッケージを落とします。
+Web プロジェクトが実際に参照する `Microsoft.NETCore.App.Ref` と
+`Microsoft.AspNetCore.App.Ref` だけにしています。
+
+安全確認として、帯域外で出荷され続けるものが混じっていないことを見ました
+— `System.Configuration.ConfigurationManager`、`System.Drawing.Common`、
+`System.DirectoryServices`、`System.Data.SqlClient`、`System.ServiceModel.Primitives`
+**いずれも 412 件には入っていません。**
+
+### 手書きが残る 3 件
+
+`Microsoft.Bcl.AsyncInterfaces` / `Microsoft.Bcl.HashCode` / `Microsoft.Bcl.TimeProvider`。
+**`PackageOverrides` には載りません** — フレームワークがパッケージを「置き換える」のではなく、
+型を**そこから転送している**ためです。最新 .NET では空のファサードになります。
+
+### パックが見つからなかったら
+
+**空集合を返すと全ての分割パッケージが引き継がれ**、まさに防ごうとしている事故が
+静かに起きます。旧 20 件の一覧をフォールバックとして残しました。
+`ids.Count > 3` で「実際に読めたか」を判定しています。
+
+パス解決は Program Files 決め打ちではなく、**実行中ランタイムのディレクトリ**
+(`.../shared/Microsoft.NETCore.App/<version>`)から 3 つ遡って求めます。
+サイドバイサイド構成や既定外の場所へのインストールでも解決できます。
+
+### 数字
+
+**6 コーパスすべて完全に一致**(ビルドエラー・残差とも不変)。**ただし分類は動きました。**
+
+mojoPortal の CONVERSION-REPORT で、新たに 3 件が「対応不要」へ移りました:
+
+```
+System.Linq  System.Linq.Expressions  Microsoft.Extensions.Logging.Abstractions
+```
+
+前 2 件は**手書きが取りこぼしていた分割パッケージ**で、mojoPortal が現に宣言しています
+— 引き継がれていた = バインドの事故が待っていた、そのものです。
+3 件目は「要対応」から「対応不要」への移動で、ASP.NET Core が同梱するので正しい分類です。
+
+ビルドエラーが動かないのは当然で、**これはコンパイルエラーではなくバインドの危険**です。
+
+パリティ 30/30、bUnit 30/30、回帰ゲート 13/13。

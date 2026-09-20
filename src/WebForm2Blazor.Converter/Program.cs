@@ -2267,6 +2267,109 @@ static string? FindBuiltAssembly(string? projectDirectory, string assembly)
     }
 }
 
+/// <summary>
+/// Package IDs the target framework supersedes, read from the SDK's own data.
+///
+/// This was a hand-written list of 20 names, and a name missing from it meant the package
+/// reference was carried into the generated project - where an old out-of-band assembly
+/// can win binding over the in-box one. Nothing reports that; it shows up as behaviour.
+///
+/// The artifact that knows is <c>PackageOverrides.txt</c>, shipped inside each targeting
+/// pack. It is the file NuGet itself reads to decide a PackageReference is redundant
+/// (NU1510) - the authoritative answer, versioned with the SDK in use. For .NET 10 the two
+/// framework references a converted Blazor app has list 412 IDs between them. The hand
+/// list named 17 of those and missed 395, among them Microsoft.Win32.Registry,
+/// System.Reflection.Emit and the whole runtime.* family that WebForms-era projects carry.
+///
+/// Only the two packs a web project actually references are read. Microsoft.WindowsDesktop
+/// .App.Ref supersedes System.Drawing.Common and System.Windows.Extensions, which a Blazor
+/// app does NOT get from its framework reference - reading it would drop packages the
+/// ported code needs.
+/// </summary>
+static HashSet<string> InBoxPackageIds()
+{
+    // Facades that are no-ops on modern .NET but are NOT in PackageOverrides, because the
+    // framework does not supersede the package - it type-forwards the types out of it.
+    var ids = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+    {
+        "Microsoft.Bcl.AsyncInterfaces", "Microsoft.Bcl.HashCode", "Microsoft.Bcl.TimeProvider",
+    };
+
+    string[] webProjectPacks = ["Microsoft.NETCore.App.Ref", "Microsoft.AspNetCore.App.Ref"];
+    var packsRoot = DotNetPacksRoot();
+
+    if (packsRoot is not null)
+    {
+        foreach (var pack in webProjectPacks)
+        {
+            var packDirectory = Path.Combine(packsRoot, pack);
+            if (!Directory.Exists(packDirectory))
+            {
+                continue;
+            }
+            // Every installed version is unioned. These lists only grow, and an ID listed
+            // by any of them is a Framework-era split package either way.
+            foreach (var file in Directory.EnumerateFiles(
+                packDirectory, "PackageOverrides.txt", SearchOption.AllDirectories))
+            {
+                foreach (var line in File.ReadLines(file))
+                {
+                    // "Microsoft.CSharp|4.7.0" - identity before the version
+                    var id = line.Split('|')[0].Trim();
+                    if (id.Length > 0)
+                    {
+                        ids.Add(id);
+                    }
+                }
+            }
+        }
+    }
+
+    // Reading nothing would carry EVERY split package over - the exact hazard this guards
+    // against, arrived at silently. If the packs cannot be found, fall back to the names
+    // the corpora proved matter rather than to an empty set.
+    if (ids.Count > 3)
+    {
+        return ids;
+    }
+
+    ids.UnionWith([
+        "Microsoft.CSharp",
+        "System.Buffers", "System.Collections.Immutable", "System.ComponentModel.Annotations",
+        "System.Diagnostics.DiagnosticSource", "System.IO.Pipelines", "System.Memory",
+        "System.Net.Http", "System.Numerics.Vectors", "System.Runtime.CompilerServices.Unsafe",
+        "System.Security.AccessControl", "System.Security.Principal.Windows",
+        "System.Text.Encoding.CodePages", "System.Text.Encodings.Web", "System.Text.Json",
+        "System.Threading.Tasks.Extensions", "System.ValueTuple",
+    ]);
+    return ids;
+}
+
+/// <summary>
+/// The "packs" directory of the .NET install this converter is running on, derived from the
+/// runtime directory (.../shared/Microsoft.NETCore.App/&lt;version&gt;) rather than guessed
+/// from Program Files, so a side-by-side or non-default install resolves correctly.
+/// </summary>
+static string? DotNetPacksRoot()
+{
+    var runtimeDirectory = System.Runtime.InteropServices.RuntimeEnvironment.GetRuntimeDirectory();
+    if (string.IsNullOrEmpty(runtimeDirectory))
+    {
+        return null;
+    }
+
+    var dotnetRoot = Directory.GetParent(runtimeDirectory.TrimEnd(
+        Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar))?.Parent?.Parent?.FullName;
+
+    if (dotnetRoot is null)
+    {
+        return null;
+    }
+
+    var packs = Path.Combine(dotnetRoot, "packs");
+    return Directory.Exists(packs) ? packs : null;
+}
+
 static List<(string Id, string Version)> CollectDeclaredPackages(
     IEnumerable<string> projectDirectories,
     ConversionReport report,
@@ -2296,17 +2399,7 @@ static List<(string Id, string Version)> CollectDeclaredPackages(
     // number, but these packages now ship on the .NET release train - mojoPortal declares
     // System.Text.Json 10.0.2 and System.Runtime.CompilerServices.Unsafe 6.1.2 - so every
     // one of them slipped through.
-    var inBoxOnModernDotNet = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
-    {
-        "Microsoft.Bcl.AsyncInterfaces", "Microsoft.Bcl.HashCode", "Microsoft.Bcl.TimeProvider",
-        "Microsoft.CSharp",
-        "System.Buffers", "System.Collections.Immutable", "System.ComponentModel.Annotations",
-        "System.Diagnostics.DiagnosticSource", "System.IO.Pipelines", "System.Memory",
-        "System.Net.Http", "System.Numerics.Vectors", "System.Runtime.CompilerServices.Unsafe",
-        "System.Security.AccessControl", "System.Security.Principal.Windows",
-        "System.Text.Encoding.CodePages", "System.Text.Encodings.Web", "System.Text.Json",
-        "System.Threading.Tasks.Extensions", "System.ValueTuple",
-    };
+    var inBoxOnModernDotNet = InBoxPackageIds();
 
     // Kept alongside the identity list: a 4.x/5.x System.* reference is a Framework-era
     // split package regardless of whether it is named above, and carrying it downgrades the

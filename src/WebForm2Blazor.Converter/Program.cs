@@ -266,11 +266,26 @@ if (deriveIncludes)
     }
 }
 
-var project = WebFormsProject.Scan(input, includeDirectories, webConfigOverride);
+var project = WebFormsProject.Scan(input, includeDirectories, webConfigOverride, entryProjectPath);
 
 report.Info("(project)",
     $"棚卸し: マスターページ {project.MasterPages.Count} / ページ {project.Pages.Count} / "
     + $"ユーザーコントロール {project.UserControls.Count} / その他 .cs {project.PlainCodeFiles.Count}");
+
+if (project.NotCompiledFiles.Count > 0)
+{
+    // Informational, not a residual to act on: there is nothing for anyone to migrate.
+    // But it is never left unsaid - a reader comparing file counts between the input tree
+    // and the output has to be able to find out where the difference went.
+    const int shown = 12;
+    var listed = string.Join(", ", project.NotCompiledFiles.Take(shown));
+    var more = project.NotCompiledFiles.Count > shown
+        ? $" ほか {project.NotCompiledFiles.Count - shown} 件"
+        : string.Empty;
+    report.Info("(project)",
+        $"アプリの .csproj がコンパイルしないファイル {project.NotCompiledFiles.Count} 件は"
+        + $"変換対象外にしました(ディスクに残っているだけで、アプリケーションの一部ではありません): {listed}{more}");
+}
 
 if (project.Pages.Count == 0 && project.MasterPages.Count == 0 && project.UserControls.Count == 0)
 {

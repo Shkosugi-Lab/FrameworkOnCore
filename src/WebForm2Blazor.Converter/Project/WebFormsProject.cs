@@ -30,6 +30,14 @@ public sealed class WebFormsProject
     public List<string> PlainCodeFiles { get; } = [];
 
     /// <summary>
+    /// Files on disk that the app's own .csproj does not compile, so they are not part of
+    /// the application and were not converted. Reported, never silent: "the tool dropped a
+    /// file" and "the tool decided the file was never yours" have to be told apart by the
+    /// reader, and only the project file can settle which one it is.
+    /// </summary>
+    public List<string> NotCompiledFiles { get; } = [];
+
+    /// <summary>
     /// .cs files from referenced library projects (--include). Real apps keep their page
     /// base classes and business logic in separate assemblies (YAF.Core,
     /// DotNetNuke.Library, ...); including them feeds the base-class registry and ports
@@ -93,15 +101,30 @@ public sealed class WebFormsProject
     /// glob **/*.cs by default and list only extras), or a wildcard include. In all of
     /// those the directory scan is the right answer and the caller keeps every file.
     /// </summary>
-    private static HashSet<string>? ReadCompiledFiles(string directory)
+    private static HashSet<string>? ReadCompiledFiles(string directory, string? entryProjectPath = null)
     {
-        var projects = Directory.GetFiles(directory, "*.csproj", SearchOption.TopDirectoryOnly);
-        if (projects.Length != 1)
+        string project;
+
+        // The app root is where several .csproj commonly sit side by side (one per database
+        // for YAF, the app plus its addons for n2cms). That is exactly the case --project
+        // already answers, so the caller's answer is used rather than giving up.
+        if (entryProjectPath is not null
+            && Path.GetDirectoryName(Path.GetFullPath(entryProjectPath)) == directory.TrimEnd(
+                Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar))
         {
-            return null;
+            project = Path.GetFullPath(entryProjectPath);
+        }
+        else
+        {
+            var projects = Directory.GetFiles(directory, "*.csproj", SearchOption.TopDirectoryOnly);
+            if (projects.Length != 1)
+            {
+                return null;
+            }
+            project = projects[0];
         }
 
-        var text = File.ReadAllText(projects[0]);
+        var text = File.ReadAllText(project);
         if (Regex.IsMatch(text, @"<Project[^>]*\sSdk\s*=", RegexOptions.IgnoreCase))
         {
             return null;
@@ -121,8 +144,46 @@ public sealed class WebFormsProject
         return compiled.Count == 0 ? null : compiled;
     }
 
+    /// <summary>
+    /// True when the project file proves this file is not part of the application.
+    ///
+    /// Only two kinds of file are judged, and only on POSITIVE evidence:
+    ///
+    /// - a plain .cs the project does not compile;
+    /// - a markup file (.aspx / .ascx / .master) whose code-behind EXISTS on disk and is
+    ///   not compiled. Markup with no code-behind at all is kept, because inline-code pages
+    ///   are legitimate and the project file says nothing that could settle it.
+    ///
+    /// Everything else - images, scripts, config, resources - is kept regardless. Content
+    /// items are not a reliable inventory (files get added to a site and deployed without
+    /// ever entering the .csproj), so absence there is not evidence of anything.
+    /// </summary>
+    private static bool IsNotPartOfProject(
+        WebFormsProject project, HashSet<string> compiled, string path, string relative, string fileName)
+    {
+        if (fileName.EndsWith(".cs", StringComparison.OrdinalIgnoreCase))
+        {
+            // Designer and AssemblyInfo files are filtered by name downstream; judging them
+            // here would add them to the "not compiled" report as if they were dropped code.
+            return !IsGeneratedOrCodeBehind(fileName) && !compiled.Contains(relative);
+        }
+
+        if (fileName.EndsWith(".aspx", StringComparison.OrdinalIgnoreCase)
+            || fileName.EndsWith(".ascx", StringComparison.OrdinalIgnoreCase)
+            || fileName.EndsWith(".master", StringComparison.OrdinalIgnoreCase))
+        {
+            // Converting the markup while its code-behind is gone is worse than dropping
+            // both: the component would keep the @using and control declarations and lose
+            // every handler, so it compiles against types that are no longer there.
+            return File.Exists(path + ".cs") && !compiled.Contains(relative + ".cs");
+        }
+
+        return false;
+    }
+
     public static WebFormsProject Scan(
-        string rootDirectory, IEnumerable<string>? includeDirectories = null, string? webConfigOverride = null)
+        string rootDirectory, IEnumerable<string>? includeDirectories = null, string? webConfigOverride = null,
+        string? entryProjectPath = null)
     {
         var project = new WebFormsProject { RootDirectory = Path.GetFullPath(rootDirectory) };
 
@@ -164,6 +225,17 @@ public sealed class WebFormsProject
         project.IncludedCodeFiles.Sort((a, b) =>
             string.Compare(a.OutputRelativePath, b.OutputRelativePath, StringComparison.OrdinalIgnoreCase));
 
+        // The same rule the --include walk above has always applied, now applied to the app
+        // itself. It was only ever missing here because the app root often has more than one
+        // .csproj, which ReadCompiledFiles used to answer "null" to.
+        //
+        // n2cms ships 190 .cs files its own project does not compile - a whole addon tree
+        // (AddonCatalog, Demo, Wiki) left in the repository. Porting them by directory scan
+        // pulled in code referencing types that exist nowhere in the source at all
+        // (N2.Addons.Wiki.Fragmenters.RegexFragmenter), which cannot be anything but an
+        // error: the application never contained that code.
+        var rootCompiled = ReadCompiledFiles(project.RootDirectory, entryProjectPath);
+
         foreach (var path in Directory.EnumerateFiles(project.RootDirectory, "*.*", SearchOption.AllDirectories))
         {
             var relative = project.RelativePath(path);
@@ -174,6 +246,12 @@ public sealed class WebFormsProject
             }
 
             var fileName = Path.GetFileName(path);
+
+            if (rootCompiled is not null && IsNotPartOfProject(project, rootCompiled, path, relative, fileName))
+            {
+                project.NotCompiledFiles.Add(relative);
+                continue;
+            }
 
             if (fileName.EndsWith(".master", StringComparison.OrdinalIgnoreCase))
             {

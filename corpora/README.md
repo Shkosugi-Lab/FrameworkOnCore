@@ -7905,3 +7905,36 @@ IIS Express と MSBuild でゴールデンマスターを録り直す作業に�
 mojo **327 → 324**。6 コーパス計 **361 → 358**。
 be / yaf / dnn / n2 / wt は完全に不変。
 パリティ 30/30、bUnit 30/30、回帰ゲート 13/13。
+
+## `Style.Font` と、捨てられていたコンストラクタ引数(mojo 324 → 320)
+
+### `Style` に `Font` が無かった
+
+`FontInfo` 型は既にあり、コントロール基底はどれも 1 つ持っています。
+**WebForms がヘッダ/アイテム/フッタに渡す `Style` だけが持っていませんでした。**
+
+```csharp
+HeaderStyle.Font.Bold = true;   // 生成テーブルにスタイルを当てる、ごく普通の書き方
+```
+
+`CopyFrom` にも足しました。**片方だけ足すと、コピーしたはずのスタイルで
+フォントだけ落ちます** — 何も足さないより気づきにくい壊れ方です。
+
+### `PostBackOptions` は対象コントロールを捨てていた
+
+```csharp
+public PostBackOptions(object targetControl) => _ = targetControl;
+```
+
+**このオプションオブジェクトの利用者が訊く唯一の問い「誰がポストバックするのか」に
+答えられない状態**でした。`GetPostBackEventReference(PostBackOptions)` を足すのに
+必要になって気づきました。`TargetControl` として保持します。
+
+コントロールアダプタは 9 つのフラグを位置指定で埋めたばかりなので、
+**2 引数のオーバーロードには渡すものがありません**。
+
+### 数字
+
+mojo **324 → 320**。6 コーパス計 **358 → 354**。
+be / yaf / dnn / n2 / wt は完全に不変。
+パリティ 30/30、bUnit 30/30、回帰ゲート 13/13。

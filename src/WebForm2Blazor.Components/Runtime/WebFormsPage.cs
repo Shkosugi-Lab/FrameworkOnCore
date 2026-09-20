@@ -444,6 +444,14 @@ public sealed class ClientScriptManagerShim
     public string GetPostBackEventReference(object control, string argument) => string.Empty;
 
     /// <summary>
+    /// WebForms ClientScriptManager.GetPostBackEventReference(PostBackOptions). The
+    /// options object is the form a control adapter builds - it has just filled in nine
+    /// flags positionally and has nothing to pass to the two-argument overloads.
+    /// </summary>
+    public string GetPostBackEventReference(PostBackOptions options)
+        => GetPostBackEventReference(options?.TargetControl, options?.Argument);
+
+    /// <summary>
     /// WebForms ClientScriptManager.RegisterForEventValidation.
     ///
     /// Event validation rejected a postback whose target or argument was not one the

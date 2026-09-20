@@ -536,11 +536,11 @@ public sealed class OutputCacheParameters
 /// <summary>System.Web.UI.PostBackOptions equivalent (declaration surface).</summary>
 public sealed class PostBackOptions
 {
-    public PostBackOptions(object targetControl) => _ = targetControl;
+    public PostBackOptions(object targetControl) => TargetControl = targetControl;
 
     public PostBackOptions(object targetControl, string argument)
     {
-        _ = targetControl;
+        TargetControl = targetControl;
         Argument = argument;
     }
 
@@ -560,7 +560,7 @@ public sealed class PostBackOptions
         bool clientSubmit,
         string validationGroup)
     {
-        _ = targetControl;
+        TargetControl = targetControl;
         Argument = argument;
         ActionUrl = actionUrl;
         AutoPostBack = autoPostBack;
@@ -570,6 +570,12 @@ public sealed class PostBackOptions
         ClientSubmit = clientSubmit;
         ValidationGroup = validationGroup;
     }
+
+    /// <summary>
+    /// The control the postback targets. It used to be discarded, which made the options
+    /// object unable to answer the one question its consumer asks - who is posting back.
+    /// </summary>
+    public object TargetControl { get; set; }
 
     public string Argument { get; set; }
 

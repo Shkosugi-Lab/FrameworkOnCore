@@ -324,6 +324,14 @@ public class Style
 
     public Unit Height { get; set; }
 
+    /// <summary>
+    /// WebForms Style.Font. The FontInfo type was already here and every control base
+    /// carries one; the Style that WebForms hands to a control's header, item or footer
+    /// did not, so "HeaderStyle.Font.Bold = true" - the ordinary way a page styles a
+    /// generated table - did not compile.
+    /// </summary>
+    public FontInfo Font { get; } = new();
+
     public bool IsEmpty => string.IsNullOrEmpty(CssClass);
 
     public virtual void CopyFrom(Style source)
@@ -339,6 +347,7 @@ public class Style
         BorderWidth = source.BorderWidth;
         Width = source.Width;
         Height = source.Height;
+        Font.CopyFrom(source.Font);
     }
 
     public virtual void MergeWith(Style source)

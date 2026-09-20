@@ -7803,3 +7803,65 @@ C# は宣言から外側へ歩いて解決するので、これは
 mojo **352 → 341**。6 コーパス計 **386 → 375**。
 be / yaf / dnn / n2 / wt は完全に不変。
 パリティ 30/30、bUnit 30/30、回帰ゲート 13/13。
+
+## VirtualPathProvider と、シムが型を広げると何が起きるか(mojo 341 → 327)
+
+### `Previous` が無かった
+
+`VirtualPathProvider.Previous` はチェーンの次段です。独自プロバイダは自分の持ち場だけ
+答えて**残りを次段に委ねます**。mojoPortal のものはまさにそう書かれています:
+
+```csharp
+if (これは自分の担当) { ... } else { return Previous.FileExists(virtualPath); }
+```
+
+無いとクラスごとコンパイルできません。
+WebForms のチェーンの**最後の環はファイルシステムを読むプロバイダ**だったので、
+そう実装しました。基底(何にでも false)を返すと、**アプリ自身のファイルが
+1 つも存在しないと答える**プロバイダになります。コンパイルできないより悪い答えです。
+
+フィールド初期化子ではなくプロパティにしています
+— フィールドだと `VirtualPathProvider` 1 つにつき 1 つ作り続けます。
+
+### `object` を返すシムは、失敗を先送りするだけ
+
+```csharp
+public virtual object GetFile(string virtualPath) => null;
+public virtual object GetDirectory(string virtualDir) => null;
+public virtual object GetCacheDependency(...) => null;
+```
+
+**戻り値を広げても呼び出し側は何も得をしません。失敗が動くだけです。**
+mojoPortal は 3 つとも override して自前の `VirtualFile` / `VirtualDirectory` /
+`CacheDependency` を返し、さらに基底呼び出しの結果をその型の変数に代入します
+— 元が必要としなかった変換で **CS0266 / CS1503 が 5 件**。
+**3 つの型はこの層に既にあります。** 署名を本来の型に戻しました。
+
+### `RegisterVirtualPathProvider` は受け取って持つだけ
+
+`Application_Start` から呼ばれるので、**投げるとアプリが起動しません**。
+4.8 でこれが買っていたもの(.aspx やスキンを DB から配る)は
+**変換後に一切残りません** — Blazor はコンポーネントをビルド時にコンパイルし、
+仮想パスプロバイダに何も尋ねないからです。
+登録したものを読み返せるように保持し、**なぜ DB のスキンが出ないのかを
+誰かが調べたときに、ここに辿り着けるように**しています。
+
+### 「基底はコントロールが何であるかを運ばない」— 5 回目
+
+`TreeView.PathSeparator` は **`char`** です。`string` になっていました。
+すぐ隣の `Menu.PathSeparator` は既に `char` で、**同じ間違いを直したコメントまで
+付いています**:
+
+> ("valuePath.IndexOf(menu.PathSeparator)" binds to the char overload)
+
+同じファイルの中で、片方だけ直っていました。
+`Split` は `char` と `string` の両方があるので、探索側は影響を受けません。
+
+`PostBackOptions` は 9 引数のコンストラクタが無く、
+コントロールアダプタは**全フラグを位置指定で渡す**ので短い 2 つは役に立ちません。
+
+### 数字
+
+mojo **341 → 327**。6 コーパス計 **375 → 361**。
+be / yaf / dnn / n2 / wt は完全に不変。
+パリティ 30/30、bUnit 30/30、回帰ゲート 13/13。

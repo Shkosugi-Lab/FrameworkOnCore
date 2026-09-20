@@ -56,7 +56,11 @@
     /// <summary>WebForms TreeView.LevelStyles equivalent: per-depth styles, indexed by depth.</summary>
     public TreeNodeStyleCollection LevelStyles { get; } = [];
 
-    [Parameter] public string PathSeparator { get; set; } = "/";
+    /// <summary>
+    /// WebForms TreeView.PathSeparator - a CHAR, matching the legacy TreeView shim and
+    /// Menu.PathSeparator. Code-behind assigns a character literal to it.
+    /// </summary>
+    [Parameter] public char PathSeparator { get; set; } = '/';
 
     /// <summary>
     /// WebForms TreeView.EnableClientScript / PopulateNodesFromClient. The same pair

@@ -284,6 +284,23 @@ public static class HostingEnvironment
 
     public static bool IsHosted => true;
 
+    /// <summary>
+    /// WebForms HostingEnvironment.RegisterVirtualPathProvider. CARRIED AND INERT, and
+    /// deliberately so rather than throwing: an application registers its provider from
+    /// Application_Start, and throwing there would stop it booting over a facility that
+    /// nothing in this stack asks about.
+    ///
+    /// What it bought on 4.8 - serving .aspx, skins and themes out of a database - does
+    /// not survive the conversion at all: Blazor compiles its components at build time and
+    /// never consults a virtual path provider for anything. The provider is kept so that
+    /// code registering one and reading it back gets its own object, and so that this
+    /// stays findable when someone wonders why the database-backed skins are not loading.
+    /// </summary>
+    public static void RegisterVirtualPathProvider(VirtualPathProvider virtualPathProvider)
+        => VirtualPathProvider = virtualPathProvider;
+
+    public static VirtualPathProvider VirtualPathProvider { get; private set; }
+
     public static string MapPath(string virtualPath)
         => System.IO.Path.Combine(
             AppContext.BaseDirectory,

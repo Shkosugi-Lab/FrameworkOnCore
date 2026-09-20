@@ -537,19 +537,57 @@ public abstract class VirtualPathProvider
 
     public virtual bool DirectoryExists(string virtualDir) => false;
 
-    public virtual object GetFile(string virtualPath) => null;
+    // These three returned "object", and a shim that widens a return type does not save
+    // the caller anything - it moves the failure. mojoPortal's provider overrides all
+    // three and returns its own VirtualFile / VirtualDirectory / CacheDependency, and then
+    // assigns the base call's result to a variable of that type: five CS0266 / CS1503 for
+    // a conversion the original never needed. All three types are in this layer already.
+    public virtual VirtualFile GetFile(string virtualPath) => null;
 
-    public virtual object GetDirectory(string virtualDir) => null;
+    public virtual VirtualDirectory GetDirectory(string virtualDir) => null;
 
     public virtual string GetFileHash(string virtualPath, System.Collections.IEnumerable dependencies) => null;
 
-    public virtual object GetCacheDependency(
+    public virtual CacheDependency GetCacheDependency(
         string virtualPath, System.Collections.IEnumerable dependencies, DateTime utcStart) => null;
 
     public virtual string CombineVirtualPaths(string basePath, string relativePath) => relativePath;
 
     protected virtual void Initialize()
     {
+    }
+
+    private static VirtualPathProvider _fileSystem;
+
+    /// <summary>
+    /// WebForms VirtualPathProvider.Previous - the next provider in the chain.
+    ///
+    /// A custom provider answers for the paths it owns and DELEGATES everything else here.
+    /// mojoPortal's does exactly that: "if this is one of mine ... else return
+    /// Previous.FileExists(virtualPath)". Without it the class does not compile at all.
+    ///
+    /// The last link of the chain in WebForms was the provider that read the file system,
+    /// so that is what this is. Handing back the base class - which answers false to
+    /// everything - would make a provider report that none of the application's own files
+    /// exist, which is a worse answer than not compiling.
+    /// </summary>
+    protected VirtualPathProvider Previous => _fileSystem ??= new FileSystemVirtualPathProvider();
+
+    /// <summary>
+    /// Not a field initializer: a field would construct one VirtualPathProvider per
+    /// VirtualPathProvider, forever.
+    /// </summary>
+    private sealed class FileSystemVirtualPathProvider : VirtualPathProvider
+    {
+        public override bool FileExists(string virtualPath) => System.IO.File.Exists(Resolve(virtualPath));
+
+        public override bool DirectoryExists(string virtualDir) => System.IO.Directory.Exists(Resolve(virtualDir));
+
+        private static string Resolve(string virtualPath)
+            => System.IO.Path.Combine(
+                System.IO.Directory.GetCurrentDirectory(),
+                (virtualPath ?? string.Empty).TrimStart('~').TrimStart('/', '\\')
+                    .Replace('/', System.IO.Path.DirectorySeparatorChar));
     }
 }
 
@@ -756,7 +794,13 @@ public class LegacyTreeView : LegacyWebControl
     /// <summary>WebForms TreeView.LevelStyles equivalent: per-depth styles, indexed by depth.</summary>
     public TreeNodeStyleCollection LevelStyles { get; } = [];
 
-    public string PathSeparator { get; set; } = "/";
+    /// <summary>
+    /// WebForms TreeView.PathSeparator - a CHAR, not a string, exactly as Menu.PathSeparator
+    /// next to it already is. The base does not carry what the control IS: mojoPortal writes
+    /// "SiteMap2.PathSeparator = '|';" and got CS0029 for a conversion the original never
+    /// needed. Split(char) and Split(string) both exist, so the walk below is unaffected.
+    /// </summary>
+    public char PathSeparator { get; set; } = '/';
 
     public string ExpandImageToolTip { get; set; } = string.Empty;
 

@@ -544,6 +544,33 @@ public sealed class PostBackOptions
         Argument = argument;
     }
 
+    /// <summary>
+    /// The full WebForms constructor. Control adapters build one of these to ask the page
+    /// for the postback script, and they pass every flag positionally - so the two short
+    /// forms above are no help to them at all.
+    /// </summary>
+    public PostBackOptions(
+        object targetControl,
+        string argument,
+        string actionUrl,
+        bool autoPostBack,
+        bool requiresJavaScriptProtocol,
+        bool performValidation,
+        bool trackFocus,
+        bool clientSubmit,
+        string validationGroup)
+    {
+        _ = targetControl;
+        Argument = argument;
+        ActionUrl = actionUrl;
+        AutoPostBack = autoPostBack;
+        RequiresJavaScriptProtocol = requiresJavaScriptProtocol;
+        PerformValidation = performValidation;
+        TrackFocus = trackFocus;
+        ClientSubmit = clientSubmit;
+        ValidationGroup = validationGroup;
+    }
+
     public string Argument { get; set; }
 
     public string ActionUrl { get; set; }

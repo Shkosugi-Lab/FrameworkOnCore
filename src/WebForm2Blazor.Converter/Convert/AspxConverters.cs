@@ -3,6 +3,7 @@ using System.Text.RegularExpressions;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using WebForm2Blazor.Converter.Emit;
+using WebForm2Blazor.Converter.Mapping;
 using WebForm2Blazor.Converter.Parsing;
 using WebForm2Blazor.Converter.Project;
 
@@ -507,16 +508,77 @@ public static partial class AspxConverters
     /// </summary>
     public static IReadOnlyDictionary<string, string> PublicPropertyTypes(string codeBehindSource)
     {
+        var unit = CodeBehindRewriter.ParseUnit(codeBehindSource);
+        var imported = unit.DescendantNodes().OfType<UsingDirectiveSyntax>()
+            .Where(directive => directive.Alias is null && directive.StaticKeyword.ValueText.Length == 0)
+            .Select(directive => directive.Name?.ToString())
+            .Where(name => !string.IsNullOrEmpty(name))
+            .Distinct(StringComparer.Ordinal)
+            .ToList();
+
         var types = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
-        foreach (var property in CodeBehindRewriter.ParseUnit(codeBehindSource)
-                     .DescendantNodes().OfType<PropertyDeclarationSyntax>())
+        foreach (var property in unit.DescendantNodes().OfType<PropertyDeclarationSyntax>())
         {
             if (property.Modifiers.Any(modifier => modifier.ValueText == "public"))
             {
-                types[property.Identifier.Text] = property.Type.ToString();
+                types[property.Identifier.Text] = Qualify(property.Type.ToString(), imported!);
             }
         }
         return types;
+    }
+
+    /// <summary>
+    /// Turns a type name written in a code-behind into one that also resolves in Razor.
+    ///
+    /// These names are used to build a CAST inside generated markup - DataSource=
+    /// "@((IEnumerable)(...))" - and a .cs file's spelling is only valid under that file's
+    /// own using directives. Razor's default imports are a different, smaller set:
+    /// System, System.Collections.Generic, System.Linq, System.Threading.Tasks and the
+    /// Components namespaces. System.Collections is NOT among them, so YAF's
+    /// "public IEnumerable DataSource" produced a cast that bound to IEnumerable&lt;T&gt;
+    /// instead and failed with CS0305 ("requires 1 type argument"), taking the enclosing
+    /// template's lambda down with it (CS1662).
+    ///
+    /// Rather than importing System.Collections into every generated component - which
+    /// fixes this one name and leaves the next one - the file's own using directives are
+    /// asked. They are exactly the context the spelling was valid in.
+    /// </summary>
+    private static string Qualify(string declaredType, List<string> imported)
+    {
+        // Primitives and Unit are rewritten to their own canonical spelling downstream;
+        // qualifying "String" here would stop that from matching.
+        if (ComponentParameterTypes.FromSourceTypeName(declaredType).Kind != ParameterKind.Other)
+        {
+            return declaredType;
+        }
+
+        var name = declaredType.TrimEnd('?').Trim();
+
+        // Only a bare identifier. A generic, an array, a tuple or an already-qualified name
+        // each need more than a namespace prefix, and guessing at them is how a cast starts
+        // naming a type that does not exist.
+        if (name.Length == 0 || !name.All(c => char.IsLetterOrDigit(c) || c == '_'))
+        {
+            return declaredType;
+        }
+
+        string? resolved = null;
+        foreach (var candidate in imported)
+        {
+            if (!FrameworkTypeIndex.Contains(candidate + "." + name))
+            {
+                continue;
+            }
+            if (resolved is not null)
+            {
+                // Two imports both offer the name. The code-behind compiles, so one of them
+                // must be winning by a rule this lookup does not model - leave it alone.
+                return declaredType;
+            }
+            resolved = candidate;
+        }
+
+        return resolved is null ? declaredType : $"global::{resolved}.{name}";
     }
 
     public static string NormalizeProjectPath(string reference, string referencingFile, WebFormsProject project)

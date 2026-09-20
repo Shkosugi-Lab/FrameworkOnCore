@@ -7596,3 +7596,68 @@ Pages/ModForumUser.ascx.designer.cs
 
 つまり yaf が動かなかったのは正しい動作で、**直すものはありません。**
 推測を書いて渡すより、確かめるほうが速かったので、そうしました。
+
+## 生成 Razor の型名は Razor の既定インポートで解決できないといけない(yaf 16 → 14)
+
+yaf に残っていた**生成 Razor のエラー 1 件**(+ その連鎖 1 件)。
+変換器自身の出力の誤りなので最優先で見ました。
+
+```razor
+DataSource="@((IEnumerable)(this.GetSubForums((ForumRead)Container.DataItem)))"
+                ^^^^^^^^^^^ CS0305 ジェネリック 'IEnumerable<T>' には 1 型引数が必要
+```
+
+元のマークアップはただの `<%# this.GetSubForums(...) %>` です。
+キャストは変換器が足しています — `ForumSubForumList.ascx.cs` に
+
+```csharp
+public IEnumerable DataSource { set => this.SubforumList.DataSource = value; }
+```
+
+と書いてあるのを読んで、その**綴りをそのまま**キャストにしていました。
+
+### .cs の綴りは .cs の `using` の下でしか正しくない
+
+`.cs` 側には `using System.Collections;` があります。
+**Razor の既定インポートは別の、もっと小さい集合**です:
+
+```
+System   System.Collections.Generic   System.Linq   System.Threading.Tasks
+Microsoft.AspNetCore.Components ...
+```
+
+**`System.Collections` は入っていません。** そのため `IEnumerable` は
+`System.Collections.Generic.IEnumerable<T>` に結び付き、型引数が足りないと言われます。
+さらにテンプレートはラムダにコンパイルされるので、`ForumList_razor.g.cs` に
+**CS1662 の連鎖**が出ていました。1 件が 2 件に見えていた分です。
+
+### `System.Collections` を足す解は採らない
+
+`_Imports.razor` に足せばこの名前は直ります。**そして次の名前で同じことが起きます。**
+`DataTable`、`NameValueCollection`、`IList` — 同じ形の地雷が並んでいるだけです。
+
+代わりに**そのファイル自身の `using` に訊きます**。
+綴りが正しかった文脈は、まさにそれだからです。
+`FrameworkTypeIndex`(プラットフォームアセンブリのメタデータから作る実在型名の索引)に
+`using` を 1 つずつ足して問い合わせ、**当たった 1 つだけ**を完全修飾します。
+
+判定は保守的にしています:
+
+- **裸の識別子だけ。** ジェネリック・配列・タプル・既に修飾済みの名前は触りません
+  (当て推量で接頭辞を付けるのは、存在しない型を名乗り始める第一歩です)。
+- **プリミティブと `Unit` は除外。** 下流で正規化の綴りに直されるので、
+  ここで `String` を修飾すると**その一致が止まります**。
+- **2 つの `using` が同じ名前を持っていたら、そのまま返す。**
+  コードビハインドはコンパイルが通っているので、この探索が模していない規則で
+  片方が勝っているということです。分からないときは触らない。
+
+### 数字
+
+| | 前 | 後 |
+|---|---:|---:|
+| yaf ビルドエラー | 16 | **14** |
+| **生成 Razor のエラー(全コーパス)** | 1 | **0** |
+| 6 コーパス計 | 425 | **423** |
+
+be / mojo / dnn / n2 / wt は完全に不変。
+パリティ 30/30、bUnit 30/30、回帰ゲート 13/13。

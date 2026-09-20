@@ -8432,3 +8432,73 @@ BlogEngine 固有の話ではありません。
 
 ここまで**コードを 1 行も変えていません**。読むだけで詰められる範囲を詰め切ったので、
 次は実行時計測が要ります。**推測で直し始めるより、絞り込みを残すほうが速い**と判断しました。
+
+## 続き: 仮説は外れ、実測が別の場所を指した(動的な子が描画されていなかった)
+
+ひとつ上の節で「`Post.Posts` が空だろう、静的初期化が要求コンテキストに依存している
+のではないか」と書きました。**外れです。**
+
+### 測った
+
+生成物に一時的な診断ページを置き、**実ブラウザ**(既存の ParityTest の record)で
+値を採りました。Blazor Server では `OnAfterRender` が SSR では走らないので、
+`Invoke-WebRequest` では `(pending)` しか返りません。ここは実ブラウザが要ります。
+
+```
+Blog.Blogs.Count = 1
+Blog.CurrentInstance = Primary
+Post.Posts.Count = 1
+Post.ApplicablePosts.Count = 1
+visiblePosts = 1
+BlogService.Provider = BlogEngine.Core.Providers.XmlBlogProvider
+LoadFromDataStore(widget sidebar-Post) = (stream)
+LoadControl(defaults) = PostViewBase
+MapPath(~/App_Data/) = ...\bin\Debug\net10.0\App_Data\
+```
+
+**データ層は完全に動いていました。** ウィジェットの XML も取れています。
+`BindPosts` は投稿 1 件を見つけ、`LoadControl` はコントロールを返します。
+
+仮説を実装する前に測ったので、**存在しない問題を直さずに済みました。**
+
+### 本当の原因
+
+```csharp
+this.posts.Controls.Add(postView);   // 追加される。描画されない。
+```
+
+`ControlCollection` は**通知の無い素の `List`** でした。
+
+Blazor では、`Controls` を持つコントロールは**コンポーネント**です。
+そのフィールドを書き換えても**再描画待ち行列には入りません**。
+そして親が `StateHasChanged()` を呼んでも、**パラメータが変わっていない子は再描画されません**。
+
+子は追加され、保持され、**一度も描かれませんでした。**
+
+`WebFormsControlBase` には既に同じ形の通知が 2 つあります
+(`AttributeCollection` と `CssStyleCollection` が `MarkTouchedAndRefresh` を受け取る)。
+**`Controls` だけがそこから漏れていました。** 3 つ目として同じ callback を渡します。
+`Add` / `AddAt` / `Remove` / `RemoveAt` / `Clear` すべてで通知します。
+
+### 効果
+
+| | 前 | 後 |
+|---|---|---|
+| home の投稿 | 空の `<div class="posts">` | **`Welcome to BlogEngine.NET` が出る** |
+| `post0` 要素 | 無し | **出る**(class は `post`、期待は `post-home post-home-top`) |
+| home の本文 | 1 行 → 7 行 | 7 行(期待 22) |
+
+サンプル 30/30、bUnit 30/30、be ビルドエラー 0、残差 63 のいずれも変化なし。
+回帰スナップショットは DOM が意図どおり変わったため記録し直しました。
+
+### まだ残っているもの
+
+投稿の**本文**(`If you see this post...` / `READ MORE`)がまだ出ません。
+タイトルは出るので `PostView` は描画されていますが、抜粋の部分が空です。
+`post0` の class も `post-home post-home-top` ではなく `post` で、
+これは `Location` / `Index` から決まるものです。
+
+ウィジェットも同じく枠だけです。データは取れているので、
+**`WidgetZone.OnLoad` が `Controls.Add(lit)` する `Literal` の描画**が次の対象です
+— `LegacyRenderHost` 配下の `LegacyWebControl` は `WebFormsControlBase` ではないので、
+今回の通知の恩恵を受けていません。

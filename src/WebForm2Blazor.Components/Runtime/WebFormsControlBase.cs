@@ -58,6 +58,12 @@ public abstract class WebFormsControlBase : ComponentBase, IWebFormsControl, IDi
     {
         Attributes = new AttributeCollection(MarkTouchedAndRefresh);
         Style = new CssStyleCollection(MarkTouchedAndRefresh);
+
+        // The collection tells this control to re-render when code adds to it. Mutating a
+        // field on a component does not put it back in the render queue, and the PARENT
+        // calling StateHasChanged does not re-render a child whose parameters did not
+        // change - so "childControl.Controls.Add(x)" added x and drew nothing.
+        Controls = new ControlCollection(MarkTouchedAndRefresh);
     }
 
     private void MarkTouchedAndRefresh()
@@ -231,7 +237,7 @@ public abstract class WebFormsControlBase : ComponentBase, IWebFormsControl, IDi
     /// dropped, which is how BlogEngine's home page came to return 200 with no posts on
     /// it: PostList builds each post with LoadControl and adds it here.
     /// </summary>
-    public ControlCollection Controls { get; } = [];
+    public ControlCollection Controls { get; }
 
     /// <summary>
     /// The activator that lets a child built in code be rendered as itself. Optional:

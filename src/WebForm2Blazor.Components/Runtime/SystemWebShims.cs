@@ -1367,9 +1367,33 @@ public interface IConfigurationSectionHandler
 /// </summary>
 public class ControlCollection : List<IWebFormsControl>
 {
+    private readonly Action _onChanged;
+
+    public ControlCollection()
+    {
+    }
+
+    /// <summary>
+    /// The owning control's "re-render me" callback.
+    ///
+    /// Without it, adding a child was invisible. WebForms code builds a control tree by
+    /// assignment - "this.posts.Controls.Add(postView)" - and in Blazor the control that
+    /// owns the collection is a COMPONENT: mutating a field on it does not put it back in
+    /// the render queue, and the parent calling StateHasChanged does not re-render a child
+    /// whose parameters did not change. The children were added, held, and never drawn.
+    ///
+    /// BlogEngine's home page is the example: PostList loads each post with LoadControl
+    /// and adds it here, and the page came back 200 with an empty &lt;div class="posts"&gt;.
+    /// No exception, no missing member, nothing for any other check to see.
+    /// </summary>
+    public ControlCollection(Action onChanged) => _onChanged = onChanged;
+
     /// <summary>WebForms AddAt equivalent (index clamped, unlike WebForms).</summary>
     public virtual void AddAt(int index, IWebFormsControl child)
-        => Insert(Math.Clamp(index, 0, Count), child);
+    {
+        Insert(Math.Clamp(index, 0, Count), child);
+        _onChanged?.Invoke();
+    }
 
     /// <summary>
     /// WebForms ControlCollection.Add equivalent. Declared here rather than inherited
@@ -1377,7 +1401,38 @@ public class ControlCollection : List<IWebFormsControl>
     /// validate or reparent what goes in - System.Web's ControlCollection.Add is virtual
     /// and they are written against that.
     /// </summary>
-    public new virtual void Add(IWebFormsControl child) => base.Add(child);
+    public new virtual void Add(IWebFormsControl child)
+    {
+        base.Add(child);
+        _onChanged?.Invoke();
+    }
+
+    /// <summary>WebForms ControlCollection.Remove / RemoveAt / Clear.</summary>
+    public new virtual bool Remove(IWebFormsControl child)
+    {
+        var removed = base.Remove(child);
+        if (removed)
+        {
+            _onChanged?.Invoke();
+        }
+        return removed;
+    }
+
+    public new virtual void RemoveAt(int index)
+    {
+        base.RemoveAt(index);
+        _onChanged?.Invoke();
+    }
+
+    public new virtual void Clear()
+    {
+        if (Count == 0)
+        {
+            return;
+        }
+        base.Clear();
+        _onChanged?.Invoke();
+    }
 }
 
 /// <summary>

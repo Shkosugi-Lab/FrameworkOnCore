@@ -9238,3 +9238,62 @@ WebForms の `HtmlTable.Rows` は `Controls` の view で、`Rows.Add` は `Cont
 こちらは `<ul runat="server">` = `HtmlGenericControl` への `Controls.Add` で、
 **そちらは `RenderDynamicChildren` を呼んでいます**。同じ「動的な子」でも経路が違うので、
 別の原因です。次に見るならここからです。
+
+---
+
+# 撤回: `HtmlAnchor` の描画補完(効果を実証できなかった)
+
+`archive` のカテゴリメニュー(`BlogEngine.NET` / `BlogEngine.NET (1)`)を追おうとして、
+`HtmlAnchor` シムに欠落を見つけました。
+
+```csharp
+public class HtmlAnchor : LegacyWebControl
+{
+    protected override string TagName => "a";
+    public string HRef { get; set; }
+    public string InnerHtml { get; set; }
+    // RenderContents も AddAttributesToRender も無い
+}
+```
+
+`HtmlTableCell` は両方を持っています。`HtmlAnchor` は**宣言用の面だけ**で、
+`a.HRef = ...` も `a.InnerHtml = ...` も描画に出ません。欠落としては明白です。
+
+`RenderContents` と `AddAttributesToRender` を足して測りました。
+
+| | 結果 |
+|---|---|
+| `be` のパリティ差分行 | 34 → **34**(変化なし) |
+| 回帰ゲート | **一致**(DOM に変化なし) |
+| カテゴリメニュー | **出ないまま** |
+
+## なぜ効かなかったか
+
+**`<a runat="server">` は `HtmlAnchor` になりません。**
+
+```razor
+<HtmlGenericControl TagName="a" ID="aLogin" @ref="aLogin">
+```
+
+マスターの `aLogin` はこの経路で、`HtmlAnchor` シムを通りません。
+`HtmlAnchor` がインスタンス化されるのは**コードが `new HtmlAnchor()` する場合だけ**で、
+コーパスでの唯一の題材が `AddCategoryToMenu` です。そしてそこは**手前で止まっています**。
+
+## 止まっている場所(次の担当者へ)
+
+`CreateMenu()` は `Category.ApplicableCategories` を回し、`cat.Posts.Count > 0` のものだけ
+メニューに足します。同じ `Page_Load` の中で `CreateArchive()`(テーブル)と `AddTotals()`
+(合計値)は**動いています**。つまり `Page_Load` は走っており、投稿データも読めています。
+**`Category` 側だけが空**という切り分けまで来ています。
+
+ここから先は**実行時の計測が要ります**(`Category.ApplicableCategories` が何を返すか)。
+静的に読んで分かる範囲は尽きました。
+
+## 撤回した理由
+
+**この変更が正しいという証拠が 1 つも取れなかったからです。**
+欠落として筋は通っていて、直せば動く「はず」です。しかし `IListControl` / `ITreeControl` を
+実測して棄却したときと同じで、**筋が通ることと、実際にそう壊れていることは別**です。
+
+証拠なしに入れると、後から見た人には「測って入れたもの」と区別がつきません。
+`Category` が埋まって題材ができたとき、**差分を出してから**入れてください。

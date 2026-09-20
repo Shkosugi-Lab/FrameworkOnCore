@@ -1,10 +1,17 @@
 @namespace WebForm2Blazor.Components
 @inherits WebFormsControlBase
 
-@* WebForms PlaceHolder equivalent. Renders nothing itself; the child content passes through. *@
+@* WebForms PlaceHolder equivalent. Renders nothing itself; the child content passes through.
+
+   A PlaceHolder exists to be FILLED FROM CODE - that is what it is for - so the children
+   added to Controls matter at least as much as the markup ones. Rendering only
+   @ChildContent dropped them: BlogEngine's archive page builds its whole table in
+   code-behind and calls phArchive.Controls.Add(table), and the page came back with an
+   empty <div class="archive-page-content"> on every request. *@
 @if (Visible)
 {
     @ChildContent
+    @DynamicChildren
 }
 
 @code {

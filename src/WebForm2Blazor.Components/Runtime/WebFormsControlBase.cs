@@ -255,6 +255,15 @@ public abstract class WebFormsControlBase : ComponentBase, IWebFormsControl, IDi
     /// plain LegacyWebControl renders itself to a writer and its output is emitted as
     /// markup. Anything else is skipped rather than guessed at.
     /// </summary>
+    /// <summary>
+    /// <see cref="RenderDynamicChildren"/> as a fragment, so a component written in Razor
+    /// can place code-added children without overriding BuildRenderTree - "@DynamicChildren"
+    /// beside its @ChildContent. The sequence starts high to stay clear of the numbers the
+    /// Razor compiler assigns in the calling component.
+    /// </summary>
+    protected Microsoft.AspNetCore.Components.RenderFragment DynamicChildren
+        => builder => RenderDynamicChildren(builder, 1000);
+
     protected void RenderDynamicChildren(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder builder, int sequence)
     {
         if (Controls.Count == 0)

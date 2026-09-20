@@ -817,12 +817,24 @@ public class WebControl : LegacyWebControl
 {
 }
 
-/// <summary>System.Web.UI.HtmlControls.HtmlTableRow equivalent (declaration surface).</summary>
+/// <summary>
+/// System.Web.UI.HtmlControls.HtmlTableRow equivalent. Cells is its own list rather than a
+/// view over Controls, so it is rendered explicitly - see <see cref="HtmlTable"/>.
+/// </summary>
 public class HtmlTableRow : LegacyWebControl
 {
     protected override string TagName => "tr";
 
     public List<HtmlTableCell> Cells { get; } = [];
+
+    protected override void RenderContents(HtmlTextWriter writer)
+    {
+        foreach (var cell in Cells)
+        {
+            cell?.RenderControl(writer);
+        }
+        base.RenderContents(writer);
+    }
 }
 
 /// <summary>System.Web.UI.HtmlControls.HtmlTableCell equivalent (declaration surface).</summary>

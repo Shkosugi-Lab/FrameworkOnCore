@@ -9149,3 +9149,92 @@ RenderBeginTag(= TagName 既定 span + id) → RenderContents → RenderEndTag
 行数だけを見ていると、効いた変更が「効果なし」に見えます。
 
 **ゲートが通ったことは、何も起きていない証拠にはなりません。**
+
+---
+
+# `PlaceHolder` は「コードから埋めるもの」なのに、コードから埋めたものを捨てていた
+
+総括で「第 2 層の残りはここ」と書いた `archive` のテーブルです。結果として **3 段重なっていました。**
+
+## SSR だけを見て、危うく誤診するところだった
+
+まず変換後アプリを起動して `/archive` の HTML を取りました。
+
+```html
+<div class="archive-page-content"></div>
+<div id="totals" class="archive-page-total"><h3>総数</h3><span></span><br><span></span></div>
+```
+
+テーブルも合計値も空です。**「`Page_Load` ごと走っていない」と読めます。** しかし違いました。
+
+生成コードは `Page_Load` を **`OnAfterRender(firstRender)` から**呼びます。
+**`OnAfterRender` は SSR では走りません**(この作業ログに前任が書いています)。
+`Invoke-WebRequest` が見ているのは SSR だけなので、空なのは当たり前でした。
+
+**実ブラウザで採取済みの回帰スナップショットを見ると、話が反対でした。**
+
+```
+"総数", "1 投稿数", "1 コメント", "0 レート数"    ← 出ている
+"Tables": []                                      ← 出ていない
+```
+
+`AddTotals()` は効いています。**`Page_Load` は走っていました。**
+効いていないのは `CreateMenu()` と `CreateArchive()` だけ —— つまり
+**`Literal.Text` への代入は通り、`Controls.Add` した子だけが消えていました。**
+
+## 1 段目: `PlaceHolder` が動的な子を描いていなかった
+
+```razor
+@* 修正前 *@
+@if (Visible)
+{
+    @ChildContent
+}
+```
+
+`@ChildContent` はマークアップに書かれた子です。**`Controls.Add` された子はどこにも出ません。**
+
+`PlaceHolder` は**コードから埋めるために置くもの**です。その一点のために存在するのに、
+コードから埋めたものだけを落としていました。`HtmlGenericControl` は
+`BuildRenderTree` で `RenderDynamicChildren` を呼んでおり、`PlaceHolder` だけが漏れていました。
+
+Razor で書かれたコンポーネントからも呼べるよう、基底に `RenderFragment` のヘルパー
+`DynamicChildren` を足し、`@ChildContent` の隣に置きました。
+
+→ **`<table>` が出るようになりました。** ただし中身は空でした。
+
+## 2 段目: `Rows` / `Cells` が `Controls` と別物だった
+
+```csharp
+public class HtmlTable : LegacyWebControl
+{
+    public List<HtmlTableRow> Rows { get; } = [];   // ただの List
+}
+```
+
+WebForms の `HtmlTable.Rows` は `Controls` の view で、`Rows.Add` は `Controls` にも入ります。
+このシムでは**独立した `List`** なので、`Controls` を描く `RenderContents` からは
+**1 行も見えません**。`HtmlTableRow.Cells` も同じ形でした。
+
+両方で `RenderContents` をオーバーライドして、自分のコレクションを描いてから
+`base`(= `Controls`)を描くようにしました。`HtmlTableCell` は既に
+`InnerHtml` / `InnerText` を描いていたので、そのままで通りました。
+
+## 数字
+
+| | 前 | 後 |
+|---|---|---|
+| `archive` のテーブル | 期待 1 / **実際 0** | **一致** |
+| `be` のパリティ差分行 | 35 | **34** |
+| `archive` の本文 | 19 行 | **20 行**(期待 26) |
+
+回帰差分は 2 行(本文 1 行増、テーブル数 0 → 1)。**どちらも正解データに近づく向き**なので記録し直しました。
+
+6 コーパスの数字は不変。サンプルのパリティ 30/30、bUnit 30/30、回帰ゲート 13/13。
+
+## まだ残っているもの
+
+`archive` のカテゴリメニュー(`BlogEngine.NET` / `BlogEngine.NET (1)`)は出ていません。
+こちらは `<ul runat="server">` = `HtmlGenericControl` への `Controls.Add` で、
+**そちらは `RenderDynamicChildren` を呼んでいます**。同じ「動的な子」でも経路が違うので、
+別の原因です。次に見るならここからです。

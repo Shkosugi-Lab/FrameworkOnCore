@@ -196,12 +196,28 @@ public interface IValidator
     void Validate();
 }
 
-/// <summary>System.Web.UI.HtmlControls.HtmlTable equivalent (declaration surface).</summary>
+/// <summary>
+/// System.Web.UI.HtmlControls.HtmlTable equivalent.
+///
+/// Rows is a list of its own rather than a view over Controls, so the inherited
+/// RenderContents (which renders Controls) never saw a single row: BlogEngine's archive
+/// builds its table entirely in code - "table.Rows.Add(row)" - and rendered as an empty
+/// &lt;table&gt;. The rows are rendered here, then Controls for anything added that way.
+/// </summary>
 public class HtmlTable : LegacyWebControl
 {
     protected override string TagName => "table";
 
     public List<HtmlTableRow> Rows { get; } = [];
+
+    protected override void RenderContents(HtmlTextWriter writer)
+    {
+        foreach (var row in Rows)
+        {
+            row?.RenderControl(writer);
+        }
+        base.RenderContents(writer);
+    }
 }
 
 /// <summary>

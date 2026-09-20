@@ -84,6 +84,7 @@
       "Text": [
         "Name of the blog",
         "アーカイブ",
+        "Welcome to BlogEngine.NET",
         "総数",
         "1 投稿数",
         "1 コメント",
@@ -102,7 +103,22 @@
         "Widget BlogRoll not found, check log for details.",
         "DESIGNED BY BLOGENGINE"
       ],
-      "Tables": [],
+      "Tables": [
+        [
+          [
+            "日付",
+            "タイトル",
+            "コメント",
+            "レート"
+          ],
+          [
+            "2018-05-20",
+            "Welcome to BlogEngine.NET",
+            "1",
+            "None"
+          ]
+        ]
+      ],
       "Inputs": {},
       "Elements": {
         "archive": {

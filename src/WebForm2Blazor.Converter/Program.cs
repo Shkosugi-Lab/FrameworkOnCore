@@ -560,7 +560,7 @@ var candidateNamespaces = portCandidates
 // misleading - nothing was lost in conversion, that code was never in scope. The reader
 // needs to tell "this converter dropped something you must rebuild" apart from "this part
 // of your app is a different framework".
-static string OutOfScopeFrameworkNote(string unportable)
+static string OutOfScopeFrameworkNote(string unportable, string source = "")
 {
     var outOfScope = unportable switch
     {
@@ -574,12 +574,35 @@ static string OutOfScopeFrameworkNote(string unportable)
         _ => null,
     };
 
-    return outOfScope is not null
-        ? $"{outOfScope}({unportable})のコードです。**この変換器は WebForms のみを対象とする**ため"
-          + "移植していません。変換で失われたものはなく、対応する ASP.NET Core の仕組みへ"
-          + "別途移行してください。"
-        : $".NET Framework 専用の名前空間 {unportable} を使用しているため移植から除外しました"
-          + "(認証/ルーティング等の基盤コードは手動移行が必要)。";
+    if (outOfScope is null)
+    {
+        return $".NET Framework 専用の名前空間 {unportable} を使用しているため移植から除外しました"
+               + "(認証/ルーティング等の基盤コードは手動移行が必要)。";
+    }
+
+    var note = $"{outOfScope}({unportable})のコードです。**この変換器は WebForms のみを対象とする**ため"
+               + "移植していません。";
+
+    // 判定は名前空間 1 つで行っています。ファイルの中身は見ていないので、
+    // 同じファイルが WebForms 固有の API も呼んでいると「失われたものはない」が嘘になります。
+    //
+    // WingtipToys の Global.asax.cs がまさにそれでした。System.Web.Optimization を使う
+    // ので「ASP.NET バンドルのコード」と判定され、「変換で失われたものはなく」と報告され
+    // ていましたが、同じファイルが MapPageRoute で WebForms のページルーティングを 2 本
+    // 登録しています。それは変換後に 1 行も存在せず、"Category/{categoryName}" のような
+    // URL は動きません。読んだ人が「ここは見なくてよい」と判断する文面だったので、
+    // 欠落そのものより質が悪いものでした。
+    var webFormsApis = System.Text.RegularExpressions.Regex
+        .Matches(source ?? string.Empty, @"\b(MapPageRoute|RouteTable\.Routes)\b")
+        .Select(match => match.Value)
+        .Distinct(StringComparer.Ordinal)
+        .ToList();
+
+    return webFormsApis.Count > 0
+        ? note + $"**ただしこのファイルは WebForms 固有の API も呼んでいます"
+               + $"({string.Join(" / ", webFormsApis)})。そちらは変換で失われています。**"
+               + "ページのルーティングは @page / ルート定義へ手当てしてください。"
+        : note + "変換で失われたものはなく、対応する ASP.NET Core の仕組みへ別途移行してください。";
 }
 
 // Libraries declined in the package map (an entry naming the assembly and no package).
@@ -675,7 +698,8 @@ for (var i = 0; i < candidateNamespaces.Count; i++)
             outOfScopeExclusions.Add(i);
         }
         report.Residual(candidateNamespaces[i].candidate.ReportName, ResidualKind.CodeBehind,
-            OutOfScopeFrameworkNote(unportable), disposition: ResidualDisposition.OutOfScope);
+            OutOfScopeFrameworkNote(unportable, candidateNamespaces[i].candidate.Source),
+            disposition: ResidualDisposition.OutOfScope);
         continue;
     }
 

@@ -30,8 +30,18 @@ $parityDir = Join-Path $PSScriptRoot 'parity'
 
 # 旧アプリを動かせると実測できたものだけ。足すときは実際に採ってから。
 #
-# wt は入っていません: Web.config が実在しない Azure SQL(ms.database.windows.net、
-# 資格情報も伏せ字)を指す匿名化済みサンプルで、データベースごと用意しないと動きません。
+# wt は入っていません。ここは推定ではなく実測の結果です:
+#
+#   1. 元アプリのビルドは通ります(build-original.ps1 に追加済み、53 アセンブリ)
+#   2. IIS に載せると、どのページも応答しません(接続はできるが返らない)
+#   3. 原因は Global.asax の Application_Start:
+#        roleActions.AddUserAndRole();   → ここでデータベースに接続する
+#      Web.config が指すのは実在しない Azure SQL(ms.database.windows.net、資格情報も
+#      伏せ字)で、Connection Timeout=30 の待ちがアプリ全体をブロックします。
+#   4. この環境には LocalDB も SQL Server もありません(sqllocaldb なし)
+#
+# つまり wt を採るにはデータベースを用意するしかありません。用意できるなら、
+# 上の targets に足すだけで採取できます(ビルドはもう通ります)。
 # mojo / yaf / dnn も同様にデータベースが要ります。
 $targets = @(
     @{ Name = 'be'

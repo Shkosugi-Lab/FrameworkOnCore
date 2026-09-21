@@ -35,7 +35,11 @@ $packages = Join-Path $legacy 'packages'
 $targets = @(
     @{ Name = 'be'
        Solution = 'BlogEngine.NET-3.3.8.0\BlogEngine\BlogEngine.sln'
-       Project = 'BlogEngine.NET-3.3.8.0\BlogEngine\BlogEngine.NET\BlogEngine.NET.csproj' }
+       Project = 'BlogEngine.NET-3.3.8.0\BlogEngine\BlogEngine.NET\BlogEngine.NET.csproj' },
+
+    @{ Name = 'wt'
+       Solution = 'wingtiptoys-master\WingtipToys\WingtipToys.sln'
+       Project = 'wingtiptoys-master\WingtipToys\WingtipToys\WingtipToys.csproj' }
 )
 
 if ($Only) {
@@ -101,6 +105,27 @@ foreach ($target in $targets) {
     $packagesDirectory = Join-Path $solutionDirectory 'packages'
     foreach ($config in Get-ChildItem $solutionDirectory -Recurse -Filter packages.config -File) {
         & $nuget restore $config.FullName -PackagesDirectory $packagesDirectory -NonInteractive | Out-Null
+    }
+
+    # 復元したパッケージが持ち込む .props / .targets のうち、SDK 形式の XML 名前空間で
+    # 書かれたものを無害化します。同梱の MSBuild 4.0 はそれを読めず MSB4041 で止まります
+    # (WingtipToys の Microsoft.VisualStudio.Azure.Containers.Tools.Targets がこれ)。
+    #
+    # 消すのではなく空の MSBuild 2003 形式で置き換えるのは、csproj 側が Exists() で
+    # インポートを条件付けたうえ、EnsureNuGetPackageBuildImports で存在しないことを
+    # エラーにするためです。中身が空なら、読まれても何も起きません。
+    #
+    # 対象はコンテナ発行やエディタ連携のターゲットで、アプリのビルドにも実行にも
+    # 関与しません。ここで無害化しているのは「元アプリの中身」ではありません。
+    $emptyProject = '<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" />'
+    if (Test-Path $packagesDirectory) {
+        foreach ($import in Get-ChildItem $packagesDirectory -Recurse -Include *.props, *.targets -File) {
+            $head = (Get-Content $import.FullName -TotalCount 5 -ErrorAction SilentlyContinue) -join ' '
+            if ($head -and $head -notmatch 'schemas\.microsoft\.com/developer/msbuild/2003') {
+                Set-Content -Path $import.FullName -Value $emptyProject -Encoding utf8
+                Write-Host ("  無害化: {0}" -f $import.Name)
+            }
+        }
     }
 
     # TargetFrameworkVersion を v4.8 に寄せています。元は v4.5 で、その参照アセンブリは

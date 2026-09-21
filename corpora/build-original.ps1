@@ -39,7 +39,17 @@ $targets = @(
 
     @{ Name = 'wt'
        Solution = 'wingtiptoys-master\WingtipToys\WingtipToys.sln'
-       Project = 'wingtiptoys-master\WingtipToys\WingtipToys\WingtipToys.csproj' }
+       Project = 'wingtiptoys-master\WingtipToys\WingtipToys\WingtipToys.csproj' },
+
+    # YAF はデータベースごとに .csproj を分けています。変換側(convert-all.ps1)が
+    # SqlServer 版を入口にしているので、ここも揃えます。
+    # Solution はパッケージ復元先(<dir>\packages)の基準にしか使っていないため、
+    # .sln が無いこのコーパスでは yafsrc 直下の任意のパスで足ります。
+    @{ Name = 'yaf'
+       Solution = 'YAFNET-3.2.15\yafsrc\YAF.sln'
+       Project = 'YAFNET-3.2.15\yafsrc\YetAnotherForum.NET\YAF-SqlServer.csproj'
+       UseDotnetMsbuild = $true
+       ReferenceAssemblies = 'net481' }
 )
 
 if ($Only) {
@@ -68,10 +78,15 @@ if (-not (Test-Path $nuget)) {
 # 後から言えなくなります。
 $referenceAssemblies = 'Microsoft.NETFramework.ReferenceAssemblies.net48'
 $referenceVersion = '1.0.3'
+# YAF は v4.8.1 を指しており、net48 の参照アセンブリでは MSB3644 になります。
+# 「上位のものがあれば足りる」という関係ではないので、要求されたものをそのまま置きます。
+$referenceAssemblies481 = 'Microsoft.NETFramework.ReferenceAssemblies.net481'
 $compilers = 'Microsoft.Net.Compilers'
 $compilersVersion = '3.11.0'
 
-foreach ($pair in @(@($referenceAssemblies, $referenceVersion), @($compilers, $compilersVersion))) {
+foreach ($pair in @(@($referenceAssemblies, $referenceVersion),
+                    @($referenceAssemblies481, $referenceVersion),
+                    @($compilers, $compilersVersion))) {
     $dir = Join-Path $packages ("{0}.{1}" -f $pair[0], $pair[1])
     if (-not (Test-Path $dir)) {
         Write-Host ("=== {0} {1} を取得 ===" -f $pair[0], $pair[1])
@@ -126,6 +141,40 @@ foreach ($target in $targets) {
                 Write-Host ("  無害化: {0}" -f $import.Name)
             }
         }
+    }
+
+    # SDK 形式のプロジェクトを参照しているものは、同梱の MSBuild 4.0 では読めません
+    # (MSB4041)。YAF の Web プロジェクトは旧形式ですが、参照先 7 つ
+    # (YAF.Core / YAF.Web / ServiceStack.OrmLite ほか)が SDK 形式です。
+    #
+    # .NET SDK の MSBuild は両方読めるので、そちらへ回します。復元も SDK 側の
+    # dotnet restore が要ります(project.assets.json が無いと NETSDK1004)。
+    if ($target.UseDotnetMsbuild) {
+        $targetRefRoot = if ($target.ReferenceAssemblies -eq 'net481') {
+            Join-Path $packages ("{0}.{1}\build\" -f $referenceAssemblies481, $referenceVersion)
+        }
+        else { $refRoot }
+
+        Write-Host '  復元(SDK)'
+        & dotnet restore $project "/p:TargetFrameworkRootPath=$targetRefRoot" --nologo -v q | Out-Null
+
+        Write-Host '  ビルド(SDK の MSBuild)'
+        & dotnet msbuild $project `
+            "/p:Configuration=$Configuration" `
+            "/p:TargetFrameworkRootPath=$targetRefRoot" `
+            /p:VSToolsPath= `
+            /v:m /nologo | Out-Null
+
+        if ($LASTEXITCODE -ne 0) {
+            Write-Warning "  ビルドに失敗しました"
+            $failures += "${name}: ビルド失敗"
+            continue
+        }
+
+        $assemblyDirectory = Join-Path (Split-Path $project -Parent) 'bin'
+        $builtCount = @(Get-ChildItem $assemblyDirectory -Filter *.dll -ErrorAction SilentlyContinue).Count
+        Write-Host ("  成功: {0} に {1} 個のアセンブリ" -f $assemblyDirectory, $builtCount) -ForegroundColor Green
+        continue
     }
 
     # TargetFrameworkVersion を v4.8 に寄せています。元は v4.5 で、その参照アセンブリは

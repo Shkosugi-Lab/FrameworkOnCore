@@ -336,7 +336,9 @@ public static class WebConfigConverter
     /// class, and System.Configuration binds one only from a .config file. Once the XML is
     /// there the section resolves exactly as it did on 4.8.
     /// </summary>
-    public static string? ExtractCustomSections(string webConfigPath, string assemblyName, ConversionReport report)
+    public static string? ExtractCustomSections(
+        string webConfigPath, string assemblyName, ConversionReport report,
+        Func<string, bool> isApplicationNamespace)
     {
         XDocument document;
         try
@@ -410,18 +412,41 @@ public static class WebConfigConverter
             root.Add(new XElement(element));
         }
 
-        // Every "type" in the original names an assembly that no longer exists: the
-        // conversion flattens the whole application into one. The assembly is REPLACED
-        // rather than dropped - System.Configuration resolves a bare name with
-        // Type.GetType, which searches only its own assembly and the core library, so an
-        // unqualified handler fails with "Could not resolve type" and the section comes
-        // back null. Pointing it at the converted assembly is what makes it load.
+        // A "type" naming one of the APPLICATION'S OWN assemblies points at an assembly
+        // that no longer exists: the conversion flattens the whole application into one.
+        // The assembly is REPLACED rather than dropped - System.Configuration resolves a
+        // bare name with Type.GetType, which searches only its own assembly and the core
+        // library, so an unqualified handler fails with "Could not resolve type" and the
+        // section comes back null. Pointing it at the converted assembly is what makes it
+        // load (BlogEngine's providers are the shape).
+        //
+        // A type from a THIRD-PARTY library must keep its original qualifier. Those
+        // assemblies still exist - the converted project references the same packages -
+        // and rewriting them points at a type the app assembly never contained.
+        // WingtipToys' Web.config declares
+        //
+        //     <section name="entityFramework"
+        //              type="System.Data.Entity.Internal.ConfigFile.EntityFrameworkSection, EntityFramework, ..." />
+        //
+        // and the blanket rewrite turned "EntityFramework, Version=6.0.0.0, ..." into
+        // "wt". EF's static initializer reads that section on first use, threw
+        // TypeLoadException, and TOOK THE WHOLE BLAZOR CIRCUIT DOWN with it - every page
+        // rendered its prerender HTML and then nothing interactive ever ran, which
+        // surfaced as OnAfterRender never firing anywhere in the app.
+        //
+        // The two are told apart by the type's namespace: the caller knows every
+        // namespace the application's own code declares.
         foreach (var typeAttribute in root.Descendants()
                      .Select(element => element.Attribute("type"))
                      .Where(attribute => attribute is not null))
         {
             var typeName = typeAttribute!.Value.Split(',')[0].Trim();
-            typeAttribute.Value = $"{typeName}, {assemblyName}";
+            var lastDot = typeName.LastIndexOf('.');
+            var typeNamespace = lastDot > 0 ? typeName[..lastDot] : string.Empty;
+            if (isApplicationNamespace(typeNamespace))
+            {
+                typeAttribute.Value = $"{typeName}, {assemblyName}";
+            }
         }
 
         report.Info("(project)",

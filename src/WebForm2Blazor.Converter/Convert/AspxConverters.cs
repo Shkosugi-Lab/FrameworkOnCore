@@ -207,6 +207,20 @@ public static partial class AspxConverters
         var emitter = new MarkupEmitter(context);
         var markup = NeutralizeUnbalanced(emitter.EmitNodes(bodyNodes), report, sourceName);
 
+        // The head is emitted HERE, before AppendControlUsings, for the same reason the
+        // body is: emitting registers the namespaces the markup needs (stub components
+        // included) and the usings block prints whatever is registered at that point.
+        // When this ran after, a server control that appeared ONLY in the head produced a
+        // component tag with no @using behind it; Razor emitted it as a literal HTML
+        // element, and an unknown element inside <head> makes the browser's parser CLOSE
+        // THE HEAD EARLY and shove the rest into <body> - which tore Blazor's prerender
+        // marker pairs apart and killed the circuit on every page of WingtipToys
+        // ("Found malformed component comment", no interactivity anywhere).
+        //
+        // Whitespace between the head's tags rides along as TextNode, so the node count
+        // says nothing about whether there is anything to emit - the emitted markup does.
+        var headMarkup = headNodes.Count > 0 ? Trim(emitter.EmitNodes([.. headNodes])) : string.Empty;
+
         var codeBehindPath = FindCodeBehind(path);
         var inheritsName = ResolveInheritsBase(
             codeBehindPath, sourceClassName, CodeBehindKind.Layout, baseRegistry, report, sourceName,
@@ -222,9 +236,6 @@ public static partial class AspxConverters
         razor.AppendLine($"@inherits {inheritsName}");
         AppendControlUsings(razor, context, parsed, targetNamespace, codeBehindPath, baseRegistry, project);
         razor.AppendLine();
-        // Whitespace between the head's tags rides along as TextNode, so the node count
-        // says nothing about whether there is anything to emit - the emitted markup does.
-        var headMarkup = headNodes.Count > 0 ? Trim(emitter.EmitNodes([.. headNodes])) : string.Empty;
         if (!string.IsNullOrWhiteSpace(headMarkup))
         {
             report.Info(sourceName,

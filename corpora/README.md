@@ -10144,3 +10144,110 @@ else if (firstRender && DataSource is null && !string.IsNullOrEmpty(SelectMethod
   (今回は `try { } catch { }` で握り潰す書き方だったので、そこは区別できていません)
 
 **データベースはもう揃っています。** ここを追うのに DB の心配は要りません。
+
+---
+
+# 「OnAfterRender が走らない」の正体: 回線クラッシュの玉ねぎを 4 枚剥いた(wt 31 → 16 行、5/8 ページ一致)
+
+前の節の観測「`wt` では `OnAfterRender` 系が走っていない」を追いました。
+**原因は 1 つではなく、回線(Blazor circuit)を殺す欠陥が 4 枚重なっていました。**
+1 枚剥がすたびに次のクラッシュが顔を出す、玉ねぎ構造です。
+
+測り方はどの層も同じです — **サーバーログ(回線の例外)とブラウザコンソールを、
+実ブラウザで踏みながら読む。** 今回のような欠陥は 4 つとも、
+ビルドエラー 0・残差レポート無反応・SSR は正常、という条件で起きていました。
+
+## 1 枚目: App.config の型書き換えが第三者ライブラリまで潰していた
+
+```
+Unhandled exception in circuit:
+  Could not resolve type 'System.Data.Entity.Internal.ConfigFile.EntityFrameworkSection'
+  in assembly 'wt'
+```
+
+`WebConfigConverter` は App.config に運ぶ全ての `type="..."` のアセンブリ修飾を
+**一律アプリ名に書き換えて**いました。自アプリのセクションハンドラ(BlogEngine の
+プロバイダ等)は 1 アセンブリに潰し込まれるので正しい。しかし **EntityFramework や
+Elmah は NuGet 参照としてそのまま存在する**ので、書き換えたら存在しない場所を指します。
+EF の静的初期化子がこのセクションを読んだ瞬間、**回線ごと死んでいました**。
+
+呼び出し元は移植コードが宣言する名前空間を全部知っているので、
+**型の名前空間が自アプリ宣言なら書き換え、そうでなければ元の修飾を保持**にしました。
+
+## 2 枚目: Materialize が IListSource を IEnumerable より先に見ていた
+
+```
+System.NotSupportedException: Data binding directly to a store query
+(DbSet, DbQuery, ...) is not supported. Instead ... calling ToList() ...
+```
+
+EF6 の `DbSet`/`DbQuery` は **両方**を実装します — `IListSource.GetList()` は
+**仕様として投げ**、`IEnumerable` の列挙は**クエリを実行**します(WebForms の
+モデルバインディングが IQueryable にやるのは後者)。`DataSourceHelper.Materialize` は
+IListSource を先に見ていたので、`GetProducts` の戻り値で必ず例外 → 回線死。
+
+順序を入れ替えました。`DataTable`/`DataSet` は `IEnumerable` ではないので影響なし
+(元のコメント自身がそう書いていました)。
+
+## 3 枚目: DataBinder.Eval が大文字小文字を区別していた
+
+```
+DataBinder.Eval: 型 '...DynamicProxies.CartItem_...' にプロパティ 'ProductID' が見つかりません。
+```
+
+モデルは `ProductId`、マークアップは `DataField="ProductID"`。
+**WebForms の DataBinder は TypeDescriptor 経由で大文字小文字を無視**するので、
+元アプリでは動いていました。シムの `GetProperty(name)` は既定で区別します。
+`BindingFlags.IgnoreCase` を足しました。
+
+## 4 枚目(自分のバグ): head の emit が usings 追記の後だった
+
+3 枚剥いでも**例外ゼロなのに** 2 ページ目以降で回線が張られない。
+サーバーで数えたら **8 ページの訪問に WebSocket 接続が 1 回**。
+ブラウザコンソールを検証器に仕込んだら全ページでこれが出ていました。
+
+```
+Error: Found malformed component comment at Blazor:{"type":"server",...}
+```
+
+SSR を見ると `<head>` の中に**生の `<Stub_webopt_bundlereference>` タグ**。
+HTML パーサは head 内の未知要素を許さず、**そこで head を閉じて残りを body に流します**。
+HeadOutlet の開きマーカー(head)と閉じマーカー(body 行き)が泣き別れ、
+blazor.web.js が解析に失敗して**全ページで対話を放棄**していました。
+
+なぜ生タグになったか: このセッションで入れた head 引き継ぎ機能が、
+**`AppendControlUsings` の後に head を emit** していたからです。emit は使った名前空間を
+登録する行為でもあり、後から登録しても usings には入りません。head でしか使われない
+スタブコンポーネントが `@using wt.Components.Stubs` を得られず、Razor は
+ただの HTML 要素として出力しました。**emit を usings より前に移動**(本文と同じ順序)。
+
+## 数字
+
+| | 着手時 | 現在 |
+|---|---:|---:|
+| `wt` のパリティ差分行 | 31 | **16** |
+| 一致ページ | **0/8** | **5/8**(home / about / contact / product-details / error-page) |
+| 商品一覧 | `No data was returned.` | **58 行全部出る** |
+| `Cart (0)` / カテゴリメニュー | 出ない | **出る** |
+| 回線の例外 | 毎ページ | **0** |
+
+6 コーパスの数字は不変。`be` のパリティ 34 行も不変。
+サンプルのパリティ 30/30、bUnit 30/30、回帰ゲート 13/13
+(`wt` の回帰スナップショットは中身が正解に近づいたため記録し直し)。
+
+## 残り 16 行は 2 種類だけ
+
+| 症状 | 中身 |
+|---|---|
+| `¥23` vs `¥22` | **丸めの差**。22.5 の `{0:c}`(小数 0 桁の JPY)を .NET Framework は四捨五入で ¥23、.NET (Core) は銀行丸めで ¥22 にする。ランタイムの仕様差 |
+| 空カートでグリッドのヘッダーが出る | WebForms の GridView は 0 行なら(既定で)**何も描かない**。互換側はヘッダーを描いている |
+
+どちらも欠陥の同定まで済んでいます。次はここからです。
+
+## この節の教訓
+
+**「OnAfterRender が走らない」は原因ではなく症状の集合名でした。**
+DB を疑い(外れ)、activator を疑い(外れ)、レンダラーを疑い(外れ)、
+最後にサーバーログとブラウザコンソールを読んだら、4 つの具体的な例外がそのまま並んでいました。
+**症状から推理するより、クラッシュの一次情報(例外)を出す装置を先に作るべきでした。**
+検証器へのコンソール捕捉はその装置として機能したので、常設化を検討する価値があります。

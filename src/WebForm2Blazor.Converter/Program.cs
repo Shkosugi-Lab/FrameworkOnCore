@@ -1948,7 +1948,13 @@ static bool IsRuntimeProbedMarkup(string extension) => extension.ToLowerInvarian
 
 if (project.WebConfigPath is not null)
 {
-    var appConfig = WebConfigConverter.ExtractCustomSections(project.WebConfigPath, appName, report);
+    // The namespaces the application's own code declares, so the section extractor can
+    // tell "this type was flattened into the app assembly" from "this type lives in a
+    // third-party package that still exists" - see the rewrite loop there for why.
+    var applicationNamespaces = new HashSet<string>(
+        candidateNamespaces.SelectMany(entry => entry.Declared), StringComparer.Ordinal);
+    var appConfig = WebConfigConverter.ExtractCustomSections(
+        project.WebConfigPath, appName, report, applicationNamespaces.Contains);
     if (appConfig is not null)
     {
         File.WriteAllText(Path.Combine(output, "App.config"), appConfig);

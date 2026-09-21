@@ -156,14 +156,23 @@ public static class DataBinder
 
             var type = target.GetType();
 
-            var property = type.GetProperty(name);
+            // Case-INSENSITIVE, because System.Web.UI.DataBinder is: it resolves through
+            // TypeDescriptor with ignoreCase true, so markup written as "ProductID"
+            // happily binds a property declared "ProductId". WingtipToys does exactly
+            // that on its shopping cart, and the case-sensitive lookup here threw for
+            // every row - which, on a Blazor circuit, took the whole page down.
+            var property = type.GetProperty(name,
+                System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance
+                | System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.IgnoreCase);
             if (property != null)
             {
                 target = property.GetValue(target);
                 continue;
             }
 
-            var field = type.GetField(name);
+            var field = type.GetField(name,
+                System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance
+                | System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.IgnoreCase);
             if (field != null)
             {
                 target = field.GetValue(target);

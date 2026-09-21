@@ -9579,3 +9579,43 @@ territory anyway.
 
 パリティ差分は **34 行のまま**。6 コーパスの数字も不変、
 サンプルのパリティ 30/30、bUnit 30/30、回帰ゲート 13/13。
+
+## 続き: 棄却した仮説がもう 2 つ(計 4 つ)
+
+上の節のあと、さらに 2 つ測って棄却しました。**どれも原因ではありません。**
+次の担当者はこの 4 つを測り直さずに済みます。
+
+**(3) `SetKey`** —— `RenderDynamicChildren` は `builder.SetKey(component)` でキーに
+コンポーネント実体を使っています。キーが変わればレンダラーは古い方を捨てて作り直すので、
+これが「用意した実体が捨てられる」原因に見えました。**外して測っても出力は変わりません。**
+
+**(4) DI スコープ違い** —— `PreparedComponentActivator` は `AddScoped` です。
+プリレンダリングと回線で別スコープになり、`Register` した先と `CreateInstance` を呼ぶ先が
+別インスタンスなら、症状が全部説明できます。activator 自身のハッシュを出して測りました。
+
+```
+Register act#35772995 PostViewBase       #45011471
+Prepared act#35772995 PostViewBase       #45011471
+Register act#11373314 HtmlGenericControl #50883745
+Prepared act#11373314 HtmlGenericControl #50883745
+```
+
+**同じ activator の中で `Register` → `Prepared` が完結しています。** スコープは割れていません。
+(`act#35772995` は home、`act#11373314` は archive。ページごとに circuit が別なのは正常です。)
+
+## 現在地
+
+| 仮説 | 結果 |
+|---|---|
+| 型キーによる取り違え | **棄却**(直後に同じハッシュが返っている) |
+| `sequence` の共有 | **棄却**(子ごとに採番しても出力不変) |
+| `SetKey` | **棄却**(外しても出力不変) |
+| DI スコープ違い | **棄却**(同一 activator 内で完結) |
+
+確かなのはここまでです ——
+**`Register` された実体が `Prepared` として正しく返っているのに、
+レンダラーが描くのは `CreateInstance -> NEW` の別実体(`Controls=0`)である。**
+
+残る調べ先は、`CreateInstance` が返したあと `SetParametersAsync` /
+`Attach` までの間で何が起きているか、そこだけです。
+**`Prepared` が返った直後のインスタンスに何が起きるかを追ってください。**

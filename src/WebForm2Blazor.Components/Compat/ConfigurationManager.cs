@@ -104,7 +104,15 @@ public static class ConfigurationManager
                 .Select(child => new KeyValuePair<string, string>(child.Key, child.Value));
     }
 
+    /// <summary>
+    /// Enumerable, because the original is: System.Configuration's
+    /// ConnectionStringsSection.ConnectionStrings is a collection, and ported code walks it
+    /// rather than asking for one name. YAF's installer lists every configured connection
+    /// with "ConfigurationManager.ConnectionStrings.Cast&lt;ConnectionStringSettings&gt;()",
+    /// which does not compile against an indexer alone.
+    /// </summary>
     public sealed class ConnectionStringsSection
+        : IEnumerable<WebForm2Blazor.Components.Compat.ConnectionStringSettings>
     {
         // Fully qualified on purpose: the generated app references the real
         // System.Configuration.ConfigurationManager package (ported provider code uses its
@@ -120,6 +128,17 @@ public static class ConfigurationManager
                     : new WebForm2Blazor.Components.Compat.ConnectionStringSettings(name, value);
             }
         }
+
+        /// <summary>The configured connection strings, in configuration order.</summary>
+        public IEnumerator<WebForm2Blazor.Components.Compat.ConnectionStringSettings> GetEnumerator()
+            => Configuration.GetSection("ConnectionStrings").GetChildren()
+                .Where(child => child.Value is not null)
+                .Select(child => new WebForm2Blazor.Components.Compat.ConnectionStringSettings(
+                    child.Key, child.Value))
+                .GetEnumerator();
+
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+            => GetEnumerator();
     }
 
 

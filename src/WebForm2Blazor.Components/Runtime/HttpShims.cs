@@ -506,6 +506,19 @@ public abstract class HttpRequestBase
     protected HttpRequestBase(NavigationManager navigation) => _navigation = navigation;
 
     /// <summary>
+    /// Both sources at once, for <see cref="HttpRequestWrapper"/>: it re-hands whatever the
+    /// wrapped request was built from, and only one of the two is ever set. Picking just
+    /// one would have made a wrapped component request (NavigationManager) answer from an
+    /// empty context instead of the real URL.
+    /// </summary>
+    protected HttpRequestBase(
+        NavigationManager navigation, Microsoft.AspNetCore.Http.HttpContext aspNetContext)
+    {
+        _navigation = navigation;
+        _aspNetContext = aspNetContext;
+    }
+
+    /// <summary>
     /// WebForms Request.MapPath: a virtual path as a path on disk. The same answer
     /// Server.MapPath gives - it was the same method on 4.8, reachable from either object,
     /// and ported code picks whichever it had in scope.
@@ -794,11 +807,47 @@ public sealed class HttpRequestShim : HttpRequestBase
 {
     public HttpRequestShim(NavigationManager navigation) : base(navigation)
     {
+        Navigation = navigation;
     }
 
     internal HttpRequestShim(Microsoft.AspNetCore.Http.HttpContext aspNetContext) : base(aspNetContext)
     {
+        AspNetContext = aspNetContext;
     }
+
+    /// <summary>What this request was built from, so <see cref="HttpRequestWrapper"/> can
+    /// hand the same source to its own base rather than re-deriving it.</summary>
+    internal NavigationManager Navigation { get; }
+
+    internal Microsoft.AspNetCore.Http.HttpContext AspNetContext { get; }
+}
+
+/// <summary>
+/// System.Web.HttpRequestWrapper equivalent: adapts a request onto
+/// <see cref="HttpRequestBase"/>. Ported code writes exactly this at the boundary, the way
+/// it writes "new HttpContextWrapper(HttpContext.Current)" -
+/// YAF's IPHelper has "new HttpRequestWrapper(httpRequest).GetUserRealIPAddress()", and
+/// without this type that line does not compile.
+///
+/// On 4.8 the wrapper existed because HttpRequest did NOT derive from HttpRequestBase.
+/// Here it already does, so wrapping is close to an identity - but the type has to exist,
+/// because the source spells it.
+///
+/// It re-hands the SAME source (NavigationManager or HttpContext) to the base rather than
+/// forwarding thirty-odd members one by one. Delegation would have meant overriding every
+/// virtual to call through, and every one missed would silently answer from an empty base
+/// instead of the real request.
+/// </summary>
+public sealed class HttpRequestWrapper : HttpRequestBase
+{
+    public HttpRequestWrapper(HttpRequestShim request)
+        : base(request?.Navigation, request?.AspNetContext)
+    {
+        Inner = request;
+    }
+
+    /// <summary>The wrapped request, for ported code that unwraps it again.</summary>
+    public HttpRequestShim Inner { get; }
 }
 
 // NOTE: an earlier look-alike collection lived here. Ported code assigns these

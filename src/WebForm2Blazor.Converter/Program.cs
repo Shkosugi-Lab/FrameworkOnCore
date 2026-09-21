@@ -1517,10 +1517,27 @@ var excludedTypeStubs = GenerateExcludedTypeStubs(
 
 if (stubbedTypeCount > 0)
 {
-    File.WriteAllText(Path.Combine(output, "ExcludedTypeStubs.g.cs"), ApplyLibraryMigrations(ApplyNamespaceMap(excludedTypeStubs)));
+    var stubText = ApplyLibraryMigrations(ApplyNamespaceMap(excludedTypeStubs));
+    File.WriteAllText(Path.Combine(output, "ExcludedTypeStubs.g.cs"), stubText);
+
+    // "空のスタブ" was the wrong word for the members: they THROW when called. The type
+    // declaration is empty, the behaviour is not. Reading the old wording, a reviewer had
+    // every reason to picture a no-op and move on - and BlogEngine's widgets are exactly
+    // what that costs: RazorHelpers.ParseRazor is one of these stubs, every widget zone
+    // catches the NotSupportedException and prints "Widget X not found, check log for
+    // details", and the page looks merely incomplete rather than unported.
+    //
+    // The count of throwing members is the honest number here, next to the type count.
+    var throwingMembers = System.Text.RegularExpressions.Regex.Matches(
+        stubText, @"throw new global::System\.NotSupportedException").Count;
+
     report.Residual("(project)", ResidualKind.CodeBehind,
-        $"移植から除外したファイルが宣言していた型 {stubbedTypeCount} 個を空のスタブとして生成しました"
-        + "(ExcludedTypeStubs.g.cs)。参照側はコンパイルできます(除外の理由は各ファイルの残差を参照)。", disposition: ResidualDisposition.Backlog);
+        $"移植から除外したファイルが宣言していた型 {stubbedTypeCount} 個をスタブとして生成しました"
+        + "(ExcludedTypeStubs.g.cs)。参照側はコンパイルできますが、"
+        + $"**メンバー {throwingMembers} 個は呼ばれると NotSupportedException を投げます**"
+        + "(ビルドは通り、実行時にその場所で失敗します)。"
+        + "例外を握りつぶす呼び出し側があると、ページは「壊れた」ではなく「中身が無い」ように見えます。"
+        + "除外の理由は各ファイルの残差を参照してください。", disposition: ResidualDisposition.Backlog);
 }
 
 // NOT passed through ApplyLibraryMigrations/ApplyNamespaceMap, unlike the stubs above.

@@ -10393,3 +10393,89 @@ WebForms の GridView は **何も描きません** —— テーブルも、ヘ
 
 **警告を出す仕組み自体が嘘をつくと、速い輪は危険な輪になります。**
 入れた直後に 1 本・2 本・6 本の 3 通りを踏んだのはそのためです。
+
+---
+
+# 訂正: ウィジェットは「.NET 10 で動かない」のではなく「移植されていない」
+
+`be` に残る 34 行のうち最大の塊(25 行)はウィジェットです。
+このログにはこう書いてありました。
+
+> ウィジェットの中身 | BlogEngine 自前の実行時 Razor エンジンが .NET 10 で動かない(第 3 層)
+
+**不正確でした。** `wt` で効いた手法 —— 例外そのものを出す —— を `be` にも当てました。
+
+## 測った
+
+`WidgetZone` は例外を握りつぶして `"Widget {0} not found, check log for details."` を表示します。
+その `catch` に一時的な出力を足して実ブラウザで踏みました。
+
+```
+--- Search file=/Custom/Widgets/Search/widget.cshtml exists=True
+System.NotSupportedException: ParseRazor は変換対象外です(元の実装は移植されていません)。
+   at RazorHelpers.ParseRazor(String virtualPath, Object model) in ExcludedTypeStubs.g.cs:line 151
+   at App_Code.Controls.WidgetZone.OnLoad(EventArgs e)
+```
+
+**テンプレートは存在します**(`exists=True`)。動いていないのはエンジンではありません。
+`RazorHelpers` は**移植対象から外され、スタブになっている**だけです。
+
+除外の理由も記録済みでした。
+
+```
+AppCode/RazorHelpers.cs — .NET Framework 専用の名前空間 System.Web.WebPages.Html を
+使用しているため移植から除外しました
+```
+
+元の実装はこうです。
+
+```csharp
+Type t = BuildManager.GetCompiledType(pageVPath);          // ASP.NET の動的コンパイル
+var webpage = Activator.CreateInstance(t) as System.Web.WebPages.WebPage;
+webpage.ExecutePageHierarchy(new WebPageContext(wrapper, webpage, model), writer, webpage);
+```
+
+`BuildManager` も `System.Web.WebPages` も .NET には**存在しません**。
+「動かない」のではなく「**等価物が無いので移植できない**」が正しい表現です。
+機能としては `RuntimeCompilation` 系で再実装できますが、それは移植ではなく**作り直し**です。
+
+## ついでに見つかった報告の不備
+
+レポートにはこう書かれていました。
+
+```
+移植から除外したファイルが宣言していた型 53 個を【空のスタブ】として生成しました。
+参照側はコンパイルできます。
+```
+
+**「空」は嘘でした。** 型の宣言は空でも、**メンバーは呼ばれると例外を投げます**。
+数えたら **142 個**ありました。読んだ人が no-op を想像して素通りする文面です。
+
+そしてこれが `wt` の「変換で失われたものはなく」と同じ構図で、しかも症状が厄介です。
+**呼び出し側が例外を握りつぶすと、ページは「壊れた」ではなく「中身が無い」ように見えます。**
+BlogEngine のウィジェットがまさにそれで、赤字で "not found" と出るだけなので、
+テンプレートの置き場所の問題に見えていました(実際、前任もそう読んでいます)。
+
+同じレポートの別の行には良い書き方がありました。
+
+```
+BinaryFormatter は .NET から削除されています。ビルドは通りますが実行時に
+PlatformNotSupportedException になります。
+```
+
+同じ明示性をスタブの報告にも与えました。
+
+```
+型 53 個をスタブとして生成しました。参照側はコンパイルできますが、
+**メンバー 142 個は呼ばれると NotSupportedException を投げます**
+(ビルドは通り、実行時にその場所で失敗します)。
+例外を握りつぶす呼び出し側があると、ページは「壊れた」ではなく「中身が無い」ように見えます。
+```
+
+## 残差の数字は動いていません
+
+これは**報告の正確さの修正**で、挙動は 1 つも変えていません。
+`be` のパリティ 34 行・`wt` の 12 行ともそのまま、6 コーパスの数字も不変です。
+
+「第 3 層の担当」という結論は変わりません。変わったのは**理由**です。
+次に読む人が「エンジンのバグを直せばよい」と考えずに済むように直しました。

@@ -9405,3 +9405,74 @@ case LegacyWebControl legacy:     // HtmlTable … 出る
 切り分けは済んでいます —— 同じ親、同じ `Controls`、同じタイミングで、
 **型が `LegacyWebControl` なら出て、`IComponent` なら出ない**。
 再現は `corpora/out/be` の `archive.aspx` 由来ページが最短です。
+
+---
+
+# 訂正: 「`IComponent` 経路が動かない」は誤りでした
+
+ひとつ上の節で、`RenderDynamicChildren` の 2 つの経路のうち
+「`LegacyWebControl` 側は動き、`IComponent` 側が動いていない」と書きました。**誤りです。**
+
+## 反証
+
+`PostList` は投稿をこう足します。
+
+```razor
+<HtmlGenericControl TagName="div" ID="posts" ... @ref="posts" />
+```
+```csharp
+posts.Controls.Add(postView);   // postView は PostViewBase : WebFormsUserControl
+```
+
+`WebFormsUserControl` は Blazor コンポーネント、つまり **`IComponent`** です。
+親は `HtmlGenericControl` で、`h2` / `li` の親と**同じ `RenderDynamicChildren`** を通ります。
+そして home には投稿本文が出ています(回帰スナップショットで確認)。
+
+**`IComponent` 経路は動いています。** 経路の問題ではありませんでした。
+
+## 本当の切り分け
+
+同じ経路で、出るものと出ないものが型で分かれています。
+
+| 動的に足したもの | 型 | 結果 |
+|---|---|---|
+| `postView` | `PostViewBase`(`WebFormsUserControl`) | **出る** |
+| `table` | `HtmlTable`(`LegacyWebControl`) | **出る** |
+| `h2` / `li` | **`HtmlGenericControl`** | **出ない** |
+
+**`HtmlGenericControl` を動的に足したときだけ出ません。**
+
+## 未検証の仮説(次の担当者へ)
+
+`PreparedComponentActivator` は**型だけをキー**にして、用意されたインスタンスを配ります。
+
+```csharp
+public IComponent CreateInstance(Type componentType)
+{
+    if (_prepared.TryGetValue(componentType, out var pending) && pending.Count > 0)
+    {
+        var component = pending[0];
+        pending.RemoveAt(0);
+        return component;
+    }
+    ...
+}
+```
+
+`PostViewBase` はページに 1 種類しかないので、要求と登録が 1 対 1 で対応します。
+**`HtmlGenericControl` はページ中に大量にあります**(`<div runat="server">`、`<ul runat="server">`、
+`<span runat="server">` …)。マークアップ側のそれらも Blazor が
+`CreateInstance(typeof(HtmlGenericControl))` で作ります。
+
+つまり `Register(li)` した直後の生成要求が **li のためのものとは限りません**。
+マークアップ上の別の `HtmlGenericControl` の要求に li が渡り、
+li の位置には素の新品が入る —— **取り違え**が起きうる形をしています。
+
+これなら「`HtmlGenericControl` のときだけ出ない」がそのまま説明できます。
+**ただし測っていません。** 仮説です。確かめてから直してください。
+
+## この節を書いた理由
+
+前の節の結論は、`h2` と `table` の違いだけを見て型の一般論に広げたものでした。
+**反例(`postView`)が同じコードベースの中にあり、しかも既に動いているのを見落としていました。**
+切り分けの範囲を実際より広く書くと、次に読む人は動いているものまで疑います。

@@ -10,12 +10,28 @@
 #
 # 使い方:
 #   .\corpora\convert-all.ps1                    # 全コーパスを変換してベースライン比較
+#   .\corpora\convert-all.ps1 -Quick             # be と wt だけ(下記)
 #   .\corpora\convert-all.ps1 -Only be,yaf       # 指定したものだけ
 #   .\corpora\convert-all.ps1 -UpdateBaseline    # 現在の実測値を expected.json に書き戻す
 param(
     [string]$Root = (Join-Path $PSScriptRoot 'work'),
     [string]$Out = (Join-Path $PSScriptRoot 'out'),
     [string[]]$Only,
+
+    # 作業中の短い輪。be と wt だけを変換します。
+    #
+    # 実測した所要時間(1 本ずつ):
+    #   wt 10 秒 / be 26 秒 / n2 92 秒 / mojo 148 秒 / yaf 203 秒 / dnn 312 秒 = 計 792 秒
+    #
+    # be と wt で 36 秒、全体の 4.5% です。そしてこの 2 本は【変換前アプリの正解データが
+    # ある唯一のコーパス】で、挙動の差が見えるのもここだけです。残り 4 本が出すのは
+    # 「移植 .cs / 残差 / 変換可能 / ビルドエラー」の 4 数字だけで、それらは変換器を
+    # 何度も変えても動きませんでした。
+    #
+    # だから作業中は -Quick、【コミットの前には必ず引数なしで全 6 本】。
+    # 速いほうを毎回回すためのものであって、遅いほうを省くためのものではありません。
+    # 4 数字が動くときは回帰なので、見逃すと痛いのはそちらです。
+    [switch]$Quick,
     [switch]$SkipBuild,
     [switch]$SkipVerifyBuild,
     [switch]$UpdateBaseline,
@@ -90,6 +106,12 @@ $corpora = @(
        Include = @() }
 )
 
+if ($Quick -and $Only) {
+    Write-Error "-Quick と -Only は同時に指定できません。"
+}
+if ($Quick) {
+    $Only = @('be', 'wt')
+}
 if ($Only) {
     $corpora = $corpora | Where-Object { $Only -contains $_.Name }
     if (-not $corpora) {
@@ -424,6 +446,16 @@ if ($problems.Count -gt 0) {
     Write-Host '「移植 .cs」が動いている場合、変換器ではなくオプションかコーパスの取得内容が' -ForegroundColor Yellow
     Write-Host '違っています。残差の比較はその状態では成立しません。' -ForegroundColor Yellow
     exit 1
+}
+
+# @() で囲むのは、絞り込みが 1 件だと $corpora がハッシュテーブル 1 個そのものになり、
+# .Count がコーパス数ではなく【キーの数】を返すためです(-Only be で「3/6」と出ました)。
+$measuredCorpora = @($corpora)
+if ($measuredCorpora.Count -lt 6) {
+    $measured = ($measuredCorpora | ForEach-Object { $_.Name }) -join ', '
+    Write-Host ""
+    Write-Host ("測ったのは {0} だけです({1}/6 コーパス)。" -f $measured, $measuredCorpora.Count) -ForegroundColor Yellow
+    Write-Host '残りは触っていません。コミットの前に引数なしで全 6 本を回してください。' -ForegroundColor Yellow
 }
 
 Write-Host 'ベースラインと一致しました。' -ForegroundColor Green

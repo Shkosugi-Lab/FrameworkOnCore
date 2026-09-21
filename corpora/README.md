@@ -10479,3 +10479,74 @@ PlatformNotSupportedException になります。
 
 「第 3 層の担当」という結論は変わりません。変わったのは**理由**です。
 次に読む人が「エンジンのバグを直せばよい」と考えずに済むように直しました。
+
+---
+
+# yaf: 元アプリは動くところまで来た。残りはセットアップウィザード
+
+`yaf` の正解データを採りにいきました。**元アプリのビルドと起動までは通りました。**
+止まっているのは DB 初期化(インストールウィザード)です。
+
+## ビルドまでに要った 3 段
+
+同梱の MSBuild 4.0 では読めませんでした。`YAF-SqlServer.csproj` は旧形式ですが、
+**参照先 7 つ**(`YAF.Core` / `YAF.Web` / `YAF.Types` / `YAF.Configuration` /
+`YAF.Data.SqlServer` / `YAF.UrlRewriter` / `ServiceStack.OrmLite`)が **SDK 形式**で
+`MSB4041` になります。`wt` のときと違い、これらは**プロジェクト本体なので無害化できません**。
+
+| つまずき | 対処 |
+|---|---|
+| SDK 形式の参照で `MSB4041` | .NET SDK の MSBuild へ回す(`UseDotnetMsbuild`) |
+| `project.assets.json` が無く `NETSDK1004` | 先に `dotnet restore`(SDK 側) |
+| net48 の参照アセンブリでは `MSB3644` | yaf は **v4.8.1** を指す。`net481` を取得して対象ごとに切り替え |
+
+いずれも `build-original.ps1` に入れてあります。**42 アセンブリ**が出ます。
+
+## 起動までにもう 1 段:依存バージョンの食い違い
+
+ビルドが通っても 500 でした。イベントログを読むと
+
+```
+FileNotFoundException: Microsoft.Bcl.AsyncInterfaces, Version=10.0.0.10 が見つかりません
+```
+
+`bin` にそのアセンブリ自体がありませんでした。原因は**プロジェクト内で要求が割れている**ことです。
+
+| 宣言元 | 要求 |
+|---|---|
+| `YAF-SqlServer.csproj`(Web、旧形式・`HintPath`) | **9.0.9** |
+| `YAF.Core.csproj`(SDK 形式・`PackageReference`) | **10.0.10** |
+| `recommended.web.config` の `bindingRedirect` | **10.0.0.10** |
+
+`packages.config` には**そもそも載っていない**ので、`nuget restore` では復元されません
+(`nuget restore` は `packages.config` しか見ません)。
+`Web.config` と SDK 側が一致している 10.0.10 を取得して `bin` に置いたら、起動しました。
+
+**`bindingRedirect` と実体のずれを全件突き合わせたところ、ずれていたのはこの 1 件だけ**でした。
+
+## 現在地: `/install/default.aspx` へリダイレクト
+
+```
+GET /  →  302  Location: /install/default.aspx
+yafnet データベースのテーブル数: 0
+```
+
+**アプリは正常に動いています。** DB が空なのでセットアップへ誘導されている、正しい挙動です。
+
+`install/mssql` には `upgrade` しか無く、**初期スキーマの SQL スクリプトはありません**。
+YAF 3.x はウィザード(`WizInitDatabase` ほか複数ステップ)が**コードでスキーマを作ります**。
+
+## ここで止めた理由
+
+ウィザードは複数ステップのフォームです。Playwright で自動化はできますが、
+**そこまでして採った正解データが何を意味するか**を先に決めるべきだと考えました。
+
+- ウィザードを通した後の掲示板は、**投稿が 1 件も無い初期状態**です
+- `be` / `wt` の正解データは「データが入った状態の実描画」でした
+- 空の掲示板を照合しても、`yaf` の本体である**フォーラム一覧・トピック表示**は測れません
+
+つまり「ウィザードの自動化」の先に「初期データ投入」も要ります。
+`yaf` は 2,057 件の自前 `.ascx` を持つ題材なので投資価値は高いのですが、
+**`be` / `wt` の 2 本より明らかに深い作業**です。
+
+ビルドと起動の手段は `build-original.ps1` に入っているので、ここから再開できます。

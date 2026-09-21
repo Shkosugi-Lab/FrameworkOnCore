@@ -10053,3 +10053,94 @@ WingtipToys は EF Code First なので、接続さえできればスキーマ�
 なお `add-to-cart` が遷移しない(URL が `/shoppingcart` にならず `/addtocart` のまま、
 本文 0 行)は **DB とは無関係**で、`MapPageRoute` / 起動時ルーティングの欠落です。
 こちらは条件が揃っているので、次に手を付けられます。
+
+---
+
+# SQL Server Express に替えて、照合条件を揃えた
+
+前の節で「`wt` の DB 依存の症状はまだ測れない」と書きました。**揃えました。**
+
+## LocalDB をやめた理由
+
+**LocalDB のインスタンスはユーザーごと**です。
+
+- 変換前アプリは IIS の **アプリプール ID** で動き、そのユーザーの LocalDB に作る
+- 変換後アプリは `dotnet run`、つまり **admin** で動く
+- admin の LocalDB を覗くと `master` / `model` / `msdb` / `tempdb` だけで、**`WingtipToys` が無い**
+
+同じ接続文字列を書いても、**見ているデータベースが違いました**。
+`SqlLocalDB share` も試しましたが `(localdb)\.\WtShared` へは接続できませんでした。
+
+**Express はサービスとして動くのでユーザーに依存しません。**
+
+## 導入
+
+winget の `Microsoft.SQLServer.2019/2022.Express` は**どちらもマニフェストが古く 404** でした。
+公式ブートストラッパーから取り直しています。
+
+```powershell
+# https://go.microsoft.com/fwlink/p/?linkid=2216019  (Microsoft 署名を確認済み)
+SQL2022-SSEI-Expr.exe /ACTION=Download /MEDIAPATH=... /MEDIATYPE=Core /QUIET
+SQLEXPR_x64_JPN.exe /Q /X:...
+setup.exe /Q /ACTION=Install /FEATURES=SQLEngine /INSTANCENAME=SQLEXPRESS `
+          /SQLSYSADMINACCOUNTS=BUILTIN\Administrators /IACCEPTSQLSERVERLICENSETERMS `
+          /TCPENABLED=1 /SQLSVCSTARTUPTYPE=Automatic
+```
+
+一度で入りました(VC++ ランタイムは LocalDB のときに入れてあります)。
+
+`record-webforms-golden.ps1` は接続文字列を `.\SQLEXPRESS` に向け、
+**アプリプール ID の SQL ログインも作ります**(仮想アカウント
+`IIS APPPOOL\<pool>` はアプリプールを作った後でないと解決できないので、その後に実行)。
+
+## 揃ったことの確認
+
+```
+Express の DB: master / model / msdb / tempdb / WingtipToys
+WingtipToys.dbo.Products: 16 件
+```
+
+変換後の `appsettings.json` も `.\SQLEXPRESS` を指しています。
+**元アプリと変換後アプリが同じデータベースを見る状態になりました。**
+
+## それでも直らなかった。そして測ったら別の場所だった
+
+`Cart (0)` / カテゴリメニュー / 商品一覧は**出ないままです**(パリティ差分 31 行のまま)。
+**データベースの問題ではありませんでした。**
+
+`ListView.OnAfterRender` に一時的なログを仕込んで実ブラウザで測ったところ、
+**1 行も書かれませんでした。**
+
+```
+ListView.OnAfterRender  →  一度も呼ばれていない
+```
+
+`ListView` はここで `SelectMethod` を実行します。
+
+```csharp
+else if (firstRender && DataSource is null && !string.IsNullOrEmpty(SelectMethod))
+{
+    DataSource = ModelBinding.InvokeSelectMethod(Host, SelectMethod);
+    DataBind();
+}
+```
+
+**呼ばれなければデータは取りに行きません。** `_containers` は空のままなので
+`EmptyDataTemplate`(`No data was returned.`)が出ます。これで症状が説明できます。
+
+`Cart (0)` が出ないのも同じ形です。あれは `Page_PreRender` で設定され、
+生成コードはそれを `OnAfterRender` から呼びます。
+
+**`wt` では `OnAfterRender` 系が走っていない**というのが、いまの観測です。
+`be` では走っています(投稿が出る)。DLL のタイムスタンプ・レンダーモード
+(`@rendermode="InteractiveServer"`)はどちらも同じでした。
+
+## 次の担当者へ
+
+**`wt` の変換後アプリで `OnAfterRender` が呼ばれるかどうか**、ここが分岐点です。
+
+- 呼ばれていないなら、`be` との差は何か(両者の `App.razor` と `Routes.razor` は同じ形)
+- 呼ばれているのにログが出ないなら、ログの書き込み自体が失敗している
+  (今回は `try { } catch { }` で握り潰す書き方だったので、そこは区別できていません)
+
+**データベースはもう揃っています。** ここを追うのに DB の心配は要りません。

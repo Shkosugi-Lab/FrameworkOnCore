@@ -40,11 +40,19 @@ $parityDir = Join-Path $PSScriptRoot 'parity'
 # roleActions.AddUserAndRole() が到達しないホストを待ち続け、アプリが起動しません。
 #
 # ここで与えているのは「元アプリが本来つながるはずだったデータベース」です。
-# WingtipToys は EF Code First なので、LocalDB に接続できればスキーマもシードも
-# 自分で作ります(実測: /ProductList が 34,510 バイト、商品一覧が出ます)。
+# WingtipToys は EF Code First なので、接続さえできればスキーマもシードも自分で作ります。
 #
 # 「起動させるために接続文字列を書き換えて、つながらないことにする」のとは別物です。
 # そちらをやると、採れたものはもう変換前アプリの実描画ではなくなります。
+#
+# LocalDB ではなく SQL Server Express を使う理由
+# ----------------------------------------------
+# LocalDB のインスタンスは【ユーザーごと】です。変換前アプリは IIS のアプリプール ID で
+# 動き、変換後アプリは dotnet run、つまり別のユーザーで動きます。LocalDB だと同じ接続
+# 文字列を書いても【見ているデータベースが違い】、照合が成立しません
+# (実測: 元アプリが作った WingtipToys が admin 側の LocalDB には無かった)。
+#
+# Express はサービスとして動くのでユーザーに依存しません。両方が同じデータベースを見ます。
 $targets = @(
     @{ Name = 'be'
        Path = 'BlogEngine.NET-3.3.8.0\BlogEngine\BlogEngine.NET'
@@ -53,7 +61,8 @@ $targets = @(
     @{ Name = 'wt'
        Path = 'wingtiptoys-master\WingtipToys\WingtipToys'
        Port = 8092
-       ConnectionString = 'Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=WingtipToys;Integrated Security=True;MultipleActiveResultSets=True;Connect Timeout=30' }
+       ConnectionString = 'Data Source=.\SQLEXPRESS;Initial Catalog=WingtipToys;Integrated Security=True;MultipleActiveResultSets=True;Connect Timeout=30'
+       SqlLogin = $true }
 )
 
 if ($Only) {
@@ -141,6 +150,34 @@ foreach ($target in $targets) {
     # 匿名要求もアプリプール ID で動き、権限が 1 か所で揃います。
     & $appcmd set config "$siteName/" /section:anonymousAuthentication `
         /userName:"" /commit:apphost | Out-Null
+
+    # アプリプール ID で SQL Server に入れるようにします。dbcreator なのは、
+    # EF Code First の初期化子がデータベース自体を作るためです。
+    # 仮想アカウント "IIS APPPOOL\<pool>" はアプリプールを作った後でなければ解決できません。
+    if ($target.SqlLogin) {
+        $login = "IIS APPPOOL\$poolName"
+        $sql = @"
+IF NOT EXISTS (SELECT 1 FROM sys.server_principals WHERE name = N'$login')
+    CREATE LOGIN [$login] FROM WINDOWS;
+ALTER SERVER ROLE [dbcreator] ADD MEMBER [$login];
+ALTER SERVER ROLE [sysadmin] ADD MEMBER [$login];
+"@
+        try {
+            $connection = New-Object System.Data.SqlClient.SqlConnection `
+                'Server=.\SQLEXPRESS;Integrated Security=true;Connect Timeout=30'
+            $connection.Open()
+            $command = $connection.CreateCommand()
+            $command.CommandText = $sql
+            $command.ExecuteNonQuery() | Out-Null
+            $connection.Close()
+            Write-Host "  SQL ログインを用意しました: $login"
+        }
+        catch {
+            Write-Warning "  SQL ログインを作成できません: $($_.Exception.Message)"
+            $failures += "${name}: SQL ログイン作成失敗"
+            continue
+        }
+    }
 
     # BlogEngine は App_Data に書きます(設定・キャッシュ)。読み取り専用だと
     # 初回要求で落ち、そのエラーページがゴールデンマスターとして記録されます。

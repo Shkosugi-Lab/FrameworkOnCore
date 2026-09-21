@@ -9619,3 +9619,108 @@ Prepared act#11373314 HtmlGenericControl #50883745
 残る調べ先は、`CreateInstance` が返したあと `SetParametersAsync` /
 `Attach` までの間で何が起きているか、そこだけです。
 **`Prepared` が返った直後のインスタンスに何が起きるかを追ってください。**
+
+---
+
+# 原因は `SetParametersAsync` の早期 return だった(5 つ目で当たり)
+
+4 つ棄却したあと、5 つ目で当たりました。**レンダラーの差分の話ではありませんでした。**
+
+## 犯人
+
+```csharp
+public override Task SetParametersAsync(ParameterView parameters)
+{
+    _renderHandleReady = true;
+
+    if (_stateTouched)
+    {
+        return Task.CompletedTask;     // ← ここ
+    }
+
+    return base.SetParametersAsync(parameters);
+}
+```
+
+この早期 return の意図は**パラメータの凍結**です。コードで状態を変えたあと、
+親の再描画でマークアップ側の値に上書きされては困る —— WebForms の優先順位そのもので、正しい。
+
+**しかし `SetParametersAsync` はパラメータを配るだけの関数ではありません。**
+`ComponentBase` はこの中で **`OnInitialized` を呼び、最初の描画をキューに入れます**。
+早期 return はそれごと飲み込みます。
+
+## なぜ「コードで作ったコントロール」だけが消えたか
+
+コードビハインドは、コントロールをレンダラーに渡す**前**に状態を触ります。
+
+```csharp
+HtmlGenericControl h2 = new HtmlGenericControl { TagName = "h2" };
+h2.Attributes["id"] = "cat-...";   // ← ここで _stateTouched = true
+h2.Controls.Add(header);
+
+HtmlGenericControl li = new HtmlGenericControl { TagName = "li" };
+li.Controls.Add(a);                // ← ここで _stateTouched = true
+ulMenu.Controls.Add(li);
+```
+
+**レンダラーが見る前から「触られた」状態です。**
+だから初回の `SetParametersAsync` が握り潰され、`OnInitialized` も初回描画も起きない。
+用意したインスタンスは渡されたまま、**一度も生きずに**放置されました。
+
+観測が全部つながります ——
+`Register` は正しい / `Prepared` も正しい / なのに `BuildRenderTree` が呼ばれない。
+**渡すところまでは全部合っていて、その先で目を覚まさなかった**だけでした。
+
+マークアップに書かれたコントロールは、レンダラーが先に触るので `_stateTouched` は false。
+だから今まで誰も気づきませんでした。`HtmlTable` が出ていたのは
+`LegacyWebControl` で **Blazor コンポーネントではない**から(文字列として流し込まれる)。
+`PostViewBase` が出ていたのは、`LoadControl` の直後に状態を触らない経路だったからです。
+
+## 直し方
+
+**初回の呼び出しだけは必ず base に通します。**
+
+```csharp
+var firstCall = !_renderHandleReady;
+_renderHandleReady = true;
+
+if (_stateTouched && !firstCall)
+{
+    return Task.CompletedTask;
+}
+```
+
+凍結の意図は 2 回目以降で保たれます。**初回に描画しないのは意図ではなく副作用**でした。
+
+## 数字
+
+| | 前 | 後 |
+|---|---|---|
+| `archive` の本文 | 20 行 | **22 行**(期待 26) |
+| `archive` の最初の相違 | **3 行目** | **15 行目** |
+| カテゴリメニュー `BlogEngine.NET` | 出ない | **出る** |
+| 見出し `BlogEngine.NET (1)` | 出ない | **出る** |
+| 要素 `cat-BlogEngineNET` | 無し | **出る** |
+
+**3 つとも正解データに実在する**ことを確認済みです。
+`archive` に残る差分は**ウィジェット関連だけ**になりました。
+
+パリティ差分行数は **34 のまま**です(欠落を数えない指標なので、
+「出るようになった」変化は行数に表れません)。
+
+6 コーパスの移植 .cs / 総残差 / 変換可能 / ビルドエラーは不変。
+**サンプルのパリティ 30/30、bUnit 30/30、回帰ゲート 13/13。**
+全コンポーネントの初期化経路に触る変更なので、ここが動かなかったことが何より重要です。
+
+## 棄却した 4 つを残す理由
+
+| 仮説 | 結果 |
+|---|---|
+| 型キーによる取り違え | 棄却 |
+| `sequence` の共有 | 棄却 |
+| `SetKey` | 棄却 |
+| DI スコープ違い | 棄却 |
+
+4 つとも**レンダラー側**を疑っていました。実際の原因は**コンポーネント基底の 1 行**です。
+症状(「レンダラーが別インスタンスを描く」)から素直に連想する先が、
+4 回続けて外れたことになります。**観測が正しくても、そこから引く線は間違えます。**

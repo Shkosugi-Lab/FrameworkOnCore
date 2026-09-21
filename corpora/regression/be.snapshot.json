@@ -84,6 +84,8 @@
       "Text": [
         "Name of the blog",
         "アーカイブ",
+        "BlogEngine.NET",
+        "BlogEngine.NET (1)",
         "Welcome to BlogEngine.NET",
         "総数",
         "1 投稿数",
@@ -133,6 +135,11 @@
           "Attributes": {
             "class": "archive-page-menu"
           },
+          "Style": {}
+        },
+        "cat-BlogEngineNET": {
+          "Tag": "h2",
+          "Attributes": {},
           "Style": {}
         },
         "totals": {

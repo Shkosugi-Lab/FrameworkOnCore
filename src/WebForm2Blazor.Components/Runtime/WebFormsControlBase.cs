@@ -365,9 +365,20 @@ public abstract class WebFormsControlBase : ComponentBase, IWebFormsControl, IDi
     /// </summary>
     public override Task SetParametersAsync(ParameterView parameters)
     {
+        // The FIRST call must always reach the base, whatever the state says. It is not
+        // only about parameters: ComponentBase runs OnInitialized and queues the first
+        // render from there, so returning early means the component never renders at all.
+        //
+        // A control built in code is already "touched" before the renderer ever sees it -
+        // "h2.Attributes[...] = ...", "li.Controls.Add(a)" - so this path swallowed the
+        // one call that would have brought it to life. The prepared instance was handed
+        // to the renderer and then sat there, never initialised, never drawn, while an
+        // empty replacement appeared in its place. BlogEngine's archive headings and
+        // category menu are built exactly that way.
+        var firstCall = !_renderHandleReady;
         _renderHandleReady = true;
 
-        if (_stateTouched)
+        if (_stateTouched && !firstCall)
         {
             return Task.CompletedTask;
         }

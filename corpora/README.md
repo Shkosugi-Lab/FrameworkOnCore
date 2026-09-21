@@ -9476,3 +9476,106 @@ li の位置には素の新品が入る —— **取り違え**が起きうる�
 前の節の結論は、`h2` と `table` の違いだけを見て型の一般論に広げたものでした。
 **反例(`postView`)が同じコードベースの中にあり、しかも既に動いているのを見落としていました。**
 切り分けの範囲を実際より広く書くと、次に読む人は動いているものまで疑います。
+
+---
+
+# 動的に作った `HtmlGenericControl` が描画されない(観測データと、棄却した仮説 2 つ)
+
+前の節で残した「`HtmlGenericControl` を動的に足したときだけ出ない」を実行時に測りました。
+**直せていません。** ただし**どこで止まっているかは、かなり細かく分かりました。**
+次の担当者が同じ道を歩き直さずに済むよう、観測値をそのまま置きます。
+
+## 仕込んだ計測
+
+`PreparedComponentActivator` の `Register` / `CreateInstance`、
+`WebFormsControlBase.RenderDynamicChildren` の分岐、
+`HtmlGenericControl.BuildRenderTree` の 3 箇所に一時的なログを入れ、
+**実ブラウザ**(回帰ゲート経由)で `/archive` を開きました。
+
+## 観測 1: 仕組みそのものは動いている
+
+```
+RDC on HtmlGenericControl#posts child=PostViewBase isComponent=True
+Register     PostViewBase #49129953 (待機 1)
+CreateInstance PostViewBase -> PREPARED #49129953 (残 0)
+```
+
+`PostViewBase` は登録され、その実インスタンスが渡され、home に投稿が出ています。
+**`PreparedComponentActivator` は設計どおり機能しています。**
+
+## 観測 2: `h2` / `li` も同じ経路を通っている
+
+```
+RDC on HtmlGenericControl#ulMenu   child=HtmlGenericControl isComponent=True   ← li
+Register     HtmlGenericControl #52253787 (待機 1)
+CreateInstance HtmlGenericControl -> PREPARED #52253787 (残 0)
+
+RDC on PlaceHolder#phArchive       child=HtmlGenericControl isComponent=True   ← h2
+Register     HtmlGenericControl #54616604 (待機 1)
+CreateInstance HtmlGenericControl -> PREPARED #54616604 (残 0)
+
+RDC on PlaceHolder#phArchive       child=HtmlTable  isLegacy=True              ← table(出る)
+```
+
+**捨てられてはいません。** 登録され、用意したインスタンスが渡されています。
+
+## 観測 3: それでも、渡したインスタンスは描かれない
+
+```
+BRT h2 #45338359 Visible=True Controls=0
+BRT h2 #14354667 Visible=True Controls=0
+BRT h2 #14354667 Visible=True Controls=0
+```
+
+**ハッシュが違います。** 渡されたのは `#52253787` / `#54616604`、
+描かれているのは `#45338359` / `#14354667` —— `CreateInstance -> NEW` で作られた別物で、
+**`Controls=0`**(本物は `feed` と `LiteralControl` を 2 つ持っています)。
+
+そして **`li` の `BuildRenderTree` は 1 度も呼ばれていません。**
+
+`archive` の見出しが空で、カテゴリメニューが出ないのはこれで説明がつきます。
+**用意したインスタンスは渡っているのに、レンダラーが描くのは空の別インスタンスです。**
+
+## 棄却した仮説 2 つ
+
+**(1) 型キーによる取り違え** —— 前の節で「`HtmlGenericControl` はページ中に大量にあるので、
+`Register` した直後の生成要求が別の場所のものかもしれない」と書きました。**外れです。**
+ログ上、`Register` の直後に同じハッシュが `PREPARED` で返っています。取り違えは起きていません。
+
+**(2) `sequence` の共有** —— `RenderDynamicChildren` はループ内の全ての子に
+**同じ `sequence` 番号**を渡しています。レンダラーに「全部同じ位置だ」と言っているに等しく、
+差分計算が壊れる形です。子ごとに採番するよう直して測りました ——
+**`BRT` の出方は 1 行も変わりませんでした。** 戻しました。
+(Blazor の作法としては採番するほうが正しいはずですが、**この症状の原因ではありません**。
+証拠なしに入れないでおきます。)
+
+## 設計上の但し書きが既にありました
+
+`HtmlGenericControl` の先頭にこう書かれています。
+
+```
+NOTE: a Blazor component must have exactly one applicable constructor - the activator
+throws at render time otherwise. The WebForms form (new HtmlGenericControl("div"))
+therefore cannot be offered here; dynamically created controls are manual-migration
+territory anyway.
+```
+
+**`new HtmlGenericControl(...)` は当初から想定の外**でした。変換器はいま
+`new HtmlGenericControl { TagName = "li" }` を出しますが、
+**その形が描画まで通る保証は、もともと無かった**ということです。
+この節の症状はその延長線上にあります。
+
+## 次に見るなら
+
+`OpenComponent` + `SetKey` で渡した既製インスタンスが、なぜ最終的に破棄されて
+新品に置き換わるのか —— **レンダラーの差分側**です。
+`SetKey(component)` のキーがフレーム間で安定しているか、
+`OnAfterRender` 内で `Controls.Add` した直後の再描画が
+既存フレームと突き合わされているかを見てください。
+
+`table`(`LegacyWebControl`)が出て `h2`(`IComponent`)が出ないのは、
+**前者がマークアップ文字列として流し込まれ、コンポーネントの同一性を必要としないから**です。
+そこが両者の唯一の差です。
+
+パリティ差分は **34 行のまま**。6 コーパスの数字も不変、
+サンプルのパリティ 30/30、bUnit 30/30、回帰ゲート 13/13。

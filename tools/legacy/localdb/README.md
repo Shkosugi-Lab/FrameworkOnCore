@@ -68,3 +68,62 @@ Note: 1: 2265 2:  3: -2147287035        ← STG_E_ACCESSDENIED
 
 `wt` はいまビルドエラー 0・回帰 8/8 で「動いて見えて」います。
 `be` が照合前にいたのと同じ場所です。
+
+---
+
+## 追記: 失敗の原因は 2 つあった(実測で特定)
+
+### 1. パスに `-` が含まれると msiexec は MSI を開けない
+
+```
+msiexec /i .\SqlLocalDB-2019.msi /qn ...      ← このリポジトリ上で実行すると開けない
+```
+
+イベントログ(Application / MsiInstaller)に `Beginning`/`Ending` は出るのに
+`installed the product` が出ません。**エラー 1619(パッケージを開けなかった)**です。
+`/qn` なので画面には何も出ず、**成功したように見えます**。
+
+原因はリポジトリのパス `C:\wcc\data\sessions\-rETZO4pVnOb\...` —— `-` で始まるディレクトリ名を
+`msiexec` が引数と解釈します。**必ず単純なパスにコピーしてから実行してください。**
+
+```powershell
+copy .\SqlLocalDB-2019.msi $env:TEMP\ldb2019.msi
+msiexec /i $env:TEMP\ldb2019.msi /qn IACCEPTSQLLOCALDBLICENSETERMS=YES /l*v $env:TEMP\ldb.log
+```
+
+### 2. 本当の原因は SQL Writer サービスの起動タイムアウト
+
+単純なパスから実行すると MSI は開けます。そこで出るのがこれです。
+
+```
+Error 1920. Service 'SQL Server VSS Writer' (SQLWriter) failed to start.
+The service did not respond to the start or control request in a timely fashion.
+A timeout was reached (30000 milliseconds)
+```
+
+2019 / 2022 とも同じ。`ADDLOCAL` / `REMOVE` で `SQL_WRITER_LocalDB` を外そうとしても、
+親 Feature の子なので一緒に入り、同じ場所で落ちます。
+
+**対処**: サービス起動の待ち時間を延ばして再起動します。
+
+```powershell
+Set-ItemProperty "HKLM:\SYSTEM\CurrentControlSet\Control" -Name ServicesPipeTimeout -Value 180000 -Type DWord
+# 再起動が必要（この設定は起動時にしか読まれません）
+```
+
+**設定済みです**(180000 ms = 3 分)。再起動後に上のコマンドでインストールしてください。
+
+### 外した推測(同じ道を歩かないために)
+
+`STG_E_ACCESSDENIED`(`Note: 1: 2265 3: -2147287035`)というコードが出ていたので、
+そこから 2 回推測して 2 回とも外しました。
+
+| 推測 | 実測 |
+|---|---|
+| 「Windows コンテナの中だから」 | **違う**。`wcifs` のインスタンスは 0、実機の Windows 11 Pro build 26200(Intel NUC) |
+| 「Defender がブロックしている」 | **違う**。CFA 無効・ASR ルールなし・検出履歴なし |
+
+**イベントログを見れば最初から `Error 1920` と書いてありました。**
+MSI のログに出る `2265` はロールバックに伴う二次的なもので、原因ではありませんでした。
+`msiexec` の終了コードだけを見て推測を広げたのが誤りです。
+**まず `Get-WinEvent` で Application / System を見てください。**

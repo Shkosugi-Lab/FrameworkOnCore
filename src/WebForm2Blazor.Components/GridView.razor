@@ -17,6 +17,14 @@
     {
         <span @attributes="ExtraAttributes" style="@ComputedStyle" id="@ClientID" class="@CssClass">@EmptyDataText</span>
     }
+    else if (_rowContainers.Count == 0)
+    {
+        @* No rows and nothing declared to show instead: WebForms renders NOTHING AT ALL -
+           no table, no header, no footer (measured against the original: WingtipToys'
+           empty shopping cart has one table on the page, the converted one had two).
+           Falling through to the table below printed a header for a grid the original
+           never drew. *@
+    }
     else
     {
         @* Reproduces the WebForms default rendering: GridLines=Both renders border="1"

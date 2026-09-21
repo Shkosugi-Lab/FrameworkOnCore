@@ -13,7 +13,7 @@
         "Products",
         "Register",
         "Log in",
-        ".",
+        "Welcome.",
         "Wingtip Toys can help you find the perfect gift.",
         "We're all about transportation toys. You can order any of our toys today. Each toy listing has detailed information to help you choose the right toy."
       ],
@@ -62,7 +62,7 @@
         "Products",
         "Register",
         "Log in",
-        ".",
+        "About.",
         "Your application description page.",
         "Use this area to provide additional information."
       ],
@@ -111,7 +111,7 @@
         "Products",
         "Register",
         "Log in",
-        ".",
+        "Contact.",
         "Your contact page.",
         "One Microsoft Way",
         "Support: Support@example.com",
@@ -162,6 +162,7 @@
         "Products",
         "Register",
         "Log in",
+        "Products",
         "No data was returned."
       ],
       "Tables": [

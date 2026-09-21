@@ -489,6 +489,20 @@ public static partial class AspxConverters
                 {
                     razor.AppendLine($"<PageTitle>{renderable}</PageTitle>");
                 }
+
+                // <%@ Page Title="Welcome" %> also sets Page.Title, and markup reads it
+                // back: WingtipToys writes "<h1><%: Title %>.</h1>" on every page. Only the
+                // document title was being carried, so those headings rendered as a bare
+                // "." - the period survived and the word in front of it did not.
+                //
+                // ??= rather than =, because the directive is only the INITIAL value in
+                // WebForms: a code-behind that assigns Page.Title in Page_Load must win,
+                // and that runs after the first render here.
+                if (!string.IsNullOrEmpty(pageTitle))
+                {
+                    var literal = SymbolDisplay.FormatLiteral(pageTitle, quote: true);
+                    razor.AppendLine($"@{{ Title ??= {literal}; }}");
+                }
                 razor.AppendLine();
             }
             else

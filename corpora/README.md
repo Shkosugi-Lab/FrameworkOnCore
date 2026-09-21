@@ -9969,3 +9969,87 @@ WingtipToys は EF Code First なので、接続さえできればスキーマ�
 
 `parity-gate.ps1` は `be` 5/5・`wt` 8/8 の不一致で落ちます。
 **ベースラインは置きません。** 未採取は 5 本から **4 本**(mojo / yaf / dnn / n2)になりました。
+
+---
+
+# `wt` が見せた最初の欠陥: `@Page Title` が `Page.Title` に入っていなかった
+
+採れたばかりの `wt` の正解データを使って、1 件目を直しました。
+
+## 症状
+
+正解データは各ページの見出しを `Welcome.` / `About.` / `Contact.` と記録しています。
+変換後は **`.` だけ**でした。**句点だけが残って、前の単語が消えていました。**
+
+## 原因
+
+```aspx
+<%@ Page Title="Welcome" ... %>
+...
+<h1><%: Title %>.</h1>
+```
+
+`Title` 属性は**2 つの役割**を持っています。文書のタイトルであると同時に、
+**`Page.Title` プロパティの初期値**です。WingtipToys は全ページの見出しでそれを読み返します。
+
+変換器は前者しか運んでいませんでした。
+
+```razor
+<PageTitle>Welcome - Wingtip Toys</PageTitle>   ← 文書タイトルは正しい
+<h1>@(Title).</h1>                              ← Title プロパティは空のまま
+```
+
+`WebFormsPage.Title` は `{ get; set; }` があるだけで、誰も初期化していませんでした。
+
+## 直し方
+
+```razor
+@{ Title ??= "Welcome"; }
+```
+
+`=` ではなく **`??=`** です。WebForms では属性は**初期値**にすぎず、
+コードビハインドが `Page_Load` で `Page.Title` を代入すればそちらが勝ちます。
+そして `Page_Load` はここでは初回描画の後に走るので、上書きの順序も合います。
+
+## 数字
+
+| | 前 | 後 |
+|---|---:|---:|
+| `wt` のパリティ差分行 | 34 | **31** |
+| 見出し | `.` | **`Welcome.` / `About.` / `Contact.`** |
+
+`product-list` の見出しも `No data was returned.` から `Products` に変わりました。
+
+6 コーパスの数字は不変。サンプルのパリティ 30/30、bUnit 30/30、回帰ゲート 13/13。
+`wt` の回帰スナップショットは記録し直しました(すべて正解データに近づく向き)。
+
+## 残りの 4 症状には、まだ照合条件が揃っていません
+
+**ここは正直に書いておきます。** `wt` に残る差分のうち、次のものは
+**変換器の欠陥と断定できません**。
+
+| 症状 | 状況 |
+|---|---|
+| `Cart (0)` が出ない | `Page_PreRender` で `usersShoppingCart.GetCount()` を呼ぶ(**DB 依存**) |
+| カテゴリメニューが出ない | `ListView` の `SelectMethod="GetCategories"`(**DB 依存**) |
+| 商品が 1 件も出ない | `product-list`(**DB 依存**) |
+
+理由は **LocalDB がユーザー単位のインスタンス**だからです。
+
+- 変換前アプリは **IIS のアプリプール ID** で動き、そのユーザーの LocalDB に
+  `WingtipToys` データベースを作りました(EF Code First)
+- 変換後アプリは `dotnet run`、つまり **admin** で動きます
+- admin の LocalDB を覗くと `master` / `model` / `msdb` / `tempdb` だけで、
+  **`WingtipToys` がありません**
+
+**同じ接続文字列を書いていても、見ているデータベースが違います。**
+この状態で「商品が出ない」を変換器の欠陥として直し始めたら、存在しない問題を追うことになります。
+
+`SqlLocalDB share` で共有インスタンスも試しましたが、`(localdb)\.\WtShared` へは接続できませんでした(未解決)。
+
+**揃えてから測ってください。** 案としては、IIS のアプリプール ID を採取用アカウントに
+合わせる、共有インスタンスの接続を通す、LocalDB ではなく SQL Server Express を使う、など。
+
+なお `add-to-cart` が遷移しない(URL が `/shoppingcart` にならず `/addtocart` のまま、
+本文 0 行)は **DB とは無関係**で、`MapPageRoute` / 起動時ルーティングの欠落です。
+こちらは条件が揃っているので、次に手を付けられます。

@@ -289,6 +289,52 @@ public class HtmlAnchor : LegacyWebControl
     public string InnerText { get; set; }
 
     public string InnerHtml { get; set; }
+
+    /// <summary>
+    /// These properties are what a ported code-behind SETS on an anchor, and they were
+    /// declaration surface only - the control rendered as "&lt;a rel=...&gt;&lt;/a&gt;" with
+    /// no href and nothing inside. Measured on BlogEngine's archive category menu:
+    ///
+    ///     HRef=/archive#cat-BlogEngineNET  InnerHtml=BlogEngine.NET
+    ///     rendered = [&lt;a rel="directory"&gt;&lt;/a&gt;]
+    /// </summary>
+    protected override void AddAttributesToRender(HtmlTextWriter writer)
+    {
+        if (!string.IsNullOrEmpty(HRef))
+        {
+            writer.AddAttribute("href", HRef);
+        }
+        if (!string.IsNullOrEmpty(Target))
+        {
+            writer.AddAttribute("target", Target);
+        }
+        if (!string.IsNullOrEmpty(Title))
+        {
+            writer.AddAttribute("title", Title);
+        }
+        if (!string.IsNullOrEmpty(Name))
+        {
+            writer.AddAttribute("name", Name);
+        }
+        base.AddAttributesToRender(writer);
+    }
+
+    /// <summary>InnerHtml / InnerText REPLACE the children in WebForms, so they win.</summary>
+    protected override void RenderContents(HtmlTextWriter writer)
+    {
+        if (InnerHtml is not null)
+        {
+            writer.Write(InnerHtml);
+        }
+        else if (InnerText is not null)
+        {
+            writer.WriteEncodedText(InnerText);
+        }
+        else
+        {
+            base.RenderContents(writer);
+        }
+    }
 }
 
 /// <summary>System.Web.UI.WebControls.AuthenticateEventArgs equivalent.</summary>

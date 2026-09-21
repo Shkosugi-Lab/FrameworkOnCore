@@ -9297,3 +9297,111 @@ public class HtmlAnchor : LegacyWebControl
 
 証拠なしに入れると、後から見た人には「測って入れたもの」と区別がつきません。
 `Category` が埋まって題材ができたとき、**差分を出してから**入れてください。
+
+---
+
+# 撤回の撤回: `HtmlAnchor` は本当に描いていなかった(測り方が足りなかった)
+
+ひとつ上の節で `HtmlAnchor` の修正を「効果を実証できなかった」として戻しました。
+**その判断が誤りでした。** 欠陥は実在し、修正は正しかった。
+間違っていたのは**測り方**です。パリティと回帰ゲートだけを見て、
+「ページの表示が変わらない」=「修正が効いていない」と読みました。**別物です。**
+
+## 実行時に測った
+
+`archive` のカテゴリメニューを追い、生成物に一時的な診断を仕込んで**実ブラウザ**で採りました
+(`OnAfterRender` は SSR では走らないので、`Invoke-WebRequest` では何も採れません)。
+
+まず仮説が外れました。**データ層は完全に動いていました。**
+
+```
+Category.Categories = 1
+Category.ApplicableCategories = 1
+  cat 'BlogEngine.NET' Posts=1
+ulMenu.Controls.Count(before) = 0
+ulMenu.Controls.Count(after)  = 1     ← li は追加されている
+```
+
+`CreateMenu()` は正しく動いています。構造も正しい。
+
+```
+ulMenu (ul)
+  └ li (HtmlGenericControl, TagName=li, Controls=1)
+      └ HtmlAnchor
+```
+
+そこで**コントロールに直接描かせて**、出力そのものを採りました。
+
+```
+HRef      = /archive#cat-BlogEngineNET
+InnerHtml = BlogEngine.NET
+rendered  = [<a rel="directory"></a>]          ← href も中身も無い
+```
+
+**これが証拠です。** `HtmlAnchor` は設定された値を 1 つも描いていません。
+修正を戻したところ、同じ測定がこうなりました。
+
+```
+rendered = [<a rel="directory" href="/archive#cat-BlogEngineNET">BlogEngine.NET</a>]
+```
+
+`HtmlTableCell` は最初から両方を描いていました。`HtmlAnchor` だけが宣言用の面のままでした。
+
+## それでもページには出ません(上流に別の欠陥がある)
+
+修正後も **パリティ 34 行・回帰ゲート一致のまま、カテゴリメニューは出ません。**
+上流で止まっているからです。そしてその場所が測定で特定できました。
+
+`CreateArchive()` は **同じ `phArchive` に 2 種類を足します**。
+
+```csharp
+HtmlGenericControl h2 = CreateRowHeader(...);   phArchive.Controls.Add(h2);   // 出ない
+HtmlTable table = CreateTable(name);            phArchive.Controls.Add(table); // 出る
+```
+
+**テーブルは出て、見出しは出ません。** 両者の違いは型だけです。
+`RenderDynamicChildren` は動的な子を 2 つの経路で描きます。
+
+```csharp
+case IComponent component:        // HtmlGenericControl (h2, li) … 出ない
+    activator?.Register(component);
+    builder.OpenComponent(sequence, component.GetType());
+    builder.SetKey(component);
+    builder.CloseComponent();
+    break;
+
+case LegacyWebControl legacy:     // HtmlTable … 出る
+    legacy.RenderControl(new HtmlTextWriter(text));
+    builder.AddMarkupContent(sequence + 1, text.ToString());
+    break;
+```
+
+**`LegacyWebControl` 側は動き、`IComponent` 側が動いていません。**
+`h2` / `li` / カテゴリメニューが揃って出ないのはこれ 1 つで説明がつきます。
+
+`PreparedComponentActivator` は DI に登録されており(`ServiceCollectionExtensions`)、
+`Register` した実インスタンスを `CreateInstance` で返す設計です。
+**そこまでは読みましたが、なぜ効いていないかは未検証です。**
+
+## なぜ効果が見えないのに入れたか
+
+**描画そのものを測って、出力が変わったことを確認したからです。**
+`[<a rel="directory"></a>]` → `[<a href="..." rel="directory">BlogEngine.NET</a>]`。
+これは推測ではなく測定値です。
+
+前回戻したときは、パリティと回帰しか見ていませんでした。
+**どちらもページ全体の表示を見る指標で、上流が詰まっていれば下流の修正は映りません。**
+「ゲートが動かない」から「修正が効いていない」を導いたのが誤りでした。
+
+パリティ差分は **34 行のまま**、回帰ゲートも**一致のまま**、6 コーパスの数字も不変です。
+サンプルのパリティ 30/30、bUnit 30/30、回帰ゲート 13/13。
+
+## 次の担当者へ(ここが第 2 層の最重要項目です)
+
+**`RenderDynamicChildren` の `IComponent` 経路**を見てください。これが直れば、
+`h2`・カテゴリメニューに加えて、**コードから足された全ての互換コンポーネントが一度に効きます**。
+`HtmlAnchor` の修正はその下流で既に待機しています。
+
+切り分けは済んでいます —— 同じ親、同じ `Controls`、同じタイミングで、
+**型が `LegacyWebControl` なら出て、`IComponent` なら出ない**。
+再現は `corpora/out/be` の `archive.aspx` 由来ページが最短です。

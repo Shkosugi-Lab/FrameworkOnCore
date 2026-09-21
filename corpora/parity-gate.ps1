@@ -30,12 +30,13 @@ $parityDir = Join-Path $PSScriptRoot 'parity'
 
 # 正解データがあるものだけ。採取は record-webforms-golden.ps1。
 $targets = @(
-    @{ Name = 'be'; Port = 5080 }
+    @{ Name = 'be'; Port = 5080 },
+    @{ Name = 'wt'; Port = 5080 }
 )
 
 if ($Only) {
     $targets = $targets | Where-Object { $Only -contains $_.Name }
-    if (-not $targets) { Write-Error "-Only に一致する対象がありません。指定可能: be"; exit 1 }
+    if (-not $targets) { Write-Error "-Only に一致する対象がありません。指定可能: be, wt"; exit 1 }
 }
 
 $verifier = Join-Path $repo 'tools\WebForm2Blazor.ParityTest\bin\alt\WebForm2Blazor.ParityTest.dll'

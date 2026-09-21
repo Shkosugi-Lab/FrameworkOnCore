@@ -30,28 +30,35 @@ $parityDir = Join-Path $PSScriptRoot 'parity'
 
 # 旧アプリを動かせると実測できたものだけ。足すときは実際に採ってから。
 #
-# wt は入っていません。ここは推定ではなく実測の結果です:
+# mojo / yaf / dnn はデータベースが要るのでまだ入っていません。
 #
-#   1. 元アプリのビルドは通ります(build-original.ps1 に追加済み、53 アセンブリ)
-#   2. IIS に載せると、どのページも応答しません(接続はできるが返らない)
-#   3. 原因は Global.asax の Application_Start:
-#        roleActions.AddUserAndRole();   → ここでデータベースに接続する
-#      Web.config が指すのは実在しない Azure SQL(ms.database.windows.net、資格情報も
-#      伏せ字)で、Connection Timeout=30 の待ちがアプリ全体をブロックします。
-#   4. この環境には LocalDB も SQL Server もありません(sqllocaldb なし)
+# wt の ConnectionString について
+# ------------------------------
+# 元の Web.config が指すのは実在しない Azure SQL です
+# (ms.database.windows.net、資格情報も uid1 / P@123 と伏せ字)。
+# 匿名化されたサンプルで、そのままでは Application_Start の
+# roleActions.AddUserAndRole() が到達しないホストを待ち続け、アプリが起動しません。
 #
-# つまり wt を採るにはデータベースを用意するしかありません。用意できるなら、
-# 上の targets に足すだけで採取できます(ビルドはもう通ります)。
-# mojo / yaf / dnn も同様にデータベースが要ります。
+# ここで与えているのは「元アプリが本来つながるはずだったデータベース」です。
+# WingtipToys は EF Code First なので、LocalDB に接続できればスキーマもシードも
+# 自分で作ります(実測: /ProductList が 34,510 バイト、商品一覧が出ます)。
+#
+# 「起動させるために接続文字列を書き換えて、つながらないことにする」のとは別物です。
+# そちらをやると、採れたものはもう変換前アプリの実描画ではなくなります。
 $targets = @(
     @{ Name = 'be'
        Path = 'BlogEngine.NET-3.3.8.0\BlogEngine\BlogEngine.NET'
-       Port = 8091 }
+       Port = 8091 },
+
+    @{ Name = 'wt'
+       Path = 'wingtiptoys-master\WingtipToys\WingtipToys'
+       Port = 8092
+       ConnectionString = 'Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=WingtipToys;Integrated Security=True;MultipleActiveResultSets=True;Connect Timeout=30' }
 )
 
 if ($Only) {
     $targets = $targets | Where-Object { $Only -contains $_.Name }
-    if (-not $targets) { Write-Error "-Only に一致する対象がありません。指定可能: be"; exit 1 }
+    if (-not $targets) { Write-Error "-Only に一致する対象がありません。指定可能: be, wt"; exit 1 }
 }
 
 $appcmd = Join-Path $env:SystemRoot 'System32\inetsrv\appcmd.exe'
@@ -104,11 +111,36 @@ foreach ($target in $targets) {
     & $appcmd delete site $siteName 2>&1 | Out-Null
     & $appcmd delete apppool $poolName 2>&1 | Out-Null
 
+    # 元アプリが本来つながるはずだったデータベースを与えます(上の targets のコメント)。
+    if ($target.ConnectionString) {
+        $webConfig = Join-Path $physical 'Web.config'
+        $text = Get-Content $webConfig -Raw
+        $replaced = [regex]::Replace($text,
+            'connectionString="Server=tcp:ms\.database\.windows\.net[^"]*"',
+            'connectionString="' + $target.ConnectionString.Replace('$', '$$') + '"')
+        if ($replaced -ne $text) {
+            Set-Content $webConfig -Value $replaced -Encoding utf8
+            Write-Host '  接続文字列を LocalDB に向けました'
+        }
+    }
+
     Write-Host '  IIS サイトを作成'
     & $appcmd add apppool /name:$poolName /managedRuntimeVersion:v4.0 /managedPipelineMode:Integrated | Out-Null
+
+    # LocalDB はユーザー単位のインスタンスです。アプリプール ID に自分のプロファイルを
+    # 持たせないと、(localdb)\MSSQLLocalDB を自動生成できず接続できません。
+    & $appcmd set apppool $poolName `
+        /processModel.loadUserProfile:true /processModel.setProfileEnvironment:true | Out-Null
+
     & $appcmd add site /name:$siteName /physicalPath:$physical `
         ("/bindings:http/*:{0}:localhost" -f $target.Port) | Out-Null
     & $appcmd set app "$siteName/" /applicationPool:$poolName | Out-Null
+
+    # 匿名要求は既定で IUSR として動きます。下で権限を与えるのはアプリプール ID の
+    # ほうなので、そのままだと読み取れず 401 になります(wt で実測)。空文字を指定すると
+    # 匿名要求もアプリプール ID で動き、権限が 1 か所で揃います。
+    & $appcmd set config "$siteName/" /section:anonymousAuthentication `
+        /userName:"" /commit:apphost | Out-Null
 
     # BlogEngine は App_Data に書きます(設定・キャッシュ)。読み取り専用だと
     # 初回要求で落ち、そのエラーページがゴールデンマスターとして記録されます。

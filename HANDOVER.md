@@ -374,7 +374,48 @@ nopCommerce 1.90 のみ自動取得できません(4.3 参照)。
 `webforms-property-catalog.json` が唯一の網です。`PropertyCatalog` ツールで
 実ランタイムから採取した属性と、実装済みパラメータの差分監査を定期的に回してください。
 
-### 5.5 CI
+### 5.5 `--split-projects` を既定にできる状態まで持っていく
+
+参照ライブラリを別アセンブリのまま出力する経路を追加しました(`--split-projects`、
+既定は今までどおり統合)。詳細と実測は README「参照ライブラリを別アセンブリのまま
+出力する」に書いてあります。ここには**次に手を付ける順**だけ書きます。
+
+現状、分割後の「ビルドエラー総数」はまだ測れません。MSBuild は依存順にビルドして
+失敗した枝から先へ進まないので、ライブラリが 1 件でも落ちるとアプリ本体は
+コンパイルされず、出る数字はライブラリ側だけの下限です(検証器が警告します)。
+**総数を出せるようにするには、下の 4 つを潰してライブラリを全部通すのが先。**
+
+| コーパス | ライブラリ側に残っている件数 | 中身 |
+|---|---:|---|
+| `yaf` | 3 | **変換器側の欠陥。最優先。** |
+| `mojo` | 1 | `TimeSpan.Parse` のオーバーロード不一致 |
+| `n2` | 1 | `IDataContractSurrogate`(.NET が削除。変換器にできることは無い) |
+| `dnn` | 11 | `log4net` 周辺 |
+
+yaf の 3 件を最初に見てください。変換器が `ServiceStack.OrmLite` のファイルへ
+`using CollectionExtensions = yaf.Components.Pages.Types.Extensions.CollectionExtensions;`
+を**挿入しています**。元のファイルにその行はありません。ライブラリがアプリの
+名前空間を参照することは元のソリューションでは起こり得ないので、これは統合出力でも
+間違っているのに、1 アセンブリなのでたまたま通っていたものです。
+
+`using X = Y;` を**足している**のは 2 箇所だけです
+(`ApplyNamespaceMap` は既存の綴りを書き換えるだけで、行は増やしません)。
+
+- `Convert\RelocatedTypeIndex.cs:194` — 裸の名前に移動先のエイリアスを付ける。本命。
+- `Convert\CompatImportDisambiguator.cs:161` — 曖昧な名前を互換層側に寄せる。
+
+どちらも「どの候補を選ぶか」で決まるので、**移植先プロジェクトが違う候補を
+選ばない**ようにするのが筋です(所属プロジェクトは `OwningProjectOf` が持っています)。
+
+**直すときの注意**: この挿入は統合出力でも起きているので、直すと既定のベースラインが
+動きます。`corpora\convert-all.ps1 -UpdateBaseline` と README のコーパス表の両方を
+更新してください。
+
+測り方は `corpora\convert-all.ps1 -Split`(出力は `corpora\out-split`)。
+移植 .cs / 総残差 / 変換可能が**動かないことが正しい**——分割は変換内容を変えません。
+ビルドエラーだけが動いてよい数字です。
+
+### 5.6 CI
 
 現状 `verify-all.ps1` は手元でしか回りません。IIS Express と .NET Framework の
 MSBuild が要るのでパリティ層は Windows ランナー必須です。

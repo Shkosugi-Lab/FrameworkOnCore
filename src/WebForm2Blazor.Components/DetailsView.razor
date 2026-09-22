@@ -54,6 +54,14 @@
     /// <summary>WebForms DataSource equivalent. Displays the first row.</summary>
     public object DataSource { get; set; }
 
+    /// <summary>
+    /// WebForms DetailsView.CommandRowStyle.BorderStyle (markup attribute form
+    /// CommandRowStyle-BorderStyle). Carried, not rendered: this compat control has no
+    /// edit/insert/delete command row at all (see AutoGenerateRows above), so there is
+    /// nothing for the style to apply to.
+    /// </summary>
+    [Parameter] public string CommandRowStyleBorderStyle { get; set; }
+
     public object DataItem => _dataItem;
 
     private bool IsGridLinesNone

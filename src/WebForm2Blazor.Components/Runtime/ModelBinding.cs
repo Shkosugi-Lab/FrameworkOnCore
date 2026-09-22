@@ -73,6 +73,38 @@ internal static class ModelBinding
         return method.Invoke(method.IsStatic ? null : host, arguments);
     }
 
+    /// <summary>
+    /// WebForms 4.5 model binding (DeleteMethod="...") support: invokes the named method,
+    /// binding its parameters from the deleted row's DataKeyNames values by parameter name
+    /// (case-insensitive, as markup attribute matching is throughout this converter) -
+    /// WingtipToys' RemoveLogin(string loginProvider, string providerKey) is bound this way
+    /// from DataKeyNames="LoginProvider,ProviderKey". A parameter not among the keys falls
+    /// back to the same QueryString/RouteData/Form chain SelectMethod uses.
+    /// </summary>
+    public static void InvokeDeleteMethod(
+        IWebFormsHost host, string deleteMethod, IReadOnlyDictionary<string, object> keyValues)
+    {
+        if (host is null || string.IsNullOrEmpty(deleteMethod))
+        {
+            return;
+        }
+
+        var method = host.GetType()
+            .GetMethods(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static)
+            .FirstOrDefault(candidate => candidate.Name.Equals(deleteMethod, StringComparison.Ordinal));
+        if (method is null)
+        {
+            return;
+        }
+
+        var arguments = method.GetParameters()
+            .Select(parameter => keyValues.TryGetValue(parameter.Name!, out var keyValue)
+                ? ConvertValue(keyValue, parameter.ParameterType)
+                : ResolveParameter(host, parameter))
+            .ToArray();
+        method.Invoke(method.IsStatic ? null : host, arguments);
+    }
+
     private static object ResolveParameter(IWebFormsHost host, ParameterInfo parameter)
     {
         object raw;

@@ -13,6 +13,7 @@
 #   .\corpora\convert-all.ps1 -Quick             # be と wt だけ(下記)
 #   .\corpora\convert-all.ps1 -Only be,yaf       # 指定したものだけ
 #   .\corpora\convert-all.ps1 -UpdateBaseline    # 現在の実測値を expected.json に書き戻す
+#   .\corpora\convert-all.ps1 -Split             # 参照ライブラリを別 csproj にして corpora\out-split へ
 param(
     [string]$Root = (Join-Path $PSScriptRoot 'work'),
     [string]$Out = (Join-Path $PSScriptRoot 'out'),
@@ -32,6 +33,18 @@ param(
     # 速いほうを毎回回すためのものであって、遅いほうを省くためのものではありません。
     # 4 数字が動くときは回帰なので、見逃すと痛いのはそちらです。
     [switch]$Quick,
+
+    # 参照ライブラリを独立した csproj として出力する(--split-projects)。
+    #
+    # 出力先は corpora\out-split で、既定の corpora\out とは別です。**ベースラインは
+    # 統合出力のものなので、これで上書きはできません**(-UpdateBaseline と併用不可)。
+    #
+    # 比較の読み方:
+    #   移植 .cs / 総残差 / 変換可能 は【変わらないことが正しい】。分割はコードの
+    #     変換内容を一切変えないので、ここが動いたら分割の副作用です。
+    #   ビルドエラーだけが動いてよい数字で、それがこのフラグの効果そのものです。
+    [switch]$Split,
+
     [switch]$SkipBuild,
     [switch]$SkipVerifyBuild,
     [switch]$UpdateBaseline,
@@ -95,6 +108,12 @@ $corpora = @(
     @{ Name = 'n2'
        Input = 'n2cms-master\src\WebForms\WebFormsTemplates'
        Project = 'n2cms-master\src\WebForms\WebFormsTemplates\N2.Templates.csproj'
+       # -Split のときだけアプリ名を変えます。n2 が参照するライブラリの 1 つが
+       # **N2.dll** で、Windows では n2.dll と同じファイル名です。分割すると両方が
+       # 同じ出力ディレクトリに置かれるため衝突します(変換器も残差で指摘します)。
+       # 統合出力では 1 アセンブリなので起きません。名前を変えても移植 .cs /
+       # 総残差 / 変換可能 は動きません(名前空間の綴りが変わるだけ。実測で確認済み)。
+       SplitName = 'N2Templates'
        # n2 registers five expression builders of its own; without the map every
        # "<%$ CurrentItem: Title %>" is dropped as a residual.
        ExpressionMap = 'expression-maps\n2.json'
@@ -108,6 +127,15 @@ $corpora = @(
 
 if ($Quick -and $Only) {
     Write-Error "-Quick と -Only は同時に指定できません。"
+}
+if ($Split) {
+    if ($UpdateBaseline) {
+        Write-Error "-Split と -UpdateBaseline は同時に指定できません。ベースラインは統合出力の数字です。"
+        exit 1
+    }
+    if (-not $PSBoundParameters.ContainsKey('Out')) {
+        $Out = Join-Path $PSScriptRoot 'out-split'
+    }
 }
 if ($Quick) {
     $Only = @('be', 'wt')
@@ -192,8 +220,10 @@ foreach ($c in $corpora) {
     $outDir = Join-Path $Out $c.Name
     if (Test-Path $outDir) { Remove-Item $outDir -Recurse -Force -ErrorAction SilentlyContinue }
 
-    $arguments = @('--input', $inputPath, '--output', $outDir, '--name', $c.Name,
+    $appName = if ($Split -and $c.SplitName) { $c.SplitName } else { $c.Name }
+    $arguments = @('--input', $inputPath, '--output', $outDir, '--name', $appName,
                    '--components-ref', $componentsRef)
+    if ($Split) { $arguments += '--split-projects' }
     foreach ($inc in $c.Include) { $arguments += @('--include', (Join-Path $Root $inc)) }
     if ($c.Project) { $arguments += @('--project', (Join-Path $Root $c.Project)) }
     if ($c.WebConfig)  { $arguments += @('--web-config',  (Join-Path $Root $c.WebConfig)) }
@@ -238,6 +268,11 @@ foreach ($c in $corpora) {
             # A parse error stops semantic analysis, so the count is a floor, not a total.
             $problems += "$($c.Name): 構文エラーによりビルドエラー数が下限値です"
         }
+        if ($verifyOutput -match '警告: 参照しているプロジェクト') {
+            # 複数プロジェクト出力(-Split)でのみ起きます。ライブラリが先に落ちると
+            # アプリ本体はコンパイルされないので、件数はライブラリ側だけの下限です。
+            $problems += "$($c.Name): 参照プロジェクトが先に失敗したためビルドエラー数が下限値です(アプリ本体は未コンパイル)"
+        }
     }
 
     $s = Read-Summary -ReportPath $report
@@ -272,6 +307,16 @@ foreach ($c in $corpora) {
 
         if ($diffs.Count -eq 0) {
             $verdict = '一致'
+        }
+        elseif ($Split) {
+            # 分割出力のベースラインはありません。比較相手は【統合出力の】数字で、
+            # ビルドエラーが動くのは期待どおり —— それがこのフラグの効果です。
+            # 残りの 3 数字が動いたときだけ、分割が変換内容に影響したことになります。
+            $verdict = ($diffs -join ' / ')
+            $structural = @($diffs | Where-Object { $_ -notmatch '^ビルドエラー' })
+            if ($structural.Count -gt 0) {
+                $problems += "$($c.Name): 分割で変換内容が変わりました — $($structural -join ' / ')"
+            }
         }
         else {
             $verdict = ($diffs -join ' / ')
@@ -358,7 +403,15 @@ if ($UpdateBaseline) {
 # -Only で一部だけ流したときも比較する。見ているのは README と expected.json で、
 # どちらも今回の計測とは独立しているため。
 $readmePath = Join-Path $repo 'README.md'
-if (Test-Path $readmePath) {
+if ($Split) {
+    # README の表は統合出力の数字です。分割出力と突き合わせても必ず食い違うので見ません。
+    Write-Host ""
+    Write-Host '-Split: 参照ライブラリを独立した csproj として出力しました。' -ForegroundColor Cyan
+    Write-Host '上の「判定」列の比較相手は【統合出力のベースライン】です。' -ForegroundColor Cyan
+    Write-Host 'ビルドエラーが動くのは期待どおりで、それ以外が動いたら分割の副作用です。' -ForegroundColor Cyan
+    Write-Host ("出力先: {0}" -f $Out) -ForegroundColor Cyan
+}
+elseif (Test-Path $readmePath) {
     $rows = @{}
     foreach ($line in [IO.File]::ReadAllLines($readmePath)) {
         # | BlogEngine.NET 3.3.8 (`be`) | 261 | 64 | 2 | **0** |
@@ -458,5 +511,10 @@ if ($measuredCorpora.Count -lt 6) {
     Write-Host '残りは触っていません。コミットの前に引数なしで全 6 本を回してください。' -ForegroundColor Yellow
 }
 
-Write-Host 'ベースラインと一致しました。' -ForegroundColor Green
+if ($Split) {
+    Write-Host '分割出力: 変換内容はベースラインと一致しています(動いたのはビルドエラーだけ)。' -ForegroundColor Green
+}
+else {
+    Write-Host 'ベースラインと一致しました。' -ForegroundColor Green
+}
 exit 0

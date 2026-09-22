@@ -431,46 +431,29 @@ public static class WebConfigurationManager
     /// <summary>
     /// System.Web.Configuration.WebConfigurationManager.OpenWebConfiguration equivalent.
     ///
-    /// Used to return null, so "config.GetSection(...)" was a compile error on the object
-    /// it handed back - BlogEngine's FileSystemUtilities opens the configuration, reads a
-    /// section, changes the default provider and saves. Returning a real object lets that
-    /// code say what it always said; what it CANNOT do is silently pretend to save.
+    /// Returns the REAL System.Configuration.Configuration (OpenExeConfiguration against
+    /// the entry assembly's own .config file), not a compat shim of it. Two reasons, not
+    /// one:
+    ///
+    /// 1. Type compatibility. Ported code that keeps its original "using Configuration =
+    ///    System.Configuration.Configuration" (surviving because that using is not a
+    ///    System.Web one this converter strips) declares locals/fields/return types as the
+    ///    real Configuration - N2's Context.GetConfiguration among them. A compat class of
+    ///    the same simple name does not satisfy that declared type; it is a different type
+    ///    that happens to share a name, and CS0029/CS0019 lands on the assignment.
+    ///
+    /// 2. config.Save() then actually works. Compat.ConfigurationManager.GetSection and
+    ///    RefreshSection already delegate to the real System.Configuration.ConfigurationManager
+    ///    (same file), so a real Configuration's Save() writing to that file and a
+    ///    subsequent RefreshSection() picks the change back up - the exact
+    ///    "change a section, Save(), RefreshSection()" sequence BlogEngine's
+    ///    FileSystemUtilities uses to switch its file-system provider. A compat object
+    ///    could only approximate that (or refuse it outright, which this used to do); the
+    ///    real one performs it.
     /// </summary>
-    public static Configuration OpenWebConfiguration(string path) => new();
-}
-
-/// <summary>
-/// System.Configuration.Configuration equivalent - the object an application gets back
-/// when it opens its own configuration to read or change a section.
-/// </summary>
-public sealed class Configuration
-{
-    /// <summary>Same source as everything else: the App.config carried over from Web.config.</summary>
-    public object GetSection(string sectionName) => Compat.ConfigurationManager.GetSection(sectionName);
-
-    public Compat.ConfigurationManager.AppSettingsSection AppSettings => Compat.ConfigurationManager.AppSettings;
-
-    public Compat.ConfigurationManager.ConnectionStringsSection ConnectionStrings
-        => Compat.ConfigurationManager.ConnectionStrings;
-
-    /// <summary>Where the configuration was read from (the carried-over App.config).</summary>
-    public string FilePath => System.IO.Path.Combine(
-        AppContext.BaseDirectory,
-        System.Reflection.Assembly.GetEntryAssembly()?.GetName().Name + ".dll.config");
-
-    /// <summary>
-    /// Writing the configuration back is NOT done here, and it throws rather than doing
-    /// nothing. An application saves its configuration to change its own behaviour -
-    /// BlogEngine switches file-system providers this way - and a no-op would report
-    /// success while the setting stayed as it was, which is the worst of the three
-    /// possible answers. Persisting it needs a decision about where the converted
-    /// application's configuration lives, so it is raised at the call site.
-    /// </summary>
-    public void Save() => throw new NotSupportedException(
-        "設定ファイルへの書き戻しは変換後アプリでは未対応です"
-        + "(黙って何もしないと、変更できたように見えて実際は変わりません)。");
-
-    public void Save(object saveMode) => Save();
+    public static System.Configuration.Configuration OpenWebConfiguration(string path)
+        => System.Configuration.ConfigurationManager.OpenExeConfiguration(
+            System.Configuration.ConfigurationUserLevel.None);
 }
 
 /// <summary>

@@ -88,7 +88,13 @@
     [Parameter] public string StepNextButtonText { get; set; }
     [Parameter] public string StepPreviousButtonText { get; set; }
 
-    public IReadOnlyList<WizardStep> WizardSteps => _steps;
+    /// <summary>
+    /// WebForms Wizard.WizardSteps: a WizardStepCollection, which - unlike a bare
+    /// IReadOnlyList - has IndexOf. YAF's Install page uses exactly that to locate a step
+    /// FindWizardControlRecursive already found. List&lt;T&gt; is IReadOnlyList&lt;T&gt; too, so
+    /// nothing reading this as the interface loses anything.
+    /// </summary>
+    public List<WizardStep> WizardSteps => _steps;
 
     public WizardStep ActiveStep
         => _activeStepIndex >= 0 && _activeStepIndex < _steps.Count ? _steps[_activeStepIndex] : null;

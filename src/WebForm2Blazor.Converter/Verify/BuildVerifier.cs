@@ -16,6 +16,19 @@ public static partial class BuildVerifier
 {
     private sealed record Diagnostic(string File, int Line, string Code, string Message)
     {
+        /// <summary>
+        /// The .csproj MSBuild attributes this diagnostic to, which it prints in brackets at
+        /// the end of every line. Null when the line did not carry one.
+        /// </summary>
+        public string? Project
+        {
+            get
+            {
+                var match = ProjectSuffix().Match(Message);
+                return match.Success ? match.Groups[1].Value : null;
+            }
+        }
+
         /// <summary>Which layer the diagnostic belongs to, derived from the file it lands in.</summary>
         public FileKind Kind => File.EndsWith(".razor", StringComparison.OrdinalIgnoreCase)
                                 || File.EndsWith("_razor.g.cs", StringComparison.OrdinalIgnoreCase)
@@ -166,7 +179,8 @@ public static partial class BuildVerifier
     /// ahead of the compiler.
     /// </summary>
     private static bool StoppedAtParse(List<Diagnostic> diagnostics, string? outputDirectory = null)
-        => SourcesFailToParse(outputDirectory)
+        => DependencyProjectFailed(diagnostics, outputDirectory)
+            || SourcesFailToParse(outputDirectory)
             || diagnostics.Any(diagnostic => ParseErrorCodes.Contains(diagnostic.Code))
             // ANY Razor error. RZ means the Razor compiler refused a .razor, so the C#
             // it would have generated for that file never existed and nothing in it was
@@ -182,6 +196,60 @@ public static partial class BuildVerifier
                 && !diagnostics.Any(diagnostic =>
                     diagnostic.Code.StartsWith("CS", StringComparison.Ordinal)))
             || StoppedAtDeclarations(diagnostics);
+
+    /// <summary>
+    /// The application project never compiled, because a project it REFERENCES failed
+    /// first.
+    ///
+    /// MSBuild builds in dependency order and stops a branch at the first failure, so one
+    /// error in a library means the application - and everything else downstream of that
+    /// library - is never handed to the compiler at all. The count is then a floor, and an
+    /// unusually convincing one: with --split-projects, n2cms reported "1 error" against a
+    /// merged baseline of 4 and mojoPortal reported "1" against 312, and in every case the
+    /// application assembly had not been produced. Nothing else here catches it. A single
+    /// CS1501 in a library is not a parse error, not a declaration-stage error, and not the
+    /// absence of CS diagnostics, so all three existing backstops read the build as complete.
+    ///
+    /// Judged on the .csproj MSBuild attributes each diagnostic to. With one project -
+    /// every merged conversion - no diagnostic can name another project, so this never
+    /// fires and the merged numbers are untouched.
+    /// </summary>
+    private static bool DependencyProjectFailed(List<Diagnostic> diagnostics, string? outputDirectory)
+    {
+        if (outputDirectory is null || diagnostics.Count == 0)
+        {
+            return false;
+        }
+
+        var applicationProject = Directory.EnumerateFiles(outputDirectory, "*.csproj").FirstOrDefault();
+        if (applicationProject is null)
+        {
+            return false;
+        }
+
+        return diagnostics.Any(diagnostic =>
+        {
+            if (diagnostic.Project is not { } project)
+            {
+                return false;
+            }
+            try
+            {
+                return !string.Equals(
+                    Path.GetFullPath(project),
+                    Path.GetFullPath(applicationProject),
+                    StringComparison.OrdinalIgnoreCase);
+            }
+            catch (ArgumentException)
+            {
+                return false;
+            }
+        });
+    }
+
+    /// <summary>The "[C:\...\Thing.csproj]" MSBuild appends to every diagnostic line.</summary>
+    [GeneratedRegex(@"\[([^\[\]]+\.csproj)\]\s*$")]
+    private static partial Regex ProjectSuffix();
 
     /// <summary>
     /// Whether the emitted C# actually parses - asked of Roslyn, not of a code list.
@@ -213,8 +281,14 @@ public static partial class BuildVerifier
         foreach (var file in Directory.EnumerateFiles(outputDirectory, "*.cs", SearchOption.AllDirectories))
         {
             var relative = Path.GetRelativePath(outputDirectory, file).Replace('\\', '/');
-            if (relative.StartsWith("bin/", StringComparison.OrdinalIgnoreCase)
-                || relative.StartsWith("obj/", StringComparison.OrdinalIgnoreCase))
+            // Any bin/ or obj/ SEGMENT, not just a leading one. With --split-projects the
+            // build output of a referenced library lands at "<library>/obj/..." and a
+            // leading-prefix test does not see it - the generated code in there is not the
+            // converter's to answer for, and reading it as "the sources do not parse" would
+            // mark every count in a split conversion as a floor.
+            if (relative.Split('/').Any(segment =>
+                    segment.Equals("bin", StringComparison.OrdinalIgnoreCase)
+                    || segment.Equals("obj", StringComparison.OrdinalIgnoreCase)))
             {
                 continue;
             }
@@ -727,6 +801,14 @@ public static partial class BuildVerifier
         > 前後比較や合否判定にこの数値をそのまま使わないでください。
         """;
 
+    private const string DependencyStopWarning = """
+        > **この件数は下限です。参照しているプロジェクトが先に失敗しました。**
+        > MSBuild は依存順にビルドし、失敗した枝から先へは進みません。つまり
+        > **アプリケーション本体はコンパイルされておらず**、その中のエラーは 1 件も
+        > 報告されていません。ライブラリ側のエラーを直すと件数は大幅に増えます。
+        > 下の表はライブラリ側だけを見た数字です。
+        """;
+
     public static int Run(string outputDirectory, string? reportPath)
     {
         var projectPath = Directory.EnumerateFiles(outputDirectory, "*.csproj").FirstOrDefault();
@@ -792,11 +874,16 @@ public static partial class BuildVerifier
 
                 """ + Environment.NewLine + report;
         }
+        // Which of the two ways the count became a floor, because the answer decides where
+        // to look. "Fix the syntax error" is useless advice when the application simply was
+        // not built.
+        var dependencyFailed = DependencyProjectFailed(diagnostics, outputDirectory);
         if (stoppedAtParse)
         {
             // Blank line between: a block quote running straight into the "#" heading would
             // swallow it into the quote.
-            report = ParseStopWarning + Environment.NewLine + Environment.NewLine + report;
+            report = (dependencyFailed ? DependencyStopWarning : ParseStopWarning)
+                + Environment.NewLine + Environment.NewLine + report;
         }
         File.WriteAllText(reportPath, report);
         WriteFullErrorList(outputDirectory, diagnostics);
@@ -823,7 +910,15 @@ public static partial class BuildVerifier
                 + "(その名前が declaration パスでビルドを止め、残りのエラーを隠していたため)。"
                 + "一時ファイルは削除済みです。");
         }
-        if (stoppedAtParse)
+        if (dependencyFailed)
+        {
+            // The most convincing wrong number this tool can produce: a small count from a
+            // build in which the application was never compiled at all.
+            Console.WriteLine(
+                "警告: 参照しているプロジェクトが先に失敗したため、アプリケーション本体は"
+                + "コンパイルされていません。上の件数はライブラリ側だけの下限であり、総数ではありません。");
+        }
+        else if (stoppedAtParse)
         {
             // Without this the number reads as "almost building" when the truth is the
             // opposite: the compiler gave up before it ever looked at any type.

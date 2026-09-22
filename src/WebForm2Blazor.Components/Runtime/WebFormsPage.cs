@@ -107,6 +107,12 @@ public abstract class Page : ComponentBase, IWebFormsHost, IWebFormsControl
     /// <summary>WebForms Page.Context equivalent.</summary>
     public HttpContext Context => HttpContext.Current;
 
+    /// <summary>
+    /// WebForms TemplateControl.Cache equivalent (the process-wide store) - a shortcut onto
+    /// Context.Cache, which already exists and is what this forwards to.
+    /// </summary>
+    public Cache Cache => Context?.Cache;
+
     /// <summary>WebForms Server (HttpServerUtility) equivalent.</summary>
     public ServerUtilityShim Server => _server ??= new ServerUtilityShim(NavigationManager);
     private ServerUtilityShim _server;

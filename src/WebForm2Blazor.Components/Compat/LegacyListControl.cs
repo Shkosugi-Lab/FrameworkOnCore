@@ -18,14 +18,19 @@ namespace WebForm2Blazor.Components;
 /// The selection is real state, so code that sets SelectedValue and reads it back behaves
 /// as it did. What does not happen is posting back on change - an interactive list needs a
 /// hand-ported component, which is reported separately.
+///
+/// Derives from ListControl (not LegacyWebControl directly) so a ListControl-typed
+/// parameter or variable elsewhere in ported code - YAF's EditMedal.SelectImage(ListControl
+/// list, ...) - accepts an instance of this and sees these members through virtual
+/// dispatch, not ListControl's own (always-empty, for this instance) declarations.
 /// </summary>
-public class LegacyListControl : LegacyWebControl
+public class LegacyListControl : ListControl
 {
     /// <summary>WebForms ListControl.Items.</summary>
-    public ListItemCollection Items { get; } = [];
+    public override ListItemCollection Items { get; } = [];
 
     /// <summary>WebForms ListControl.SelectedIndex (-1 when nothing is selected).</summary>
-    public virtual int SelectedIndex
+    public override int SelectedIndex
     {
         get
         {
@@ -57,7 +62,7 @@ public class LegacyListControl : LegacyWebControl
     /// clears the selection when no item matches - the 4.8 behaviour, which is why code
     /// can assign a value it is not sure about.
     /// </summary>
-    public virtual string SelectedValue
+    public override string SelectedValue
     {
         get => SelectedItem?.ResolvedValue ?? string.Empty;
         set
@@ -78,7 +83,7 @@ public class LegacyListControl : LegacyWebControl
         set => SelectedValue = value;
     }
 
-    public void ClearSelection()
+    public override void ClearSelection()
     {
         foreach (var item in Items)
         {

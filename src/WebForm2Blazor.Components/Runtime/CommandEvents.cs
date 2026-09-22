@@ -81,3 +81,24 @@ public class GridViewCommandEventArgs(object commandSource, CommandEventArgs ori
 }
 
 public delegate void GridViewCommandEventHandler(object sender, GridViewCommandEventArgs e);
+
+/// <summary>WebForms ListViewCommandEventArgs equivalent (ItemCommand).</summary>
+public sealed class ListViewCommandEventArgs(RepeaterItem item, object commandSource, CommandEventArgs originalArgs)
+    : CommandEventArgs(originalArgs.CommandName, originalArgs.CommandArgument)
+{
+    /// <summary>The item that raised the command. Item.DataItem exposes the row data.</summary>
+    public RepeaterItem Item { get; } = item;
+
+    public object CommandSource { get; } = commandSource;
+}
+
+public delegate void ListViewCommandEventHandler(object source, ListViewCommandEventArgs e);
+
+/// <summary>Bubbles commands into the ListView's ItemCommand (and its Delete handling).</summary>
+public sealed class ListViewCommandContext(ListView owner, RepeaterItem item) : ICommandSink
+{
+    public RepeaterItem Item => item;
+
+    public void RaiseCommand(object commandSource, CommandEventArgs args)
+        => owner.RaiseItemCommand(commandSource, item, args);
+}

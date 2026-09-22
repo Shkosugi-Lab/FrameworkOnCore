@@ -929,6 +929,24 @@ public static class CodeBehindRewriter
             ["ImageButton"] = "IButtonControl",
         };
 
+        /// <summary>
+        /// WizardStepBase -> WizardStep, at reference positions only (declarations are left
+        /// alone by IsReferencePosition, same as UniversalControlBases below).
+        ///
+        /// Unlike Control/WebControl, WizardStepBase does not map onto a shared interface:
+        /// it maps onto the ONE concrete step type this runtime has. WebForms had one
+        /// wizard-step family (WizardStep / CreateUserWizardStep / CompleteWizardStep all
+        /// derive from WizardStepBase); this compat layer folds all three onto the single
+        /// WizardStep component, so code that names the common base to hold "whichever step
+        /// this is" - YAF's Install page walks FindWizardControlRecursive's result with
+        /// "is WizardStepBase step" before indexing WizardSteps.IndexOf(step) - needs it to
+        /// mean the one type real steps actually are. Safe in the direction that matters:
+        /// WizardStep's surface is a strict superset of the WizardStepBase declaration
+        /// surface (Title, StepType, AllowReturn, all present with the same defaults), so
+        /// widening to it cannot turn a compiling member access into a missing one.
+        /// </summary>
+        private const string WizardStepBaseName = "WizardStepBase";
+
         public override SyntaxNode? VisitQualifiedName(QualifiedNameSyntax node)
         {
             // System.Web.UI.Control -> IWebFormsControl (the qualifier proves the origin)
@@ -944,6 +962,13 @@ public static class CodeBehindRewriter
                 && IsParameterPosition(node))
             {
                 return Replacement(node, parameterInterface);
+            }
+
+            if (node.Right.Identifier.Text == WizardStepBaseName
+                && node.Left.ToString() == "System.Web.UI.WebControls"
+                && IsReferencePosition(node))
+            {
+                return Replacement(node, "WizardStep");
             }
 
             return base.VisitQualifiedName(node);
@@ -966,6 +991,13 @@ public static class CodeBehindRewriter
                 && IsParameterPosition(node))
             {
                 return Replacement(node, parameterInterface);
+            }
+
+            if (node.Identifier.Text == WizardStepBaseName
+                && IsReferencePosition(node)
+                && (IsTypePosition(node) || !NamesAMemberInScope(node)))
+            {
+                return Replacement(node, "WizardStep");
             }
 
             return base.VisitIdentifierName(node);
@@ -1319,6 +1351,20 @@ public static class CodeBehindRewriter
     /// </summary>
     private static string? CompatTypeNameFor(string writtenName)
     {
+        // The two names the compat layer deliberately gives a "Shim" suffix (see the alias
+        // block in RewriteUsings) have to resolve to the SHIM here too, even though a class
+        // of the bare name also exists. Both spellings of one WebForms type must land on
+        // one compat type: n2's Exporter declares "GetTextWriter(HttpResponse)" with a
+        // "using System.Web;" - so the alias makes it HttpResponseShim - while its subclass
+        // GZipExporter writes the parameter fully qualified as System.Web.HttpResponse.
+        // Resolving the qualified form to the bare HttpResponse class made the override a
+        // different signature from the method it overrides, which is CS0115 on a file that
+        // is a faithful copy of code that compiled.
+        if (ShimSuffixedCompatNames.TryGetValue(writtenName, out var shimName))
+        {
+            return shimName;
+        }
+
         if (CompatTypeNames.Contains(writtenName))
         {
             return writtenName;
@@ -1331,6 +1377,13 @@ public static class CodeBehindRewriter
             ? writtenName + "Attribute"
             : null;
     }
+
+    /// <inheritdoc cref="CompatTypeNameFor"/>
+    private static readonly Dictionary<string, string> ShimSuffixedCompatNames = new(StringComparer.Ordinal)
+    {
+        ["HttpRequest"] = "HttpRequestShim",
+        ["HttpResponse"] = "HttpResponseShim",
+    };
 
     /// <summary>
     /// Whether the compatibility layer declares a type of this name. Used by the

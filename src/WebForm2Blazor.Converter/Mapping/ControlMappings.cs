@@ -267,13 +267,13 @@ public static class ControlMappings
         ["DropDownList"] = new()
         {
             Component = "DropDownList",
-            Attributes = WithCommon(Map("ID", "CssClass", "DataTextField", "DataValueField", "OnSelectedIndexChanged", "Enabled", "Visible", "AppendDataBoundItems", "ItemType", "SelectMethod", "SelectedValue")),
+            Attributes = WithCommon(Map("ID", "CssClass", "DataTextField", "DataValueField", "OnSelectedIndexChanged", "Enabled", "Visible", "AppendDataBoundItems", "ItemType", "SelectMethod", "SelectedValue", "DataSource")),
             AssertPresence = true,
         },
         ["ListItem"] = new()
         {
             Component = "ListItem",
-            Attributes = Map("Text", "Value", "Selected"),
+            Attributes = Map("Text", "Value", "Selected", "ResourceKey"),
             CreatesField = false,
         },
         ["GridView"] = new()
@@ -310,7 +310,7 @@ public static class ControlMappings
         {
             // Renders no wrapper element, so the common WebControl (style) attributes do not apply
             Component = "ListView",
-            Attributes = Map("ID", "Visible", "OnItemDataBound", "DataSourceID", "ItemType", "SelectMethod", "DataKeyNames", "GroupItemCount"),
+            Attributes = Map("ID", "Visible", "OnItemDataBound", "OnItemCommand", "DataSourceID", "ItemType", "SelectMethod", "DeleteMethod", "DataKeyNames", "GroupItemCount"),
         },
         ["FormView"] = new()
         {
@@ -399,7 +399,7 @@ public static class ControlMappings
         ["CreateUserWizard"] = new()
         {
             Component = "CreateUserWizard",
-            Attributes = Map(
+            Attributes = Rename(Map(
                 "ID", "Visible", "ActiveStepIndex", "DisplaySideBar",
                 "FinishCompleteButtonText", "StartNextButtonText",
                 "StepNextButtonText", "StepPreviousButtonText",
@@ -409,6 +409,7 @@ public static class ControlMappings
                 "OnCreatingUser", "OnCreatedUser", "OnCreateUserError",
                 "OnContinueButtonClick", "OnActiveStepChanged",
                 "OnNextButtonClick", "OnPreviousButtonClick", "OnFinishButtonClick"),
+                ("NavigationStyle-HorizontalAlign", "NavigationStyleHorizontalAlign")),
         },
         // The account wizard's steps are WizardSteps with a StepType. The account creation
         // itself belonged to the membership provider, which is Identity's job now, so what
@@ -442,7 +443,7 @@ public static class ControlMappings
                 "ID", "Visible", "UserName", "Password", "RememberMeSet", "DisplayRememberMe",
                 "VisibleWhenLoggedIn", "FailureText", "UserNameLabelText", "PasswordLabelText",
                 "RememberMeText", "LoginButtonText", "DestinationPageUrl", "MembershipProvider",
-                "OnAuthenticate", "OnLoggingIn", "OnLoggedIn", "OnLoginError"),
+                "OnAuthenticate", "OnLoggingIn", "OnLoggedIn", "OnLoginError", "RenderOuterTable"),
         },
         ["LoginStatus"] = new()
         {
@@ -466,7 +467,7 @@ public static class ControlMappings
                 "ConfirmNewPasswordLabelText", "ChangePasswordButtonText", "CancelButtonText",
                 "SuccessText", "ChangePasswordFailureText",
                 "OnChangingPassword", "OnChangedPassword", "OnChangePasswordError",
-                "OnCancelButtonClick", "OnContinueButtonClick"),
+                "OnCancelButtonClick", "OnContinueButtonClick", "RenderOuterTable"),
         },
         // MultiView / View: "show one child of several". Without them the whole switched
         // region rendered as an unconverted-control comment - every pane of it gone.
@@ -487,7 +488,7 @@ public static class ControlMappings
             // the attribute. Dropping it rendered thirteen of them across the corpora as
             // nothing at all, which is a silent behaviour change, not a missing feature.
             Attributes = Map(
-                "ID", "Visible", "OnItemCommand", "OnItemDataBound", "DataSourceID", "DataMember"),
+                "ID", "Visible", "OnItemCommand", "OnItemDataBound", "DataSourceID", "DataMember", "DataSource"),
         },
         ["RequiredFieldValidator"] = new()
         {
@@ -600,8 +601,9 @@ public static class ControlMappings
         ["DetailsView"] = new()
         {
             Component = "DetailsView",
-            Attributes = WithCommon(Map("ID", "CssClass", "Visible", "AutoGenerateRows",
+            Attributes = Rename(WithCommon(Map("ID", "CssClass", "Visible", "AutoGenerateRows",
                 "GridLines", "CellPadding", "CellSpacing", "ItemType", "SelectMethod")),
+                ("CommandRowStyle-BorderStyle", "CommandRowStyleBorderStyle")),
         },
         // --- Legacy DataGrid family (the GridView predecessor), mapped onto GridView ---
         ["DataGrid"] = new()
@@ -612,7 +614,7 @@ public static class ControlMappings
             Attributes = Rename(
                 WithRowStyles(WithCommon(Map("ID", "CssClass", "AutoGenerateColumns", "Visible",
                     "CellPadding", "CellSpacing", "GridLines", "ShowHeader", "ShowFooter",
-                    "UseAccessibleHeader"))),
+                    "UseAccessibleHeader", "OnItemDataBound"))),
                 ("DataKeyField", "DataKeyNames")),
             FixedParameters = new Dictionary<string, string> { ["DataGridMode"] = "true" },
         },

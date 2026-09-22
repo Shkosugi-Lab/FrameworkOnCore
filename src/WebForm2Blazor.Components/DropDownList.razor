@@ -40,8 +40,16 @@
     /// <summary>WebForms Items equivalent (Items.Add / FindByValue are available).</summary>
     public ListItemCollection Items { get; } = new();
 
-    /// <summary>WebForms DataSource equivalent. Applied by DataBind().</summary>
-    public object DataSource { get; set; }
+    /// <summary>
+    /// WebForms DataSource equivalent. Applied by DataBind() - explicitly from code-behind,
+    /// or automatically (see OnParametersSet below) when the markup declares it
+    /// declaratively (DataSource="&lt;%# Expr %&gt;"), the same idiom DataSourceID already
+    /// established on Repeater/ListView: that markup has no code-behind DataBind() call to
+    /// rely on.
+    /// </summary>
+    [Parameter] public object DataSource { get; set; }
+
+    private bool _dataSourceBoundFromMarkup;
 
     [Parameter]
     public string SelectedValue
@@ -135,6 +143,26 @@
             Items.Add(new ListItem(text, value));
         }
         StateHasChanged();
+    }
+
+    /// <summary>
+    /// Binds a markup-declared DataSource once, on the FIRST call only - OnParametersSet
+    /// runs again on every later re-render (e.g. the one DataBind() itself schedules via
+    /// StateHasChanged), and by then the SelectMethod path above may have populated
+    /// DataSource too; gating on "DataSource is not null yet" instead of a first-call flag
+    /// re-fired on that later call and doubled every bound item.
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        if (_dataSourceBoundFromMarkup)
+        {
+            return;
+        }
+        _dataSourceBoundFromMarkup = true;
+        if (DataSource is not null)
+        {
+            DataBind();
+        }
     }
 
     protected override void OnAfterRender(bool firstRender)

@@ -40,6 +40,19 @@ public class ListItem : ComponentBase
     /// disabled attribute. True by default, as the original is.</summary>
     [Parameter] public bool Enabled { get; set; } = true;
 
+    /// <summary>
+    /// WebForms ListItem.ResourceKey. In WebForms this drives the ASP.NET implicit
+    /// localization pass: at runtime it looks up "{ResourceKey}.Text" etc. in the page's
+    /// App_LocalResources .resx and overrides that property when found, leaving markup
+    /// values alone otherwise. Carried and not acted on here - this converter does not read
+    /// .resx files - so a page whose resx genuinely overrides a ListItem this way will show
+    /// the markup-declared Text/Value (or the Value fallback below) instead of the localized
+    /// string. Measured against DNN's own ModuleSettings.ascx.resx: none of its ListItem
+    /// resourcekeys (Left/Center/Right/...) have a matching entry, so for that page this is
+    /// not an approximation - it is the same fallback the original app itself falls back to.
+    /// </summary>
+    [Parameter] public string ResourceKey { get; set; }
+
     [CascadingParameter] internal IListItemContainer Container { get; set; }
 
     /// <summary>When Value is unset, Text doubles as the value - same as WebForms.</summary>

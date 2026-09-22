@@ -18,8 +18,14 @@ public enum ParameterKind
     /// is rendered as an array literal.
     /// </summary>
     StringArray,
-    /// <summary>Delegates / RenderFragment / anything else: leave the existing handling alone.</summary>
+    /// <summary>Delegates / RenderFragment: leave the existing handling alone (method group, template).</summary>
     Other,
+    /// <summary>
+    /// A genuine reference-typed parameter (WebForms DataSource : object, business types on a
+    /// converted user control). Needs the typed data-binding cast, unlike Other - a data-bound
+    /// object must not be run through Convert.ToString().
+    /// </summary>
+    Reference,
 }
 
 /// <summary>The resolved type of one component parameter.</summary>
@@ -259,7 +265,22 @@ public static class ComponentParameterTypes
         {
             return new ParameterTypeInfo(kind, CSharpName(effective));
         }
-        return new ParameterTypeInfo(ParameterKind.Other, "global::" + (effective.FullName ?? effective.Name));
+
+        // Delegates (EventHandler, RepeaterCommandEventHandler, ...) and RenderFragment /
+        // RenderFragment<T> are method group / template slots; their existing handling must
+        // stay untouched, which is what ParameterKind.Other signals to ResolveParameterType.
+        // Everything else reference-typed (WebForms DataSource : object, a business type on a
+        // converted user control) is real data that a data-binding expression can assign, and
+        // must not fall into that same bucket - Convert.ToString()-ing a DataSource collection
+        // is not "leave it alone", it is silently wrong.
+        var isDelegateOrTemplate = typeof(Delegate).IsAssignableFrom(effective)
+            || effective == typeof(Microsoft.AspNetCore.Components.RenderFragment)
+            || (effective.IsGenericType
+                && effective.GetGenericTypeDefinition() == typeof(Microsoft.AspNetCore.Components.RenderFragment<>));
+
+        return new ParameterTypeInfo(
+            isDelegateOrTemplate ? ParameterKind.Other : ParameterKind.Reference,
+            "global::" + (effective.FullName ?? effective.Name));
     }
 
     private static string CSharpName(Type type) => type.FullName switch

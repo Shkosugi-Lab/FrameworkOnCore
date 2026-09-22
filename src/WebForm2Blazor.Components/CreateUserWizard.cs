@@ -178,4 +178,12 @@ public class CreateUserWizard : Wizard
     public TableItemStyle ContinueButtonStyle { get; } = new();
     public TableItemStyle CancelButtonStyle { get; } = new();
     public TableItemStyle PasswordHintStyle { get; } = new();
+
+    /// <summary>
+    /// WebForms CreateUserWizard.NavigationStyle.HorizontalAlign (markup attribute form
+    /// NavigationStyle-HorizontalAlign). Flattened rather than a TableItemStyle slot like
+    /// the others above because it is the only sub-property of NavigationStyle seen in the
+    /// corpora; carried on the same terms - the compat wizard renders none of them.
+    /// </summary>
+    [Parameter] public string NavigationStyleHorizontalAlign { get; set; }
 }

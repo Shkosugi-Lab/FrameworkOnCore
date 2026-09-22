@@ -154,15 +154,35 @@ public class ListControl : LegacyWebControl
     /// FindByText and an Add(string) overload, and ported code uses them - a plain List
     /// compiles until the first "Items.FindByText(...)", which is where a list control is
     /// usually driven from.
+    ///
+    /// Virtual (here and below) so LegacyListControl - the base a ported ListControl
+    /// SUBCLASS actually derives from, because it also needs DataSource/DataBind - can
+    /// override these with its own backing state instead of hiding them. A ListControl-typed
+    /// parameter (YAF's EditMedal.SelectImage takes one) must see the real Items through
+    /// this reference, not an unrelated empty collection a "new" hide would leave behind.
     /// </summary>
-    public ListItemCollection Items { get; } = [];
+    public virtual ListItemCollection Items { get; } = [];
 
-    public int SelectedIndex { get; set; } = -1;
+    public virtual int SelectedIndex { get; set; } = -1;
 
-    public string SelectedValue
-        => SelectedIndex >= 0 && SelectedIndex < Items.Count ? Items[SelectedIndex].Value : null;
+    public virtual string SelectedValue
+    {
+        get => SelectedIndex >= 0 && SelectedIndex < Items.Count ? Items[SelectedIndex].Value : null;
+        set
+        {
+            for (var index = 0; index < Items.Count; index++)
+            {
+                if (string.Equals(Items[index].Value, value, StringComparison.Ordinal))
+                {
+                    SelectedIndex = index;
+                    return;
+                }
+            }
+            SelectedIndex = -1;
+        }
+    }
 
-    public void ClearSelection()
+    public virtual void ClearSelection()
     {
         foreach (var item in Items)
         {
@@ -1388,10 +1408,18 @@ public interface IHierarchicalEnumerable : System.Collections.IEnumerable
     IHierarchyData GetHierarchyData(object enumeratedItem);
 }
 
-/// <summary>System.Web.UI.IHierarchicalDataSource equivalent.</summary>
+/// <summary>
+/// System.Web.UI.IHierarchicalDataSource equivalent.
+///
+/// GetHierarchicalView returns HierarchicalDataSourceView, as the original declares, and
+/// NOT object: an implementor writes the faithful signature (n2's ItemDataSource returns
+/// its own ItemHierarchicalDataSourceView), and against an object-returning declaration
+/// that is CS0738 - a return type "object" does not match - rather than the covariant
+/// override it actually is.
+/// </summary>
 public interface IHierarchicalDataSource
 {
-    object GetHierarchicalView(string viewPath);
+    HierarchicalDataSourceView GetHierarchicalView(string viewPath);
 }
 
 /// <summary>System.Web.UI.IDataItemContainer equivalent.</summary>

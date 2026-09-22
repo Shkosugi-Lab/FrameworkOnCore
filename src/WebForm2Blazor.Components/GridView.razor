@@ -191,6 +191,7 @@
     private GridViewRow _headerRow;
     private bool _columnsChanged;
     private bool _pendingRowDataBound;
+    private bool _pendingItemDataBound;
     private int _pageIndex;
     private string _sortExpression;
     private SortDirection _sortDirection = SortDirection.Ascending;
@@ -523,6 +524,13 @@
         remove => OnRowDataBound -= value;
     }
 
+    /// <summary>
+    /// WebForms DataGrid.ItemDataBound equivalent - this component stands in for DataGrid
+    /// too (see DataGridMode). Fires for the same data rows Items below exposes, on the
+    /// same terms as RowDataBound above.
+    /// </summary>
+    [Parameter] public EventHandler<DataGridItemEventArgs> OnItemDataBound { get; set; }
+
     /// <summary>Fired when a command named "Delete" is raised inside a row.</summary>
     [Parameter] public GridViewDeleteEventHandler OnRowDeleting { get; set; }
 
@@ -636,20 +644,22 @@
             var items = new DataGridItemCollection();
             foreach (var row in _gridRows)
             {
-                items.Add(new DataGridItem(
-                    row.RowIndex,
-                    row.RowIndex,
-                    row.RowState == DataControlRowState.Alternate
-                        ? ListItemType.AlternatingItem
-                        : ListItemType.Item)
-                {
-                    DataItem = row.DataItem,
-                    RowFinder = row.FindControl,
-                });
+                items.Add(ToDataGridItem(row));
             }
             return items;
         }
     }
+
+    private static DataGridItem ToDataGridItem(GridViewRow row) => new(
+        row.RowIndex,
+        row.RowIndex,
+        row.RowState == DataControlRowState.Alternate
+            ? ListItemType.AlternatingItem
+            : ListItemType.Item)
+    {
+        DataItem = row.DataItem,
+        RowFinder = row.FindControl,
+    };
 
     void IColumnContainer.AddColumn(DataControlField column)
     {
@@ -801,6 +811,7 @@
 
         RefreshView();
         _pendingRowDataBound = OnRowDataBound is not null;
+        _pendingItemDataBound = DataGridMode && OnItemDataBound is not null;
         StateHasChanged();
     }
 
@@ -958,6 +969,17 @@
             {
                 OnRowCreated?.Invoke(this, new GridViewRowEventArgs(gridRow));
                 OnRowDataBound?.Invoke(this, new GridViewRowEventArgs(gridRow));
+            }
+        }
+
+        // DataGrid.ItemDataBound: same rows and the same "after this render" timing as
+        // RowDataBound above, under the DataGrid-only name ported code still calls it.
+        if (_pendingItemDataBound)
+        {
+            _pendingItemDataBound = false;
+            foreach (var gridRow in _gridRows)
+            {
+                OnItemDataBound?.Invoke(this, new DataGridItemEventArgs(ToDataGridItem(gridRow)));
             }
         }
     }

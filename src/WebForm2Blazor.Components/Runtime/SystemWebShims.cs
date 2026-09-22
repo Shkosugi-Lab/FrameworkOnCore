@@ -828,6 +828,25 @@ public abstract class MembershipProvider
     public abstract bool UnlockUser(string userName);
     public abstract void UpdateUser(MembershipUser user);
     public abstract bool ValidateUser(string username, string password);
+
+    /// <summary>
+    /// MembershipProvider.DecryptPassword / EncryptPassword equivalents. The real ones use
+    /// the application's machineKey configuration - key material this converter has no way
+    /// to carry over (it is not in Web.config's readable form, and even if it were, a
+    /// re-keyed deployment invalidates it anyway). Decrypting with different key material
+    /// would not fail, it would return garbage bytes that LOOK like a password, so this
+    /// throws instead: a subclass calling it (YAF's YafMembershipProvider.
+    /// GetClearTextPassword does, for its "email me my password" flow) fails loudly rather
+    /// than emailing a plausible-looking wrong password.
+    /// </summary>
+    protected virtual byte[] DecryptPassword(byte[] encodedPassword) => throw new NotSupportedException(
+        "パスワードの復号は変換後アプリでは未対応です"
+        + "(元のアプリの machineKey が無いため、復号できても正しい平文にはなりません)。");
+
+    /// <inheritdoc cref="DecryptPassword"/>
+    protected virtual byte[] EncryptPassword(byte[] password) => throw new NotSupportedException(
+        "パスワードの暗号化は変換後アプリでは未対応です"
+        + "(元のアプリの machineKey が無いため、暗号化できても他所で復号できません)。");
 }
 
 /// <summary>System.Web.Security.RoleProvider equivalent (abstract surface only).</summary>

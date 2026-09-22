@@ -58,6 +58,8 @@ samples/nopCommerce3.8/
 # corpora/fetch.ps1 が取得する第三者ソースと、convert-all.ps1 の変換出力
 corpora/work/
 corpora/out/
+# convert-all.ps1 -Split(参照ライブラリを別 csproj にした出力)
+corpora/out-split/
 
 # ---- OS ----
 Thumbs.db

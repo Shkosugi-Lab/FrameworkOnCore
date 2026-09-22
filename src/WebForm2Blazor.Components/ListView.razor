@@ -77,10 +77,60 @@
     /// <summary>WebForms 4.5 model binding: parameterless page method invoked for the data.</summary>
     [Parameter] public string SelectMethod { get; set; }
 
-    /// <summary>Accepted for markup compatibility (ListView keys are not exposed here).</summary>
+    /// <summary>
+    /// WebForms 4.5 model binding: method invoked when a template Button raises
+    /// CommandName="Delete", with its parameters bound from DataKeyNames (see
+    /// ModelBinding.InvokeDeleteMethod). Only Delete is implemented - Update/Insert model
+    /// binding remain unsupported.
+    /// </summary>
+    [Parameter] public string DeleteMethod { get; set; }
+
+    /// <summary>Which of the bound row's properties form its key, read for DeleteMethod.</summary>
     [Parameter] public string[] DataKeyNames { get; set; }
 
+    /// <summary>
+    /// WebForms ItemCommand equivalent. Commands from Button / LinkButton inside the
+    /// templates bubble here, the same shape as Repeater.ItemCommand - and, before this
+    /// reaches a handler, CommandName="Delete" is handled by DeleteMethod above if set.
+    /// </summary>
+    [Parameter] public ListViewCommandEventHandler OnItemCommand { get; set; }
+
+    /// <summary>
+    /// WebForms ItemCommand as a CLR event: code-behind wires handlers imperatively
+    /// (control.ItemCommand += Handler), which a markup-only parameter cannot express.
+    /// The accessors chain onto the parameter so the existing raise site fires both.
+    /// </summary>
+    public event ListViewCommandEventHandler ItemCommand
+    {
+        add => OnItemCommand += value;
+        remove => OnItemCommand -= value;
+    }
+
     public IReadOnlyList<object> Items => _containers.Select(container => container.DataItem).ToList();
+
+    internal void RaiseItemCommand(object commandSource, RepeaterItem item, CommandEventArgs args)
+    {
+        OnItemCommand?.Invoke(this, new ListViewCommandEventArgs(item, commandSource, args));
+
+        if (args.CommandName != "Delete" || string.IsNullOrEmpty(DeleteMethod))
+        {
+            return;
+        }
+
+        var keyValues = new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase);
+        foreach (var name in DataKeyNames ?? [])
+        {
+            keyValues[name] = DataBinder.Eval(item.DataItem, name);
+        }
+        ModelBinding.InvokeDeleteMethod(Host, DeleteMethod, keyValues);
+
+        // As in WebForms: re-select and re-bind so the deleted row stops rendering.
+        if (!string.IsNullOrEmpty(SelectMethod))
+        {
+            DataSource = ModelBinding.InvokeSelectMethod(Host, SelectMethod);
+            DataBind();
+        }
+    }
 
     private RenderFragment RenderItems => __builder =>
     {
@@ -117,6 +167,7 @@
     private RenderFragment RenderItem(int index, bool separatorBefore) => __builder =>
     {
         var container = _containers[index];
+        var commandContext = new ListViewCommandContext(this, container);
 
         if (separatorBefore && ItemSeparatorTemplate is not null)
         {
@@ -124,7 +175,9 @@
         }
 
         <CascadingValue TValue="RepeaterItem" Value="container" IsFixed="true">
-            @(SelectTemplate(index)?.Invoke(container))
+            <CascadingValue TValue="ICommandSink" Value="commandContext" IsFixed="true">
+                @(SelectTemplate(index)?.Invoke(container))
+            </CascadingValue>
         </CascadingValue>
     };
 

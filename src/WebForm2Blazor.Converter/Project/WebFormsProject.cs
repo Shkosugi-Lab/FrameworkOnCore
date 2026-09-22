@@ -201,9 +201,19 @@ public sealed class WebFormsProject
         return false;
     }
 
+    /// <param name="includeOutputNames">
+    /// Overrides the output directory a library's sources are written under, keyed by its
+    /// absolute source directory. The default is the directory's own leaf name, which is
+    /// not an identity: n2cms references src/Framework/N2 (N2.dll) and
+    /// src/Mvc/MvcTemplates/N2 (N2.Management.dll), and by leaf name those two land in one
+    /// directory and, with --split-projects, in one ASSEMBLY - which is the merge the flag
+    /// exists to undo. The caller supplies project-derived names there.
+    ///
+    /// Left null everywhere else, so the merged output keeps the paths it has always had.
+    /// </param>
     public static WebFormsProject Scan(
         string rootDirectory, IEnumerable<string>? includeDirectories = null, string? webConfigOverride = null,
-        string? entryProjectPath = null)
+        string? entryProjectPath = null, IReadOnlyDictionary<string, string>? includeOutputNames = null)
     {
         var project = new WebFormsProject { RootDirectory = Path.GetFullPath(rootDirectory) };
 
@@ -218,7 +228,9 @@ public sealed class WebFormsProject
         foreach (var directory in includeDirectories ?? [])
         {
             var fullDirectory = Path.GetFullPath(directory);
-            var directoryName = Path.GetFileName(fullDirectory.TrimEnd(Path.DirectorySeparatorChar, '/'));
+            var trimmed = fullDirectory.TrimEnd(Path.DirectorySeparatorChar, '/');
+            var directoryName = includeOutputNames?.GetValueOrDefault(trimmed)
+                ?? Path.GetFileName(trimmed);
 
             // The .csproj, not the directory, decides what the library compiles. Real
             // repositories keep orphan .cs files in the tree (BlogEngine.Core/Profile.cs

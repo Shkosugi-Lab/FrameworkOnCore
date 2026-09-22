@@ -66,6 +66,7 @@ var includeDirectories = new List<string>();
 var analyzerAssemblies = new List<string>();
 string? entryProjectPath = null;
 var deriveIncludes = true;
+var splitProjects = false;
 var port = 5080;
 
 // Named once because the residual that tells the reader how to supply the catalog used to
@@ -91,6 +92,10 @@ for (var i = 0; i < args.Length; i++)
         case "--project": entryProjectPath = args[++i]; break;
         case "--analyzer": analyzerAssemblies.Add(args[++i]); break;
         case "--no-derive-includes": deriveIncludes = false; break;
+        // Reproduce the source solution's assembly boundaries: one .csproj per referenced
+        // library instead of merging them all into the web project. See
+        // Emit/LibraryProjectEmitter.cs for what the merge costs and why this is opt-in.
+        case "--split-projects": splitProjects = true; break;
         case "--web-config": webConfigOverride = args[++i]; break;
         default:
             Console.Error.WriteLine($"不明な引数: {args[i]}");
@@ -108,6 +113,8 @@ if (input is null || output is null || appName is null || componentsReference is
             --name <生成する Blazor プロジェクト名>
             --components-ref <出力csprojから互換コンポーネントcsprojへの相対パス>
             [--port <開発サーバーのポート。既定 5080>]
+            [--split-projects  参照ライブラリを独立した csproj として出力する
+                               (既定は 1 プロジェクトへ統合。元のアセンブリ境界を再現します)]
         """);
     return 1;
 }
@@ -266,11 +273,82 @@ if (deriveIncludes)
     }
 }
 
-var project = WebFormsProject.Scan(input, includeDirectories, webConfigOverride, entryProjectPath);
+// Which output directory each library's sources go under, and therefore - with
+// --split-projects - which ASSEMBLY they end up in.
+//
+// The leaf of the source directory is the default and is wrong often enough to matter:
+// n2cms references src/Framework/N2 and src/Mvc/MvcTemplates/N2, two projects building
+// N2.dll and N2.Management.dll out of two directories both called "N2". Merged into one
+// project that is invisible; split into assemblies it silently fuses the two, and the
+// fusion is load-bearing - N2.dll's TreeNode.cs writes "Security.Permission" from inside
+// namespace N2.Edit, which resolves to N2.Security.Permission only while N2.Edit.Security
+// does not exist. N2.Management declares exactly that namespace. Three of n2cms's four
+// build errors are that one collision.
+//
+// So under --split-projects the PROJECT names them. Only there: renaming the directories
+// in the merged output would move every ported file and change what the baseline measures
+// without changing anything about the conversion.
+Dictionary<string, string>? includeOutputNames = null;
+if (splitProjects)
+{
+    includeOutputNames = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+    foreach (var directory in includeDirectories)
+    {
+        var trimmed = Path.GetFullPath(directory).TrimEnd(Path.DirectorySeparatorChar, '/');
+        var (projectName, _, _) =
+            WebForm2Blazor.Converter.Project.ProjectReferenceGraph.ProjectIdentityOf(trimmed);
+        includeOutputNames[trimmed] = projectName ?? Path.GetFileName(trimmed);
+    }
+}
+
+var project = WebFormsProject.Scan(
+    input, includeDirectories, webConfigOverride, entryProjectPath, includeOutputNames);
 
 report.Info("(project)",
     $"棚卸し: マスターページ {project.MasterPages.Count} / ページ {project.Pages.Count} / "
     + $"ユーザーコントロール {project.UserControls.Count} / その他 .cs {project.PlainCodeFiles.Count}");
+
+// Two referenced projects whose directories have the same NAME land in one output
+// directory, and a file at the same relative path in both is written twice - the second
+// silently replaces the first, while BOTH copies still feed the type index. n2cms does
+// reference two directories called "N2" (src/Framework/N2 = N2.dll and
+// src/Mvc/MvcTemplates/N2 = N2.Management.dll); today they only overlap at
+// Properties/AssemblyInfo.cs, which the scan skips, so nothing is actually lost - but
+// nothing said that either, and "nothing is lost" was never checked.
+//
+// Said out loud rather than fixed here: renaming the directories changes where every
+// ported file lands, which is exactly what --split-projects does (by project name) and
+// exactly what the merged baseline must not do.
+{
+    var collidingNames = includeDirectories
+        .Select(directory => Path.GetFullPath(directory).TrimEnd(Path.DirectorySeparatorChar, '/'))
+        .GroupBy(
+            directory => includeOutputNames?.GetValueOrDefault(directory)
+                         ?? Path.GetFileName(directory),
+            StringComparer.OrdinalIgnoreCase)
+        .Where(group => group.Count() > 1)
+        .ToList();
+
+    var overwritten = project.IncludedCodeFiles
+        .GroupBy(file => file.OutputRelativePath, StringComparer.OrdinalIgnoreCase)
+        .Where(group => group.Count() > 1)
+        .ToList();
+
+    if (collidingNames.Count > 0)
+    {
+        report.Info("(project)",
+            $"出力ディレクトリ名が重なる参照プロジェクトが {collidingNames.Count} 組あります: "
+            + string.Join(" / ", collidingNames.Select(group =>
+                $"{group.Key} <- {string.Join(", ", group)}"))
+            + "。別アセンブリだったものが 1 ディレクトリに同居します"
+            + (overwritten.Count > 0
+                ? $"。**同じ相対パスのファイルが {overwritten.Count} 件あり、後から書いたほうで"
+                  + "上書きされます**(型の索引には両方が入るため、出力と解析が食い違います): "
+                  + string.Join(", ", overwritten.Take(8).Select(group => group.Key))
+                : "(同じ相対パスのファイルは無いので、上書きされたファイルはありません)")
+            + "。--split-projects を付けるとプロジェクト名で分けます。");
+    }
+}
 
 if (project.NotCompiledFiles.Count > 0)
 {
@@ -1019,6 +1097,12 @@ var deadNamespacesForMarkup = fullyExcludedNamespaces
 var unsafeCodePorted = false;
 var assemblyAttributesPorted = false;
 
+// The same two, attributed to the project each file belongs to ("" for the web project).
+// Only --split-projects reads them; the merged output has a single .csproj and the two
+// flags above are its answer.
+var unsafeByOwner = new HashSet<string>(StringComparer.Ordinal);
+var assemblyAttributesByOwner = new HashSet<string>(StringComparer.Ordinal);
+
 var portedSources = Enumerable.Range(0, candidateNamespaces.Count)
     .Where(index => !excludedCandidates.Contains(index))
     .Select(index => candidateNamespaces[index].candidate.Source)
@@ -1252,6 +1336,15 @@ var webProjectGlobalUsings = Enumerable.Range(0, candidateNamespaces.Count)
 // resolution only accepting names that actually exist, and it is only used for stub
 // signatures, where the alternative measured worse - the member is dropped entirely and
 // the error moves to whoever called it.
+//
+// Unlike outputProjectGlobalUsings above, "System.Web" is NOT filtered out here: this list
+// is never written into generated code, only asked "what would this name have meant", and
+// LookupNamespacesFor's IsSystemWebNamespace + DeclaresCompatType check exists precisely to
+// answer that for a System.Web name the compat layer re-declares - HttpContext among them.
+// Filtering it out here (copied from the other list, where it prevents CS0234) silently
+// disabled that check for every excluded member whose signature named a System.Web type
+// only through a GLOBAL using: YAF.Core.Helpers.IdentityHelper.RegisterExternalLogin(
+// HttpContext, ...) dropped from its stub, and the CS0117 landed on the caller instead.
 var portedProjectGlobalUsings = Enumerable.Range(0, candidateNamespaces.Count)
     .Where(index => !excludedCandidates.Contains(index))
     .SelectMany(index => CodeBehindRewriter.ParseUnit(
@@ -1261,8 +1354,6 @@ var portedProjectGlobalUsings = Enumerable.Range(0, candidateNamespaces.Count)
         .Where(directive => directive.Alias is null && directive.StaticKeyword.RawKind == 0)
         .Select(directive => directive.Name?.ToString()))
     .OfType<string>()
-    .Where(name => name != "System.Web"
-                   && !name.StartsWith("System.Web.", StringComparison.Ordinal))
     .Distinct(StringComparer.Ordinal)
     .ToList();
 
@@ -1458,19 +1549,35 @@ for (var i = 0; i < candidateNamespaces.Count; i++)
         continue;
     }
     var (candidate, _) = candidateNamespaces[i];
-    var candidateSource = libraryGlobalUsings.TryGetValue(
-            OwningProjectOf(candidate.OutputRelative, candidate.Included), out var scoped)
+    var candidateOwner = OwningProjectOf(candidate.OutputRelative, candidate.Included);
+    var candidateSource = libraryGlobalUsings.TryGetValue(candidateOwner, out var scoped)
         ? ScopeGlobalUsings(candidate.Source, scoped)
         : candidate.Source;
     CollectUsingNamespaces(candidateSource, portedNamespaces);
     CollectQualifiedPackageNamespaces(candidateSource, portedNamespaces);
-    unsafeCodePorted |= System.Text.RegularExpressions.Regex.IsMatch(
+    var fileHasUnsafe = System.Text.RegularExpressions.Regex.IsMatch(
         candidateSource, @"(?<![\w.])unsafe(?![\w])");
+    unsafeCodePorted |= fileHasUnsafe;
     // The namespace may be written out in full - log4net, which DNN vendors, says
     // [assembly: System.Reflection.AssemblyCompany(...)] - so the prefix is optional.
-    assemblyAttributesPorted |= System.Text.RegularExpressions.Regex.IsMatch(
+    var fileHasAssemblyAttributes = System.Text.RegularExpressions.Regex.IsMatch(
         candidateSource,
         @"\[\s*assembly\s*:\s*(System\.Reflection\.)?Assembly(Version|FileVersion|Company|Product|Title|Configuration|Trademark|Culture|InformationalVersion)\s*\(");
+    assemblyAttributesPorted |= fileHasAssemblyAttributes;
+
+    // The same two facts, per OWNING PROJECT. Both decide an MSBuild property, and with
+    // --split-projects there is one .csproj per library to decide it for: AllowUnsafeBlocks
+    // set on the web project does nothing for a Lucene.Net compiled into its own assembly,
+    // and GenerateAssemblyInfo left on in a library whose sources declare [assembly:
+    // AssemblyVersion] is CS0579 there rather than in the app.
+    if (fileHasUnsafe)
+    {
+        unsafeByOwner.Add(candidateOwner);
+    }
+    if (fileHasAssemblyAttributes)
+    {
+        assemblyAttributesByOwner.Add(candidateOwner);
+    }
     var destination = Path.Combine(output, candidate.OutputRelative.Replace('/', Path.DirectorySeparatorChar));
     Directory.CreateDirectory(Path.GetDirectoryName(destination)!);
     // A file kept despite importing an emptied namespace still has the import, and the
@@ -1505,21 +1612,67 @@ for (var i = 0; i < candidateNamespaces.Count; i++)
 // out of control, so the declarations are re-created empty instead: the code that only
 // mentions the type compiles, and what actually used its members fails at exactly the
 // places that need hand-migration.
-var excludedTypeStubs = GenerateExcludedTypeStubs(
-    [.. Enumerable.Range(0, candidateNamespaces.Count)
-        .Where(excludedCandidates.Contains)
-        .Select(index => candidateNamespaces[index].candidate.Source)],
-    [.. Enumerable.Range(0, candidateNamespaces.Count)
-        .Where(index => !excludedCandidates.Contains(index))
-        .Select(index => candidateNamespaces[index].candidate.Source)],
-    portedProjectGlobalUsings,
-    out var stubbedTypeCount);
+//
+// WHERE the stubs go matters once the output has more than one project. The file has
+// always been written at the application root, and the namespaces it declares are the
+// LIBRARIES' - N2.Definitions.Runtime, N2.Web. Merged into one project that resolved
+// fine; split apart, a library cannot see a type declared in the application that
+// references it, and it must not, because the original could not either. So the excluded
+// files are grouped by the project they came from and each project gets its own file,
+// declaring exactly the types its own excluded sources declared.
+//
+// The surviving sources passed in are still ALL of them, in every group: "is this type
+// already ported somewhere" is a question about the whole port, and answering it per
+// project would re-stub a type that another project genuinely declares.
+var stubGroups = Enumerable.Range(0, candidateNamespaces.Count)
+    .Where(excludedCandidates.Contains)
+    .GroupBy(index => splitProjects
+        ? OwningProjectOf(
+            candidateNamespaces[index].candidate.OutputRelative,
+            candidateNamespaces[index].candidate.Included)
+        : string.Empty)
+    // Libraries first, application last, so a name declared by excluded files in two
+    // projects lands in a library rather than where no library could reach it.
+    .OrderByDescending(group => group.Key, StringComparer.Ordinal)
+    .ToList();
+
+var survivingStubSources = Enumerable.Range(0, candidateNamespaces.Count)
+    .Where(index => !excludedCandidates.Contains(index))
+    .Select(index => candidateNamespaces[index].candidate.Source)
+    .ToList();
+
+// Shared across the groups: emitting the same type into two projects is CS0101, and the
+// per-call duplicate check inside the generator cannot see the other calls.
+var stubbedTypeKeys = new HashSet<string>(StringComparer.Ordinal);
+var stubbedTypeCount = 0;
+var throwingMembers = 0;
+
+foreach (var group in stubGroups)
+{
+    var groupText = GenerateExcludedTypeStubs(
+        [.. group.Select(index => candidateNamespaces[index].candidate.Source)],
+        survivingStubSources,
+        portedProjectGlobalUsings,
+        out var groupTypeCount,
+        stubbedTypeKeys);
+
+    if (groupTypeCount == 0)
+    {
+        continue;
+    }
+
+    var stubText = ApplyLibraryMigrations(ApplyNamespaceMap(groupText));
+    var stubDirectory = group.Key.Length == 0 ? output : Path.Combine(output, group.Key);
+    Directory.CreateDirectory(stubDirectory);
+    File.WriteAllText(Path.Combine(stubDirectory, "ExcludedTypeStubs.g.cs"), stubText);
+
+    stubbedTypeCount += groupTypeCount;
+    throwingMembers += System.Text.RegularExpressions.Regex.Matches(
+        stubText, @"throw new global::System\.NotSupportedException").Count;
+}
 
 if (stubbedTypeCount > 0)
 {
-    var stubText = ApplyLibraryMigrations(ApplyNamespaceMap(excludedTypeStubs));
-    File.WriteAllText(Path.Combine(output, "ExcludedTypeStubs.g.cs"), stubText);
-
     // "空のスタブ" was the wrong word for the members: they THROW when called. The type
     // declaration is empty, the behaviour is not. Reading the old wording, a reviewer had
     // every reason to picture a no-op and move on - and BlogEngine's widgets are exactly
@@ -1528,9 +1681,6 @@ if (stubbedTypeCount > 0)
     // details", and the page looks merely incomplete rather than unported.
     //
     // The count of throwing members is the honest number here, next to the type count.
-    var throwingMembers = System.Text.RegularExpressions.Regex.Matches(
-        stubText, @"throw new global::System\.NotSupportedException").Count;
-
     report.Residual("(project)", ResidualKind.CodeBehind,
         $"移植から除外したファイルが宣言していた型 {stubbedTypeCount} 個をスタブとして生成しました"
         + "(ExcludedTypeStubs.g.cs)。参照側はコンパイルできますが、"
@@ -1774,6 +1924,170 @@ if (analyzerAssemblies.Count > 0)
     report.Info("(project)",
         "ソースジェネレータを生成プロジェクトに組み込みました(ビルド時に元と同じ宣言が生成されます): "
         + string.Join(", ", analyzerAssemblies.Select(Path.GetFileName)));
+}
+
+// --split-projects: one .csproj per referenced library, so the output has the same
+// assembly boundaries as the solution it came from.
+//
+// Everything above has already written the library sources into <output>/<library>/, which
+// is what makes this a matter of emitting project files rather than of moving code: the
+// directory layout was always per-project, only the compilation was not.
+if (splitProjects && includeDirectories.Count > 0)
+{
+    // Keyed by the OUTPUT directory name, because that is the identity the rest of the
+    // converter uses - WebFormsProject.Scan writes "<leaf>/<relative>" and OwningProjectOf
+    // reads the first segment back out. Two included directories sharing a leaf name
+    // already merge into one output directory; they merge into one project here too.
+    var librariesByName = new Dictionary<string, WebForm2Blazor.Converter.Emit.LibraryProject>(
+        StringComparer.OrdinalIgnoreCase);
+    var nameByDirectory = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+
+    foreach (var directory in includeDirectories)
+    {
+        var full = Path.GetFullPath(directory).TrimEnd(Path.DirectorySeparatorChar, '/');
+        // The same map WebFormsProject.Scan used to place the sources - taken from it
+        // rather than recomputed, so the .csproj cannot end up naming a directory the
+        // files were not written to.
+        var name = includeOutputNames!.GetValueOrDefault(full) ?? Path.GetFileName(full);
+        if (name.Length == 0)
+        {
+            continue;
+        }
+        nameByDirectory[full] = name;
+        if (!librariesByName.ContainsKey(name))
+        {
+            var (_, assemblyName, rootNamespace) =
+                WebForm2Blazor.Converter.Project.ProjectReferenceGraph.ProjectIdentityOf(full);
+            librariesByName[name] = new WebForm2Blazor.Converter.Emit.LibraryProject(name, full)
+            {
+                AssemblyName = assemblyName,
+                RootNamespace = rootNamespace,
+                AllowUnsafeBlocks = unsafeByOwner.Contains(name),
+                PortedAssemblyAttributes = assemblyAttributesByOwner.Contains(name),
+            };
+        }
+    }
+
+    var appRoot = Path.GetFullPath(input).TrimEnd(Path.DirectorySeparatorChar, '/');
+    var edges = WebForm2Blazor.Converter.Project.ProjectReferenceGraph.ReferenceEdges(
+        [appRoot, .. nameByDirectory.Keys], entryProjectPath);
+
+    // Which emitted project produces a given assembly, so a DLL reference between two
+    // projects of the source solution can be reconnected as a project reference.
+    var libraryByAssembly = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+    foreach (var library in librariesByName.Values)
+    {
+        libraryByAssembly.TryAdd(library.AssemblyName ?? library.Name, library.Name);
+        libraryByAssembly.TryAdd(library.Name, library.Name);
+    }
+
+    foreach (var (directory, name) in nameByDirectory)
+    {
+        var library = librariesByName[name];
+
+        void Reference(string? targetName)
+        {
+            if (targetName is not null
+                && !targetName.Equals(name, StringComparison.OrdinalIgnoreCase)
+                && !library.References.Contains(targetName, StringComparer.OrdinalIgnoreCase))
+            {
+                library.References.Add(targetName);
+            }
+        }
+
+        foreach (var target in edges.GetValueOrDefault(directory, []))
+        {
+            Reference(nameByDirectory.GetValueOrDefault(target));
+        }
+
+        // ...and the same dependency written as a DLL. DNN Platform builds log4net from
+        // vendored source in DotNetNuke.Log4net and then references log4net.dll from
+        // DotNetNuke.Instrumentation; by ProjectReference alone those two are unrelated,
+        // and the split build reports 30 CS0246 for a namespace it is compiling next door.
+        foreach (var assembly in WebForm2Blazor.Converter.Project.ProjectReferenceGraph
+                     .ReferencedAssemblyNames(directory))
+        {
+            Reference(libraryByAssembly.GetValueOrDefault(assembly));
+        }
+    }
+
+    var libraries = librariesByName.Values
+        .OrderBy(library => library.Name, StringComparer.Ordinal)
+        .ToList();
+
+    // A library whose output directory is one the SCAFFOLD owns would take the
+    // application's own files out of the build: "<Compile Remove="Components\**" />" does
+    // not care that Components/ holds every converted page. The merged output has the same
+    // collision and merely mixes the files; here it deletes half the application from the
+    // compilation, so it is refused rather than reported.
+    string[] scaffoldDirectories = ["Components", "Properties", "wwwroot", "App_Data", "ai-layer", "bin", "obj"];
+    foreach (var clash in libraries
+                 .Where(library => scaffoldDirectories.Contains(library.Name, StringComparer.OrdinalIgnoreCase))
+                 .ToList())
+    {
+        libraries.Remove(clash);
+        // Nothing may reference a project that is not being emitted: MSBuild fails on a
+        // ProjectReference whose file does not exist, and that failure aborts the build
+        // before the compiler runs. Its types are in the application instead, which every
+        // library can no longer see - the same position the merged output puts them in.
+        foreach (var library in libraries)
+        {
+            library.References.RemoveAll(reference =>
+                reference.Equals(clash.Name, StringComparison.OrdinalIgnoreCase));
+        }
+        report.Residual("(project)", ResidualKind.Configuration,
+            $"参照ライブラリ {clash.Name} の出力ディレクトリ名が、生成プロジェクト自身が使う "
+            + $"{clash.Name}\\ と同じです。分割すると「{clash.Name}\\ をアプリのコンパイル対象から外す」"
+            + "指定がアプリ自身のファイルにも効いてしまうため、このライブラリだけ分割せず"
+            + "アプリに統合したままにしました(統合時の挙動と同じです)。",
+            disposition: ResidualDisposition.NeedsInput);
+    }
+
+    // Assembly names that differ only in case are THE SAME FILE on Windows. Every
+    // referenced assembly is copied next to the application's own, so a library called N2
+    // and an application called n2 both want to be N2.dll in one directory: the copy
+    // silently wins or the build dies at MSB3030, and neither says what happened. Only the
+    // --name given to the converter can settle it, so it is asked for by name.
+    foreach (var clash in libraries
+                 .Where(library => (library.AssemblyName ?? library.Name)
+                     .Equals(appName, StringComparison.OrdinalIgnoreCase)))
+    {
+        report.Residual("(project)", ResidualKind.Configuration,
+            $"参照ライブラリのアセンブリ名 {clash.AssemblyName ?? clash.Name} が、生成するアプリ名 {appName} と"
+            + "(大文字小文字を無視すると)同じです。Windows では同じファイル名になるため、"
+            + "出力ディレクトリで衝突します。--name に別の名前を指定してください"
+            + "(元のソリューションでの Web プロジェクト名が適切です)。",
+            disposition: ResidualDisposition.NeedsInput);
+    }
+
+    var brokenCycles = WebForm2Blazor.Converter.Emit.LibraryProjectEmitter.BreakCycles(libraries);
+    if (brokenCycles.Count > 0)
+    {
+        report.Residual("(project)", ResidualKind.Configuration,
+            "プロジェクト参照に循環が生じたため、閉じる辺を落としました"
+            + "(MSBuild は循環参照を拒否し、ビルドが 1 件も走らなくなるため)。"
+            + "元のソリューションに循環は無いはずで、これは同一ディレクトリに複数の .csproj が"
+            + "あるものを 1 プロジェクトへまとめた副作用です。落とした参照: "
+            + string.Join(", ", brokenCycles.Select(edge => $"{edge.From} -> {edge.To}")),
+            disposition: ResidualDisposition.NeedsInput);
+    }
+
+    WebForm2Blazor.Converter.Emit.LibraryProjectEmitter.Emit(
+        output, libraries, componentsReference, packageReferences, analyzerAssemblies);
+    WebForm2Blazor.Converter.Emit.LibraryProjectEmitter.PointApplicationAtLibraries(
+        output, appName, libraries);
+
+    report.Info("(project)",
+        $"参照ライブラリ {libraries.Count} 件を独立したプロジェクトとして出力しました(--split-projects): "
+        + string.Join(", ", libraries.Select(library =>
+            library.References.Count == 0
+                ? library.Name
+                : $"{library.Name} -> {string.Join("/", library.References)}"))
+        + "。ライブラリ間の参照は元の .csproj の ProjectReference をそのまま写しています。"
+        + "アプリからは全ライブラリを直接参照しています(SDK では ProjectReference が推移的に"
+        + "効くので参照できる型の範囲は変わらず、どのライブラリも必ずビルドされます)。"
+        + "NuGet 参照は全プロジェクトに同じものを入れています"
+        + "(使っていないパッケージが入っても害はなく、足りないとビルドエラーになるため)。");
 }
 
 var appSettingsJson = project.WebConfigPath is not null
@@ -3301,11 +3615,17 @@ static string GenerateMigratedAwayTypeStubs(
 /// their own); everything else is deliberately left empty, so a consumer that really
 /// used the type fails at the member rather than silently getting a working-looking stub.
 /// </summary>
+/// <param name="alreadyStubbed">
+/// Type keys emitted by an earlier call, when the stubs are being split across projects.
+/// Without it each call dedupes only against itself, and a type declared by excluded files
+/// in two projects would be declared twice - CS0101 in whichever project sees both.
+/// </param>
 static string GenerateExcludedTypeStubs(
     IReadOnlyList<string> excludedSources,
     IReadOnlyList<string> survivingSources,
     IReadOnlyList<string> globalUsings,
-    out int typeCount)
+    out int typeCount,
+    HashSet<string>? alreadyStubbed = null)
 {
     typeCount = 0;
 
@@ -3422,7 +3742,7 @@ static string GenerateExcludedTypeStubs(
     // member is only emitted when every type in its signature can actually be resolved.
     var pending = new SortedDictionary<string, List<StubType>>(StringComparer.Ordinal);
     var stubNames = new HashSet<string>(StringComparer.Ordinal);
-    var seen = new HashSet<string>(StringComparer.Ordinal);
+    var seen = alreadyStubbed ?? new HashSet<string>(StringComparer.Ordinal);
     foreach (var source in excludedSources)
     {
         foreach (var declaration in EnumerateTopLevelTypes(source))

@@ -1,38 +1,38 @@
 {
     "be":  {
-               "convertible":  2,
+               "convertible":  0,
                "portedCs":  261,
-               "residuals":  63,
+               "residuals":  61,
                "buildErrors":  0
            },
     "mojo":  {
-                 "convertible":  8,
+                 "convertible":  5,
                  "portedCs":  746,
-                 "residuals":  99,
-                 "buildErrors":  320
+                 "residuals":  96,
+                 "buildErrors":  312
              },
     "yaf":  {
-                "convertible":  5,
+                "convertible":  3,
                 "portedCs":  2729,
-                "residuals":  59,
-                "buildErrors":  12
+                "residuals":  57,
+                "buildErrors":  6
             },
     "dnn":  {
-                "convertible":  10,
+                "convertible":  3,
                 "portedCs":  2066,
-                "residuals":  154,
+                "residuals":  147,
                 "buildErrors":  14
             },
     "n2":  {
-               "convertible":  3,
+               "convertible":  2,
                "portedCs":  1633,
-               "residuals":  131,
-               "buildErrors":  6
+               "residuals":  130,
+               "buildErrors":  4
            },
     "wt":  {
-               "convertible":  3,
+               "convertible":  1,
                "portedCs":  13,
-               "residuals":  33,
+               "residuals":  31,
                "buildErrors":  0
            }
 }

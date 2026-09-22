@@ -186,6 +186,211 @@ public static partial class ProjectReferenceGraph
     }
 
     /// <summary>
+    /// The EDGES of the reference graph, as directories: each directory mapped to the
+    /// directories of the projects it references.
+    ///
+    /// <see cref="Derive"/> walks those edges and then throws them away - it returns a flat
+    /// list, which is all that is needed to port every library into one project. Emitting a
+    /// .csproj PER library needs the edges back: each one has to declare the same
+    /// ProjectReferences the original did, or the assembly boundaries are reproduced without
+    /// the references that made them work.
+    ///
+    /// Asked of the directories rather than re-walked from the entry point, because the set
+    /// being emitted is not always the derived one: --include names directories the graph
+    /// never reached (mojoPortal's chosen data provider, which Derive deliberately declines
+    /// to pick), and those have references of their own.
+    ///
+    /// Edges leaving the set are dropped, not reported as missing. A reference to a project
+    /// that was excluded - an exclusive data-provider alternative, a .vbproj, a project that
+    /// is not on disk - is already reported by <see cref="Derive"/>, and writing it into a
+    /// .csproj would fail the build outright instead.
+    /// </summary>
+    /// <param name="entryProjectPath">
+    /// Which .csproj speaks for its directory when several sit side by side. Only the
+    /// application root has that problem, and it is the same answer --project already gives.
+    /// </param>
+    public static Dictionary<string, List<string>> ReferenceEdges(
+        IEnumerable<string> projectDirectories, string? entryProjectPath = null)
+    {
+        var directories = projectDirectories
+            .Select(directory => Path.GetFullPath(directory).TrimEnd(Path.DirectorySeparatorChar, '/'))
+            .Distinct(StringComparer.OrdinalIgnoreCase)
+            .ToList();
+        var known = new HashSet<string>(directories, StringComparer.OrdinalIgnoreCase);
+        var entry = entryProjectPath is not null && File.Exists(entryProjectPath)
+            ? Path.GetFullPath(entryProjectPath)
+            : null;
+
+        var edges = new Dictionary<string, List<string>>(StringComparer.OrdinalIgnoreCase);
+
+        foreach (var directory in directories)
+        {
+            var projects = ProjectFilesOf(directory, entry);
+
+            var targets = new List<string>();
+            foreach (var projectPath in projects)
+            {
+                foreach (var (referencePath, isAnalyzer) in ReadReferences(projectPath))
+                {
+                    if (isAnalyzer || !File.Exists(referencePath))
+                    {
+                        continue;
+                    }
+                    var target = Path.GetFullPath(Path.GetDirectoryName(referencePath)!)
+                        .TrimEnd(Path.DirectorySeparatorChar, '/');
+                    if (known.Contains(target)
+                        && !PathsEqual(target, directory)
+                        && !targets.Any(existing => PathsEqual(existing, target)))
+                    {
+                        targets.Add(target);
+                    }
+                }
+            }
+
+            edges[directory] = targets;
+        }
+
+        return edges;
+    }
+
+    /// <summary>The .csproj files that speak for a directory (the entry project wins there).</summary>
+    private static string[] ProjectFilesOf(string directory, string? entryProjectPath)
+    {
+        if (entryProjectPath is not null
+            && File.Exists(entryProjectPath)
+            && PathsEqual(Path.GetDirectoryName(Path.GetFullPath(entryProjectPath))!, directory))
+        {
+            return [Path.GetFullPath(entryProjectPath)];
+        }
+        return Directory.Exists(directory)
+            ? [.. Directory.GetFiles(directory, "*.csproj", SearchOption.TopDirectoryOnly)
+                .OrderBy(path => path, StringComparer.OrdinalIgnoreCase)]
+            : [];
+    }
+
+    /// <summary>
+    /// Assembly names a project references as a DLL rather than as a project -
+    /// <c>&lt;Reference Include="X"&gt;</c> carrying a HintPath.
+    ///
+    /// The ProjectReference graph is not the whole picture of what a project was compiled
+    /// against. A solution that builds a library and then references its OUTPUT from a
+    /// sibling has the same dependency, written differently, and DNN Platform is built that
+    /// way: DotNetNuke.Instrumentation references log4net.dll, which
+    /// DotNetNuke.Log4net.csproj produces from the vendored source that is being ported
+    /// alongside it. Merged into one project the dependency was invisible because
+    /// everything was in one assembly; split apart it is 30 CS0246 for a namespace whose
+    /// source is sitting in the next directory.
+    ///
+    /// Only references with a HintPath. A bare &lt;Reference Include="System.Xml"&gt; names
+    /// a framework assembly, which no ported project produces.
+    /// </summary>
+    public static List<string> ReferencedAssemblyNames(string directory, string? entryProjectPath = null)
+    {
+        var names = new List<string>();
+        foreach (var projectPath in ProjectFilesOf(
+                     Path.GetFullPath(directory).TrimEnd(Path.DirectorySeparatorChar, '/'),
+                     entryProjectPath is not null && File.Exists(entryProjectPath)
+                         ? Path.GetFullPath(entryProjectPath)
+                         : null))
+        {
+            XDocument document;
+            try
+            {
+                document = XDocument.Load(projectPath);
+            }
+            catch (Exception exception) when (exception is System.Xml.XmlException or IOException)
+            {
+                continue;
+            }
+
+            foreach (var reference in document.Descendants()
+                         .Where(node => node.Name.LocalName == "Reference"))
+            {
+                var hasHintPath = reference.Elements()
+                    .Any(child => child.Name.LocalName == "HintPath"
+                                  && !string.IsNullOrWhiteSpace(child.Value));
+                if (!hasHintPath)
+                {
+                    continue;
+                }
+
+                // "log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=..." - the
+                // simple name is the only part an assembly name can be matched on here.
+                var name = reference.Attribute("Include")?.Value?.Split(',')[0].Trim();
+                if (!string.IsNullOrEmpty(name)
+                    && !names.Contains(name, StringComparer.OrdinalIgnoreCase))
+                {
+                    names.Add(name);
+                }
+            }
+        }
+        return names;
+    }
+
+    /// <summary>
+    /// The assembly name and root namespace a library directory's project declares.
+    ///
+    /// Not the directory name. n2cms keeps N2.Extensions in a directory called
+    /// "Extensions", and the assembly name is not decoration: ported code reaches assemblies
+    /// by string - Assembly.Load("N2.Extensions"), [assembly: InternalsVisibleTo(...)],
+    /// a type name written "N2.Web.Mvc.ControllerMapper, N2.Extensions" in a config file -
+    /// and every one of those fails at RUN time with nothing at all at build time. The
+    /// directory name is a fact about where the source sits; this is a fact about what it
+    /// compiled to, and only the project file states it.
+    ///
+    /// Both fall back to the project FILE name (the SDK's own default), returned alongside
+    /// them, and the whole result is null when no single project file speaks for the
+    /// directory - leaving the caller to use the directory name as a last resort.
+    ///
+    /// The project file name earns its place in the result because a DIRECTORY name is not
+    /// an identity either. n2cms references two projects whose directories are both called
+    /// "N2": src/Framework/N2 builds N2.dll and src/Mvc/MvcTemplates/N2 builds
+    /// N2.Management.dll. Named by directory they are one thing; named by project they are
+    /// two, which is what they were.
+    /// </summary>
+    public static (string? ProjectName, string? AssemblyName, string? RootNamespace) ProjectIdentityOf(
+        string directory, string? entryProjectPath = null)
+    {
+        var full = Path.GetFullPath(directory).TrimEnd(Path.DirectorySeparatorChar, '/');
+        var candidates = ProjectFilesOf(
+            full,
+            entryProjectPath is not null && File.Exists(entryProjectPath)
+                ? Path.GetFullPath(entryProjectPath)
+                : null);
+
+        // Several project files in one directory: nothing here can say which one the ported
+        // sources belong to, and guessing would name the assembly after a build
+        // configuration the application does not use.
+        if (candidates.Length != 1)
+        {
+            return (null, null, null);
+        }
+
+        var projectPath = candidates[0];
+        var fileName = Path.GetFileNameWithoutExtension(projectPath);
+        XDocument document;
+        try
+        {
+            document = XDocument.Load(projectPath);
+        }
+        catch (Exception exception) when (exception is System.Xml.XmlException or IOException)
+        {
+            return (fileName, fileName, fileName);
+        }
+
+        static string? Declared(XDocument document, string name)
+            => document.Descendants()
+                .FirstOrDefault(node => node.Name.LocalName == name)
+                ?.Value is { } value && !string.IsNullOrWhiteSpace(value) && !value.Contains('$')
+                ? value.Trim()
+                : null;
+
+        return (fileName,
+                Declared(document, "AssemblyName") ?? fileName,
+                Declared(document, "RootNamespace") ?? fileName);
+    }
+
+    /// <summary>
     /// Partitions the derived directories into sets that declare the same types. Only sets
     /// of two or more are returned.
     /// </summary>

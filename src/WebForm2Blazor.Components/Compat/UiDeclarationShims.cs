@@ -293,10 +293,18 @@ public abstract class DataSourceView(string name)
         => DataSourceViewChanged?.Invoke(this, e);
 }
 
-/// <summary>System.Web.UI.HierarchicalDataSourceView equivalent.</summary>
+/// <summary>
+/// System.Web.UI.HierarchicalDataSourceView equivalent.
+///
+/// Select returns IHierarchicalEnumerable, as the original declares. A bare IEnumerable
+/// compiles - an implementor's narrower return is a legal covariant override - but it
+/// loses the one member the hierarchy is walked through: GetHierarchyData, which is how a
+/// caller gets from an enumerated item to its children and parent. Handing back the
+/// interface that has it is the whole point of the type.
+/// </summary>
 public abstract class HierarchicalDataSourceView
 {
-    public abstract System.Collections.IEnumerable Select();
+    public abstract IHierarchicalEnumerable Select();
 }
 
 /// <summary>

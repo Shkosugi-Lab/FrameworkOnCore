@@ -2085,9 +2085,11 @@ public sealed partial class MarkupEmitter(EmitContext context)
         }
 
         // "Other" on a compatibility component means a delegate / RenderFragment, whose
-        // existing handling (method group, template) must stay untouched. On a user
-        // control it is an ordinary business type (Product etc.) that must not be
-        // stringified - only its data-binding path needs the typed treatment.
+        // existing handling (method group, template) must stay untouched - Describe()
+        // never returns Other for a plain reference type like DataSource (see Reference).
+        // On a user control, FromSourceTypeName still calls an ordinary business type
+        // (Product etc.) Other, and that must not be stringified either - only its
+        // data-binding path needs the typed treatment.
         return declared.Kind == ParameterKind.Other && !fromSource ? null : declared;
     }
 

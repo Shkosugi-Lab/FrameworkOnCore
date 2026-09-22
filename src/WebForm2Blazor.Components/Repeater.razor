@@ -70,8 +70,15 @@
         remove => OnItemDataBound -= value;
     }
 
-    /// <summary>WebForms DataSource equivalent. Applied by DataBind().</summary>
-    public object DataSource { get; set; }
+    /// <summary>
+    /// WebForms DataSource equivalent. Applied by DataBind() - explicitly from code-behind,
+    /// or automatically (see OnParametersSet below) when the markup declares it
+    /// declaratively (DataSource="&lt;%# Expr %&gt;"), the same idiom DataSourceID below
+    /// already established: that markup has no code-behind DataBind() call to rely on.
+    /// </summary>
+    [Parameter] public object DataSource { get; set; }
+
+    private bool _dataSourceBoundFromMarkup;
 
     /// <summary>
     /// WebForms declarative binding, as GridView and ListView already had.
@@ -131,6 +138,26 @@
         RowContainers.Rebind(_containers, DataSourceHelper.Materialize(DataSource), namingContainerId: ID);
         _pendingItemDataBound = OnItemDataBound is not null;
         StateHasChanged();
+    }
+
+    /// <summary>
+    /// Binds a markup-declared DataSource once, on the FIRST call only - OnParametersSet
+    /// runs again on every later re-render (e.g. the one DataBind() itself schedules via
+    /// StateHasChanged), and by then the DataSourceID path below may have populated
+    /// DataSource too; gating on "DataSource is not null yet" instead of a first-call flag
+    /// re-fired on that later call and rebuilt the rows a second time.
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        if (_dataSourceBoundFromMarkup)
+        {
+            return;
+        }
+        _dataSourceBoundFromMarkup = true;
+        if (DataSource is not null)
+        {
+            DataBind();
+        }
     }
 
     protected override void OnAfterRender(bool firstRender)

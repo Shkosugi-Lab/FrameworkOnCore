@@ -126,6 +126,13 @@ public sealed class CssStyleCollection(Action onChanged)
 {
     private readonly Dictionary<string, string> _items = new(StringComparer.OrdinalIgnoreCase);
 
+    /// <summary>WebForms CssStyleCollection[HtmlTextWriterStyle] - the same entry, named by enum.</summary>
+    public string this[HtmlTextWriterStyle key]
+    {
+        get => this[HtmlTextWriter.CssName(key)];
+        set => this[HtmlTextWriter.CssName(key)] = value;
+    }
+
     public string this[string key]
     {
         get => _items.TryGetValue(key, out var value) ? value : null;

@@ -25,6 +25,55 @@ public class CompilationSection
     public List<CodeSubDirectory> CodeSubDirectories { get; } = [];
 }
 
+/// <summary>
+/// System.Web.Configuration.AuthenticationSection equivalent. Same terms as
+/// <see cref="CompilationSection"/>: the section is never returned, so a cast yields null and
+/// the caller takes its "section missing" branch. Authentication itself is ASP.NET Core's.
+/// </summary>
+public class AuthenticationSection
+{
+    public AuthenticationMode Mode { get; set; } = AuthenticationMode.Windows;
+
+    public FormsAuthenticationConfiguration Forms { get; } = new();
+}
+
+/// <summary>System.Web.Configuration.AuthenticationMode equivalent.</summary>
+public enum AuthenticationMode
+{
+    None,
+    Windows,
+    Passport,
+    Forms,
+}
+
+/// <summary>System.Web.Configuration.FormsAuthenticationConfiguration equivalent.</summary>
+public class FormsAuthenticationConfiguration
+{
+    public string LoginUrl { get; set; } = "login.aspx";
+
+    public string DefaultUrl { get; set; } = "default.aspx";
+
+    public string Name { get; set; } = ".ASPXAUTH";
+
+    public TimeSpan Timeout { get; set; } = TimeSpan.FromMinutes(30);
+}
+
+/// <summary>
+/// System.Web.Configuration.GlobalizationSection equivalent (same terms as above). The
+/// culture the converted application runs in comes from &lt;globalization&gt; through
+/// UseWebFormsGlobalization, not from this object.
+/// </summary>
+public class GlobalizationSection
+{
+    public string Culture { get; set; } = string.Empty;
+
+    public string UICulture { get; set; } = string.Empty;
+
+    public System.Text.Encoding RequestEncoding { get; set; } = System.Text.Encoding.UTF8;
+
+    public System.Text.Encoding ResponseEncoding { get; set; } = System.Text.Encoding.UTF8;
+}
+
 /// <summary>System.Web.Configuration.CodeSubDirectory equivalent.</summary>
 public class CodeSubDirectory(string directoryName)
 {
@@ -263,6 +312,10 @@ public class JavaScriptSerializer
     public string Serialize(object obj) => System.Text.Json.JsonSerializer.Serialize(obj, Options);
 
     public T Deserialize<T>(string input) => System.Text.Json.JsonSerializer.Deserialize<T>(input, Options);
+
+    /// <summary>JavaScriptSerializer.Deserialize(string, Type) - the non-generic form.</summary>
+    public object Deserialize(string input, Type targetType)
+        => System.Text.Json.JsonSerializer.Deserialize(input, targetType, Options);
 
     public object DeserializeObject(string input)
         => System.Text.Json.JsonSerializer.Deserialize<object>(input, Options);

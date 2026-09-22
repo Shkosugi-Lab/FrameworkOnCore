@@ -41,4 +41,20 @@ public sealed class ModelStateDictionary
     public void Clear() => _errors.Clear();
 
     public bool ContainsKey(string key) => _errors.ContainsKey(key ?? string.Empty);
+
+    /// <summary>MVC ModelStateDictionary.Merge - copies another dictionary's errors in.</summary>
+    public void Merge(ModelStateDictionary dictionary)
+    {
+        if (dictionary is null)
+        {
+            return;
+        }
+        foreach (var (key, messages) in dictionary._errors)
+        {
+            foreach (var message in messages)
+            {
+                AddModelError(key, message);
+            }
+        }
+    }
 }

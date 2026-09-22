@@ -285,20 +285,23 @@ if (deriveIncludes)
 // does not exist. N2.Management declares exactly that namespace. Three of n2cms's four
 // build errors are that one collision.
 //
-// So under --split-projects the PROJECT names them. Only there: renaming the directories
-// in the merged output would move every ported file and change what the baseline measures
-// without changing anything about the conversion.
-Dictionary<string, string>? includeOutputNames = null;
-if (splitProjects)
+// So the PROJECT names them, in both output shapes.
+//
+// It was --split-projects only at first, on the grounds that renaming directories in the
+// merged output moves every ported file for no change in the conversion. That was the
+// wrong trade: the fusion is not cosmetic there either. Merged, N2.Management's
+// N2.Edit.Security namespace sits in the same compilation as N2.dll's TreeNode.cs, which
+// writes "Security.Permission" from inside namespace N2.Edit - and that resolves to
+// N2.Security.Permission only while N2.Edit.Security does not exist. Three of n2cms's
+// four merged build errors were that, and being declaration-stage errors they stopped the
+// build, so every number behind them was a floor.
+var includeOutputNames = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+foreach (var directory in includeDirectories)
 {
-    includeOutputNames = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
-    foreach (var directory in includeDirectories)
-    {
-        var trimmed = Path.GetFullPath(directory).TrimEnd(Path.DirectorySeparatorChar, '/');
-        var (projectName, _, _) =
-            WebForm2Blazor.Converter.Project.ProjectReferenceGraph.ProjectIdentityOf(trimmed);
-        includeOutputNames[trimmed] = projectName ?? Path.GetFileName(trimmed);
-    }
+    var trimmed = Path.GetFullPath(directory).TrimEnd(Path.DirectorySeparatorChar, '/');
+    var (projectName, _, _) =
+        WebForm2Blazor.Converter.Project.ProjectReferenceGraph.ProjectIdentityOf(trimmed);
+    includeOutputNames[trimmed] = projectName ?? Path.GetFileName(trimmed);
 }
 
 var project = WebFormsProject.Scan(

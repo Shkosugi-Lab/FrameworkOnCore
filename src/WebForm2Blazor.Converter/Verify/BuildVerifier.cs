@@ -272,10 +272,20 @@ public static partial class BuildVerifier
     /// until the build runs.
     /// </summary>
     private static bool SourcesFailToParse(string? outputDirectory)
+        => FirstUnparseableSource(outputDirectory) is not null;
+
+    /// <summary>
+    /// The first file the parser rejects, with the diagnostic it gave, or null.
+    ///
+    /// The path is returned rather than a bool because the warning built on this used to
+    /// say only "there is a syntax error somewhere" - which leaves the reader grepping
+    /// 1,700 generated files for something the tool already knew. It costs one string.
+    /// </summary>
+    private static string? FirstUnparseableSource(string? outputDirectory)
     {
         if (outputDirectory is null || !Directory.Exists(outputDirectory))
         {
-            return false;
+            return null;
         }
 
         foreach (var file in Directory.EnumerateFiles(outputDirectory, "*.cs", SearchOption.AllDirectories))
@@ -299,10 +309,12 @@ public static partial class BuildVerifier
                     File.ReadAllText(file),
                     Microsoft.CodeAnalysis.CSharp.CSharpParseOptions.Default
                         .WithPreprocessorSymbols("DEBUG"));
-                if (tree.GetDiagnostics().Any(diagnostic =>
-                        diagnostic.Severity == Microsoft.CodeAnalysis.DiagnosticSeverity.Error))
+                var failure = tree.GetDiagnostics().FirstOrDefault(diagnostic =>
+                    diagnostic.Severity == Microsoft.CodeAnalysis.DiagnosticSeverity.Error);
+                if (failure is not null)
                 {
-                    return true;
+                    return $"{relative}({failure.Location.GetLineSpan().StartLinePosition.Line + 1}): "
+                           + $"{failure.Id}: {failure.GetMessage()}";
                 }
             }
             catch (IOException)
@@ -311,7 +323,7 @@ public static partial class BuildVerifier
             }
         }
 
-        return false;
+        return null;
     }
 
     /// <summary>
@@ -801,6 +813,14 @@ public static partial class BuildVerifier
         > 前後比較や合否判定にこの数値をそのまま使わないでください。
         """;
 
+    private const string DeclarationStopWarning = """
+        > **この件数は下限です。**
+        > エラーがすべて declaration 段階で出るものです。C# はシグネチャを解決できない
+        > コンパイルのメソッド本体を束縛しないので、ビルドはそこで止まっている可能性が
+        > 高く、本体の中のエラーは 1 件も報告されていません。
+        > 前後比較や合否判定にこの数値をそのまま使わないでください。
+        """;
+
     private const string DependencyStopWarning = """
         > **この件数は下限です。参照しているプロジェクトが先に失敗しました。**
         > MSBuild は依存順にビルドし、失敗した枝から先へは進みません。つまり
@@ -882,7 +902,10 @@ public static partial class BuildVerifier
         {
             // Blank line between: a block quote running straight into the "#" heading would
             // swallow it into the quote.
-            report = (dependencyFailed ? DependencyStopWarning : ParseStopWarning)
+            report = (dependencyFailed ? DependencyStopWarning
+                         : FirstUnparseableSource(outputDirectory) is not null ? ParseStopWarning
+                         : StoppedAtDeclarations(diagnostics) ? DeclarationStopWarning
+                         : ParseStopWarning)
                 + Environment.NewLine + Environment.NewLine + report;
         }
         File.WriteAllText(reportPath, report);
@@ -922,9 +945,32 @@ public static partial class BuildVerifier
         {
             // Without this the number reads as "almost building" when the truth is the
             // opposite: the compiler gave up before it ever looked at any type.
-            Console.WriteLine(
-                "警告: 構文エラーがあるため意味解析が実行されていません。上の件数は下限であり、"
-                + "総数ではありません。構文エラーを直すと件数は大幅に増える可能性があります。");
+            //
+            // WHICH of the reasons it was, because they send the reader to different
+            // places and only one of them is a syntax error. Saying "構文エラーがあるため"
+            // for all of them sent this session hunting a parse failure in 1,764 generated
+            // files that did not have one - the build had simply stopped after the
+            // declaration pass, which is an ordinary thing for it to do.
+            if (FirstUnparseableSource(outputDirectory) is { } unparseable)
+            {
+                Console.WriteLine(
+                    "警告: 構文エラーがあるため意味解析が実行されていません。上の件数は下限であり、"
+                    + "総数ではありません。構文エラーを直すと件数は大幅に増える可能性があります。");
+                Console.WriteLine($"  最初に構文解析に失敗したファイル: {unparseable}");
+            }
+            else if (StoppedAtDeclarations(diagnostics))
+            {
+                Console.WriteLine(
+                    "警告: エラーがすべて declaration 段階のものです。ビルドはメソッド本体を"
+                    + "束縛する前に止まっている可能性が高く、上の件数は下限であり総数ではありません"
+                    + "(これらを直すと件数は大幅に増えることがあります)。");
+            }
+            else
+            {
+                Console.WriteLine(
+                    "警告: コンパイラが最後まで到達していません。上の件数は下限であり、"
+                    + "総数ではありません(Razor のエラー、またはコンパイラ以前で失敗するビルド)。");
+            }
         }
         Console.WriteLine($"レポート: {reportPath}");
         return diagnostics.Count == 0 ? 0 : 2;

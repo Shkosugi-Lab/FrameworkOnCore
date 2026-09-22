@@ -20,7 +20,6 @@ public static class PortabilityRules
     [
         "Microsoft.Owin", "Owin", "Microsoft.AspNet.Identity", "Microsoft.AspNet.FriendlyUrls",
         "Microsoft.AspNet.SignalR", "System.Web.Optimization", "System.Web.Http",
-        "System.Web.Mvc",
         // System.Web.Services (ASMX) was here and emptied 12 mojoPortal files. What the
         // corpora use of it is five declarations - WebService, [WebMethod],
         // [WebService], [WebServiceBinding], WsiProfiles - which the compatibility layer

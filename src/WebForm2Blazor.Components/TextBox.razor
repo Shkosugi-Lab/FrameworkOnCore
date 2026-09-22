@@ -1,4 +1,4 @@
-﻿@namespace WebForm2Blazor.Components
+@namespace WebForm2Blazor.Components
 @inherits WebFormsControlBase
 @implements IValueControl
 
@@ -10,14 +10,14 @@
         <textarea @attributes="ExtraAttributes" style="@ComputedStyle" id="@ClientID" class="@CssClass"
                   rows="@Rows" cols="@(Columns > 0 ? Columns : 20)" wrap="@(Wrap ? null : "off")"
                   disabled="@(!Enabled)" readonly="@ReadOnly"
-                  @oninput="HandleInput">@Text</textarea>
+                  @oninput="HandleInput" @onchange="HandleChange">@Text</textarea>
     }
     else
     {
         <input @attributes="ExtraAttributes" style="@ComputedStyle" type="@HtmlInputType" id="@ClientID"
                class="@CssClass" value="@EffectiveValue" disabled="@(!Enabled)"
                readonly="@ReadOnly" maxlength="@(MaxLength > 0 ? MaxLength : (int?)null)"
-               @oninput="HandleInput" />
+               @oninput="HandleInput" @onchange="HandleChange" />
     }
 }
 
@@ -29,8 +29,25 @@
     public string Text
     {
         get => _text;
-        set => SetAndRefresh(ref _text, value ?? string.Empty);
+        set
+        {
+            SetAndRefresh(ref _text, value ?? string.Empty);
+            // A value set by code is the new baseline, as ViewState made it in WebForms:
+            // TextChanged compares what the user committed against what the page last had.
+            _committed = _text;
+        }
     }
+
+    private string _committed = string.Empty;
+
+    /// <summary>
+    /// WebForms TextBox.TextChanged. Raised once when the user COMMITS a different value
+    /// (the DOM change event - blur or Enter), not per keystroke: WebForms raised it on the
+    /// postback after the value differed from the one the page last rendered, and a
+    /// per-keystroke event would run the handler many times for one edit. Ported code
+    /// subscribes to it from code (n2cms's DatePicker does), which is why it is a C# event.
+    /// </summary>
+    public event EventHandler TextChanged;
 
     [Parameter] public bool ReadOnly { get; set; }
     [Parameter] public int MaxLength { get; set; }
@@ -103,6 +120,16 @@
     {
         _text = e.Value?.ToString() ?? string.Empty;
         MarkStateTouched(); // after user input, never roll back to the markup initial value
+    }
+
+    private void HandleChange(ChangeEventArgs e)
+    {
+        _text = e.Value?.ToString() ?? string.Empty;
+        if (!string.Equals(_text, _committed, StringComparison.Ordinal))
+        {
+            _committed = _text;
+            TextChanged?.Invoke(this, EventArgs.Empty);
+        }
     }
 
     public string GetControlValue() => _text;

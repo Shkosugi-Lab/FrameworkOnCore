@@ -41,6 +41,20 @@ public interface IWebFormsControl
     string AccessKey { get => null; set { } }
 
     /// <summary>
+    /// WebForms Control.PreRender, WebControl.Style and Control.ResolveClientUrl - reached
+    /// through IWebFormsControl because that is what the converter turns "Control" and
+    /// "WebControl" parameters into. Both control bases declare all three, so these
+    /// defaults serve only the implementors deriving from neither (Page, RepeaterItem,
+    /// ...). Of those, only ResolveClientUrl was reachable in the original - Control has
+    /// no Style - and the event default accepts a subscription it will never raise.
+    /// </summary>
+    event EventHandler PreRender { add { } remove { } }
+
+    CssStyleCollection Style => null;
+
+    string ResolveClientUrl(string relativeUrl) => UrlMapper.ResolveUrl(relativeUrl);
+
+    /// <summary>
     /// WebForms Control.UniqueID equivalent. Both families already declare it; it was
     /// missing from the interface, so code holding a control as IWebFormsControl - which
     /// is what the Control rewrite produces - could not reach it.

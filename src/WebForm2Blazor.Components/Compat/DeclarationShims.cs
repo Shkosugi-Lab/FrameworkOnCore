@@ -22,10 +22,16 @@ public class SiteMapProvider
     protected virtual SiteMapNode GetRootNodeCore() => null;
 
     public virtual void Initialize(string name, System.Collections.Specialized.NameValueCollection attributes)
-    {
-    }
+        => SecurityTrimmingEnabled = bool.TryParse(attributes?["securityTrimmingEnabled"], out var trim) && trim;
 
     public virtual bool IsAccessibleToUser(HttpContext context, SiteMapNode node) => true;
+
+    /// <summary>
+    /// WebForms SiteMapProvider.SecurityTrimmingEnabled - whether nodes the user may not see
+    /// are hidden. Read from the provider's securityTrimmingEnabled attribute in Initialize,
+    /// as the original does.
+    /// </summary>
+    public bool SecurityTrimmingEnabled { get; protected set; }
 }
 
 /// <summary>System.Web.XmlSiteMapProvider equivalent.</summary>
@@ -1661,6 +1667,16 @@ public class HtmlContainerControl : LegacyWebControl
     /// "fieldset". Declaring it protected here made those overrides CS0507.
     /// </summary>
     public new virtual string TagName { get; set; } = "span";
+
+    /// <summary>
+    /// WebForms HtmlControl.Disabled. Backed by the disabled attribute exactly as the
+    /// original is, so setting it renders disabled="disabled" and reading it reflects markup.
+    /// </summary>
+    public bool Disabled
+    {
+        get => Attributes["disabled"] is not null;
+        set => Attributes["disabled"] = value ? "disabled" : null;
+    }
 }
 
 /// <summary>

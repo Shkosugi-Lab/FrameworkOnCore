@@ -45,6 +45,18 @@ public static class ConfigurationManager
     public static void RefreshSection(string sectionName)
         => System.Configuration.ConfigurationManager.RefreshSection(sectionName);
 
+    /// <summary>
+    /// System.Configuration.ConfigurationManager.OpenExeConfiguration, forwarded to the real
+    /// one - the same object model this layer already hands out, read from the App.config
+    /// the converter carried over.
+    /// </summary>
+    public static System.Configuration.Configuration OpenExeConfiguration(
+        System.Configuration.ConfigurationUserLevel userLevel)
+        => System.Configuration.ConfigurationManager.OpenExeConfiguration(userLevel);
+
+    public static System.Configuration.Configuration OpenExeConfiguration(string exePath)
+        => System.Configuration.ConfigurationManager.OpenExeConfiguration(exePath);
+
     public static object GetSection(string sectionName)
     {
         try
@@ -129,6 +141,13 @@ public static class ConfigurationManager
             }
         }
 
+        /// <summary>
+        /// ConnectionStringSettingsCollection[int] - the entry at a position, in configuration
+        /// order. n2cms takes [0] as its default connection.
+        /// </summary>
+        public WebForm2Blazor.Components.Compat.ConnectionStringSettings this[int index]
+            => this.ElementAtOrDefault(index);
+
         /// <summary>The configured connection strings, in configuration order.</summary>
         public IEnumerator<WebForm2Blazor.Components.Compat.ConnectionStringSettings> GetEnumerator()
             => Configuration.GetSection("ConnectionStrings").GetChildren()
@@ -173,6 +192,17 @@ public sealed class ConnectionStringSettings(string name, string connectionStrin
             ? null
             : new System.Configuration.ConnectionStringSettings(
                 settings.Name, settings.ConnectionString, settings.ProviderName);
+
+    /// <summary>
+    /// The other direction, for the same reason: ported code reads an entry out of a REAL
+    /// section it opened (n2cms: OpenExeConfiguration(...).ConnectionStrings[name]) into a
+    /// variable declared with this type. A copy of the same three values.
+    /// </summary>
+    public static implicit operator ConnectionStringSettings(
+        System.Configuration.ConnectionStringSettings settings)
+        => settings is null
+            ? null
+            : new ConnectionStringSettings(settings.Name, settings.ConnectionString, settings.ProviderName);
 
     /// <summary>
     /// WebForms ConnectionStringSettings.ProviderName. Web.config carried it next to

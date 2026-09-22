@@ -10,7 +10,8 @@ namespace WebForm2Blazor.Components;
 /// IsPostBack / IsValid / FindControl - under the same names, so code-behind can be
 /// ported without modification.
 /// </summary>
-public abstract class Page : ComponentBase, IWebFormsHost, IWebFormsControl
+// Concrete, as System.Web.UI.Page is: ported code creates one to render controls into.
+public class Page : ComponentBase, IWebFormsHost, IWebFormsControl
 {
     private HttpResponseShim _response;
     private HttpRequestShim _request;
@@ -99,7 +100,24 @@ public abstract class Page : ComponentBase, IWebFormsHost, IWebFormsControl
     /// AntiXsrf template's postback validation is a no-op by design.</summary>
 #pragma warning disable 67
     public event EventHandler PreLoad;
+
+    /// <summary>WebForms Page.InitComplete. Never raised, for the same reason as PreLoad.</summary>
+    public event EventHandler InitComplete;
 #pragma warning restore 67
+
+    /// <summary>
+    /// WebForms Page.Items - a dictionary scoped to this page instance, which controls use
+    /// to leave notes for each other during one request (n2cms marks which zones rendered).
+    /// Per component instance here, which is the same lifetime: one page, one request.
+    /// </summary>
+    public System.Collections.IDictionary Items { get; } = new System.Collections.Hashtable();
+
+    /// <summary>
+    /// WebForms Page.Validators - the validators on this page. Built from what the page
+    /// actually registered, so iterating it validates the real controls.
+    /// </summary>
+    public ValidatorCollection Validators
+        => new(HostCore.Validators.OfType<IValidator>());
 
     // Public like the originals: helper code outside the page (Utils.HtmlEncode(page.Server...))
     // reaches for them through a Page reference, which protected members forbid.
@@ -356,6 +374,56 @@ public abstract class Page : ComponentBase, IWebFormsHost, IWebFormsControl
     Page IWebFormsControl.Page => this;
 
     /// <summary>
+    /// WebForms Control.RenderControl for a page built in code: renders the controls that
+    /// code added to it. n2cms does exactly this - "new Page()", let plugins add their
+    /// controls, render into a StringWriter - and the render-based controls it adds write
+    /// their real markup here. Blazor components in the collection write nothing (see
+    /// IWebFormsControl.RenderControl), because only the Blazor renderer can render them.
+    /// </summary>
+    public virtual void RenderControl(HtmlTextWriter writer)
+    {
+        foreach (IWebFormsControl control in Controls)
+        {
+            control.RenderControl(writer);
+        }
+    }
+
+    /// <summary>WebForms Page.FrameworkInitialize - the first hook in the page lifecycle.</summary>
+    protected virtual void FrameworkInitialize()
+    {
+    }
+
+    /// <summary>
+    /// WebForms Page.InitOutputCache. There is no output cache in front of a converted page
+    /// (the response is a live circuit, not a cacheable document), so the settings are
+    /// accepted and have no effect.
+    /// </summary>
+    protected virtual void InitOutputCache(OutputCacheParameters cacheSettings)
+    {
+    }
+
+    /// <summary>
+    /// WebForms Page.ProcessRequest - runs the page lifecycle for a request. The only part
+    /// of that lifecycle a page constructed in code has here is its initialisation hook,
+    /// so that is what runs; there is no render pass to drive (a page is reached by its
+    /// @page route and rendered by Blazor).
+    /// </summary>
+    public virtual void ProcessRequest(HttpContext context) => FrameworkInitialize();
+
+    /// <summary>
+    /// WebForms TemplateControl.GetLocalResourceObject / GetGlobalResourceObject. Global
+    /// resources resolve through App_GlobalResources as everywhere else; local resources
+    /// were resolved at conversion time (meta:resourcekey), so a run-time lookup finds
+    /// none and callers written "... ?? defaultText" fall back to their default.
+    /// </summary>
+    protected object GetLocalResourceObject(string resourceKey) => null;
+
+    protected object GetLocalResourceObject(string resourceKey, Type objType, string propName) => null;
+
+    protected object GetGlobalResourceObject(string className, string resourceKey)
+        => HttpContext.GetGlobalResourceObject(className, resourceKey);
+
+    /// <summary>
     /// WebForms Page.EnableTheming / Theme equivalents. Themes and skins are a WebForms
     /// rendering feature with no ASP.NET Core counterpart, so the values are recorded and
     /// read back but select nothing. Ported bases turn theming OFF through this property,
@@ -425,6 +493,25 @@ public sealed class PageHeaderShim : HtmlHead
 /// </summary>
 public sealed class ClientScriptManagerShim
 {
+    /// <summary>
+    /// WebForms ClientScriptManager.RegisterExpandoAttribute - puts a property onto a DOM
+    /// element from script. Validators use it to hand their settings to the client-side
+    /// validation library, which does not exist here (validation runs on the server), so
+    /// it compiles and does nothing, like the other registrations on this class.
+    /// </summary>
+    public void RegisterExpandoAttribute(string controlId, string attributeName, string attributeValue)
+    {
+    }
+
+    public void RegisterExpandoAttribute(string controlId, string attributeName, string attributeValue, bool encode)
+    {
+    }
+
+    /// <summary>WebForms ClientScriptManager.RegisterArrayDeclaration (inert, as above).</summary>
+    public void RegisterArrayDeclaration(string arrayName, string arrayValue)
+    {
+    }
+
     public void RegisterStartupScript(Type type, string key, string script)
     {
     }
@@ -647,6 +734,18 @@ public abstract class WebFormsUserControl : UserControl, IWebFormsHost, IWebForm
 
     /// <summary>Programmatically added children (markup children are Blazor's, not this list).</summary>
     public ControlCollection Controls { get; } = [];
+    /// <summary>
+    /// WebForms TemplateControl.GetLocalResourceObject / GetGlobalResourceObject. Global
+    /// resources resolve through App_GlobalResources as everywhere else; local resources
+    /// were resolved at conversion time (meta:resourcekey), so a run-time lookup finds
+    /// none and callers written "... ?? defaultText" fall back to their default.
+    /// </summary>
+    protected object GetLocalResourceObject(string resourceKey) => null;
+
+    protected object GetLocalResourceObject(string resourceKey, Type objType, string propName) => null;
+
+    protected object GetGlobalResourceObject(string className, string resourceKey)
+        => HttpContext.GetGlobalResourceObject(className, resourceKey);
 
     /// <summary>
     /// WebForms Control.UniqueID equivalent. Blazor has no postback name mangling

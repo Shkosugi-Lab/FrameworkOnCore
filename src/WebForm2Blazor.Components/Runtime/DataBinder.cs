@@ -27,6 +27,24 @@ public sealed class RepeaterItem(object dataItem, int itemIndex) : IWebFormsCont
 {
     private readonly Dictionary<string, IWebFormsControl> _controls = new(StringComparer.Ordinal);
 
+    /// <summary>
+    /// WebForms RepeaterItem(int itemIndex, ListItemType itemType) - a row of a stated kind.
+    /// Header, footer and separator rows exist only through this form: a render-based
+    /// repeater (LegacyRepeater) builds them, and ported code builds one by hand (n2cms's
+    /// EmptyTemplate row).
+    /// </summary>
+    public RepeaterItem(int itemIndex, ListItemType itemType) : this(null, itemIndex)
+        => _explicitType = itemType;
+
+    private readonly ListItemType? _explicitType;
+
+    /// <summary>
+    /// Children added in CODE - ITemplate.InstantiateIn(row) and Controls.Add - kept for
+    /// real. Controls used to be rebuilt from the registrations on every read, so anything
+    /// added through it was dropped the moment it was added.
+    /// </summary>
+    private readonly ControlCollection _children = [];
+
     public object DataItem { get; internal set; } = dataItem;
     public int ItemIndex { get; internal set; } = itemIndex;
 
@@ -48,7 +66,8 @@ public sealed class RepeaterItem(object dataItem, int itemIndex) : IWebFormsCont
     public int DataItemIndex => ItemIndex;
 
     /// <summary>Item / AlternatingItem by row position, as in WebForms.</summary>
-    public ListItemType ItemType => ItemIndex % 2 == 0 ? ListItemType.Item : ListItemType.AlternatingItem;
+    public ListItemType ItemType
+        => _explicitType ?? (ItemIndex % 2 == 0 ? ListItemType.Item : ListItemType.AlternatingItem);
 
     internal void RegisterControl(IWebFormsControl control)
     {
@@ -109,9 +128,35 @@ public sealed class RepeaterItem(object dataItem, int itemIndex) : IWebFormsCont
     {
         get
         {
-            var collection = new ControlCollection();
-            collection.AddRange(_controls.Values);
-            return collection;
+            foreach (var registered in _controls.Values)
+            {
+                if (!_children.Contains(registered))
+                {
+                    _children.Add(registered);
+                }
+            }
+            return _children;
+        }
+    }
+
+    /// <summary>WebForms Control.DataBind on a row: binds the controls in it.</summary>
+    public void DataBind()
+    {
+        foreach (var control in Controls)
+        {
+            control?.DataBind();
+        }
+    }
+
+    /// <summary>
+    /// Renders the row's children - what a render-based repeater needs from a row. The
+    /// Blazor data controls never call this; they render the row from its template.
+    /// </summary>
+    public void RenderControl(HtmlTextWriter writer)
+    {
+        foreach (var control in Controls)
+        {
+            control?.RenderControl(writer);
         }
     }
 

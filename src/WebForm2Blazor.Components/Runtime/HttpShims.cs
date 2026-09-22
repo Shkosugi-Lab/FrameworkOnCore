@@ -196,6 +196,11 @@ public abstract class HttpResponseBase
 
     public virtual string ContentType { get; set; }
 
+    /// <summary>WebForms HttpResponse.AddCacheDependency - for the output cache (inert, see HttpCachePolicyShim).</summary>
+    public void AddCacheDependency(params CacheDependency[] dependencies)
+    {
+    }
+
     public virtual string Charset { get; set; }
 
     public virtual System.Text.Encoding ContentEncoding { get; set; } = System.Text.Encoding.UTF8;
@@ -386,6 +391,15 @@ public sealed class HttpResponseShim(NavigationManager navigation) : HttpRespons
 public class HttpCachePolicyShim
 {
     /// <summary>
+    /// WebForms HttpCachePolicy.AddValidationCallback - asks the OUTPUT cache to check with
+    /// the application before serving a cached page. There is no output cache here, so
+    /// there is nothing to ask; accepted like the other policy settings on this class.
+    /// </summary>
+    public void AddValidationCallback(HttpCacheValidateHandler handler, object data)
+    {
+    }
+
+    /// <summary>
     /// WebForms Cache.SetSlidingExpiration / AppendCacheExtension. Inert, like every other
     /// member here: these wrote Cache-Control on a response the circuit does not build.
     /// </summary>
@@ -495,6 +509,9 @@ public enum HttpCacheability
 /// </summary>
 public abstract class HttpRequestBase
 {
+    /// <summary>WebForms HttpRequest.ContentType - the request body's media type, from the live request.</summary>
+    public virtual string ContentType => EffectiveAspNetContext?.Request.ContentType ?? string.Empty;
+
     private readonly NavigationManager _navigation;
     private readonly Microsoft.AspNetCore.Http.HttpContext _aspNetContext;
 

@@ -256,6 +256,17 @@ public class HttpException : Exception
 
     public HttpException(int httpCode, string message) : base(message) => _httpCode = httpCode;
 
+    public HttpException(string message, Exception innerException) : base(message, innerException)
+    {
+    }
+
+    /// <summary>
+    /// WebForms HttpException.GetHtmlErrorMessage - the markup of the yellow error page for
+    /// this exception. There is no such page here, so null, which is also what the original
+    /// returns for an exception it has no page for.
+    /// </summary>
+    public virtual string GetHtmlErrorMessage() => null;
+
     public HttpException(int httpCode, string message, Exception innerException)
         : base(message, innerException) => _httpCode = httpCode;
 
@@ -306,6 +317,37 @@ public abstract class HttpContextBase
     public abstract System.Security.Principal.IPrincipal User { get; set; }
 
     public abstract Cache Cache { get; }
+
+    // The members below are virtual rather than abstract so that a subclass written against
+    // the original surface does not suddenly have to implement them. HttpContextWrapper
+    // forwards each to the HttpContext it wraps.
+
+    public virtual bool IsDebuggingEnabled => HttpContext.DebuggingEnabled;
+
+    public virtual bool IsCustomErrorEnabled => !HttpContext.DebuggingEnabled;
+
+    public virtual bool SkipAuthorization { get; set; }
+
+    public virtual Exception Error => null;
+
+    public virtual Exception[] AllErrors => null;
+
+    public virtual void ClearError()
+    {
+    }
+
+    public virtual void AddError(Exception errorInfo)
+    {
+    }
+
+    public virtual void RewritePath(string path)
+    {
+    }
+
+    public virtual void RewritePath(string path, bool rebaseClientPath) => RewritePath(path);
+
+    public virtual void RewritePath(string filePath, string pathInfo, string queryString)
+        => RewritePath(filePath);
 }
 
 /// <summary>
@@ -334,6 +376,26 @@ public sealed class HttpContextWrapper(HttpContext context) : HttpContextBase
     }
 
     public override Cache Cache => _context.Cache;
+
+    public override bool IsDebuggingEnabled => _context.IsDebuggingEnabled;
+
+    public override bool IsCustomErrorEnabled => _context.IsCustomErrorEnabled;
+
+    public override bool SkipAuthorization
+    {
+        get => _context.SkipAuthorization;
+        set => _context.SkipAuthorization = value;
+    }
+
+    public override Exception Error => _context.Error;
+
+    public override Exception[] AllErrors => _context.AllErrors;
+
+    public override void ClearError() => _context.ClearError();
+
+    public override void AddError(Exception errorInfo) => _context.AddError(errorInfo);
+
+    public override void RewritePath(string path) => _context.RewritePath(path);
 }
 
 public sealed class HttpContext
@@ -479,6 +541,62 @@ public sealed class HttpContext
 
     /// <inheritdoc cref="CurrentHandler"/>
     public IHttpHandler PreviousHandler => null;
+
+    /// <summary>
+    /// WebForms HttpContext.IsDebuggingEnabled - &lt;compilation debug="true"&gt; there.
+    /// The converted application's closest equivalent is running in the Development
+    /// environment, which is what decides the same things (detailed errors, unbundled
+    /// scripts) in ASP.NET Core.
+    /// </summary>
+    public bool IsDebuggingEnabled => DebuggingEnabled;
+
+    internal static bool DebuggingEnabled => string.Equals(
+        Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT"), "Development",
+        StringComparison.OrdinalIgnoreCase);
+
+    /// <summary>
+    /// WebForms HttpContext.IsCustomErrorEnabled. &lt;customErrors mode="RemoteOnly"&gt;,
+    /// the default, shows custom errors unless debugging - so the inverse of the above.
+    /// </summary>
+    public bool IsCustomErrorEnabled => !DebuggingEnabled;
+
+    /// <summary>WebForms HttpContext.SkipAuthorization - a flag the application sets and reads.</summary>
+    public bool SkipAuthorization { get; set; }
+
+    private readonly List<Exception> _errors = [];
+
+    /// <summary>WebForms HttpContext.Error - the first error recorded for this request.</summary>
+    public Exception Error => _errors.Count > 0 ? _errors[0] : null;
+
+    public Exception[] AllErrors => _errors.Count > 0 ? [.. _errors] : null;
+
+    public void AddError(Exception errorInfo)
+    {
+        if (errorInfo is not null)
+        {
+            _errors.Add(errorInfo);
+        }
+    }
+
+    public void ClearError() => _errors.Clear();
+
+    /// <summary>
+    /// WebForms HttpContext.RemapHandler. Recorded on <see cref="Handler"/> for code that reads
+    /// it back, the same way RewritePath records its path below: there is no handler
+    /// pipeline for the new handler to be run by.
+    /// </summary>
+    public void RemapHandler(IHttpHandler handler) => Handler = handler;
+
+    /// <summary>
+    /// WebForms HttpContext.GetLocalResourceObject (App_LocalResources, looked up by page).
+    /// The converter resolves meta:resourcekey lookups at CONVERSION time; a lookup made
+    /// from code at run time has no per-page resource set to consult and returns null, so
+    /// callers written "... ?? defaultText" show their default text.
+    /// </summary>
+    public static object GetLocalResourceObject(string virtualPath, string resourceKey) => null;
+
+    public static object GetLocalResourceObject(
+        string virtualPath, string resourceKey, System.Globalization.CultureInfo culture) => null;
 
     /// <summary>WebForms HttpContext.GetGlobalResourceObject equivalent (App_GlobalResources).</summary>
     public static object GetGlobalResourceObject(string classKey, string resourceKey)
@@ -952,6 +1070,33 @@ public class HttpApplication
 
     /// <inheritdoc cref="BeginRequest"/>
     public event EventHandler Error { add { } remove { } }
+    public event EventHandler PostAuthenticateRequest { add { } remove { } }
+    public event EventHandler PostAuthorizeRequest { add { } remove { } }
+    public event EventHandler ResolveRequestCache { add { } remove { } }
+    public event EventHandler PostResolveRequestCache { add { } remove { } }
+    public event EventHandler MapRequestHandler { add { } remove { } }
+    public event EventHandler PostMapRequestHandler { add { } remove { } }
+    public event EventHandler AcquireRequestState { add { } remove { } }
+    public event EventHandler ReleaseRequestState { add { } remove { } }
+    public event EventHandler UpdateRequestCache { add { } remove { } }
+    public event EventHandler PostUpdateRequestCache { add { } remove { } }
+    public event EventHandler LogRequest { add { } remove { } }
+    public event EventHandler PreSendRequestHeaders { add { } remove { } }
+    public event EventHandler PreSendRequestContent { add { } remove { } }
+    public event EventHandler Disposed { add { } remove { } }
+
+    /// <summary>
+    /// WebForms HttpApplication.Init - where Global.asax wires its modules. Virtual so the
+    /// override (and its base.Init()) compile; nothing calls it, as nothing raises the
+    /// events above.
+    /// </summary>
+    public virtual void Init()
+    {
+    }
+
+    public virtual void Dispose()
+    {
+    }
 
     public void CompleteRequest()
     {
@@ -1180,6 +1325,20 @@ public sealed class ToolboxDataAttribute(string data) : Attribute
 }
 
 /// <summary>
+/// System.Web.UI.SupportsEventValidationAttribute equivalent (metadata only).
+///
+/// It told the WebForms page framework that a control validates its own postback events.
+/// There is no postback and no event validation here, so the attribute carries no
+/// behaviour - but ported control libraries declare it (mojoPortal's RazorDropDownList
+/// does) and a missing attribute type is a declaration-stage error, which stops the build
+/// before anything else is reported.
+/// </summary>
+[AttributeUsage(AttributeTargets.Class)]
+public sealed class SupportsEventValidationAttribute : Attribute
+{
+}
+
+/// <summary>
 /// System.Web.UI.ThemeableAttribute equivalent (metadata only).
 ///
 /// A genuine no-op rather than an approximation: WebForms themes and skin files have no
@@ -1300,7 +1459,19 @@ public class CacheDependency
     /// <summary>WebForms CacheDependency.HasChanged. Nothing is watched, so nothing changes.</summary>
     public virtual bool HasChanged => false;
 
-    public virtual void Dispose()
+    public virtual void Dispose() => DependencyDispose();
+
+    /// <summary>
+    /// WebForms CacheDependency.NotifyDependencyChanged - how a SUBCLASS reports that what it
+    /// watches has changed. Nothing listens here (see the class summary), so the call is
+    /// accepted and has no effect; n2cms's ContentCacheDependency calls it.
+    /// </summary>
+    protected void NotifyDependencyChanged(object sender, EventArgs e)
+    {
+    }
+
+    /// <summary>WebForms CacheDependency.DependencyDispose - the subclass's cleanup hook.</summary>
+    protected virtual void DependencyDispose()
     {
     }
 }

@@ -26,6 +26,16 @@ public class HtmlGenericControl : WebFormsControlBase
 
     [Parameter] public string TagName { get; set; } = "div";
 
+    public HtmlGenericControl()
+    {
+    }
+
+    /// <summary>
+    /// WebForms HtmlGenericControl(string tag). Ported controls derive from it and pick
+    /// their element in the constructor (n2cms's UrlSelector: ": base("div")").
+    /// </summary>
+    public HtmlGenericControl(string tag) => TagName = string.IsNullOrEmpty(tag) ? "span" : tag;
+
     [Parameter] public RenderFragment ChildContent { get; set; }
 
     /// <summary>WebForms InnerHtml equivalent; assigning replaces the child content (unencoded).</summary>

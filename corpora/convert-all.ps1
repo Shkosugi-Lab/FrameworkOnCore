@@ -264,9 +264,12 @@ foreach ($c in $corpora) {
         $verifyOutput = & dotnet $converter --verify-build $outDir 2>&1 | Out-String
         $verifyLine = ($verifyOutput -split "`r?`n" | Where-Object { $_ -match '^エラー\s+(\d+)\s+件' } | Select-Object -First 1)
         if ($verifyLine -match '^エラー\s+(\d+)\s+件') { $buildErrors = [int]$Matches[1] }
-        if ($verifyOutput -match '警告: 構文エラー') {
-            # A parse error stops semantic analysis, so the count is a floor, not a total.
-            $problems += "$($c.Name): 構文エラーによりビルドエラー数が下限値です"
+        # 下限値の理由は 3 通り(構文エラー / declaration 段階で停止 / 参照プロジェクトの
+        # 失敗)あり、検証器はそれぞれ別の文面で言います。合言葉は「下限であり」。
+        # 個別の文面を列挙すると、増えたときに黙って素通りします。
+        if ($verifyOutput -match '警告:' -and $verifyOutput -match '下限であり' `
+            -and $verifyOutput -notmatch '警告: 参照しているプロジェクト') {
+            $problems += "$($c.Name): ビルドエラー数が下限値です(総数ではありません)"
         }
         if ($verifyOutput -match '警告: 参照しているプロジェクト') {
             # 複数プロジェクト出力(-Split)でのみ起きます。ライブラリが先に落ちると

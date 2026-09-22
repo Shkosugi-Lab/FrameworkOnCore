@@ -31,6 +31,12 @@ public enum HtmlTextWriterStyle
     BackgroundColor, BorderColor, BorderStyle, BorderWidth, Color, Display,
     FontFamily, FontSize, FontStyle, FontWeight, Height, Margin, Padding,
     TextAlign, TextDecoration, VerticalAlign, Visibility, Width,
+    // The rest of System.Web.UI.HtmlTextWriterStyle. Appended rather than merged in, so the
+    // members above keep their values; CssName turns each into its kebab-case property.
+    BackgroundImage, BorderCollapse, ListStyleImage, ListStyleType, Cursor, Direction,
+    Filter, FontVariant, Left, MarginBottom, MarginLeft, MarginRight, MarginTop, Overflow,
+    OverflowX, OverflowY, PaddingBottom, PaddingLeft, PaddingRight, PaddingTop, Position,
+    TextOverflow, Top, WhiteSpace, ZIndex,
 }
 
 /// <summary>
@@ -147,6 +153,12 @@ public class HtmlTextWriter(TextWriter inner) : TextWriter
         inner.WriteLine();
         _tabsPending = true;
     }
+
+    /// <summary>
+    /// WebForms HtmlTextWriter.WriteLineNoTabs - a line written without the current indent.
+    /// This writer does not indent, so it is WriteLine.
+    /// </summary>
+    public void WriteLineNoTabs(string value) => WriteLine(value);
 
     public override void WriteLine(string value)
     {
@@ -289,7 +301,7 @@ public class HtmlTextWriter(TextWriter inner) : TextWriter
     }
 
     /// <summary>FontFamily -> font-family etc. (kebab-case CSS property names).</summary>
-    private static string CssName(HtmlTextWriterStyle key)
+    internal static string CssName(HtmlTextWriterStyle key)
     {
         var name = key.ToString();
         var builder = new StringBuilder();
@@ -310,7 +322,7 @@ public class HtmlTextWriter(TextWriter inner) : TextWriter
 /// System.Web.UI.WebControls.WebControl on ported legacy custom controls
 /// (render-based controls run under LegacyRenderHost).
 /// </summary>
-public abstract class LegacyWebControl : IWebFormsControl, IDisposable
+public abstract class LegacyWebControl : IWebFormsControl, IDisposable, IAttributeAccessor
 {
     /// <inheritdoc cref="WebFormsControlBase.Dispose"/>
     public virtual void Dispose() => GC.SuppressFinalize(this);
@@ -372,6 +384,24 @@ public abstract class LegacyWebControl : IWebFormsControl, IDisposable
     /// <summary>WebForms Control.Attributes equivalent.</summary>
     public AttributeCollection Attributes { get; } = new(() => { });
 
+    /// <summary>
+    /// WebForms Control.ClearChildViewState / ClearChildState - discard the children's saved
+    /// state before rebuilding them. A legacy control keeps no saved child state here (it
+    /// re-renders from its fields), so there is nothing to discard.
+    /// </summary>
+    protected void ClearChildViewState()
+    {
+    }
+
+    protected void ClearChildState()
+    {
+    }
+
+    // As WebControl / HtmlControl do in WebForms - see WebFormsControlBase for why.
+    string IAttributeAccessor.GetAttribute(string key) => Attributes[key];
+
+    void IAttributeAccessor.SetAttribute(string key, string value) => Attributes[key] = value;
+
     /// <summary>WebForms Control.ViewState equivalent (per-instance; no persistence).</summary>
     protected StateBag ViewState { get; } = new();
 
@@ -399,7 +429,9 @@ public abstract class LegacyWebControl : IWebFormsControl, IDisposable
     /// It is still null when nothing hosts the control (a unit test, a control created in
     /// code and never placed), which is the honest answer there.
     /// </summary>
-    public Page Page { get; internal set; }
+    // Settable, as WebForms Control.Page is: ported code builds a control in code and hands
+    // it its page before adding it (n2cms does, and CS0200 was the result).
+    public Page Page { get; set; }
 
     public HttpContext Context => HttpContext.Current;
 
@@ -872,9 +904,50 @@ public class HtmlTableCell : LegacyWebControl
 }
 
 /// <summary>System.Web.UI.WebControls.BaseValidator equivalent (declaration surface).</summary>
-public class BaseValidator : LegacyWebControl
+public class BaseValidator : LegacyWebControl, IValidator
 {
     public string ErrorMessage { get; set; }
+
+    /// <summary>Static / Dynamic / None, as text - see <see cref="ValidatorDisplay"/>.</summary>
+    public string Display { get; set; } = ValidatorDisplay.Static;
+
+    /// <summary>
+    /// Accepted and inert: validation runs on the server, so there is no client script for
+    /// this to enable. Ported validators read and set it while wiring themselves up.
+    /// </summary>
+    public bool EnableClientScript { get; set; } = true;
+
+    /// <summary>WebForms BaseValidator.GetControlValidationValue - the value of a named control.</summary>
+    protected string GetControlValidationValue(string name)
+        => (FindControl(name) ?? Page?.FindControl(name)) is IValueControl control
+            ? control.GetControlValue()
+            : null;
+
+    /// <summary>WebForms BaseValidator.GetControlRenderID - the client id of a named control.</summary>
+    protected string GetControlRenderID(string name)
+        => (FindControl(name) ?? Page?.FindControl(name))?.ClientID ?? name;
+
+    /// <summary>
+    /// WebForms BaseValidator.DetermineRenderUplevel - whether the browser can run client
+    /// validation. There is none here, so never.
+    /// </summary>
+    protected virtual bool DetermineRenderUplevel() => false;
+
+    /// <summary>WebForms BaseValidator.ControlPropertiesValid (the default accepts).</summary>
+    protected virtual bool ControlPropertiesValid() => true;
+
+    /// <summary>
+    /// WebForms BaseValidator.CheckControlValidationProperty - throws when the named control
+    /// cannot be validated. Here: when it cannot be found at all.
+    /// </summary>
+    protected void CheckControlValidationProperty(string name, string propertyName)
+    {
+        if ((FindControl(name) ?? Page?.FindControl(name)) is null)
+        {
+            throw new HttpException(
+                $"検証対象のコントロール '{name}' が見つかりません({propertyName})。");
+        }
+    }
 
     public string ControlToValidate { get; set; }
 

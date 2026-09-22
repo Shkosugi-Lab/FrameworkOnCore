@@ -419,7 +419,10 @@ public static class CodeBehindRewriter
         ["RadioButtonList"] = "LegacyListControl",
         ["GridView"] = "LegacyWebControl",
         ["DataGrid"] = "LegacyWebControl",
-        ["Repeater"] = "LegacyWebControl",
+        // A repeater's base has to carry the repeater: templates, DataSource, the row
+        // hierarchy and its events. n2cms's Repeater overrides CreateControlHierarchy and
+        // OnItemCreated and raises OnItemDataBound; on LegacyWebControl none of that exists.
+        ["Repeater"] = "LegacyRepeater",
         ["DataList"] = "LegacyWebControl",
         ["CompositeControl"] = "LegacyWebControl",
         // Not LegacyWebControl: PlaceHolder derives from Control, so it renders its
@@ -438,8 +441,10 @@ public static class CodeBehindRewriter
         // LegacyWebControl, and redirecting those would throw away the members the shim
         // carries - a regression, not a fix.
         ["FileUpload"] = "LegacyFileUpload",
-        ["CheckBoxList"] = "LegacyWebControl",
-        ["RadioButtonList"] = "LegacyWebControl",
+        // CheckBoxList and RadioButtonList were ALSO listed here, mapped to LegacyWebControl.
+        // An indexer initializer is last-write-wins, so those two lines silently undid the
+        // LegacyListControl mapping above - the one its comment explains - and a ported
+        // CheckBoxList subclass lost Items and SelectedValue again. Listed once, above.
         ["DetailsView"] = "LegacyWebControl",
         ["FormView"] = "LegacyWebControl",
         ["HiddenField"] = "LegacyWebControl",
@@ -947,6 +952,36 @@ public static class CodeBehindRewriter
         /// </summary>
         private const string WizardStepBaseName = "WizardStepBase";
 
+        /// <summary>
+        /// A generic constraint that named Control / WebControl named a CLASS, and a class
+        /// constraint promises a reference type. Rewritten to IWebFormsControl it names an
+        /// interface, which promises nothing of the kind - so "where T : Control" followed
+        /// by "return null;" stopped compiling (CS0403) in code that was correct. n2cms's
+        /// ItemUtility.Closest&lt;T&gt; is that exact shape.
+        ///
+        /// The guarantee is put back with an explicit "class" constraint, which is what the
+        /// original constraint meant. Only when the rewrite actually turned a class into the
+        /// interface, and only when the clause does not already say class or struct.
+        /// </summary>
+        public override SyntaxNode? VisitTypeParameterConstraintClause(TypeParameterConstraintClauseSyntax node)
+        {
+            var visited = (TypeParameterConstraintClauseSyntax)base.VisitTypeParameterConstraintClause(node)!;
+
+            var classBecameInterface = node.Constraints.OfType<TypeConstraintSyntax>()
+                .Zip(visited.Constraints.OfType<TypeConstraintSyntax>())
+                .Any(pair => pair.First.Type.ToString() != pair.Second.Type.ToString()
+                             && pair.Second.Type.ToString().EndsWith("IWebFormsControl", StringComparison.Ordinal));
+
+            if (!classBecameInterface
+                || visited.Constraints.Any(constraint => constraint is ClassOrStructConstraintSyntax))
+            {
+                return visited;
+            }
+
+            return visited.WithConstraints(visited.Constraints.Insert(0,
+                SyntaxFactory.ClassOrStructConstraint(SyntaxKind.ClassConstraint)));
+        }
+
         public override SyntaxNode? VisitQualifiedName(QualifiedNameSyntax node)
         {
             // System.Web.UI.Control -> IWebFormsControl (the qualifier proves the origin)
@@ -1392,6 +1427,27 @@ public static class CodeBehindRewriter
     /// </summary>
     internal static bool DeclaresCompatType(string name) => CompatTypeNames.Contains(name);
 
+    /// <summary>
+    /// Namespaces the compat layer declares types in UNDER THEIR ORIGINAL NAMES - the few it
+    /// re-creates where the ported import has to keep meaning what it meant
+    /// (System.Runtime.Remoting.Messaging's CallContext, System.Runtime.Remoting's
+    /// RemotingServices, System.Runtime.Serialization's IDataContractSurrogate).
+    ///
+    /// Asked of the assembly for the same reason CompatTypeNames is: IsDroppedNamespace used
+    /// to carry a hand-written exception for Messaging, and the day RemotingServices was
+    /// added to the compat layer the rule went on deleting "using System.Runtime.Remoting;"
+    /// - so the new type could never be reached, and n2cms's DynamicProxy kept five CS0103
+    /// for a declaration that existed.
+    /// </summary>
+    internal static bool CompatDeclaresNamespace(string name) => CompatOriginalNamespaces.Contains(name);
+
+    private static readonly HashSet<string> CompatOriginalNamespaces =
+        typeof(WebForm2Blazor.Components.WebFormsControlBase).Assembly
+            .GetExportedTypes()
+            .Select(type => type.Namespace)
+            .Where(ns => ns is not null && !ns.StartsWith("WebForm2Blazor", StringComparison.Ordinal))
+            .ToHashSet(StringComparer.Ordinal);
+
     /// <summary>The same set, for CompatImportDisambiguator to enumerate.</summary>
     internal static IReadOnlySet<string> CompatTypeNamesForDisambiguation => CompatTypeNames;
 
@@ -1465,10 +1521,11 @@ public static class CodeBehindRewriter
            // "using System.Runtime.Remoting.Contexts;" it never uses. Dropping it removes
            // the error; a file that really used a remoting type gets a CS0246 naming that
            // type, which says far more than "the namespace does not exist".
-           // System.Runtime.Remoting.Messaging is excepted: the compat layer declares
-           // CallContext there, and ported code does use it.
+           // Except where the compat layer re-creates the namespace (CallContext in
+           // .Messaging, RemotingServices in the root, RealProxy in .Proxies) - asked of
+           // the assembly, see CompatDeclaresNamespace.
            || (name.StartsWith("System.Runtime.Remoting", StringComparison.Ordinal)
-               && !name.StartsWith("System.Runtime.Remoting.Messaging", StringComparison.Ordinal))
+               && !CompatDeclaresNamespace(name))
            || name == "AjaxControlToolkit" || name.StartsWith("AjaxControlToolkit.", StringComparison.Ordinal)
            || name == "FredCK" || name.StartsWith("FredCK.", StringComparison.Ordinal);
 

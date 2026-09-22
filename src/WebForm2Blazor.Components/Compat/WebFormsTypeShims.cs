@@ -353,8 +353,23 @@ public class TargetConverter : System.ComponentModel.StringConverter
 /// CS0507 - an override cannot widen accessibility - which is a worse error than the
 /// missing type it replaced.
 /// </remarks>
-public class DataSourceControl : LegacyWebControl
+public class DataSourceControl : LegacyWebControl, IDataSource
 {
+    /// <summary>WebForms DataSourceControl.DataSourceChanged.</summary>
+    public event EventHandler DataSourceChanged;
+
+    /// <summary>
+    /// WebForms DataSourceControl.RaiseDataSourceChangedEvent - how a data source tells its
+    /// bound controls to re-select. Raised for real, to whoever subscribed.
+    /// </summary>
+    protected virtual void RaiseDataSourceChangedEvent(EventArgs e) => DataSourceChanged?.Invoke(this, e);
+
+    // IDataSource is what the original class IS; ported views take their owner as one
+    // (n2cms: new ChildrenDataSourceView(engine, this, ...)).
+    object IDataSource.GetView(string viewName) => GetView(viewName);
+
+    System.Collections.ICollection IDataSource.GetViewNames() => GetViewNames();
+
     protected virtual DataSourceView GetView(string viewName) => null;
 
     protected virtual System.Collections.ICollection GetViewNames() => Array.Empty<string>();
@@ -508,6 +523,9 @@ public class Parameter
     /// </summary>
     protected virtual Parameter Clone() => new(this);
 
+    /// <summary>WebForms Parameter.ViewState - custom parameters keep their settings in it.</summary>
+    protected StateBag ViewState { get; } = new();
+
     protected virtual object Evaluate(HttpContext context, IWebFormsControl control) => DefaultValue;
 }
 
@@ -531,6 +549,8 @@ public sealed class OutputCacheParameters
     public string SqlDependency { get; set; }
 
     public bool NoStore { get; set; }
+
+    public OutputCacheLocation Location { get; set; } = OutputCacheLocation.Any;
 }
 
 /// <summary>System.Web.UI.PostBackOptions equivalent (declaration surface).</summary>

@@ -228,7 +228,19 @@ public abstract class PageStatePersister
 /// <summary>System.Web.UI.DataSourceView equivalent.</summary>
 public abstract class DataSourceView(string name)
 {
+    /// <summary>WebForms DataSourceView(IDataSource owner, string viewName) - the owner is not kept.</summary>
+    protected DataSourceView(IDataSource owner, string viewName) : this(viewName)
+    {
+    }
+
     public string Name { get; } = name;
+
+    /// <summary>
+    /// WebForms DataSourceView.Events - the delegate list subclasses store their event
+    /// handlers in ("Events[EventItemCreated] as EventHandler<...>"). A real list, so the
+    /// events a ported view raises reach whoever subscribed.
+    /// </summary>
+    protected System.ComponentModel.EventHandlerList Events { get; } = new();
 
     public virtual bool CanDelete => false;
 

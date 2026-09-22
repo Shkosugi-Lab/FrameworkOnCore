@@ -12,7 +12,7 @@ namespace WebForm2Blazor.Components;
 /// Properties re-render the control when assigned from code-behind
 /// (the equivalent of a WebForms postback re-render).
 /// </summary>
-public abstract class WebFormsControlBase : ComponentBase, IWebFormsControl, IDisposable, IDeferredControlState
+public abstract class WebFormsControlBase : ComponentBase, IWebFormsControl, IDisposable, IDeferredControlState, IAttributeAccessor
 {
     /// <inheritdoc />
     public IDictionary<string, object> PendingState { get; } = new Dictionary<string, object>(StringComparer.Ordinal);
@@ -225,6 +225,14 @@ public abstract class WebFormsControlBase : ComponentBase, IWebFormsControl, IDi
 
     /// <summary>WebForms Control.Attributes equivalent (arbitrary HTML attributes).</summary>
     public AttributeCollection Attributes { get; }
+
+    // WebForms WebControl implements IAttributeAccessor over its Attributes, and ported
+    // helpers are written against the interface: n2cms's Placeholder(this IAttributeAccessor
+    // control, ...) is called on TextBoxes, and without the interface every one of those
+    // calls was "TextBox has no definition for Placeholder" (13 in N2.dll alone).
+    string IAttributeAccessor.GetAttribute(string key) => Attributes[key];
+
+    void IAttributeAccessor.SetAttribute(string key, string value) => Attributes[key] = value;
 
     /// <summary>WebForms Control.Style equivalent (inline CSS).</summary>
     public CssStyleCollection Style { get; }

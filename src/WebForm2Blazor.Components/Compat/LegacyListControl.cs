@@ -26,6 +26,16 @@ namespace WebForm2Blazor.Components;
 /// </summary>
 public class LegacyListControl : ListControl
 {
+    /// <summary>
+    /// WebForms ListBox.SelectionMode ("Single" / "Multiple", see ListSelectionMode). A
+    /// ListBox member rather than a ListControl one; here because this single base stands in
+    /// for every list family a ported control can derive from, ListBox among them.
+    /// </summary>
+    public virtual string SelectionMode { get; set; } = ListSelectionMode.Single;
+
+    /// <summary>WebForms ListBox.Rows (visible rows), on the same terms.</summary>
+    public virtual int Rows { get; set; } = 4;
+
     /// <summary>WebForms ListControl.Items.</summary>
     public override ListItemCollection Items { get; } = [];
 

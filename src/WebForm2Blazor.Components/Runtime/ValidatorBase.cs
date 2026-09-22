@@ -18,7 +18,7 @@ public delegate void ServerValidateEventHandler(object source, ServerValidateEve
 /// Renders only when invalid (subject to Display), and shows ErrorMessage inline when
 /// Text is empty (same as the WebForms Display defaults).
 /// </summary>
-public abstract class ValidatorBase : WebFormsControlBase, IWebFormsValidator
+public abstract class ValidatorBase : WebFormsControlBase, IWebFormsValidator, IValidator
 {
     private bool _isValid = true;
 
@@ -73,6 +73,19 @@ public abstract class ValidatorBase : WebFormsControlBase, IWebFormsValidator
     {
         base.OnInitialized();
         Host?.HostCore.RegisterValidator(this);
+    }
+
+    /// <summary>
+    /// WebForms IValidator.Validate. The compatibility validators validate against the page
+    /// that hosts them; the interface form is what ported code calls through Page.Validators.
+    /// Outside a page there is no control to validate, and the validator is left as it is.
+    /// </summary>
+    void IValidator.Validate()
+    {
+        if (Host?.HostCore is { } host)
+        {
+            Validate(host);
+        }
     }
 
     /// <summary>

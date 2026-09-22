@@ -576,7 +576,21 @@ public readonly struct Unit
 
     public static Unit Point(int value) => new(value, "pt");
 
+    /// <summary>
+    /// WebForms' second overload, which names the culture the NUMBER is written in.
+    ///
+    /// Carried because ported code calls it: mojoPortal's ConfigHelper reads every Unit
+    /// setting with Unit.Parse(value, CultureInfo.InvariantCulture). Without it that is
+    /// CS1501, and a compatibility surface that has the method but not its overload is the
+    /// same gap as not having it at all.
+    /// </summary>
+    public static Unit Parse(string text, System.Globalization.CultureInfo culture)
+        => Parse(text, (IFormatProvider)culture);
+
     public static Unit Parse(string text)
+        => Parse(text, System.Globalization.CultureInfo.InvariantCulture);
+
+    private static Unit Parse(string text, IFormatProvider provider)
     {
         if (string.IsNullOrWhiteSpace(text))
         {
@@ -602,7 +616,7 @@ public readonly struct Unit
         }
 
         return double.TryParse(numberText, System.Globalization.NumberStyles.Any,
-            System.Globalization.CultureInfo.InvariantCulture, out var number)
+            provider, out var number)
             ? new Unit(number, suffix)
             : Empty;
     }

@@ -328,6 +328,83 @@ public static partial class ProjectReferenceGraph
     }
 
     /// <summary>
+    /// The conditional-compilation symbols the original project defined.
+    ///
+    /// Not decoration: they decide which code EXISTS. DNN Platform vendors log4net, whose
+    /// AspNetCachePatternConverter.cs is wrapped in "#if NET_2_0" while PatternLayout.cs
+    /// names the type unconditionally - and DotNetNuke.Log4net.csproj defines NET_2_0. Drop
+    /// the symbol and the declaration is not compiled while its use still is, which is
+    /// CS0246 for a type sitting right there in the output.
+    ///
+    /// TRACE and DEBUG are left out: the SDK sets those per configuration, and writing them
+    /// in would pin a Debug symbol into a Release build.
+    ///
+    /// Only the DEBUG configuration's symbols are taken, because that is the configuration
+    /// the generated project is built in - and it is also what keeps a Release-only symbol
+    /// like log4net's STRONG (strong-name signing) out of an unsigned build.
+    ///
+    /// Read from EVERY .csproj in the directory rather than insisting on one. Unlike the
+    /// assembly name, which is a single answer that must not be guessed, a symbol is only
+    /// ever "compile this code as well": taking the union across a directory's project files
+    /// can include code no single configuration built, while demanding a unique project file
+    /// drops the symbols entirely. DNN Platform decides it - DotNetNuke.Log4net ships
+    /// DotNetNuke.Log4Net.csproj AND log4net.vs2010.csproj, so the strict rule returned
+    /// nothing and NET_2_0 stayed undefined.
+    ///
+    /// A list containing an MSBuild expression is skipped rather than pasted - it would be
+    /// evaluated against properties that do not exist here.
+    /// </summary>
+    public static List<string> DefineConstantsOf(string directory, string? entryProjectPath = null)
+    {
+        var symbols = new List<string>();
+
+        foreach (var projectPath in ProjectFilesOf(
+                     Path.GetFullPath(directory).TrimEnd(Path.DirectorySeparatorChar, '/'),
+                     entryProjectPath is not null && File.Exists(entryProjectPath)
+                         ? Path.GetFullPath(entryProjectPath)
+                         : null))
+        {
+            XDocument document;
+            try
+            {
+                document = XDocument.Load(projectPath);
+            }
+            catch (Exception exception) when (exception is System.Xml.XmlException or IOException)
+            {
+                continue;
+            }
+
+            var declarations = document.Descendants()
+                .Where(node => node.Name.LocalName == "DefineConstants")
+                .Where(node => !node.Value.Contains('$'))
+                .ToList();
+
+            var chosen = declarations.FirstOrDefault(node =>
+                             node.Parent?.Attribute("Condition")?.Value
+                                 .Contains("Debug", StringComparison.OrdinalIgnoreCase) == true)
+                         ?? declarations.FirstOrDefault();
+            if (chosen is null)
+            {
+                continue;
+            }
+
+            foreach (var symbol in chosen.Value
+                         .Split([';', ','], StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+                         .Where(symbol => symbol is not ("TRACE" or "DEBUG"))
+                         .Where(symbol => symbol.All(character =>
+                             char.IsLetterOrDigit(character) || character == '_')))
+            {
+                if (!symbols.Contains(symbol, StringComparer.Ordinal))
+                {
+                    symbols.Add(symbol);
+                }
+            }
+        }
+
+        return symbols;
+    }
+
+    /// <summary>
     /// The assembly name and root namespace a library directory's project declares.
     ///
     /// Not the directory name. n2cms keeps N2.Extensions in a directory called

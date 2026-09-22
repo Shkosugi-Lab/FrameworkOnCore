@@ -21,6 +21,12 @@ public sealed record LibraryProject(string Name, string SourceDirectory)
     /// <summary>The <see cref="Name"/> of every other emitted library this one references.</summary>
     public List<string> References { get; init; } = [];
 
+    /// <summary>
+    /// Conditional-compilation symbols the original project defined. They decide which
+    /// code exists at all, so dropping them removes declarations whose uses stay.
+    /// </summary>
+    public List<string> DefineConstants { get; init; } = [];
+
     /// <summary>Its ported sources contain the "unsafe" keyword.</summary>
     public bool AllowUnsafeBlocks { get; init; }
 
@@ -260,6 +266,12 @@ public static class LibraryProjectEmitter
         builder.AppendLine($"    <AssemblyName>{library.AssemblyName ?? library.Name}</AssemblyName>");
         builder.AppendLine($"    <RootNamespace>{library.RootNamespace ?? library.Name}</RootNamespace>");
         builder.AppendLine("    <NoWarn>$(NoWarn);SYSLIB0011</NoWarn>");
+        if (library.DefineConstants.Count > 0)
+        {
+            builder.AppendLine(
+                "    <DefineConstants>$(DefineConstants);"
+                + string.Join(";", library.DefineConstants) + "</DefineConstants>");
+        }
         if (library.AllowUnsafeBlocks)
         {
             builder.AppendLine("    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>");

@@ -17,6 +17,11 @@
     <!-- ConfigurationManager.GetSection binds an application's own ConfigurationSection
          subclass out of the App.config the converter carries over from Web.config. -->
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="10.0.*" />
+    <!-- IDataContractSurrogate (Compat/SerializationShims.cs) declares two CodeDom types in
+         its signature. They are part of the original interface, so they cannot be dropped:
+         a member left out of the shim is CS0539 on the application class that implements
+         it. CodeDom moved out of the box on .NET and is only reachable as a package. -->
+    <PackageReference Include="System.CodeDom" Version="10.0.*" />
   </ItemGroup>
 
 </Project>

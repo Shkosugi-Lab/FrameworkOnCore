@@ -1962,6 +1962,8 @@ if (splitProjects && includeDirectories.Count > 0)
             {
                 AssemblyName = assemblyName,
                 RootNamespace = rootNamespace,
+                DefineConstants =
+                    WebForm2Blazor.Converter.Project.ProjectReferenceGraph.DefineConstantsOf(full),
                 AllowUnsafeBlocks = unsafeByOwner.Contains(name),
                 PortedAssemblyAttributes = assemblyAttributesByOwner.Contains(name),
             };

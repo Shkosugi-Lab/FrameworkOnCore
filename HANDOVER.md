@@ -449,9 +449,31 @@ bUnit・パリティ・be/wt は一切動かず、n2 の `new DropDownList()` �
 n2 以外(分割時・MVC 互換層を入れる前の値): yaf 3(変換器がライブラリにアプリ名前空間の
 `using` を挿入。`Convert\RelocatedTypeIndex.cs:194` が本命)/ dnn 7 / mojo 12。
 
-**注意: mojo / yaf / dnn / n2 の `expected.json` は MVC 互換層より前の数字です。**
-コーパス検証は be / wt に限る決まり(`CLAUDE.md`)なので、この 4 本は測り直していません。
-次にその 4 本を測る指示があったときに、ベースラインを取り直してください。
+**注意: mojo / yaf / dnn / n2 の `expected.json` は MVC 互換層より前の数字です**(まだ取り直していない)。
+
+**全 6 本の計測(2026-09-23、指示により実施)**
+
+| コーパス | 統合: ビルドエラー | 分割: ビルドエラー | 分割で止まっている所 |
+|---|---:|---:|---|
+| be | 0 | 0 | — |
+| mojo | 279 | 10(下限) | `mojoPortal.Business` の LDAP(Novell.Directory.Ldap の API 差 8 件)、`Page.RegisterRequiresControlState`、`HttpBrowserCapabilities` |
+| yaf | 1(下限) | 3(下限) | `ServiceStack.OrmLite` にアプリ名前空間 `yaf` の using が入る(`RelocatedTypeIndex.cs:194`) |
+| dnn | 42 | 7(下限) | 同梱 log4net の `HttpContext`(using が無い)5 件と `WindowsImpersonationContext` 2 件 |
+| n2 | 3(下限) | 5 | 残りは n2 自身の UITests ページのみ(上記) |
+| wt | 0 | 0 | — |
+
+今回の作業前のコミット(`17f45af`)と統合モードで突き合わせた結果、dnn 42 件・n2 4 件は作業前と
+1 件単位で同一。dnn の増分(ベースライン 14 → 42)は MVC 互換層で新たに移植された
+`DotNetNuke.Web.Mvc` と、ClientDependency パッケージ(本物の System.Web を参照)を継承する 3 クラス。
+
+mojo は作業前 3010 件だった。うち 2,381 件は RZ9985 の連鎖: 統合で移植コントロールが
+ComponentBase 派生になり、mojo 自身の `PageTitle` が変換器の出す `<PageTitle>` と衝突 →
+Razor がそのファイルのコンポーネント解決を丸ごと諦め、全タグが HTML 要素になって @ref が
+全滅していた。変換器が出すタグ名がアプリの型名と同じときだけ完全修飾で書くようにした
+(`Program.QualifyShadowedComponentTags`)。n2 の `Repeater` も同じ衝突。
+
+`field` キーワードの書き換えは、mojoPortal 3.1.6 自身が C# 14 の `field` を使っていたため、
+`field` という名前が宣言されている場合だけに限定した(一律に @field にすると CS8050)。
 
 **イベントの名前の約束**(段階 (b) の `Button` を止めていた `OnClick` の衝突の解消)。
 WebForms のイベント X には「マークアップの `OnX="…"`」「コードの `X += …`」「サブクラスが

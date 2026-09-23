@@ -22,7 +22,8 @@ namespace WebForm2Blazor.Converter.Convert;
 /// "@field" is the escape the language gives for this: it always means the ordinary name,
 /// so the rewrite restores the original binding whatever "field" was - a field, a local, a
 /// parameter of an enclosing lambda. Only property accessors are touched; nowhere else
-/// did C# 14 change the meaning.
+/// did C# 14 change the meaning. And only where something called field is declared: a
+/// source already written for C# 14 uses the keyword on purpose (see DeclaresFieldName).
 /// </summary>
 internal sealed class FieldKeywordRewriter : CSharpSyntaxRewriter
 {
@@ -58,7 +59,8 @@ internal sealed class FieldKeywordRewriter : CSharpSyntaxRewriter
         if (node.Identifier.Text == "field"
             && InPropertyAccessor(node)
             // "x.field" names a member of x; only the simple name changed meaning.
-            && !(node.Parent is MemberAccessExpressionSyntax access && access.Name == node))
+            && !(node.Parent is MemberAccessExpressionSyntax access && access.Name == node)
+            && DeclaresFieldName(node))
         {
             _rewritten++;
             return node.WithIdentifier(Escaped(node.Identifier));
@@ -68,9 +70,56 @@ internal sealed class FieldKeywordRewriter : CSharpSyntaxRewriter
 
     public override SyntaxNode? VisitFieldExpression(FieldExpressionSyntax node)
     {
-        // Only produced when the source is parsed as C# 14; the original meant the name.
+        // Parsed as C# 14. Only a source that declares something called "field" meant
+        // the name; one that does not is using the keyword on purpose.
+        if (!DeclaresFieldName(node))
+        {
+            return base.VisitFieldExpression(node);
+        }
         _rewritten++;
         return SyntaxFactory.IdentifierName(Escaped(node.Token));
+    }
+
+    /// <summary>
+    /// Whether "field" at this point can have meant an ordinary name: something called
+    /// field is declared in the enclosing types, or in the property itself (a local, a
+    /// lambda parameter). Without such a declaration the code only compiles as C# 14,
+    /// so the author meant the keyword - mojoPortal 3.1.6 writes
+    /// "public string ScriptBaseUrl { get => field; set { field = value; ... } } = string.Empty;"
+    /// and turning that into @field broke it (CS8050). A member inherited from a base in
+    /// another file is not visible here; that case is left as the keyword.
+    /// </summary>
+    private static bool DeclaresFieldName(SyntaxNode node)
+    {
+        foreach (var type in node.Ancestors().OfType<TypeDeclarationSyntax>())
+        {
+            foreach (var member in type.Members)
+            {
+                var declares = member switch
+                {
+                    FieldDeclarationSyntax declaration => declaration.Declaration.Variables.Any(v => v.Identifier.Text == "field"),
+                    PropertyDeclarationSyntax property => property.Identifier.Text == "field",
+                    MethodDeclarationSyntax method => method.Identifier.Text == "field",
+                    EventFieldDeclarationSyntax @event => @event.Declaration.Variables.Any(v => v.Identifier.Text == "field"),
+                    _ => false,
+                };
+                if (declares)
+                {
+                    return true;
+                }
+            }
+        }
+
+        var enclosingProperty = node.Ancestors().OfType<PropertyDeclarationSyntax>().FirstOrDefault();
+        return enclosingProperty is not null && enclosingProperty.DescendantNodes().Any(declaration => declaration switch
+        {
+            VariableDeclaratorSyntax variable => variable.Identifier.Text == "field",
+            ParameterSyntax parameter => parameter.Identifier.Text == "field",
+            SingleVariableDesignationSyntax designation => designation.Identifier.Text == "field",
+            ForEachStatementSyntax forEach => forEach.Identifier.Text == "field",
+            CatchDeclarationSyntax @catch => @catch.Identifier.Text == "field",
+            _ => false,
+        });
     }
 
     private static SyntaxToken Escaped(SyntaxToken original)

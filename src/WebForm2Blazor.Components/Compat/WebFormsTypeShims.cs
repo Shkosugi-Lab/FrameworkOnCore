@@ -952,11 +952,18 @@ public sealed class ValidatePasswordEventArgs(string userName, string password, 
     public Exception FailureInformation { get; set; }
 }
 
-/// <summary>System.Web.UI.WebControls.CreateUserErrorEventArgs equivalent.</summary>
-public sealed class CreateUserErrorEventArgs(object createUserError) : EventArgs
+/// <summary>
+/// System.Web.UI.WebControls.CreateUserErrorEventArgs equivalent. CreateUserError is the
+/// MembershipCreateStatus, as in WebForms: handlers switch on its members (mojoPortal's
+/// CreateUserWizardAdapter picks the error text that way).
+/// </summary>
+public sealed class CreateUserErrorEventArgs(MembershipCreateStatus createUserError) : EventArgs
 {
-    public object CreateUserError { get; } = createUserError;
+    public MembershipCreateStatus CreateUserError { get; set; } = createUserError;
 }
+
+/// <summary>System.Web.UI.WebControls.CreateUserErrorEventHandler equivalent (CreateUserWizard.CreateUserError).</summary>
+public delegate void CreateUserErrorEventHandler(object sender, CreateUserErrorEventArgs e);
 
 /// <summary>System.Web.UI.WebControls.SendMailErrorEventArgs equivalent.</summary>
 public sealed class SendMailErrorEventArgs(Exception exception) : EventArgs

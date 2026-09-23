@@ -110,7 +110,7 @@
     public TableItemStyle CheckBoxStyle { get; } = new();
 
     [Parameter] public AuthenticateEventHandler OnAuthenticate { get; set; }
-    [Parameter] public EventHandler OnLoggingIn { get; set; }
+    [Parameter] public LoginCancelEventHandler OnLoggingIn { get; set; }
     [Parameter] public EventHandler OnLoggedIn { get; set; }
     [Parameter] public EventHandler OnLoginError { get; set; }
 
@@ -123,10 +123,10 @@
         Authenticate?.Invoke(this, e);
     }
 
-    public event EventHandler LoggingIn;
+    public event LoginCancelEventHandler LoggingIn;
 
     /// <summary>WebForms OnLoggingIn (renamed: see WebFormsControlBase, "Event naming").</summary>
-    protected virtual void LoggingInHandler(EventArgs e)
+    protected virtual void LoggingInHandler(LoginCancelEventArgs e)
     {
         OnLoggingIn?.Invoke(this, e);
         LoggingIn?.Invoke(this, e);
@@ -161,7 +161,16 @@
     private void Submit()
     {
         _failure = null;
-        LoggingInHandler(EventArgs.Empty);
+
+        // LoggingIn is cancellable: a handler that cancels stops the attempt before any
+        // authentication, with no LoginError - the WebForms order.
+        var loggingIn = new LoginCancelEventArgs();
+        LoggingInHandler(loggingIn);
+        if (loggingIn.Cancel)
+        {
+            Host?.HostCore.NotifyPostBackEvent();
+            return;
+        }
 
         var args = new AuthenticateEventArgs();
         AuthenticateHandler(args);

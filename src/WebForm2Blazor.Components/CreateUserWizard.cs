@@ -45,7 +45,7 @@ public class CreateUserWizard : Wizard
 
     [Parameter] public LoginCancelEventHandler OnCreatingUser { get; set; }
     [Parameter] public EventHandler OnCreatedUser { get; set; }
-    [Parameter] public EventHandler OnCreateUserError { get; set; }
+    [Parameter] public CreateUserErrorEventHandler OnCreateUserError { get; set; }
     [Parameter] public EventHandler OnContinueButtonClick { get; set; }
 
     /// <summary>WebForms ContinueButtonClick. Declared for code that subscribes; nothing raises it yet.</summary>
@@ -76,10 +76,10 @@ public class CreateUserWizard : Wizard
         CreatedUser?.Invoke(this, e);
     }
 
-    public event EventHandler CreateUserError;
+    public event CreateUserErrorEventHandler CreateUserError;
 
     /// <summary>WebForms OnCreateUserError (renamed: see WebFormsControlBase, "Event naming").</summary>
-    protected virtual void CreateUserErrorHandler(EventArgs e)
+    protected virtual void CreateUserErrorHandler(CreateUserErrorEventArgs e)
     {
         OnCreateUserError?.Invoke(this, e);
         CreateUserError?.Invoke(this, e);
@@ -103,7 +103,7 @@ public class CreateUserWizard : Wizard
         CreatingUserHandler(cancel);
         if (cancel.Cancel)
         {
-            CreateUserErrorHandler(EventArgs.Empty);
+            CreateUserErrorHandler(new CreateUserErrorEventArgs(MembershipCreateStatus.UserRejected));
             return;
         }
 

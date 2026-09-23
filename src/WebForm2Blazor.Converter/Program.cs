@@ -1403,11 +1403,13 @@ foreach (var component in components)
 
     LintGeneratedRazor(component, report);
     File.WriteAllText(Path.Combine(directory, component.ComponentName + ".razor"),
-        ApplyNamespaceMap(
-            StripDeadUsings(
-                WithGlobalUsings(component.RazorContent, webProjectGlobalUsings, component.TargetNamespace),
-                deadNamespacesForMarkup, report, component.ComponentName),
-            razorContent: true));
+        QualifyShadowedComponentTags(
+            ApplyNamespaceMap(
+                StripDeadUsings(
+                    WithGlobalUsings(component.RazorContent, webProjectGlobalUsings, component.TargetNamespace),
+                    deadNamespacesForMarkup, report, component.ComponentName),
+                razorContent: true),
+            baseRegistry));
 
     if (component.CodeBehindSourcePath is not null)
     {
@@ -4488,6 +4490,40 @@ static string SanitizeTypeName(string value)
         : "@" + result;
 }
 
+/// <summary>
+/// Writes a component tag in full where the application declares a type of the same name.
+///
+/// Every ported control is a component now (its base derives ComponentBase), so a razor
+/// that imports the control's namespace sees two components behind one tag - mojoPortal
+/// ports its own "PageTitle" control, and every page's &lt;PageTitle&gt; became RZ9985. Razor
+/// then gives up on the file's components altogether, each tag degrades to an HTML
+/// element, and every @ref on it fails: 105 ambiguous files, 2,381 errors downstream.
+/// n2's Repeater collides with the compat Repeater the same way.
+///
+/// The tags in question are the converter's own - the framework components it emits and
+/// the compat components it maps controls to - so writing them qualified changes nothing
+/// else. Only names the application also declares are touched. A "&lt;" right after a
+/// letter is a generic argument in C# (List&lt;PageTitle&gt;), not a tag, and is left alone
+/// (a CLOSING tag is always a tag).
+/// </summary>
+static string QualifyShadowedComponentTags(string razor, BaseClassRegistry registry)
+{
+    foreach (var (name, fullName) in ConverterComponentTags.Value)
+    {
+        if (!registry.DeclaresTypeNamed(name) || !razor.Contains("<" + name, StringComparison.Ordinal))
+        {
+            continue;
+        }
+        // Opening tags: not after a letter (List<PageTitle> is C#). Closing tags: always -
+        // "</X>" is never C#, and it routinely follows text ("mojo</PageTitle>").
+        razor = System.Text.RegularExpressions.Regex.Replace(
+            razor, @"(?<![\w.])<" + name + @"(?=[\s/>])", _ => "<" + fullName);
+        razor = System.Text.RegularExpressions.Regex.Replace(
+            razor, @"</" + name + @"\s*>", _ => "</" + fullName + ">");
+    }
+    return razor;
+}
+
 static void LintGeneratedRazor(ConvertedComponent component, ConversionReport report)
 {
     // Razor comments never render, so the deliberate @* TODO(W2B): <% ... %> *@ markers
@@ -4664,3 +4700,40 @@ sealed record StubType(
     string Namespace,
     string Name,
     Microsoft.CodeAnalysis.CSharp.Syntax.BaseTypeDeclarationSyntax Declaration);
+
+/// <summary>
+/// The component tags the converter itself writes, with their full names: the framework
+/// components it emits (PageTitle, HeadContent, the section pair, the routing ones) and
+/// every component the compat layer declares, read from the assembly rather than listed.
+/// </summary>
+static class ConverterComponentTags
+{
+    private static readonly Lazy<List<(string Name, string FullName)>> Tags = new(() =>
+    {
+        var tags = new List<(string, string)>
+        {
+            ("PageTitle", "Microsoft.AspNetCore.Components.Web.PageTitle"),
+            ("HeadContent", "Microsoft.AspNetCore.Components.Web.HeadContent"),
+            ("HeadOutlet", "Microsoft.AspNetCore.Components.Web.HeadOutlet"),
+            ("SectionOutlet", "Microsoft.AspNetCore.Components.Sections.SectionOutlet"),
+            ("SectionContent", "Microsoft.AspNetCore.Components.Sections.SectionContent"),
+            ("CascadingValue", "Microsoft.AspNetCore.Components.CascadingValue"),
+            ("RouteView", "Microsoft.AspNetCore.Components.RouteView"),
+            ("LayoutView", "Microsoft.AspNetCore.Components.LayoutView"),
+            ("Router", "Microsoft.AspNetCore.Components.Routing.Router"),
+        };
+
+        var component = typeof(Microsoft.AspNetCore.Components.IComponent);
+        foreach (var type in typeof(WebForm2Blazor.Components.WebFormsControlBase).Assembly.GetExportedTypes())
+        {
+            if (type.Namespace == "WebForm2Blazor.Components" && !type.IsAbstract && !type.IsGenericType
+                && component.IsAssignableFrom(type))
+            {
+                tags.Add((type.Name, type.FullName!));
+            }
+        }
+        return tags;
+    });
+
+    public static List<(string Name, string FullName)> Value => Tags.Value;
+}

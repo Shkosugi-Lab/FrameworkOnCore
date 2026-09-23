@@ -20,8 +20,8 @@
     "dnn":  {
                 "convertible":  3,
                 "portedCs":  2088,
-                "residuals":  116,
-                "buildErrors":  26
+                "residuals":  124,
+                "buildErrors":  36
             },
     "n2":  {
                "convertible":  2,

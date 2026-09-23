@@ -459,7 +459,7 @@ n2 以外(分割時・MVC 互換層を入れる前の値): yaf 3(変換器がラ
 | be | 0 | 0 | — |
 | mojo | 220 | 17(下限) | `mojoPortal.Web.Controls` 自身の互換層不足(統合でも同じエラー。`Table.Caption`、`HtmlButton.Disabled`、`HorizontalAlign`、`CalendarSelectionMode`、`HtmlTextWriterAttribute.Dir` など)。以前は MetadataExtractor がこれを隠していた |
 | yaf | 2 | **0** | —(統合の 2 件は下の「統合モードのシンボル」の食い違い: OrmLite の `Net6PclExport` と `GetJsonFromUrl`) |
-| dnn | 26 | 0(下限) | `DotNetNuke.Library` の検索(Lucene.Net 3.x、**置き換え先が未決**)。数えないエラー(CS0246/CS0115)だがライブラリのビルドは止まる(**判断待ち**) |
+| dnn | 36 | 11(下限) | `DotNetNuke.Library` の検索(Services/Search/Internals)。Lucene.Net 3.0.3 → 4.8 へ移行済み(型 206 件は自動で移動)。残りは 4.8 で作り直された API で、**手作業の移行が要る**(下記) |
 | n2 | 3(下限) | 5 | 残りは n2 自身の UITests ページのみ(上記) |
 | wt | 0 | 0 | — |
 
@@ -471,6 +471,18 @@ n2 以外(分割時・MVC 互換層を入れる前の値): yaf 3(変換器がラ
   **代償**: `<dnn:DnnJsInclude>` / `<dnn:DnnCssInclude>` / `ClientResourceLoader` が未対応コントロールになる
   (スクリプト/CSS の登録が落ちる)。dnn の残差 94 → 116 はこの分。
 
+
+**DNN の Lucene.Net は A(4.8 へ移行)で決着**(2026-09-24、`corpora/dnn-package-map.json`)。mojo と同じ
+4.8.0-beta00018(Lucene.Net / QueryParser / Analysis.Common、FastVectorHighlighter → Highlighter)。
+型名の突き合わせで 206 + 9 件は自動で書き換わる。残るのは Lucene 自身の API の作り直しで、変換器は
+意図的に推測しない(`AssemblyTypeMigration` の方針。改名・シグネチャ変更は AI 層/手作業の入力):
+- 対応する型が無い: `Util.Version`(→ `LuceneVersion`)、`TermAttribute`/`ITermAttribute`(→ `ICharTermAttribute`)、
+  `NumericField`(→ `Int32Field` など)、`Searcher`(→ `IndexSearcher`)、`AlreadyClosedException`(→ `ObjectDisposedException`)、
+  `FragListBuilder`/`FragmentsBuilder`(→ `IFragListBuilder`/`IFragmentsBuilder`)。いずれも残差(NeedsInput)。
+- API: `Analyzer.TokenStream` override → `CreateComponents`、`Collector` は 4.8 では抽象クラスでなく
+  `ICollector`(同名の `Collector` は静的クラスで、名前だけ一致して CS0709)、`SetNextReader(AtomicReaderContext)` など。
+統合 dnn 26 → 36 はこの分(以前は「未決の依存」として数えていなかった)。分割はこれが直るまで
+DotNetNuke.Library で止まり、アプリ本体は未計測(下限)。mojo の Lucene も同じ状態(統合で 43 件)。
 そのために変換器を直したもの:
 - 「置き換えない」の対象を NuGet パッケージにも広げた。アセンブリが入力ツリーに無いとき(PackageReference、
   packages フォルダ未復元の packages.config)は NuGet のグローバルキャッシュから読む(`FindInNuGetCache`)。

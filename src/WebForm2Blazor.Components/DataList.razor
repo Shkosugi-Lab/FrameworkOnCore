@@ -86,12 +86,14 @@
     /// <summary>
     /// WebForms ItemCommand as a CLR event: code-behind wires handlers imperatively
     /// (control.ItemCommand += Handler), which a markup-only parameter cannot express.
-    /// The accessors chain onto the parameter so the existing raise site fires both.
     /// </summary>
-    public event DataListCommandEventHandler ItemCommand
+    public event DataListCommandEventHandler ItemCommand;
+
+    /// <summary>WebForms OnItemCommand (renamed: see WebFormsControlBase, "Event naming").</summary>
+    protected virtual void ItemCommandHandler(DataListCommandEventArgs e)
     {
-        add => OnItemCommand += value;
-        remove => OnItemCommand -= value;
+        OnItemCommand?.Invoke(this, e);
+        ItemCommand?.Invoke(this, e);
     }
 
     /// <summary>
@@ -103,12 +105,14 @@
     /// <summary>
     /// WebForms ItemDataBound as a CLR event: code-behind wires handlers imperatively
     /// (control.ItemDataBound += Handler), which a markup-only parameter cannot express.
-    /// The accessors chain onto the parameter so the existing raise site fires both.
     /// </summary>
-    public event DataListItemEventHandler ItemDataBound
+    public event DataListItemEventHandler ItemDataBound;
+
+    /// <summary>WebForms OnItemDataBound (renamed: see WebFormsControlBase, "Event naming").</summary>
+    protected virtual void ItemDataBoundHandler(DataListItemEventArgs e)
     {
-        add => OnItemDataBound += value;
-        remove => OnItemDataBound -= value;
+        OnItemDataBound?.Invoke(this, e);
+        ItemDataBound?.Invoke(this, e);
     }
 
     /// <summary>WebForms DataSource equivalent. Applied by DataBind().</summary>
@@ -163,7 +167,7 @@
     private int RowCount => (_containers.Count + ColumnCount - 1) / ColumnCount;
 
     internal void RaiseItemCommand(object commandSource, RepeaterItem item, CommandEventArgs args)
-        => OnItemCommand?.Invoke(this, new DataListCommandEventArgs(item, commandSource, args));
+        => ItemCommandHandler(new DataListCommandEventArgs(item, commandSource, args));
 
     /// <summary>WebForms template precedence: edit, then selected, then alternating.</summary>
     private RenderFragment<RepeaterItem> SelectTemplate(int index)
@@ -183,7 +187,7 @@
     public override void DataBind()
     {
         RowContainers.Rebind(_containers, DataSourceHelper.Materialize(DataSource), namingContainerId: ID);
-        _pendingItemDataBound = OnItemDataBound is not null;
+        _pendingItemDataBound = true;
         StateHasChanged();
     }
 
@@ -194,7 +198,7 @@
             _pendingItemDataBound = false;
             foreach (var container in _containers)
             {
-                OnItemDataBound?.Invoke(this, new DataListItemEventArgs(container));
+                ItemDataBoundHandler(new DataListItemEventArgs(container));
             }
         }
     }

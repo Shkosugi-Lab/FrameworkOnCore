@@ -48,10 +48,13 @@
 
     [Parameter] public EventHandler OnTick { get; set; }
 
-    public event EventHandler Tick
+    public event EventHandler Tick;
+
+    /// <summary>WebForms OnTick (renamed: see WebFormsControlBase, "Event naming").</summary>
+    protected virtual void TickHandler(EventArgs e)
     {
-        add => OnTick += value;
-        remove => OnTick -= value;
+        OnTick?.Invoke(this, e);
+        Tick?.Invoke(this, e);
     }
 
     protected override void OnAfterRender(bool firstRender)
@@ -67,7 +70,10 @@
         _timer?.Dispose();
         _timer = null;
 
-        if (!_enabled || _interval <= 0 || OnTick is null)
+        // Not gated on a handler being present: a handler code attaches to Tick, or a
+        // subclass overriding TickHandler, is not visible here yet on the first render,
+        // and the WebForms Timer posted back on every interval regardless.
+        if (!_enabled || _interval <= 0)
         {
             return;
         }
@@ -78,7 +84,7 @@
         _timer = new System.Threading.Timer(
             _ => InvokeAsync(() =>
             {
-                OnTick?.Invoke(this, EventArgs.Empty);
+                TickHandler(EventArgs.Empty);
                 Host?.HostCore.NotifyPostBackEvent();
                 StateHasChanged();
             }),

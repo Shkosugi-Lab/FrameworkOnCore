@@ -56,12 +56,14 @@
     /// <summary>
     /// WebForms ItemDataBound as a CLR event: code-behind wires handlers imperatively
     /// (control.ItemDataBound += Handler), which a markup-only parameter cannot express.
-    /// The accessors chain onto the parameter so the existing raise site fires both.
     /// </summary>
-    public event ListViewItemEventHandler ItemDataBound
+    public event ListViewItemEventHandler ItemDataBound;
+
+    /// <summary>WebForms OnItemDataBound (renamed: see WebFormsControlBase, "Event naming").</summary>
+    protected virtual void ItemDataBoundHandler(ListViewItemEventArgs e)
     {
-        add => OnItemDataBound += value;
-        remove => OnItemDataBound -= value;
+        OnItemDataBound?.Invoke(this, e);
+        ItemDataBound?.Invoke(this, e);
     }
 
     /// <summary>WebForms DataSource equivalent. Applied by DataBind().</summary>
@@ -98,19 +100,21 @@
     /// <summary>
     /// WebForms ItemCommand as a CLR event: code-behind wires handlers imperatively
     /// (control.ItemCommand += Handler), which a markup-only parameter cannot express.
-    /// The accessors chain onto the parameter so the existing raise site fires both.
     /// </summary>
-    public event ListViewCommandEventHandler ItemCommand
+    public event ListViewCommandEventHandler ItemCommand;
+
+    /// <summary>WebForms OnItemCommand (renamed: see WebFormsControlBase, "Event naming").</summary>
+    protected virtual void ItemCommandHandler(ListViewCommandEventArgs e)
     {
-        add => OnItemCommand += value;
-        remove => OnItemCommand -= value;
+        OnItemCommand?.Invoke(this, e);
+        ItemCommand?.Invoke(this, e);
     }
 
     public IReadOnlyList<object> Items => _containers.Select(container => container.DataItem).ToList();
 
     internal void RaiseItemCommand(object commandSource, RepeaterItem item, CommandEventArgs args)
     {
-        OnItemCommand?.Invoke(this, new ListViewCommandEventArgs(item, commandSource, args));
+        ItemCommandHandler(new ListViewCommandEventArgs(item, commandSource, args));
 
         if (args.CommandName != "Delete" || string.IsNullOrEmpty(DeleteMethod))
         {
@@ -188,7 +192,7 @@
     public override void DataBind()
     {
         RowContainers.Rebind(_containers, DataSourceHelper.Materialize(DataSource), namingContainerId: ID);
-        _pendingItemDataBound = OnItemDataBound is not null;
+        _pendingItemDataBound = true;
         StateHasChanged();
     }
 
@@ -211,7 +215,7 @@
             _pendingItemDataBound = false;
             foreach (var container in _containers)
             {
-                OnItemDataBound?.Invoke(this, new ListViewItemEventArgs(container));
+                ItemDataBoundHandler(new ListViewItemEventArgs(container));
             }
         }
     }

@@ -24,24 +24,24 @@
     /// <summary>
     /// WebForms Button.Click as a CLR event. Code-behind attaches handlers imperatively
     /// (btn.Click += Handler), which markup-only parameters cannot express.
-    ///
-    /// The accessors chain onto the parameter rather than keeping a second delegate, so
-    /// the existing raise site fires both routes and no call site can be forgotten.
-    /// (A handler added this way is lost if MARKUP also supplies OnClick, because Blazor
-    /// re-assigns supplied parameters on every render - wiring one event from both places
-    /// is ambiguous in the first place.)
     /// </summary>
-    public event EventHandler Click
+    public event EventHandler Click;
+
+    /// <summary>WebForms OnClick (renamed: see WebFormsControlBase, "Event naming").</summary>
+    protected virtual void ClickHandler(EventArgs e)
     {
-        add => OnClick += value;
-        remove => OnClick -= value;
+        OnClick?.Invoke(this, e);
+        Click?.Invoke(this, e);
     }
 
     /// <summary>WebForms Command as a CLR event (see Click).</summary>
-    public event CommandEventHandler Command
+    public event CommandEventHandler Command;
+
+    /// <summary>WebForms OnCommand (renamed: see WebFormsControlBase, "Event naming").</summary>
+    protected virtual void CommandHandler(CommandEventArgs e)
     {
-        add => OnCommand += value;
-        remove => OnCommand -= value;
+        OnCommand?.Invoke(this, e);
+        Command?.Invoke(this, e);
     }
 
     /// <summary>Runs validation on click by default, as in WebForms.</summary>
@@ -90,7 +90,7 @@
             }
         }
 
-        OnClick?.Invoke(this, EventArgs.Empty);
+        ClickHandler(EventArgs.Empty);
         RaiseCommand();
 
         // Trigger the WebForms Page_PreRender equivalent (runs after every event)
@@ -114,7 +114,7 @@
     private void RaiseCommand()
     {
         var args = new CommandEventArgs(CommandName ?? "", CommandArgument);
-        OnCommand?.Invoke(this, args);
+        CommandHandler(args);
         CommandSink?.RaiseCommand(this, args);
     }
 }

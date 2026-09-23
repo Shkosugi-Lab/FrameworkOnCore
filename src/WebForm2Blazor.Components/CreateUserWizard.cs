@@ -48,31 +48,50 @@ public class CreateUserWizard : Wizard
     [Parameter] public EventHandler OnCreateUserError { get; set; }
     [Parameter] public EventHandler OnContinueButtonClick { get; set; }
 
-    public event EventHandler<LoginCancelEventArgs> CreatingUser
+    /// <summary>WebForms ContinueButtonClick. Declared for code that subscribes; nothing raises it yet.</summary>
+    public event EventHandler ContinueButtonClick;
+
+    /// <summary>WebForms OnContinueButtonClick (renamed: see WebFormsControlBase, "Event naming").</summary>
+    protected virtual void ContinueButtonClickHandler(EventArgs e)
     {
-        add => OnCreatingUser += value;
-        remove => OnCreatingUser -= value;
+        OnContinueButtonClick?.Invoke(this, e);
+        ContinueButtonClick?.Invoke(this, e);
     }
 
-    public event EventHandler CreatedUser
+    public event EventHandler<LoginCancelEventArgs> CreatingUser;
+
+    /// <summary>WebForms OnCreatingUser (renamed: see WebFormsControlBase, "Event naming").</summary>
+    protected virtual void CreatingUserHandler(LoginCancelEventArgs e)
     {
-        add => OnCreatedUser += value;
-        remove => OnCreatedUser -= value;
+        OnCreatingUser?.Invoke(this, e);
+        CreatingUser?.Invoke(this, e);
     }
 
-    public event EventHandler CreateUserError
+    public event EventHandler CreatedUser;
+
+    /// <summary>WebForms OnCreatedUser (renamed: see WebFormsControlBase, "Event naming").</summary>
+    protected virtual void CreatedUserHandler(EventArgs e)
     {
-        add => OnCreateUserError += value;
-        remove => OnCreateUserError -= value;
+        OnCreatedUser?.Invoke(this, e);
+        CreatedUser?.Invoke(this, e);
+    }
+
+    public event EventHandler CreateUserError;
+
+    /// <summary>WebForms OnCreateUserError (renamed: see WebFormsControlBase, "Event naming").</summary>
+    protected virtual void CreateUserErrorHandler(EventArgs e)
+    {
+        OnCreateUserError?.Invoke(this, e);
+        CreateUserError?.Invoke(this, e);
     }
 
     /// <summary>
     /// Finishing the create step is what WebForms turned into the account creation, so
     /// that is where the events go. The base still raises FinishButtonClick and moves on.
     /// </summary>
-    protected override void RaiseActiveStepChanged(object source, EventArgs e)
+    protected override void ActiveStepChangedHandler(object source, EventArgs e)
     {
-        base.RaiseActiveStepChanged(source, e);
+        base.ActiveStepChangedHandler(source, e);
 
         if (ActiveStep is null || ActiveStep != CompleteStep || _created)
         {
@@ -81,14 +100,14 @@ public class CreateUserWizard : Wizard
 
         _created = true;
         var cancel = new LoginCancelEventArgs();
-        OnCreatingUser?.Invoke(this, cancel);
+        CreatingUserHandler(cancel);
         if (cancel.Cancel)
         {
-            OnCreateUserError?.Invoke(this, EventArgs.Empty);
+            CreateUserErrorHandler(EventArgs.Empty);
             return;
         }
 
-        OnCreatedUser?.Invoke(this, EventArgs.Empty);
+        CreatedUserHandler(EventArgs.Empty);
     }
 
     private bool _created;

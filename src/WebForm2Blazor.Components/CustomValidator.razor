@@ -13,12 +13,20 @@
     /// <summary>
     /// WebForms ServerValidate as a CLR event: code-behind wires handlers imperatively
     /// (control.ServerValidate += Handler), which a markup-only parameter cannot express.
-    /// The accessors chain onto the parameter so the existing raise site fires both.
     /// </summary>
-    public event ServerValidateEventHandler ServerValidate
+    public event ServerValidateEventHandler ServerValidate;
+
+    /// <summary>
+    /// WebForms OnServerValidate (renamed: see WebFormsControlBase, "Event naming"). Same
+    /// shape as the original: takes the value, returns the verdict, and with no handler at
+    /// all the value is valid.
+    /// </summary>
+    protected virtual bool ServerValidateHandler(string value)
     {
-        add => OnServerValidate += value;
-        remove => OnServerValidate -= value;
+        var args = new ServerValidateEventArgs(value, true);
+        OnServerValidate?.Invoke(this, args);
+        ServerValidate?.Invoke(this, args);
+        return args.IsValid;
     }
 
     /// <summary>When true, ServerValidate is called even for empty input (WebForms default is false).</summary>
@@ -30,13 +38,6 @@
         {
             return true;
         }
-        if (OnServerValidate is null)
-        {
-            return true;
-        }
-
-        var args = new ServerValidateEventArgs(value, true);
-        OnServerValidate(this, args);
-        return args.IsValid;
+        return ServerValidateHandler(value);
     }
 }

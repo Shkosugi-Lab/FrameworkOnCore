@@ -42,12 +42,14 @@
     /// <summary>
     /// WebForms ItemCommand as a CLR event: code-behind wires handlers imperatively
     /// (control.ItemCommand += Handler), which a markup-only parameter cannot express.
-    /// The accessors chain onto the parameter so the existing raise site fires both.
     /// </summary>
-    public event RepeaterCommandEventHandler ItemCommand
+    public event RepeaterCommandEventHandler ItemCommand;
+
+    /// <summary>WebForms OnItemCommand (renamed: see WebFormsControlBase, "Event naming").</summary>
+    protected virtual void ItemCommandHandler(RepeaterCommandEventArgs e)
     {
-        add => OnItemCommand += value;
-        remove => OnItemCommand -= value;
+        OnItemCommand?.Invoke(this, e);
+        ItemCommand?.Invoke(this, e);
     }
 
     /// <summary>
@@ -62,12 +64,14 @@
     /// <summary>
     /// WebForms ItemDataBound as a CLR event: code-behind wires handlers imperatively
     /// (control.ItemDataBound += Handler), which a markup-only parameter cannot express.
-    /// The accessors chain onto the parameter so the existing raise site fires both.
     /// </summary>
-    public event RepeaterItemEventHandler ItemDataBound
+    public event RepeaterItemEventHandler ItemDataBound;
+
+    /// <summary>WebForms OnItemDataBound (renamed: see WebFormsControlBase, "Event naming").</summary>
+    protected virtual void ItemDataBoundHandler(RepeaterItemEventArgs e)
     {
-        add => OnItemDataBound += value;
-        remove => OnItemDataBound -= value;
+        OnItemDataBound?.Invoke(this, e);
+        ItemDataBound?.Invoke(this, e);
     }
 
     /// <summary>
@@ -107,7 +111,7 @@
     public IReadOnlyList<RepeaterItem> Items => _containers;
 
     internal void RaiseItemCommand(object commandSource, RepeaterItem item, CommandEventArgs args)
-        => OnItemCommand?.Invoke(this, new RepeaterCommandEventArgs(item, commandSource, args));
+        => ItemCommandHandler(new RepeaterCommandEventArgs(item, commandSource, args));
 
     private RenderFragment RenderItems => __builder =>
     {
@@ -136,7 +140,7 @@
     public override void DataBind()
     {
         RowContainers.Rebind(_containers, DataSourceHelper.Materialize(DataSource), namingContainerId: ID);
-        _pendingItemDataBound = OnItemDataBound is not null;
+        _pendingItemDataBound = true;
         StateHasChanged();
     }
 
@@ -177,7 +181,7 @@
             _pendingItemDataBound = false;
             foreach (var container in _containers)
             {
-                OnItemDataBound?.Invoke(this, new RepeaterItemEventArgs(container));
+                ItemDataBoundHandler(new RepeaterItemEventArgs(container));
             }
         }
     }

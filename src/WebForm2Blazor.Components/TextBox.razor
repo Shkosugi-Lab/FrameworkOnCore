@@ -54,8 +54,15 @@
     /// </summary>
     public event EventHandler TextChanged;
 
-    /// <summary>WebForms TextBox.OnTextChanged - virtual, so a ported subclass can react first.</summary>
-    protected virtual void OnTextChanged(EventArgs e) => TextChanged?.Invoke(this, e);
+    /// <summary>The handler the markup names (OnTextChanged="txtName_TextChanged").</summary>
+    [Parameter] public EventHandler OnTextChanged { get; set; }
+
+    /// <summary>WebForms OnTextChanged (renamed: see WebFormsControlBase, "Event naming").</summary>
+    protected virtual void TextChangedHandler(EventArgs e)
+    {
+        OnTextChanged?.Invoke(this, e);
+        TextChanged?.Invoke(this, e);
+    }
 
     [Parameter] public bool ReadOnly { get; set; }
     [Parameter] public int MaxLength { get; set; }
@@ -146,7 +153,7 @@
         if (!string.Equals(_text, _committed, StringComparison.Ordinal))
         {
             _committed = _text;
-            OnTextChanged(EventArgs.Empty);
+            TextChangedHandler(EventArgs.Empty);
         }
     }
 

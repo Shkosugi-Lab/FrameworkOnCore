@@ -112,16 +112,22 @@
     /// </summary>
     [Parameter] public Action<CalendarDay> OnDayRender { get; set; }
 
-    public event EventHandler SelectionChanged
+    public event EventHandler SelectionChanged;
+
+    /// <summary>WebForms OnSelectionChanged (renamed: see WebFormsControlBase, "Event naming").</summary>
+    protected virtual void SelectionChangedHandler(EventArgs e)
     {
-        add => OnSelectionChanged += value;
-        remove => OnSelectionChanged -= value;
+        OnSelectionChanged?.Invoke(this, e);
+        SelectionChanged?.Invoke(this, e);
     }
 
-    public event MonthChangedEventHandler VisibleMonthChanged
+    public event MonthChangedEventHandler VisibleMonthChanged;
+
+    /// <summary>WebForms OnVisibleMonthChanged (renamed: see WebFormsControlBase, "Event naming").</summary>
+    protected virtual void VisibleMonthChangedHandler(MonthChangedEventArgs e)
     {
-        add => OnVisibleMonthChanged += value;
-        remove => OnVisibleMonthChanged -= value;
+        OnVisibleMonthChanged?.Invoke(this, e);
+        VisibleMonthChanged?.Invoke(this, e);
     }
 
     private string TitleStyleBackground
@@ -223,7 +229,7 @@
     private void SelectDay(DateTime date)
     {
         SelectedDate = date;
-        OnSelectionChanged?.Invoke(this, EventArgs.Empty);
+        SelectionChangedHandler(EventArgs.Empty);
         Host?.HostCore.NotifyPostBackEvent();
     }
 
@@ -235,7 +241,7 @@
     {
         var previous = VisibleDate;
         VisibleDate = previous.AddMonths(months);
-        OnVisibleMonthChanged?.Invoke(this, new MonthChangedEventArgs(VisibleDate, previous));
+        VisibleMonthChangedHandler(new MonthChangedEventArgs(VisibleDate, previous));
         Host?.HostCore.NotifyPostBackEvent();
     }
 }

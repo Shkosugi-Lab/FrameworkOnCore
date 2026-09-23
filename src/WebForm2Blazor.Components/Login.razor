@@ -114,28 +114,40 @@
     [Parameter] public EventHandler OnLoggedIn { get; set; }
     [Parameter] public EventHandler OnLoginError { get; set; }
 
-    public event EventHandler<AuthenticateEventArgs> Authenticate
+    public event EventHandler<AuthenticateEventArgs> Authenticate;
+
+    /// <summary>WebForms OnAuthenticate (renamed: see WebFormsControlBase, "Event naming").</summary>
+    protected virtual void AuthenticateHandler(AuthenticateEventArgs e)
     {
-        add => OnAuthenticate += value;
-        remove => OnAuthenticate -= value;
+        OnAuthenticate?.Invoke(this, e);
+        Authenticate?.Invoke(this, e);
     }
 
-    public event EventHandler LoggingIn
+    public event EventHandler LoggingIn;
+
+    /// <summary>WebForms OnLoggingIn (renamed: see WebFormsControlBase, "Event naming").</summary>
+    protected virtual void LoggingInHandler(EventArgs e)
     {
-        add => OnLoggingIn += value;
-        remove => OnLoggingIn -= value;
+        OnLoggingIn?.Invoke(this, e);
+        LoggingIn?.Invoke(this, e);
     }
 
-    public event EventHandler LoggedIn
+    public event EventHandler LoggedIn;
+
+    /// <summary>WebForms OnLoggedIn (renamed: see WebFormsControlBase, "Event naming").</summary>
+    protected virtual void LoggedInHandler(EventArgs e)
     {
-        add => OnLoggedIn += value;
-        remove => OnLoggedIn -= value;
+        OnLoggedIn?.Invoke(this, e);
+        LoggedIn?.Invoke(this, e);
     }
 
-    public event EventHandler LoginError
+    public event EventHandler LoginError;
+
+    /// <summary>WebForms OnLoginError (renamed: see WebFormsControlBase, "Event naming").</summary>
+    protected virtual void LoginErrorHandler(EventArgs e)
     {
-        add => OnLoginError += value;
-        remove => OnLoginError -= value;
+        OnLoginError?.Invoke(this, e);
+        LoginError?.Invoke(this, e);
     }
 
     private static bool IsAuthenticated
@@ -149,14 +161,14 @@
     private void Submit()
     {
         _failure = null;
-        OnLoggingIn?.Invoke(this, EventArgs.Empty);
+        LoggingInHandler(EventArgs.Empty);
 
         var args = new AuthenticateEventArgs();
-        OnAuthenticate?.Invoke(this, args);
+        AuthenticateHandler(args);
 
         if (args.Authenticated)
         {
-            OnLoggedIn?.Invoke(this, EventArgs.Empty);
+            LoggedInHandler(EventArgs.Empty);
             if (!string.IsNullOrEmpty(DestinationPageUrl))
             {
                 HttpContext.Current?.Response?.Redirect(DestinationPageUrl);
@@ -165,7 +177,7 @@
         else
         {
             _failure = FailureText;
-            OnLoginError?.Invoke(this, EventArgs.Empty);
+            LoginErrorHandler(EventArgs.Empty);
         }
 
         Host?.HostCore.NotifyPostBackEvent();

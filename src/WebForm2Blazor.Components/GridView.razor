@@ -457,12 +457,14 @@
     /// <summary>
     /// WebForms PageIndexChanging as a CLR event: code-behind wires handlers imperatively
     /// (control.PageIndexChanging += Handler), which a markup-only parameter cannot express.
-    /// The accessors chain onto the parameter so the existing raise site fires both.
     /// </summary>
-    public event GridViewPageEventHandler PageIndexChanging
+    public event GridViewPageEventHandler PageIndexChanging;
+
+    /// <summary>WebForms OnPageIndexChanging (renamed: see WebFormsControlBase, "Event naming").</summary>
+    protected virtual void PageIndexChangingHandler(GridViewPageEventArgs e)
     {
-        add => OnPageIndexChanging += value;
-        remove => OnPageIndexChanging -= value;
+        OnPageIndexChanging?.Invoke(this, e);
+        PageIndexChanging?.Invoke(this, e);
     }
 
     /// <summary>
@@ -484,12 +486,14 @@
     /// <summary>
     /// WebForms Sorting as a CLR event: code-behind wires handlers imperatively
     /// (control.Sorting += Handler), which a markup-only parameter cannot express.
-    /// The accessors chain onto the parameter so the existing raise site fires both.
     /// </summary>
-    public event GridViewSortEventHandler Sorting
+    public event GridViewSortEventHandler Sorting;
+
+    /// <summary>WebForms OnSorting (renamed: see WebFormsControlBase, "Event naming").</summary>
+    protected virtual void SortingHandler(GridViewSortEventArgs e)
     {
-        add => OnSorting += value;
-        remove => OnSorting -= value;
+        OnSorting?.Invoke(this, e);
+        Sorting?.Invoke(this, e);
     }
 
     // --- Row commands and row events (WebForms compatible) ---
@@ -498,12 +502,14 @@
     /// <summary>
     /// WebForms RowCommand as a CLR event: code-behind wires handlers imperatively
     /// (control.RowCommand += Handler), which a markup-only parameter cannot express.
-    /// The accessors chain onto the parameter so the existing raise site fires both.
     /// </summary>
-    public event GridViewCommandEventHandler RowCommand
+    public event GridViewCommandEventHandler RowCommand;
+
+    /// <summary>WebForms OnRowCommand (renamed: see WebFormsControlBase, "Event naming").</summary>
+    protected virtual void RowCommandHandler(GridViewCommandEventArgs e)
     {
-        add => OnRowCommand += value;
-        remove => OnRowCommand -= value;
+        OnRowCommand?.Invoke(this, e);
+        RowCommand?.Invoke(this, e);
     }
 
     /// <summary>
@@ -516,12 +522,14 @@
     /// <summary>
     /// WebForms RowDataBound as a CLR event: code-behind wires handlers imperatively
     /// (control.RowDataBound += Handler), which a markup-only parameter cannot express.
-    /// The accessors chain onto the parameter so the existing raise site fires both.
     /// </summary>
-    public event GridViewRowEventHandler RowDataBound
+    public event GridViewRowEventHandler RowDataBound;
+
+    /// <summary>WebForms OnRowDataBound (renamed: see WebFormsControlBase, "Event naming").</summary>
+    protected virtual void RowDataBoundHandler(GridViewRowEventArgs e)
     {
-        add => OnRowDataBound += value;
-        remove => OnRowDataBound -= value;
+        OnRowDataBound?.Invoke(this, e);
+        RowDataBound?.Invoke(this, e);
     }
 
     /// <summary>
@@ -531,18 +539,29 @@
     /// </summary>
     [Parameter] public EventHandler<DataGridItemEventArgs> OnItemDataBound { get; set; }
 
+    public event EventHandler<DataGridItemEventArgs> ItemDataBound;
+
+    /// <summary>WebForms DataGrid.OnItemDataBound (renamed: see WebFormsControlBase, "Event naming").</summary>
+    protected virtual void ItemDataBoundHandler(DataGridItemEventArgs e)
+    {
+        OnItemDataBound?.Invoke(this, e);
+        ItemDataBound?.Invoke(this, e);
+    }
+
     /// <summary>Fired when a command named "Delete" is raised inside a row.</summary>
     [Parameter] public GridViewDeleteEventHandler OnRowDeleting { get; set; }
 
     /// <summary>
     /// WebForms RowDeleting as a CLR event: code-behind wires handlers imperatively
     /// (control.RowDeleting += Handler), which a markup-only parameter cannot express.
-    /// The accessors chain onto the parameter so the existing raise site fires both.
     /// </summary>
-    public event GridViewDeleteEventHandler RowDeleting
+    public event GridViewDeleteEventHandler RowDeleting;
+
+    /// <summary>WebForms OnRowDeleting (renamed: see WebFormsControlBase, "Event naming").</summary>
+    protected virtual void RowDeletingHandler(GridViewDeleteEventArgs e)
     {
-        add => OnRowDeleting += value;
-        remove => OnRowDeleting -= value;
+        OnRowDeleting?.Invoke(this, e);
+        RowDeleting?.Invoke(this, e);
     }
 
     /// <summary>Fired when a command named "Edit" is raised inside a row.</summary>
@@ -554,12 +573,14 @@
     /// <summary>
     /// WebForms RowUpdating as a CLR event: code-behind wires handlers imperatively
     /// (control.RowUpdating += Handler), which a markup-only parameter cannot express.
-    /// The accessors chain onto the parameter so the existing raise site fires both.
     /// </summary>
-    public event GridViewUpdateEventHandler RowUpdating
+    public event GridViewUpdateEventHandler RowUpdating;
+
+    /// <summary>WebForms OnRowUpdating (renamed: see WebFormsControlBase, "Event naming").</summary>
+    protected virtual void RowUpdatingHandler(GridViewUpdateEventArgs e)
     {
-        add => OnRowUpdating += value;
-        remove => OnRowUpdating -= value;
+        OnRowUpdating?.Invoke(this, e);
+        RowUpdating?.Invoke(this, e);
     }
 
     /// <summary>WebForms RowCancelingEdit: the "Cancel" command of a row in edit mode.</summary>
@@ -568,12 +589,14 @@
     /// <summary>
     /// WebForms RowCancelingEdit as a CLR event: code-behind wires handlers imperatively
     /// (control.RowCancelingEdit += Handler), which a markup-only parameter cannot express.
-    /// The accessors chain onto the parameter so the existing raise site fires both.
     /// </summary>
-    public event GridViewCancelEditEventHandler RowCancelingEdit
+    public event GridViewCancelEditEventHandler RowCancelingEdit;
+
+    /// <summary>WebForms OnRowCancelingEdit (renamed: see WebFormsControlBase, "Event naming").</summary>
+    protected virtual void RowCancelingEditHandler(GridViewCancelEditEventArgs e)
     {
-        add => OnRowCancelingEdit += value;
-        remove => OnRowCancelingEdit -= value;
+        OnRowCancelingEdit?.Invoke(this, e);
+        RowCancelingEdit?.Invoke(this, e);
     }
 
     /// <summary>
@@ -585,23 +608,27 @@
     /// <summary>
     /// WebForms RowCreated as a CLR event: code-behind wires handlers imperatively
     /// (control.RowCreated += Handler), which a markup-only parameter cannot express.
-    /// The accessors chain onto the parameter so the existing raise site fires both.
     /// </summary>
-    public event GridViewRowEventHandler RowCreated
+    public event GridViewRowEventHandler RowCreated;
+
+    /// <summary>WebForms OnRowCreated (renamed: see WebFormsControlBase, "Event naming").</summary>
+    protected virtual void RowCreatedHandler(GridViewRowEventArgs e)
     {
-        add => OnRowCreated += value;
-        remove => OnRowCreated -= value;
+        OnRowCreated?.Invoke(this, e);
+        RowCreated?.Invoke(this, e);
     }
 
     /// <summary>
     /// WebForms RowEditing as a CLR event: code-behind wires handlers imperatively
     /// (control.RowEditing += Handler), which a markup-only parameter cannot express.
-    /// The accessors chain onto the parameter so the existing raise site fires both.
     /// </summary>
-    public event GridViewEditEventHandler RowEditing
+    public event GridViewEditEventHandler RowEditing;
+
+    /// <summary>WebForms OnRowEditing (renamed: see WebFormsControlBase, "Event naming").</summary>
+    protected virtual void RowEditingHandler(GridViewEditEventArgs e)
     {
-        add => OnRowEditing += value;
-        remove => OnRowEditing -= value;
+        OnRowEditing?.Invoke(this, e);
+        RowEditing?.Invoke(this, e);
     }
 
     /// <summary>WebForms DataSource equivalent. Applied by DataBind().</summary>
@@ -704,7 +731,7 @@
     private int _legacyColumnCount;
 
     void ICommandSink.RaiseCommand(object commandSource, CommandEventArgs args)
-        => OnRowCommand?.Invoke(this, new GridViewCommandEventArgs(commandSource, args));
+        => RowCommandHandler(new GridViewCommandEventArgs(commandSource, args));
 
     /// <summary>
     /// Receives commands bubbled from inside a row. Raises RowCommand, plus
@@ -712,26 +739,26 @@
     /// </summary>
     internal void HandleRowCommand(object commandSource, CommandEventArgs args, int rowIndex)
     {
-        OnRowCommand?.Invoke(this, new GridViewCommandEventArgs(commandSource, args));
+        RowCommandHandler(new GridViewCommandEventArgs(commandSource, args));
 
         // The WebForms edit flow: Edit / Update / Cancel raise their events and the
         // handler decides what EditIndex becomes. Nothing is assumed here - a page that
         // cancels the event (e.Cancel) or edits a different row stays in control.
         if (string.Equals(args.CommandName, "Delete", StringComparison.Ordinal))
         {
-            OnRowDeleting?.Invoke(this, new GridViewDeleteEventArgs(rowIndex, BuildKeys(rowIndex)));
+            RowDeletingHandler(new GridViewDeleteEventArgs(rowIndex, BuildKeys(rowIndex)));
         }
         else if (string.Equals(args.CommandName, "Edit", StringComparison.Ordinal))
         {
-            OnRowEditing?.Invoke(this, new GridViewEditEventArgs(rowIndex));
+            RowEditingHandler(new GridViewEditEventArgs(rowIndex));
         }
         else if (string.Equals(args.CommandName, "Update", StringComparison.Ordinal))
         {
-            OnRowUpdating?.Invoke(this, new GridViewUpdateEventArgs(rowIndex, BuildKeys(rowIndex)));
+            RowUpdatingHandler(new GridViewUpdateEventArgs(rowIndex, BuildKeys(rowIndex)));
         }
         else if (string.Equals(args.CommandName, "Cancel", StringComparison.Ordinal))
         {
-            OnRowCancelingEdit?.Invoke(this, new GridViewCancelEditEventArgs(rowIndex));
+            RowCancelingEditHandler(new GridViewCancelEditEventArgs(rowIndex));
         }
     }
 
@@ -810,8 +837,8 @@
         }
 
         RefreshView();
-        _pendingRowDataBound = OnRowDataBound is not null;
-        _pendingItemDataBound = DataGridMode && OnItemDataBound is not null;
+        _pendingRowDataBound = true;
+        _pendingItemDataBound = DataGridMode;
         StateHasChanged();
     }
 
@@ -881,12 +908,11 @@
     private void HandlePageClick(int newPageIndex)
     {
         var args = new GridViewPageEventArgs(newPageIndex);
-        if (OnPageIndexChanging is not null)
-        {
-            // The canonical pattern: the handler does gv.PageIndex = e.NewPageIndex; BindGrid();
-            OnPageIndexChanging(this, args);
-        }
-        else
+        // The canonical pattern: the handler does gv.PageIndex = e.NewPageIndex; BindGrid();
+        // PageIndexChangingHandler always runs, so a subclass overriding it is reached.
+        var handled = OnPageIndexChanging is not null || PageIndexChanging is not null;
+        PageIndexChangingHandler(args);
+        if (!handled)
         {
             // Without a handler, page ourselves (WebForms throws here; we are more forgiving)
             PageIndex = args.NewPageIndex;
@@ -904,12 +930,11 @@
         _sortExpression = sortExpression;
 
         var args = new GridViewSortEventArgs(sortExpression, _sortDirection);
-        if (OnSorting is not null)
-        {
-            // The canonical pattern: the handler sorts and re-binds
-            OnSorting(this, args);
-        }
-        else
+        // The canonical pattern: the handler sorts and re-binds. SortingHandler always
+        // runs, so a subclass overriding it is reached.
+        var handled = OnSorting is not null || Sorting is not null;
+        SortingHandler(args);
+        if (!handled)
         {
             // Without a handler, sort ourselves via DataBinder.Eval
             var ordered = _allRows.OrderBy(row => DataBinder.Eval(row, sortExpression)).ToList();
@@ -962,13 +987,13 @@
             // fire, RowCreated first, keeping handler order the same as WebForms.
             if (_headerRow is not null)
             {
-                OnRowCreated?.Invoke(this, new GridViewRowEventArgs(_headerRow));
-                OnRowDataBound?.Invoke(this, new GridViewRowEventArgs(_headerRow));
+                RowCreatedHandler(new GridViewRowEventArgs(_headerRow));
+                RowDataBoundHandler(new GridViewRowEventArgs(_headerRow));
             }
             foreach (var gridRow in _gridRows)
             {
-                OnRowCreated?.Invoke(this, new GridViewRowEventArgs(gridRow));
-                OnRowDataBound?.Invoke(this, new GridViewRowEventArgs(gridRow));
+                RowCreatedHandler(new GridViewRowEventArgs(gridRow));
+                RowDataBoundHandler(new GridViewRowEventArgs(gridRow));
             }
         }
 
@@ -979,7 +1004,7 @@
             _pendingItemDataBound = false;
             foreach (var gridRow in _gridRows)
             {
-                OnItemDataBound?.Invoke(this, new DataGridItemEventArgs(ToDataGridItem(gridRow)));
+                ItemDataBoundHandler(new DataGridItemEventArgs(ToDataGridItem(gridRow)));
             }
         }
     }

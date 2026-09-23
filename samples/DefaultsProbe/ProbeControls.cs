@@ -41,4 +41,33 @@ namespace DefaultsProbe
     public class FancyLink : HyperLink
     {
     }
+
+    /// <summary>
+    /// TextBox 継承で保護メソッド OnTextChanged を上書きするカスタムコントロール。
+    /// 互換層ではマークアップの引数が OnTextChanged のため、保護メソッドは TextChangedHandler
+    /// という名前になっている。変換器が上書きと base 呼び出しを改名することの適合検証用。
+    /// </summary>
+    public class TrimmingTextBox : TextBox
+    {
+        protected override void OnTextChanged(System.EventArgs e)
+        {
+            this.Text = this.Text.Trim();
+            base.OnTextChanged(e);
+        }
+
+        public void RaiseTextChanged()
+        {
+            OnTextChanged(System.EventArgs.Empty);
+        }
+    }
+
+    /// <summary>アプリ内の基底を 1 段挟んだ場合(基底の連鎖を辿って改名できること)の検証用。</summary>
+    public class UpperTrimmingTextBox : TrimmingTextBox
+    {
+        protected override void OnTextChanged(System.EventArgs e)
+        {
+            base.OnTextChanged(e);
+            this.Text = this.Text.ToUpperInvariant();
+        }
+    }
 }

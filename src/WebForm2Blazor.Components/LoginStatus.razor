@@ -36,16 +36,22 @@
     [Parameter] public EventHandler<LoginCancelEventArgs> OnLoggingOut { get; set; }
     [Parameter] public EventHandler OnLoggedOut { get; set; }
 
-    public event EventHandler<LoginCancelEventArgs> LoggingOut
+    public event EventHandler<LoginCancelEventArgs> LoggingOut;
+
+    /// <summary>WebForms OnLoggingOut (renamed: see WebFormsControlBase, "Event naming").</summary>
+    protected virtual void LoggingOutHandler(LoginCancelEventArgs e)
     {
-        add => OnLoggingOut += value;
-        remove => OnLoggingOut -= value;
+        OnLoggingOut?.Invoke(this, e);
+        LoggingOut?.Invoke(this, e);
     }
 
-    public event EventHandler LoggedOut
+    public event EventHandler LoggedOut;
+
+    /// <summary>WebForms OnLoggedOut (renamed: see WebFormsControlBase, "Event naming").</summary>
+    protected virtual void LoggedOutHandler(EventArgs e)
     {
-        add => OnLoggedOut += value;
-        remove => OnLoggedOut -= value;
+        OnLoggedOut?.Invoke(this, e);
+        LoggedOut?.Invoke(this, e);
     }
 
     private static bool IsAuthenticated
@@ -59,13 +65,13 @@
         }
 
         var cancel = new LoginCancelEventArgs();
-        OnLoggingOut?.Invoke(this, cancel);
+        LoggingOutHandler(cancel);
         if (cancel.Cancel)
         {
             return;
         }
 
-        OnLoggedOut?.Invoke(this, EventArgs.Empty);
+        LoggedOutHandler(EventArgs.Empty);
         Host?.HostCore.NotifyPostBackEvent();
     }
 }

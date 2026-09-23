@@ -11,6 +11,17 @@ namespace WebForm2Blazor.Components;
 /// - the Attributes / Style collections
 /// Properties re-render the control when assigned from code-behind
 /// (the equivalent of a WebForms postback re-render).
+///
+/// Event naming. A WebForms event X is reached three ways, and every component here keeps
+/// all three:
+/// - markup names a handler, OnX="Button1_Click": the [Parameter] OnX, as WebForms spells it;
+/// - code attaches one, control.X += Handler: the CLR event X;
+/// - a subclass overrides the protected raise method, WebForms' OnX(EventArgs): here it is
+///   XHandler(EventArgs), because C# cannot give a property and a method one name. The
+///   converter renames a ported override (and its base.OnX call) to match.
+/// XHandler runs the markup's handler, then those code attached. They are two stores on
+/// purpose: Blazor re-assigns a supplied parameter on every parent render, so a handler
+/// code had added onto the parameter was silently dropped by the next render.
 /// </summary>
 public abstract class WebFormsControlBase : ComponentBase, IWebFormsControl, IDisposable, IDeferredControlState, IAttributeAccessor
 {

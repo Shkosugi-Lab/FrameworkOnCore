@@ -75,10 +75,13 @@
     /// <summary>WebForms TreeView.TreeNodeDataBound, raised as each node is built.</summary>
     [Parameter] public TreeNodeEventHandler OnTreeNodeDataBound { get; set; }
 
-    public event TreeNodeEventHandler TreeNodeDataBound
+    public event TreeNodeEventHandler TreeNodeDataBound;
+
+    /// <summary>WebForms OnTreeNodeDataBound (renamed: see WebFormsControlBase, "Event naming").</summary>
+    protected virtual void TreeNodeDataBoundHandler(TreeNodeEventArgs e)
     {
-        add => OnTreeNodeDataBound += value;
-        remove => OnTreeNodeDataBound -= value;
+        OnTreeNodeDataBound?.Invoke(this, e);
+        TreeNodeDataBound?.Invoke(this, e);
     }
     [Parameter] public string ExpandImageToolTip { get; set; } = string.Empty;
     [Parameter] public string CollapseImageToolTip { get; set; } = string.Empty;
@@ -118,16 +121,31 @@
     [Parameter] public EventHandler<TreeNodeEventArgs> OnTreeNodeExpanded { get; set; }
     [Parameter] public EventHandler<TreeNodeEventArgs> OnTreeNodeCollapsed { get; set; }
 
-    public event EventHandler<TreeNodeEventArgs> SelectedNodeChanged
+    public event EventHandler<TreeNodeEventArgs> SelectedNodeChanged;
+
+    /// <summary>WebForms OnSelectedNodeChanged (renamed: see WebFormsControlBase, "Event naming").</summary>
+    protected virtual void SelectedNodeChangedHandler(TreeNodeEventArgs e)
     {
-        add => OnSelectedNodeChanged += value;
-        remove => OnSelectedNodeChanged -= value;
+        OnSelectedNodeChanged?.Invoke(this, e);
+        SelectedNodeChanged?.Invoke(this, e);
     }
 
-    public event EventHandler<TreeNodeEventArgs> TreeNodeExpanded
+    public event EventHandler<TreeNodeEventArgs> TreeNodeExpanded;
+
+    /// <summary>WebForms OnTreeNodeExpanded (renamed: see WebFormsControlBase, "Event naming").</summary>
+    protected virtual void TreeNodeExpandedHandler(TreeNodeEventArgs e)
     {
-        add => OnTreeNodeExpanded += value;
-        remove => OnTreeNodeExpanded -= value;
+        OnTreeNodeExpanded?.Invoke(this, e);
+        TreeNodeExpanded?.Invoke(this, e);
+    }
+
+    public event EventHandler<TreeNodeEventArgs> TreeNodeCollapsed;
+
+    /// <summary>WebForms OnTreeNodeCollapsed (renamed: see WebFormsControlBase, "Event naming").</summary>
+    protected virtual void TreeNodeCollapsedHandler(TreeNodeEventArgs e)
+    {
+        OnTreeNodeCollapsed?.Invoke(this, e);
+        TreeNodeCollapsed?.Invoke(this, e);
     }
 
     public void ExpandAll() => ForEachNode(Nodes, node => node.Expanded = true);
@@ -225,7 +243,14 @@
     private void Toggle(TreeNode node)
     {
         node.Expanded = !node.Expanded;
-        (node.Expanded ? OnTreeNodeExpanded : OnTreeNodeCollapsed)?.Invoke(this, new TreeNodeEventArgs(node));
+        if (node.Expanded)
+        {
+            TreeNodeExpandedHandler(new TreeNodeEventArgs(node));
+        }
+        else
+        {
+            TreeNodeCollapsedHandler(new TreeNodeEventArgs(node));
+        }
         StateHasChanged();
     }
 
@@ -237,7 +262,7 @@
         }
         node.Selected = true;
         SelectedNode = node;
-        OnSelectedNodeChanged?.Invoke(this, new TreeNodeEventArgs(node));
+        SelectedNodeChangedHandler(new TreeNodeEventArgs(node));
         Host?.HostCore.NotifyPostBackEvent();
     }
 

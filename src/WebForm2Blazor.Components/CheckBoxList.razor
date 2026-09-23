@@ -58,12 +58,14 @@
     /// <summary>
     /// WebForms SelectedIndexChanged as a CLR event: code-behind wires handlers imperatively
     /// (control.SelectedIndexChanged += Handler), which a markup-only parameter cannot express.
-    /// The accessors chain onto the parameter so the existing raise site fires both.
     /// </summary>
-    public event EventHandler SelectedIndexChanged
+    public event EventHandler SelectedIndexChanged;
+
+    /// <summary>WebForms OnSelectedIndexChanged (renamed: see WebFormsControlBase, "Event naming").</summary>
+    protected virtual void SelectedIndexChangedHandler(EventArgs e)
     {
-        add => OnSelectedIndexChanged += value;
-        remove => OnSelectedIndexChanged -= value;
+        OnSelectedIndexChanged?.Invoke(this, e);
+        SelectedIndexChanged?.Invoke(this, e);
     }
 
     /// <summary>WebForms ValidationGroup equivalent; accepted as a no-op (see TextBox.ValidationGroup).</summary>
@@ -171,7 +173,7 @@
         // Code-behind reads the result via Items[i].Selected, as in WebForms
         item.Selected = e.Value is bool boolValue && boolValue;
         MarkStateTouched();
-        OnSelectedIndexChanged?.Invoke(this, EventArgs.Empty);
+        SelectedIndexChangedHandler(EventArgs.Empty);
         Host?.HostCore.NotifyPostBackEvent();
     }
 

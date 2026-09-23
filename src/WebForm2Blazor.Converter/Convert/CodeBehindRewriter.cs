@@ -546,6 +546,17 @@ public static class CodeBehindRewriter
                 return classDeclaration;
             }
 
+            // Before the override check: renamed, OnClick is an override the base HAS.
+            var compatRoot = baseType
+                ?? (portedBase && portedTypes!.FirstNonPortedBase(baseKey) is { } root
+                    ? CompatType(CompatBaseReplacements.GetValueOrDefault(root, root))
+                    : null);
+            var renamedOverrides = new HashSet<string>(StringComparer.Ordinal);
+            if (compatRoot is not null)
+            {
+                classDeclaration = RenameRaiseMethods(classDeclaration, compatRoot, sourceName, report, renamedOverrides);
+            }
+
             foreach (var member in classDeclaration.Members)
             {
                 var (name, modifiers) = member switch
@@ -557,7 +568,9 @@ public static class CodeBehindRewriter
 
                 if (name is null
                     || !modifiers.Any(modifier =>
-                        modifier.RawKind == (int)SyntaxKind.OverrideKeyword))
+                        modifier.RawKind == (int)SyntaxKind.OverrideKeyword)
+                    // Renamed above because the compat base has it: nothing left to judge.
+                    || renamedOverrides.Contains(name))
                 {
                     continue;
                 }
@@ -635,6 +648,131 @@ public static class CodeBehindRewriter
         return edits.Count == 0
             ? classDeclaration
             : classDeclaration.ReplaceNodes(edits.Keys, (original, _) => edits[original]);
+    }
+
+    /// <summary>
+    /// Renames a ported class's use of a WebForms raise method - OnClick(EventArgs),
+    /// OnSelectedIndexChanged(EventArgs), ... - to the name the compat base gives it,
+    /// XHandler.
+    ///
+    /// A compat component spells the MARKUP parameter OnClick, as WebForms markup does, and
+    /// C# cannot give a method the name of a property, so the raise method is the one that
+    /// moved (see WebFormsControlBase, "Event naming"). Left alone, the override is CS0505
+    /// against the parameter and "base.OnClick(e)" is CS1955.
+    ///
+    /// The compat assembly is asked, not a list: a name is renamed only where the base
+    /// declares XHandler as a method and no METHOD OnX. A base that still carries the
+    /// WebForms name - the render-based Legacy* bases - leaves the class untouched.
+    /// </summary>
+    private static ClassDeclarationSyntax RenameRaiseMethods(
+        ClassDeclarationSyntax classDeclaration,
+        Type compatRoot,
+        string? sourceName,
+        ConversionReport? report,
+        HashSet<string> renamedOverrides)
+    {
+        static bool IsOverride(MethodDeclarationSyntax method)
+            => method.Modifiers.Any(modifier => modifier.RawKind == (int)SyntaxKind.OverrideKeyword);
+
+        // The class's own non-override method of that name makes a bare call ambiguous;
+        // only base.OnX() is certain to mean the inherited one then.
+        var declaredHere = classDeclaration.Members.OfType<MethodDeclarationSyntax>()
+            .Where(method => !IsOverride(method))
+            .Select(method => method.Identifier.Text)
+            .ToHashSet(StringComparer.Ordinal);
+
+        var answers = new Dictionary<string, string?>(StringComparer.Ordinal);
+        string? RenamedTo(string name)
+        {
+            if (!answers.TryGetValue(name, out var renamed))
+            {
+                renamed = RaiseMethodName(compatRoot, name);
+                answers[name] = renamed;
+            }
+            return renamed;
+        }
+
+        var tokens = new Dictionary<SyntaxToken, string>();
+        foreach (var method in classDeclaration.Members.OfType<MethodDeclarationSyntax>().Where(IsOverride))
+        {
+            if (RenamedTo(method.Identifier.Text) is { } renamed)
+            {
+                tokens[method.Identifier] = renamed;
+                renamedOverrides.Add(renamed);
+            }
+        }
+
+        foreach (var invocation in classDeclaration.DescendantNodes().OfType<InvocationExpressionSyntax>())
+        {
+            // A nested class is visited on its own, against its own base.
+            if (invocation.Ancestors().OfType<ClassDeclarationSyntax>().FirstOrDefault() != classDeclaration)
+            {
+                continue;
+            }
+
+            var name = invocation.Expression switch
+            {
+                IdentifierNameSyntax bare when !declaredHere.Contains(bare.Identifier.Text) => bare,
+                MemberAccessExpressionSyntax { Expression: BaseExpressionSyntax, Name: IdentifierNameSyntax member } => member,
+                MemberAccessExpressionSyntax { Expression: ThisExpressionSyntax, Name: IdentifierNameSyntax member }
+                    when !declaredHere.Contains(member.Identifier.Text) => member,
+                _ => null,
+            };
+            if (name is not null && RenamedTo(name.Identifier.Text) is { } renamed)
+            {
+                tokens[name.Identifier] = renamed;
+            }
+        }
+
+        if (tokens.Count == 0)
+        {
+            return classDeclaration;
+        }
+
+        foreach (var (original, renamed) in answers.Where(pair => pair.Value is not null)
+                     .Where(pair => tokens.Values.Contains(pair.Value)))
+        {
+            report?.Info(sourceName ?? string.Empty,
+                $"{classDeclaration.Identifier.Text} の {original} を {renamed} に改名しました"
+                + $"(互換層では {original} がマークアップの引数名のため、WebForms の保護メソッド {original} は {renamed} という名前です)。");
+        }
+
+        return classDeclaration.ReplaceTokens(
+            tokens.Keys,
+            (original, _) => SyntaxFactory.Identifier(tokens[original]).WithTriviaFrom(original));
+    }
+
+    /// <summary>
+    /// The compat name of WebForms raise method <paramref name="name"/> on this base, or
+    /// null when the base keeps the WebForms name (or has no such method at all).
+    /// </summary>
+    private static string? RaiseMethodName(Type compatRoot, string name)
+    {
+        if (name.Length <= 2 || !name.StartsWith("On", StringComparison.Ordinal) || !char.IsUpper(name[2]))
+        {
+            return null;
+        }
+
+        var renamed = name[2..] + "Handler";
+        return DeclaresMethod(compatRoot, renamed) && !DeclaresMethod(compatRoot, name) ? renamed : null;
+    }
+
+    /// <summary>Whether the type or any base declares a METHOD of this name (see DeclaresMember).</summary>
+    private static bool DeclaresMethod(Type type, string name)
+    {
+        for (var current = type; current is not null; current = current.BaseType)
+        {
+            if (current.GetMethods(
+                    System.Reflection.BindingFlags.Instance
+                    | System.Reflection.BindingFlags.Public
+                    | System.Reflection.BindingFlags.NonPublic
+                    | System.Reflection.BindingFlags.DeclaredOnly)
+                .Any(method => method.Name == name))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     /// <summary>

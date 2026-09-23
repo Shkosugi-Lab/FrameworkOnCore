@@ -30,12 +30,14 @@
     /// <summary>
     /// WebForms SelectedIndexChanged as a CLR event: code-behind wires handlers imperatively
     /// (control.SelectedIndexChanged += Handler), which a markup-only parameter cannot express.
-    /// The accessors chain onto the parameter so the existing raise site fires both.
     /// </summary>
-    public event EventHandler SelectedIndexChanged
+    public event EventHandler SelectedIndexChanged;
+
+    /// <summary>WebForms OnSelectedIndexChanged (renamed: see WebFormsControlBase, "Event naming").</summary>
+    protected virtual void SelectedIndexChangedHandler(EventArgs e)
     {
-        add => OnSelectedIndexChanged += value;
-        remove => OnSelectedIndexChanged -= value;
+        OnSelectedIndexChanged?.Invoke(this, e);
+        SelectedIndexChanged?.Invoke(this, e);
     }
 
     /// <summary>WebForms ListBox.Rows equivalent (the size attribute; WebForms defaults to 4).</summary>
@@ -127,7 +129,7 @@
     {
         _selectedValue = e.Value?.ToString() ?? string.Empty;
         MarkStateTouched();
-        OnSelectedIndexChanged?.Invoke(this, EventArgs.Empty);
+        SelectedIndexChangedHandler(EventArgs.Empty);
         Host?.HostCore.NotifyPostBackEvent();
     }
 

@@ -218,7 +218,7 @@ public static class ControlMappings
         ["TextBox"] = new()
         {
             Component = "TextBox",
-            Attributes = WithCommon(Map("ID", "Text", "CssClass", "TextMode", "ReadOnly", "MaxLength", "Rows", "Columns", "Wrap", "Enabled", "Visible", "ValidationGroup")),
+            Attributes = WithCommon(Map("ID", "Text", "CssClass", "TextMode", "ReadOnly", "MaxLength", "Rows", "Columns", "Wrap", "Enabled", "Visible", "ValidationGroup", "OnTextChanged")),
             AssertPresence = true,
         },
         ["Button"] = new()
@@ -283,6 +283,7 @@ public static class ControlMappings
                 "AllowPaging", "PageSize", "OnPageIndexChanging",
                 "AllowSorting", "OnSorting", "PageIndex", "OnRowCommand",
                 "OnRowDataBound", "OnRowDeleting", "OnRowEditing",
+                "OnRowUpdating", "OnRowCancelingEdit", "OnRowCreated",
                 "GridLines", "CellPadding", "CellSpacing",
                 "Caption", "ShowHeader", "ShowFooter", "UseAccessibleHeader", "EnableModelValidation",
                 "DataKeyNames", "DataSourceID", "ItemType", "SelectMethod"))),

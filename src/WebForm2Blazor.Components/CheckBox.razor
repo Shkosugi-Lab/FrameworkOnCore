@@ -39,12 +39,14 @@
     /// <summary>
     /// WebForms CheckedChanged as a CLR event: code-behind wires handlers imperatively
     /// (control.CheckedChanged += Handler), which a markup-only parameter cannot express.
-    /// The accessors chain onto the parameter so the existing raise site fires both.
     /// </summary>
-    public event EventHandler CheckedChanged
+    public event EventHandler CheckedChanged;
+
+    /// <summary>WebForms OnCheckedChanged (renamed: see WebFormsControlBase, "Event naming").</summary>
+    protected virtual void CheckedChangedHandler(EventArgs e)
     {
-        add => OnCheckedChanged += value;
-        remove => OnCheckedChanged -= value;
+        OnCheckedChanged?.Invoke(this, e);
+        CheckedChanged?.Invoke(this, e);
     }
 
     /// <summary>WebForms ValidationGroup equivalent; accepted as a no-op (see TextBox.ValidationGroup).</summary>
@@ -56,7 +58,7 @@
     {
         _checked = e.Value is bool boolValue && boolValue;
         MarkStateTouched();
-        OnCheckedChanged?.Invoke(this, EventArgs.Empty);
+        CheckedChangedHandler(EventArgs.Empty);
         Host?.HostCore.NotifyPostBackEvent();
     }
 

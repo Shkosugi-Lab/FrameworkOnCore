@@ -31,12 +31,14 @@
     /// <summary>
     /// WebForms Click as a CLR event: code-behind wires handlers imperatively
     /// (control.Click += Handler), which a markup-only parameter cannot express.
-    /// The accessors chain onto the parameter so the existing raise site fires both.
     /// </summary>
-    public event ImageClickEventHandler Click
+    public event ImageClickEventHandler Click;
+
+    /// <summary>WebForms OnClick (renamed: see WebFormsControlBase, "Event naming").</summary>
+    protected virtual void ClickHandler(ImageClickEventArgs e)
     {
-        add => OnClick += value;
-        remove => OnClick -= value;
+        OnClick?.Invoke(this, e);
+        Click?.Invoke(this, e);
     }
 
     [Parameter] public bool CausesValidation { get; set; } = true;
@@ -59,12 +61,14 @@
     /// <summary>
     /// WebForms Command as a CLR event: code-behind wires handlers imperatively
     /// (control.Command += Handler), which a markup-only parameter cannot express.
-    /// The accessors chain onto the parameter so the existing raise site fires both.
     /// </summary>
-    public event CommandEventHandler Command
+    public event CommandEventHandler Command;
+
+    /// <summary>WebForms OnCommand (renamed: see WebFormsControlBase, "Event naming").</summary>
+    protected virtual void CommandHandler(CommandEventArgs e)
     {
-        add => OnCommand += value;
-        remove => OnCommand -= value;
+        OnCommand?.Invoke(this, e);
+        Command?.Invoke(this, e);
     }
 
     [CascadingParameter] protected ICommandSink CommandSink { get; set; }
@@ -89,10 +93,10 @@
             Host.HostCore.IsValid = true;
         }
 
-        OnClick?.Invoke(this, new ImageClickEventArgs((int)e.OffsetX, (int)e.OffsetY));
+        ClickHandler(new ImageClickEventArgs((int)e.OffsetX, (int)e.OffsetY));
 
         var args = new CommandEventArgs(CommandName ?? "", CommandArgument);
-        OnCommand?.Invoke(this, args);
+        CommandHandler(args);
         CommandSink?.RaiseCommand(this, args);
 
         Host?.HostCore.NotifyPostBackEvent();

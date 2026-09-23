@@ -111,6 +111,25 @@ public sealed class PortedTypeIndex
     public bool Declares(string simpleName) => _types.ContainsKey(simpleName);
 
     /// <summary>
+    /// The first base above the ported classes, as the source wrote it - where a chain of
+    /// the application's own classes meets the framework - or null for no base or a cycle.
+    /// </summary>
+    public string? FirstNonPortedBase(string baseName)
+    {
+        var seen = new HashSet<string>(StringComparer.Ordinal);
+        var current = baseName;
+        while (current.Length > 0 && seen.Add(current))
+        {
+            if (!_types.TryGetValue(current, out var ported))
+            {
+                return current;
+            }
+            current = ported.BaseName;
+        }
+        return null;
+    }
+
+    /// <summary>
     /// Whether anything from <paramref name="baseName"/> upwards declares
     /// <paramref name="member"/>.
     ///

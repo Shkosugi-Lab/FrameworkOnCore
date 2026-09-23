@@ -417,6 +417,37 @@ n2 以外(分割時・MVC 互換層を入れる前の値): yaf 3(変換器がラ
 コーパス検証は be / wt に限る決まり(`CLAUDE.md`)なので、この 4 本は測り直していません。
 次にその 4 本を測る指示があったときに、ベースラインを取り直してください。
 
+**イベントの名前の約束**(段階 (b) の `Button` を止めていた `OnClick` の衝突の解消)。
+WebForms のイベント X には「マークアップの `OnX="…"`」「コードの `X += …`」「サブクラスが
+上書きする保護メソッド `OnX(EventArgs)`」の 3 経路があり、C# では引数 `OnX` とメソッド
+`OnX` を同じクラスに置けない。約束はこう決めた:
+
+| 経路 | 互換層の名前 |
+|---|---|
+| マークアップ | `[Parameter] OnX`(WebForms の綴りのまま。変換後のマークアップは変わらない) |
+| コード | CLR イベント `X`(引数とは別の置き場所) |
+| サブクラスの上書き | `protected virtual XHandler(...)`。マークアップ分 → コード分の順に呼ぶ |
+
+変換器は、移植クラスの `override OnX` と `base.OnX(...)` / クラス内の `OnX(...)` を `XHandler`
+に改名する(`CodeBehindRewriter.RenameRaiseMethods`)。判定は互換アセンブリに聞く:
+基底に `XHandler` メソッドがあり `OnX` メソッドが無いときだけ。`LegacyButton` などの
+描画型の基底はまだ `OnClick` のままなので触らない —— 段階 (b) でそれらを Razor 部品の下へ
+移し、メソッド名を `XHandler` にすれば、改名は自動で付いてくる。
+
+直したもの: (1) 以前はコードの `X += h` を引数 `OnX` に足し込んでいたため、マークアップにも
+`OnX` があると親の再描画で引数が代入し直され、コード側のハンドラが黙って消えていた
+(bUnit で再現、`EventNamingTests`)。(2) 対応表に無かった `TextBox` の `OnTextChanged` と
+`GridView` の `OnRowUpdating`/`OnRowCancelingEdit`/`OnRowCreated` が、イベントではなく
+HTML 属性として書き出されていた。(3) 「ハンドラが無ければ既定動作」の判定
+(`GridView` のページ送り・並べ替え、`ChangePassword`/`PasswordRecovery`、`Timer`、
+`ItemDataBound` 系)がマークアップ分しか見ていなかった。
+
+残したもの: `Calendar.OnDayRender` は互換層の形(`Action<CalendarDay>`)が WebForms
+(`TableCell` と `CalendarDay`)と違い、Razor 版はセルを持たないので `Calendar` の段階 (b) で扱う。
+また、ported 基底を何段か挟んだクラスの override 判定(`CompatDeclares`)は制御の基底を
+`LegacyWebControl` とみなす近似のまま(実際に出力する基底は `CompatBaseReplacements` の値)。
+直すと検証できない 4 コーパスの数字が動きうるので、今回は改名分を判定から外すだけにした。
+
 同種の見落としを探す道具として、変換器の辞書初期化子の重複キー検査を一度流しました
 (`CompatBaseReplacements` で `CheckBoxList` / `RadioButtonList` が後勝ちで上書きされ、
 `LegacyListControl` への対応が無効になっていた)。辞書を足したら同じ検査を流す価値があります。

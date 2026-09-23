@@ -26,12 +26,14 @@
     /// <summary>
     /// WebForms Click as a CLR event: code-behind wires handlers imperatively
     /// (control.Click += Handler), which a markup-only parameter cannot express.
-    /// The accessors chain onto the parameter so the existing raise site fires both.
     /// </summary>
-    public event EventHandler Click
+    public event EventHandler Click;
+
+    /// <summary>WebForms OnClick (renamed: see WebFormsControlBase, "Event naming").</summary>
+    protected virtual void ClickHandler(EventArgs e)
     {
-        add => OnClick += value;
-        remove => OnClick -= value;
+        OnClick?.Invoke(this, e);
+        Click?.Invoke(this, e);
     }
     [Parameter] public bool CausesValidation { get; set; } = true;
     [Parameter] public string ValidationGroup { get; set; }
@@ -48,12 +50,14 @@
     /// <summary>
     /// WebForms Command as a CLR event: code-behind wires handlers imperatively
     /// (control.Command += Handler), which a markup-only parameter cannot express.
-    /// The accessors chain onto the parameter so the existing raise site fires both.
     /// </summary>
-    public event CommandEventHandler Command
+    public event CommandEventHandler Command;
+
+    /// <summary>WebForms OnCommand (renamed: see WebFormsControlBase, "Event naming").</summary>
+    protected virtual void CommandHandler(CommandEventArgs e)
     {
-        add => OnCommand += value;
-        remove => OnCommand -= value;
+        OnCommand?.Invoke(this, e);
+        Command?.Invoke(this, e);
     }
 
     /// <summary>The bubbling target when inside a Repeater / GridView template.</summary>
@@ -75,10 +79,10 @@
             Host?.HostCore.Validate(ValidationGroup ?? "");
         }
 
-        OnClick?.Invoke(this, EventArgs.Empty);
+        ClickHandler(EventArgs.Empty);
 
         var args = new CommandEventArgs(CommandName ?? "", CommandArgument);
-        OnCommand?.Invoke(this, args);
+        CommandHandler(args);
         CommandSink?.RaiseCommand(this, args);
 
         Host?.HostCore.NotifyPostBackEvent();

@@ -57,6 +57,29 @@ public class HtmlTextWriter(TextWriter inner) : TextWriter
     public const string EndTagLeftChars = "</";
     public const string SelfClosingTagEndWithSlash = "/>";
     public const string SelfClosingTagEnd = " />";
+
+    /// <summary>
+    /// Components met while rendering, when this writer is filling a render-based control
+    /// that Blazor itself is rendering. Null otherwise - see <see cref="EmbedComponent"/>.
+    /// </summary>
+    internal List<Microsoft.AspNetCore.Components.IComponent> EmbeddedComponents { get; set; }
+
+    /// <summary>Marker text for the n-th embedded component. Control characters cannot occur in rendered HTML.</summary>
+    internal static string EmbeddedMarker(int index) => $"\u0001wfc{index}\u0001";
+
+    /// <summary>
+    /// Writes a marker in place of a component, when this writer can carry one (see
+    /// <see cref="EmbeddedComponents"/>); otherwise writes nothing.
+    /// </summary>
+    internal void EmbedComponent(Microsoft.AspNetCore.Components.IComponent component)
+    {
+        if (EmbeddedComponents is null || component is null)
+        {
+            return;
+        }
+        Write(EmbeddedMarker(EmbeddedComponents.Count));
+        EmbeddedComponents.Add(component);
+    }
     public const string SelfClosingChars = " /";
     public const char DoubleQuoteChar = '"';
     public const string EqualsDoubleQuoteString = "=\"";
@@ -319,70 +342,33 @@ public class HtmlTextWriter(TextWriter inner) : TextWriter
 
 /// <summary>
 /// Base class the converter substitutes for System.Web.UI.Control /
-/// System.Web.UI.WebControls.WebControl on ported legacy custom controls
-/// (render-based controls run under LegacyRenderHost).
+/// System.Web.UI.WebControls.WebControl on ported legacy custom controls - the ones that
+/// render themselves through Render(HtmlTextWriter).
+///
+/// It derives from <see cref="WebFormsControlBase"/>, the base of the compat COMPONENTS.
+/// It used to be a separate root, and the compatibility layer had two control hierarchies
+/// that implemented WebForms' Control twice - 53 members declared in both. A control of one
+/// family could not stand where the other was expected, which is not a distinction WebForms
+/// ever had: n2cms returns "new DropDownList()" from a method declared to return ListControl,
+/// and with the component DropDownList outside the ListControl family that line could not
+/// compile, let alone work.
+///
+/// One hierarchy now, as in System.Web. What is left here is what a RENDER-BASED control
+/// has and a Razor component does not: the Render(HtmlTextWriter) protocol and the members
+/// ported controls override to take part in it.
+///
+/// A render-based control is rendered by Blazor through <see cref="BuildRenderTree"/>, which
+/// runs that protocol into a writer. Where the control holds COMPONENTS among its children
+/// (a DropDownList built in code and added to a render-based editor), those are put into
+/// the output as real components rather than text, so they stay interactive.
 /// </summary>
-public abstract class LegacyWebControl : IWebFormsControl, IDisposable, IAttributeAccessor
+public abstract class LegacyWebControl : WebFormsControlBase
 {
-    /// <inheritdoc cref="WebFormsControlBase.Dispose"/>
-    public virtual void Dispose() => GC.SuppressFinalize(this);
-
-    public virtual string ID { get; set; }
-
-    public virtual string ClientID => ID;
-
-    /// <summary>
-    /// WebForms Control.UniqueID equivalent. Virtual because ported controls override it -
-    /// mojoPortal's AdRotator returns a stable id so its client script can find itself.
-    /// </summary>
-    public virtual string UniqueID => ID;
-
     /// <summary>
     /// WebForms WebControl.Font equivalent. The Font-* markup attributes land on the
     /// component parameters; this is the object form ported code assigns through.
     /// </summary>
     public virtual FontInfo Font { get; set; } = new();
-
-    public virtual string CssClass { get; set; }
-
-    /// <summary>
-    /// WebForms WebControl.ApplyStyle / MergeStyle.
-    ///
-    /// Declared on the CLASS as well as on <see cref="IWebFormsControl"/>, because a
-    /// default interface member is not callable through the class - the same lesson the
-    /// lifecycle methods already recorded here. Ported code holds a concrete control
-    /// (mojoPortal's breadcrumb holds a SiteMapNodeItem) and calls it directly.
-    /// </summary>
-    public virtual void ApplyStyle(Style style)
-    {
-        if (!string.IsNullOrEmpty(style?.CssClass))
-        {
-            CssClass = style.CssClass;
-        }
-    }
-
-    /// <inheritdoc cref="ApplyStyle"/>
-    public virtual void MergeStyle(Style style)
-    {
-        if (string.IsNullOrEmpty(CssClass) && !string.IsNullOrEmpty(style?.CssClass))
-        {
-            CssClass = style.CssClass;
-        }
-    }
-
-    public virtual bool Visible { get; set; } = true;
-
-    public virtual bool Enabled { get; set; } = true;
-
-    public virtual string ToolTip { get; set; }
-
-    /// <summary>WebForms WebControl.TabIndex equivalent. Rendered by the control's own Render override.</summary>
-    public virtual short TabIndex { get; set; }
-
-    protected bool DesignMode => false;
-
-    /// <summary>WebForms Control.Attributes equivalent.</summary>
-    public AttributeCollection Attributes { get; } = new(() => { });
 
     /// <summary>
     /// WebForms Control.ClearChildViewState / ClearChildState - discard the children's saved
@@ -397,14 +383,6 @@ public abstract class LegacyWebControl : IWebFormsControl, IDisposable, IAttribu
     {
     }
 
-    // As WebControl / HtmlControl do in WebForms - see WebFormsControlBase for why.
-    string IAttributeAccessor.GetAttribute(string key) => Attributes[key];
-
-    void IAttributeAccessor.SetAttribute(string key, string value) => Attributes[key] = value;
-
-    /// <summary>WebForms Control.ViewState equivalent (per-instance; no persistence).</summary>
-    protected StateBag ViewState { get; } = new();
-
     /// <summary>
     /// WebForms Control.Events: the delegate store a control uses to declare an event
     /// without a field per event ("add { this.Events.AddHandler(ClickKey, value); }").
@@ -413,63 +391,17 @@ public abstract class LegacyWebControl : IWebFormsControl, IDisposable, IAttribu
     /// </summary>
     protected EventHandlerList Events { get; } = new();
 
-    /// <summary>WebForms Control.Controls equivalent (children added programmatically).</summary>
-    public virtual ControlCollection Controls { get; } = [];
-
-    /// <summary>
-    /// WebForms Control.Page / .Context / .Master equivalents. A legacy control reaches
-    /// its host through these; Master is always null (Blazor layouts are not addressable
-    /// at runtime).
-    ///
-    /// Page used to be a hard null, and a ported control that touches it - which is
-    /// ordinary WebForms code - threw a NullReferenceException the moment it rendered.
-    /// BlogEngine's PostCalendar calls Page.ClientScript in OnLoad and Page.IsPostBack in
-    /// OnPreRender and Render, so the whole control came out as "[render error]". The
-    /// hosting LegacyRenderHost knows the page and sets this before the lifecycle runs.
-    /// It is still null when nothing hosts the control (a unit test, a control created in
-    /// code and never placed), which is the honest answer there.
-    /// </summary>
-    // Settable, as WebForms Control.Page is: ported code builds a control in code and hands
-    // it its page before adding it (n2cms does, and CS0200 was the result).
-    public Page Page { get; set; }
-
     public HttpContext Context => HttpContext.Current;
 
+    /// <summary>Always null: Blazor layouts are not addressable at run time.</summary>
     public object Master => null;
 
-    /// <summary>WebForms Control.ResolveUrl equivalent.</summary>
-    public string ResolveUrl(string relativeUrl) => UrlMapper.ResolveUrl(relativeUrl);
-
-    public string ResolveClientUrl(string relativeUrl) => UrlMapper.ResolveUrl(relativeUrl);
-
-    /// <summary>
-    /// WebForms Control.FindControl equivalent (searches the Controls collection).
-    ///
-    /// IWebFormsControl, like every other FindControl here. It used to return Control, and
-    /// a ported override - whose "Control" return type the converter rewrites to the
-    /// interface, because a child can be either a component or a plain control - could not
-    /// match it (CS0508). Returning the interface also stops the search silently dropping
-    /// a child that is a Blazor component rather than a Control.
-    /// </summary>
-    public virtual IWebFormsControl FindControl(string id)
-        => Controls.FirstOrDefault(child => string.Equals(child.ID, id, StringComparison.Ordinal));
-
     // ---------------------------------------------------------------------------------
-    // Postback and view-state extension points.
-    //
-    // The lifecycle hooks (OnInit / OnLoad / OnPreRender / CreateChildControls) are
-    // declared further down; these are the rest of what a ported custom control overrides.
-    // Without something to override, none of those files compile, and the resulting CS0115
-    // storm points at the control's own source rather than at the missing base.
-    //
-    // Declared, not driven: nothing here raises them, because these controls render through
-    // LegacyRenderHost rather than taking part in the Blazor lifecycle. An override that is
-    // never called stays visible in the source; a control that silently skipped its own
-    // state handling would not be.
+    // Postback and view-state extension points a ported custom control overrides. Declared,
+    // not driven: there is no postback to raise them. An override that is never called
+    // stays visible in the source; a control that silently skipped its own state handling
+    // would not be.
     // ---------------------------------------------------------------------------------
-
-    /// <summary>WebForms Control.ChildControlsCreated equivalent.</summary>
-    protected bool ChildControlsCreated { get; set; }
 
     /// <summary>
     /// WebForms IPostBackDataHandler.LoadPostData equivalent. Always false: there is no
@@ -496,19 +428,6 @@ public abstract class LegacyWebControl : IWebFormsControl, IDisposable, IAttribu
     {
     }
 
-    /// <summary>
-    /// WebForms WebControl.AddAttributesToRender / RenderAttributes equivalents. Ported
-    /// controls override these to put their own attributes on the element, and without
-    /// them every such override is CS0115 against a base that renders but offers no hook
-    /// to add attributes.
-    ///
-    /// RenderBeginTag calls AddAttributesToRender, so an override reaches the output the
-    /// same way it did on 4.8.
-    /// </summary>
-    protected virtual void AddAttributesToRender(HtmlTextWriter writer)
-    {
-    }
-
     /// <summary>WebForms WebControl.RenderAttributes equivalent (pre-2.0 spelling).</summary>
     protected virtual void RenderAttributes(HtmlTextWriter writer) => AddAttributesToRender(writer);
 
@@ -520,19 +439,8 @@ public abstract class LegacyWebControl : IWebFormsControl, IDisposable, IAttribu
     protected virtual HtmlTextWriterTag TagKey => HtmlTextWriterTag.Span;
 
     /// <summary>
-    /// WebForms Control.LoadViewState / SaveViewState equivalents. ViewState here is a
-    /// per-instance bag with no round trip, so a saved state is never handed back.
-    /// </summary>
-    protected virtual void LoadViewState(object savedState)
-    {
-    }
-
-    protected virtual object SaveViewState() => null;
-
-    /// <summary>
-    /// WebForms control state (LoadControlState / SaveControlState). Separate from view
-    /// state in the original because a control could not opt out of it; here neither
-    /// round-trips, since a Blazor circuit keeps the component itself alive on the server.
+    /// WebForms control state (LoadControlState / SaveControlState). Here neither
+    /// round-trips, since a Blazor circuit keeps the control itself alive on the server.
     /// Declared because ported composite controls override them - DNN's DnnFormEditor and
     /// DnnFormItemBase do.
     /// </summary>
@@ -543,63 +451,14 @@ public abstract class LegacyWebControl : IWebFormsControl, IDisposable, IAttribu
     protected virtual object SaveControlState() => null;
 
     /// <summary>
-    /// WebForms Control.EnableViewState / ViewStateMode equivalents. Nothing is serialised
-    /// here (see above), so the value is recorded and read back. Virtual because ported
-    /// controls override it to force it off.
+    /// WebForms WebControl.EnableTheming. Themes were a Web.config + App_Themes mechanism the
+    /// conversion does not carry, so this is state a control reads back and nothing applies.
     /// </summary>
-    public virtual bool EnableViewState { get; set; } = true;
-
-    /// <inheritdoc cref="EnableViewState"/>
-    public virtual ViewStateMode ViewStateMode { get; set; } = ViewStateMode.Inherit;
-
-    /// <summary>
-    /// WebForms Control.SkinID / EnableTheming equivalents.
-    ///
-    /// Themes and skins were a Web.config + App_Themes mechanism that the conversion does
-    /// not carry, so both are state a control reads back and nothing applies. Declaring
-    /// them is what matters: markup and code-behind set them on every themed control, and
-    /// the residual for the theme records what was not carried.
-    /// </summary>
-    /// <summary>
-    /// WebForms WebControl.AccessKey. On the interface as well, so code that takes a
-    /// control of either family can set it.
-    /// </summary>
-    public virtual string AccessKey { get; set; } = string.Empty;
-
-    public virtual string SkinID { get; set; } = string.Empty;
-
-    /// <inheritdoc cref="SkinID"/>
     public virtual bool EnableTheming { get; set; } = true;
-
-    /// <summary>
-    /// WebForms WebControl.Width / Height equivalents. The compat COMPONENTS render these
-    /// as CSS; a legacy control renders itself, so here they are values its own Render
-    /// reads. Virtual because ported controls override them to compute a size.
-    /// </summary>
-    public virtual Unit Width { get; set; }
-
-    /// <inheritdoc cref="Width"/>
-    public virtual Unit Height { get; set; }
-
-    /// <summary>
-    /// WebForms IStateManager.IsTrackingViewState equivalent. Always false: there is no
-    /// view state to start tracking here, and ported code guards its TrackViewState calls
-    /// with it ("if (IsTrackingViewState) ((IStateManager)style).TrackViewState();"), so
-    /// false is the answer that skips work that would do nothing.
-    /// </summary>
-    protected bool IsTrackingViewState => false;
-
-    protected virtual void TrackViewState()
-    {
-    }
-
-    /// <summary>WebForms Control.OnBubbleEvent equivalent.</summary>
-    protected virtual bool OnBubbleEvent(object source, EventArgs args) => false;
 
     /// <summary>WebForms Control.RaiseBubbleEvent equivalent.</summary>
     protected void RaiseBubbleEvent(object source, EventArgs args) => OnBubbleEvent(source, args);
 
-    /// <summary>The element the default rendering wraps (WebControl defaults to span).</summary>
     protected LegacyWebControl()
     {
     }
@@ -617,16 +476,13 @@ public abstract class LegacyWebControl : IWebFormsControl, IDisposable, IAttribu
 
     private readonly string _tagName;
 
+    /// <summary>The element the default rendering wraps (WebControl defaults to span).</summary>
     protected virtual string TagName => _tagName ?? "span";
 
     /// <summary>
-    /// WebForms WebControl.ControlStyleCreated / Initialized.
-    ///
-    /// False. Both answer "has this been through the step that would have created it",
-    /// and neither step exists here: the compat layer has no lazily-created style object
-    /// and no Init phase that flips a flag. Ported controls guard work with them
-    /// ("if (ControlStyleCreated) ..."), and false is the branch that skips work which
-    /// would do nothing.
+    /// WebForms WebControl.ControlStyleCreated / Initialized. False: neither step exists
+    /// here, and ported controls guard work with them - false skips work that would do
+    /// nothing.
     /// </summary>
     protected bool ControlStyleCreated => false;
 
@@ -634,22 +490,43 @@ public abstract class LegacyWebControl : IWebFormsControl, IDisposable, IAttribu
     protected bool Initialized => false;
 
     /// <summary>
-    /// WebForms DataBoundControl.OnDataPropertyChanged equivalent: "a property that
-    /// decides what I show has changed, re-bind".
-    ///
-    /// Inert. Re-binding is what Blazor's render loop does when the property is assigned,
-    /// so the notification has nowhere to go that it has not already been.
+    /// WebForms DataBoundControl.OnDataPropertyChanged equivalent. Inert: re-binding is what
+    /// Blazor's render loop does when the property is assigned.
     /// </summary>
     protected virtual void OnDataPropertyChanged()
     {
     }
 
-    public virtual void RenderControl(HtmlTextWriter writer)
+    /// <summary>
+    /// True when a subclass renders through Razor markup (it overrides BuildRenderTree)
+    /// rather than through Render(HtmlTextWriter) - DropDownList is a ListControl and draws
+    /// itself as a component.
+    /// </summary>
+    private bool RendersAsComponent
+        => _rendersAsComponent ??= GetType().GetMethod(
+                   nameof(BuildRenderTree),
+                   System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)
+               ?.DeclaringType != typeof(LegacyWebControl);
+
+    private bool? _rendersAsComponent;
+
+    public override void RenderControl(HtmlTextWriter writer)
     {
-        if (Visible)
+        if (!Visible)
         {
-            Render(writer);
+            return;
         }
+
+        // A Razor-rendered subclass cannot be written as text; it takes part the way any
+        // component does (see WebFormsControlBase.RenderControl).
+        if (RendersAsComponent)
+        {
+            base.RenderControl(writer);
+            return;
+        }
+
+        RunLifecycle();
+        Render(writer);
     }
 
     /// <summary>
@@ -657,7 +534,7 @@ public abstract class LegacyWebControl : IWebFormsControl, IDisposable, IAttribu
     /// LegacyRenderHost uses the begin/end halves separately to wrap Blazor-rendered
     /// child content for controls that carry children in markup.
     /// </summary>
-    protected virtual void Render(HtmlTextWriter writer)
+    protected override void Render(HtmlTextWriter writer)
     {
         RenderBeginTag(writer);
         RenderContents(writer);
@@ -694,7 +571,7 @@ public abstract class LegacyWebControl : IWebFormsControl, IDisposable, IAttribu
     /// WebForms Control.RenderChildren equivalent. A container control overrides it to put
     /// markup around its children (n2's TreeNode, YAF's Form).
     /// </summary>
-    protected virtual void RenderChildren(HtmlTextWriter writer)
+    protected override void RenderChildren(HtmlTextWriter writer)
     {
         foreach (var child in Controls)
         {
@@ -706,60 +583,16 @@ public abstract class LegacyWebControl : IWebFormsControl, IDisposable, IAttribu
     /// WebForms WebControl.RenderContents: what goes between the begin and end tags,
     /// which by default is the control's children.
     ///
-    /// It was empty, so a control that builds its content in code rendered its own tag
+    /// It was empty once, so a control that builds its content in code rendered its own tag
     /// and nothing inside it. BlogEngine's WidgetZone is the shape: OnLoad adds a Literal
-    /// per widget and Render writes "&lt;div class=widgetzone&gt;" + base.Render + "&lt;/div&gt;",
-    /// and the page came back with an empty widget zone on every request.
+    /// per widget and Render writes "&lt;div class=widgetzone&gt;" + base.Render + "&lt;/div&gt;".
     /// </summary>
-    protected virtual void RenderContents(HtmlTextWriter writer) => RenderChildren(writer);
-
-    // WebForms Control lifecycle virtuals: ported controls override these to build
-    // state before Render. LegacyRenderHost drives them via RunLifecycle.
-    // The lifecycle EVENTS beside the virtuals. WebForms exposes both, and ported code
-    // uses whichever fits: a control overrides OnLoad, while the page holding it writes
-    // "themeButton.Load += ...". Raised from the virtuals so a subscriber and an override
-    // see the same moment - declaring them inert would have been the easy half and the
-    // wrong half, because the handler is where the control gets its text.
-    public event EventHandler Init;
-
-    /// <inheritdoc cref="Init"/>
-    public event EventHandler Load;
-
-    /// <inheritdoc cref="Init"/>
-    public event EventHandler PreRender;
-
-    protected virtual void OnInit(EventArgs e) => Init?.Invoke(this, e);
-
-    protected virtual void OnLoad(EventArgs e) => Load?.Invoke(this, e);
-
-    protected virtual void OnPreRender(EventArgs e) => PreRender?.Invoke(this, e);
-
-    protected virtual void OnUnload(EventArgs e)
-    {
-    }
-
-    // Declared on the CLASS, not only on IWebFormsControl. A default interface member is
-    // reachable through the interface and not through a class that implements it, so
-    // putting these on the interface alone left every ported control that derives from
-    // this base unable to call them - YAF's ThemeButton could not call Focus(), which is
-    // the exact thing the interface default was added for.
+    protected override void RenderContents(HtmlTextWriter writer) => RenderChildren(writer);
 
     /// <summary>
-    /// WebForms Control.Focus(). Focus is a client concern in Blazor
-    /// (ElementReference.FocusAsync), so a ported call is accepted and does nothing.
-    /// </summary>
-    public void Focus()
-    {
-    }
-
-    /// <summary>WebForms Control.HasControls(): whether anything was added to Controls.</summary>
-    public bool HasControls() => Controls.Count > 0;
-
-    /// <summary>
-    /// WebForms Control.Parent. Same reason as Focus() above: it was an interface default
-    /// and therefore invisible from the class. Defaults to the naming container, which is
-    /// the parent for every control the compat layer actually places, and is settable for
-    /// the ones ported code builds by hand.
+    /// WebForms Control.Parent. Defaults to the naming container, which is the parent for
+    /// every control the compat layer actually places, and is settable for the ones ported
+    /// code builds by hand.
     /// </summary>
     public IWebFormsControl Parent
     {
@@ -770,44 +603,8 @@ public abstract class LegacyWebControl : IWebFormsControl, IDisposable, IAttribu
     private IWebFormsControl _parent;
 
     /// <summary>
-    /// WebForms Control.Site - the designer's hook. There is no designer, and code reads
-    /// it to ask "am I in the designer?", where null means no.
-    /// </summary>
-    public ISite Site => null;
-
-    /// <summary>
-    /// WebForms Control.Unload. Nothing raises it here (a Blazor component is disposed),
-    /// so a subscription is accepted and never fires.
-    /// </summary>
-    public event EventHandler Unload
-    {
-        add { }
-        remove { }
-    }
-
-    protected virtual void OnDataBinding(EventArgs e) => DataBinding?.Invoke(this, e);
-
-    /// <summary>
-    /// WebForms Control.DataBinding. A template subscribes to it and fills the control in
-    /// the handler - that is how a WebForms column gets a value into a cell, so it has to
-    /// be raised and not just declared.
-    /// </summary>
-    public event EventHandler DataBinding;
-
-    /// <summary>
-    /// WebForms Control.NamingContainer: the control that owns this one's ID space. A
-    /// template's binding handler reaches the row's data through it
-    /// ("(DataGridItem)sender.NamingContainer").
-    /// </summary>
-    public IWebFormsControl NamingContainer { get; set; }
-
-    /// <summary>
     /// Button / LinkButton / ImageButton raised this, and a ported control that derives
     /// from one of them overrides it - YAF.NET's CollapseButton toggles a panel here.
-    /// Those bases are Blazor components in the compat layer, which a plain ported class
-    /// cannot derive from, so it lands on LegacyWebControl and the override needs
-    /// something to bind to.
-    ///
     /// Raised by <see cref="RaisePostBackEvent"/>, which is how WebForms reached it.
     /// </summary>
     protected virtual void OnClick(EventArgs e) => Click?.Invoke(this, e);
@@ -815,26 +612,70 @@ public abstract class LegacyWebControl : IWebFormsControl, IDisposable, IAttribu
     /// <summary>Button-style click event, for code that subscribes rather than overrides.</summary>
     public event EventHandler Click;
 
-    protected virtual void CreateChildControls()
-    {
-    }
-
     /// <summary>CompositeDataBoundControl overload (GridView-derived controls).</summary>
     protected virtual int CreateChildControls(System.Collections.IEnumerable dataSource, bool dataBinding) => 0;
 
-    protected void EnsureChildControls() => CreateChildControls();
+    private bool _lifecycleRan;
 
-    public virtual void DataBind() => OnDataBinding(EventArgs.Empty);
-
-    /// <summary>Runs Init -> Load -> PreRender before rendering (WebForms order).</summary>
+    /// <summary>
+    /// Runs Init -> Load -> PreRender, once, before the control first renders (WebForms
+    /// order). Once: a control that joins the render tree as a component gets here from
+    /// OnInitialized, and LegacyRenderHost / RenderControl call it too - WebForms never ran
+    /// a control's Init twice.
+    /// </summary>
     internal void RunLifecycle()
     {
+        if (_lifecycleRan)
+        {
+            return;
+        }
+        _lifecycleRan = true;
         OnInit(EventArgs.Empty);
         OnLoad(EventArgs.Empty);
         OnPreRender(EventArgs.Empty);
     }
-}
 
+    /// <summary>
+    /// A render-based control gets its whole pre-render lifecycle here. A Razor-rendered
+    /// subclass (DropDownList) keeps the component's: Init now, the rest as it renders.
+    /// </summary>
+    protected override void RunInitialLifecycle()
+    {
+        if (RendersAsComponent)
+        {
+            base.RunInitialLifecycle();
+            return;
+        }
+        RunLifecycle();
+    }
+
+    /// <summary>
+    /// How Blazor draws a render-based control: the Render protocol into a writer.
+    ///
+    /// Plain text when the output holds only markup, which is what it always was. When a
+    /// COMPONENT sits among the children, the writer carries a marker in its place, and the
+    /// markup is rebuilt as element frames with the real component at each marker - text
+    /// alone cannot be split around a component, because a browser handed "&lt;div&gt;" on
+    /// its own closes it on the spot.
+    /// </summary>
+    protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder builder)
+    {
+        var text = new System.IO.StringWriter();
+        var writer = new HtmlTextWriter(text) { EmbeddedComponents = [] };
+        RenderControl(writer);
+        writer.Flush();
+
+        var html = text.ToString();
+        if (writer.EmbeddedComponents.Count == 0)
+        {
+            builder.AddMarkupContent(0, html);
+            return;
+        }
+
+        var activator = RootServices?.GetService(typeof(PreparedComponentActivator)) as PreparedComponentActivator;
+        MarkupFrames.Build(builder, html, writer.EmbeddedComponents, activator);
+    }
+}
 /// <summary>
 /// System.Web.UI.Control equivalent for code that declares variables / parameters of
 /// type Control (the ported render pipeline works through LegacyWebControl).

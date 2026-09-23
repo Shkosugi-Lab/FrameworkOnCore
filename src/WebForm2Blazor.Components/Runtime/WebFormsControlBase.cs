@@ -40,7 +40,7 @@ public abstract class WebFormsControlBase : ComponentBase, IWebFormsControl, IDi
     private bool _enabled = true;
     private string _toolTip;
     private string _accessKey;
-    private int _tabIndex;
+    private short _tabIndex;
     private Unit _width;
     private Unit _height;
     private string _backColor;
@@ -80,7 +80,7 @@ public abstract class WebFormsControlBase : ComponentBase, IWebFormsControl, IDi
     /// controls override it (n2's TemplatePage returns "P" when none was assigned).
     /// </summary>
     [Parameter] public virtual string ID { get => _id; set => SetAndRefresh(ref _id, value); }
-    [Parameter] public string CssClass { get => _cssClass; set => SetAndRefresh(ref _cssClass, value); }
+    [Parameter] public virtual string CssClass { get => _cssClass; set => SetAndRefresh(ref _cssClass, value); }
 
     /// <summary>
     /// WebForms WebControl.ApplyStyle / MergeStyle.
@@ -108,24 +108,24 @@ public abstract class WebFormsControlBase : ComponentBase, IWebFormsControl, IDi
     }
 
     /// <summary>WebForms Visible equivalent. Renders nothing when false.</summary>
-    [Parameter] public bool Visible { get => _visible; set => SetAndRefresh(ref _visible, value); }
+    [Parameter] public virtual bool Visible { get => _visible; set => SetAndRefresh(ref _visible, value); }
 
     /// <summary>WebForms Enabled equivalent.</summary>
-    [Parameter] public bool Enabled { get => _enabled; set => SetAndRefresh(ref _enabled, value); }
+    [Parameter] public virtual bool Enabled { get => _enabled; set => SetAndRefresh(ref _enabled, value); }
 
     // --- Common WebControl properties (presentation) ---
 
     /// <summary>Rendered as the title attribute.</summary>
-    [Parameter] public string ToolTip { get => _toolTip; set => SetAndRefresh(ref _toolTip, value); }
+    [Parameter] public virtual string ToolTip { get => _toolTip; set => SetAndRefresh(ref _toolTip, value); }
 
-    [Parameter] public string AccessKey { get => _accessKey; set => SetAndRefresh(ref _accessKey, value); }
+    [Parameter] public virtual string AccessKey { get => _accessKey; set => SetAndRefresh(ref _accessKey, value); }
 
     /// <summary>When 0 (the WebForms default), tabindex is not rendered.</summary>
-    [Parameter] public int TabIndex { get => _tabIndex; set => SetAndRefresh(ref _tabIndex, value); }
+    [Parameter] public virtual short TabIndex { get => _tabIndex; set => SetAndRefresh(ref _tabIndex, value); }
 
     /// <summary>"100" is treated as px, matching the WebForms Unit; "50%" etc. pass through.</summary>
-    [Parameter] public Unit Width { get => _width; set => SetAndRefresh(ref _width, value); }
-    [Parameter] public Unit Height { get => _height; set => SetAndRefresh(ref _height, value); }
+    [Parameter] public virtual Unit Width { get => _width; set => SetAndRefresh(ref _width, value); }
+    [Parameter] public virtual Unit Height { get => _height; set => SetAndRefresh(ref _height, value); }
 
     /// <summary>Rendered as a CSS color ("Red" / "#cc0000" etc.).</summary>
     [Parameter] public string BackColor { get => _backColor; set => SetAndRefresh(ref _backColor, value); }
@@ -155,7 +155,7 @@ public abstract class WebFormsControlBase : ComponentBase, IWebFormsControl, IDi
     /// <see cref="RowContainer"/>. Plain HTML ids in the markup are NOT prefixed
     /// (measured against 4.8), so only server controls pass through here.
     /// </summary>
-    public string ClientID
+    public virtual string ClientID
         => RowContainer is null || string.IsNullOrEmpty(ID) || string.IsNullOrEmpty(RowContainer.NamingContainerId)
             ? ClientIdFor(ID)
             : ClientIdFor($"{RowContainer.NamingContainerId}_{ID}_{RowContainer.ClientIndex}");
@@ -188,7 +188,7 @@ public abstract class WebFormsControlBase : ComponentBase, IWebFormsControl, IDi
     public IWebFormsControl NamingContainer { get; set; }
 
     /// <summary>WebForms SkinID equivalent. Themes are not supported; accepted as a no-op.</summary>
-    public string SkinID { get; set; }
+    public virtual string SkinID { get; set; }
 
     /// <summary>
     /// WebForms Control.UniqueID equivalent. In WebForms this is the postback name
@@ -196,7 +196,7 @@ public abstract class WebFormsControlBase : ComponentBase, IWebFormsControl, IDi
     /// <see cref="ClientID"/> stands in. Code-behind uses UniqueID to identify a control
     /// uniquely within the page, and that property is preserved.
     /// </summary>
-    public string UniqueID => ClientID;
+    public virtual string UniqueID => ClientID;
 
     /// <summary>
     /// WebForms EnableViewState / ViewStateMode equivalents. A Blazor component's fields
@@ -204,7 +204,7 @@ public abstract class WebFormsControlBase : ComponentBase, IWebFormsControl, IDi
     /// accepted and do nothing. Ported code that turns ViewState off for payload size
     /// keeps compiling and keeps behaving, because the payload never existed.
     /// </summary>
-    public bool EnableViewState { get; set; } = true;
+    public virtual bool EnableViewState { get; set; } = true;
 
     /// <summary>
     /// WebForms Control.ViewState equivalent (per-instance; no persistence).
@@ -221,7 +221,7 @@ public abstract class WebFormsControlBase : ComponentBase, IWebFormsControl, IDi
     protected StateBag ViewState { get; } = new();
 
     /// <inheritdoc cref="EnableViewState"/>
-    public ViewStateMode ViewStateMode { get; set; } = ViewStateMode.Inherit;
+    public virtual ViewStateMode ViewStateMode { get; set; } = ViewStateMode.Inherit;
 
     /// <summary>WebForms Control.Attributes equivalent (arbitrary HTML attributes).</summary>
     public AttributeCollection Attributes { get; }
@@ -245,14 +245,14 @@ public abstract class WebFormsControlBase : ComponentBase, IWebFormsControl, IDi
     /// dropped, which is how BlogEngine's home page came to return 200 with no posts on
     /// it: PostList builds each post with LoadControl and adds it here.
     /// </summary>
-    public ControlCollection Controls { get; }
+    public virtual ControlCollection Controls { get; }
 
     /// <summary>
     /// The activator that lets a child built in code be rendered as itself. Optional:
     /// a host that did not call AddWebFormsCompat still renders, it just gets a fresh
     /// instance of each dynamic child.
     /// </summary>
-    [Inject] private IServiceProvider RootServices { get; set; }
+    [Inject] protected IServiceProvider RootServices { get; set; }
 
     /// <summary>
     /// Renders the programmatically added children, after any markup content.
@@ -295,13 +295,9 @@ public abstract class WebFormsControlBase : ComponentBase, IWebFormsControl, IDi
                     builder.CloseComponent();
                     break;
 
-                case LegacyWebControl legacy:
-                    // The ported control's own Render is the authority on its markup, the
-                    // same arrangement LegacyRenderHost uses for declared ones.
-                    var text = new System.IO.StringWriter();
-                    legacy.RenderControl(new HtmlTextWriter(text));
-                    builder.AddMarkupContent(sequence + 1, text.ToString());
-                    break;
+                // A render-based child (LegacyWebControl) is a component as well and takes the
+                // branch above: its BuildRenderTree runs its own Render, so its markup is still
+                // its own - and a component it holds in turn stays a live component.
             }
         }
     }
@@ -322,13 +318,24 @@ public abstract class WebFormsControlBase : ComponentBase, IWebFormsControl, IDi
     /// </summary>
     public virtual void RenderControl(HtmlTextWriter writer)
     {
+        // A component inside a render-based parent. The parent is rendering itself into a
+        // writer, and a component cannot be written as text - so, when the writer belongs to
+        // a parent that is itself being rendered by Blazor, a marker takes this control's
+        // place and the parent puts the real component there (LegacyWebControl.BuildRenderTree).
+        // Any other writer - ported code rendering into a string for its own use - gets
+        // nothing, as before: a marker leaking into someone's string would be worse.
+        writer?.EmbedComponent(this);
     }
 
     /// <summary>
     /// WebForms Control.Page equivalent - the page hosting this control, or null when it
     /// sits in a layout or user control that is not itself a page.
     /// </summary>
-    public Page Page => Host as Page;
+    // Settable, as WebForms Control.Page is: a control built in code is handed its page
+    // before it is added anywhere (n2cms does). Falls back to the hosting page.
+    public Page Page { get => _page ?? Host as Page; set => _page = value; }
+
+    private Page _page;
 
     /// <summary>WebForms Control.ResolveUrl equivalent.</summary>
     public string ResolveUrl(string relativeUrl) => UrlMapper.ResolveUrl(relativeUrl);
@@ -339,7 +346,7 @@ public abstract class WebFormsControlBase : ComponentBase, IWebFormsControl, IDi
     /// WebForms Control.FindControl equivalent. Resolves through the owning host's
     /// registry (Blazor has no per-control child tree to walk).
     /// </summary>
-    public IWebFormsControl FindControl(string id)
+    public virtual IWebFormsControl FindControl(string id)
         => RowContainer?.FindControl(id) ?? Host?.HostCore.FindControl(id);
 
     [CascadingParameter] protected IWebFormsHost Host { get; set; }
@@ -409,8 +416,17 @@ public abstract class WebFormsControlBase : ComponentBase, IWebFormsControl, IDi
 
         // Init runs before the first render, the same call site and for the same reason as
         // WebFormsPage.OnInitialized. See the lifecycle block at the end of this file.
-        OnInit(EventArgs.Empty);
+        RunInitialLifecycle();
     }
+
+    /// <summary>
+    /// The lifecycle phases that run when this control first joins the render tree. A
+    /// component raises Init here and the rest as its markup is rendered; a render-based
+    /// control (LegacyWebControl) runs Init -> Load -> PreRender here, once, because that is
+    /// all of the lifecycle it gets before its Render - the order LegacyRenderHost has always
+    /// driven it in.
+    /// </summary>
+    protected virtual void RunInitialLifecycle() => OnInit(EventArgs.Empty);
 
     protected override void OnParametersSet()
     {
@@ -649,7 +665,7 @@ public abstract class WebFormsControlBase : ComponentBase, IWebFormsControl, IDi
     /// runs. Declared on the CLASS, because a default interface member is not reachable
     /// through a class that implements the interface.
     /// </summary>
-    public bool DesignMode => false;
+    protected bool DesignMode => false;
 
     /// <summary>
     /// WebForms Control.Site - the designer's hook. No designer here, and code reads it to

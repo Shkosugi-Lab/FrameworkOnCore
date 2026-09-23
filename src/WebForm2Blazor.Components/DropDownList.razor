@@ -1,5 +1,7 @@
 @namespace WebForm2Blazor.Components
-@inherits WebFormsControlBase
+@* A ListControl, as in System.Web: code that builds one and returns it as a ListControl
+   (n2cms's editors) gets this component, and it renders and posts back as one. *@
+@inherits ListControl
 @implements IValueControl
 @implements IListItemContainer
 
@@ -38,7 +40,7 @@
     }
 
     /// <summary>WebForms Items equivalent (Items.Add / FindByValue are available).</summary>
-    public ListItemCollection Items { get; } = new();
+    public override ListItemCollection Items { get; } = new();
 
     /// <summary>
     /// WebForms DataSource equivalent. Applied by DataBind() - explicitly from code-behind,
@@ -52,7 +54,7 @@
     private bool _dataSourceBoundFromMarkup;
 
     [Parameter]
-    public string SelectedValue
+    public override string SelectedValue
     {
         get => _selectedValue ?? Items.FirstOrDefault()?.ResolvedValue ?? string.Empty;
         set => SetAndRefresh(ref _selectedValue, value);
@@ -64,7 +66,7 @@
     /// <summary>WebForms 4.5 model binding: parameterless page method invoked for the data.</summary>
     [Parameter] public string SelectMethod { get; set; }
 
-    public int SelectedIndex
+    public override int SelectedIndex
     {
         get => Items.FindIndex(item => item.ResolvedValue == SelectedValue);
         set
@@ -103,7 +105,7 @@
     /// WebForms ListControl.ClearSelection equivalent. Code-behind calls it before
     /// selecting a new item; the selection here is the value, so clearing it is enough.
     /// </summary>
-    public void ClearSelection()
+    public override void ClearSelection()
     {
         foreach (var item in Items)
         {
@@ -126,7 +128,7 @@
     [Parameter] public bool AppendDataBoundItems { get; set; }
 
     /// <summary>WebForms DataBind() equivalent.</summary>
-    public void DataBind()
+    public override void DataBind()
     {
         if (!AppendDataBoundItems)
         {

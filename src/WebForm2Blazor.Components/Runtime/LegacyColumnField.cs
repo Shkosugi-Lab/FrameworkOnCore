@@ -105,13 +105,10 @@ public sealed class LegacyColumnField : DataControlField
         {
             switch (child)
             {
+                // Either kind of control: a render-based one is a WebFormsControlBase too.
                 case WebFormsControlBase component:
                     component.NamingContainer = item;
                     component.DataBind();
-                    break;
-                case LegacyWebControl legacy:
-                    legacy.NamingContainer = item;
-                    legacy.DataBind();
                     break;
             }
         }

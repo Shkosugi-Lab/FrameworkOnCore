@@ -388,11 +388,26 @@ nopCommerce 1.90 のみ自動取得できません(4.3 参照)。
 MVC は互換層で受けることにしました(`Compat/MvcShims.cs`、`System.Web.Mvc` は除外リストから
 外した)。将来 MVC プロジェクト自体の変換にも対応する前提です。
 
-**現在地(n2cms の N2.dll 単体): 225 → 14。** 残りはどちらも判断が要ります。
+**現在地(n2cms の N2.dll 単体): 225 → 14 → 10。**
+
+**互換層の 2 系統は統合できる(試作済み、2026-09-23)。** `LegacyWebControl` を
+`WebFormsControlBase` の下に付け替えて 1 本の継承にし、`DropDownList` を `ListControl` の
+下に移した。53 メンバーの重複はほぼ `virtual` の有無だけで、互換層内の修正は 2 箇所だった。
+bUnit・パリティ・be/wt は一切動かず、n2 の `new DropDownList()` を `ListControl` で返す 4 件が
+消えた。コードで作った `DropDownList` を描画型の親に入れても、要素の内側に本物の
+コンポーネントとして描かれ、選択がサーバーに戻る(`UnifiedControlHierarchyTests`)。
+
+仕組み: 描画型は `BuildRenderTree` から自分の `Render` を実行する。子にコンポーネントが
+いるときだけ、書き出しに印を置いて HTML を要素フレームに組み立て直し、印の位置に本物の
+コンポーネントを置く(`Compat/MarkupFrames.cs`)。文字列を分割して差し込むと、ブラウザは
+開始タグ単体を空の要素として閉じてしまうため。**bUnit は全フレームの HTML をつないで
+解析するので、この違いを検出できない** —— フレームを直接見るテストを置いてある。
+
+次: 同じ手順を他の部品へ(`TextBox`、各検証器が n2 の残り 3 件)。
 
 | 群 | 件数 | 中身 | 論点 |
 |---|---:|---|---|
-| 互換層の 2 系統分岐 | 7 | `new DropDownList()` を `ListControl` として返す / `RangeValidator` を `BaseValidator` として返す / `FreeTextArea`→`TextBox` | Blazor コンポーネントと描画型が別の型階層。コードで生成して返す用途をどちらに寄せるか |
+| 互換層の 2 系統分岐 | 3 | `RangeValidator`/`CompareValidator` を `BaseValidator` として返す / `FreeTextArea`→`TextBox` | 統合方式で解決できる(上記)。部品ごとに移す |
 | .NET が削除した API | 7 | n2 同梱 Castle DynamicProxy の CAS・`RunAndSave`・`AssemblyBuilder.Save` | 変換器の機械的書き換え(`AssemblyBuilder.DefineDynamicAssembly` + `Run`)で行くか、NuGet の Castle.Core に差し替えるか |
 
 n2 以外(分割時・MVC 互換層を入れる前の値): yaf 3(変換器がライブラリにアプリ名前空間の

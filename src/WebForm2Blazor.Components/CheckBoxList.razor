@@ -1,5 +1,5 @@
 @namespace WebForm2Blazor.Components
-@inherits WebFormsControlBase
+@inherits ListControl
 @implements IValueControl
 @implements IListItemContainer
 
@@ -69,7 +69,7 @@
     /// <summary>WebForms ValidationGroup equivalent; accepted as a no-op (see TextBox.ValidationGroup).</summary>
     [Parameter] public string ValidationGroup { get; set; }
 
-    public ListItemCollection Items { get; } = new();
+    public override ListItemCollection Items { get; } = new();
 
     public object DataSource { get; set; }
 
@@ -87,7 +87,7 @@
     /// <summary>The first selected item, as in WebForms.</summary>
     public ListItem SelectedItem => Items.FirstOrDefault(item => item.Selected);
 
-    public string SelectedValue => SelectedItem?.ResolvedValue ?? string.Empty;
+    public override string SelectedValue => SelectedItem?.ResolvedValue ?? string.Empty;
 
     /// <summary>
     /// WebForms ListControl.SelectedIndex. Settable, as the original is: assigning it
@@ -95,7 +95,7 @@
     /// a list. A get-only property left "list.SelectedIndex = 0" as a compile error in
     /// ported code, which is the ordinary way a list is driven.
     /// </summary>
-    public int SelectedIndex
+    public override int SelectedIndex
     {
         get => Items.FindIndex(item => item.Selected);
         set
@@ -110,7 +110,7 @@
     }
 
     /// <summary>WebForms ListControl.ClearSelection equivalent.</summary>
-    public void ClearSelection()
+    public override void ClearSelection()
     {
         foreach (var item in Items)
         {
@@ -138,7 +138,7 @@
     [Parameter] public bool AppendDataBoundItems { get; set; }
 
     /// <summary>WebForms DataBind() equivalent.</summary>
-    public void DataBind()
+    public override void DataBind()
     {
         if (!AppendDataBoundItems)
         {

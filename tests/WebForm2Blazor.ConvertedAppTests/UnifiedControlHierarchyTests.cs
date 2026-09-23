@@ -219,4 +219,22 @@ public class UnifiedControlHierarchyTests : WebFormsTestContext
         Assert.Equal("範囲外", validator.ErrorMessage);
         Assert.Equal(2, list.Items.Count);
     }
+
+    [Fact]
+    public void 基底型で扱っても部品自身のItemsとDataBindが使われる()
+    {
+        // ListBox / CheckBoxList / RadioButtonList used to DECLARE their own Items,
+        // SelectedValue and DataBind beside the base's, so a ListControl reference saw an
+        // unrelated empty collection and a base-typed DataBind() bound nothing.
+        ListControl list = new ListBox { DataSource = new[] { "a", "b", "c" } };
+        WebFormsControlBase asControl = list;
+
+        asControl.DataBind();
+
+        Assert.Equal(3, list.Items.Count);
+        Assert.Same(((ListBox)list).Items, list.Items);
+
+        list.SelectedValue = "b";
+        Assert.Equal("b", ((ListBox)list).SelectedValue);
+    }
 }

@@ -1,4 +1,4 @@
-﻿@namespace WebForm2Blazor.Components
+@namespace WebForm2Blazor.Components
 @inherits WebFormsControlBase
 @implements IDisposable
 @inject IJSRuntime JSRuntime
@@ -92,7 +92,7 @@
         }
     }
 
-    public void Dispose()
+    public override void Dispose()
     {
         if (_core is not null)
         {

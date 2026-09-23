@@ -341,7 +341,7 @@ public class DataGrid : LegacyWebControl
 
     public System.Collections.IList Columns { get; } = new List<object>();
 
-    public virtual void DataBind()
+    public override void DataBind()
     {
     }
 }

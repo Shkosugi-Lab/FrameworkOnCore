@@ -1,5 +1,5 @@
 @namespace WebForm2Blazor.Components
-@inherits WebFormsControlBase
+@inherits Control
 
 @* Like the WebForms Repeater, Header/Footer are not rendered when there is no data *@
 @if (Visible && _containers.Count > 0)
@@ -133,7 +133,7 @@
         => index % 2 == 1 && AlternatingItemTemplate is not null ? AlternatingItemTemplate : ItemTemplate;
 
     /// <summary>WebForms DataBind() equivalent.</summary>
-    public void DataBind()
+    public override void DataBind()
     {
         RowContainers.Rebind(_containers, DataSourceHelper.Materialize(DataSource), namingContainerId: ID);
         _pendingItemDataBound = OnItemDataBound is not null;

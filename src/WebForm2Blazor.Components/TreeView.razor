@@ -1,5 +1,5 @@
 @namespace WebForm2Blazor.Components
-@inherits WebFormsControlBase
+@inherits WebControl
 
 @* WebForms TreeView equivalent: renders Nodes as a nested list, with expand/collapse and
    selection.
@@ -134,7 +134,7 @@
 
     public void CollapseAll() => ForEachNode(Nodes, node => node.Expanded = false);
 
-    public void DataBind()
+    public override void DataBind()
     {
         var root = SiteMap.RootNode;
         if (root is null)

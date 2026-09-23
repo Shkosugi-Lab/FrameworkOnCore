@@ -1,5 +1,5 @@
-﻿@namespace WebForm2Blazor.Components
-@inherits WebFormsControlBase
+@namespace WebForm2Blazor.Components
+@inherits WebControl
 
 @* Wrapped in a table like the WebForms FormView (matching structure keeps parity comparison valid).
    RenderOuterTable="false" drops the wrapper and emits the template alone, as in WebForms 4.0+. *@
@@ -48,7 +48,7 @@
     public object DataItem => _dataItem;
 
     /// <summary>WebForms DataBind() equivalent.</summary>
-    public void DataBind()
+    public override void DataBind()
     {
         _dataItem = DataSourceHelper.Materialize(DataSource).FirstOrDefault();
         StateHasChanged();

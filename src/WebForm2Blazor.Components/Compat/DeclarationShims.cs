@@ -280,8 +280,10 @@ public class HtmlImage : LegacyWebControl
 
     public string Src { get; set; }
     public string Alt { get; set; }
-    public int Width { get; set; }
-    public int Height { get; set; }
+    // HtmlImage is an HtmlControl, not a WebControl: its Width / Height are pixel ints, as in
+    // System.Web, and deliberately hide the WebControl Unit ones the common base carries.
+    public new int Width { get; set; }
+    public new int Height { get; set; }
     public string Border { get; set; }
     public string Align { get; set; }
 }
@@ -996,7 +998,7 @@ public class LegacyTreeView : LegacyWebControl
         }
     }
 
-    public void DataBind()
+    public override void DataBind()
     {
         _ = SelectedNodeChanged;
         _ = TreeNodePopulate;
@@ -1256,7 +1258,7 @@ public class Menu : LegacyWebControl
 
     public event MenuEventHandler MenuItemDataBound;
 
-    public void DataBind()
+    public override void DataBind()
     {
         _ = MenuItemClick;
         _ = MenuItemDataBound;

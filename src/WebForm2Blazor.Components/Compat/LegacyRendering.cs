@@ -418,10 +418,13 @@ public abstract class LegacyWebControl : WebFormsControlBase
     }
 
     /// <summary>
-    /// WebForms IPostBackEventHandler.RaisePostBackEvent equivalent. Reaches OnClick,
-    /// which is how WebForms got from a postback to a Button-derived control's handler.
+    /// WebForms IPostBackEventHandler.RaisePostBackEvent equivalent. Nothing to raise on a
+    /// plain control; LegacyButton routes it to OnClick, which is how WebForms got from a
+    /// postback to a Button-derived control's handler.
     /// </summary>
-    public virtual void RaisePostBackEvent(string eventArgument) => OnClick(EventArgs.Empty);
+    public virtual void RaisePostBackEvent(string eventArgument)
+    {
+    }
 
     /// <summary>WebForms WebControl.OnAttributesChanged equivalent.</summary>
     protected virtual void OnAttributesChanged()
@@ -625,15 +628,6 @@ public abstract class LegacyWebControl : WebFormsControlBase
 
     private IWebFormsControl _parent;
 
-    /// <summary>
-    /// Button / LinkButton / ImageButton raised this, and a ported control that derives
-    /// from one of them overrides it - YAF.NET's CollapseButton toggles a panel here.
-    /// Raised by <see cref="RaisePostBackEvent"/>, which is how WebForms reached it.
-    /// </summary>
-    protected virtual void OnClick(EventArgs e) => Click?.Invoke(this, e);
-
-    /// <summary>Button-style click event, for code that subscribes rather than overrides.</summary>
-    public event EventHandler Click;
 
     /// <summary>CompositeDataBoundControl overload (GridView-derived controls).</summary>
     protected virtual int CreateChildControls(System.Collections.IEnumerable dataSource, bool dataBinding) => 0;
@@ -873,7 +867,22 @@ public abstract class LegacyButton : LegacyWebControl, IButtonControl
 
     public string AlternateText { get; set; }
 
-    /// <summary>WebForms Button.Command, beside Click on LegacyWebControl.</summary>
+    /// <summary>
+    /// Button / LinkButton / ImageButton raised this, and a ported control that derives
+    /// from one of them overrides it - YAF.NET's CollapseButton toggles a panel here.
+    /// Here, not on LegacyWebControl: System.Web's Control has no Click, and having one on
+    /// the common base collided with the compat Button's OnClick parameter once the two
+    /// hierarchies became one.
+    /// </summary>
+    protected virtual void OnClick(EventArgs e) => Click?.Invoke(this, e);
+
+    /// <summary>Button-style click event, for code that subscribes rather than overrides.</summary>
+    public event EventHandler Click;
+
+    /// <summary>The postback route to OnClick, as WebForms took it.</summary>
+    public override void RaisePostBackEvent(string eventArgument) => OnClick(EventArgs.Empty);
+
+    /// <summary>WebForms Button.Command.</summary>
     public event CommandEventHandler Command;
 
     protected virtual void OnCommand(CommandEventArgs e) => Command?.Invoke(this, e);

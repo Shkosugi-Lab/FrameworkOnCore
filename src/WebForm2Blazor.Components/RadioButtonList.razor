@@ -1,5 +1,5 @@
 @namespace WebForm2Blazor.Components
-@inherits WebFormsControlBase
+@inherits ListControl
 @implements IValueControl
 @implements IListItemContainer
 
@@ -62,7 +62,7 @@
     /// <summary>WebForms ValidationGroup equivalent; accepted as a no-op (see TextBox.ValidationGroup).</summary>
     [Parameter] public string ValidationGroup { get; set; }
 
-    public ListItemCollection Items { get; } = new();
+    public override ListItemCollection Items { get; } = new();
 
     public object DataSource { get; set; }
 
@@ -77,13 +77,13 @@
 
     private int RowCount => (Items.Count + ColumnCount - 1) / ColumnCount;
 
-    public string SelectedValue
+    public override string SelectedValue
     {
         get => _selectedValue ?? string.Empty;
         set => SetAndRefresh(ref _selectedValue, value);
     }
 
-    public int SelectedIndex
+    public override int SelectedIndex
     {
         get => Items.FindIndex(item => item.ResolvedValue == SelectedValue);
         set
@@ -99,7 +99,7 @@
     /// WebForms ListControl.ClearSelection equivalent: no radio selected. A radio list
     /// holds its selection as a value, so clearing it is clearing that.
     /// </summary>
-    public void ClearSelection()
+    public override void ClearSelection()
     {
         foreach (var item in Items)
         {
@@ -137,7 +137,7 @@
     [Parameter] public bool AppendDataBoundItems { get; set; }
 
     /// <summary>WebForms DataBind() equivalent.</summary>
-    public void DataBind()
+    public override void DataBind()
     {
         if (!AppendDataBoundItems)
         {

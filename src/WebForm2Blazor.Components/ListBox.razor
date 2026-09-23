@@ -1,5 +1,5 @@
 @namespace WebForm2Blazor.Components
-@inherits WebFormsControlBase
+@inherits ListControl
 @implements IValueControl
 @implements IListItemContainer
 
@@ -44,20 +44,20 @@
     /// <summary>Single (default) / Multiple.</summary>
     [Parameter] public string SelectionMode { get; set; } = "Single";
 
-    public ListItemCollection Items { get; } = new();
+    public override ListItemCollection Items { get; } = new();
 
     public object DataSource { get; set; }
 
     private bool IsMultiple
         => string.Equals(SelectionMode, "Multiple", StringComparison.OrdinalIgnoreCase);
 
-    public string SelectedValue
+    public override string SelectedValue
     {
         get => _selectedValue ?? Items.FirstOrDefault(item => item.Selected)?.ResolvedValue ?? string.Empty;
         set => SetAndRefresh(ref _selectedValue, value);
     }
 
-    public int SelectedIndex
+    public override int SelectedIndex
     {
         get => Items.FindIndex(item => item.ResolvedValue == SelectedValue);
         set
@@ -76,7 +76,7 @@
     /// selecting a new item; in Multiple mode the per-item flags carry the selection,
     /// so both they and the single-selection value are cleared.
     /// </summary>
-    public void ClearSelection()
+    public override void ClearSelection()
     {
         foreach (var item in Items)
         {
@@ -95,7 +95,7 @@
     [Parameter] public bool AppendDataBoundItems { get; set; }
 
     /// <summary>WebForms DataBind() equivalent.</summary>
-    public void DataBind()
+    public override void DataBind()
     {
         if (!AppendDataBoundItems)
         {

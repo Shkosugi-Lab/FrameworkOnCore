@@ -1,5 +1,5 @@
-﻿@namespace WebForm2Blazor.Components
-@inherits WebFormsControlBase
+@namespace WebForm2Blazor.Components
+@inherits WebControl
 @implements IColumnContainer
 
 @* Collects the <BoundField> declared inside <Fields>. The fields render nothing themselves. *@
@@ -95,7 +95,7 @@
     }
 
     /// <summary>WebForms DataBind() equivalent.</summary>
-    public void DataBind()
+    public override void DataBind()
     {
         _dataItem = DataSourceHelper.Materialize(DataSource).FirstOrDefault();
 

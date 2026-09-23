@@ -4585,9 +4585,15 @@ static string GenerateFieldOnlyCodeBehind(ConvertedComponent component)
     builder.AppendLine("    {");
     foreach (var field in component.Fields.DistinctBy(f => f.Name))
     {
-        builder.Append(field.LegacyHost
-            ? WebForm2Blazor.Converter.Convert.CodeBehindRewriter.EmitLegacyHostField(field, "        ")
-            : $"        protected {field.Type} {field.Name};\r\n");
+        builder.Append(field switch
+        {
+            { LegacyHost: true } => WebForm2Blazor.Converter.Convert.CodeBehindRewriter.EmitLegacyHostField(field, "        "),
+            { StubType: not null } => WebForm2Blazor.Converter.Convert.CodeBehindRewriter.EmitStubField(field, "        "),
+            // No @ref will ever assign it (the markup element is gone), so it holds an
+            // instance - the same rule the code-behind path applies.
+            { Instantiated: true } => $"        protected readonly {field.Type} {field.Name} = new();\r\n",
+            _ => $"        protected {field.Type} {field.Name};\r\n",
+        });
     }
 
     // <script runat="server"> is code-behind written inside the markup, and this generated

@@ -117,20 +117,20 @@
 
     public object DataSource { get; set; }
 
-    [Parameter] public EventHandler<TreeNodeEventArgs> OnSelectedNodeChanged { get; set; }
-    [Parameter] public EventHandler<TreeNodeEventArgs> OnTreeNodeExpanded { get; set; }
-    [Parameter] public EventHandler<TreeNodeEventArgs> OnTreeNodeCollapsed { get; set; }
+    [Parameter] public EventHandler OnSelectedNodeChanged { get; set; }
+    [Parameter] public TreeNodeEventHandler OnTreeNodeExpanded { get; set; }
+    [Parameter] public TreeNodeEventHandler OnTreeNodeCollapsed { get; set; }
 
-    public event EventHandler<TreeNodeEventArgs> SelectedNodeChanged;
+    public event EventHandler SelectedNodeChanged;
 
     /// <summary>WebForms OnSelectedNodeChanged (renamed: see WebFormsControlBase, "Event naming").</summary>
-    protected virtual void SelectedNodeChangedHandler(TreeNodeEventArgs e)
+    protected virtual void SelectedNodeChangedHandler(EventArgs e)
     {
         OnSelectedNodeChanged?.Invoke(this, e);
         SelectedNodeChanged?.Invoke(this, e);
     }
 
-    public event EventHandler<TreeNodeEventArgs> TreeNodeExpanded;
+    public event TreeNodeEventHandler TreeNodeExpanded;
 
     /// <summary>WebForms OnTreeNodeExpanded (renamed: see WebFormsControlBase, "Event naming").</summary>
     protected virtual void TreeNodeExpandedHandler(TreeNodeEventArgs e)
@@ -139,7 +139,7 @@
         TreeNodeExpanded?.Invoke(this, e);
     }
 
-    public event EventHandler<TreeNodeEventArgs> TreeNodeCollapsed;
+    public event TreeNodeEventHandler TreeNodeCollapsed;
 
     /// <summary>WebForms OnTreeNodeCollapsed (renamed: see WebFormsControlBase, "Event naming").</summary>
     protected virtual void TreeNodeCollapsedHandler(TreeNodeEventArgs e)

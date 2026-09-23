@@ -33,10 +33,10 @@
 
     // LoginCancelEventArgs, as WebForms declared it: WingtipToys signs the user out in
     // this handler and its signature is (object, LoginCancelEventArgs).
-    [Parameter] public EventHandler<LoginCancelEventArgs> OnLoggingOut { get; set; }
+    [Parameter] public LoginCancelEventHandler OnLoggingOut { get; set; }
     [Parameter] public EventHandler OnLoggedOut { get; set; }
 
-    public event EventHandler<LoginCancelEventArgs> LoggingOut;
+    public event LoginCancelEventHandler LoggingOut;
 
     /// <summary>WebForms OnLoggingOut (renamed: see WebFormsControlBase, "Event naming").</summary>
     protected virtual void LoggingOutHandler(LoginCancelEventArgs e)

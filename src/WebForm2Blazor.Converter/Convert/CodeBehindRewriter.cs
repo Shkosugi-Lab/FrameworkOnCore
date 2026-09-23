@@ -101,10 +101,11 @@ public static class CodeBehindRewriter
             }
         }
 
-        root = RewriteUsings(root,
-            [.. RequiredUsings, .. additionalUsings ?? [], .. namespaceBridge,
-             .. NestedNamespaceAliases(source, originalNamespace, baseRegistry)]);
+        root = RewriteUsings(root, [.. RequiredUsings, .. additionalUsings ?? [], .. namespaceBridge]);
         root = RewriteNamespace(root, component.TargetNamespace);
+        root = AddNamespaceScopedAliases(root,
+            [.. NestedNamespaceAliases(source, originalNamespace, baseRegistry),
+             .. InnermostBridgeAliases(root, namespaceBridge, baseRegistry)]);
 
         // The class is looked up by the name the SOURCE declares, not by the component
         // name: they differ by more than casing when the name-collision suffix applied
@@ -211,6 +212,83 @@ public static class CodeBehindRewriter
 
         root = root.ReplaceNode(classDeclaration, updated);
         return RewriteQualifiedFrameworkTypes(RewriteSyntax(root, sourceName, report, portedTypes).ToFullString());
+    }
+
+    /// <summary>
+    /// Puts <see cref="NestedNamespaceAliases"/> INSIDE the file's namespace declaration.
+    ///
+    /// At file level an alias shares the global namespace's declaration space, so it
+    /// collides with a top-level namespace of the same name (CS0576). n2cms has both: its
+    /// templates write "Resources.Register..." meaning N2.Resources, and the converted
+    /// App_GlobalResources declare a top-level "namespace Resources". Inside the namespace
+    /// block there is no collision, and the alias is also consulted where the original's
+    /// enclosing namespace was - before anything at global level - so the name resolves as
+    /// it did.
+    /// </summary>
+    private static CompilationUnitSyntax AddNamespaceScopedAliases(CompilationUnitSyntax root, List<string> aliases)
+    {
+        if (aliases.Count == 0)
+        {
+            return root;
+        }
+
+        var declaration = root.Members.OfType<BaseNamespaceDeclarationSyntax>().FirstOrDefault();
+        if (declaration is null)
+        {
+            return RewriteUsings(root, [.. aliases]);
+        }
+
+        var present = declaration.Usings
+            .Where(directive => directive.Alias is not null)
+            .Select(directive => directive.Alias!.Name.Identifier.Text)
+            .ToHashSet(StringComparer.Ordinal);
+        var directives = aliases
+            .Where(alias => !present.Contains(alias[..alias.IndexOf(' ')]))
+            .Select(alias => SyntaxFactory.ParseCompilationUnit($"using {alias};\r\n").Usings[0])
+            .ToArray();
+
+        return directives.Length == 0
+            ? root
+            : root.ReplaceNode(declaration, declaration.AddUsings(directives));
+    }
+
+    /// <summary>
+    /// Aliases for type names the bridged namespaces declare more than once, pointing at the
+    /// innermost - the one the original found first.
+    ///
+    /// The bridge replaces the enclosing namespace chain with a flat list of imports, and a
+    /// chain has an order that imports do not: n2's layouts sit in N2.Templates.UI.Layouts
+    /// and write "Find.X", which found N2.Templates.Find before N2.Find. As two imports
+    /// they are equal, and the name is ambiguous (CS0104). The alias goes inside the
+    /// namespace block, where it outranks both imports.
+    /// </summary>
+    /// <param name="bridge">Innermost first, as the chain is walked.</param>
+    private static List<string> InnermostBridgeAliases(
+        CompilationUnitSyntax root, List<string> bridge, BaseClassRegistry? registry)
+    {
+        var aliases = new List<string>();
+        if (registry is null || bridge.Count < 2)
+        {
+            return aliases;
+        }
+
+        var declaredHere = root.DescendantNodes().OfType<BaseTypeDeclarationSyntax>()
+            .Select(type => type.Identifier.Text)
+            .ToHashSet(StringComparer.Ordinal);
+        var used = root.DescendantNodes().OfType<IdentifierNameSyntax>()
+            .Select(name => name.Identifier.Text)
+            .Where(name => !declaredHere.Contains(name))
+            .ToHashSet(StringComparer.Ordinal);
+
+        foreach (var name in used)
+        {
+            var owners = bridge.Where(ns => registry.HasClass($"{ns}.{name}")).ToList();
+            if (owners.Count > 1)
+            {
+                aliases.Add($"{name} = {owners[0]}.{name}");
+            }
+        }
+        return aliases;
     }
 
     /// <summary>
@@ -2047,6 +2125,11 @@ public static class CodeBehindRewriter
             return EmitLegacyHostField(field, indent);
         }
 
+        if (field.StubType is not null)
+        {
+            return EmitStubField(field, indent);
+        }
+
         // A control whose markup element is deliberately gone (an UpdatePanel): there is
         // no @ref to wait for, so the field holds an instance from the start. The usual
         // pending/ref pair would leave it null forever, since nothing ever assigns it.
@@ -2110,6 +2193,14 @@ public static class CodeBehindRewriter
          + (field.Type == "dynamic"
              ? $"{indent}protected dynamic {field.Name} => __{field.Name}_host?.ControlInstance;\r\n"
              : $"{indent}protected {field.Type} {field.Name} => __{field.Name}_host?.ControlInstance as {field.Type};\r\n");
+
+    /// <summary>
+    /// A placeholder's @ref target and, reaching it, the field the page names - declared
+    /// dynamic because the code-behind talks to the control the stub stands in for.
+    /// </summary>
+    internal static string EmitStubField(Emit.ControlField field, string indent)
+        => $"{indent}private {field.StubType} __{field.Name}_stub;\r\n"
+         + $"{indent}protected dynamic {field.Name} => __{field.Name}_stub;\r\n";
 
     /// <summary>
     /// Whether a stand-in of this type can be constructed and can record assignments.
@@ -2184,6 +2275,9 @@ public static class CodeBehindRewriter
         var orphanedHosts = candidateFields
             .Where(field => field.LegacyHost && declaredMembers.Contains(field.Name))
             .ToList();
+        var orphanedStubs = candidateFields
+            .Where(field => field.StubType is not null && declaredMembers.Contains(field.Name))
+            .ToList();
 
         if (emittedFields.Count > 0)
         {
@@ -2192,6 +2286,16 @@ public static class CodeBehindRewriter
             foreach (var field in emittedFields)
             {
                 generated.Append(EmitControlField(field, indent));
+            }
+            generated.Append("\r\n");
+        }
+
+        if (orphanedStubs.Count > 0)
+        {
+            generated.Append($"{indent}// @ref targets for placeholders of controls the source declares itself (left null: not rendered).\r\n");
+            foreach (var field in orphanedStubs)
+            {
+                generated.Append($"{indent}private {field.StubType} __{field.Name}_stub;\r\n");
             }
             generated.Append("\r\n");
         }

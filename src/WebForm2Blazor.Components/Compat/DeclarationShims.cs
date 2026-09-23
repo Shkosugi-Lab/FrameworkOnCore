@@ -130,7 +130,8 @@ public class LegacyCalendar : LegacyWebControl
     public string PrevMonthText { get; set; } = "&lt;";
     public string NextMonthText { get; set; } = "&gt;";
     public string Caption { get; set; }
-    public int SelectedDates { get; set; }
+    /// <summary>WebForms Calendar.SelectedDates (see SelectedDatesCollection).</summary>
+    public SelectedDatesCollection SelectedDates { get; } = new();
     public string DayNameFormat { get; set; } = "Short";
     public string NextPrevFormat { get; set; } = "CustomText";
     public string TitleFormat { get; set; } = "MonthYear";
@@ -162,6 +163,27 @@ public class ListControl : LegacyWebControl
     /// path that does work.
     /// </summary>
     public virtual string DataSourceID { get; set; } = string.Empty;
+
+    // --- The data-binding surface of WebForms ListControl. Virtual so each list component
+    //     can declare its own as a markup [Parameter] (an override) while code holding the
+    //     control as a ListControl - n2's SingleSelectControl builds a DropDownList, ListBox
+    //     or RadioButtonList and binds it through one ListControl variable - reaches the same
+    //     property. ---
+
+    public virtual object DataSource { get; set; }
+
+    public virtual string DataTextField { get; set; } = string.Empty;
+
+    public virtual string DataValueField { get; set; } = string.Empty;
+
+    public virtual string DataTextFormatString { get; set; } = string.Empty;
+
+    /// <summary>WebForms AppendDataBoundItems: keeps items declared in markup.</summary>
+    public virtual bool AppendDataBoundItems { get; set; }
+
+    /// <summary>WebForms ListControl.SelectedItem: the selected item with the lowest index, or null.</summary>
+    public virtual ListItem SelectedItem
+        => SelectedIndex >= 0 && SelectedIndex < Items.Count ? Items[SelectedIndex] : null;
 
     /// <summary>
     /// A ListItemCollection, not a bare List. WebForms' collection carries FindByValue /
@@ -374,6 +396,9 @@ public class HtmlAnchor : LegacyWebControl
 }
 
 /// <summary>System.Web.UI.WebControls.AuthenticateEventArgs equivalent.</summary>
+/// <summary>System.Web.UI.WebControls.AuthenticateEventHandler equivalent (Login.Authenticate).</summary>
+public delegate void AuthenticateEventHandler(object sender, AuthenticateEventArgs e);
+
 public class AuthenticateEventArgs : EventArgs
 {
     public bool Authenticated { get; set; }

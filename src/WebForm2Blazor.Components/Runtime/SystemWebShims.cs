@@ -1290,6 +1290,9 @@ public class PagePropertiesChangingEventArgs : EventArgs
 }
 
 /// <summary>System.Web.UI.WebControls.WizardNavigationEventArgs equivalent.</summary>
+/// <summary>System.Web.UI.WebControls.WizardNavigationEventHandler equivalent (Wizard.NextButtonClick etc.).</summary>
+public delegate void WizardNavigationEventHandler(object sender, WizardNavigationEventArgs e);
+
 public class WizardNavigationEventArgs : EventArgs
 {
     public WizardNavigationEventArgs()

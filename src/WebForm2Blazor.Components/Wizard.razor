@@ -111,9 +111,9 @@
     // the converter binds them as parameters; code-behind that subscribes instead uses the
     // event of the same name. The XxxHandler methods below run both.
     [Parameter] public EventHandler OnActiveStepChanged { get; set; }
-    [Parameter] public EventHandler<WizardNavigationEventArgs> OnNextButtonClick { get; set; }
-    [Parameter] public EventHandler<WizardNavigationEventArgs> OnPreviousButtonClick { get; set; }
-    [Parameter] public EventHandler<WizardNavigationEventArgs> OnFinishButtonClick { get; set; }
+    [Parameter] public WizardNavigationEventHandler OnNextButtonClick { get; set; }
+    [Parameter] public WizardNavigationEventHandler OnPreviousButtonClick { get; set; }
+    [Parameter] public WizardNavigationEventHandler OnFinishButtonClick { get; set; }
 
     public event EventHandler ActiveStepChanged;
 
@@ -127,7 +127,7 @@
         ActiveStepChanged?.Invoke(source, e);
     }
 
-    public event EventHandler<WizardNavigationEventArgs> NextButtonClick;
+    public event WizardNavigationEventHandler NextButtonClick;
 
     /// <summary>WebForms OnNextButtonClick (renamed: see WebFormsControlBase, "Event naming").</summary>
     protected virtual void NextButtonClickHandler(WizardNavigationEventArgs e)
@@ -136,7 +136,7 @@
         NextButtonClick?.Invoke(this, e);
     }
 
-    public event EventHandler<WizardNavigationEventArgs> PreviousButtonClick;
+    public event WizardNavigationEventHandler PreviousButtonClick;
 
     /// <summary>WebForms OnPreviousButtonClick (renamed: see WebFormsControlBase, "Event naming").</summary>
     protected virtual void PreviousButtonClickHandler(WizardNavigationEventArgs e)
@@ -145,7 +145,7 @@
         PreviousButtonClick?.Invoke(this, e);
     }
 
-    public event EventHandler<WizardNavigationEventArgs> FinishButtonClick;
+    public event WizardNavigationEventHandler FinishButtonClick;
 
     /// <summary>WebForms OnFinishButtonClick (renamed: see WebFormsControlBase, "Event naming").</summary>
     protected virtual void FinishButtonClickHandler(WizardNavigationEventArgs e)

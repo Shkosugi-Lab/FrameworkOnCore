@@ -374,6 +374,9 @@ public class DataGridItem(int itemIndex, int dataSetIndex, ListItemType itemType
 }
 
 /// <summary>System.Web.UI.WebControls.DataGridItemEventArgs equivalent.</summary>
+/// <summary>System.Web.UI.WebControls.DataGridItemEventHandler equivalent (DataGrid.ItemDataBound).</summary>
+public delegate void DataGridItemEventHandler(object sender, DataGridItemEventArgs e);
+
 public class DataGridItemEventArgs(DataGridItem item) : EventArgs
 {
     public DataGridItem Item { get; } = item;

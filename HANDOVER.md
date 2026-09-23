@@ -423,6 +423,23 @@ bUnit・パリティ・be/wt は一切動かず、n2 の `new DropDownList()` �
 `CreateUserStep.CustomNavigationTemplateContainer` だけは実装できず null(互換 Wizard のボタンは
 コントロールではない)。n2 の新規ユーザー画面はその行で落ちる。
 
+その後アプリ本体の 34 件も片付け、**n2(分割)のビルドエラーは 5 件**。残りは n2 自身のテスト用ページ
+(`Addons/UITests`)の 2 種類だけ: `ILanguage.FlagUrl` は現行の n2 に無いメンバー(元のアプリも
+そのページを開けば実行時コンパイルで落ちる)、`depth` は `<script>` 内の
+`<% int depth = ...; if (depth > 0) { %>`(宣言と開き括弧の混在。残差報告済み)。
+
+アプリ本体で直した変換器の不具合:
+- マスターの ContentPlaceHolder が全部既定コンテンツを持つと、先頭を @Body にしてその既定コンテンツ
+  (n2 ではヘッダーと上部メニュー)を捨てていた。今は全部セクションにし、@Body は末尾に置く。
+- 名前空間の別名 `using X = ...` をファイル先頭に置くと、グローバル名前空間の同名
+  (n2 の `namespace Resources`)と衝突した(CS0576)。namespace ブロック内に置く。
+  同種の別名を出す `RelocatedTypeIndex` と `CompatImportDisambiguator` はファイル先頭のまま ——
+  同じ衝突が出たら同じ対処を。
+- 外側の名前空間を平らな using にしたため同名の型があいまいになった(内側への別名を置く)。
+- 式ビルダーの戻り値(object)を引数の型へ変換していなかった(WebForms のページパーサーは変換した)。
+- `<title id="t" runat="server">` など構造要素のフィールドが無かった。
+- スタブの @ref を、ソースが自分で宣言したフィールド(`protected Repeater rc;`)に代入していた。
+
 その過程で見つけた **C# 14 の `field` キーワード問題**: アクセサー内の `field` が C# 14 では
 自動生成の裏側のフィールドを指すため、メンバー名が `field` のコード(DynamicProxy の
 `FieldReference`)がエラーも出さずに null を返していた。変換器が `@field` に書き換える

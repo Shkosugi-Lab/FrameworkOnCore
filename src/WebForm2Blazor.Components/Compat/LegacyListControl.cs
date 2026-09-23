@@ -63,10 +63,6 @@ public class LegacyListControl : ListControl
         }
     }
 
-    /// <summary>WebForms ListControl.SelectedItem (null when nothing is selected).</summary>
-    public virtual ListItem SelectedItem
-        => SelectedIndex >= 0 ? Items[SelectedIndex] : null;
-
     /// <summary>
     /// WebForms ListControl.SelectedValue. Setting it selects the matching item and
     /// clears the selection when no item matches - the 4.8 behaviour, which is why code
@@ -105,16 +101,8 @@ public class LegacyListControl : ListControl
     //     original did, so a ported control that sets DataSource and calls DataBind ends
     //     up with the same items. ---
 
-    public object DataSource { get; set; }
-
-    public string DataTextField { get; set; } = string.Empty;
-
-    public string DataValueField { get; set; } = string.Empty;
-
-    public string DataTextFormatString { get; set; } = string.Empty;
-
-    /// <summary>WebForms AppendDataBoundItems: keeps items declared in markup.</summary>
-    public bool AppendDataBoundItems { get; set; }
+    //     DataSource, DataTextField, DataValueField, DataTextFormatString and
+    //     AppendDataBoundItems are ListControl's (the base), as they are in WebForms.
 
     public bool AutoPostBack { get; set; }
 

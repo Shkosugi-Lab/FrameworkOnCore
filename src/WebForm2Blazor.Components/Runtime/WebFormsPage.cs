@@ -443,6 +443,64 @@ public class Page : ComponentBase, IWebFormsHost, IWebFormsControl
     {
     }
 
+    /// <summary>
+    /// WebForms Page.Culture: assigning it sets the current culture, and reading it gives
+    /// the culture's DisplayName, as the original does. "auto" (and "auto:fallback") take
+    /// the browser's first language, falling back as WebForms did. n2's LanguageConcern
+    /// assigns it for each page from the page's language.
+    /// </summary>
+    public string Culture
+    {
+        get => System.Globalization.CultureInfo.CurrentCulture.DisplayName;
+        set
+        {
+            if (ResolveCulture(value) is { } culture)
+            {
+                System.Globalization.CultureInfo.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture(culture.Name);
+            }
+        }
+    }
+
+    /// <summary>WebForms Page.UICulture: as <see cref="Culture"/>, for the UI culture.</summary>
+    public string UICulture
+    {
+        get => System.Globalization.CultureInfo.CurrentUICulture.DisplayName;
+        set
+        {
+            if (ResolveCulture(value) is { } culture)
+            {
+                System.Globalization.CultureInfo.CurrentUICulture = culture;
+            }
+        }
+    }
+
+    private System.Globalization.CultureInfo ResolveCulture(string value)
+    {
+        if (string.IsNullOrEmpty(value))
+        {
+            return null;
+        }
+
+        if (value.StartsWith("auto", StringComparison.OrdinalIgnoreCase))
+        {
+            var fallback = value.Length > 5 && value[4] == ':' ? value[5..] : null;
+            foreach (var language in Request?.UserLanguages ?? [])
+            {
+                var name = language.Split(';')[0].Trim();
+                try
+                {
+                    return System.Globalization.CultureInfo.GetCultureInfo(name);
+                }
+                catch (System.Globalization.CultureNotFoundException)
+                {
+                }
+            }
+            return string.IsNullOrEmpty(fallback) ? null : System.Globalization.CultureInfo.GetCultureInfo(fallback);
+        }
+
+        return System.Globalization.CultureInfo.GetCultureInfo(value);
+    }
+
     /// <summary>WebForms data-binding expression &lt;%# Eval("X") %&gt; equivalent.</summary>
     /// <summary>
     /// WebForms TemplateControl.Eval(expression) - the form a code-behind helper uses, with
@@ -780,6 +838,9 @@ public abstract class WebFormsUserControl : UserControl, IWebFormsHost, IWebForm
     /// <summary>WebForms Control.Context equivalent.</summary>
     protected HttpContext Context => HttpContext.Current;
 
+    /// <summary>WebForms TemplateControl.Cache: the process-wide store, as on the page.</summary>
+    public Cache Cache => Context?.Cache;
+
     /// <summary>WebForms Server (HttpServerUtility) equivalent.</summary>
     public ServerUtilityShim Server => _server ??= new ServerUtilityShim(NavigationManager);
     private ServerUtilityShim _server;
@@ -948,6 +1009,9 @@ public abstract class WebFormsLayout : LayoutComponentBase, IWebFormsHost
 
     /// <summary>WebForms Control.Context equivalent.</summary>
     protected HttpContext Context => HttpContext.Current;
+
+    /// <summary>WebForms TemplateControl.Cache: the process-wide store, as on the page.</summary>
+    public Cache Cache => Context?.Cache;
 
     /// <summary>WebForms Server (HttpServerUtility) equivalent.</summary>
     public ServerUtilityShim Server => _server ??= new ServerUtilityShim(NavigationManager);

@@ -70,13 +70,35 @@
     /// <summary>
     /// WebForms SelectedDate. DateTime.MinValue means "nothing selected", as there - a
     /// calendar does not open with today already picked.
+    ///
+    /// The first of SelectedDates, and assigning it replaces them with that one day, as in
+    /// WebForms (where a click in the calendar does the same).
     /// </summary>
     [Parameter]
     public DateTime SelectedDate
     {
-        get => _selectedDate;
-        set => SetAndRefresh(ref _selectedDate, value);
+        get => SelectedDates.Count > 0 ? SelectedDates[0] : DateTime.MinValue;
+        set
+        {
+            SetAndRefresh(ref _selectedDate, value);
+            if (value == DateTime.MinValue)
+            {
+                SelectedDates.Clear();
+            }
+            else
+            {
+                SelectedDates.SelectRange(value, value);
+            }
+        }
     }
+
+    /// <summary>
+    /// WebForms SelectedDates: every day shown as selected. Code adds to it to mark several
+    /// days at once (n2's calendar teaser marks each day that has an event).
+    /// </summary>
+    public SelectedDatesCollection SelectedDates => _selectedDates ??= new SelectedDatesCollection(StateHasChanged);
+
+    private SelectedDatesCollection _selectedDates;
 
     [Parameter] public DateTime TodaysDate { get; set; } = DateTime.Today;
     [Parameter] public bool ShowGridLines { get; set; }
@@ -190,7 +212,7 @@
                 DayNumberText = date.Day.ToString(CultureInfo.CurrentCulture),
                 IsOtherMonth = date.Month != VisibleDate.Month,
                 IsToday = date.Date == TodaysDate.Date,
-                IsSelected = date.Date == SelectedDate.Date,
+                IsSelected = SelectedDates.Contains(date),
                 IsWeekend = date.DayOfWeek is DayOfWeek.Saturday or DayOfWeek.Sunday,
                 IsSelectable = true,
             };

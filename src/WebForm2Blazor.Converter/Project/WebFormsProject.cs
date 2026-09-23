@@ -561,8 +561,13 @@ public sealed class MasterInfo
     /// The placeholder assigned to @Body. Placeholders carrying default content are
     /// passed over: @Body has no way to express "render this unless the page overrides
     /// it", while a section does (the layout registers the default, the page wins).
+    ///
+    /// Null when EVERY body placeholder has default content. It used to fall back to the
+    /// first of them, which threw that placeholder's default away - n2's Top+SubMenu master
+    /// has defaults in all of them, and its header and top menu vanished from every page
+    /// that did not override "Top". With none chosen, all become sections and the layout
+    /// places @Body where it renders nothing (see ConvertMaster).
     /// </summary>
     public string? PrimaryPlaceholder
-        => BodyPlaceholders.FirstOrDefault(id => !PlaceholdersWithDefaultContent.Contains(id))
-           ?? BodyPlaceholders.FirstOrDefault();
+        => BodyPlaceholders.FirstOrDefault(id => !PlaceholdersWithDefaultContent.Contains(id));
 }

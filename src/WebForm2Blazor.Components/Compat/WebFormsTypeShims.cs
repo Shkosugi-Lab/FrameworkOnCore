@@ -1171,3 +1171,66 @@ public abstract class JavaScriptConverter
 
     public abstract IDictionary<string, object> Serialize(object obj, JavaScriptSerializer serializer);
 }
+
+/// <summary>
+/// System.Web.UI.WebControls.SelectedDatesCollection equivalent: the dates a Calendar shows
+/// as selected, in order, without duplicates and without a time of day. Calendar.SelectedDate
+/// is the first of them, as in WebForms. n2's calendar teaser selects every day that has an
+/// event this way.
+/// </summary>
+public sealed class SelectedDatesCollection : IEnumerable<DateTime>
+{
+    private readonly List<DateTime> _dates = [];
+    private readonly Action _changed;
+
+    public SelectedDatesCollection(Action changed = null) => _changed = changed;
+
+    public int Count => _dates.Count;
+
+    public DateTime this[int index] => _dates[index];
+
+    public void Add(DateTime date)
+    {
+        var day = date.Date;
+        var index = _dates.BinarySearch(day);
+        if (index < 0)
+        {
+            _dates.Insert(~index, day);
+            _changed?.Invoke();
+        }
+    }
+
+    public void Remove(DateTime date)
+    {
+        if (_dates.Remove(date.Date))
+        {
+            _changed?.Invoke();
+        }
+    }
+
+    public void Clear()
+    {
+        if (_dates.Count > 0)
+        {
+            _dates.Clear();
+            _changed?.Invoke();
+        }
+    }
+
+    public bool Contains(DateTime date) => _dates.BinarySearch(date.Date) >= 0;
+
+    /// <summary>WebForms SelectRange: replaces the selection with every day from one date to the other.</summary>
+    public void SelectRange(DateTime fromDate, DateTime toDate)
+    {
+        _dates.Clear();
+        for (var day = fromDate.Date; day <= toDate.Date; day = day.AddDays(1))
+        {
+            _dates.Add(day);
+        }
+        _changed?.Invoke();
+    }
+
+    public IEnumerator<DateTime> GetEnumerator() => _dates.GetEnumerator();
+
+    System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
+}

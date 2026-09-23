@@ -26,8 +26,14 @@ public delegate string? LegacyControlLookup(string prefix, string name, out stri
 /// UpdatePanel, whose wrapper Blazor does not need and whose Update() calls still have to
 /// run rather than dereference null.
 /// </param>
+/// <param name="StubType">
+/// Set for a placeholder (Stub_*) standing in for an unconverted control: the full name of
+/// the stub component. The @ref goes to a converter-owned field of that type, so a
+/// code-behind that declares the control itself (n2's "protected Repeater rc;") keeps its
+/// declaration instead of receiving a stub it cannot hold.
+/// </param>
 public sealed record ControlField(
-    string Type, string Name, bool LegacyHost = false, bool Instantiated = false);
+    string Type, string Name, bool LegacyHost = false, bool Instantiated = false, string? StubType = null);
 
 /// <summary>Prefix that makes a compat type name unambiguous against the page namespace.</summary>
 internal static class CompatNames
@@ -706,6 +712,18 @@ public sealed partial class MarkupEmitter(EmitContext context)
             {
                 context.Report.Info(context.SourceName,
                     $"<{element.Name} runat=\"server\"> は Blazor では不要なため中身だけを出力しました。");
+
+                // The tag goes, but the designer declared a field for it and code-behind
+                // uses it: n2's master sets "t.Text = CurrentPage.HeadTitle" on its
+                // <title id="t" runat="server">. The field holds an instance of the control
+                // WebForms made (its values are carried; the title itself is <PageTitle>'s).
+                if (element.Id is { } structuralId
+                    && StructuralFieldTypes.TryGetValue(element.Name, out var structuralType)
+                    && !context.Fields.Any(field => field.Name == structuralId))
+                {
+                    context.Fields.Add(new ControlField(
+                        CompatNames.QualifiedPrefix + structuralType, structuralId, Instantiated: true));
+                }
                 return EmitNodes(element.Children);
             }
 
@@ -870,6 +888,14 @@ public sealed partial class MarkupEmitter(EmitContext context)
     private static readonly HashSet<string> StructuralHtmlElements = new(StringComparer.OrdinalIgnoreCase)
     {
         "form", "head", "body", "html", "title",
+    };
+
+    /// <summary>The HtmlControl WebForms declared for a structural element with an ID.</summary>
+    private static readonly Dictionary<string, string> StructuralFieldTypes = new(StringComparer.OrdinalIgnoreCase)
+    {
+        ["form"] = "HtmlForm",
+        ["head"] = "HtmlHead",
+        ["title"] = "HtmlTitle",
     };
 
     /// <summary>
@@ -1409,6 +1435,23 @@ public sealed partial class MarkupEmitter(EmitContext context)
                 if (parameterName is not null
                     && ExpressionBuilders.TryConvert(builderPrefix, builderValue, out var builderExpression))
                 {
+                    // A builder returns object (RouteValue, and every application's own -
+                    // n2's CurrentItem), and WebForms' page parser converted it to the
+                    // property's type before assigning. For a string property that is
+                    // Convert.ToString with the current culture; a builder that already
+                    // returns a string comes back unchanged.
+                    var target = ComponentParameterTypes.Find(component, parameterName);
+                    if (target?.Kind == ParameterKind.String)
+                    {
+                        builderExpression = "global::System.Convert.ToString("
+                            + builderExpression + ", global::System.Globalization.CultureInfo.CurrentCulture)";
+                    }
+                    else if (target?.Kind is ParameterKind.Bool or ParameterKind.Numeric or ParameterKind.Decimal)
+                    {
+                        builderExpression = $"({target.FullTypeName})global::System.Convert.ChangeType("
+                            + builderExpression + $", typeof({target.FullTypeName}), "
+                            + "global::System.Globalization.CultureInfo.CurrentCulture)";
+                    }
                     attributes.Add(RazorExpressionAttribute(parameterName, builderExpression));
                     context.Report.Info(context.SourceName,
                         $"式ビルダー {name}=\"<%$ {builderPrefix}:{builderValue} %>\" を変換しました。");
@@ -1522,19 +1565,30 @@ public sealed partial class MarkupEmitter(EmitContext context)
             // Stub placeholders get a dynamic field: the original code-behind accesses
             // the real control's members (editor.Value etc.), which a generated stub
             // cannot declare - dynamic keeps that code compiling (inert at runtime).
-            attributes.Add($"@ref=\"{id}\"");
+            if (component.StartsWith("Stub_", StringComparison.Ordinal) && context.StubNamespace is not null)
+            {
+                // Into a converter-owned field, which the page's own "id" reaches when the
+                // code-behind does not declare it (see ControlField.StubType).
+                attributes.Add($"@ref=\"__{id}_stub\"");
+                context.Fields.Add(new ControlField(
+                    "dynamic", id, StubType: $"global::{context.StubNamespace}.{component}"));
+            }
+            else
+            {
+                attributes.Add($"@ref=\"{id}\"");
 
-            // Fully qualified, because a PAGE can be named after a control. BlogEngine has
-            // Login.aspx, whose class is Login in the page namespace, and a bare "Login"
-            // field there resolves to the page - not the compat control - so every member
-            // the code-behind touches is missing. The enclosing namespace is checked before
-            // any using, so only global:: settles it.
-            var declaredType = component.StartsWith("Stub_", StringComparison.Ordinal)
-                ? "dynamic"
-                : CodeBehindRewriter.DeclaresCompatType(component)
-                    ? CompatNames.QualifiedPrefix + component
-                    : component;
-            context.Fields.Add(new ControlField(declaredType, id));
+                // Fully qualified, because a PAGE can be named after a control. BlogEngine has
+                // Login.aspx, whose class is Login in the page namespace, and a bare "Login"
+                // field there resolves to the page - not the compat control - so every member
+                // the code-behind touches is missing. The enclosing namespace is checked before
+                // any using, so only global:: settles it.
+                var declaredType = component.StartsWith("Stub_", StringComparison.Ordinal)
+                    ? "dynamic"
+                    : CodeBehindRewriter.DeclaresCompatType(component)
+                        ? CompatNames.QualifiedPrefix + component
+                        : component;
+                context.Fields.Add(new ControlField(declaredType, id));
+            }
         }
 
         if (id is not null && mapping is not null && _templateDepth == 0)

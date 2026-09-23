@@ -23,8 +23,8 @@
     private bool _itemsChanged;
 
     [Parameter] public RenderFragment ChildContent { get; set; }
-    [Parameter] public string DataTextField { get; set; }
-    [Parameter] public string DataValueField { get; set; }
+    [Parameter] public override string DataTextField { get; set; }
+    [Parameter] public override string DataValueField { get; set; }
     [Parameter] public EventHandler OnSelectedIndexChanged { get; set; }
 
     /// <summary>
@@ -48,7 +48,7 @@
 
     public override ListItemCollection Items { get; } = new();
 
-    public object DataSource { get; set; }
+    public override object DataSource { get; set; }
 
     private bool IsMultiple
         => string.Equals(SelectionMode, "Multiple", StringComparison.OrdinalIgnoreCase);
@@ -71,7 +71,7 @@
         }
     }
 
-    public ListItem SelectedItem => Items.FirstOrDefault(item => item.ResolvedValue == SelectedValue);
+    public override ListItem SelectedItem => Items.FirstOrDefault(item => item.ResolvedValue == SelectedValue);
 
     /// <summary>
     /// WebForms ListControl.ClearSelection equivalent. Code-behind calls it before
@@ -94,7 +94,7 @@
     }
 
     /// <summary>When true, DataBind keeps declarative ListItems and appends (WebForms compatible).</summary>
-    [Parameter] public bool AppendDataBoundItems { get; set; }
+    [Parameter] public override bool AppendDataBoundItems { get; set; }
 
     /// <summary>WebForms DataBind() equivalent.</summary>
     public override void DataBind()

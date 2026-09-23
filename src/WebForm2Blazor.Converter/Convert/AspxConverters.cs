@@ -244,6 +244,18 @@ public static partial class AspxConverters
             razor.AppendLine(headMarkup);
             razor.AppendLine("</HeadContent>");
         }
+        if (info.PrimaryPlaceholder is null && info.BodyPlaceholders.Count > 0)
+        {
+            // Every placeholder is a section (each has default content), so none is @Body.
+            // The page still has to be RENDERED for its <SectionContent> to register - a
+            // content page is nothing but <asp:Content> elements, so @Body draws nothing
+            // here and only carries the registrations.
+            markup += "\r\n@* The page's content arrives through the sections above; @Body only registers it. *@\r\n@Body";
+            report.Info(sourceName,
+                "すべての ContentPlaceHolder が既定コンテンツを持つため、どれも @Body にせずセクションにしました"
+                + "(ページ側の登録のために @Body を末尾に置いています)。");
+        }
+
         razor.AppendLine("<WebFormsScope Owner=\"this\">");
         if (masterPrefix.Length > 0)
         {

@@ -39,8 +39,8 @@
     private bool _itemsChanged;
 
     [Parameter] public RenderFragment ChildContent { get; set; }
-    [Parameter] public string DataTextField { get; set; }
-    [Parameter] public string DataValueField { get; set; }
+    [Parameter] public override string DataTextField { get; set; }
+    [Parameter] public override string DataValueField { get; set; }
 
     /// <summary>Vertical (default) / Horizontal.</summary>
     [Parameter] public RepeatDirection RepeatDirection { get; set; } = RepeatDirection.Vertical;
@@ -49,9 +49,9 @@
     /// WebForms RepeatLayout equivalent. Only Table (the WebForms default) is rendered,
     /// so the value is accepted and does not change the markup; Flow / UnorderedList
     /// would emit a different DOM and are a deliberate follow-up rather than a silent
-    /// approximation.
+    /// approximation. The enum, as in System.Web, so code assigning a member compiles.
     /// </summary>
-    [Parameter] public string RepeatLayout { get; set; } = "Table";
+    [Parameter] public RepeatLayout RepeatLayout { get; set; } = RepeatLayout.Table;
 
     [Parameter] public EventHandler OnSelectedIndexChanged { get; set; }
 
@@ -73,7 +73,7 @@
 
     public override ListItemCollection Items { get; } = new();
 
-    public object DataSource { get; set; }
+    public override object DataSource { get; set; }
 
     /// <summary>0 (the WebForms default) keeps a single row (Horizontal) or column (Vertical).</summary>
     [Parameter] public int RepeatColumns { get; set; }
@@ -87,7 +87,7 @@
     private int RowCount => (Items.Count + ColumnCount - 1) / ColumnCount;
 
     /// <summary>The first selected item, as in WebForms.</summary>
-    public ListItem SelectedItem => Items.FirstOrDefault(item => item.Selected);
+    public override ListItem SelectedItem => Items.FirstOrDefault(item => item.Selected);
 
     public override string SelectedValue => SelectedItem?.ResolvedValue ?? string.Empty;
 
@@ -137,7 +137,7 @@
     }
 
     /// <summary>When true, DataBind keeps declarative ListItems and appends (WebForms compatible).</summary>
-    [Parameter] public bool AppendDataBoundItems { get; set; }
+    [Parameter] public override bool AppendDataBoundItems { get; set; }
 
     /// <summary>WebForms DataBind() equivalent.</summary>
     public override void DataBind()

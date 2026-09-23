@@ -40,11 +40,18 @@
     private bool _itemsChanged;
 
     [Parameter] public RenderFragment ChildContent { get; set; }
-    [Parameter] public string DataTextField { get; set; }
-    [Parameter] public string DataValueField { get; set; }
+    [Parameter] public override string DataTextField { get; set; }
+    [Parameter] public override string DataValueField { get; set; }
 
     /// <summary>Vertical (default) / Horizontal.</summary>
     [Parameter] public RepeatDirection RepeatDirection { get; set; } = RepeatDirection.Vertical;
+
+    /// <summary>
+    /// WebForms RepeatLayout. Same terms as CheckBoxList.RepeatLayout: accepted, and the
+    /// list still renders as a table - Flow is not implemented, and the converter reports
+    /// the markup attribute rather than approximating it.
+    /// </summary>
+    [Parameter] public RepeatLayout RepeatLayout { get; set; } = RepeatLayout.Table;
 
     [Parameter] public EventHandler OnSelectedIndexChanged { get; set; }
 
@@ -66,7 +73,7 @@
 
     public override ListItemCollection Items { get; } = new();
 
-    public object DataSource { get; set; }
+    public override object DataSource { get; set; }
 
     /// <summary>0 (the WebForms default) keeps a single row (Horizontal) or column (Vertical).</summary>
     [Parameter] public int RepeatColumns { get; set; }
@@ -110,7 +117,7 @@
         SelectedValue = null;
     }
 
-    public ListItem SelectedItem => Items.FirstOrDefault(item => item.ResolvedValue == SelectedValue);
+    public override ListItem SelectedItem => Items.FirstOrDefault(item => item.ResolvedValue == SelectedValue);
 
     private RenderFragment RenderItem(ListItem item, int index) => __builder =>
     {
@@ -136,7 +143,7 @@
     }
 
     /// <summary>When true, DataBind keeps declarative ListItems and appends (WebForms compatible).</summary>
-    [Parameter] public bool AppendDataBoundItems { get; set; }
+    [Parameter] public override bool AppendDataBoundItems { get; set; }
 
     /// <summary>WebForms DataBind() equivalent.</summary>
     public override void DataBind()

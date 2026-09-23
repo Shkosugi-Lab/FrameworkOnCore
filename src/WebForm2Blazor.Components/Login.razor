@@ -109,12 +109,12 @@
     public TableItemStyle LoginButtonStyle { get; } = new();
     public TableItemStyle CheckBoxStyle { get; } = new();
 
-    [Parameter] public EventHandler<AuthenticateEventArgs> OnAuthenticate { get; set; }
+    [Parameter] public AuthenticateEventHandler OnAuthenticate { get; set; }
     [Parameter] public EventHandler OnLoggingIn { get; set; }
     [Parameter] public EventHandler OnLoggedIn { get; set; }
     [Parameter] public EventHandler OnLoginError { get; set; }
 
-    public event EventHandler<AuthenticateEventArgs> Authenticate;
+    public event AuthenticateEventHandler Authenticate;
 
     /// <summary>WebForms OnAuthenticate (renamed: see WebFormsControlBase, "Event naming").</summary>
     protected virtual void AuthenticateHandler(AuthenticateEventArgs e)

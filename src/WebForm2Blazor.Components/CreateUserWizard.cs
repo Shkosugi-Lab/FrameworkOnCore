@@ -43,7 +43,7 @@ public class CreateUserWizard : Wizard
     [Parameter] public bool LoginCreatedUser { get; set; } = true;
     [Parameter] public bool RequireEmail { get; set; } = true;
 
-    [Parameter] public EventHandler<LoginCancelEventArgs> OnCreatingUser { get; set; }
+    [Parameter] public LoginCancelEventHandler OnCreatingUser { get; set; }
     [Parameter] public EventHandler OnCreatedUser { get; set; }
     [Parameter] public EventHandler OnCreateUserError { get; set; }
     [Parameter] public EventHandler OnContinueButtonClick { get; set; }
@@ -58,7 +58,7 @@ public class CreateUserWizard : Wizard
         ContinueButtonClick?.Invoke(this, e);
     }
 
-    public event EventHandler<LoginCancelEventArgs> CreatingUser;
+    public event LoginCancelEventHandler CreatingUser;
 
     /// <summary>WebForms OnCreatingUser (renamed: see WebFormsControlBase, "Event naming").</summary>
     protected virtual void CreatingUserHandler(LoginCancelEventArgs e)

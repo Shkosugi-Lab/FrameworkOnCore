@@ -537,9 +537,9 @@
     /// too (see DataGridMode). Fires for the same data rows Items below exposes, on the
     /// same terms as RowDataBound above.
     /// </summary>
-    [Parameter] public EventHandler<DataGridItemEventArgs> OnItemDataBound { get; set; }
+    [Parameter] public DataGridItemEventHandler OnItemDataBound { get; set; }
 
-    public event EventHandler<DataGridItemEventArgs> ItemDataBound;
+    public event DataGridItemEventHandler ItemDataBound;
 
     /// <summary>WebForms DataGrid.OnItemDataBound (renamed: see WebFormsControlBase, "Event naming").</summary>
     protected virtual void ItemDataBoundHandler(DataGridItemEventArgs e)

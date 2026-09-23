@@ -12,3 +12,16 @@ public enum RepeatDirection
     Horizontal,
     Vertical,
 }
+
+/// <summary>
+/// System.Web.UI.WebControls.RepeatLayout equivalent, for the same reason as RepeatDirection:
+/// code-behind assigns the member by name (n2's poll: rbl.RepeatLayout = RepeatLayout.Flow).
+/// The list controls render Table only - see CheckBoxList.RepeatLayout.
+/// </summary>
+public enum RepeatLayout
+{
+    Table,
+    Flow,
+    UnorderedList,
+    OrderedList,
+}

@@ -567,7 +567,7 @@ string ExpandRelativeNamespaceReferences(string code)
     return code;
 }
 
-string ApplyNamespaceMap(string code, bool razorContent = false)
+string ApplyNamespaceMap(string code, bool razorContent = false, bool libraryFile = false)
 {
     // A .razor file has no namespace declaration to be relative to.
     if (!razorContent)
@@ -576,7 +576,16 @@ string ApplyNamespaceMap(string code, bool razorContent = false)
     }
 
     // Before the namespace rewrite below, which deletes the imports this reads.
-    code = razorContent ? relocatedTypes.RewriteQualified(code) : relocatedTypes.Apply(code);
+    //
+    // Not in a referenced library's files: the moved types are the web project's pages and
+    // controls, which the original library could never see (the web project references it,
+    // not the other way round). A bare name there that matches one is something else - DNN's
+    // Library writes Title, Icon, Text as its own members - and an alias to the app's
+    // namespace is CS0246 once the library is its own project.
+    if (!libraryFile)
+    {
+        code = razorContent ? relocatedTypes.RewriteQualified(code) : relocatedTypes.Apply(code);
+    }
 
     foreach (var (originalNamespace, targets) in namespaceRewrites)
     {
@@ -709,11 +718,19 @@ if (packageMap is not null)
             continue;
         }
 
+        // A NuGet dependency (PackageReference, or packages.config with packages\ not
+        // restored into the tree) has no copy in the input; the restore cache does.
         var assemblyPath = FindBuiltAssembly(input, assemblyName)
             ?? includeDirectories.Select(directory => FindBuiltAssembly(directory, assemblyName))
-                .FirstOrDefault(found => found is not null);
+                .FirstOrDefault(found => found is not null)
+            ?? FindInNuGetCache(assemblyName);
         if (assemblyPath is null)
         {
+            report.Residual("(project)", ResidualKind.Configuration,
+                $"置き換え先なしと指定された {assemblyName} のアセンブリが見つからないため、"
+                + "依存するファイルを特定できません(入力ツリーにも NuGet キャッシュにもありません)。"
+                + "元のプロジェクトを一度復元してから再変換してください。",
+                disposition: ResidualDisposition.NeedsInput);
             continue;
         }
 
@@ -1611,7 +1628,7 @@ for (var i = 0; i < candidateNamespaces.Count; i++)
                 CodeBehindRewriter.RewritePlainCodeFile(
                     candidateSource, candidate.ReportName, report, portedTypes),
                 libraryFile: candidate.Included),
-            fullyExcludedNamespaces, report, candidate.ReportName))));
+            fullyExcludedNamespaces, report, candidate.ReportName), libraryFile: candidate.Included)));
     report.CopiedCodeFiles++;
 
     // BinaryFormatter still compiles (the generated project suppresses SYSLIB0011) but the
@@ -2675,6 +2692,11 @@ static void WriteUndecidedDependencyTypes(
                 lines.Add($"{assembly}\t{typeNamespace.Split('.')[0]}");
             }
         });
+
+        // A nested type is written bare by code deriving from its declaring type
+        // (Lucene's AttributeSource.State in a TokenFilter), and reported under that name.
+        WebForm2Blazor.Converter.Convert.FrameworkTypeIndex.ReadPublicNestedTypeNames(
+            dllPath, typeName => lines.Add($"{assembly}\t{typeName}"));
     }
 
     if (lines.Count == 0)
@@ -2718,6 +2740,10 @@ static void WriteUndecidedDependencyShapes(
             continue;
         }
 
+        // Fourth column: the nested types reachable through the type (its own and its
+        // bases'), so the scaffold's shell still resolves "State" in a TokenFilter subclass.
+        var nested = WebForm2Blazor.Converter.Convert.FrameworkTypeIndex.ReadReachableNestedTypes(dllPath);
+
         WebForm2Blazor.Converter.Convert.FrameworkTypeIndex.ReadPublicTypeShapes(
             dllPath,
             (typeNamespace, typeName, shape) =>
@@ -2733,7 +2759,9 @@ static void WriteUndecidedDependencyShapes(
                     return;
                 }
 
-                lines.Add($"{typeNamespace}\t{typeName}\t{shape}");
+                lines.Add(nested.TryGetValue($"{typeNamespace}.{typeName}", out var reachable)
+                    ? $"{typeNamespace}\t{typeName}\t{shape}\t{string.Join(",", reachable)}"
+                    : $"{typeNamespace}\t{typeName}\t{shape}");
             });
     }
 
@@ -2962,6 +2990,47 @@ static string? FindBuiltAssembly(string? projectDirectory, string assembly)
 }
 
 /// <summary>
+/// An assembly in the NuGet global packages folder (NUGET_PACKAGES, else ~/.nuget/packages),
+/// for a dependency that exists only as a package: its restore never put a copy in the
+/// input tree. Laid out as &lt;id&gt;/&lt;version&gt;/lib/&lt;tfm&gt;/&lt;assembly&gt;.dll; a .NET
+/// Framework build is preferred because that is what the original compiled against, and
+/// the newest version wins among equals. Only the fixed levels are walked, so a large
+/// cache costs directory listings, not a recursive search.
+/// </summary>
+static string? FindInNuGetCache(string assembly)
+{
+    var root = Environment.GetEnvironmentVariable("NUGET_PACKAGES") is { Length: > 0 } configured
+        ? configured
+        : Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), ".nuget", "packages");
+    if (!Directory.Exists(root))
+    {
+        return null;
+    }
+
+    var fileName = assembly + ".dll";
+    try
+    {
+        return Directory.EnumerateDirectories(root)
+            .SelectMany(Directory.EnumerateDirectories)
+            .Select(version => (Version: Path.GetFileName(version), Lib: Path.Combine(version, "lib")))
+            .Where(package => Directory.Exists(package.Lib))
+            .SelectMany(package => Directory.EnumerateDirectories(package.Lib)
+                .Select(framework => (package.Version, Framework: Path.GetFileName(framework),
+                    Path: Path.Combine(framework, fileName))))
+            .Where(candidate => File.Exists(candidate.Path))
+            .OrderByDescending(candidate => candidate.Framework.StartsWith("net4", StringComparison.OrdinalIgnoreCase))
+            .ThenByDescending(candidate => Version.TryParse(candidate.Version.Split('-')[0], out var parsed)
+                ? parsed : new Version())
+            .Select(candidate => candidate.Path)
+            .FirstOrDefault();
+    }
+    catch (Exception exception) when (exception is IOException or UnauthorizedAccessException)
+    {
+        return null;
+    }
+}
+
+/// <summary>
 /// Package IDs the target framework supersedes, read from the SDK's own data.
 ///
 /// This was a hand-written list of 20 names, and a name missing from it meant the package
@@ -3115,6 +3184,10 @@ static List<(string Id, string Version)> CollectDeclaredPackages(
     // which TYPES go missing when it is dropped, and the build gate needs that to tell
     // "the user has not chosen a package yet" apart from a defect in the conversion.
     var binaryReferences = new Dictionary<string, string?>(StringComparer.OrdinalIgnoreCase);
+    // Where each HintPath pointed, whether or not the file is there: a packages.config
+    // project references its package's DLL through "packages\<id>.<version>\", and that is
+    // the only link between the assembly a package map names and the package id.
+    var hintPaths = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
 
     void Add(string id, string version)
     {
@@ -3206,6 +3279,7 @@ static List<(string Id, string Version)> CollectDeclaredPackages(
                     {
                         binaryReferences[assembly] = File.Exists(dllPath) ? dllPath : null;
                     }
+                    hintPaths.TryAdd(assembly, dllPath);
                 }
             }
             catch (System.Xml.XmlException)
@@ -3228,6 +3302,40 @@ static List<(string Id, string Version)> CollectDeclaredPackages(
             catch (System.Xml.XmlException)
             {
             }
+        }
+    }
+
+    // A NuGet package the map declines ("package" left empty) is not carried either: its
+    // dependent files are excluded from the port (see the declined-namespace pass), so the
+    // reference would only bring back a .NET Framework build - or a .NET build whose API is
+    // not the one the code was written against (OEmbed.Core 2.x: Embed on net481,
+    // EmbedAsync only on net10.0). Matched by the package id itself (PackageReference,
+    // where id and assembly usually coincide) or by the packages\<id>.<version>\ folder a
+    // declined assembly's HintPath points into (packages.config: Dnn.ClientDependency
+    // ships ClientDependency.Core.dll).
+    if (packageMap is not null)
+    {
+        static bool Declines(List<(string? Package, string? Version)> choices)
+            => choices.All(choice => string.IsNullOrEmpty(choice.Package));
+
+        var declinedHintPaths = hintPaths
+            .Where(hint => packageMap.TryGetValue(hint.Key, out var choices) && Declines(choices))
+            .Select(hint => hint.Value)
+            .ToList();
+        bool IsDeclinedPackage((string Id, string Version) package)
+            => (packageMap.TryGetValue(package.Id, out var choices) && Declines(choices))
+               || declinedHintPaths.Any(hint => hint.Contains(
+                   $"{Path.DirectorySeparatorChar}{package.Id}.{package.Version}{Path.DirectorySeparatorChar}",
+                   StringComparison.OrdinalIgnoreCase));
+
+        var declinedPackages = carried.Where(IsDeclinedPackage).Select(package => package.Id)
+            .Distinct(StringComparer.OrdinalIgnoreCase).ToList();
+        if (declinedPackages.Count > 0)
+        {
+            carried.RemoveAll(package => declinedPackages.Contains(package.Id, StringComparer.OrdinalIgnoreCase));
+            report.Info("(project)",
+                "--package-map で「置き換え先なし」と指定されたため NuGet 参照を引き継ぎませんでした: "
+                + string.Join(", ", declinedPackages));
         }
     }
 
@@ -3682,6 +3790,10 @@ static string GenerateExcludedTypeStubs(
     // and stay concrete. Read off the base lists rather than guessed from the "Attribute"
     // suffix, which is a convention and not the rule the compiler applies.
     var baseNameByQualifiedName = new Dictionary<string, string>(StringComparer.Ordinal);
+
+    // Qualified name -> declaration, for the ported and stubbed classes: what a stub's kept
+    // base chain actually declares (see BaseChainMayDeclare).
+    var classDeclarations = new Dictionary<string, Microsoft.CodeAnalysis.CSharp.Syntax.ClassDeclarationSyntax>(StringComparer.Ordinal);
     void RecordInheritableClass(StubType declaration)
     {
         if (declaration.Declaration is not Microsoft.CodeAnalysis.CSharp.Syntax.ClassDeclarationSyntax classDeclaration)
@@ -3703,6 +3815,7 @@ static string GenerateExcludedTypeStubs(
         }
 
         var qualified = QualifiedName(declaration.Namespace, declaration.Name);
+        classDeclarations.TryAdd(qualified, classDeclaration);
 
         if (classDeclaration.BaseList?.Types.Count > 0)
         {
@@ -3824,7 +3937,7 @@ static string GenerateExcludedTypeStubs(
         {
             builder.AppendLine(RenderStubType(
                 stub, known, classesBySimpleName, abstractClasses, indent, declaredNamespace,
-                globalUsings));
+                globalUsings, classDeclarations, stubNames));
             typeCount++;
         }
         if (!string.IsNullOrEmpty(declaredNamespace))
@@ -3845,7 +3958,9 @@ static string RenderStubType(
     IReadOnlySet<string> abstractClasses,
     string indent,
     string declaredNamespace,
-    IReadOnlyList<string> globalUsings)
+    IReadOnlyList<string> globalUsings,
+    IReadOnlyDictionary<string, Microsoft.CodeAnalysis.CSharp.Syntax.ClassDeclarationSyntax>? classDeclarations = null,
+    IReadOnlySet<string>? stubNames = null)
 {
     var declaration = stub.Declaration;
 
@@ -3888,6 +4003,7 @@ static string RenderStubType(
     // the port (System.Web, a NuGet package) cannot be named from here.
     var baseClause = string.Empty;
     var baseIsAbstract = false;
+    string? projectBase = null;
     var ownQualifiedName = QualifiedName(declaredNamespace, stub.Name);
     if (!isStatic && keyword == "class" && typeDeclaration?.BaseList is { } baseList)
     {
@@ -3916,6 +4032,7 @@ static string RenderStubType(
                 && projectClass != ownQualifiedName)
             {
                 resolvedBase = projectClass;
+                projectBase = projectClass;
             }
             else if (CodeBehindRewriter.ResolveComponentBase(baseName) is { } compatBase)
             {
@@ -3966,9 +4083,17 @@ static string RenderStubType(
         var lookupNamespaces = LookupNamespacesFor(typeDeclaration, declaredNamespace, globalUsings);
         foreach (var member in typeDeclaration.Members)
         {
+            // Keeping a base is not the same as keeping what an override overrides. DNN's
+            // DnnBodyProvider keeps its base DnnFileRegistrationProvider - itself a stub,
+            // whose own base (ClientDependency's provider, declined) is gone, and with it
+            // Initialize / RenderSingleJsFile / RegisterDependencies. Emitted as overrides
+            // they were 12 CS0115 in the stub file; the chain decides instead.
+            var overridable = baseClause.Length > 0
+                && (projectBase is null || classDeclarations is null || stubNames is null
+                    || BaseChainMayDeclare(projectBase, StubMemberName(member), classesBySimpleName, classDeclarations, stubNames));
             var text = RenderStubMember(
                 member, known, isStatic, isInterface, lookupNamespaces, stub.Name,
-                containerIsSealed: isSealed, containerHasBase: baseClause.Length > 0);
+                containerIsSealed: isSealed, containerHasBase: overridable);
             if (text is not null)
             {
                 lines.Add($"{indent}    {text}");
@@ -3991,6 +4116,87 @@ static string RenderStubType(
     body.Append($"{indent}}}");
     return body.ToString();
 }
+
+/// <summary>
+/// Whether a stub's kept project base - or a class further up its chain - can declare the
+/// member an override in the stub overrides.
+///
+/// A class in the port (ported or stubbed) answers from its own member list. Past it, a
+/// stub keeps only a compat or Attribute base (RenderStubType), so a stub whose bases were
+/// all dropped ends the chain: nothing up there declares the member. A PORTED class keeps
+/// whatever base it had, which this cannot see into, so the answer there is "maybe" - the
+/// same as before this check.
+/// </summary>
+static bool BaseChainMayDeclare(
+    string baseQualifiedName,
+    string? memberName,
+    IReadOnlyDictionary<string, string?> classesBySimpleName,
+    IReadOnlyDictionary<string, Microsoft.CodeAnalysis.CSharp.Syntax.ClassDeclarationSyntax> classDeclarations,
+    IReadOnlySet<string> stubNames)
+{
+    if (memberName is null)
+    {
+        return true;
+    }
+
+    var current = baseQualifiedName;
+    for (var depth = 0; depth < 32; depth++)
+    {
+        if (!classDeclarations.TryGetValue(current, out var declaration)
+            || declaration.Members.Any(member => StubMemberName(member) == memberName))
+        {
+            return true;
+        }
+
+        string? next = null;
+        var keepsOutsideBase = false;
+        foreach (var candidate in declaration.BaseList?.Types ?? default)
+        {
+            var baseName = candidate.Type switch
+            {
+                Microsoft.CodeAnalysis.CSharp.Syntax.IdentifierNameSyntax identifier => identifier.Identifier.Text,
+                Microsoft.CodeAnalysis.CSharp.Syntax.QualifiedNameSyntax qualified => qualified.Right.Identifier.Text,
+                _ => null,
+            };
+            if (baseName is null)
+            {
+                continue;
+            }
+            if (classesBySimpleName.TryGetValue(baseName, out var projectClass)
+                && projectClass is not null && projectClass != current)
+            {
+                next = projectClass;
+                break;
+            }
+            if (!stubNames.Contains(current)
+                || CodeBehindRewriter.ResolveComponentBase(baseName) is not null
+                || CodeBehindRewriter.ResolveControlBase(baseName) is not null
+                || baseName is "Attribute" or "System.Attribute")
+            {
+                keepsOutsideBase = true;
+            }
+        }
+
+        if (next is null)
+        {
+            return keepsOutsideBase;
+        }
+        current = next;
+    }
+    return true;
+}
+
+/// <summary>The name an override in a stub binds by (null when it has none to bind).</summary>
+static string? StubMemberName(Microsoft.CodeAnalysis.CSharp.Syntax.MemberDeclarationSyntax member) => member switch
+{
+    Microsoft.CodeAnalysis.CSharp.Syntax.MethodDeclarationSyntax method => method.Identifier.Text,
+    Microsoft.CodeAnalysis.CSharp.Syntax.PropertyDeclarationSyntax property => property.Identifier.Text,
+    Microsoft.CodeAnalysis.CSharp.Syntax.EventDeclarationSyntax @event => @event.Identifier.Text,
+    Microsoft.CodeAnalysis.CSharp.Syntax.EventFieldDeclarationSyntax eventField
+        => eventField.Declaration.Variables.FirstOrDefault()?.Identifier.Text,
+    Microsoft.CodeAnalysis.CSharp.Syntax.IndexerDeclarationSyntax => "this[]",
+    _ => null,
+};
 
 /// <summary>
 /// One stubbed member, or null when it cannot be reproduced faithfully enough to compile
@@ -4073,7 +4279,11 @@ static string? RenderStubMember(
         // member; without one there is nothing to override and it becomes virtual instead.
         // Getting this wrong the other way is what an abstract base makes visible: the base
         // declares the member abstract, so a virtual re-declaration leaves it unimplemented.
-        if (wasOverride && containerHasBase && !containerIsSealed)
+        //
+        // Sealed or not: an override is legal in a sealed class (it is only "virtual" that is
+        // not). Dropping it there turned mojoPortal's sealed ImageInfo : AlbumPageInfo into a
+        // class that HIDES the abstract CommandCharacter / AlbumMode - CS0533.
+        if (wasOverride && containerHasBase)
         {
             return access + "override ";
         }
@@ -4086,7 +4296,7 @@ static string? RenderStubMember(
         // By SIGNATURE, not by name: Equals(string, string) is IEqualityComparer<string>,
         // not object.Equals, and forcing an override onto it is CS0115 with nothing to
         // bind to. mojoPortal's UserProfileKeyComparer is one.
-        if (wasOverride && !containerIsSealed && IsObjectMember(memberName, parameterCount))
+        if (wasOverride && IsObjectMember(memberName, parameterCount))
         {
             return access + "override ";
         }
@@ -4245,10 +4455,30 @@ static string? RenderStubMember(
                 }
                 constructorParameters.Add($"{passing}{parameterType} {parameter.Identifier.Text}");
             }
+            // The base call comes along when the base did: a kept base without a
+            // parameterless constructor is otherwise CS7036 on the stub itself (mojoPortal's
+            // ImageInfo : AlbumPageInfo(Album, string)). An argument that is one of this
+            // constructor's own parameters is passed through; anything else could name what
+            // did not port, so it is "default" - the value is gone either way.
+            var initializer = string.Empty;
+            if (containerHasBase
+                && constructor.Initializer is { } baseCall
+                && Microsoft.CodeAnalysis.CSharpExtensions.IsKind(baseCall, Microsoft.CodeAnalysis.CSharp.SyntaxKind.BaseConstructorInitializer))
+            {
+                var own = constructor.ParameterList.Parameters.Select(parameter => parameter.Identifier.Text)
+                    .ToHashSet(StringComparer.Ordinal);
+                initializer = " : base(" + string.Join(", ", baseCall.ArgumentList.Arguments.Select(argument =>
+                    argument.RefKindKeyword.RawKind == 0
+                    && argument.Expression is Microsoft.CodeAnalysis.CSharp.Syntax.IdentifierNameSyntax identifier
+                    && own.Contains(identifier.Identifier.Text)
+                        ? identifier.Identifier.Text
+                        : "default")) + ")";
+            }
+
             // An empty body, not a throw: constructing one of these is how ported code
             // reaches the members the stub does carry, and an attribute is only ever
             // constructed by the runtime reading metadata.
-            return $"public {containerName}({string.Join(", ", constructorParameters)}) {{ }}";
+            return $"public {containerName}({string.Join(", ", constructorParameters)}){initializer} {{ }}";
         }
 
         default:

@@ -130,8 +130,10 @@ public static class CodeBehindRewriter
 
         root = RewriteUsings(root, [.. RequiredUsings, .. additionalUsings ?? [], .. namespaceBridge]);
         root = RewriteNamespace(root, component.TargetNamespace);
+        var nestedAliases = NestedNamespaceAliases(source, originalNamespace, baseRegistry);
+        root = QualifyRelativeUsings(root, nestedAliases);
         root = AddNamespaceScopedAliases(root,
-            [.. NestedNamespaceAliases(source, originalNamespace, baseRegistry),
+            [.. nestedAliases,
              .. InnermostBridgeAliases(root, namespaceBridge, baseRegistry)]);
 
         // The class is looked up by the name the SOURCE declares, not by the component
@@ -317,6 +319,56 @@ public static class CodeBehindRewriter
         }
         return aliases;
     }
+
+    /// <summary>
+    /// A using directive INSIDE the namespace declaration that names a namespace relative to
+    /// it - YAF's Pages/Admin/EditBoard writes "using Core.Services.Import;" under
+    /// "namespace YAF.Pages.Admin;", meaning YAF.Core.Services.Import - is written out in
+    /// full, with the same ancestor the alias for that segment points at.
+    ///
+    /// The alias cannot do it: using directives in one block do not see each other, so the
+    /// alias "Core" is not in scope for the import beside it, and once the file has moved
+    /// namespace nothing else makes "Core" mean what it did (CS0246).
+    /// </summary>
+    private static CompilationUnitSyntax QualifyRelativeUsings(CompilationUnitSyntax root, List<string> nestedAliases)
+    {
+        if (nestedAliases.Count == 0)
+        {
+            return root;
+        }
+
+        var fullBySegment = nestedAliases
+            .Select(alias => alias.Split(" = ", 2))
+            .ToDictionary(parts => parts[0], parts => parts[1], StringComparer.Ordinal);
+
+        var relative = root.DescendantNodes().OfType<UsingDirectiveSyntax>()
+            .Where(directive => directive.Parent is BaseNamespaceDeclarationSyntax
+                                && directive.Alias is null
+                                && directive.StaticKeyword.RawKind == 0
+                                && directive.Name is not null
+                                && fullBySegment.ContainsKey(LeftmostIdentifier(directive.Name)))
+            .ToList();
+        if (relative.Count == 0)
+        {
+            return root;
+        }
+
+        return root.ReplaceNodes(relative, (original, _) =>
+        {
+            var name = original.Name!.ToString();
+            var segment = LeftmostIdentifier(original.Name!);
+            var full = fullBySegment[segment] + name[segment.Length..];
+            return original.WithName(SyntaxFactory.ParseName(full).WithTriviaFrom(original.Name!));
+        });
+    }
+
+    private static string LeftmostIdentifier(NameSyntax name) => name switch
+    {
+        QualifiedNameSyntax qualified => LeftmostIdentifier(qualified.Left),
+        SimpleNameSyntax simple => simple.Identifier.Text,
+        AliasQualifiedNameSyntax aliased => aliased.Alias.Identifier.Text + "::",
+        _ => name.ToString(),
+    };
 
     /// <summary>
     /// Aliases that keep partially qualified references working after the file moves

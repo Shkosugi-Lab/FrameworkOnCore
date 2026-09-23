@@ -183,8 +183,15 @@ public sealed class RelocatedTypeIndex
             candidates.Remove(declared.Identifier.Text);
         }
 
+        // Only names looked up BARE. The right-hand side of "X.Name" is a member of X and
+        // never reaches an import: DNN's ActionManager writes ModuleActionType.PrintModule
+        // (an enum member), and reading that as the moved PrintModule control put an alias
+        // to the web app's namespace into a library file - CS0246 once the library is its
+        // own project and cannot see the app.
         var written = new HashSet<string>(
-            unit.DescendantNodes().OfType<SimpleNameSyntax>().Select(node => node.Identifier.Text),
+            unit.DescendantNodes().OfType<SimpleNameSyntax>()
+                .Where(node => !IsMemberName(node))
+                .Select(node => node.Identifier.Text),
             StringComparer.Ordinal);
 
         var additions = candidates
@@ -198,4 +205,13 @@ public sealed class RelocatedTypeIndex
             ? unit.ToFullString()
             : SyntaxUsings.Replace(unit, unit.Usings.Concat(additions)).ToFullString();
     }
+
+    private static bool IsMemberName(SimpleNameSyntax node) => node.Parent switch
+    {
+        MemberAccessExpressionSyntax access => access.Name == node,
+        QualifiedNameSyntax qualified => qualified.Right == node,
+        MemberBindingExpressionSyntax => true,
+        AliasQualifiedNameSyntax aliased => aliased.Name == node,
+        _ => false,
+    };
 }

@@ -1,0 +1,4 @@
+[
+  { "_readme": "OEmbed.Core 2.0.7 は net481 版に同期 Embed、net10.0 版に EmbedAsync だけがあり、元の YAF.Web の IOEmbed 実装が .NET 版の API と合わない。置き換えない判断: 依存するファイルは移植対象外(型はスタブ)、NuGet 参照も引き継がない。" },
+  { "assembly": "OEmbed.Core", "package": "", "version": "" }
+]

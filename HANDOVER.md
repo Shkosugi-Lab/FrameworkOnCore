@@ -449,19 +449,51 @@ bUnit・パリティ・be/wt は一切動かず、n2 の `new DropDownList()` �
 n2 以外(分割時・MVC 互換層を入れる前の値): yaf 3(変換器がライブラリにアプリ名前空間の
 `using` を挿入。`Convert\RelocatedTypeIndex.cs:194` が本命)/ dnn 7 / mojo 12。
 
-**ベースライン(`expected.json`)は 2026-09-23 に統合モードの実測で取り直した**(README の表も同じ数字)。
+**ベースライン(`expected.json`)は 2026-09-24 に統合モードの実測で取り直した**(README の表も同じ数字)。
 分割モードを既定にするときは、分割モードの数字で取り直すこと(スクリプトは今のところ統合モードのみ対応)。
 
-**全 6 本の計測(2026-09-23、指示により実施。分割の障害を潰した後の値)**
+**全 6 本の計測(2026-09-24、判断待ち 3 件を B「置き換えない」で決着させた後の値)**
 
 | コーパス | 統合: ビルドエラー | 分割: ビルドエラー | 分割で止まっている所 |
 |---|---:|---:|---|
 | be | 0 | 0 | — |
-| mojo | 269 | 6(下限) | `mojoPortal.Web.Controls` の画像ギャラリー: MetadataExtractor 1.x(`com.drew.metadata`)→ 2.x で消えた/改名された型(**判断待ち**) |
-| yaf | 1(下限) | 1(下限) | `YAF.Web` の `IOEmbed.Embed`: OEmbed.Core 2.0.7 は net481 版が同期 `Embed`、net10.0 版が `EmbedAsync` だけ(**判断待ち**) |
-| dnn | 42 | 12(下限) | `DotNetNuke.Web.Client`: .NET Framework 専用パッケージ Dnn.ClientDependency の基底(本物の System.Web.HttpContextBase)を継承(**判断待ち**。統合でも同じ 12 件) |
+| mojo | 220 | 17(下限) | `mojoPortal.Web.Controls` 自身の互換層不足(統合でも同じエラー。`Table.Caption`、`HtmlButton.Disabled`、`HorizontalAlign`、`CalendarSelectionMode`、`HtmlTextWriterAttribute.Dir` など)。以前は MetadataExtractor がこれを隠していた |
+| yaf | 2 | **0** | —(統合の 2 件は下の「統合モードのシンボル」の食い違い: OrmLite の `Net6PclExport` と `GetJsonFromUrl`) |
+| dnn | 26 | 0(下限) | `DotNetNuke.Library` の検索(Lucene.Net 3.x、**置き換え先が未決**)。数えないエラー(CS0246/CS0115)だがライブラリのビルドは止まる(**判断待ち**) |
 | n2 | 3(下限) | 5 | 残りは n2 自身の UITests ページのみ(上記) |
 | wt | 0 | 0 | — |
+
+**判断待ちだった 3 件は「置き換えない」(B)で決着**(`--package-map` で package を空にする。依存するファイルは
+移植から除外し、宣言していた型はスタブ):
+- mojo `MetaDataExtractor`(`corpora/mojo-package-map.json`。以前は MetadataExtractor 2.9.3 への移行)
+- yaf `OEmbed.Core`(`corpora/yaf-package-map.json`。PackageReference も引き継がない)
+- dnn `ClientDependency.Core` = パッケージ Dnn.ClientDependency(`corpora/dnn-package-map.json`)。
+  **代償**: `<dnn:DnnJsInclude>` / `<dnn:DnnCssInclude>` / `ClientResourceLoader` が未対応コントロールになる
+  (スクリプト/CSS の登録が落ちる)。dnn の残差 94 → 116 はこの分。
+
+そのために変換器を直したもの:
+- 「置き換えない」の対象を NuGet パッケージにも広げた。アセンブリが入力ツリーに無いとき(PackageReference、
+  packages フォルダ未復元の packages.config)は NuGet のグローバルキャッシュから読む(`FindInNuGetCache`)。
+  見つからなければ NeedsInput の残差。パッケージ参照は引き継がない(id 一致、または HintPath の
+  `packages\<id>.<version>\` で対応付け)。
+- 除外型スタブ: `override` は、残した基底の連鎖が本当にその名前を宣言しているときだけ(`BaseChainMayDeclare`)。
+  DNN の DnnBodyProvider は基底 DnnFileRegistrationProvider(これもスタブで、その基底は除外済み)に無い
+  メンバーを override していた(CS0115 12 件)。
+- 除外型スタブ: 元が sealed のクラスでも `override` を残す(mojo の ImageInfo が抽象メンバーを隠して CS0533)。
+  object のメンバーも同じ。
+- 除外型スタブのコンストラクター: 基底を残したときは `: base(...)` も持ってくる(自身の引数はそのまま、
+  他は `default`)。CS7036。
+- `RelocatedTypeIndex.Apply`: `ModuleActionType.PrintModule` の右辺(メンバー名)を「移動したコントロール
+  PrintModule の裸の使用」と読んでいた。さらに、参照ライブラリのファイルには移動コンポーネントの別名を
+  付けない(元のライブラリは Web プロジェクトの型を見られない)。分割で DNN の Library が
+  `using Title = dnn.Components...` で CS0246 になっていた。**上の「本命」の件はこれで解消。**
+- コードビハインドの名前空間移動で、namespace 内の相対 using(YAF の `using Core.Services.Import;` =
+  `YAF.Core.Services.Import`)が解決できなくなっていた。祖先を補って完全修飾にする
+  (`CodeBehindRewriter.QualifyRelativeUsings`)。同じ層の別名 `using Core = …` は using から見えないため効かない。
+  yaf の統合ベースラインの 1 件(下限)がこれ。
+- ビルド検証: 未決 DLL の足場を**プロジェクトごと**に置く(分割ではアプリの足場がライブラリに効かなかった)。
+  型の中から見える入れ子型(Lucene の `AttributeSource.State`)も足場に宣言する。入れ子型の名前も
+  「未決の依存」に分類し、未決の型を直接の基底とするクラスの CS0115 も同じく数えない。
 
 分割の障害として直したもの:
 - ライブラリのファイルに Web プロジェクトのグローバル using を「暗黙の import」として当てていた

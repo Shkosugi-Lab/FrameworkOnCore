@@ -1,6 +1,6 @@
 [
-  { "assembly": "MetaDataExtractor", "package": "MetadataExtractor", "version": "2.9.3",
-    "dll": "C:\\Users\\admin\\.nuget\\packages\\metadataextractor\\2.9.3\\lib\\net8.0\\MetadataExtractor.dll" },
+  { "_readme": "MetaDataExtractor 1.x (com.drew.*) は 2.x で型が消えた/改名されたものが多く(MetadataExtractor 2.9.3 への移行を試したが画像ギャラリーの 6 件が残る)、置き換えない判断にした。依存するファイル(mojoPortal.Web.Controls の画像ギャラリー)は移植対象外、型はスタブ。" },
+  { "assembly": "MetaDataExtractor", "package": "", "version": "" },
 
   { "assembly": "Lucene.Net", "package": "Lucene.Net", "version": "4.8.0-beta00018",
     "dll": [

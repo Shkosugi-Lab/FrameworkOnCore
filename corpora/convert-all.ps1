@@ -92,7 +92,9 @@ $corpora = @(
        Include = @()
        # YAF はサイトルートに Web.config が無く、配布時にリネームする前提。
        # これを渡さないと tagPrefix が読めず YAF: が全部未対応コントロールになる。
-       WebConfig = 'YAFNET-3.2.15\yafsrc\YetAnotherForum.NET\recommended.web.config' },
+       WebConfig = 'YAFNET-3.2.15\yafsrc\YetAnotherForum.NET\recommended.web.config'
+       # OEmbed.Core は置き換えない(.NET 版の API が元と違う)。
+       PackageMap = 'yaf-package-map.json' },
 
     # DNN runs a Roslyn source generator at build time; its output exists in no source
     # file, so the ported code cannot compile without it (CS0759). Only used with
@@ -101,6 +103,8 @@ $corpora = @(
        Input = 'Dnn.Platform-9.13.10\DNN Platform\Website'
        AnalyzerProject = 'Dnn.Platform-9.13.10\DotNetNuke.Internal.SourceGenerators\DotNetNuke.Internal.SourceGenerators.csproj'
        AnalyzerAssembly = 'Dnn.Platform-9.13.10\DotNetNuke.Internal.SourceGenerators\bin\Release\netstandard2.0\DotNetNuke.Internal.SourceGenerators.dll'
+       # Dnn.ClientDependency は置き換えない(.NET Framework 専用)。
+       PackageMap = 'dnn-package-map.json'
        Include = @() },
 
     # Seven .csproj sit in the web root (the app plus its addons), so the entry point has

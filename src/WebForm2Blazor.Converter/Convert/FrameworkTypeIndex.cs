@@ -87,6 +87,63 @@ internal static class FrameworkTypeIndex
     }
 
     /// <summary>
+    /// Calls back with the simple name of every NESTED type an assembly exposes (nested
+    /// public, inside types that are public all the way out).
+    ///
+    /// Kept apart from <see cref="ReadPublicTypes"/>: a nested type has no namespace of its
+    /// own, and the callers of that one index by namespace. What wants these is the build
+    /// gate's "which assembly is this missing name from" - code that derives from a type
+    /// of the assembly writes its nested types bare. DNN's SynonymFilter : TokenFilter uses
+    /// Lucene's AttributeSource.State as "State", and the compiler reports exactly that.
+    /// </summary>
+    public static void ReadPublicNestedTypeNames(string assemblyPath, Action<string> onName)
+    {
+        try
+        {
+            using var stream = File.OpenRead(assemblyPath);
+            using var peReader = new PEReader(stream);
+            if (!peReader.HasMetadata)
+            {
+                return;
+            }
+            var metadata = peReader.GetMetadataReader();
+
+            foreach (var handle in metadata.TypeDefinitions)
+            {
+                var definition = metadata.GetTypeDefinition(handle);
+                if ((definition.Attributes & TypeAttributes.VisibilityMask) != TypeAttributes.NestedPublic)
+                {
+                    continue;
+                }
+
+                var visible = true;
+                for (var outer = definition.GetDeclaringType(); !outer.IsNil;)
+                {
+                    var outerDefinition = metadata.GetTypeDefinition(outer);
+                    var visibility = outerDefinition.Attributes & TypeAttributes.VisibilityMask;
+                    if (visibility is not (TypeAttributes.Public or TypeAttributes.NestedPublic))
+                    {
+                        visible = false;
+                        break;
+                    }
+                    outer = outerDefinition.GetDeclaringType();
+                }
+
+                var name = metadata.GetString(definition.Name);
+                var arity = name.IndexOf('`');
+                if (visible)
+                {
+                    onName(arity < 0 ? name : name[..arity]);
+                }
+            }
+        }
+        catch (Exception)
+        {
+            // An unreadable assembly simply contributes no names.
+        }
+    }
+
+    /// <summary>
     /// What a stub has to write in order to re-declare a type: the keyword, and whether it
     /// can be instantiated or derived from.
     /// </summary>
@@ -146,6 +203,73 @@ internal static class FrameworkTypeIndex
         {
             // An unreadable assembly simply contributes no shapes.
         }
+    }
+
+    /// <summary>
+    /// For each public top-level class: the public nested types code deriving from it can
+    /// name bare - its own and those of every base class the same assembly declares. Keyed
+    /// by "namespace.name".
+    ///
+    /// The build gate's scaffold re-declares a missing type as an empty shell, and a name
+    /// that resolved THROUGH the type is then still missing: DNN's SynonymFilter : TokenFilter
+    /// writes "State" for Lucene's AttributeSource.State, and that one name stopped the whole
+    /// library. Generic nested types are left out (no identifier to write them with).
+    /// </summary>
+    public static Dictionary<string, List<string>> ReadReachableNestedTypes(string assemblyPath)
+    {
+        var reachable = new Dictionary<string, List<string>>(StringComparer.Ordinal);
+        try
+        {
+            using var stream = File.OpenRead(assemblyPath);
+            using var peReader = new PEReader(stream);
+            if (!peReader.HasMetadata)
+            {
+                return reachable;
+            }
+            var metadata = peReader.GetMetadataReader();
+
+            List<string> NestedOf(TypeDefinition definition) => definition.GetNestedTypes()
+                .Select(metadata.GetTypeDefinition)
+                .Where(nested => (nested.Attributes & TypeAttributes.VisibilityMask) == TypeAttributes.NestedPublic)
+                .Select(nested => metadata.GetString(nested.Name))
+                .Where(name => name.IndexOf('`') < 0)
+                .ToList();
+
+            foreach (var handle in metadata.TypeDefinitions)
+            {
+                var definition = metadata.GetTypeDefinition(handle);
+                if ((definition.Attributes & TypeAttributes.VisibilityMask) != TypeAttributes.Public
+                    || (definition.Attributes & TypeAttributes.Interface) != 0)
+                {
+                    continue;
+                }
+
+                var ownName = metadata.GetString(definition.Name);
+                var names = new List<string>();
+                var current = definition;
+                for (var depth = 0; depth < 16; depth++)
+                {
+                    names.AddRange(NestedOf(current));
+                    if (current.BaseType.IsNil || current.BaseType.Kind != HandleKind.TypeDefinition)
+                    {
+                        break;
+                    }
+                    current = metadata.GetTypeDefinition((TypeDefinitionHandle)current.BaseType);
+                }
+
+                // A member may not share its enclosing type's name (CS0542).
+                var distinct = names.Where(name => name != ownName).Distinct(StringComparer.Ordinal).ToList();
+                if (distinct.Count > 0)
+                {
+                    reachable[$"{metadata.GetString(definition.Namespace)}.{ownName}"] = distinct;
+                }
+            }
+        }
+        catch (Exception)
+        {
+            // An unreadable assembly simply contributes nothing.
+        }
+        return reachable;
     }
 
     private static TypeShape ShapeOf(MetadataReader metadata, TypeDefinition definition)

@@ -1,0 +1,4 @@
+[
+  { "_readme": "Dnn.ClientDependency(ClientDependency.Core.dll)は .NET Framework 専用で、System.Web.HttpContextBase を継承する型を公開している。置き換えない判断: 依存するファイル(DotNetNuke.Web.Client ほか)は移植対象外(型はスタブ)、NuGet 参照も引き継がない。アセンブリは NuGet キャッシュから読む(packages フォルダは入力ツリーに復元されていない)。" },
+  { "assembly": "ClientDependency.Core", "package": "", "version": "" }
+]

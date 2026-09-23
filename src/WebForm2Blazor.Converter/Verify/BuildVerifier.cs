@@ -443,7 +443,9 @@ public static partial class BuildVerifier
         File.WriteAllLines(Path.Combine(outputDirectory, "build-errors.txt"), lines);
     }
 
-    private sealed record UndecidedType(string Namespace, string Name, string Shape)
+    /// <param name="Nested">Nested types reachable through this one (its own and its bases'),
+    /// declared inside the shell so a subclass's bare use of them still resolves.</param>
+    private sealed record UndecidedType(string Namespace, string Name, string Shape, string[] Nested)
     {
         public string FullName => Namespace + "." + Name;
 
@@ -463,9 +465,10 @@ public static partial class BuildVerifier
         foreach (var line in File.ReadLines(path))
         {
             var parts = line.Split('\t');
-            if (parts.Length == 3 && parts[0].Length > 0 && parts[1].Length > 0)
+            if (parts.Length is 3 or 4 && parts[0].Length > 0 && parts[1].Length > 0)
             {
-                types.Add(new UndecidedType(parts[0], parts[1], parts[2]));
+                types.Add(new UndecidedType(parts[0], parts[1], parts[2],
+                    parts.Length == 4 ? parts[3].Split(',', StringSplitOptions.RemoveEmptyEntries) : []));
             }
         }
         return types;
@@ -526,9 +529,8 @@ public static partial class BuildVerifier
         string projectPath, string outputDirectory, out int scaffoldedTypeCount)
     {
         scaffoldedTypeCount = 0;
-        var scaffoldPath = Path.Combine(outputDirectory, ScaffoldFile);
         // A scaffold left behind by an interrupted run would resolve names silently.
-        File.Delete(scaffoldPath);
+        DeleteScaffolds(outputDirectory);
 
         var (output, exitCode) = RunBuild(projectPath);
 
@@ -538,53 +540,108 @@ public static partial class BuildVerifier
             return (output, exitCode);
         }
 
-        var declared = new List<UndecidedType>();
-        var declaredNames = new HashSet<string>(StringComparer.Ordinal);
+        // Per PROJECT: a split conversion builds each referenced library as its own
+        // project, and a scaffold in the application's directory is not part of the
+        // library that reported the name. DNN's DotNetNuke.Library kept failing on the
+        // Lucene.Net names the application-level scaffold declared - so the application was
+        // never compiled at all. Each project gets the names IT reported; a library's
+        // scaffold is public, so what it declares also resolves in the projects above it,
+        // which then no longer report those names. Merged output has one project, the
+        // application's, which is exactly the old behavior.
+        var declaredByDirectory = new Dictionary<string, List<UndecidedType>>(StringComparer.OrdinalIgnoreCase);
 
         // Bounded: a round that declares nothing new stops the loop anyway, and the cap
-        // keeps a pathological project from rebuilding indefinitely.
-        for (var round = 0; round < 3; round++)
+        // keeps a pathological project from rebuilding indefinitely. Split output can need
+        // a round per level of library, which is why this is more than the three one
+        // project ever needed.
+        for (var round = 0; round < 8; round++)
         {
             var diagnostics = Parse(output);
-            if (!StoppedAtParse(diagnostics))
+            // Plus a failed library: in split output that is what keeps the application from
+            // compiling, and it is the case the per-project scaffold is for.
+            if (!StoppedAtParse(diagnostics) && !DependencyProjectFailed(diagnostics, outputDirectory))
             {
                 break;
             }
 
-            var missing = UnresolvedNames(diagnostics);
-            if (missing.Count == 0)
+            var added = false;
+            foreach (var group in diagnostics.GroupBy(diagnostic => ScaffoldDirectory(diagnostic, outputDirectory),
+                         StringComparer.OrdinalIgnoreCase))
+            {
+                var missing = UnresolvedNames([.. group]);
+                if (missing.Count == 0)
+                {
+                    continue;
+                }
+
+                if (!declaredByDirectory.TryGetValue(group.Key, out var declared))
+                {
+                    declaredByDirectory[group.Key] = declared = [];
+                }
+                var declaredNames = declared.Select(type => type.FullName).ToHashSet(StringComparer.Ordinal);
+
+                // A missing NAMESPACE brings its whole namespace in - a namespace exists only
+                // by way of the types in it, and the compiler saying the namespace is absent
+                // is the evidence that none of them resolve.
+                var additions = shapes
+                    .Where(type => !declaredNames.Contains(type.FullName))
+                    .Where(type => missing.Contains(type.RootNamespace)
+                                   || missing.Contains(type.Namespace)
+                                   || missing.Contains(type.Name))
+                    .ToList();
+                if (additions.Count == 0)
+                {
+                    continue;
+                }
+
+                declared.AddRange(additions);
+                File.WriteAllText(Path.Combine(group.Key, ScaffoldFile), RenderScaffold(declared));
+                added = true;
+            }
+
+            if (!added)
             {
                 break;
             }
-
-            // A missing NAMESPACE brings its whole namespace in - a namespace exists only
-            // by way of the types in it, and the compiler saying the namespace is absent
-            // is the evidence that none of them resolve.
-            var additions = shapes
-                .Where(type => !declaredNames.Contains(type.FullName))
-                .Where(type => missing.Contains(type.RootNamespace)
-                               || missing.Contains(type.Namespace)
-                               || missing.Contains(type.Name))
-                .ToList();
-
-            if (additions.Count == 0)
-            {
-                break;
-            }
-
-            declared.AddRange(additions);
-            foreach (var type in additions)
-            {
-                declaredNames.Add(type.FullName);
-            }
-
-            File.WriteAllText(scaffoldPath, RenderScaffold(declared));
             (output, exitCode) = RunBuild(projectPath);
         }
 
-        scaffoldedTypeCount = declared.Count;
-        File.Delete(scaffoldPath);
+        scaffoldedTypeCount = declaredByDirectory.Values
+            .SelectMany(types => types.Select(type => type.FullName))
+            .Distinct(StringComparer.Ordinal)
+            .Count();
+        DeleteScaffolds(outputDirectory);
         return (output, exitCode);
+    }
+
+    /// <summary>The directory of the project a diagnostic belongs to (the application's when unattributed).</summary>
+    private static string ScaffoldDirectory(Diagnostic diagnostic, string outputDirectory)
+    {
+        if (diagnostic.Project is { } project)
+        {
+            try
+            {
+                var directory = Path.GetDirectoryName(Path.GetFullPath(project));
+                if (directory is not null
+                    && directory.StartsWith(Path.GetFullPath(outputDirectory), StringComparison.OrdinalIgnoreCase))
+                {
+                    return directory;
+                }
+            }
+            catch (Exception exception) when (exception is ArgumentException or NotSupportedException or PathTooLongException)
+            {
+            }
+        }
+        return Path.GetFullPath(outputDirectory);
+    }
+
+    private static void DeleteScaffolds(string outputDirectory)
+    {
+        File.Delete(Path.Combine(outputDirectory, ScaffoldFile));
+        foreach (var directory in Directory.EnumerateDirectories(outputDirectory))
+        {
+            File.Delete(Path.Combine(directory, ScaffoldFile));
+        }
     }
 
     private static string RenderScaffold(List<UndecidedType> types)
@@ -616,6 +673,14 @@ public static partial class BuildVerifier
                 };
                 writer.AppendLine($"    public {keyword} {type.Name}");
                 writer.AppendLine("    {");
+                // Only a class can hold them; an enum or interface shell stays empty.
+                if (keyword.EndsWith("class", StringComparison.Ordinal) || keyword == "struct")
+                {
+                    foreach (var nested in type.Nested)
+                    {
+                        writer.AppendLine($"        public class {nested} {{ }}");
+                    }
+                }
                 writer.AppendLine("    }");
             }
             writer.AppendLine("}");
@@ -706,11 +771,72 @@ public static partial class BuildVerifier
     /// Only the codes that mean "this name does not exist" are considered - a missing type
     /// elsewhere in the file is a real error even if a dropped assembly also has that name.
     /// </summary>
+    /// <summary>
+    /// "No suitable method found to override" in a class whose DIRECT base is a type of an
+    /// undecided assembly. The base is not there - only the gate's empty scaffold shell,
+    /// or nothing - so what the override overrode cannot be found, and that is the same
+    /// missing library as the CS0246 for the base itself. DNN's Search internals derive
+    /// from Lucene's Analyzer / Collector / TokenFilter; with the library unresolved each
+    /// override is one of these.
+    ///
+    /// Read from the source: the message names the class, the file says what it derives
+    /// from. A class whose base did port is not matched, so a genuine override mismatch
+    /// against the application's own types still counts.
+    /// </summary>
+    private static string? OverrideOfUndecidedBase(
+        Diagnostic diagnostic, IReadOnlyDictionary<string, string> undecidedTypes)
+    {
+        var member = QuotedName().Match(diagnostic.Message);
+        if (!member.Success || !File.Exists(diagnostic.File))
+        {
+            return null;
+        }
+
+        // 'Namespace.Class.Member(args)' or 'Class.Member' -> Class.
+        var qualified = member.Groups[1].Value;
+        var parenthesis = qualified.IndexOf('(');
+        var path = (parenthesis < 0 ? qualified : qualified[..parenthesis]).Split('.');
+        if (path.Length < 2)
+        {
+            return null;
+        }
+        var className = path[^2];
+
+        try
+        {
+            var root = Microsoft.CodeAnalysis.CSharp.CSharpSyntaxTree.ParseText(File.ReadAllText(diagnostic.File)).GetRoot();
+            var declaration = root.DescendantNodes()
+                .OfType<Microsoft.CodeAnalysis.CSharp.Syntax.ClassDeclarationSyntax>()
+                .FirstOrDefault(type => type.Identifier.Text == className);
+            var baseType = declaration?.BaseList?.Types.FirstOrDefault()?.Type;
+            var baseName = baseType switch
+            {
+                Microsoft.CodeAnalysis.CSharp.Syntax.QualifiedNameSyntax q => q.Right.Identifier.Text,
+                Microsoft.CodeAnalysis.CSharp.Syntax.SimpleNameSyntax s => s.Identifier.Text,
+                _ => null,
+            };
+            return baseName is not null && undecidedTypes.TryGetValue(baseName, out var assembly) ? assembly : null;
+        }
+        catch (IOException)
+        {
+            return null;
+        }
+    }
+
     private static string? UndecidedDependency(
         Diagnostic diagnostic, IReadOnlyDictionary<string, string> undecidedTypes)
     {
-        if (undecidedTypes.Count == 0
-            || diagnostic.Code is not ("CS0246" or "CS0234" or "CS0012" or "CS1069" or "CS7069"))
+        if (undecidedTypes.Count == 0)
+        {
+            return null;
+        }
+
+        if (diagnostic.Code == "CS0115")
+        {
+            return OverrideOfUndecidedBase(diagnostic, undecidedTypes);
+        }
+
+        if (diagnostic.Code is not ("CS0246" or "CS0234" or "CS0012" or "CS1069" or "CS7069"))
         {
             return null;
         }

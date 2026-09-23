@@ -1547,6 +1547,19 @@ if (libraryGlobalUsings.Count > 0)
         + "そのライブラリのファイル内に閉じ込めました(統合後の他プロジェクトへ漏れないようにするため)。");
 }
 
+// A split library is compiled with its own DefineConstants (LibraryProjectEmitter), so its
+// files are rewritten under the same symbols - otherwise a region the library compiles is
+// disabled text to the rewrite and comes out unconverted. Merged output defines none, which
+// is what the default parse already matches.
+var libraryConstants = splitProjects
+    ? includeOutputNames
+        .GroupBy(pair => pair.Value, StringComparer.OrdinalIgnoreCase)
+        .ToDictionary(
+            group => group.Key,
+            group => (IReadOnlyCollection<string>)WebForm2Blazor.Converter.Project.ProjectReferenceGraph.DefineConstantsOf(group.First().Key),
+            StringComparer.OrdinalIgnoreCase)
+    : new Dictionary<string, IReadOnlyCollection<string>>(StringComparer.OrdinalIgnoreCase);
+
 for (var i = 0; i < candidateNamespaces.Count; i++)
 {
     if (excludedCandidates.Contains(i))
@@ -1555,6 +1568,10 @@ for (var i = 0; i < candidateNamespaces.Count; i++)
     }
     var (candidate, _) = candidateNamespaces[i];
     var candidateOwner = OwningProjectOf(candidate.OutputRelative, candidate.Included);
+    using var symbols = CodeBehindRewriter.WithPreprocessorSymbols(
+        candidate.Included && libraryConstants.TryGetValue(candidateOwner, out var ownerConstants)
+            ? ownerConstants
+            : []);
     var candidateSource = libraryGlobalUsings.TryGetValue(candidateOwner, out var scoped)
         ? ScopeGlobalUsings(candidate.Source, scoped)
         : candidate.Source;
@@ -1592,7 +1609,8 @@ for (var i = 0; i < candidateNamespaces.Count; i++)
         ApplyLibraryMigrations(ApplyNamespaceMap(StripDeadCodeUsings(
             compatImports.Apply(
                 CodeBehindRewriter.RewritePlainCodeFile(
-                    candidateSource, candidate.ReportName, report, portedTypes)),
+                    candidateSource, candidate.ReportName, report, portedTypes),
+                libraryFile: candidate.Included),
             fullyExcludedNamespaces, report, candidate.ReportName))));
     report.CopiedCodeFiles++;
 
@@ -1969,6 +1987,8 @@ if (splitProjects && includeDirectories.Count > 0)
                 RootNamespace = rootNamespace,
                 DefineConstants =
                     WebForm2Blazor.Converter.Project.ProjectReferenceGraph.DefineConstantsOf(full),
+                ReplacesFrameworkDefines =
+                    WebForm2Blazor.Converter.Project.ProjectReferenceGraph.ReplacesFrameworkDefines(full),
                 AllowUnsafeBlocks = unsafeByOwner.Contains(name),
                 PortedAssemblyAttributes = assemblyAttributesByOwner.Contains(name),
             };
@@ -3397,8 +3417,13 @@ static (string Prefix, string Id, string Version)[] KnownPackages()
         // Redis). See corpora/README.md for the survey behind this list.
         //
         // Novell's LDAP client: the .NET Standard fork keeps namespace
-        // Novell.Directory.Ldap and targets .NET 6/8/9.
-        ("Novell.Directory.Ldap", "Novell.Directory.Ldap.NETStandard", "4.0.0"),
+        // Novell.Directory.Ldap. 2.3.8, not the latest: 2.x keeps the original 2.0 API
+        // (Connect / Bind / Search, SCOPE_SUB, LdapSearchQueue.getResponse,
+        // LdapEntry.getAttributeSet), which ported code is written against - 3.0 renamed
+        // them to .NET style and 4.0 made them async, and mojoPortal's LdapHelper was 8 errors
+        // against 4.0.0. Checked by reflection on the package, not assumed. It targets
+        // netstandard2.0, which .NET 10 loads.
+        ("Novell.Directory.Ldap", "Novell.Directory.Ldap.NETStandard", "2.3.8"),
         // ZedGraph's charting core still ships, targeting .NET 6 (so .NET 10 resolves it),
         // with namespace ZedGraph unchanged. Its ASP.NET WebForms half - the separate
         // ZedGraph.Web package - stopped at .NET Framework in 2011 and is NOT mapped: a

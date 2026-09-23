@@ -354,45 +354,22 @@ public static partial class ProjectReferenceGraph
     /// A list containing an MSBuild expression is skipped rather than pasted - it would be
     /// evaluated against properties that do not exist here.
     /// </summary>
+    ///
+    /// Also read: the nearest Directory.Build.props, which MSBuild imports into every project
+    /// below it - YAF's ServiceStack folder defines "NETFX;NET481" there, and without them
+    /// OrmLite compiled branches the original never did. A list is read element by element,
+    /// so "$(DefineConstants);NETFX;NET481" contributes NETFX and NET481 rather than being
+    /// discarded whole for its "$(DefineConstants)".
+    ///
+    /// And the symbols the SDK itself defined for the ORIGINAL target framework (see
+    /// <see cref="ReplacesFrameworkDefines"/>): code under "#if NETFRAMEWORK" or
+    /// "#if NET6_0_OR_GREATER" has to take the branch the original took.
     public static List<string> DefineConstantsOf(string directory, string? entryProjectPath = null)
     {
         var symbols = new List<string>();
-
-        foreach (var projectPath in ProjectFilesOf(
-                     Path.GetFullPath(directory).TrimEnd(Path.DirectorySeparatorChar, '/'),
-                     entryProjectPath is not null && File.Exists(entryProjectPath)
-                         ? Path.GetFullPath(entryProjectPath)
-                         : null))
+        void Add(IEnumerable<string> found)
         {
-            XDocument document;
-            try
-            {
-                document = XDocument.Load(projectPath);
-            }
-            catch (Exception exception) when (exception is System.Xml.XmlException or IOException)
-            {
-                continue;
-            }
-
-            var declarations = document.Descendants()
-                .Where(node => node.Name.LocalName == "DefineConstants")
-                .Where(node => !node.Value.Contains('$'))
-                .ToList();
-
-            var chosen = declarations.FirstOrDefault(node =>
-                             node.Parent?.Attribute("Condition")?.Value
-                                 .Contains("Debug", StringComparison.OrdinalIgnoreCase) == true)
-                         ?? declarations.FirstOrDefault();
-            if (chosen is null)
-            {
-                continue;
-            }
-
-            foreach (var symbol in chosen.Value
-                         .Split([';', ','], StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
-                         .Where(symbol => symbol is not ("TRACE" or "DEBUG"))
-                         .Where(symbol => symbol.All(character =>
-                             char.IsLetterOrDigit(character) || character == '_')))
+            foreach (var symbol in found)
             {
                 if (!symbols.Contains(symbol, StringComparer.Ordinal))
                 {
@@ -401,7 +378,238 @@ public static partial class ProjectReferenceGraph
             }
         }
 
+        var projects = ProjectFilesOf(
+            Path.GetFullPath(directory).TrimEnd(Path.DirectorySeparatorChar, '/'),
+            entryProjectPath is not null && File.Exists(entryProjectPath)
+                ? Path.GetFullPath(entryProjectPath)
+                : null);
+
+        foreach (var projectPath in projects)
+        {
+            if (LoadProject(projectPath) is not { } document)
+            {
+                continue;
+            }
+            var targetFramework = OriginalTargetFramework(document);
+            Add(DeclaredSymbols(document, targetFramework));
+
+            if (NearestDirectoryBuildProps(projectPath) is { } props && LoadProject(props) is { } propsDocument)
+            {
+                Add(DeclaredSymbols(propsDocument, targetFramework));
+            }
+            if (IsSdkStyle(document))
+            {
+                Add(FrameworkSymbols(targetFramework));
+            }
+        }
+
         return symbols;
+    }
+
+    /// <summary>
+    /// Whether the generated library should NOT get .NET 10's implicit framework symbols
+    /// (NET, NET6_0_OR_GREATER, NETCOREAPP, ...): true when the original targeted .NET
+    /// Framework or .NET Standard. Such a library was never compiled with them, and a
+    /// vendored multi-target source (ServiceStack) has "#elif NETCORE || NET6_0_OR_GREATER"
+    /// branches naming types the trimmed copy does not ship. A library that already targeted
+    /// modern .NET keeps them.
+    /// </summary>
+    public static bool ReplacesFrameworkDefines(string directory)
+    {
+        foreach (var projectPath in ProjectFilesOf(
+                     Path.GetFullPath(directory).TrimEnd(Path.DirectorySeparatorChar, '/'), null))
+        {
+            if (LoadProject(projectPath) is { } document)
+            {
+                var framework = OriginalTargetFramework(document);
+                return framework is null
+                       || framework.StartsWith("net4", StringComparison.OrdinalIgnoreCase)
+                       || framework.StartsWith("net3", StringComparison.OrdinalIgnoreCase)
+                       || framework.StartsWith("net2", StringComparison.OrdinalIgnoreCase)
+                       || framework.StartsWith("netstandard", StringComparison.OrdinalIgnoreCase);
+            }
+        }
+        return false;
+    }
+
+    private static XDocument? LoadProject(string path)
+    {
+        try
+        {
+            return XDocument.Load(path);
+        }
+        catch (Exception exception) when (exception is System.Xml.XmlException or IOException)
+        {
+            return null;
+        }
+    }
+
+    private static bool IsSdkStyle(XDocument document)
+        => document.Root?.Attribute("Sdk") is not null
+           || document.Root?.Elements().Any(element => element.Name.LocalName == "Sdk") == true;
+
+    /// <summary>
+    /// The framework the original built for: "net481" from TargetFramework(s) - the .NET
+    /// Framework one when several are listed, since that is what a WebForms application
+    /// consumed - or from a legacy TargetFrameworkVersion ("v4.8" -> "net48").
+    /// </summary>
+    private static string? OriginalTargetFramework(XDocument document)
+    {
+        var frameworks = document.Descendants()
+            .Where(node => node.Name.LocalName is "TargetFramework" or "TargetFrameworks")
+            .SelectMany(node => node.Value.Split(';', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries))
+            .Where(value => !value.Contains('$'))
+            .ToList();
+        if (frameworks.Count > 0)
+        {
+            return frameworks.FirstOrDefault(value => value.StartsWith("net4", StringComparison.OrdinalIgnoreCase))
+                   ?? frameworks[0];
+        }
+
+        var version = document.Descendants().FirstOrDefault(node => node.Name.LocalName == "TargetFrameworkVersion")?.Value;
+        return version is null ? null : "net" + version.TrimStart('v', 'V').Replace(".", string.Empty);
+    }
+
+    /// <summary>
+    /// The symbols the SDK defines for a .NET Framework / .NET Standard target, as MSBuild
+    /// does: NETFRAMEWORK, NET481, and NETxx_OR_GREATER for every version up to it.
+    /// </summary>
+    private static IEnumerable<string> FrameworkSymbols(string? targetFramework)
+    {
+        if (targetFramework is null)
+        {
+            yield break;
+        }
+
+        var framework = targetFramework.ToLowerInvariant();
+        string[]? ladder = framework.StartsWith("netstandard", StringComparison.Ordinal)
+            ? ["1.0", "1.1", "1.2", "1.3", "1.4", "1.5", "1.6", "2.0", "2.1"]
+            : framework.StartsWith("net", StringComparison.Ordinal) && framework.Length > 3
+              && char.IsDigit(framework[3]) && framework[3] <= '4'
+                ? ["20", "30", "35", "40", "45", "451", "452", "46", "461", "462", "47", "471", "472", "48", "481"]
+                : null;
+        if (ladder is null)
+        {
+            yield break;
+        }
+
+        if (framework.StartsWith("netstandard", StringComparison.Ordinal))
+        {
+            var version = framework["netstandard".Length..];
+            yield return "NETSTANDARD";
+            yield return "NETSTANDARD" + version.Replace('.', '_');
+            foreach (var step in ladder)
+            {
+                yield return "NETSTANDARD" + step.Replace('.', '_') + "_OR_GREATER";
+                if (step == version)
+                {
+                    break;
+                }
+            }
+            yield break;
+        }
+
+        var number = framework[3..];
+        yield return "NETFRAMEWORK";
+        yield return "NET" + number;
+        foreach (var step in ladder)
+        {
+            yield return "NET" + step + "_OR_GREATER";
+            if (step == number)
+            {
+                break;
+            }
+        }
+    }
+
+    private static string? NearestDirectoryBuildProps(string projectPath)
+    {
+        for (var directory = Path.GetDirectoryName(projectPath); !string.IsNullOrEmpty(directory);
+             directory = Path.GetDirectoryName(directory))
+        {
+            var candidate = Path.Combine(directory, "Directory.Build.props");
+            if (File.Exists(candidate))
+            {
+                return candidate;
+            }
+        }
+        return null;
+    }
+
+    /// <summary>
+    /// The DefineConstants a project file sets for a Debug build of the given framework.
+    /// Each group's Condition is evaluated for Configuration=Debug, Platform=AnyCPU and the
+    /// framework; a condition this cannot read falls back to the old rule (it mentions
+    /// Debug), and a file where nothing matched falls back to its first Debug group -
+    /// "Debug|x86" projects keep the symbols they had before.
+    /// </summary>
+    private static IEnumerable<string> DeclaredSymbols(XDocument document, string? targetFramework)
+    {
+        var declarations = document.Descendants()
+            .Where(node => node.Name.LocalName == "DefineConstants")
+            .ToList();
+
+        var chosen = declarations
+            .Where(node => ConditionHolds(node.Parent?.Attribute("Condition")?.Value, targetFramework)
+                           && ConditionHolds(node.Attribute("Condition")?.Value, targetFramework))
+            .ToList();
+        if (chosen.Count == 0
+            && declarations.FirstOrDefault(node =>
+                   node.Parent?.Attribute("Condition")?.Value.Contains("Debug", StringComparison.OrdinalIgnoreCase) == true)
+               is { } debug)
+        {
+            chosen = [debug];
+        }
+
+        return chosen
+            .SelectMany(node => node.Value.Split([';', ','],
+                StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries))
+            .Where(symbol => symbol is not ("TRACE" or "DEBUG"))
+            .Where(symbol => symbol.All(character => char.IsLetterOrDigit(character) || character == '_'));
+    }
+
+    /// <summary>
+    /// Evaluates the conditions project files actually write: comparisons of quoted,
+    /// property-substituted strings with == / != joined by and / or. Anything else is
+    /// judged by whether it mentions Debug.
+    /// </summary>
+    private static bool ConditionHolds(string? condition, string? targetFramework)
+    {
+        if (string.IsNullOrWhiteSpace(condition))
+        {
+            return true;
+        }
+
+        var substituted = condition
+            .Replace("$(Configuration)", "Debug", StringComparison.OrdinalIgnoreCase)
+            .Replace("$(Platform)", "AnyCPU", StringComparison.OrdinalIgnoreCase)
+            .Replace("$(TargetFramework)", targetFramework ?? string.Empty, StringComparison.OrdinalIgnoreCase)
+            .Replace("$(OS)", "Windows_NT", StringComparison.OrdinalIgnoreCase);
+        if (substituted.Contains("$(", StringComparison.Ordinal))
+        {
+            return condition.Contains("Debug", StringComparison.OrdinalIgnoreCase);
+        }
+
+        foreach (var alternative in Regex.Split(substituted, @"\s+or\s+", RegexOptions.IgnoreCase))
+        {
+            var holds = true;
+            foreach (var term in Regex.Split(alternative, @"\s+and\s+", RegexOptions.IgnoreCase))
+            {
+                var match = Regex.Match(term.Trim().Trim('(', ')').Trim(), @"^'([^']*)'\s*(==|!=)\s*'([^']*)'$");
+                if (!match.Success)
+                {
+                    return condition.Contains("Debug", StringComparison.OrdinalIgnoreCase);
+                }
+                var equal = string.Equals(match.Groups[1].Value.Trim(), match.Groups[3].Value.Trim(),
+                    StringComparison.OrdinalIgnoreCase);
+                holds &= match.Groups[2].Value == "==" ? equal : !equal;
+            }
+            if (holds)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     /// <summary>

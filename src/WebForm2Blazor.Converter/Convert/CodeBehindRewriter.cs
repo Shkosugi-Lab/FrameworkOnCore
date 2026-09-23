@@ -50,8 +50,35 @@ public static class CodeBehindRewriter
 
     // WebForms projects are conventionally built as Debug during development; parsing
     // without the symbol makes #if DEBUG classes invisible (found via YAF's TestData page)
-    private static readonly CSharpParseOptions ParseOptions =
+    private static readonly CSharpParseOptions DefaultParseOptions =
         CSharpParseOptions.Default.WithPreprocessorSymbols("DEBUG");
+
+    private static CSharpParseOptions ParseOptions = DefaultParseOptions;
+
+    /// <summary>
+    /// Parses with these conditional-compilation symbols (besides DEBUG) until the returned
+    /// scope is disposed.
+    ///
+    /// The rewrite has to see the code the OUTPUT compiles. A split library keeps its own
+    /// DefineConstants, and DNN's vendored log4net builds its ASP.NET pattern converters
+    /// under "#if NET_2_0": parsed with DEBUG alone, that code was disabled text to every
+    /// rewrite - "using System.Web;" was left as it was - and then compiled for real in the
+    /// library, as HttpContext not found. Conversion is sequential, so a plain static is
+    /// enough; the scope restores the default.
+    /// </summary>
+    internal static IDisposable WithPreprocessorSymbols(IReadOnlyCollection<string> symbols)
+    {
+        var previous = ParseOptions;
+        ParseOptions = symbols.Count == 0
+            ? DefaultParseOptions
+            : CSharpParseOptions.Default.WithPreprocessorSymbols(new[] { "DEBUG" }.Concat(symbols).ToArray());
+        return new RestoreParseOptions(previous);
+    }
+
+    private sealed class RestoreParseOptions(CSharpParseOptions previous) : IDisposable
+    {
+        public void Dispose() => ParseOptions = previous;
+    }
 
     /// <summary>Parses a source file with the converter's standard parse options.</summary>
     internal static CompilationUnitSyntax ParseUnit(string source)
@@ -1088,6 +1115,7 @@ public static class CodeBehindRewriter
         var rewritten = (CompilationUnitSyntax)new HtmlGenericControlRewriter().Visit(RewriteControlReferences(root));
         rewritten = RemovedEmitApis.Rewrite(rewritten, sourceName, report);
         rewritten = FieldKeywordRewriter.Rewrite(rewritten, sourceName, report);
+        rewritten = FrameworkPolyfills.Remove(rewritten, sourceName, report);
         return ColorAssignmentRewriter.Rewrite(rewritten, sourceName, report, portedTypes);
     }
 
@@ -1912,7 +1940,10 @@ public static class CodeBehindRewriter
             kept.AddRange(ConfigurationAliases.Select(alias => MakeUsing(alias, isGlobal)));
         }
 
-        root = root.WithUsings(SyntaxFactory.List(kept));
+        // Through SyntaxUsings: a file whose header holds #define (Lucene.Net's
+        // NullableAttributes.cs) must keep it above the first using - CS1032 otherwise, and
+        // the lost #define turned its internal polyfills public.
+        root = SyntaxUsings.Replace(root, kept);
         return configurationAliasScope == ConfigurationAliasScope.Namespace
             ? AddNamespaceUsings(root, ConfigurationAliases)
             : root;

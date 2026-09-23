@@ -449,18 +449,40 @@ bUnit・パリティ・be/wt は一切動かず、n2 の `new DropDownList()` �
 n2 以外(分割時・MVC 互換層を入れる前の値): yaf 3(変換器がライブラリにアプリ名前空間の
 `using` を挿入。`Convert\RelocatedTypeIndex.cs:194` が本命)/ dnn 7 / mojo 12。
 
-**注意: mojo / yaf / dnn / n2 の `expected.json` は MVC 互換層より前の数字です**(まだ取り直していない)。
+**ベースライン(`expected.json`)は 2026-09-23 に統合モードの実測で取り直した**(README の表も同じ数字)。
+分割モードを既定にするときは、分割モードの数字で取り直すこと(スクリプトは今のところ統合モードのみ対応)。
 
-**全 6 本の計測(2026-09-23、指示により実施)**
+**全 6 本の計測(2026-09-23、指示により実施。分割の障害を潰した後の値)**
 
 | コーパス | 統合: ビルドエラー | 分割: ビルドエラー | 分割で止まっている所 |
 |---|---:|---:|---|
 | be | 0 | 0 | — |
-| mojo | 279 | 10(下限) | `mojoPortal.Business` の LDAP(Novell.Directory.Ldap の API 差 8 件)、`Page.RegisterRequiresControlState`、`HttpBrowserCapabilities` |
-| yaf | 1(下限) | 3(下限) | `ServiceStack.OrmLite` にアプリ名前空間 `yaf` の using が入る(`RelocatedTypeIndex.cs:194`) |
-| dnn | 42 | 7(下限) | 同梱 log4net の `HttpContext`(using が無い)5 件と `WindowsImpersonationContext` 2 件 |
+| mojo | 269 | 6(下限) | `mojoPortal.Web.Controls` の画像ギャラリー: MetadataExtractor 1.x(`com.drew.metadata`)→ 2.x で消えた/改名された型(**判断待ち**) |
+| yaf | 1(下限) | 1(下限) | `YAF.Web` の `IOEmbed.Embed`: OEmbed.Core 2.0.7 は net481 版が同期 `Embed`、net10.0 版が `EmbedAsync` だけ(**判断待ち**) |
+| dnn | 42 | 12(下限) | `DotNetNuke.Web.Client`: .NET Framework 専用パッケージ Dnn.ClientDependency の基底(本物の System.Web.HttpContextBase)を継承(**判断待ち**。統合でも同じ 12 件) |
 | n2 | 3(下限) | 5 | 残りは n2 自身の UITests ページのみ(上記) |
 | wt | 0 | 0 | — |
+
+分割の障害として直したもの:
+- ライブラリのファイルに Web プロジェクトのグローバル using を「暗黙の import」として当てていた
+  (`CompatImportDisambiguator.Apply(libraryFile:)`)。YAF の OrmLite にアプリの型の別名が入っていた。
+- 変換器がライブラリを `DEBUG` だけで解析し、出力はライブラリの `DefineConstants` でビルドしていた。
+  ライブラリのファイルはその定数で解析する(`CodeBehindRewriter.WithPreprocessorSymbols`)。
+- ライブラリの定数: `Directory.Build.props` も読み、`PropertyGroup` の条件を評価し、`$(DefineConstants);X`
+  の X を拾う。元が .NET Framework / .NET Standard なら .NET 10 の暗黙シンボルを止め
+  (`DisableImplicitFrameworkDefines`)、SDK 形式なら元のフレームワークのシンボル(NETFRAMEWORK, NET481,
+  NETxx_OR_GREATER)を定義する(`ProjectReferenceGraph.DefineConstantsOf / ReplacesFrameworkDefines`)。
+  **統合モードは従来どおり .NET 10 のシンボル**(同じ食い違いが残っている)。
+- 元のフレームワークのシンボルで有効になる `System.*` のポリフィルのうち .NET にある型は出力しない
+  (`FrameworkPolyfills`)。
+- `RewriteUsings` が `#define` より前に using を入れていた(CS1032。既存の `SyntaxUsings.Replace` を使う)。
+- Novell.Directory.Ldap の置き換え先を 4.0.0 → 2.3.8(元の 2.0 と同じ API。パッケージを反射で確認)。
+- 互換層: `Page.RegisterRequiresControlState`、`HttpBrowserCapabilities`(元の名前)、
+  `HttpContext.Trace`(トレース無効として)、`ConfigurationManager.AppSettings` の列挙、
+  `RemotingServices.Marshal/Disconnect` と `Activator.GetObject`(使うと PlatformNotSupported)、
+  `AppDomainSetup.ConfigurationFile`、`DbProviderFactory.CreatePermission`(null)、
+  `WindowsIdentity.Impersonate(IntPtr)`。.NET の型への追加は C# 14 の拡張ブロックで、
+  拡張される型と同じ名前空間に置く(元の using のまま効く)。
 
 今回の作業前のコミット(`17f45af`)と統合モードで突き合わせた結果、dnn 42 件・n2 4 件は作業前と
 1 件単位で同一。dnn の増分(ベースライン 14 → 42)は MVC 互換層で新たに移植された

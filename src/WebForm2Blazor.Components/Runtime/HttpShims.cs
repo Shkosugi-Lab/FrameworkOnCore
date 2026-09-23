@@ -22,8 +22,13 @@ public sealed class HttpPostedFileShim(string fileName, byte[] content, string c
 /// database, so everything here is read off the User-Agent. Only the properties ported
 /// code actually branches on are offered - inventing screen sizes or plugin support
 /// would be a guess dressed up as data.
+///
+/// Declared under the original name, with the Shim kept as a subclass for what the
+/// converter already emits. Code that reaches System.Web through a GLOBAL using never gets
+/// the per-file alias the converter adds elsewhere - mojoPortal's SecurityHelper writes
+/// "HttpBrowserCapabilities oBrowser = HttpContext.Current.Request.Browser;" that way.
 /// </summary>
-public sealed class HttpBrowserCapabilitiesShim(string userAgent)
+public class HttpBrowserCapabilities(string userAgent)
 {
     private readonly string _agent = userAgent ?? string.Empty;
 
@@ -116,6 +121,9 @@ public sealed class HttpBrowserCapabilitiesShim(string userAgent)
 
     public override string ToString() => Browser;
 }
+
+/// <summary>The name the converter writes for System.Web.HttpBrowserCapabilities / HttpCapabilitiesBase.</summary>
+public sealed class HttpBrowserCapabilitiesShim(string userAgent) : HttpBrowserCapabilities(userAgent);
 
 /// <summary>
 /// System.Web.HttpResponseBase equivalent: the abstraction WebForms-era code declares its

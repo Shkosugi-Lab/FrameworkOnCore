@@ -22,6 +22,10 @@
          a member left out of the shim is CS0539 on the application class that implements
          it. CodeDom moved out of the box on .NET and is only reachable as a package. -->
     <PackageReference Include="System.CodeDom" Version="10.0.*" />
+    <!-- CodeAccessPermission, the return type of the removed DbProviderFactory.CreatePermission
+         (Compat/RemotingServicesShims.cs, RemovedFrameworkMembers). Forwarded out of the box
+         to this package on .NET, which converted projects already reference. -->
+    <PackageReference Include="System.Security.Permissions" Version="10.0.*" />
   </ItemGroup>
 
 </Project>

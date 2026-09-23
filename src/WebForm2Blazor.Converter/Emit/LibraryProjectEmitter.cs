@@ -27,6 +27,13 @@ public sealed record LibraryProject(string Name, string SourceDirectory)
     /// </summary>
     public List<string> DefineConstants { get; init; } = [];
 
+    /// <summary>
+    /// The original targeted .NET Framework / .NET Standard: .NET 10's implicit framework
+    /// symbols are switched off and DefineConstants carries the original's instead
+    /// (ProjectReferenceGraph.ReplacesFrameworkDefines).
+    /// </summary>
+    public bool ReplacesFrameworkDefines { get; init; }
+
     /// <summary>Its ported sources contain the "unsafe" keyword.</summary>
     public bool AllowUnsafeBlocks { get; init; }
 
@@ -266,6 +273,12 @@ public static class LibraryProjectEmitter
         builder.AppendLine($"    <AssemblyName>{library.AssemblyName ?? library.Name}</AssemblyName>");
         builder.AppendLine($"    <RootNamespace>{library.RootNamespace ?? library.Name}</RootNamespace>");
         builder.AppendLine("    <NoWarn>$(NoWarn);SYSLIB0011</NoWarn>");
+        if (library.ReplacesFrameworkDefines)
+        {
+            // The branches "#if NET6_0_OR_GREATER" etc. select have to be the ones the
+            // original's framework selected; its own symbols are in DefineConstants below.
+            builder.AppendLine("    <DisableImplicitFrameworkDefines>true</DisableImplicitFrameworkDefines>");
+        }
         if (library.DefineConstants.Count > 0)
         {
             builder.AppendLine(

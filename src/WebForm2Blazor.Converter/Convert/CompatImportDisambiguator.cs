@@ -104,7 +104,33 @@ public sealed class CompatImportDisambiguator
     /// Call before the namespace map, so an alias naming a ported namespace is renamed
     /// along with everything else.
     /// </summary>
-    public string Apply(string source)
+    /// <param name="libraryFile">
+    /// The file belongs to a referenced library, not the web project. The web project's
+    /// global usings never reached it, so they are not ambient for it: only the compat
+    /// namespace is. Treating them as ambient made YAF's vendored ServiceStack.OrmLite
+    /// "choose" the web project's CollectionExtensions over the BCL's and get an alias to
+    /// a type in an assembly it cannot reference (split output does not compile it at all).
+    /// </param>
+    public string Apply(string source, bool libraryFile = false)
+    {
+        if (!libraryFile)
+        {
+            return ApplyCore(source);
+        }
+
+        var ambient = _ambientImports;
+        _ambientImports = [CompatNamespace];
+        try
+        {
+            return ApplyCore(source);
+        }
+        finally
+        {
+            _ambientImports = ambient;
+        }
+    }
+
+    private string ApplyCore(string source)
     {
         var unit = CodeBehindRewriter.ParseUnit(source);
         unit = QualifyNamesBrokenByMerging(unit);

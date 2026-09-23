@@ -2178,4 +2178,18 @@ public static class WindowsIdentityCompatExtensions
         _ = identity;
         return new WindowsImpersonationContext();
     }
+
+    /// <summary>
+    /// The static WindowsIdentity.Impersonate(IntPtr) - "Impersonate(IntPtr.Zero)" reverted to
+    /// the process account (DNN's vendored log4net). Same terms as above; a C# 14 extension
+    /// block, because only that can add a STATIC member to a type from outside.
+    /// </summary>
+    extension(System.Security.Principal.WindowsIdentity)
+    {
+        public static WindowsImpersonationContext Impersonate(IntPtr userToken)
+        {
+            _ = userToken;
+            return new WindowsImpersonationContext();
+        }
+    }
 }

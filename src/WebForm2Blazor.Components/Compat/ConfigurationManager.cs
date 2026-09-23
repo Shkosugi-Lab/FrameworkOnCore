@@ -77,9 +77,16 @@ public static class ConfigurationManager
         => _configuration ?? throw new InvalidOperationException(
             "ConfigurationManager が初期化されていません。Program.cs で AddWebFormsCompat(builder.Configuration) を呼んでください。");
 
-    public sealed class AppSettingsSection
+    public sealed class AppSettingsSection : System.Collections.IEnumerable
     {
         public string this[string key] => Configuration[$"AppSettings:{key}"];
+
+        /// <summary>
+        /// Enumerates the KEYS, as the NameValueCollection WebForms returned does -
+        /// "foreach (string key in ConfigurationManager.AppSettings)" is how DNN's vendored
+        /// log4net lists the settings it may substitute.
+        /// </summary>
+        public System.Collections.IEnumerator GetEnumerator() => AllKeys.GetEnumerator();
 
         /// <summary>
         /// The keys appsettings.json carries under AppSettings, as WebForms'

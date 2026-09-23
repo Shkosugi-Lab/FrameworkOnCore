@@ -526,6 +526,9 @@ public sealed class HttpContext
     /// <summary>System.Web HttpContext.Server equivalent.</summary>
     public ServerUtilityShim Server => new((Microsoft.AspNetCore.Components.NavigationManager)null);
 
+    /// <summary>System.Web HttpContext.Trace equivalent (see <see cref="TraceContext"/>).</summary>
+    public TraceContext Trace { get; } = new();
+
     /// <summary>System.Web HttpContext.Cache equivalent (the process-wide store).</summary>
     public Cache Cache { get; } = ApplicationCache;
 
@@ -2022,4 +2025,41 @@ public sealed class HttpApplicationStateWrapper(HttpApplicationStateBase state) 
     public override void Remove(string key) => _state?.Remove(key);
 
     public override void Clear() => _state?.Clear();
+}
+
+/// <summary>
+/// System.Web.TraceContext equivalent: page-level tracing, the output Trace.axd showed.
+///
+/// ASP.NET Core has no trace viewer, so tracing is off - which is also WebForms' default
+/// until &lt;trace enabled="true"&gt; is configured. Code that checks IsEnabled first (DNN's
+/// vendored log4net AspNetTraceAppender does) takes the same branch it took on a site with
+/// tracing off; writes go nowhere, as they did there.
+/// </summary>
+public sealed class TraceContext
+{
+    public bool IsEnabled { get; set; }
+
+    public void Write(string message)
+    {
+    }
+
+    public void Write(string category, string message)
+    {
+    }
+
+    public void Write(string category, string message, Exception errorInfo)
+    {
+    }
+
+    public void Warn(string message)
+    {
+    }
+
+    public void Warn(string category, string message)
+    {
+    }
+
+    public void Warn(string category, string message, Exception errorInfo)
+    {
+    }
 }

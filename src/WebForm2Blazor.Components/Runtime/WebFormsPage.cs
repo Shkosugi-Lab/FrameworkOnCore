@@ -444,6 +444,17 @@ public class Page : ComponentBase, IWebFormsHost, IWebFormsControl
     }
 
     /// <summary>
+    /// WebForms Page.RegisterRequiresControlState: a control asks for its control state to
+    /// round-trip. Accepted and inert, on the same terms as EnableViewState - a component's
+    /// fields ARE its state here, kept for the life of the circuit, so there is no round
+    /// trip to opt into. mojoPortal's editor control registers itself this way.
+    /// </summary>
+    public void RegisterRequiresControlState(IWebFormsControl control)
+    {
+        _ = control;
+    }
+
+    /// <summary>
     /// WebForms Page.Culture: assigning it sets the current culture, and reading it gives
     /// the culture's DisplayName, as the original does. "auto" (and "auto:fallback") take
     /// the browser's first language, falling back as WebForms did. n2's LanguageConcern

@@ -102,19 +102,11 @@ public enum FileIOPermissionAccess
 /// is what actually rejects a write, one call later. Ported "can I write here?" probes
 /// therefore succeed and fail on the real operation instead of before it.
 /// </summary>
-public class FileIOPermission(FileIOPermissionAccess access, string path)
+public class FileIOPermission(FileIOPermissionAccess access, string path) : InertCodeAccessPermission
 {
     public FileIOPermissionAccess Access { get; } = access;
 
     public string Path { get; } = path;
-
-    public void Demand()
-    {
-    }
-
-    public void Assert()
-    {
-    }
 }
 
 /// <summary>System.Web.HttpCacheRevalidation equivalent (accepted by HttpCachePolicyShim).</summary>

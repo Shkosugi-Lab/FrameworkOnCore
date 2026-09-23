@@ -122,7 +122,7 @@ public static class CodeBehindRewriter
         if (classDeclaration is null)
         {
             report.Error(sourceName, $"コードビハインドに partial class {component.ComponentName} が見つかりません。");
-            return RewriteQualifiedFrameworkTypes(RewriteSyntax(root).ToFullString());
+            return RewriteQualifiedFrameworkTypes(RewriteSyntax(root, sourceName, report).ToFullString());
         }
 
         // A .razor always generates "partial class", so the code-behind half has to be
@@ -210,7 +210,7 @@ public static class CodeBehindRewriter
         updated = InsertGeneratedMembers(updated, component, sourceName, report);
 
         root = root.ReplaceNode(classDeclaration, updated);
-        return RewriteQualifiedFrameworkTypes(RewriteSyntax(root).ToFullString());
+        return RewriteQualifiedFrameworkTypes(RewriteSyntax(root, sourceName, report).ToFullString());
     }
 
     /// <summary>
@@ -977,7 +977,7 @@ public static class CodeBehindRewriter
         // IWebFormsControl and then nothing imported it. Same shape in a global-usings
         // project, where the per-file import list is empty by construction.
         var bodyRewritten = DropOverridesTheCompatBaseDoesNotHave(
-            RewriteSyntax(root), sourceName, report, portedTypes);
+            RewriteSyntax(root, sourceName, report), sourceName, report, portedTypes);
 
         // Dropped System.Web usings mean the file references that API surface
         // (HttpContext, HttpUtility, ...) - the compatibility namespace supplies it
@@ -1002,9 +1002,12 @@ public static class CodeBehindRewriter
     /// <see cref="RewriteQualifiedFrameworkTypes"/>. A rewrite belongs here whenever it has
     /// to reason about the SHAPE of the code rather than the spelling of a name.
     /// </summary>
-    private static CompilationUnitSyntax RewriteSyntax(CompilationUnitSyntax root)
-        => (CompilationUnitSyntax)new HtmlGenericControlRewriter()
-            .Visit(RewriteControlReferences(root));
+    private static CompilationUnitSyntax RewriteSyntax(
+        CompilationUnitSyntax root, string? sourceName, ConversionReport? report)
+        => RemovedEmitApis.Rewrite(
+            (CompilationUnitSyntax)new HtmlGenericControlRewriter().Visit(RewriteControlReferences(root)),
+            sourceName,
+            report);
 
     /// <summary>
     /// Maps System.Web.UI.Control REFERENCES onto IWebFormsControl.
@@ -1667,6 +1670,25 @@ public static class CodeBehindRewriter
            || name == "AjaxControlToolkit" || name.StartsWith("AjaxControlToolkit.", StringComparison.Ordinal)
            || name == "FredCK" || name.StartsWith("FredCK.", StringComparison.Ordinal);
 
+    /// <summary>
+    /// The System.Security.Permissions types .NET still has and the compat layer does not
+    /// re-declare - PermissionState above all.
+    ///
+    /// The import is dropped so the compat SecurityPermission / FileIOPermission bind (the
+    /// namespace survives, its permission classes did not). That took the survivors with
+    /// it: "new PermissionSet(PermissionState.None)" - Castle DynamicProxy's PermissionUtil,
+    /// vendored by n2cms - became CS0103. Keeping the import instead makes every name both
+    /// declare (SecurityPermissionFlag, SecurityAction, ...) ambiguous, so each survivor
+    /// the file uses gets an alias. Asked of the runtime and the compat assembly, not listed.
+    /// </summary>
+    private static readonly Lazy<List<string>> FrameworkOnlyPermissionTypes = new(() =>
+        typeof(System.Security.Permissions.PermissionState).Assembly.GetExportedTypes()
+            .Where(type => type.Namespace == "System.Security.Permissions" && !type.IsNested)
+            .Select(type => type.Name)
+            .Where(typeName => !typeName.Contains('`', StringComparison.Ordinal) && CompatType(typeName) is null)
+            .Distinct(StringComparer.Ordinal)
+            .ToList());
+
     private static CompilationUnitSyntax RewriteUsings(CompilationUnitSyntax root, string[] requiredUsings)
     {
         var aliasUsings = new List<string>();
@@ -1708,6 +1730,13 @@ public static class CodeBehindRewriter
                     // using" (YAF.NET) has no such file, so the names were supplied nowhere.
                     // HttpRequest / HttpResponse stay aliases: those names DO exist in
                     // Microsoft.AspNetCore.Http, so the compat types keep the Shim suffix.
+                }
+                if (name == "System.Security.Permissions")
+                {
+                    aliasUsings.AddRange(FrameworkOnlyPermissionTypes.Value
+                        .Where(type => root.DescendantTokens().Any(token =>
+                            token.IsKind(SyntaxKind.IdentifierToken) && token.Text == type))
+                        .Select(type => $"using {type} = System.Security.Permissions.{type};"));
                 }
                 removals.Add(directive);
                 continue;

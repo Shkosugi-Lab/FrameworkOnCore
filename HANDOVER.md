@@ -408,7 +408,7 @@ bUnit・パリティ・be/wt は一切動かず、n2 の `new DropDownList()` �
 | 群 | 件数 | 中身 | 論点 |
 |---|---:|---|---|
 | 互換層の 2 系統分岐 | 3 | `RangeValidator`/`CompareValidator` を `BaseValidator` として返す / `FreeTextArea`→`TextBox` | 統合方式で解決できる(上記)。部品ごとに移す |
-| .NET が削除した API | 7 | n2 同梱 Castle DynamicProxy の CAS・`RunAndSave`・`AssemblyBuilder.Save` | 変換器の機械的書き換え(`AssemblyBuilder.DefineDynamicAssembly` + `Run`)で行くか、NuGet の Castle.Core に差し替えるか |
+| .NET が削除した API | 7 | n2 同梱 Castle DynamicProxy の CAS・`RunAndSave`・`AssemblyBuilder.Save` | **機械的書き換えで対応済み(n2 では未計測)**。変換器 `Convert/RemovedEmitApis.cs`(`AppDomain.DefineDynamicAssembly` → `AssemblyBuilder.DefineDynamicAssembly`、`RunAndSave` → `Run`、`DefineDynamicModule` は名前だけ、`Save` は `PlatformNotSupportedException` + 残差)。互換層の権限クラスを `IPermission` に(`InertCodeAccessPermission`)。`using System.Security.Permissions` を外すと消えていた `PermissionState` を別名で補う。同型の検証用サンプル `samples/DefaultsProbe/ProbeEmit.cs` を変換し、実行時に型を生成できることを `RemovedEmitApiTests` で確認 |
 
 n2 以外(分割時・MVC 互換層を入れる前の値): yaf 3(変換器がライブラリにアプリ名前空間の
 `using` を挿入。`Convert\RelocatedTypeIndex.cs:194` が本命)/ dnn 7 / mojo 12。

@@ -34,6 +34,7 @@
     </Compile>
     <Compile Include="ProbeData.cs" />
     <Compile Include="ProbeControls.cs" />
+    <Compile Include="ProbeEmit.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

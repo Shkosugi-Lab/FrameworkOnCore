@@ -1311,11 +1311,24 @@ public enum SecurityPermissionFlag
     AllFlags = 16383,
 }
 
-/// <summary>System.Security.Permissions.SecurityPermission equivalent (inert).</summary>
-public class SecurityPermission(SecurityPermissionFlag flag)
+/// <summary>
+/// System.Security.CodeAccessPermission equivalent: the base of every permission shim here,
+/// as it was of every permission in 4.8.
+///
+/// It is what makes a permission an IPermission, which ported code relies on without ever
+/// naming it: an extension method "this IPermission permission" (Castle DynamicProxy's
+/// IsGranted, which n2cms vendors) or a PermissionSet.AddPermission(new ...). Without it
+/// each such call was CS1929.
+///
+/// Code Access Security does not exist in .NET, so nothing here restricts anything - which
+/// is the runtime's actual state: every assembly is fully trusted. Demand never throws and
+/// every permission is a subset of any other.
+/// </summary>
+// SYSLIB0003: IPermission is obsolete because the runtime ignores it - the reason this
+// class is inert, and not a reason to leave ported code that names it uncompilable.
+#pragma warning disable SYSLIB0003
+public abstract class InertCodeAccessPermission : System.Security.IPermission
 {
-    public SecurityPermissionFlag Flags { get; set; } = flag;
-
     public void Demand()
     {
     }
@@ -1331,6 +1344,27 @@ public class SecurityPermission(SecurityPermissionFlag flag)
     public void PermitOnly()
     {
     }
+
+    public virtual System.Security.IPermission Copy() => (System.Security.IPermission)MemberwiseClone();
+
+    public virtual System.Security.IPermission Intersect(System.Security.IPermission target) => target?.Copy();
+
+    public virtual System.Security.IPermission Union(System.Security.IPermission target) => Copy();
+
+    public virtual bool IsSubsetOf(System.Security.IPermission target) => true;
+
+    public virtual void FromXml(System.Security.SecurityElement e)
+    {
+    }
+
+    public virtual System.Security.SecurityElement ToXml() => new("IPermission");
+}
+#pragma warning restore SYSLIB0003
+
+/// <summary>System.Security.Permissions.SecurityPermission equivalent (inert).</summary>
+public class SecurityPermission(SecurityPermissionFlag flag) : InertCodeAccessPermission
+{
+    public SecurityPermissionFlag Flags { get; set; } = flag;
 }
 
 /// <summary>System.Security.Permissions.SecurityPermissionAttribute equivalent (inert).</summary>
@@ -1364,17 +1398,9 @@ public enum AspNetHostingPermissionLevel
 }
 
 /// <summary>System.Web.AspNetHostingPermission equivalent (inert).</summary>
-public class AspNetHostingPermission(AspNetHostingPermissionLevel level)
+public class AspNetHostingPermission(AspNetHostingPermissionLevel level) : InertCodeAccessPermission
 {
     public AspNetHostingPermissionLevel Level { get; set; } = level;
-
-    public void Demand()
-    {
-    }
-
-    public void Assert()
-    {
-    }
 }
 
 /// <summary>System.Web.AspNetHostingPermissionAttribute equivalent (inert).</summary>

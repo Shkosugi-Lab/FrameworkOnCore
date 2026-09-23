@@ -302,16 +302,32 @@ public class HtmlTextWriter(TextWriter inner) : TextWriter
         }
         _pendingAttributes.Clear();
         _pendingStyles.Clear();
+
+        // An empty element closes itself and gets no end tag, as WebForms' writer does
+        // (<img src="x" />); the matching RenderEndTag writes nothing.
+        if (VoidElements.Contains(tagName))
+        {
+            inner.Write(SelfClosingTagEnd);
+            _openTags.Push(null);
+            return;
+        }
+
         inner.Write('>');
         _openTags.Push(tagName);
     }
 
+    private static readonly HashSet<string> VoidElements = new(StringComparer.OrdinalIgnoreCase)
+    {
+        "area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "param",
+        "source", "track", "wbr",
+    };
+
     public void RenderEndTag()
     {
-        if (_openTags.Count > 0)
+        if (_openTags.Count > 0 && _openTags.Pop() is { } tagName)
         {
             OutputTabs();
-            inner.Write("</" + _openTags.Pop() + '>');
+            inner.Write("</" + tagName + '>');
         }
     }
 
@@ -620,13 +636,11 @@ public abstract class LegacyWebControl : WebFormsControlBase
     /// every control the compat layer actually places, and is settable for the ones ported
     /// code builds by hand.
     /// </summary>
-    public IWebFormsControl Parent
+    public override IWebFormsControl Parent
     {
-        get => _parent ?? NamingContainer;
-        set => _parent = value;
+        get => AssignedParent ?? NamingContainer;
+        set => AssignedParent = value;
     }
-
-    private IWebFormsControl _parent;
 
 
     /// <summary>CompositeDataBoundControl overload (GridView-derived controls).</summary>
@@ -946,6 +960,55 @@ public abstract class LegacyFileUpload : LegacyWebControl
     public Stream FileContent => Stream.Null;
 
     protected override string TagName => "input";
+}
+
+/// <summary>
+/// Substitute base for classes deriving System.Web.UI.WebControls.Image.
+///
+/// Such a class used to map onto LegacyWebControl, which has no ImageUrl - and ImageUrl is
+/// what an image subclass is written against: n2's ResizedImage reads it to build its
+/// resized URL. Renders what the Image component does (and 4.8 measured): an img with the
+/// resolved src, alt only when AlternateText is set, align unless NotSet.
+/// </summary>
+public class LegacyImage : LegacyWebControl
+{
+    public virtual string ImageUrl { get; set; } = string.Empty;
+
+    public virtual string AlternateText { get; set; } = string.Empty;
+
+    public virtual string DescriptionUrl { get; set; } = string.Empty;
+
+    public virtual bool GenerateEmptyAlternateText { get; set; }
+
+    public virtual string ImageAlign { get; set; } = "NotSet";
+
+    protected override string TagName => "img";
+
+    protected override void AddAttributesToRender(HtmlTextWriter writer)
+    {
+        base.AddAttributesToRender(writer);
+        if (!string.IsNullOrEmpty(ImageUrl))
+        {
+            writer.AddAttribute("src", UrlMapper.ResolveUrl(ImageUrl));
+        }
+        if (!string.IsNullOrEmpty(AlternateText) || GenerateEmptyAlternateText)
+        {
+            writer.AddAttribute("alt", AlternateText ?? string.Empty);
+        }
+        if (!string.IsNullOrEmpty(DescriptionUrl))
+        {
+            writer.AddAttribute("longdesc", UrlMapper.ResolveUrl(DescriptionUrl));
+        }
+        if (!string.IsNullOrEmpty(ImageAlign) && !ImageAlign.Equals("NotSet", StringComparison.OrdinalIgnoreCase))
+        {
+            writer.AddAttribute("align", ImageAlign.ToLowerInvariant());
+        }
+    }
+
+    /// <summary>An img has no content; its children, if any, are not rendered by the original either.</summary>
+    protected override void RenderContents(HtmlTextWriter writer)
+    {
+    }
 }
 
 /// <summary>Substitute base for classes deriving System.Web.UI.WebControls.HyperLink.</summary>

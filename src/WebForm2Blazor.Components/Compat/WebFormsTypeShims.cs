@@ -535,6 +535,29 @@ public class Parameter
     protected virtual object Evaluate(HttpContext context, IWebFormsControl control) => DefaultValue;
 }
 
+/// <summary>
+/// System.Web.UI.WebControls.ParameterCollection equivalent: a data source's named
+/// parameters, as ported code fills them before calling Delete / Update.
+/// </summary>
+public class ParameterCollection : List<Parameter>
+{
+    public Parameter this[string name]
+        => this.FirstOrDefault(parameter => string.Equals(parameter.Name, name, StringComparison.OrdinalIgnoreCase));
+
+    /// <summary>WebForms Add(name, value): a parameter whose value is that string.</summary>
+    public int Add(string name, string value)
+    {
+        Add(new Parameter(name, value));
+        return Count - 1;
+    }
+
+    public int Add(string name, TypeCode type, string value)
+    {
+        Add(new Parameter(name, value) { Type = type.ToString() });
+        return Count - 1;
+    }
+}
+
 /// <summary>System.Web.UI.OutputCacheParameters equivalent (declaration surface).</summary>
 public sealed class OutputCacheParameters
 {
@@ -883,6 +906,36 @@ public class SqlMembershipProvider : MembershipProvider
     public override void UpdateUser(MembershipUser user) => throw NotPorted();
 
     public override bool ValidateUser(string username, string password) => throw NotPorted();
+}
+
+/// <summary>System.Web.Security.MembershipValidatePasswordEventHandler equivalent.</summary>
+public delegate void MembershipValidatePasswordEventHandler(object sender, ValidatePasswordEventArgs e);
+
+/// <summary>
+/// System.Web.Security.MembershipCreateUserException equivalent: what a provider throws
+/// when it refuses to create a user, carrying the reason as a status.
+/// </summary>
+public class MembershipCreateUserException : Exception
+{
+    public MembershipCreateUserException()
+    {
+    }
+
+    public MembershipCreateUserException(string message)
+        : base(message)
+    {
+    }
+
+    public MembershipCreateUserException(string message, Exception innerException)
+        : base(message, innerException)
+    {
+    }
+
+    public MembershipCreateUserException(MembershipCreateStatus statusCode)
+        : base(statusCode.ToString())
+        => StatusCode = statusCode;
+
+    public MembershipCreateStatus StatusCode { get; } = MembershipCreateStatus.ProviderError;
 }
 
 /// <summary>System.Web.Security.ValidatePasswordEventArgs equivalent.</summary>

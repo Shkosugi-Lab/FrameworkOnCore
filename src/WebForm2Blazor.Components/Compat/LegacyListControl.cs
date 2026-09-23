@@ -107,8 +107,6 @@ public class LegacyListControl : ListControl
 
     public object DataSource { get; set; }
 
-    public string DataSourceID { get; set; } = string.Empty;
-
     public string DataTextField { get; set; } = string.Empty;
 
     public string DataValueField { get; set; } = string.Empty;

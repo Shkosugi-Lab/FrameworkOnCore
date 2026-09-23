@@ -73,6 +73,54 @@ public class ObjectDataSource : ComponentBase, IWebFormsControl
             : method.Invoke(instance, [0, int.MaxValue]);
     }
 
+    [Parameter] public string DeleteMethod { get; set; }
+
+    /// <summary>WebForms ObjectDataSource.DeleteParameters: the arguments Delete passes by name.</summary>
+    public ParameterCollection DeleteParameters { get; } = [];
+
+    /// <summary>
+    /// WebForms ObjectDataSource.Delete: calls DeleteMethod on TypeName with
+    /// DeleteParameters matched to its parameters by name (converted to their types), and
+    /// returns the affected-row count when the method returns an int, as the original does.
+    /// n2's user list deletes a user this way: DeleteParameters.Add("userName", ...) then Delete().
+    /// </summary>
+    public int Delete()
+    {
+        if (string.IsNullOrEmpty(TypeName) || string.IsNullOrEmpty(DeleteMethod))
+        {
+            throw new InvalidOperationException($"ObjectDataSource '{ID}': TypeName と DeleteMethod が必要です。");
+        }
+
+        var type = ResolveType(TypeName)
+            ?? throw new InvalidOperationException($"ObjectDataSource: 型 '{TypeName}' が見つかりません。");
+
+        var names = DeleteParameters.Select(parameter => parameter.Name).ToHashSet(StringComparer.OrdinalIgnoreCase);
+        var method = type.GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static)
+            .Where(candidate => candidate.Name == DeleteMethod)
+            .FirstOrDefault(candidate => candidate.GetParameters().Length == names.Count
+                                         && candidate.GetParameters().All(parameter => names.Contains(parameter.Name)))
+            ?? throw new InvalidOperationException(
+                $"ObjectDataSource: '{TypeName}.{DeleteMethod}' に引数 ({string.Join(", ", names)}) の合うオーバーロードがありません。");
+
+        var arguments = method.GetParameters()
+            .Select(parameter => ConvertArgument(DeleteParameters[parameter.Name]?.DefaultValue, parameter.ParameterType))
+            .ToArray();
+        var instance = method.IsStatic ? null : Activator.CreateInstance(type);
+        return method.Invoke(instance, arguments) is int affected ? affected : -1;
+    }
+
+    private static object ConvertArgument(string value, Type target)
+    {
+        if (target == typeof(string) || value is null)
+        {
+            return value;
+        }
+        var underlying = Nullable.GetUnderlyingType(target) ?? target;
+        return underlying.IsEnum
+            ? Enum.Parse(underlying, value, ignoreCase: true)
+            : Convert.ChangeType(value, underlying, System.Globalization.CultureInfo.InvariantCulture);
+    }
+
     private static Type ResolveType(string typeName)
     {
         var direct = Type.GetType(typeName);

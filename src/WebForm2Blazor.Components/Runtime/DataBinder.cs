@@ -45,6 +45,13 @@ public sealed class RepeaterItem(object dataItem, int itemIndex) : IWebFormsCont
     /// </summary>
     private readonly ControlCollection _children = [];
 
+    /// <summary>
+    /// WebForms Control.Parent: the data-bound control that owns this row (the Repeater,
+    /// DataList, GridView or ListView), so "item.Parent.Parent" climbs to the row that
+    /// control itself sits in.
+    /// </summary>
+    public IWebFormsControl Parent { get; internal set; }
+
     public object DataItem { get; internal set; } = dataItem;
     public int ItemIndex { get; internal set; } = itemIndex;
 

@@ -127,7 +127,7 @@
 
             <CascadingValue TValue="RepeaterItem" Value="container" IsFixed="true">
                 <CascadingValue TValue="ICommandSink" Value="commandContext" IsFixed="true">
-                    @(SelectTemplate(index)?.Invoke(container))
+                    @(DataItemScope.Render(container, SelectTemplate(index)?.Invoke(container)))
                 </CascadingValue>
             </CascadingValue>
         }
@@ -139,7 +139,7 @@
     /// <summary>WebForms DataBind() equivalent.</summary>
     public override void DataBind()
     {
-        RowContainers.Rebind(_containers, DataSourceHelper.Materialize(DataSource), namingContainerId: ID);
+        RowContainers.Rebind(_containers, DataSourceHelper.Materialize(DataSource), namingContainerId: ID, owner: this);
         _pendingItemDataBound = true;
         StateHasChanged();
     }

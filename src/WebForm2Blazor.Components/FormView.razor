@@ -10,14 +10,14 @@
         <table @attributes="ExtraAttributes" style="@TableStyle" cellspacing="0" id="@ClientID" class="@CssClass">
             <tbody>
                 <tr>
-                    <td colspan="2">@ItemTemplate(new RepeaterItem(_dataItem, 0))</td>
+                    <td colspan="2">@(DataItemScope.Render(_dataItem, ItemTemplate(new RepeaterItem(_dataItem, 0))))</td>
                 </tr>
             </tbody>
         </table>
     }
     else
     {
-        @ItemTemplate(new RepeaterItem(_dataItem, 0))
+        @(DataItemScope.Render(_dataItem, ItemTemplate(new RepeaterItem(_dataItem, 0))))
     }
 }
 

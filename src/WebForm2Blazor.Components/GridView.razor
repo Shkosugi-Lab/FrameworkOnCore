@@ -107,7 +107,7 @@
                                        (and RowDeleting / RowEditing for the standard command names) *@
                                     <CascadingValue TValue="RepeaterItem" Value="container" IsFixed="true">
                                         <CascadingValue TValue="ICommandSink" Value="(ICommandSink)commandContext" IsFixed="true">
-                                            @rowTemplate(container)
+                                            @(DataItemScope.Render(container, rowTemplate(container)))
                                         </CascadingValue>
                                     </CascadingValue>
                                 }
@@ -850,7 +850,7 @@
 
         // Containers stay index-stable across binds so FindControl keeps resolving;
         // ItemIndex is absolute (page offset included), matching WebForms templates
-        RowContainers.Rebind(_rowContainers, viewRows, AllowPaging && PageSize > 0 ? _pageIndex * PageSize : 0, ID);
+        RowContainers.Rebind(_rowContainers, viewRows, AllowPaging && PageSize > 0 ? _pageIndex * PageSize : 0, ID, this);
 
         _gridRows.Clear();
         for (var i = 0; i < _rowContainers.Count; i++)

@@ -637,7 +637,7 @@ public static class ControlMappings
             // resolve it via the host registry and call Select()
             Component = "ObjectDataSource",
             Attributes = Map("ID", "TypeName", "SelectMethod", "SelectCountMethod",
-                "EnablePaging", "StartRowIndexParameterName", "MaximumRowsParameterName"),
+                "EnablePaging", "StartRowIndexParameterName", "MaximumRowsParameterName", "DeleteMethod"),
         },
         ["SiteMapDataSource"] = new()
         {

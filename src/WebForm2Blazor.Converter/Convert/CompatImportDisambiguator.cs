@@ -394,6 +394,16 @@ public sealed class CompatImportDisambiguator
                 continue;
             }
 
+            // In an EXPRESSION, C# looks for a local, a parameter or a member of the
+            // enclosing types before it looks at namespaces at all, so only a name none of
+            // those claims can be captured. n2's wizard page holds "protected LocationWizard
+            // Wizard;" inside namespace N2.Edit.Wizard and calls Wizard.GetLocations(); read
+            // as a namespace capture, the field became WebForm2Blazor.Components.Wizard.
+            if (node is MemberAccessExpressionSyntax && NamesAValueInScope(node, head))
+            {
+                continue;
+            }
+
             var enclosing = node.Ancestors().OfType<BaseNamespaceDeclarationSyntax>().FirstOrDefault();
             if (enclosing is null)
             {
@@ -422,6 +432,48 @@ public sealed class CompatImportDisambiguator
                         ? SyntaxFactory.ParseName(replacements[original])
                         : (SyntaxNode)SyntaxFactory.ParseExpression(replacements[original]))
                     .WithTriviaFrom(original));
+    }
+
+    /// <summary>
+    /// Whether a simple name in an expression is claimed by something C# consults before
+    /// namespaces: a member of an enclosing type, or a parameter or local of the enclosing
+    /// member. Anywhere in that member counts, not only the declarations in scope at the
+    /// node - erring towards "claimed" leaves the name as the source wrote it, which is
+    /// what compiled. Members inherited from a base in another file are not visible here.
+    /// </summary>
+    private static bool NamesAValueInScope(SyntaxNode node, string name)
+    {
+        foreach (var type in node.Ancestors().OfType<TypeDeclarationSyntax>())
+        {
+            foreach (var member in type.Members)
+            {
+                var declares = member switch
+                {
+                    FieldDeclarationSyntax field => field.Declaration.Variables.Any(v => v.Identifier.Text == name),
+                    EventFieldDeclarationSyntax @event => @event.Declaration.Variables.Any(v => v.Identifier.Text == name),
+                    PropertyDeclarationSyntax property => property.Identifier.Text == name,
+                    EventDeclarationSyntax @event => @event.Identifier.Text == name,
+                    MethodDeclarationSyntax method => method.Identifier.Text == name,
+                    _ => false,
+                };
+                if (declares)
+                {
+                    return true;
+                }
+            }
+        }
+
+        var body = node.Ancestors().FirstOrDefault(ancestor =>
+            ancestor is MemberDeclarationSyntax and not BaseTypeDeclarationSyntax);
+        return body is not null && body.DescendantNodesAndSelf().Any(declaration => declaration switch
+        {
+            ParameterSyntax parameter => parameter.Identifier.Text == name,
+            VariableDeclaratorSyntax variable => variable.Identifier.Text == name,
+            ForEachStatementSyntax forEach => forEach.Identifier.Text == name,
+            CatchDeclarationSyntax @catch => @catch.Identifier.Text == name,
+            SingleVariableDesignationSyntax designation => designation.Identifier.Text == name,
+            _ => false,
+        });
     }
 
     /// <summary>

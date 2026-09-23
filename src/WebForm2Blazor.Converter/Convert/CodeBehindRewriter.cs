@@ -122,7 +122,7 @@ public static class CodeBehindRewriter
         if (classDeclaration is null)
         {
             report.Error(sourceName, $"コードビハインドに partial class {component.ComponentName} が見つかりません。");
-            return RewriteQualifiedFrameworkTypes(RewriteSyntax(root, sourceName, report).ToFullString());
+            return RewriteQualifiedFrameworkTypes(RewriteSyntax(root, sourceName, report, portedTypes).ToFullString());
         }
 
         // A .razor always generates "partial class", so the code-behind half has to be
@@ -210,7 +210,7 @@ public static class CodeBehindRewriter
         updated = InsertGeneratedMembers(updated, component, sourceName, report);
 
         root = root.ReplaceNode(classDeclaration, updated);
-        return RewriteQualifiedFrameworkTypes(RewriteSyntax(root, sourceName, report).ToFullString());
+        return RewriteQualifiedFrameworkTypes(RewriteSyntax(root, sourceName, report, portedTypes).ToFullString());
     }
 
     /// <summary>
@@ -430,7 +430,9 @@ public static class CodeBehindRewriter
         // PlaceHolder in a <span id="..."> the original never rendered - BlogEngine's
         // "WidgetZone : PlaceHolder" calls base.Render between its own <div> tags.
         ["PlaceHolder"] = "LegacyPlaceHolder",
-        ["Image"] = "LegacyWebControl",
+        // An image subclass is written against ImageUrl / AlternateText, which
+        // LegacyWebControl does not have (n2's ResizedImage). Same arrangement as LegacyHyperLink.
+        ["Image"] = "LegacyImage",
         // Same reason as the block above, found by re-measuring CS0115: the compat
         // counterpart of each of these is a Blazor COMPONENT, which a ported plain class
         // cannot derive from, so its Render / OnPreRender overrides had nothing to bind to
@@ -977,7 +979,7 @@ public static class CodeBehindRewriter
         // IWebFormsControl and then nothing imported it. Same shape in a global-usings
         // project, where the per-file import list is empty by construction.
         var bodyRewritten = DropOverridesTheCompatBaseDoesNotHave(
-            RewriteSyntax(root, sourceName, report), sourceName, report, portedTypes);
+            RewriteSyntax(root, sourceName, report, portedTypes), sourceName, report, portedTypes);
 
         // Dropped System.Web usings mean the file references that API surface
         // (HttpContext, HttpUtility, ...) - the compatibility namespace supplies it
@@ -1003,14 +1005,13 @@ public static class CodeBehindRewriter
     /// to reason about the SHAPE of the code rather than the spelling of a name.
     /// </summary>
     private static CompilationUnitSyntax RewriteSyntax(
-        CompilationUnitSyntax root, string? sourceName, ConversionReport? report)
-        => FieldKeywordRewriter.Rewrite(
-            RemovedEmitApis.Rewrite(
-                (CompilationUnitSyntax)new HtmlGenericControlRewriter().Visit(RewriteControlReferences(root)),
-                sourceName,
-                report),
-            sourceName,
-            report);
+        CompilationUnitSyntax root, string? sourceName, ConversionReport? report, PortedTypeIndex? portedTypes)
+    {
+        var rewritten = (CompilationUnitSyntax)new HtmlGenericControlRewriter().Visit(RewriteControlReferences(root));
+        rewritten = RemovedEmitApis.Rewrite(rewritten, sourceName, report);
+        rewritten = FieldKeywordRewriter.Rewrite(rewritten, sourceName, report);
+        return ColorAssignmentRewriter.Rewrite(rewritten, sourceName, report, portedTypes);
+    }
 
     /// <summary>
     /// Maps System.Web.UI.Control REFERENCES onto IWebFormsControl.

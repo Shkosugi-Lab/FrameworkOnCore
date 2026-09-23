@@ -26,6 +26,18 @@
     [Parameter] public RenderFragment CustomNavigationTemplate { get; set; }
 
     /// <summary>
+    /// WebForms TemplatedWizardStep.CustomNavigationTemplateContainer: the control holding
+    /// the step's navigation buttons, which ported code searches by ID to restyle them
+    /// (n2's new-user page adds "btn" to StepNextButtonButton).
+    ///
+    /// Null. The compat Wizard draws its navigation as plain markup, not as Button
+    /// controls, so there is no control to hand back - and inventing one would let the
+    /// restyling "succeed" on a button nothing renders. Code that dereferences it fails
+    /// there, at the line that needs attention.
+    /// </summary>
+    public IWebFormsControl CustomNavigationTemplateContainer => null;
+
+    /// <summary>
     /// WebForms ContentTemplateContainer. The step itself: FindControl on it reaches the
     /// controls declared inside, which is what BlogEngine's register page walks.
     /// </summary>

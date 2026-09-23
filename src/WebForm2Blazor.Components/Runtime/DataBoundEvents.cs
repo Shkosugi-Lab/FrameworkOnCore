@@ -34,7 +34,7 @@ public delegate void ListViewItemEventHandler(object sender, ListViewItemEventAr
 internal static class RowContainers
 {
     public static void Rebind(List<RepeaterItem> containers, List<object> rows, int indexOffset = 0,
-        string namingContainerId = null)
+        string namingContainerId = null, IWebFormsControl owner = null)
     {
         for (var i = 0; i < rows.Count; i++)
         {
@@ -44,6 +44,7 @@ internal static class RowContainers
                 containers[i].ItemIndex = indexOffset + i;
                 containers[i].ClientIndex = i;
                 containers[i].NamingContainerId = namingContainerId;
+                containers[i].Parent = owner;
             }
             else
             {
@@ -51,6 +52,7 @@ internal static class RowContainers
                 {
                     ClientIndex = i,
                     NamingContainerId = namingContainerId,
+                    Parent = owner,
                 });
             }
         }

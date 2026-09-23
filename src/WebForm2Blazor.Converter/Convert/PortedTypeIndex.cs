@@ -110,6 +110,9 @@ public sealed class PortedTypeIndex
     /// <summary>Whether this name belongs to a ported class.</summary>
     public bool Declares(string simpleName) => _types.ContainsKey(simpleName);
 
+    /// <summary>Whether any ported class declares a member of this name.</summary>
+    public bool AnyTypeDeclaresMember(string member) => _types.Values.Any(type => type.Members.Contains(member));
+
     /// <summary>
     /// The first base above the ported classes, as the source wrote it - where a chain of
     /// the application's own classes meets the framework - or null for no base or a cycle.

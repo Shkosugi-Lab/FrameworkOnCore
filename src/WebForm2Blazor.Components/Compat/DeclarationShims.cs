@@ -156,6 +156,14 @@ public enum PathDirection
 public class ListControl : LegacyWebControl
 {
     /// <summary>
+    /// WebForms DataBoundControl.DataSourceID. Carried and inert: no list control binds
+    /// from a data source control by ID here. Ported code mostly clears it
+    /// ("cblRoles.DataSourceID = null") before assigning DataSource itself, which is the
+    /// path that does work.
+    /// </summary>
+    public virtual string DataSourceID { get; set; } = string.Empty;
+
+    /// <summary>
     /// A ListItemCollection, not a bare List. WebForms' collection carries FindByValue /
     /// FindByText and an Add(string) overload, and ported code uses them - a plain List
     /// compiles until the first "Items.FindByText(...)", which is where a list control is
@@ -618,7 +626,7 @@ public abstract class TemplateControl
 {
     public virtual IWebFormsControl LoadControl(string virtualPath) => UserControlCatalog.Create(virtualPath);
 
-    public virtual object Eval(string expression) => null;
+    public virtual object Eval(string expression) => DataItemScope.Eval(expression);
 
     public virtual string AppRelativeVirtualPath { get; set; } = string.Empty;
 }
@@ -874,6 +882,12 @@ public delegate void TreeNodeEventHandler(object sender, TreeNodeEventArgs e);
 /// </summary>
 public class LegacyTreeView : LegacyWebControl
 {
+    /// <summary>
+    /// WebForms TreeView.Target: the default target window for node links. Carried for a
+    /// ported tree that renders its own anchors (n2's TreeView writes it per node).
+    /// </summary>
+    public virtual string Target { get; set; } = string.Empty;
+
     public TreeNodeCollection Nodes { get; } = [];
 
     public TreeNode SelectedNode { get; set; }
@@ -1685,6 +1699,13 @@ public enum ProfileAuthenticationOption
 /// <summary>System.Web.UI.HtmlControls.HtmlContainerControl equivalent.</summary>
 public class HtmlContainerControl : LegacyWebControl
 {
+    public HtmlContainerControl()
+    {
+    }
+
+    /// <summary>WebForms HtmlContainerControl(string tag): a container for that element.</summary>
+    public HtmlContainerControl(string tag) => TagName = tag;
+
     public virtual string InnerHtml { get; set; } = string.Empty;
 
     public virtual string InnerText { get; set; } = string.Empty;
@@ -1811,6 +1832,16 @@ public abstract class VirtualDirectory(string virtualPath) : VirtualFileBase
 /// </summary>
 public class ProfileInfo(string userName)
 {
+    /// <summary>The constructor a profile provider builds its results with.</summary>
+    public ProfileInfo(string username, bool isAnonymous, DateTime lastActivityDate, DateTime lastUpdatedDate, int size)
+        : this(username)
+    {
+        IsAnonymous = isAnonymous;
+        LastActivityDate = lastActivityDate;
+        LastUpdatedDate = lastUpdatedDate;
+        Size = size;
+    }
+
     public string UserName { get; } = userName;
 
     public DateTime LastActivityDate { get; set; }
@@ -2068,7 +2099,7 @@ public class ProviderSettingsCollection : System.Collections.ObjectModel.KeyedCo
 /// cast produces null and the caller's own error handling runs - which is what happens on
 /// 4.8 too when the section is absent.
 /// </summary>
-public class MembershipSection
+public class MembershipSection : System.Configuration.ConfigurationSection
 {
     public string DefaultProvider { get; set; }
 

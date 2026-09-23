@@ -100,7 +100,10 @@ public interface IWebFormsControl
 
     /// <summary>
     /// WebForms Control.Parent. Blazor owns the tree and does not expose a parent, so this
-    /// is null unless something placed the control explicitly.
+    /// is null unless something placed the control explicitly. The control base answers
+    /// it (the control a Controls.Add put it in, else its data-bound row), and so does
+    /// RepeaterItem (its owning control) - n2's security page reads
+    /// "(RepeaterItem)item.Parent.Parent" to reach the outer row of a nested repeater.
     /// </summary>
     IWebFormsControl Parent => null;
 

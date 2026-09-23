@@ -17,6 +17,7 @@
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -35,6 +36,7 @@
     <Compile Include="ProbeData.cs" />
     <Compile Include="ProbeControls.cs" />
     <Compile Include="ProbeEmit.cs" />
+    <Compile Include="ProbeConversions.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

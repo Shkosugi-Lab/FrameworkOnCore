@@ -444,6 +444,17 @@ public class Page : ComponentBase, IWebFormsHost, IWebFormsControl
     }
 
     /// <summary>WebForms data-binding expression &lt;%# Eval("X") %&gt; equivalent.</summary>
+    /// <summary>
+    /// WebForms TemplateControl.Eval(expression) - the form a code-behind helper uses, with
+    /// no container: it reads the data item of the row being rendered (DataItemScope).
+    /// </summary>
+    protected object Eval(string expression) => DataItemScope.Eval(expression);
+
+    protected string Eval(string expression, string format) => DataItemScope.Eval(expression, format);
+
+    /// <summary>WebForms Page.GetDataItem(): the data item of the row being rendered.</summary>
+    public object GetDataItem() => DataItemScope.Current;
+
     protected static object Eval(object container, string expression)
         => DataBinder.Eval(container, expression);
 
@@ -892,6 +903,17 @@ public abstract class WebFormsUserControl : UserControl, IWebFormsHost, IWebForm
     {
     }
 
+    /// <summary>
+    /// WebForms TemplateControl.Eval(expression) - the form a code-behind helper uses, with
+    /// no container: it reads the data item of the row being rendered (DataItemScope).
+    /// </summary>
+    protected object Eval(string expression) => DataItemScope.Eval(expression);
+
+    protected string Eval(string expression, string format) => DataItemScope.Eval(expression, format);
+
+    /// <summary>WebForms Page.GetDataItem(): the data item of the row being rendered.</summary>
+    public object GetDataItem() => DataItemScope.Current;
+
     protected static object Eval(object container, string expression)
         => DataBinder.Eval(container, expression);
 
@@ -1029,6 +1051,17 @@ public abstract class WebFormsLayout : LayoutComponentBase, IWebFormsHost
 
     /// <inheritdoc cref="Page.EnableTheming"/>
     public virtual bool EnableTheming { get; set; } = true;
+
+    /// <summary>
+    /// WebForms TemplateControl.Eval(expression) - the form a code-behind helper uses, with
+    /// no container: it reads the data item of the row being rendered (DataItemScope).
+    /// </summary>
+    protected object Eval(string expression) => DataItemScope.Eval(expression);
+
+    protected string Eval(string expression, string format) => DataItemScope.Eval(expression, format);
+
+    /// <summary>WebForms Page.GetDataItem(): the data item of the row being rendered.</summary>
+    public object GetDataItem() => DataItemScope.Current;
 
     protected static object Eval(object container, string expression)
         => DataBinder.Eval(container, expression);

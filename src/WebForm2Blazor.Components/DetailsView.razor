@@ -25,7 +25,7 @@
                         }
                         else if (field is TemplateField { ItemTemplate: not null } templateField)
                         {
-                            @templateField.ItemTemplate(new RepeaterItem(_dataItem, 0))
+                            @(DataItemScope.Render(_dataItem, templateField.ItemTemplate(new RepeaterItem(_dataItem, 0))))
                         }
                     </td>
                 </tr>

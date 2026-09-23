@@ -30,7 +30,7 @@
                                 var commandContext = new DataListCommandContext(this, container);
                                 <CascadingValue TValue="RepeaterItem" Value="container" IsFixed="true">
                                     <CascadingValue TValue="ICommandSink" Value="commandContext" IsFixed="true">
-                                        @(SelectTemplate(itemIndex)?.Invoke(container))
+                                        @(DataItemScope.Render(container, SelectTemplate(itemIndex)?.Invoke(container)))
                                     </CascadingValue>
                                 </CascadingValue>
                             }
@@ -186,7 +186,7 @@
     /// <summary>WebForms DataBind() equivalent.</summary>
     public override void DataBind()
     {
-        RowContainers.Rebind(_containers, DataSourceHelper.Materialize(DataSource), namingContainerId: ID);
+        RowContainers.Rebind(_containers, DataSourceHelper.Materialize(DataSource), namingContainerId: ID, owner: this);
         _pendingItemDataBound = true;
         StateHasChanged();
     }

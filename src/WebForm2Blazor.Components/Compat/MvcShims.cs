@@ -1434,3 +1434,62 @@ public class AreaRegistrationContext
 
     public object State { get; set; }
 }
+
+/// <summary>
+/// System.Web.Mvc.Html.LinkExtensions equivalent: HtmlHelper.ActionLink, an anchor to an
+/// action whose href comes from the route table (UrlHelper.Action). n2's own ActionLink
+/// helpers for content items are written on top of these overloads.
+///
+/// The anchor is what MVC renders: the encoded link text, the html attributes merged, and
+/// href last so it wins. A route that matches nothing gives href="" (the original's null
+/// URL renders the same way).
+/// </summary>
+public static class LinkExtensions
+{
+    public static MvcHtmlString ActionLink(this HtmlHelper htmlHelper, string linkText, string actionName)
+        => ActionLink(htmlHelper, linkText, actionName, null, new RouteValueDictionary(), new Dictionary<string, object>());
+
+    public static MvcHtmlString ActionLink(this HtmlHelper htmlHelper, string linkText, string actionName, object routeValues)
+        => ActionLink(htmlHelper, linkText, actionName, null, new RouteValueDictionary(routeValues), new Dictionary<string, object>());
+
+    public static MvcHtmlString ActionLink(this HtmlHelper htmlHelper, string linkText, string actionName, string controllerName)
+        => ActionLink(htmlHelper, linkText, actionName, controllerName, new RouteValueDictionary(), new Dictionary<string, object>());
+
+    public static MvcHtmlString ActionLink(this HtmlHelper htmlHelper, string linkText, string actionName, object routeValues, object htmlAttributes)
+        => ActionLink(htmlHelper, linkText, actionName, null, new RouteValueDictionary(routeValues), new RouteValueDictionary(htmlAttributes));
+
+    public static MvcHtmlString ActionLink(this HtmlHelper htmlHelper, string linkText, string actionName, RouteValueDictionary routeValues)
+        => ActionLink(htmlHelper, linkText, actionName, null, routeValues, new Dictionary<string, object>());
+
+    public static MvcHtmlString ActionLink(this HtmlHelper htmlHelper, string linkText, string actionName, RouteValueDictionary routeValues, IDictionary<string, object> htmlAttributes)
+        => ActionLink(htmlHelper, linkText, actionName, null, routeValues, htmlAttributes);
+
+    public static MvcHtmlString ActionLink(this HtmlHelper htmlHelper, string linkText, string actionName, string controllerName, object routeValues, object htmlAttributes)
+        => ActionLink(htmlHelper, linkText, actionName, controllerName, new RouteValueDictionary(routeValues), new RouteValueDictionary(htmlAttributes));
+
+    public static MvcHtmlString ActionLink(
+        this HtmlHelper htmlHelper,
+        string linkText,
+        string actionName,
+        string controllerName,
+        RouteValueDictionary routeValues,
+        IDictionary<string, object> htmlAttributes)
+    {
+        if (string.IsNullOrEmpty(linkText))
+        {
+            throw new ArgumentException("Value cannot be null or empty.", nameof(linkText));
+        }
+
+        var url = new UrlHelper(htmlHelper?.ViewContext?.RequestContext, htmlHelper?.RouteCollection)
+            .Action(actionName, controllerName, routeValues);
+
+        var anchor = new TagBuilder("a");
+        anchor.SetInnerText(linkText);
+        if (htmlAttributes is not null)
+        {
+            anchor.MergeAttributes(htmlAttributes);
+        }
+        anchor.MergeAttribute("href", url ?? string.Empty, replaceExisting: true);
+        return new MvcHtmlString(anchor.ToString(TagRenderMode.Normal));
+    }
+}

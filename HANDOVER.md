@@ -412,8 +412,16 @@ bUnit・パリティ・be/wt は一切動かず、n2 の `new DropDownList()` �
 
 **n2 の現状(分割、2026-09-23)**: N2.dll はビルドが通り、変換後の N2.dll で n2 自身の
 `ProxyGenerator` が `ContentItem` のサブクラスのプロキシを生成・インターセプトできることを確認した
-(`[NonInterceptable]` の付いた `Title` 等が対象外なのは n2 の設計どおり)。ビルドエラーは次の段の
-`N2.Management` 50 件 / `N2.Extensions` 5 件で、アプリ本体は未コンパイルなので下限値。
+(`[NonInterceptable]` の付いた `Title` 等が対象外なのは n2 の設計どおり)。その後 `N2.Management`(50 件)/ `N2.Extensions`(5 件)も
+解消し、分割モードで初めてアプリ本体 `N2Templates` のコンパイルに届いた(34 件、下限ではない)。
+直したのは互換層の宣言不足(設定セクション群を `ConfigurationSection` 派生に、`FormsAuthentication
+.Authenticate` は fail closed、`HashPasswordForStoringInConfigFile` は本物のハッシュ、MVC の `ActionLink`、
+`ObjectDataSource.Delete`、`Control.Parent`、`LegacyImage`、コードビハインドの `Eval(式)` =
+`DataItemScope`)と、変換器の 2 件: 名前空間と同名のフィールドを互換層の型に書き換えていた
+(`CompatImportDisambiguator`。式の中ではメンバー・ローカルが名前空間より優先される)、
+`Color` を色プロパティへ代入するコードの文字列化(`ColorAssignmentRewriter`)。
+`CreateUserStep.CustomNavigationTemplateContainer` だけは実装できず null(互換 Wizard のボタンは
+コントロールではない)。n2 の新規ユーザー画面はその行で落ちる。
 
 その過程で見つけた **C# 14 の `field` キーワード問題**: アクセサー内の `field` が C# 14 では
 自動生成の裏側のフィールドを指すため、メンバー名が `field` のコード(DynamicProxy の

@@ -74,7 +74,7 @@ public abstract class WebFormsControlBase : ComponentBase, IWebFormsControl, IDi
         // field on a component does not put it back in the render queue, and the PARENT
         // calling StateHasChanged does not re-render a child whose parameters did not
         // change - so "childControl.Controls.Add(x)" added x and drew nothing.
-        Controls = new ControlCollection(MarkTouchedAndRefresh);
+        Controls = new ControlCollection(this, MarkTouchedAndRefresh);
     }
 
     /// <summary>
@@ -389,6 +389,19 @@ public abstract class WebFormsControlBase : ComponentBase, IWebFormsControl, IDi
     /// e.Item.FindControl / e.Row.FindControl work in ItemDataBound handlers.
     /// </summary>
     [CascadingParameter] protected RepeaterItem RowContainer { get; set; }
+
+    /// <summary>
+    /// WebForms Control.Parent: the control whose Controls this one was added to in code,
+    /// otherwise the data-bound row it is rendered in. Outside both there is no parent chain
+    /// to report - Blazor owns the tree and does not expose one - so it is null.
+    /// </summary>
+    public virtual IWebFormsControl Parent
+    {
+        get => AssignedParent ?? RowContainer;
+        set => AssignedParent = value;
+    }
+
+    internal IWebFormsControl AssignedParent { get; set; }
 
     /// <summary>
     /// Expando attributes the converter passes through from markup (WebForms

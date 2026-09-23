@@ -91,7 +91,7 @@ public class LegacyRepeater : LegacyWebControl, INamingContainer
 
     private RepeaterItem CreateItem(int itemIndex, ListItemType itemType, bool dataBind, object dataItem)
     {
-        var item = new RepeaterItem(itemIndex, itemType) { DataItem = dataItem };
+        var item = new RepeaterItem(itemIndex, itemType) { DataItem = dataItem, Parent = this };
         var template = itemType switch
         {
             ListItemType.Header => HeaderTemplate,
@@ -115,6 +115,26 @@ public class LegacyRepeater : LegacyWebControl, INamingContainer
     protected virtual void OnItemCreated(RepeaterItemEventArgs e) => ItemCreated?.Invoke(this, e);
 
     protected virtual void OnItemDataBound(RepeaterItemEventArgs e) => ItemDataBound?.Invoke(this, e);
+
+    /// <summary>WebForms Repeater.ItemCommand: a command raised by a control inside a row.</summary>
+    public event RepeaterCommandEventHandler ItemCommand;
+
+    protected virtual void OnItemCommand(RepeaterCommandEventArgs e) => ItemCommand?.Invoke(this, e);
+
+    /// <summary>
+    /// WebForms Repeater.OnBubbleEvent: a row's command arrives here as
+    /// RepeaterCommandEventArgs and is raised as ItemCommand, which is how the original
+    /// turned a button click inside a row into the repeater's event.
+    /// </summary>
+    protected override bool OnBubbleEvent(object source, EventArgs args)
+    {
+        if (args is RepeaterCommandEventArgs command)
+        {
+            OnItemCommand(command);
+            return true;
+        }
+        return false;
+    }
 
     /// <summary>A Repeater renders its rows and no element of its own.</summary>
     protected override void Render(HtmlTextWriter writer) => RenderChildren(writer);

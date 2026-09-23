@@ -932,6 +932,14 @@ public abstract class MembershipProvider
     public virtual void Initialize(string name, System.Collections.Specialized.NameValueCollection config)
         => config?.Remove("description");
 
+    /// <summary>
+    /// WebForms MembershipProvider.ValidatingPassword - raised by a provider through
+    /// OnValidatingPassword before it accepts a password, so the application can veto it.
+    /// </summary>
+    public event MembershipValidatePasswordEventHandler ValidatingPassword;
+
+    protected virtual void OnValidatingPassword(ValidatePasswordEventArgs e) => ValidatingPassword?.Invoke(this, e);
+
     public abstract string ApplicationName { get; set; }
     public abstract bool EnablePasswordReset { get; }
     public abstract bool EnablePasswordRetrieval { get; }
@@ -1592,9 +1600,21 @@ public class ControlCollection : List<IWebFormsControl>
     /// </summary>
     public ControlCollection(Action onChanged) => _onChanged = onChanged;
 
+    /// <summary>
+    /// WebForms ControlCollection(Control owner): a child added here gets the owner as its
+    /// Parent, as it did in WebForms.
+    /// </summary>
+    public ControlCollection(IWebFormsControl owner, Action onChanged)
+        : this(onChanged)
+        => Owner = owner;
+
+    /// <summary>The control this collection belongs to, when it was created with one.</summary>
+    public IWebFormsControl Owner { get; }
+
     /// <summary>WebForms AddAt equivalent (index clamped, unlike WebForms).</summary>
     public virtual void AddAt(int index, IWebFormsControl child)
     {
+        Adopt(child);
         Insert(Math.Clamp(index, 0, Count), child);
         _onChanged?.Invoke();
     }
@@ -1607,8 +1627,17 @@ public class ControlCollection : List<IWebFormsControl>
     /// </summary>
     public new virtual void Add(IWebFormsControl child)
     {
+        Adopt(child);
         base.Add(child);
         _onChanged?.Invoke();
+    }
+
+    private void Adopt(IWebFormsControl child)
+    {
+        if (Owner is not null && child is WebFormsControlBase control)
+        {
+            control.AssignedParent = Owner;
+        }
     }
 
     /// <summary>WebForms ControlCollection.Remove / RemoveAt / Clear.</summary>
@@ -1775,6 +1804,37 @@ public static class FormsAuthentication
     public static FormsAuthenticationTicket Decrypt(string encryptedTicket) => null;
 
     public static string GetRedirectUrl(string userName, bool createPersistentCookie) => DefaultUrl;
+
+    /// <summary>
+    /// WebForms FormsAuthentication.Authenticate: checks a name and password against the
+    /// &lt;credentials&gt; in web.config. Always false - those credentials are not carried
+    /// over, and a check that let anything through would be the opposite of fail-closed.
+    /// </summary>
+    public static bool Authenticate(string name, string password) => false;
+
+    /// <summary>
+    /// WebForms FormsAuthentication.HashPasswordForStoringInConfigFile: the upper-case hex
+    /// of the hash of the password's UTF-8 bytes. A real hash, byte for byte what 4.8 produced,
+    /// so stored hashes keep matching. "Clear" returns the password; anything else throws,
+    /// as the original does.
+    /// </summary>
+    public static string HashPasswordForStoringInConfigFile(string password, string passwordFormat)
+    {
+        ArgumentNullException.ThrowIfNull(password);
+        ArgumentNullException.ThrowIfNull(passwordFormat);
+        var bytes = System.Text.Encoding.UTF8.GetBytes(password);
+        byte[] hash = passwordFormat.ToUpperInvariant() switch
+        {
+            "SHA1" => System.Security.Cryptography.SHA1.HashData(bytes),
+            "MD5" => System.Security.Cryptography.MD5.HashData(bytes),
+            "SHA256" => System.Security.Cryptography.SHA256.HashData(bytes),
+            "SHA384" => System.Security.Cryptography.SHA384.HashData(bytes),
+            "SHA512" => System.Security.Cryptography.SHA512.HashData(bytes),
+            "CLEAR" => null,
+            _ => throw new ArgumentException($"Invalid password format '{passwordFormat}'.", nameof(passwordFormat)),
+        };
+        return hash is null ? password : Convert.ToHexString(hash);
+    }
 }
 
 /// <summary>
@@ -1898,9 +1958,16 @@ public sealed class ServerUtilityShim(NavigationManager navigation) : HttpServer
 /// System.Web.HttpFileCollection equivalent: the files posted with a request, by name and
 /// by position, as ported handlers read them.
 /// </summary>
-public sealed class HttpFileCollection
+public sealed class HttpFileCollection : System.Collections.IEnumerable
 {
     private readonly List<HttpPostedFileShim> _files = [];
+
+    /// <summary>
+    /// Enumerates the KEYS, as the original does - it is a NameObjectCollectionBase, and
+    /// "foreach (string key in Request.Files)" followed by Request.Files[key] is the
+    /// idiom (n2's media browser uploads that way).
+    /// </summary>
+    public System.Collections.IEnumerator GetEnumerator() => AllKeys.ToList().GetEnumerator();
 
     public int Count => _files.Count;
 

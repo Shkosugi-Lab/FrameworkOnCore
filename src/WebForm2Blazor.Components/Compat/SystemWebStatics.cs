@@ -15,7 +15,7 @@ namespace WebForm2Blazor.Components;
 /// code takes its "section missing" branch - the same path it took on 4.8 when the
 /// section was absent.
 /// </summary>
-public class CompilationSection
+public class CompilationSection : System.Configuration.ConfigurationSection
 {
     public bool Debug { get; set; }
     public string TargetFramework { get; set; }
@@ -30,7 +30,7 @@ public class CompilationSection
 /// <see cref="CompilationSection"/>: the section is never returned, so a cast yields null and
 /// the caller takes its "section missing" branch. Authentication itself is ASP.NET Core's.
 /// </summary>
-public class AuthenticationSection
+public class AuthenticationSection : System.Configuration.ConfigurationSection
 {
     public AuthenticationMode Mode { get; set; } = AuthenticationMode.Windows;
 
@@ -56,6 +56,108 @@ public class FormsAuthenticationConfiguration
     public string Name { get; set; } = ".ASPXAUTH";
 
     public TimeSpan Timeout { get; set; } = TimeSpan.FromMinutes(30);
+
+    /// <summary>
+    /// The &lt;credentials&gt; users of forms authentication. Carried as data: nothing here
+    /// authenticates against them (FormsAuthentication.Authenticate fails closed).
+    /// </summary>
+    public FormsAuthenticationCredentials Credentials { get; } = new();
+}
+
+/// <summary>System.Web.Configuration.FormsAuthenticationCredentials equivalent.</summary>
+public class FormsAuthenticationCredentials
+{
+    public FormsAuthPasswordFormat PasswordFormat { get; set; } = FormsAuthPasswordFormat.SHA1;
+
+    public FormsAuthenticationUserCollection Users { get; } = new();
+}
+
+/// <summary>System.Web.Configuration.FormsAuthPasswordFormat equivalent.</summary>
+public enum FormsAuthPasswordFormat
+{
+    Clear,
+    SHA1,
+    MD5,
+    SHA256,
+    SHA384,
+    SHA512,
+}
+
+/// <summary>System.Web.Configuration.FormsAuthenticationUser equivalent.</summary>
+public class FormsAuthenticationUser(string name, string password)
+{
+    public string Name { get; set; } = name;
+
+    public string Password { get; set; } = password;
+}
+
+/// <summary>
+/// System.Web.Configuration.FormsAuthenticationUserCollection equivalent. The name indexer
+/// answers null for a user that is not there, as configuration code expects.
+/// </summary>
+public class FormsAuthenticationUserCollection : System.Collections.ObjectModel.KeyedCollection<string, FormsAuthenticationUser>
+{
+    public FormsAuthenticationUserCollection()
+        : base(StringComparer.OrdinalIgnoreCase)
+    {
+    }
+
+    protected override string GetKeyForItem(FormsAuthenticationUser item) => item?.Name ?? string.Empty;
+
+    public new FormsAuthenticationUser this[string name]
+        => name is not null && Contains(name) ? base[name] : null;
+}
+
+/// <summary>
+/// System.Web.Configuration.RoleManagerSection equivalent (same terms as
+/// <see cref="CompilationSection"/>).
+/// </summary>
+public class RoleManagerSection : System.Configuration.ConfigurationSection
+{
+    public bool Enabled { get; set; }
+
+    public string DefaultProvider { get; set; } = "AspNetSqlRoleProvider";
+
+    public bool CacheRolesInCookie { get; set; }
+
+    public string CookieName { get; set; } = ".ASPXROLES";
+
+    public ProviderSettingsCollection Providers { get; } = [];
+}
+
+/// <summary>
+/// System.Web.Configuration.ProfileSection equivalent (same terms as
+/// <see cref="CompilationSection"/>).
+/// </summary>
+public class ProfileSection : System.Configuration.ConfigurationSection
+{
+    public bool Enabled { get; set; } = true;
+
+    public string DefaultProvider { get; set; } = "AspNetSqlProfileProvider";
+
+    public bool AutomaticSaveEnabled { get; set; } = true;
+
+    public ProviderSettingsCollection Providers { get; } = [];
+}
+
+/// <summary>
+/// System.Web.Configuration.HttpRuntimeSection equivalent (same terms as
+/// <see cref="CompilationSection"/>). The defaults are 4.8's, so code that reads a
+/// constructed one gets the numbers the original's machine.config gave it; request limits
+/// on the converted application are Kestrel's (MaxRequestBodySize), not these.
+/// </summary>
+public class HttpRuntimeSection : System.Configuration.ConfigurationSection
+{
+    /// <summary>In KB, as in web.config (4096 = 4 MB).</summary>
+    public int MaxRequestLength { get; set; } = 4096;
+
+    public TimeSpan ExecutionTimeout { get; set; } = TimeSpan.FromSeconds(110);
+
+    public int RequestLengthDiskThreshold { get; set; } = 80;
+
+    public bool EnableVersionHeader { get; set; } = true;
+
+    public string TargetFramework { get; set; } = "4.8";
 }
 
 /// <summary>
@@ -63,7 +165,7 @@ public class FormsAuthenticationConfiguration
 /// culture the converted application runs in comes from &lt;globalization&gt; through
 /// UseWebFormsGlobalization, not from this object.
 /// </summary>
-public class GlobalizationSection
+public class GlobalizationSection : System.Configuration.ConfigurationSection
 {
     public string Culture { get; set; } = string.Empty;
 
@@ -409,6 +511,41 @@ public static class VirtualPathUtility
 
     public static string MakeRelative(string fromPath, string toPath) => toPath;
 
+    /// <summary>
+    /// "/x" -> "~/x": the application-relative form of a path under the application root.
+    /// The converted application runs at "/" (HttpRuntime.AppDomainAppVirtualPath), so every
+    /// rooted path is under it. An already app-relative path is returned unchanged, and a
+    /// relative one throws, as the original does.
+    /// </summary>
+    public static string ToAppRelative(string virtualPath)
+    {
+        if (string.IsNullOrEmpty(virtualPath))
+        {
+            throw new ArgumentNullException(nameof(virtualPath));
+        }
+        if (virtualPath[0] == '~')
+        {
+            return virtualPath;
+        }
+        if (virtualPath[0] != '/')
+        {
+            throw new ArgumentException($"'{virtualPath}' is not an absolute virtual path.", nameof(virtualPath));
+        }
+        return "~" + virtualPath;
+    }
+
+    public static string ToAppRelative(string virtualPath, string applicationPath)
+    {
+        if (!string.IsNullOrEmpty(applicationPath) && applicationPath != "/"
+            && virtualPath is not null
+            && virtualPath.StartsWith(applicationPath.TrimEnd('/'), StringComparison.OrdinalIgnoreCase))
+        {
+            var rest = virtualPath[applicationPath.TrimEnd('/').Length..];
+            return "~" + (rest.StartsWith('/') ? rest : "/" + rest);
+        }
+        return ToAppRelative(virtualPath);
+    }
+
     public static string GetDirectory(string virtualPath)
     {
         if (string.IsNullOrEmpty(virtualPath))
@@ -509,6 +646,9 @@ public static class WebConfigurationManager
 public static class Membership
 {
     public static string ApplicationName { get; set; } = "/";
+
+    /// <summary>WebForms Membership.UserIsOnlineTimeWindow: minutes, the 4.8 default.</summary>
+    public static int UserIsOnlineTimeWindow => 15;
 
     public static int MinRequiredPasswordLength => 6;
 

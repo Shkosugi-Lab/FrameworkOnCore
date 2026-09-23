@@ -66,6 +66,27 @@ public abstract class WebFormsControlBase : ComponentBase, IWebFormsControl, IDi
         Controls = new ControlCollection(MarkTouchedAndRefresh);
     }
 
+    /// <summary>
+    /// ComponentBase.StateHasChanged, safe on a control that is not in the render tree yet.
+    ///
+    /// Blazor throws there ("The render handle is not yet assigned"). That never came up
+    /// while every component was created by markup, and it does now that a control built in
+    /// code is an ordinary case: n2cms creates a RangeValidator and sets it up before adding
+    /// it anywhere, and a DropDownList built in code is bound before it is placed. Its state
+    /// is simply kept, and the first render shows it - which is what WebForms did.
+    ///
+    /// Hides rather than overrides because ComponentBase's is not virtual. Every call a
+    /// component in this family makes resolves here; Blazor's own calls (after an event)
+    /// only happen once the component is attached.
+    /// </summary>
+    protected new void StateHasChanged()
+    {
+        if (_renderHandleReady)
+        {
+            base.StateHasChanged();
+        }
+    }
+
     private void MarkTouchedAndRefresh()
     {
         _stateTouched = true;
@@ -419,14 +440,32 @@ public abstract class WebFormsControlBase : ComponentBase, IWebFormsControl, IDi
         RunInitialLifecycle();
     }
 
+    private bool _initialLifecycleRan;
+
     /// <summary>
-    /// The lifecycle phases that run when this control first joins the render tree. A
-    /// component raises Init here and the rest as its markup is rendered; a render-based
-    /// control (LegacyWebControl) runs Init -> Load -> PreRender here, once, because that is
-    /// all of the lifecycle it gets before its Render - the order LegacyRenderHost has always
-    /// driven it in.
+    /// Init -> Load -> PreRender, once, before the control first renders - the order
+    /// WebForms raised them in on every control.
+    ///
+    /// Only Init used to be raised for a component; Load and PreRender were declared and
+    /// never fired. That was invisible while nothing but the compat layer's own components
+    /// derived from this class, and it is not once a ported control does: n2cms's
+    /// FreeTextArea is a TextBox that registers its editor script in OnPreRender, and on a
+    /// component that override simply never ran.
+    ///
+    /// Once, and guarded: a render-based control reaches it from OnInitialized AND from
+    /// LegacyRenderHost / RenderControl, and WebForms never ran a control's Init twice.
     /// </summary>
-    protected virtual void RunInitialLifecycle() => OnInit(EventArgs.Empty);
+    protected virtual void RunInitialLifecycle()
+    {
+        if (_initialLifecycleRan)
+        {
+            return;
+        }
+        _initialLifecycleRan = true;
+        OnInit(EventArgs.Empty);
+        OnLoad(EventArgs.Empty);
+        OnPreRender(EventArgs.Empty);
+    }
 
     protected override void OnParametersSet()
     {

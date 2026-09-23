@@ -1,5 +1,7 @@
 @namespace WebForm2Blazor.Components
-@inherits WebFormsControlBase
+@* A WebControl, as in System.Web, so a ported TextBox subclass (LegacyTextBox and what
+   derives from it) is a TextBox wherever one is expected. *@
+@inherits WebControl
 @implements IValueControl
 
 @if (Visible)
@@ -22,11 +24,14 @@
 }
 
 @code {
+    /// <summary>Drawn by the markup above, not by the Render(HtmlTextWriter) protocol.</summary>
+    protected override bool UsesRazorRendering => true;
+
     private string _text = string.Empty;
 
     /// <summary>WebForms TextBox.Text equivalent. Readable and writable from code-behind.</summary>
     [Parameter]
-    public string Text
+    public virtual string Text
     {
         get => _text;
         set
@@ -49,6 +54,9 @@
     /// </summary>
     public event EventHandler TextChanged;
 
+    /// <summary>WebForms TextBox.OnTextChanged - virtual, so a ported subclass can react first.</summary>
+    protected virtual void OnTextChanged(EventArgs e) => TextChanged?.Invoke(this, e);
+
     [Parameter] public bool ReadOnly { get; set; }
     [Parameter] public int MaxLength { get; set; }
     [Parameter] public int Rows { get; set; } = 2;
@@ -65,7 +73,17 @@
     /// way WebForms lets you write it - did not compile, and the renderer compared against
     /// two string literals, so every HTML5 mode silently rendered type="text".
     /// </summary>
-    [Parameter] public TextBoxMode TextMode { get; set; } = TextBoxMode.SingleLine;
+    [Parameter] public virtual TextBoxMode TextMode { get; set; } = TextBoxMode.SingleLine;
+
+    /// <summary>
+    /// WebForms TextBox.AutoPostBack / CausesValidation. Plain properties, not parameters:
+    /// the change event already raises TextChanged on commit (see HandleChange), which is
+    /// what AutoPostBack=true produced; ported subclasses and code-behind set them.
+    /// </summary>
+    public bool AutoPostBack { get; set; }
+
+    /// <inheritdoc cref="AutoPostBack"/>
+    public bool CausesValidation { get; set; }
 
     /// <summary>
     /// WebForms TextBox.ValidationGroup equivalent. Only meaningful with AutoPostBack
@@ -128,7 +146,7 @@
         if (!string.Equals(_text, _committed, StringComparison.Ordinal))
         {
             _committed = _text;
-            TextChanged?.Invoke(this, EventArgs.Empty);
+            OnTextChanged(EventArgs.Empty);
         }
     }
 

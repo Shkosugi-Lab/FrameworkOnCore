@@ -1,5 +1,6 @@
-﻿@namespace WebForm2Blazor.Components
-@inherits ValidatorBase
+@namespace WebForm2Blazor.Components
+@* A BaseCompareValidator, as in System.Web. *@
+@inherits BaseCompareValidator
 
 @if (ShowError)
 {
@@ -11,7 +12,6 @@
     [Parameter] public string MaximumValue { get; set; }
 
     /// <summary>String / Integer / Double / Date / Currency.</summary>
-    [Parameter] public string Type { get; set; } = "String";
 
     protected override bool EvaluateIsValid(string value, WebFormsHostCore host)
     {

@@ -135,4 +135,88 @@ public class UnifiedControlHierarchyTests : WebFormsTestContext
             componentIndex < fieldsetIndex + frames.Array[fieldsetIndex].ElementSubtreeLength,
             "DropDownList は fieldset の部分木の内側にあること");
     }
+
+    /// <summary>n2cms's FreeTextArea shape: a TextBox subclass that does not render itself.</summary>
+    private sealed class EditorTextArea : LegacyTextBox
+    {
+        public bool PreRenderRan { get; private set; }
+
+        public EditorTextArea()
+        {
+            CssClass = "ckeditor";
+            TextMode = TextBoxMode.MultiLine;
+        }
+
+        protected override void OnPreRender(EventArgs e)
+        {
+            base.OnPreRender(e);
+            PreRenderRan = true;
+        }
+    }
+
+    /// <summary>mojoPortal's CodeEditor shape: a TextBox subclass that takes over its rendering.</summary>
+    private sealed class SelfRenderingEditor : LegacyTextBox
+    {
+        protected override void Render(HtmlTextWriter writer) => writer.Write("<div class=\"code-editor\"></div>");
+    }
+
+    private sealed class TextEditorHost : WebFormsControlBase
+    {
+        public TextBox Plain { get; private set; }
+
+        public TextBox SelfRendered { get; private set; }
+
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+            // n2cms: "protected override TextBox CreateEditor() => new FreeTextArea();"
+            Plain = new EditorTextArea { ID = "txtBody" };
+            SelfRendered = new SelfRenderingEditor { ID = "txtCode" };
+            Controls.Add(Plain);
+            Controls.Add(SelfRendered);
+        }
+
+        protected override void BuildRenderTree(RenderTreeBuilder builder)
+            => builder.AddContent(0, DynamicChildren);
+    }
+
+    [Fact]
+    public void 描画を上書きしないTextBoxのサブクラスはTextBoxとして描画される()
+    {
+        var cut = RenderComponent<TextEditorHost>();
+
+        // WebForms' rule: no Render override, so it renders as the TextBox it is - the
+        // textarea, with the class the subclass set. The old render-based stand-in wrote
+        // "<input>text</input>", which is not a control at all.
+        var textarea = cut.Find("textarea#txtBody");
+        Assert.Equal("ckeditor", textarea.GetAttribute("class"));
+        Assert.True(((EditorTextArea)cut.Instance.Plain).PreRenderRan, "OnPreRender は実行されること");
+    }
+
+    [Fact]
+    public void 描画を上書きしたTextBoxのサブクラスは自分のRenderで描画される()
+    {
+        var cut = RenderComponent<TextEditorHost>();
+
+        Assert.NotNull(cut.Find("div.code-editor"));
+        Assert.Empty(cut.FindAll("#txtCode"));
+    }
+
+    [Fact]
+    public void コードで作った検証器はBaseValidatorとして扱え追加前に状態を設定できる()
+    {
+        // n2cms: "protected override BaseValidator CreateValidator() => new RangeValidator { ... }"
+        BaseValidator validator = new RangeValidator { ControlToValidate = "txtAge", ErrorMessage = "範囲外" };
+
+        // Before it is in any render tree. Blazor throws on a re-render request there; the
+        // state has to be kept for the first render instead.
+        validator.IsValid = false;
+        var list = new DropDownList();
+        list.DataSource = new[] { "a", "b" };
+        list.DataBind();
+
+        Assert.False(validator.IsValid);
+        Assert.Equal("範囲外", validator.ErrorMessage);
+        Assert.Equal(2, list.Items.Count);
+    }
 }

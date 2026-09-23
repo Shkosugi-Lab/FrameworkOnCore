@@ -498,17 +498,40 @@ public abstract class LegacyWebControl : WebFormsControlBase
     }
 
     /// <summary>
-    /// True when a subclass renders through Razor markup (it overrides BuildRenderTree)
-    /// rather than through Render(HtmlTextWriter) - DropDownList is a ListControl and draws
-    /// itself as a component.
+    /// True for a control drawn by Razor markup (DropDownList, TextBox) rather than by the
+    /// Render(HtmlTextWriter) protocol. Stated by the control rather than inferred from which
+    /// class declares BuildRenderTree: a render-based subclass can sit BELOW a Razor one
+    /// (a ported FreeTextArea under TextBox) and the declaring class says nothing about it.
     /// </summary>
-    private bool RendersAsComponent
-        => _rendersAsComponent ??= GetType().GetMethod(
+    protected virtual bool UsesRazorRendering
+        => _usesRazorRendering ??= GetType().GetMethod(
                    nameof(BuildRenderTree),
                    System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)
                ?.DeclaringType != typeof(LegacyWebControl);
 
-    private bool? _rendersAsComponent;
+    // The default asks the type: a Razor-generated class overrides BuildRenderTree. A class
+    // that sits under a Razor one and renders itself says so explicitly (LegacyTextBox).
+    private bool? _usesRazorRendering;
+
+    private static readonly string[] RenderProtocolMethods =
+    [
+        nameof(Render), nameof(RenderContents), nameof(RenderChildren), nameof(RenderBeginTag),
+        nameof(RenderEndTag), nameof(AddAttributesToRender), nameof(RenderControl),
+    ];
+
+    /// <summary>
+    /// Whether a class below <paramref name="boundary"/> overrides any part of the render
+    /// protocol. WebForms' own rule: a TextBox subclass that does not override Render IS
+    /// rendered as a TextBox. Only one that takes over its rendering renders itself.
+    /// </summary>
+    protected bool OverridesRenderingBelow(Type boundary)
+        => GetType()
+            .GetMethods(System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public
+                        | System.Reflection.BindingFlags.NonPublic)
+            .Where(method => RenderProtocolMethods.Contains(method.Name))
+            .Any(method => method.DeclaringType is { } declaring
+                           && declaring != boundary
+                           && boundary.IsAssignableFrom(declaring));
 
     public override void RenderControl(HtmlTextWriter writer)
     {
@@ -517,9 +540,9 @@ public abstract class LegacyWebControl : WebFormsControlBase
             return;
         }
 
-        // A Razor-rendered subclass cannot be written as text; it takes part the way any
+        // A Razor-rendered control cannot be written as text; it takes part the way any
         // component does (see WebFormsControlBase.RenderControl).
-        if (RendersAsComponent)
+        if (UsesRazorRendering)
         {
             base.RenderControl(writer);
             return;
@@ -615,39 +638,11 @@ public abstract class LegacyWebControl : WebFormsControlBase
     /// <summary>CompositeDataBoundControl overload (GridView-derived controls).</summary>
     protected virtual int CreateChildControls(System.Collections.IEnumerable dataSource, bool dataBinding) => 0;
 
-    private bool _lifecycleRan;
-
     /// <summary>
-    /// Runs Init -> Load -> PreRender, once, before the control first renders (WebForms
-    /// order). Once: a control that joins the render tree as a component gets here from
-    /// OnInitialized, and LegacyRenderHost / RenderControl call it too - WebForms never ran
-    /// a control's Init twice.
+    /// Init -> Load -> PreRender, once (see WebFormsControlBase.RunInitialLifecycle). The
+    /// name LegacyRenderHost has always called it by.
     /// </summary>
-    internal void RunLifecycle()
-    {
-        if (_lifecycleRan)
-        {
-            return;
-        }
-        _lifecycleRan = true;
-        OnInit(EventArgs.Empty);
-        OnLoad(EventArgs.Empty);
-        OnPreRender(EventArgs.Empty);
-    }
-
-    /// <summary>
-    /// A render-based control gets its whole pre-render lifecycle here. A Razor-rendered
-    /// subclass (DropDownList) keeps the component's: Init now, the rest as it renders.
-    /// </summary>
-    protected override void RunInitialLifecycle()
-    {
-        if (RendersAsComponent)
-        {
-            base.RunInitialLifecycle();
-            return;
-        }
-        RunLifecycle();
-    }
+    internal void RunLifecycle() => RunInitialLifecycle();
 
     /// <summary>
     /// How Blazor draws a render-based control: the Render protocol into a writer.
@@ -659,10 +654,24 @@ public abstract class LegacyWebControl : WebFormsControlBase
     /// its own closes it on the spot.
     /// </summary>
     protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder builder)
+        => BuildRenderTreeFromRender(builder);
+
+    /// <summary>
+    /// The render-protocol build itself, callable from a render-based subclass that sits
+    /// under a Razor control and has to skip the Razor markup it would otherwise inherit.
+    /// </summary>
+    protected void BuildRenderTreeFromRender(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder builder)
     {
         var text = new System.IO.StringWriter();
         var writer = new HtmlTextWriter(text) { EmbeddedComponents = [] };
-        RenderControl(writer);
+        // Render directly, not through RenderControl: RenderControl hands a Razor-flagged
+        // control back to Blazor as an embedded component, and from here that would embed
+        // this very control inside itself, forever.
+        if (Visible)
+        {
+            RunLifecycle();
+            Render(writer);
+        }
         writer.Flush();
 
         var html = text.ToString();
@@ -744,22 +753,30 @@ public class HtmlTableCell : LegacyWebControl
     }
 }
 
-/// <summary>System.Web.UI.WebControls.BaseValidator equivalent (declaration surface).</summary>
+/// <summary>
+/// System.Web.UI.WebControls.BaseValidator equivalent.
+///
+/// The root of BOTH kinds of validator: a ported one that renders itself (n2cms's
+/// RequireEitherFieldValidator derives from it directly) and the compat layer's own Razor
+/// validators, through ValidatorBase. Those used to be unrelated types, so n2cms's
+/// "protected override BaseValidator CreateValidator() => new RangeValidator { ... }" could
+/// not compile. The members are virtual so the Razor side can make them parameters.
+/// </summary>
 public class BaseValidator : LegacyWebControl, IValidator
 {
-    public string ErrorMessage { get; set; }
+    public virtual string ErrorMessage { get; set; }
 
     /// <summary>Static / Dynamic / None, as text - see <see cref="ValidatorDisplay"/>.</summary>
-    public string Display { get; set; } = ValidatorDisplay.Static;
+    public virtual string Display { get; set; } = ValidatorDisplay.Static;
 
     /// <summary>
     /// Accepted and inert: validation runs on the server, so there is no client script for
     /// this to enable. Ported validators read and set it while wiring themselves up.
     /// </summary>
-    public bool EnableClientScript { get; set; } = true;
+    public virtual bool EnableClientScript { get; set; } = true;
 
     /// <summary>WebForms BaseValidator.GetControlValidationValue - the value of a named control.</summary>
-    protected string GetControlValidationValue(string name)
+    protected virtual string GetControlValidationValue(string name)
         => (FindControl(name) ?? Page?.FindControl(name)) is IValueControl control
             ? control.GetControlValue()
             : null;
@@ -790,11 +807,11 @@ public class BaseValidator : LegacyWebControl, IValidator
         }
     }
 
-    public string ControlToValidate { get; set; }
+    public virtual string ControlToValidate { get; set; }
 
-    public string ValidationGroup { get; set; }
+    public virtual string ValidationGroup { get; set; }
 
-    public bool IsValid { get; set; } = true;
+    public virtual bool IsValid { get; set; } = true;
 
     public virtual void Validate() => IsValid = EvaluateIsValid();
 
@@ -870,55 +887,35 @@ public abstract class LegacyButton : LegacyWebControl, IButtonControl
 /// <summary>
 /// Substitute base for classes deriving TextBox.
 ///
-/// The third time the same shape has turned up: LegacyListControl had to carry Items,
-/// LegacyButton had to carry Text, and a TextBox base has to carry Text too. Mapping all
-/// three to LegacyWebControl gave them the lifecycle and the render virtuals and nothing
-/// that says what the control IS - so mojoPortal's CodeEditor (a TextBox that renders a
-/// syntax-highlighting editor) and its jDatePicker lost the property they exist to set.
+/// It derives from the compat TextBox, so a ported subclass IS a TextBox: n2cms's
+/// EditableFreeTextAreaAttribute.CreateEditor is declared to return TextBox and returns its
+/// own FreeTextArea, which could not compile while this was a separate render-based root.
+///
+/// How it renders follows WebForms' rule. A subclass that does not override any part of the
+/// render protocol renders AS A TEXTBOX - FreeTextArea only sets CssClass and registers its
+/// editor script in OnPreRender, and on 4.8 it came out as the ordinary textarea. One that
+/// takes over its rendering (mojoPortal's CodeEditor) renders itself through Render, with
+/// the contents below as the default.
 /// </summary>
-public abstract class LegacyTextBox : LegacyWebControl
+public abstract class LegacyTextBox : TextBox
 {
-    /// <summary>
-    /// virtual, as TextBox.Text is. A ported editor overrides it to read and write its own
-    /// backing store - mojoPortal's CKEditorControl does exactly that - and a non-virtual
-    /// property here is CS0506, which fails the DECLARATION pass and takes the whole
-    /// measurement down with it.
-    /// </summary>
-    public virtual string Text { get; set; } = string.Empty;
+    protected override bool UsesRazorRendering => !OverridesRenderingBelow(typeof(LegacyTextBox));
 
-    public virtual TextBoxMode TextMode { get; set; } = TextBoxMode.SingleLine;
-
-    public int Columns { get; set; }
-
-    public int Rows { get; set; }
-
-    public int MaxLength { get; set; }
-
-    public bool ReadOnly { get; set; }
-
-    public bool AutoPostBack { get; set; }
-
-    public bool CausesValidation { get; set; }
-
-    public string ValidationGroup { get; set; } = string.Empty;
-
-    public bool Wrap { get; set; } = true;
-
-    /// <summary>
-    /// WebForms TextBox.TextChanged. Declared and never raised: a postback is what fired
-    /// it, and a render-hosted legacy control has no Blazor-side event wiring - the
-    /// control's own residual records that.
-    /// </summary>
-    public event EventHandler TextChanged;
-
-    protected virtual void OnTextChanged(EventArgs e) => TextChanged?.Invoke(this, e);
+    protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder builder)
+    {
+        if (UsesRazorRendering)
+        {
+            base.BuildRenderTree(builder);
+            return;
+        }
+        BuildRenderTreeFromRender(builder);
+    }
 
     protected override string TagName => "input";
 
     protected override void RenderContents(HtmlTextWriter writer)
         => writer.Write(Text ?? string.Empty);
 }
-
 /// <summary>
 /// Substitute base for classes deriving FileUpload.
 ///

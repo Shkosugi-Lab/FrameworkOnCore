@@ -273,7 +273,13 @@ public interface INavigateUIData
 /// </summary>
 public abstract class BaseCompareValidator : ValidatorBase
 {
-    public ValidationDataType Type { get; set; } = ValidationDataType.String;
+    /// <summary>
+    /// The data type values are compared as - the ENUM, as in System.Web. RangeValidator and
+    /// CompareValidator used to declare their own string Type beside this one, which is why
+    /// they could not be BaseCompareValidators at all.
+    /// </summary>
+    [Microsoft.AspNetCore.Components.Parameter]
+    public virtual ValidationDataType Type { get; set; } = ValidationDataType.String;
 
     public bool CultureInvariantValues { get; set; }
 

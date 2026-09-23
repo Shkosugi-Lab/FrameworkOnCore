@@ -18,28 +18,32 @@ public delegate void ServerValidateEventHandler(object source, ServerValidateEve
 /// Renders only when invalid (subject to Display), and shows ErrorMessage inline when
 /// Text is empty (same as the WebForms Display defaults).
 /// </summary>
-public abstract class ValidatorBase : WebFormsControlBase, IWebFormsValidator, IValidator
+/// <remarks>
+/// A BaseValidator, as in System.Web - see BaseValidator for why that matters. Drawn by each
+/// validator's Razor markup, not by the Render(HtmlTextWriter) protocol.
+/// </remarks>
+public abstract class ValidatorBase : BaseValidator, IWebFormsValidator
 {
     private bool _isValid = true;
 
-    [Parameter] public string ControlToValidate { get; set; }
-    [Parameter] public string ErrorMessage { get; set; }
+    [Parameter] public override string ControlToValidate { get; set; }
+    [Parameter] public override string ErrorMessage { get; set; }
 
     /// <summary>The short marker next to the input. When empty, ErrorMessage is shown (as in WebForms).</summary>
     [Parameter] public string Text { get; set; }
 
-    [Parameter] public string ValidationGroup { get; set; }
+    [Parameter] public override string ValidationGroup { get; set; }
 
     /// <summary>
     /// Static (default: reserves space via visibility:hidden while valid) /
     /// Dynamic (not rendered while valid) / None (never inline, summary only).
     /// </summary>
-    [Parameter] public string Display { get; set; } = "Static";
+    [Parameter] public override string Display { get; set; } = "Static";
 
     public bool IsValidState => _isValid;
 
     /// <summary>WebForms BaseValidator.IsValid equivalent (readable and writable from code-behind).</summary>
-    public bool IsValid
+    public override bool IsValid
     {
         get => _isValid;
         set
@@ -80,7 +84,7 @@ public abstract class ValidatorBase : WebFormsControlBase, IWebFormsValidator, I
     /// that hosts them; the interface form is what ported code calls through Page.Validators.
     /// Outside a page there is no control to validate, and the validator is left as it is.
     /// </summary>
-    void IValidator.Validate()
+    public override void Validate()
     {
         if (Host?.HostCore is { } host)
         {
@@ -95,7 +99,7 @@ public abstract class ValidatorBase : WebFormsControlBase, IWebFormsValidator, I
     /// The server-side check (OnServerValidate) is what actually decides validity, exactly
     /// as it does in WebForms when scripting is unavailable.
     /// </summary>
-    [Parameter] public bool EnableClientScript { get; set; } = true;
+    [Parameter] public override bool EnableClientScript { get; set; } = true;
 
     /// <inheritdoc cref="EnableClientScript"/>
     [Parameter] public string ClientValidationFunction { get; set; }
@@ -137,7 +141,7 @@ public abstract class ValidatorBase : WebFormsControlBase, IWebFormsValidator, I
                binder: null,
                types: Type.EmptyTypes,
                modifiers: null)
-           is { DeclaringType: { } declaring } && declaring != typeof(ValidatorBase);
+           is { DeclaringType: { } declaring } && declaring != typeof(BaseValidator);
 
     private bool EvaluateIsValidWith(WebFormsHostCore host, Func<bool> evaluate)
     {
@@ -157,18 +161,15 @@ public abstract class ValidatorBase : WebFormsControlBase, IWebFormsValidator, I
 
     protected abstract bool EvaluateIsValid(string value, WebFormsHostCore host);
 
-    /// <summary>
-    /// WebForms BaseValidator.EvaluateIsValid(). Ported validators override it; the compat
-    /// layer's own validators use the two-argument form above, which already has the value
-    /// and the host in hand.
-    /// </summary>
-    protected virtual bool EvaluateIsValid() => true;
+    // BaseValidator.EvaluateIsValid() - the parameterless form ported validators override -
+    // is inherited from BaseValidator. The compat layer's own validators use the two-argument
+    // form above, which already has the value and the host in hand.
 
     /// <summary>
     /// WebForms BaseValidator.GetControlValidationValue(string): the validation value of
     /// the named control, which is what an overriding EvaluateIsValid() reads.
     /// </summary>
-    protected string GetControlValidationValue(string controlName)
+    protected override string GetControlValidationValue(string controlName)
     {
         var host = _validationHost ?? Host?.HostCore;
         return (host?.FindControl(controlName) as IValueControl)?.GetControlValue() ?? string.Empty;
@@ -178,6 +179,9 @@ public abstract class ValidatorBase : WebFormsControlBase, IWebFormsValidator, I
     /// WebForms ValidationDataType-compatible conversion.
     /// Type is one of "String" / "Integer" / "Double" / "Date" / "Currency".
     /// </summary>
+    protected static bool TryConvert(string value, ValidationDataType type, out IComparable converted)
+        => TryConvert(value, type.ToString(), out converted);
+
     protected static bool TryConvert(string value, string type, out IComparable converted)
     {
         converted = null;

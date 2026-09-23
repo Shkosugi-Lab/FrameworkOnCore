@@ -20,6 +20,9 @@
 }
 
 @code {
+    /// <summary>Drawn by the markup above, not by the Render(HtmlTextWriter) protocol.</summary>
+    protected override bool UsesRazorRendering => true;
+
     private string _selectedValue;
     private bool _itemsChanged;
 

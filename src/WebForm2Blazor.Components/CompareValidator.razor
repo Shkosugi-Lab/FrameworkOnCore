@@ -1,5 +1,6 @@
-﻿@namespace WebForm2Blazor.Components
-@inherits ValidatorBase
+@namespace WebForm2Blazor.Components
+@* A BaseCompareValidator, as in System.Web. *@
+@inherits BaseCompareValidator
 
 @if (ShowError)
 {
@@ -14,8 +15,6 @@
 
     /// <summary>Equal / NotEqual / GreaterThan / GreaterThanEqual / LessThan / LessThanEqual / DataTypeCheck.</summary>
     [Parameter] public string Operator { get; set; } = "Equal";
-
-    [Parameter] public string Type { get; set; } = "String";
 
     protected override bool EvaluateIsValid(string value, WebFormsHostCore host)
     {

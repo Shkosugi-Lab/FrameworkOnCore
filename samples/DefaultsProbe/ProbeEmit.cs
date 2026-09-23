@@ -77,4 +77,25 @@ namespace DefaultsProbe
             return Activator.CreateInstance(type.CreateType());
         }
     }
+
+    /// <summary>
+    /// メンバー名が field のクラス(Castle DynamicProxy の FieldReference と同型)。C# 14 ではアクセサー内の
+    /// field が自動生成の裏側のフィールドを指すため、変換で @field にしないと常に null を返す。その検証用。
+    /// </summary>
+    public class ProbeFieldHolder
+    {
+        private readonly string field;
+
+        public ProbeFieldHolder(string field)
+        {
+            this.field = field;
+        }
+
+        public string Value
+        {
+            get { return field; }
+        }
+
+        public string Upper => field.ToUpperInvariant();
+    }
 }

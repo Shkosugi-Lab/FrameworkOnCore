@@ -4604,7 +4604,11 @@ static string GenerateFieldOnlyCodeBehind(ConvertedComponent component)
     builder.AppendLine("    }");
     builder.AppendLine("}");
     _ = baseClass;
-    return builder.ToString();
+    return component.ServerScriptBlocks.Count > 0
+        // Verbatim is still compiled as C# 14, where "field" in a property accessor no
+        // longer means what the page's author wrote (see FieldKeywordRewriter).
+        ? WebForm2Blazor.Converter.Convert.FieldKeywordRewriter.Rewrite(builder.ToString())
+        : builder.ToString();
 }
 
 

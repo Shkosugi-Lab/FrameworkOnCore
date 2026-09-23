@@ -51,3 +51,21 @@ public class RemovedEmitApiTests
         Assert.Null(exception);
     }
 }
+
+/// <summary>
+/// C# 14 made "field" a keyword inside property accessors. The converted
+/// DefaultsProbe.ProbeFieldHolder reads a member CALLED field there, as Castle
+/// DynamicProxy's FieldReference does; unconverted, both properties would read the
+/// synthesized backing field - null - and still compile.
+/// </summary>
+public class FieldKeywordTests
+{
+    [Fact]
+    public void アクセサー内のfieldは元のメンバーを読む()
+    {
+        var holder = new DefaultsProbe.ProbeFieldHolder("value");
+
+        Assert.Equal("value", holder.Value);
+        Assert.Equal("VALUE", holder.Upper);
+    }
+}

@@ -1004,8 +1004,11 @@ public static class CodeBehindRewriter
     /// </summary>
     private static CompilationUnitSyntax RewriteSyntax(
         CompilationUnitSyntax root, string? sourceName, ConversionReport? report)
-        => RemovedEmitApis.Rewrite(
-            (CompilationUnitSyntax)new HtmlGenericControlRewriter().Visit(RewriteControlReferences(root)),
+        => FieldKeywordRewriter.Rewrite(
+            RemovedEmitApis.Rewrite(
+                (CompilationUnitSyntax)new HtmlGenericControlRewriter().Visit(RewriteControlReferences(root)),
+                sourceName,
+                report),
             sourceName,
             report);
 

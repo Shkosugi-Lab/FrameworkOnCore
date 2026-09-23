@@ -408,7 +408,18 @@ bUnit・パリティ・be/wt は一切動かず、n2 の `new DropDownList()` �
 | 群 | 件数 | 中身 | 論点 |
 |---|---:|---|---|
 | 互換層の 2 系統分岐 | 3 | `RangeValidator`/`CompareValidator` を `BaseValidator` として返す / `FreeTextArea`→`TextBox` | 統合方式で解決できる(上記)。部品ごとに移す |
-| .NET が削除した API | 7 | n2 同梱 Castle DynamicProxy の CAS・`RunAndSave`・`AssemblyBuilder.Save` | **機械的書き換えで対応済み(n2 では未計測)**。変換器 `Convert/RemovedEmitApis.cs`(`AppDomain.DefineDynamicAssembly` → `AssemblyBuilder.DefineDynamicAssembly`、`RunAndSave` → `Run`、`DefineDynamicModule` は名前だけ、`Save` は `PlatformNotSupportedException` + 残差)。互換層の権限クラスを `IPermission` に(`InertCodeAccessPermission`)。`using System.Security.Permissions` を外すと消えていた `PermissionState` を別名で補う。同型の検証用サンプル `samples/DefaultsProbe/ProbeEmit.cs` を変換し、実行時に型を生成できることを `RemovedEmitApiTests` で確認 |
+| .NET が削除した API | 7 | n2 同梱 Castle DynamicProxy の CAS・`RunAndSave`・`AssemblyBuilder.Save` | **解消(n2 分割で N2.dll エラー 0、2026-09-23 計測)**。変換器 `Convert/RemovedEmitApis.cs`(`AppDomain.DefineDynamicAssembly` → `AssemblyBuilder.DefineDynamicAssembly`、`RunAndSave` → `Run`、`DefineDynamicModule` は名前だけ、`Save` は `PlatformNotSupportedException` + 残差)。互換層の権限クラスを `IPermission` に(`InertCodeAccessPermission`)。`using System.Security.Permissions` を外すと消えていた `PermissionState` を別名で補う。同型の検証用サンプル `samples/DefaultsProbe/ProbeEmit.cs` を変換し、実行時に型を生成できることを `RemovedEmitApiTests` で確認 |
+
+**n2 の現状(分割、2026-09-23)**: N2.dll はビルドが通り、変換後の N2.dll で n2 自身の
+`ProxyGenerator` が `ContentItem` のサブクラスのプロキシを生成・インターセプトできることを確認した
+(`[NonInterceptable]` の付いた `Title` 等が対象外なのは n2 の設計どおり)。ビルドエラーは次の段の
+`N2.Management` 50 件 / `N2.Extensions` 5 件で、アプリ本体は未コンパイルなので下限値。
+
+その過程で見つけた **C# 14 の `field` キーワード問題**: アクセサー内の `field` が C# 14 では
+自動生成の裏側のフィールドを指すため、メンバー名が `field` のコード(DynamicProxy の
+`FieldReference`)がエラーも出さずに null を返していた。変換器が `@field` に書き換える
+(`Convert/FieldKeywordRewriter.cs`。`<script runat="server">` の経路も対象)。コンパイルが通って
+意味だけ変わる種類なので、ビルドエラー数には現れない。
 
 n2 以外(分割時・MVC 互換層を入れる前の値): yaf 3(変換器がライブラリにアプリ名前空間の
 `using` を挿入。`Convert\RelocatedTypeIndex.cs:194` が本命)/ dnn 7 / mojo 12。

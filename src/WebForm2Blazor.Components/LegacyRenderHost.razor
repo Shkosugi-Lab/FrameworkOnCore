@@ -92,8 +92,34 @@
 
     protected override void OnInitialized() => Host?.HostCore.RegisterControl(this);
 
+    [Inject] private NavigationManager Navigation { get; set; }
+
+    /// <summary>What the last lifecycle run was for (see OnParametersSet).</summary>
+    private string _lifecycleKey;
+
     protected override void OnParametersSet()
     {
+        // ONE lifecycle per WebForms request, not one per Blazor render.
+        //
+        // Every re-render of the parent hands this host its parameters again - the
+        // property dictionary is a new instance each time, so they always look changed -
+        // and each time the control was created anew and taken through Init, Load and
+        // PreRender. A WebForms control runs that once per request. BlogEngine's
+        // WidgetZone renders every widget in OnLoad, and the BlogRoll widget fetches its
+        // feeds over the network: one home page view ran it seven times, holding the
+        // renderer for ~20 seconds before the page's own Load and PreRenderComplete (the
+        // post list, the document title) were reached.
+        //
+        // So it runs again only for what WOULD be a new request: different markup inputs,
+        // a different URL (navigation - the layout survives it here, the master page did
+        // not there), or a postback since the last run.
+        var key = LifecycleKey();
+        if (key == _lifecycleKey)
+        {
+            return;
+        }
+        _lifecycleKey = key;
+
         try
         {
             RenderLegacyControl();
@@ -105,6 +131,33 @@
             _beginHtml = $"<span class=\"w2b-legacyrender-error\" title=\"{message}\">[{TypeName}: render error]</span>";
             _endHtml = null;
         }
+    }
+
+    /// <summary>The inputs a lifecycle run depends on, by value.</summary>
+    private string LifecycleKey()
+    {
+        var key = new System.Text.StringBuilder();
+        key.Append(TypeName).Append('\u0001').Append(ID).Append('\u0001').Append(CssClass)
+            .Append('\u0001').Append(Enabled).Append('\u0001').Append(ChildContent is null)
+            .Append('\u0001').Append(Navigation?.Uri)
+            .Append('\u0001').Append(WebFormsHostCore.PostBackGeneration);
+        foreach (var pair in PropertyValues ?? [])
+        {
+            key.Append('\u0002').Append(pair.Key).Append('=').Append(Convert.ToString(pair.Value, System.Globalization.CultureInfo.InvariantCulture));
+        }
+        foreach (var pair in TemplateMarkup ?? [])
+        {
+            key.Append('\u0003').Append(pair.Key).Append('=').Append(pair.Value);
+        }
+        foreach (var child in CollectionChildren ?? [])
+        {
+            key.Append('\u0004').Append(child.Collection).Append(':').Append(child.TypeName);
+            foreach (var pair in child.Properties ?? [])
+            {
+                key.Append('\u0005').Append(pair.Key).Append('=').Append(pair.Value);
+            }
+        }
+        return key.ToString();
     }
 
     private void RenderLegacyControl()

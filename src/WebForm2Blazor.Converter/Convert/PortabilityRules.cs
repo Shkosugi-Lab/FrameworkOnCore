@@ -172,7 +172,106 @@ public static class PortabilityRules
     {
         var code = WithoutStringsAndComments(source);
         return Prefixes.Concat(DeclinedNamespaces)
-            .FirstOrDefault(prefix => HasQualifiedReference(code, prefix));
+            .FirstOrDefault(prefix => HasQualifiedReference(code, prefix)
+                                      && !SuppliedByCompat(prefix, source));
+    }
+
+    /// <summary>
+    /// Finds the .NET Framework assembly that declared a namespace, given the assembly
+    /// name to look for ("System.Web.WebPages"). Set by the converter to its input-tree
+    /// search; null leaves every Framework-only namespace excluded.
+    /// </summary>
+    public static Func<string, string?>? FrameworkAssemblyLocator { get; set; }
+
+    private static readonly Dictionary<string, HashSet<string>?> RealTypeNamesCache = new(StringComparer.Ordinal);
+
+    /// <summary>
+    /// Whether everything a file takes from a Framework-only namespace is declared by the
+    /// compatibility layer, so the namespace is no reason to exclude it.
+    ///
+    /// The list above excludes by namespace, and for a framework the compatibility layer
+    /// does not model at all that is right. ASP.NET Web Pages is partly modelled: the
+    /// layer declares WebPage, WebPageContext and Web Pages' HtmlHelper, the three names
+    /// BlogEngine's RazorHelpers.cs uses to render its widget templates. Excluding that
+    /// file stubbed ParseRazor to a throw, and every widget on every page rendered as
+    /// "Widget X not found".
+    ///
+    /// Decided per FILE and from both artifacts, not by dropping the namespace from the
+    /// list: which names the file takes from the namespace is read off the ORIGINAL
+    /// assembly (found in the input tree), and whether they are supplied is read off the
+    /// compat assembly. A file that also names something the layer lacks - DNN's Web.Razor
+    /// (WebPageBase), n2's Razor helpers (HelperResult) - stays excluded, as before. When
+    /// the original assembly cannot be found the answer is no: nothing is guessed.
+    /// </summary>
+    public static bool SuppliedByCompat(string ns, string source)
+    {
+        var compat = CompatTypeNames(ns);
+        if (compat.Count == 0)
+        {
+            return false;
+        }
+
+        var real = RealTypeNames(ns);
+        if (real is null)
+        {
+            return false;
+        }
+
+        var used = CodeBehindRewriter.ParseUnit(source).DescendantNodes()
+            .OfType<Microsoft.CodeAnalysis.CSharp.Syntax.SimpleNameSyntax>()
+            .Select(name => name.Identifier.Text)
+            .Where(real.Contains)
+            .ToHashSet(StringComparer.Ordinal);
+
+        return used.All(compat.Contains);
+    }
+
+    /// <summary>Public type names the compat assembly declares in <paramref name="ns"/> or below it.</summary>
+    private static HashSet<string> CompatTypeNames(string ns)
+        => typeof(WebForm2Blazor.Components.WebFormsControlBase).Assembly.GetExportedTypes()
+            .Where(type => type.Namespace is { } typeNamespace
+                           && (typeNamespace == ns || typeNamespace.StartsWith(ns + ".", StringComparison.Ordinal)))
+            .Select(type => type.Name.Split('`')[0])
+            .ToHashSet(StringComparer.Ordinal);
+
+    /// <summary>
+    /// Public type names the ORIGINAL assembly declares in <paramref name="ns"/> or below
+    /// it. The assembly is looked up by the namespace's own name, then by each shorter
+    /// prefix (System.Web.WebPages.Html lives in System.Web.WebPages.dll).
+    /// </summary>
+    private static HashSet<string>? RealTypeNames(string ns)
+    {
+        if (RealTypeNamesCache.TryGetValue(ns, out var cached))
+        {
+            return cached;
+        }
+
+        HashSet<string>? names = null;
+        for (var candidate = ns; candidate.Length > 0 && FrameworkAssemblyLocator is not null;)
+        {
+            if (FrameworkAssemblyLocator(candidate) is { } path)
+            {
+                var found = new HashSet<string>(StringComparer.Ordinal);
+                FrameworkTypeIndex.ReadPublicTypes(path, (typeNamespace, typeName) =>
+                {
+                    if (typeNamespace == ns || typeNamespace.StartsWith(ns + ".", StringComparison.Ordinal))
+                    {
+                        found.Add(typeName.Split('`')[0]);
+                    }
+                });
+                if (found.Count > 0)
+                {
+                    names = found;
+                    break;
+                }
+            }
+
+            var cut = candidate.LastIndexOf('.');
+            candidate = cut < 0 ? string.Empty : candidate[..cut];
+        }
+
+        RealTypeNamesCache[ns] = names;
+        return names;
     }
 
     /// <summary>

@@ -250,7 +250,23 @@ public sealed class WebFormsHostCore
     public event Action PostBackEventCompleted;
 
     /// <summary>Called by compatibility controls after invoking user event handlers.</summary>
-    public void NotifyPostBackEvent() => PostBackEventCompleted?.Invoke();
+    public void NotifyPostBackEvent()
+    {
+        System.Threading.Interlocked.Increment(ref _postBackGeneration);
+        PostBackEventCompleted?.Invoke();
+    }
+
+    private static long _postBackGeneration;
+
+    /// <summary>
+    /// How many postback-style events have been processed, application-wide. What
+    /// LegacyRenderHost keys its cached lifecycle on (see there): a postback is a new
+    /// WebForms request, so a legacy control runs its lifecycle again after one - and not
+    /// on every Blazor re-render in between. Application-wide rather than per page, so a
+    /// postback on the page also reaches the master page's controls; another user's
+    /// postback costs a re-run, never a stale render.
+    /// </summary>
+    internal static long PostBackGeneration => System.Threading.Interlocked.Read(ref _postBackGeneration);
 
     public void RegisterControl(IWebFormsControl control)
     {

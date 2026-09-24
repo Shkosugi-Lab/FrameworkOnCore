@@ -14,7 +14,40 @@ namespace WebForm2Blazor.Components;
 /// <param name="TypeName">Full name of the entry's type.</param>
 /// <param name="Properties">Markup attributes, applied with the same conversion as the control's own.</param>
 public sealed record LegacyChild(
-    string Collection, string TypeName, Dictionary<string, string> Properties);
+    string Collection, string TypeName, Dictionary<string, string> Properties)
+{
+    /// <summary>
+    /// Whether two declarations describe the same children, BY VALUE. The converter writes
+    /// them inline ("new LegacyChild[] { ... }"), so every render hands over a new array
+    /// with new dictionaries - equal in content, never in reference - and a record's
+    /// own equality compares the dictionary by reference.
+    /// </summary>
+    public static bool SameDeclarations(LegacyChild[] left, LegacyChild[] right)
+    {
+        if (ReferenceEquals(left, right))
+        {
+            return true;
+        }
+        if (left is null || right is null || left.Length != right.Length)
+        {
+            return false;
+        }
+
+        for (var index = 0; index < left.Length; index++)
+        {
+            var (a, b) = (left[index], right[index]);
+            if (a.Collection != b.Collection || a.TypeName != b.TypeName
+                || (a.Properties?.Count ?? 0) != (b.Properties?.Count ?? 0)
+                || (a.Properties ?? []).Any(pair => b.Properties is null
+                                                    || !b.Properties.TryGetValue(pair.Key, out var value)
+                                                    || value != pair.Value))
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+}
 
 /// <summary>
 /// An &lt;ITemplate&gt; whose content is fixed markup.

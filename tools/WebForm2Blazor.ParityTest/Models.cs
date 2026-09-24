@@ -7,10 +7,17 @@ namespace WebForm2Blazor.ParityTest;
 /// so a new suite is guarded from the start and has to opt OUT deliberately.
 /// Setting it false falls back to comparing only the last underscore-delimited segment.
 /// </param>
+/// <param name="IgnoreSelectors">
+/// CSS selectors whose text is left out of the body text, on both sides: content that
+/// depends on something outside either app. BlogEngine's BlogRoll widget lists the latest
+/// posts of three external blogs, fetched live - present or not depending on the network
+/// at capture time, and different every week when present.
+/// </param>
 public sealed record ParityScenario(
     List<string>? IgnorePatterns,
     List<ParityStep> Steps,
-    bool CompareRawIds = true);
+    bool CompareRawIds = true,
+    List<string>? IgnoreSelectors = null);
 
 /// <summary>
 /// One scenario step.

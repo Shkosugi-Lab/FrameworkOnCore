@@ -38,6 +38,13 @@ public class Page : ComponentBase, IWebFormsHost, IWebFormsControl
 
     protected StateBag ViewState => HostCore.ViewState;
     public bool IsPostBack => HostCore.IsPostBack;
+
+    /// <summary>
+    /// WebForms Page.EnableViewState. There is no view state to switch off (see
+    /// WebFormsControlBase.EnableViewState); kept so code that sets it compiles and reads
+    /// back what it set.
+    /// </summary>
+    public virtual bool EnableViewState { get; set; } = true;
     public HttpResponseShim Response => _response ??= new HttpResponseShim(NavigationManager);
     public HttpRequestShim Request => _request ??= new HttpRequestShim(NavigationManager);
 

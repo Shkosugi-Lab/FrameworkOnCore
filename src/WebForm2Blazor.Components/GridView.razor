@@ -706,7 +706,9 @@
 
     private void BuildLegacyColumns()
     {
-        if (ReferenceEquals(_builtLegacyColumns, LegacyColumns))
+        // By value: the declarations arrive as a new array on every render, and building
+        // them again inserted the same legacy columns once more each time.
+        if (LegacyChild.SameDeclarations(_builtLegacyColumns, LegacyColumns))
         {
             return;
         }

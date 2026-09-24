@@ -15,17 +15,24 @@
         "EXAMPLE PAGE",
         "アーカイブ",
         "コンタクト",
-        "Widget Search not found, check log for details.",
-        "Widget Administration not found, check log for details.",
-        "Widget PostList not found, check log for details.",
-        "Widget Newsletter not found, check log for details.",
-        "Widget TagCloud not found, check log for details.",
-        "Widget TextBox not found, check log for details.",
-        "Widget BlogRoll not found, check log for details.",
+        "POSTLIST",
+        "Welcome to BlogEngine.NET",
+        "NEWSLETTER",
+        "Get notified when a new post is published.",
+        "TAGCLOUD",
+        "BLOGGING",
+        "WELCOME",
+        "BLOGROLL",
+        "Ruslan Tur",
+        "Francis Bio",
+        "BlogEngine",
         "DESIGNED BY BLOGENGINE"
       ],
       "Tables": [],
-      "Inputs": {},
+      "Inputs": {
+        "txt-fd2436bb-68a7-47d1-9171-2753af201fa6": "",
+        "txtNewsletterEmail": ""
+      },
       "Elements": {
         "ctl00_cphBody_divError": {
           "Tag": "div",
@@ -74,6 +81,48 @@
             "class": "widgetzone"
           },
           "Style": {}
+        },
+        "searchbox": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txt-fd2436bb-68a7-47d1-9171-2753af201fa6": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "searchbutton": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "newsletterform": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtNewsletterEmail": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text",
+            "class": "form-control"
+          },
+          "Style": {
+            "width": "98%"
+          }
+        },
+        "btnSave": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button",
+            "class": "btn btn-primary"
+          },
+          "Style": {}
         }
       }
     },
@@ -96,13 +145,17 @@
         "EXAMPLE PAGE",
         "アーカイブ",
         "コンタクト",
-        "Widget Search not found, check log for details.",
-        "Widget Administration not found, check log for details.",
-        "Widget PostList not found, check log for details.",
-        "Widget Newsletter not found, check log for details.",
-        "Widget TagCloud not found, check log for details.",
-        "Widget TextBox not found, check log for details.",
-        "Widget BlogRoll not found, check log for details.",
+        "POSTLIST",
+        "Welcome to BlogEngine.NET",
+        "NEWSLETTER",
+        "Get notified when a new post is published.",
+        "TAGCLOUD",
+        "BLOGGING",
+        "WELCOME",
+        "BLOGROLL",
+        "Ruslan Tur",
+        "Francis Bio",
+        "BlogEngine",
         "DESIGNED BY BLOGENGINE"
       ],
       "Tables": [
@@ -121,7 +174,10 @@
           ]
         ]
       ],
-      "Inputs": {},
+      "Inputs": {
+        "txt-fd2436bb-68a7-47d1-9171-2753af201fa6": "",
+        "txtNewsletterEmail": ""
+      },
       "Elements": {
         "archive": {
           "Tag": "div",
@@ -165,6 +221,48 @@
             "class": "widgetzone"
           },
           "Style": {}
+        },
+        "searchbox": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txt-fd2436bb-68a7-47d1-9171-2753af201fa6": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "searchbutton": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "newsletterform": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtNewsletterEmail": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text",
+            "class": "form-control"
+          },
+          "Style": {
+            "width": "98%"
+          }
+        },
+        "btnSave": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button",
+            "class": "btn btn-primary"
+          },
+          "Style": {}
         }
       }
     },
@@ -180,18 +278,24 @@
         "EXAMPLE PAGE",
         "アーカイブ",
         "コンタクト",
-        "Widget Search not found, check log for details.",
-        "Widget Administration not found, check log for details.",
-        "Widget PostList not found, check log for details.",
-        "Widget Newsletter not found, check log for details.",
-        "Widget TagCloud not found, check log for details.",
-        "Widget TextBox not found, check log for details.",
-        "Widget BlogRoll not found, check log for details.",
+        "POSTLIST",
+        "Welcome to BlogEngine.NET",
+        "NEWSLETTER",
+        "Get notified when a new post is published.",
+        "TAGCLOUD",
+        "BLOGGING",
+        "WELCOME",
+        "BLOGROLL",
+        "Ruslan Tur",
+        "Francis Bio",
+        "BlogEngine",
         "DESIGNED BY BLOGENGINE"
       ],
       "Tables": [],
       "Inputs": {
-        "q": ""
+        "q": "",
+        "txt-fd2436bb-68a7-47d1-9171-2753af201fa6": "",
+        "txtNewsletterEmail": ""
       },
       "Elements": {
         "ctl00_cphBody_h1Headline": {
@@ -231,6 +335,48 @@
             "class": "widgetzone"
           },
           "Style": {}
+        },
+        "searchbox": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txt-fd2436bb-68a7-47d1-9171-2753af201fa6": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "searchbutton": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "newsletterform": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtNewsletterEmail": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text",
+            "class": "form-control"
+          },
+          "Style": {
+            "width": "98%"
+          }
+        },
+        "btnSave": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button",
+            "class": "btn btn-primary"
+          },
+          "Style": {}
         }
       }
     },
@@ -252,13 +398,17 @@
         "EXAMPLE PAGE",
         "アーカイブ",
         "コンタクト",
-        "Widget Search not found, check log for details.",
-        "Widget Administration not found, check log for details.",
-        "Widget PostList not found, check log for details.",
-        "Widget Newsletter not found, check log for details.",
-        "Widget TagCloud not found, check log for details.",
-        "Widget TextBox not found, check log for details.",
-        "Widget BlogRoll not found, check log for details.",
+        "POSTLIST",
+        "Welcome to BlogEngine.NET",
+        "NEWSLETTER",
+        "Get notified when a new post is published.",
+        "TAGCLOUD",
+        "BLOGGING",
+        "WELCOME",
+        "BLOGROLL",
+        "Ruslan Tur",
+        "Francis Bio",
+        "BlogEngine",
         "DESIGNED BY BLOGENGINE"
       ],
       "Tables": [],
@@ -266,7 +416,9 @@
         "ctl00_cphBody_txtName": "",
         "ctl00_cphBody_txtEmail": "",
         "ctl00_cphBody_txtSubject": "",
-        "ctl00_cphBody_txtMessage": ""
+        "ctl00_cphBody_txtMessage": "",
+        "txt-fd2436bb-68a7-47d1-9171-2753af201fa6": "",
+        "txtNewsletterEmail": ""
       },
       "Elements": {
         "contact": {
@@ -343,6 +495,48 @@
             "class": "widgetzone"
           },
           "Style": {}
+        },
+        "searchbox": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txt-fd2436bb-68a7-47d1-9171-2753af201fa6": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "searchbutton": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "newsletterform": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtNewsletterEmail": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text",
+            "class": "form-control"
+          },
+          "Style": {
+            "width": "98%"
+          }
+        },
+        "btnSave": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button",
+            "class": "btn btn-primary"
+          },
+          "Style": {}
         }
       }
     },
@@ -366,17 +560,24 @@
         "EXAMPLE PAGE",
         "アーカイブ",
         "コンタクト",
-        "Widget Search not found, check log for details.",
-        "Widget Administration not found, check log for details.",
-        "Widget PostList not found, check log for details.",
-        "Widget Newsletter not found, check log for details.",
-        "Widget TagCloud not found, check log for details.",
-        "Widget TextBox not found, check log for details.",
-        "Widget BlogRoll not found, check log for details.",
+        "POSTLIST",
+        "Welcome to BlogEngine.NET",
+        "NEWSLETTER",
+        "Get notified when a new post is published.",
+        "TAGCLOUD",
+        "BLOGGING",
+        "WELCOME",
+        "BLOGROLL",
+        "Ruslan Tur",
+        "Francis Bio",
+        "BlogEngine",
         "DESIGNED BY BLOGENGINE"
       ],
       "Tables": [],
-      "Inputs": {},
+      "Inputs": {
+        "txt-fd2436bb-68a7-47d1-9171-2753af201fa6": "",
+        "txtNewsletterEmail": ""
+      },
       "Elements": {
         "ctl00_cphBody_divDirectHit": {
           "Tag": "div",
@@ -397,6 +598,48 @@
           "Tag": "div",
           "Attributes": {
             "class": "widgetzone"
+          },
+          "Style": {}
+        },
+        "searchbox": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txt-fd2436bb-68a7-47d1-9171-2753af201fa6": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "searchbutton": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "newsletterform": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtNewsletterEmail": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text",
+            "class": "form-control"
+          },
+          "Style": {
+            "width": "98%"
+          }
+        },
+        "btnSave": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button",
+            "class": "btn btn-primary"
           },
           "Style": {}
         }

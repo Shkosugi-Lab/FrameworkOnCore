@@ -583,6 +583,30 @@ MSBuild が要るのでパリティ層は Windows ランナー必須です。
 
 ---
 
+### be のウィジェット(2026-09-24)
+
+`Widget X not found` の原因は、ウィジェットを描く `RazorHelpers.ParseRazor`(`BuildManager.GetCompiledType` →
+Web Pages の `WebPage.ExecutePageHierarchy`)が `System.Web.WebPages.Html` を理由に移植から外れ、スタブが
+例外を投げていたこと。
+
+- 互換層に Web Pages の最小限(`System.Web.WebPages.WebPage` / `WebPageRenderingBase` / `WebPageContext`、
+  `System.Web.WebPages.Html.HtmlHelper`)と `BuildManager.GetCompiledType`(`[RazorCompiledItem]` をパスで引く)。
+  `WebPage` は ASP.NET Core の `RazorPage<dynamic>` 派生で、`RazorView` として描画する(`AddWebPagesTemplates`)。
+- 除外の判定: Framework 専用の名前空間でも、ファイルがそこから使う型(元の DLL から読む)がすべて互換層に
+  あれば除外しない(`PortabilityRules.SuppliedByCompat`)。DNN の Web.Razor(`WebPageBase`)や n2 の
+  `HelperResult` は従来どおり除外(静的に確認。他コーパスは未計測)。
+- どの .cshtml をコンパイルするか: コードが `GetCompiledType`(と、それを引数で呼ぶメソッド)に渡すパスから
+  決める(`RuntimeTemplateIndex`。リテラル / `string.Format` / ローカル / 定数を追う)。be は 14 個。
+  `_ViewImports.cshtml` で `@inherits System.Web.WebPages.WebPage`。テンプレートには名前空間の書き換えと、
+  ASP.NET Core Razor の予約語(`@page.Title` → `@(page.Title)`)の退避を当てる。
+- `LegacyRenderHost` がレイアウトの再描画のたびにコントロールを作り直して Init/Load/PreRender を回していた
+  (1 回のページ表示で WidgetZone.OnLoad が 7 回)。入力・URL・ポストバック回数が同じなら前回の出力を使う。
+  BlogRoll が外部フィードを同期取得(元と同じ)するため、これが 20 秒超の待ちになっていた。
+  同種: `GridView` のレガシー列を参照比較していて、毎回の新しい配列で列が重複追加されていた → 値で比較。
+- ParityTest: 固定待ちの後に「DOM が 3 秒変化しない(上限 20 秒)」まで待つ。シナリオに `ignoreSelectors`
+  (be は BlogRoll の外部フィード記事。ネットワーク次第で出たり出なかったりする)。
+- be のパリティ残り: `ctl00_aLogin`(正解データ側、未検証)、reCAPTCHA、`CUSTOMFIELD`、home の「ログイン」。
+
 ## 6. 引き継ぎメモ
 
 - **コミット前に必ず `tools/verify-all.ps1` を通す。** exit 0 が最低ライン。

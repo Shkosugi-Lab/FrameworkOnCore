@@ -5,6 +5,8 @@
     "\\d{1,2}:\\d{2}(:\\d{2})?",
     "\\b\\d{4}\\b"
   ],
+  "_ignoreSelectorsComment": "The BlogRoll widget lists the latest posts of external blogs, fetched live at render time (as the original does). Present or not depending on the network when captured, so neither side compares them.",
+  "ignoreSelectors": [ ".widget.blogroll ul.xoxo li ul" ],
   "steps": [
     { "action": "goto", "path": "/" },
     { "action": "snapshot", "name": "home" },

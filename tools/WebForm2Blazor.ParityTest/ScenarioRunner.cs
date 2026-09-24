@@ -15,9 +15,13 @@ public sealed class ScenarioRunner(IPage page, string baseUrl, List<Regex> ignor
     /// <summary>Set from the scenario: compare DOM ids verbatim (see ParityScenario).</summary>
     private bool _compareRawIds;
 
+    /// <summary>Set from the scenario: elements whose text is not compared (see ParityScenario).</summary>
+    private List<string> _ignoreSelectors = [];
+
     public async Task<List<Snapshot>> RunAsync(ParityScenario scenario)
     {
         _compareRawIds = scenario.CompareRawIds;
+        _ignoreSelectors = scenario.IgnoreSelectors ?? [];
 
         // Always answer confirm() etc. with "OK". Both apps get the same response,
         // which keeps the comparison deterministic.
@@ -48,6 +52,7 @@ public sealed class ScenarioRunner(IPage page, string baseUrl, List<Regex> ignor
                             }
                         }
                         await page.WaitForTimeoutAsync(1800); // SignalR connection + init wait (for WebForms it is simply extra waiting)
+                        await WaitUntilSettledAsync(page);
                         break;
                     }
 
@@ -59,6 +64,7 @@ public sealed class ScenarioRunner(IPage page, string baseUrl, List<Regex> ignor
                     await (await ResolveAsync(step.Target!)).ClickAsync();
                     await page.WaitForLoadStateAsync(LoadState.NetworkIdle);
                     await page.WaitForTimeoutAsync(1200); // wait for the WebForms postback / Blazor re-render
+                    await WaitUntilSettledAsync(page);
                     break;
 
                 case "clicktext":
@@ -67,24 +73,28 @@ public sealed class ScenarioRunner(IPage page, string baseUrl, List<Regex> ignor
                     await page.Locator("a", new() { HasTextString = step.Value }).First.ClickAsync();
                     await page.WaitForLoadStateAsync(LoadState.NetworkIdle);
                     await page.WaitForTimeoutAsync(1200);
+                    await WaitUntilSettledAsync(page);
                     break;
 
                 case "select":
                     await (await ResolveAsync(step.Target!)).SelectOptionAsync(step.Value ?? "");
                     await page.WaitForLoadStateAsync(LoadState.NetworkIdle);
                     await page.WaitForTimeoutAsync(1200); // wait equivalent to AutoPostBack
+                    await WaitUntilSettledAsync(page);
                     break;
 
                 case "check":
                     await (await ResolveAsync(step.Target!)).CheckAsync();
                     await page.WaitForLoadStateAsync(LoadState.NetworkIdle);
                     await page.WaitForTimeoutAsync(1200);
+                    await WaitUntilSettledAsync(page);
                     break;
 
                 case "uncheck":
                     await (await ResolveAsync(step.Target!)).UncheckAsync();
                     await page.WaitForLoadStateAsync(LoadState.NetworkIdle);
                     await page.WaitForTimeoutAsync(1200);
+                    await WaitUntilSettledAsync(page);
                     break;
 
                 case "waitms":
@@ -124,12 +134,53 @@ public sealed class ScenarioRunner(IPage page, string baseUrl, List<Regex> ignor
         throw new InvalidOperationException($"コントロール '{target}' が見つかりません (URL: {page.Url})");
     }
 
+    /// <summary>
+    /// Waits, after the fixed wait, until the document has stopped changing: no DOM
+    /// mutation (the title included - it lives in the head) for 3 s, at most 20 s.
+    ///
+    /// A WebForms page is finished when the response is: the server ran the whole
+    /// lifecycle first. A converted page runs part of it on the circuit AFTER the first
+    /// paint, and how long that takes depends on the page, not on the tool. BlogEngine's
+    /// BlogRoll widget fetches its feeds synchronously - as the original did, inside its
+    /// request - and that alone outlasted the fixed wait, so the snapshot caught the page
+    /// before its lifecycle had set the title or bound the posts. For the WebForms side
+    /// this only adds the quiet window: nothing mutates after load.
+    ///
+    /// Three seconds, not less: while the server is inside that synchronous fetch the
+    /// circuit sends nothing, so the page is quiet exactly when it is NOT finished. 800 ms
+    /// was tried and settled in the middle of it (measured here: ~2.7 s per fetch).
+    /// </summary>
+    private static async Task WaitUntilSettledAsync(IPage page)
+    {
+        await page.EvaluateAsync(@"() => new Promise(resolve => {
+            const quietMs = 3000, maxMs = 20000;
+            let timer = setTimeout(done, quietMs);
+            const cap = setTimeout(done, maxMs);
+            const observer = new MutationObserver(() => { clearTimeout(timer); timer = setTimeout(done, quietMs); });
+            observer.observe(document, { subtree: true, childList: true, characterData: true, attributes: true });
+            function done() { observer.disconnect(); clearTimeout(timer); clearTimeout(cap); resolve(); }
+        })");
+    }
+
     private async Task<Snapshot> CaptureAsync(string name)
     {
         var title = await page.TitleAsync();
         var path = NormalizePath(new Uri(page.Url).AbsolutePath);
 
+        // Hidden for the read and shown again: innerText leaves out what is not displayed.
+        if (_ignoreSelectors.Count > 0)
+        {
+            await page.EvaluateAsync(
+                "selectors => selectors.forEach(s => document.querySelectorAll(s).forEach(e => { e.dataset.parityDisplay = e.style.display; e.style.display = 'none'; }))",
+                _ignoreSelectors);
+        }
         var bodyText = await page.InnerTextAsync("body");
+        if (_ignoreSelectors.Count > 0)
+        {
+            await page.EvaluateAsync(
+                "selectors => selectors.forEach(s => document.querySelectorAll(s).forEach(e => { e.style.display = e.dataset.parityDisplay; delete e.dataset.parityDisplay; }))",
+                _ignoreSelectors);
+        }
         var text = NormalizeText(bodyText);
 
         var tables = await page.EvaluateAsync<string[][][]>(

@@ -83,10 +83,47 @@ public static class BuildManager
             $"仮想パス {virtualPath} からの実行時コンパイルは変換後のアプリには存在しません。"
             + "対象の .aspx/.ascx は変換時に Blazor コンポーネントになっています。");
 
-    /// <summary>WebForms BuildManager.GetCompiledType equivalent (see above).</summary>
+    /// <summary>
+    /// WebForms BuildManager.GetCompiledType: the type a virtual path compiles to.
+    ///
+    /// A .cshtml the application renders itself (BlogEngine's widgets, through
+    /// RazorHelpers.ParseRazor) is compiled at BUILD time here - the converter hands the
+    /// templates its code names to the Razor SDK - and the SDK records each one's path on
+    /// the assembly ([RazorCompiledItem]). This looks the path up there, so the template
+    /// resolves by the same "~/Custom/Widgets/Search/widget.cshtml" the original compiled.
+    /// A template copied under wwwroot is recorded with that prefix, which is accepted too.
+    ///
+    /// A path with nothing compiled for it (an .aspx: those became components) still
+    /// throws, as before - there is no runtime compiler to fall back to.
+    /// </summary>
     public static Type GetCompiledType(string virtualPath)
-        => throw new NotSupportedException(
-            $"仮想パス {virtualPath} の実行時コンパイルは変換後のアプリには存在しません。");
+    {
+        var path = (virtualPath ?? string.Empty).Replace('\\', '/');
+        path = path.StartsWith("~/", StringComparison.Ordinal) ? path[1..] : path;
+        path = path.StartsWith('/') ? path : "/" + path;
+
+        foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
+        {
+            if (assembly.IsDynamic)
+            {
+                continue;
+            }
+
+            foreach (var item in assembly.GetCustomAttributes(typeof(Microsoft.AspNetCore.Razor.Hosting.RazorCompiledItemAttribute), false)
+                         .Cast<Microsoft.AspNetCore.Razor.Hosting.RazorCompiledItemAttribute>())
+            {
+                if (string.Equals(item.Identifier, path, StringComparison.OrdinalIgnoreCase)
+                    || string.Equals(item.Identifier, "/wwwroot" + path, StringComparison.OrdinalIgnoreCase))
+                {
+                    return item.Type;
+                }
+            }
+        }
+
+        throw new NotSupportedException(
+            $"仮想パス {virtualPath} の実行時コンパイルは変換後のアプリには存在しません"
+            + "(ビルド時にコンパイルされたテンプレートにもありません)。");
+    }
 }
 
 /// <summary>

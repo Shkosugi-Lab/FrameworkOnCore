@@ -1935,6 +1935,16 @@ public abstract class HttpServerUtilityBase
     {
     }
 
+    /// <summary>
+    /// Server.Execute(handler, writer, preserveForm): runs a page object built in code and
+    /// captures its output (BlogEngine's RazorHelpers.RenderControl does this to render one
+    /// control). A page here is a Blazor component with no request of its own to run in,
+    /// so it is inert like the path overloads above: nothing is written.
+    /// </summary>
+    public virtual void Execute(Page handler, System.IO.TextWriter writer, bool preserveForm)
+    {
+    }
+
     /// <summary>No error-page pipeline exists here; always null (guarded by callers).</summary>
     public virtual Exception GetLastError() => null;
 

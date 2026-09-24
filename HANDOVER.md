@@ -617,6 +617,20 @@ ListView は命名コンテナ。LayoutTemplate の中のサーバーコント�
 未確認: Repeater / DataList / GridView のヘッダー・フッターテンプレート、Login などのテンプレート内のサーバーコントロールの
 id。サンプルとパリティのシナリオに実例が無く、推測では変えていない。
 
+### be の CUSTOMFIELD(調査のみ、2026-09-24)
+
+`post-home-[CUSTOMFIELD|THEME|Standard|Post Thumbnail position|top/]` を置換しているのは
+`CustomFieldsParser.GetPageHtml`(BlogEngine.Core/Data/Services)。呼ぶのは `WebResourceFilter`(`Response.Filter`
+のストリーム)で、HttpModule `CompressionModule` がページへの GET/POST のたびに差し込む(admin 以外)。
+描画後の HTML 文書全体を文字列として後処理する仕組み。
+
+変換後は経路が無い: `<httpModules>` は未変換(残差で報告済み)、互換の `Response.Filter` は何もしない。
+さらに Blazor では、初期 HTML にフィルターを当てても回線接続後の描画で置き換わるため、単純な移植では効かない。
+対応するなら判断が要る(選択肢は下記)。
+1. 手作業の移行として残差のままにする(テーマの 3 ファイルに出る書式を、ヘルパー呼び出しに書き換える)。
+2. 互換層に「出力フィルター」を持たせ、変換器がテンプレート中の静的テキストをそこへ通す(汎用だが大きい)。
+3. `Response.Filter` を使うアプリは静的 SSR(回線なし)で描画し、ミドルウェアでフィルターを当てる(ページ単位の判断)。
+
 ## 6. 引き継ぎメモ
 
 - **コミット前に必ず `tools/verify-all.ps1` を通す。** exit 0 が最低ライン。

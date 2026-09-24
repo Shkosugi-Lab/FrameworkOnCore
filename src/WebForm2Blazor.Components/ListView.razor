@@ -11,7 +11,9 @@
     {
         @if (LayoutTemplate is not null)
         {
-            @LayoutTemplate(RenderItems)
+            <CascadingValue Name="NamingContainerPrefix" Value="@OwnPrefix">
+                @LayoutTemplate(RenderItems)
+            </CascadingValue>
         }
         else
         {
@@ -136,6 +138,22 @@
         }
     }
 
+    /// <summary>
+    /// The ListView is a naming container. A server control in its LayoutTemplate is
+    /// "{ListView ClientID}_{ID}" and one in a GroupTemplate "{ListView ClientID}_ctrl{n}_{ID}",
+    /// n counting the groups - measured on 4.8: WingtipToys renders
+    /// MainContent_productList_groupPlaceholderContainer and
+    /// MainContent_productList_ctrl0_itemPlaceholderContainer ... ctrl3_. Without it both
+    /// came out as MainContent_{ID}, the group's the same for every group.
+    ///
+    /// The items themselves are unchanged: their ids already carry the ListView and the
+    /// row (see WebFormsControlBase.ClientID), so the prefix they see is put back to the
+    /// one outside the ListView - otherwise the ListView's ID would appear twice.
+    /// </summary>
+    private string OwnPrefix => string.IsNullOrEmpty(ID) ? OuterPrefix : ClientIdFor(ID) + "_";
+
+    private string OuterPrefix => NamingContainerPrefix ?? string.Empty;
+
     private RenderFragment RenderItems => __builder =>
     {
         if (GroupTemplate is not null)
@@ -143,29 +161,37 @@
             var size = Math.Max(1, GroupItemCount);
             for (var start = 0; start < _containers.Count; start += size)
             {
-                @GroupTemplate(RenderGroup(start, size))
+                // A copy: the CascadingValue's content runs later, after the loop has moved on.
+                var groupStart = start;
+                <CascadingValue Name="NamingContainerPrefix" Value="@($"{OwnPrefix}ctrl{groupStart / size}_")">
+                    @GroupTemplate(RenderGroup(groupStart, size))
+                </CascadingValue>
             }
             return;
         }
 
-        for (var index = 0; index < _containers.Count; index++)
-        {
-            @RenderItem(index, index > 0)
-        }
+        <CascadingValue Name="NamingContainerPrefix" Value="@OuterPrefix">
+            @for (var index = 0; index < _containers.Count; index++)
+            {
+                @RenderItem(index, index > 0)
+            }
+        </CascadingValue>
     };
 
     private RenderFragment RenderGroup(int start, int size) => __builder =>
     {
-        for (var offset = 0; offset < size; offset++)
-        {
-            var index = start + offset;
-            if (index >= _containers.Count)
+        <CascadingValue Name="NamingContainerPrefix" Value="@OuterPrefix">
+            @for (var offset = 0; offset < size; offset++)
             {
-                @EmptyItemTemplate
-                continue;
+                var index = start + offset;
+                if (index >= _containers.Count)
+                {
+                    @EmptyItemTemplate
+                    continue;
+                }
+                @RenderItem(index, offset > 0)
             }
-            @RenderItem(index, offset > 0)
-        }
+        </CascadingValue>
     };
 
     private RenderFragment RenderItem(int index, bool separatorBefore) => __builder =>

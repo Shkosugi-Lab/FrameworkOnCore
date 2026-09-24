@@ -607,6 +607,16 @@ Web Pages の `WebPage.ExecutePageHierarchy`)が `System.Web.WebPages.Html` を�
   (be は BlogRoll の外部フィード記事。ネットワーク次第で出たり出なかったりする)。
 - be のパリティ残り: `ctl00_aLogin`(正解データ側、未検証)、reCAPTCHA、`CUSTOMFIELD`、home の「ログイン」。
 
+### wt の ListView の id(2026-09-24)
+
+ListView は命名コンテナ。LayoutTemplate の中のサーバーコントロールは `{ListView の ClientID}_{ID}`、GroupTemplate の
+中は `{ListView の ClientID}_ctrl{グループ番号}_{ID}`(4.8 の実測: `MainContent_productList_ctrl0_itemPlaceholderContainer`)。
+互換の ListView がこの接頭辞を渡していなかった。項目は従来どおり行番号つきの id なので、項目の部分だけ外側の接頭辞に
+戻している。wt のパリティは丸めの差(¥23/¥22)だけになった。
+
+未確認: Repeater / DataList / GridView のヘッダー・フッターテンプレート、Login などのテンプレート内のサーバーコントロールの
+id。サンプルとパリティのシナリオに実例が無く、推測では変えていない。
+
 ## 6. 引き継ぎメモ
 
 - **コミット前に必ず `tools/verify-all.ps1` を通す。** exit 0 が最低ライン。

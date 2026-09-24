@@ -463,14 +463,29 @@
             "text-align": "center"
           }
         },
-        "MainContent_groupPlaceholderContainer": {
+        "MainContent_productList_groupPlaceholderContainer": {
           "Tag": "table",
           "Attributes": {},
           "Style": {
             "width": "100%"
           }
         },
-        "MainContent_itemPlaceholderContainer": {
+        "MainContent_productList_ctrl0_itemPlaceholderContainer": {
+          "Tag": "tr",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_productList_ctrl1_itemPlaceholderContainer": {
+          "Tag": "tr",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_productList_ctrl2_itemPlaceholderContainer": {
+          "Tag": "tr",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MainContent_productList_ctrl3_itemPlaceholderContainer": {
           "Tag": "tr",
           "Attributes": {},
           "Style": {}

@@ -17,9 +17,9 @@
 | 差の種類 | 吸収する場所 | 実験での例 |
 |---|---|---|
 | System.Web の振る舞いの差(ポートの不具合・未実装、IIS との差) | ランタイム(WebFormsForCore のフォーク) | Response.Headers(0002)、既定参照(0005)、App_GlobalResources(0006)、IHtmlString(0007) |
-| .NET Framework にあって .NET に無いアセンブリで、.NET Framework 向けパッケージが参照するもの | 互換アセンブリ(`shims/`) | System.Net.Http.WebRequest |
+| .NET で型ごと無くなったもの(アセンブリ・型) | 互換アセンブリ(`shims/`)。同じ名前で実装し、変換器は参照を足すだけ。ソースの無い .NET Framework 向け DLL にも効く | System.Net.Http.WebRequest。候補: Remoting の `CallContext` など |
 | プロジェクト・パッケージ・ホストの差 | 変換器(生成物) | SDK 形式、パッケージの置き換え、`bin` 出力、既定のドキュメント |
-| .NET で無くなった BCL の API をアプリのコードが使う | 変換器(ソースの機械的な書き換え) | Reflection.Emit の削除 API(DefaultsProbe) |
+| .NET で既存の型のメンバーが無くなったもの(.NET 本体の型には足せない) | 変換器(ソースの機械的な書き換え) | Reflection.Emit の削除 API(DefaultsProbe、n2)、`DbProviderFactory.CreatePermission`(yaf) |
 | .NET に代わりが無い(LINQ to SQL、WCF Data Services のクライアント、デザイナー) | 変換器が除外またはスタブ化し、報告する | be の 8 ファイル |
 | アプリの値の差(浮動小数の書式など) | 報告のみ | wt の ¥23 / ¥22 |
 
@@ -171,10 +171,21 @@ Windows でしか動かないものを検出する。書き換えられるもの
 - AssemblyResolve に渡る名前(.NET は完全名): 0006 で BuildManager を直した。アプリ自身の AssemblyResolve ハンドラーにも同じ差がありうるので、検出して報告する規則を入れる。
 - BinaryFormatter: .NET 9 以降は既定で例外になる。be はビルドの警告を抑止しただけで、実行時の使われ方は未確認。
 - フォークのビルド: 変更後の最初のビルドで Web.Extensions が CS7069 になることがあり、2 回目で通る(pack-fork.ps1 で 1 回だけ再試行)。原因は未調査。
+- **互換アセンブリの網羅(残課題、2026-09-27 決定)**: .NET で型ごと無くなったものは、基本的にすべて互換アセンブリで用意する。進め方:
+  1. 一覧を機械的に作る。.NET Framework 4.8 の参照アセンブリの公開型から、次のものを除く。
+     - .NET 10 の標準ライブラリにあるもの(型転送を含む)
+     - 公式パッケージ(Windows Compatibility Pack、System.Data.SqlClient など)にあるもの
+     - 移植済みのもの(WebFormsForCore)
+  2. 残った型を分類する。
+     - 再現できるか: 同じ動作 / 型だけ(呼ばれたら PlatformNotSupportedException)/ 用意しない
+     - 使われているか: コーパス、よく使われる NuGet の DLL
+  3. 使われていて再現できるものから実装する。変換器は、ソースがその名前空間・型を使っていれば参照を足す。
+
+  一覧にあるが未実装のものは、変換時に報告する。
 
 ## 9. 次の作業
 
-1. Linux(Docker)で wt・be・サンプルを動かし、差を洗い出す。パスの大文字小文字、LocalDB、System.Drawing が主な候補。
+1. (済)Linux(Docker)で wt・be・サンプルを動かした。全コーパスで検証した(experiments/wf4c/README.md)。
 2. 新しい変換器の骨格を作る(発見、プロジェクト、ホスト、除外とスタブ、ビルド検証)。convert-project.ps1 と同じ結果になることを確認する。
 3. VB 対応(VBCompiler のファサード、vbproj)。
 4. MVC 5(DLL のまま動くかの確認から)、Web API の動作確認、WCF(CoreWCF)。

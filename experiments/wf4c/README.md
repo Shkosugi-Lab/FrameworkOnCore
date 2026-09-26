@@ -51,6 +51,8 @@
 | 0005 | ページのコンパイルの既定参照に、.NET Framework の既定参照(mscorlib / System / System.Core …)の型が .NET で置かれているアセンブリを追加。`App_Data/machine.config` は内容が違えば書き直す | ページ内の LINQ(be のテーマ、CS1061 Where) |
 | 0006 | `Assembly.Load("App_GlobalResources")` / `("App_Code")` を解決(.NET は AssemblyResolve に完全名を渡す) | be のリソースクラス(labels.designer.cs)、拡張機能の列挙 |
 | 0007 | `System.Web.IHtmlString` を System.Web.HttpUtility へ型転送 | .NET Framework 版の System.Web.WebPages.Razor(be のウィジェット) |
+| 0008 | Linux: 物理パスを大文字小文字を区別せずに解決(MapPath、設定ファイル) | be の設定ファイル `Web.Config`(Linux で全画面エラー) |
+| 0009 | ASP.NET Core ホスト: SERVER_NAME を Host ヘッダーから(IIS と同じ) | be の error404 へのリダイレクト先がコンテナの IP アドレスになった |
 
 未対応: VB のページコンパイラー(`VBCompiler.cs`)にも 0003 と同じ対応が要る(VB 対応のときに)。
 
@@ -114,6 +116,35 @@ Web プロジェクトと、それが参照するライブラリ(BlogEngine.Core
 - ProjectReference を辿ってライブラリも変換する。HintPath の DLL(packages 外)は `_lib` に置いて参照する。
 - web.config の `<compilation><assemblies>` も参照に写す(System.Management → パッケージ)。
 - System.ServiceModel.Syndication などは .NET のパッケージに置き換える。BinaryFormatter の警告(SYSLIB0011)は抑止する(動作は .NET 側の設定次第)。
+
+## Linux(Docker、2026-09-26)
+
+`run-linux.ps1` で、変換済みのアプリを Linux コンテナ(mcr.microsoft.com/dotnet/sdk:10.0)の中でビルドして実行し、ホストの ParityTest で正解データと比べる。
+
+    .\experiments\wf4c\run-linux.ps1 -App ProductAdmin
+    .\experiments\wf4c\run-linux.ps1 -App be\BlogEngine.NET -Scenario corpora\regression\be.scenario.json -Golden corpora\parity\be.golden-webforms.json
+    .\experiments\wf4c\run-linux.ps1 -App wt\WingtipToys -Scenario corpora\regression\wt.scenario.json -Golden corpora\parity\wt.golden-webforms.json -SqlServer
+
+| 対象 | Linux | Windows |
+|---|---|---|
+| サンプル 4 つ | **30/30** | 30/30 |
+| be | **5/5** | 5/5 |
+| wt | 5/8 | 6/8 |
+
+wt の残り:
+- 丸めの差(¥23 / ¥22)は Windows と同じ。
+- 通貨記号は正解データが `¥`(U+00A5)で、Linux は `￥`(全角、U+FFE5)。Linux の .NET は ICU のカルチャデータを使い、Windows の地域設定による上書きが無いため。**Linux 固有の差で、未対応。**
+- error-page は検証環境の差。Docker のポート転送では接続元がローカルにならず(`Request.IsLocal` が偽)、詳細が出ない。コンテナの中から開けば詳細が出ることを確認した。
+
+Linux で見つかって直したこと:
+- **ファイル名の大文字小文字**(フォーク 0008): IIS は区別しない。be の設定ファイルは `Web.Config`。
+- **SERVER_NAME**(フォーク 0009): 上流はローカルの IP アドレスを返していた。
+- **プロジェクトファイルの絶対パス**(convert-project.ps1): 別の場所(コンテナ)でもビルドできるよう相対パスにした。
+
+デプロイ時の設定として与えたもの(変換器が生成・提案する対象):
+- **接続文字列**: `.\SQLEXPRESS`・LocalDB・Windows 認証は Linux に無い。`-SqlServer` で SQL Server のコンテナを立て、web.config の接続文字列を書き換えたものを重ねる。アプリのファイルは変えない。
+- **カルチャ**: IIS はサーバーの OS のカルチャをアプリに渡す。コンテナには無い(インバリアントで通貨が `¤`)ので、`LANG` で渡す(既定は正解データを採ったこのマシンのカルチャ)。
+- **ポート**: ホストとコンテナで同じ番号にそろえる(IIS の SERVER_PORT はローカルのポート)。リバースプロキシの後ろに置く場合は、`aspnet:UseHostHeaderForRequestUrl` でポートも Host ヘッダーから取る。
 
 ParityTest の修正: 拡張子なしのパスを HTTP で事前確認する方式をやめた(GET で Web Forms のページが
 実行されるため、AddToCart が 2 回実行されてカートが 2 件になった)。開いて失敗したら .aspx で開き直す。

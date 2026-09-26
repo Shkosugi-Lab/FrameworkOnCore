@@ -53,6 +53,13 @@ $noAnswer = @('System.Data.Linq', 'System.Data.Services.Client', 'System.Design'
 
 $converted = @{}
 
+# A path relative to a directory (Windows PowerShell 5.1 has no Path.GetRelativePath). The output
+# is built elsewhere too (a Linux container), so no absolute path goes into a project file.
+function Get-RelativePath([string]$fromDirectory, [string]$to) {
+    $from = New-Object Uri ($fromDirectory.TrimEnd('\') + '\')
+    [Uri]::UnescapeDataString($from.MakeRelativeUri((New-Object Uri $to)).ToString()).Replace('/', '\')
+}
+
 function Convert-One([string]$projectPath, [bool]$isWeb) {
     $projectPath = (Resolve-Path $projectPath).Path
     if ($converted.ContainsKey($projectPath)) { return $converted[$projectPath] }
@@ -144,7 +151,7 @@ function Convert-One([string]$projectPath, [bool]$isWeb) {
     foreach ($reference in & $nodes '//m:ProjectReference') {
         $referenced = [IO.Path]::GetFullPath((Join-Path $source $reference.Include))
         $referencedTarget = Convert-One $referenced $false
-        $projectReferences += "    <ProjectReference Include=""$(Join-Path $referencedTarget ([IO.Path]::GetFileName($referenced)))"" />"
+        $projectReferences += "    <ProjectReference Include=""`$(MSBuildThisFileDirectory)$(Get-RelativePath $target (Join-Path $referencedTarget ([IO.Path]::GetFileName($referenced))))"" />"
     }
 
     # 4. The project file.
@@ -185,9 +192,11 @@ function Convert-One([string]$projectPath, [bool]$isWeb) {
     $items += "`r`n  </ItemGroup>`r`n`r`n  <ItemGroup>`r`n" +
               (($packages.GetEnumerator() | ForEach-Object { "    <PackageReference Include=""$($_.Key)"" Version=""$($_.Value)"" />" }) -join "`r`n") +
               "`r`n" + ($binaryReferences -join "`r`n") + "`r`n" + ($projectReferences -join "`r`n") + "`r`n  </ItemGroup>`r`n`r`n"
+    # The templates' paths into experiments\wf4c (the local feed, the shims), made relative to where
+    # the project now is. Before the items go in: their ProjectReferences are relative already.
+    $toScripts = '$(MSBuildThisFileDirectory)' + (Get-RelativePath $target ($PSScriptRoot + '\'))
+    $text = $text.Replace('$(MSBuildThisFileDirectory)..\..\', '__SCRIPTS__').Replace('$(MSBuildThisFileDirectory)..\', '__SCRIPTS__').Replace('__SCRIPTS__', $toScripts)
     $text = $text.Replace('  <Target Name="ChangeAliasesOfNugetRefs"', $items + '  <Target Name="ChangeAliasesOfNugetRefs"')
-    # Paths into experiments\wf4c (the local feed, the shims) are made absolute: the output can be anywhere.
-    $text = $text.Replace('$(MSBuildThisFileDirectory)..\..\', "$PSScriptRoot\").Replace('$(MSBuildThisFileDirectory)..\', "$PSScriptRoot\")
     Set-Content (Join-Path $target "$name.csproj") $text -Encoding UTF8
 
     # 5. Program.cs for the web project. An app that routes (System.Web.Routing, FriendlyUrls)
@@ -211,6 +220,6 @@ function Convert-One([string]$projectPath, [bool]$isWeb) {
 }
 
 New-Item -ItemType Directory $Out -Force | Out-Null
-# Absolute, because it ends up in ProjectReference paths, which resolve from the project, not from here.
+# Absolute while converting (relative paths in the output are computed from it).
 $Out = (Resolve-Path $Out).Path
 Convert-One $Project $true | Out-Null

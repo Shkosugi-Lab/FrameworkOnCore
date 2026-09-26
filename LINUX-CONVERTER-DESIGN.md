@@ -1,0 +1,172 @@
+# 新しい変換器の設計: .NET Framework の Web アプリを Linux で動かす(2026-09-26)
+
+方針転換(Blazor 化 → 「.NET Framework アプリを Windows Server でなく Linux で動かす」)後の変換器の設計。
+根拠は `experiments/wf4c/`(WebFormsForCore のフォークで、サンプル 4 つ・wt・be をソースを変えずに動かした実験)。
+
+## 1. 目的と範囲
+
+- 対象: 言語は C# と VB、フレームワークは Web Forms、MVC、Web API、WCF。
+- 優先順位: Web Forms(C#)→ Web Forms(VB)→ MVC → Web API → WCF。
+- 画面の操作感は元のまま(ポストバック)。スティッキーセッションや WebSocket は要件にしない。
+- 合格の基準: IIS / .NET Framework で採った正解データ(ParityTest の golden)との一致。まず Windows 上の .NET 10、その後 Linux(Docker)で確認する。
+
+## 2. 基本方針: 差をどこで吸収するか
+
+差が見つかったら、次の順で吸収する場所を決める。上ほど 1 回の修正で多くのアプリに効き、利用者のソースに手を入れずに済む。
+
+| 差の種類 | 吸収する場所 | 実験での例 |
+|---|---|---|
+| System.Web の振る舞いの差(ポートの不具合・未実装、IIS との差) | ランタイム(WebFormsForCore のフォーク) | Response.Headers(0002)、既定参照(0005)、App_GlobalResources(0006)、IHtmlString(0007) |
+| .NET Framework にあって .NET に無いアセンブリで、.NET Framework 向けパッケージが参照するもの | 互換アセンブリ(`shims/`) | System.Net.Http.WebRequest |
+| プロジェクト・パッケージ・ホストの差 | 変換器(生成物) | SDK 形式、パッケージの置き換え、`bin` 出力、既定のドキュメント |
+| .NET で無くなった BCL の API をアプリのコードが使う | 変換器(ソースの機械的な書き換え) | Reflection.Emit の削除 API(DefaultsProbe) |
+| .NET に代わりが無い(LINQ to SQL、WCF Data Services のクライアント、デザイナー) | 変換器が除外またはスタブ化し、報告する | be の 8 ファイル |
+| アプリの値の差(浮動小数の書式など) | 報告のみ | wt の ¥23 / ¥22 |
+
+変換器は利用者のコードを書き換える量をできるだけ少なくする。書き換える場合も、規則として説明できる機械的な変換に限る。
+
+## 3. 全体の流れ
+
+```
+入力(.sln / .csproj / .vbproj)
+  1. 発見      : プロジェクトの依存関係、言語、種類(Web Forms / MVC / Web API / WCF / ライブラリ)
+  2. プロジェクト: SDK 形式の csproj / vbproj、パッケージ、参照、除外
+  3. ホスト    : Program.cs、web.config の system.webServer を ASP.NET Core の設定へ
+  4. ソース    : Roslyn による機械的な書き換え(C# / VB)
+  5. 除外とスタブ: .NET に代わりが無いファイルを除外し、依存先がコンパイルできるようスタブを生成
+  6. ビルド検証: dotnet build → 診断を分類 → 既知の対処を適用して再ビルド(回数に上限)
+  7. Linux 検査: Windows 依存の検出(報告と一部の書き換え)
+  8. 出力      : 変換済みソース、Dockerfile、CONVERSION-REPORT.md
+検証(別ツール): ParityTest で正解データと比較(Windows → Docker)
+```
+
+### 3.1 発見
+
+- 旧変換器の `ProjectReferenceGraph`(条件式・DefineConstants の評価、HintPath 参照)と `WebFormsProject.ReadCompiledFiles` を流用する。
+- VB への対応: `.vbproj` を同じ仕組みで読む。旧変換器は VB を「移植不可」と報告するだけだったので、この部分は拡張する。
+- 種類の判定: ProjectTypeGuids、パッケージ(Microsoft.AspNet.Mvc / WebApi / FriendlyUrls)、ファイル(.aspx / .svc / Global.asax の内容)から判定する。
+
+### 3.2 プロジェクト(実験で確定した規則)
+
+- SDK 形式(Web プロジェクトは Microsoft.NET.Sdk.Web)、net10.0。元の `<Compile Include>` をそのまま使う(`EnableDefaultCompileItems=false`)。EmbeddedResource も同様。
+- `GenerateAssemblyInfo=false`(元の AssemblyInfo と重複するため)。
+- 出力先は `bin`。アプリは `~/bin` から自分のアセンブリを探す(be の拡張機能)。
+- packages.config → PackageReference。規則はコードでなくデータファイル(`package-map.json`)に置く。
+  - 外すもの: .NET に同梱の System.* 4.x、NETStandard.Library など。
+  - 置き換えるもの: バンドル / WebGrease / Microsoft.Web.Infrastructure / AjaxControlToolkit → WebFormsForCore.*。EF6 → 6.5.1。
+  - 上げるもの: 依存先が要求する版まで(Newtonsoft.Json 13.0.4。下げると NU1605)。
+  - 残すもの: .NET Framework 向けのまま動くもの(Identity 2、OWIN / Katana、Web API 2、SimpleInjector、Elmah、FriendlyUrls)。NU1701 は抑止する。
+- Framework の参照(`<Reference Include="System.Web">` など)→ WebFormsForCore のパッケージ、または .NET のパッケージ(System.Drawing.Common、System.ServiceModel.*、System.Management、System.Runtime.Caching、System.DirectoryServices)。代わりが無いもの(System.Data.Linq、System.Data.Services.Client、System.Design、System.Web.Mobile)は報告する。
+- web.config の `<compilation><assemblies>` も参照に写す。
+- HintPath の DLL(packages の外)は `_lib` に写して参照する。
+- ProjectReference を辿り、依存するライブラリも変換する。
+
+### 3.3 ホスト
+
+- Program.cs: `UseSession` + `UseWebForms(o => o.UseAspNetCoreSessionProvider())`。
+  - ルーティング(RouteTable、FriendlyUrls、MVC、Web API)を使う場合は `HandleAllRequestsWithWebForms()`。
+  - 使わない場合は、IIS の既定のドキュメントを `UseDefaultFiles` で補う。
+- web.config の `system.webServer` は IIS のホスト機能なので、ASP.NET Core の設定に写す(未実装。今後の作業):
+  - defaultDocument → UseDefaultFiles
+  - rewrite → Rewrite ミドルウェア
+  - httpErrors → StatusCodePages
+  - staticContent の MIME
+  - requestFiltering の上限 → Kestrel の制限
+  - httpProtocol の customHeaders
+
+  写せないもの(handlers / modules の IIS 固有のもの)は報告する。
+
+### 3.4 ソースの書き換え
+
+- 基盤: Roslyn(C# は Microsoft.CodeAnalysis.CSharp、VB は Microsoft.CodeAnalysis.VisualBasic)。構文だけで判断できない規則には、旧変換器の `SemanticBaseIndex` の方式(メタデータ参照でコンパイルを作る)を使う。
+- 規則は「.NET で削除・変更された BCL の API → .NET の API」に限る。System.Web は触らない(ランタイムが同じ API を持つため)。
+  - 流用するもの: `RemovedEmitApis`、`FrameworkPolyfills`(CS0433)、`FieldKeywordRewriter`(C# 14 の `field`)、Remoting の using の削除。
+  - 追加が必要なもの: AppDomain の作成、Thread.Abort、CAS / SecurityPermission 属性、BinaryFormatter の設定(警告ではなく実行時の例外になる箇所)、`WebRequest` 系の古い API。
+- 旧変換器で System.Web の型を互換名前空間に付け替えていた処理(`RewriteQualifiedFrameworkTypes` など)は使わない。
+
+### 3.5 除外とスタブ
+
+- 旧変換器の除外判定(`FindUnportableNamespace`、`PortabilityRules`)とスタブ生成(`GenerateExcludedTypeStubs`、`RenderStubType`)を流用する。これが旧変換器で最も価値のある部分。
+- 除外の単位はファイル。除外したファイルの公開型は、依存先がコンパイルできるようにスタブを生成する。スタブのメンバーは NotSupportedException を投げる。
+- be の実験では手で `-ExcludeFiles` を渡した。新しい変換器では次のように自動で判定する。
+  - 代わりが無い名前空間を使うファイルを除外する(System.Data.Linq、System.Data.Services.Client、System.Web.UI.Design)。
+  - 除外したファイルに依存するファイルも除外するか、スタブで解決する(be の DbFileSystemProvider)。
+- 除外とスタブはすべて報告する。その機能が既定の構成で使われるかどうかも、可能なら報告する(be では XML ストアのため未使用)。
+
+### 3.6 ビルド検証
+
+- 旧変換器の `BuildVerifier`(dotnet build の診断の解析と分類、BUILD-REPORT.md)を流用する。
+- 新しく足すもの: 既知の診断に対処を割り当てて再ビルドするループ。回数には上限を設ける。
+
+  | 診断 | 対処 |
+  |---|---|
+  | NU1605 | 版を上げる |
+  | CS0579(AssemblyInfo の重複) | GenerateAssemblyInfo=false |
+  | 型が無い | 除外とスタブ |
+
+  未知の診断は報告に残す。
+
+### 3.7 Linux 検査
+
+Windows でしか動かないものを検出する。書き換えられるものは書き換え、残りは報告する。
+
+- パス: 大文字小文字の違いを検出する。ファイルシステム上の名前とコード・マークアップ中の参照(`~/Styles/site.css`、`Page Inherits`、`MasterPageFile`)を照合し、実在の名前に合わせる。`\` の区切りは Path.Combine などの文字列を検出する。
+- System.Drawing: Linux では System.Drawing.Common が使えない。使っている箇所を報告する。代わりのライブラリは選択式にする(未決定)。
+- レジストリ、EventLog、パフォーマンスカウンター、WMI(System.Management)、Windows 認証、COM: 報告する。
+- 接続文字列: LocalDB(`(LocalDB)\...`)と `AttachDbFilename` は Linux に無い。SQL Server コンテナへの置き換えを提案し、設定で差し替えられるようにする。
+
+### 3.8 出力と報告
+
+- 変換済みのソースツリー、Dockerfile(mcr.microsoft.com/dotnet/aspnet:10.0)、CONVERSION-REPORT.md を出力する。
+- 報告の形式は旧変換器の `ConversionReport`(Residual の種類と処置: Convertible / Backlog / NeedsInput / OutOfScope / Informational)を流用し、種類の名前を付け直す。
+
+## 4. ランタイム
+
+| 対象 | ランタイム | 状態 |
+|---|---|---|
+| Web Forms | WebFormsForCore のフォーク(`experiments/wf4c/patches` 0001–0007)と互換アセンブリ(`shims/`) | Windows で wt・be・サンプルが動作 |
+| Web API 2 | .NET Framework 版の DLL のまま、ポートした System.Web の上で動かす | be でビルドと起動を確認。API の動作は未検証 |
+| MVC 5 | まず .NET Framework 版の DLL のまま試す。動かなければ AspNetWebStack(Apache 2.0)をポートする | 未着手。be の Web Pages(Razor)が DLL のまま動いたので見込みはある |
+| WCF | CoreWCF(MIT)に載せる。.svc は ServiceHost の登録に、system.serviceModel はコードに変換する。対応しないもの(WSDualHttp、メッセージセキュリティ、トランザクション)は報告する | 未着手 |
+
+- フォークの配布: 現在は `_feed` のローカル NuGet(1.6.5-w2l.x)。上流への還元(PR)を並行して検討する。0005〜0007 は上流の不具合そのものなので還元しやすい。
+- ライセンス: WebFormsForCore と referencesource は MIT、AspNetWebStack は Apache 2.0、CoreWCF は MIT。
+
+## 5. VB への対応
+
+- ページ: VB のページコンパイラー(`VBCompiler.cs`)に 0003 と同じファサード参照を追加する。
+- プロジェクト: vbproj の変換。以下の設定を引き継ぐ。
+  - `OptionStrict` / `OptionExplicit` / `OptionInfer`
+  - プロジェクト全体の Imports(`<Import Include>`)
+  - `MyType`
+- My 名前空間: Microsoft.VisualBasic の .NET 版で使えないもの(My.Computer の一部など)は報告する。
+- 書き換え: C# と同じ規則を VB の構文木で実装する。規則は言語に依存しない形(対象の API とその書き換え先)で定義し、言語ごとに適用部だけを分ける。
+
+## 6. 実装の構成(案)
+
+- `src/NetFx2Linux.Converter`(仮称)を新しく作る。旧変換器(`src/WebForm2Blazor.Converter`)は残し、流用する部分はコピーでなく共有ライブラリに切り出す。
+- 規則はデータで持つ: `package-map.json`、`framework-references.json`、`unportable-namespaces.json`、`api-rewrites.json`。規則を足すことが主な保守作業になるため。
+- CLI: `convert --project <csproj|vbproj|sln> --out <dir> [--exclude <file>...] [--report <md>]`、`verify-build <dir>`。
+- `experiments/wf4c/convert-project.ps1` は規則の試作。新しい変換器はこれと同じ結果を出すことから始める(be・wt で同じ csproj になることを確認する)。
+
+## 7. 検証
+
+- コーパスは be と wt だけ(CLAUDE.md)。加えてリポジトリ内のサンプル 4 つ(ProductAdmin、OrderAdmin、MasterProbe、DefaultsProbe)。
+- 変換器やフォークを直したら、類似の問題がほかの場所で起きないか調べる(CLAUDE.md)。実験では次のように機械的に照合した。
+  - 0005: .NET Framework のファサードの型転送先を列挙した。
+  - 0007: .NET Framework 4.8 の参照アセンブリとフォークの公開型を比較した。
+- Linux: Docker(mcr.microsoft.com/dotnet/sdk:10.0)でビルドと実行を行い、ホストの ParityTest から比較する。
+
+## 8. 既知の差と未解決の点
+
+- 浮動小数の書式: `double` の 22.5 を通貨書式にすると .NET Framework は ¥23、.NET は ¥22(wt)。ランタイムでは直せないので、該当する書式呼び出しを報告する。
+- AssemblyResolve に渡る名前(.NET は完全名): 0006 で BuildManager を直した。アプリ自身の AssemblyResolve ハンドラーにも同じ差がありうるので、検出して報告する規則を入れる。
+- BinaryFormatter: .NET 9 以降は既定で例外になる。be はビルドの警告を抑止しただけで、実行時の使われ方は未確認。
+- フォークのビルド: 変更後の最初のビルドで Web.Extensions が CS7069 になることがあり、2 回目で通る(pack-fork.ps1 で 1 回だけ再試行)。原因は未調査。
+
+## 9. 次の作業
+
+1. Linux(Docker)で wt・be・サンプルを動かし、差を洗い出す。パスの大文字小文字、LocalDB、System.Drawing が主な候補。
+2. 新しい変換器の骨格を作る(発見、プロジェクト、ホスト、除外とスタブ、ビルド検証)。convert-project.ps1 と同じ結果になることを確認する。
+3. VB 対応(VBCompiler のファサード、vbproj)。
+4. MVC 5(DLL のまま動くかの確認から)、Web API の動作確認、WCF(CoreWCF)。

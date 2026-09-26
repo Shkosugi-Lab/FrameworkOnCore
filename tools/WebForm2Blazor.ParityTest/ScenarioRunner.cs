@@ -36,21 +36,32 @@ public sealed class ScenarioRunner(IPage page, string baseUrl, List<Regex> ignor
                 case "goto":
                     {
                         // The Blazor app uses extensionless routes; the WebForms app uses
-                        // physical paths (.aspx). Try the bare path first, and on 404 retry
-                        // with .aspx appended (keeping the query string after the path).
+                        // physical paths (.aspx). The bare path is probed over HTTP first and,
+                        // when the server does not have it, the .aspx is opened instead (keeping
+                        // the query string after the path).
+                        //
+                        // Probed rather than navigated to: a server answering the bare path with
+                        // an error and no body (a WebForms app hosted without FriendlyUrls does)
+                        // sends the browser to its own error page, and that navigation interrupts
+                        // whatever is started next.
                         var path = step.Path ?? "/";
-                        var response = await page.GotoAsync(_root + path, new() { WaitUntil = WaitUntilState.NetworkIdle });
-                        if (response is { Status: 404 } && path != "/")
+                        var target = path;
+                        if (path != "/")
                         {
-                            var separatorIndex = path.IndexOfAny(['?', '#']);
-                            var pathOnly = separatorIndex >= 0 ? path[..separatorIndex] : path;
-                            var suffix = separatorIndex >= 0 ? path[separatorIndex..] : string.Empty;
-                            if (!pathOnly.EndsWith(".aspx", StringComparison.OrdinalIgnoreCase))
+                            var probe = await page.Context.APIRequest.GetAsync(_root + path, new() { MaxRedirects = 0 });
+                            if (probe.Status == 404)
                             {
-                                await page.GotoAsync(_root + pathOnly + ".aspx" + suffix,
-                                    new() { WaitUntil = WaitUntilState.NetworkIdle });
+                                var separatorIndex = path.IndexOfAny(['?', '#']);
+                                var pathOnly = separatorIndex >= 0 ? path[..separatorIndex] : path;
+                                var suffix = separatorIndex >= 0 ? path[separatorIndex..] : string.Empty;
+                                if (!pathOnly.EndsWith(".aspx", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    target = pathOnly + ".aspx" + suffix;
+                                }
                             }
+                            await probe.DisposeAsync();
                         }
+                        await page.GotoAsync(_root + target, new() { WaitUntil = WaitUntilState.NetworkIdle });
                         await page.WaitForTimeoutAsync(1800); // SignalR connection + init wait (for WebForms it is simply extra waiting)
                         await WaitUntilSettledAsync(page);
                         break;

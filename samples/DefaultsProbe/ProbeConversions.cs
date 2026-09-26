@@ -46,7 +46,7 @@ namespace DefaultsProbe
     /// Image 継承のカスタムコントロール(n2cms の ResizedImage と同型)。ImageUrl を持つ基底
     /// (LegacyImage)に写ることと、img が WebForms と同じく自己終了で描かれることの検証用。
     /// </summary>
-    public class ProbeImage : Image
+    public class ProbeImage : System.Web.UI.WebControls.Image
     {
         public string CurrentUrl
         {

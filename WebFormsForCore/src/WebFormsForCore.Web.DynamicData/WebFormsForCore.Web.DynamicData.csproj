@@ -50,6 +50,8 @@
             <PackagePath>\</PackagePath>
         </None>
         <Compile Include="..\VersionInfo.cs" Link="Properties\VersionInfo.cs" />
+        <!-- LINQ to SQL and EF6 ObjectContext model providers: neither framework exists on .NET. -->
+        <Compile Remove="DynamicData\ModelProviders\DLinq*.cs;DynamicData\ModelProviders\EF*.cs" />
     </ItemGroup>
 
     <ItemGroup>

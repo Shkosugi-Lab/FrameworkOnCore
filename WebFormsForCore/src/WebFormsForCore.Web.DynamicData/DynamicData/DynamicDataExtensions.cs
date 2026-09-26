@@ -4,7 +4,9 @@ namespace System.Web.DynamicData {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.Diagnostics.CodeAnalysis;
+#if !WebFormsForCore
     using System.Data.Linq;
+#endif
     using System.Diagnostics;
     using System.Globalization;
     using System.Linq.Expressions;
@@ -250,6 +252,7 @@ namespace System.Web.DynamicData {
             }
         }
 
+#if !WebFormsForCore
         /// <summary>
         /// Set the DataLoadOptions on a Linq To Sql datasource to force all the FK entities
         /// to be directly loaded.
@@ -287,6 +290,7 @@ namespace System.Web.DynamicData {
         public static void LoadWith<TEntity>(this LinqDataSource dataSource) {
             LoadWithForeignKeys(dataSource, typeof(TEntity));
         }
+#endif
 
         /// <summary>
         /// Apply potential HTML encoding and formatting to a string that needs to be displayed

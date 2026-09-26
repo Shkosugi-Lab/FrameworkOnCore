@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+#if !WebFormsForCore
 using System.Data.Spatial;
+#endif
 using System.Diagnostics;
 using System.Globalization;
 using System.Web.Compilation;
@@ -86,8 +88,10 @@ namespace System.Web.DynamicData {
             _typesFallBacks[typeof(DateTime)] = typeof(string);
             _typesFallBacks[typeof(DateTimeOffset)] = typeof(string);
             _typesFallBacks[typeof(TimeSpan)] = typeof(string);
+#if !WebFormsForCore
             _typesFallBacks[typeof(DbGeography)] = typeof(string);
             _typesFallBacks[typeof(DbGeometry)] = typeof(string);
+#endif
 
             // 
         }

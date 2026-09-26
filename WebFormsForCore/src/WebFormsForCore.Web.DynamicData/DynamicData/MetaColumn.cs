@@ -1,6 +1,8 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+#if !WebFormsForCore
 using System.Data.Spatial;
+#endif
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
@@ -335,8 +337,10 @@ namespace System.Web.DynamicData {
                 if (this.IsEnumType(out enumType)) return true;
 
                 //Include spatial types
+#if !WebFormsForCore
                 if (ColumnType == typeof(DbGeography)) return true;
                 if (ColumnType == typeof(DbGeometry)) return true;
+#endif
 
                 return false;
             }

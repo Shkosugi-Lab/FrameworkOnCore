@@ -3750,6 +3750,16 @@ private static void GetGhostedVirtualPath(ref string virtualPath) {
         {
             assembly = (Assembly)_assemblyResolveMapping[name];
 
+#if NETCOREAPP
+            // .NET passes the full name (Assembly.Load("App_GlobalResources") arrives as
+            // "App_GlobalResources, Culture=neutral, PublicKeyToken=null"); the mapping is by simple name.
+            if (assembly == null && name.IndexOf(',') >= 0)
+            {
+                name = name.Substring(0, name.IndexOf(',')).Trim();
+                assembly = (Assembly)_assemblyResolveMapping[name];
+            }
+#endif
+
             // Return the assembly if we have it in our mapping (VSWhidbey 276776)
             if (assembly != null)
             {

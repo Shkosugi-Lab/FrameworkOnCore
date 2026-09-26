@@ -1,5 +1,5 @@
-# Converts the corpora (corporawork) with convert-project.ps1 and builds them; prints the errors.
-#   .experimentswf4cerify-corpora.ps1 [-Only be,wt] [-Exclude @{ yaf = @(...) }]
+# Converts the corpora (corpora\work) with convert-project.ps1 and builds them; prints the errors.
+#   .\experiments\wf4c\verify-corpora.ps1 [-Only be,wt] [-Exclude @{ yaf = @('Base\...\File.cs') }]
 param([string[]]$Only = @('be','wt','mojo','yaf','dnn','n2'), [hashtable]$Exclude = @{})
 Set-Location C:\wcc\data\sessions\-rETZO4pVnOb
 $env:DOTNET_CLI_UI_LANGUAGE = 'en'

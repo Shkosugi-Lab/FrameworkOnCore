@@ -931,6 +931,17 @@ namespace System.Web {
 
         public NameValueCollection Headers {
             get {
+#if WebFormsForCore
+                // On ASP.NET Core there is no IIS7WorkerRequest, but the collection is what
+                // integrated-pipeline code reads and writes (Katana's Microsoft.Owin.Host.SystemWeb
+                // builds its whole response environment on it). It is backed by the same header
+                // lists AppendHeader fills, and kept in step with them (SynchronizeHeader), which is
+                // how integrated mode keeps it in step with the native header block.
+                if (_headers == null) {
+                    _headers = new HttpHeaderCollection(_wr, this, 16);
+                    PopulateClassicHeaders(_headers);
+                }
+#else
                 if ( !(_wr is IIS7WorkerRequest) ) {
                     throw new PlatformNotSupportedException(SR.GetString(SR.Requires_Iis_Integrated_Mode));
                 }
@@ -938,10 +949,64 @@ namespace System.Web {
                 if (_headers == null) {
                     _headers = new HttpHeaderCollection(_wr, this, 16);
                 }
+#endif
 
                 return _headers;
             }
         }
+
+#if WebFormsForCore
+        // The headers set so far, into a new collection.
+        private void PopulateClassicHeaders(HttpHeaderCollection headers) {
+            if (_contentTypeSetByManagedCaller) {
+                headers.SynchronizeHeader("Content-Type", _contentType);
+            }
+            if (_redirectLocationSet && _redirectLocation != null) {
+                headers.SynchronizeHeader("Location", _redirectLocation);
+            }
+            foreach (var list in new[] { _customHeaders, _cacheHeaders }) {
+                if (list == null) continue;
+                foreach (HttpResponseHeader h in list) {
+                    headers.SynchronizeAppend(h.Name, h.Value);
+                }
+            }
+        }
+
+        // Header collection writes, applied to the classic header lists.
+        internal void SetHeaderClassic(String name, String value, bool replace) {
+            if (_headersWritten)
+                throw new HttpException(SR.GetString(SR.Cannot_append_header_after_headers_sent));
+
+            if (replace) {
+                RemoveHeaderClassic(name);
+            }
+            AppendHeaderCore(name, value);
+        }
+
+        internal void RemoveHeaderClassic(String name) {
+            if (_headersWritten)
+                throw new HttpException(SR.GetString(SR.Cannot_append_header_after_headers_sent));
+
+            switch (HttpWorkerRequest.GetKnownResponseHeaderIndex(name)) {
+                case HttpWorkerRequest.HeaderContentType:
+                    _contentType = "text/html";
+                    _contentTypeSetByManagedCaller = false;
+                    return;
+                case HttpWorkerRequest.HeaderLocation:
+                    _redirectLocation = null;
+                    _redirectLocationSet = false;
+                    return;
+            }
+            foreach (var list in new[] { _customHeaders, _cacheHeaders }) {
+                if (list == null) continue;
+                for (int i = list.Count - 1; i >= 0; i--) {
+                    if (StringUtil.EqualsIgnoreCase(((HttpResponseHeader)list[i]).Name, name)) {
+                        list.RemoveAt(i);
+                    }
+                }
+            }
+        }
+#endif
 
         /*
          * Add dependency on a file to the current response
@@ -2015,6 +2080,20 @@ namespace System.Web {
         ///       header to the output stream.</para>
         /// </devdoc>
         public void AppendHeader(String name, String value) {
+#if WebFormsForCore
+            if (_headersWritten)
+                throw new HttpException(SR.GetString(SR.Cannot_append_header_after_headers_sent));
+
+            AppendHeaderCore(name, value);
+
+            // Keep Response.Headers in step (see Headers).
+            if (_headers != null && !(_wr is IIS7WorkerRequest)) {
+                _headers.SynchronizeAppend(name, value);
+            }
+        }
+
+        private void AppendHeaderCore(String name, String value) {
+#endif
             bool isCacheHeader = false;
 
             if (_headersWritten)
@@ -3390,7 +3469,7 @@ namespace System.Web {
 
         private String UrlEncodeIDNSafe(String url) {
             // Bug 86594: Should not encode the domain part of the url. For example,
-            // http://Übersite/Überpage.aspx should only encode the 2nd Ü.
+            // http://ï¿½bersite/ï¿½berpage.aspx should only encode the 2nd ï¿½.
             // To accomplish this we must separate the scheme+host+port portion of the url from the path portion,
             // encode the path portion, then reconstruct the url.
             Debug.Assert(!url.Contains("?"), "Querystring should have been stripped off.");

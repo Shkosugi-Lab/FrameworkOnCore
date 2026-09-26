@@ -68,7 +68,27 @@ namespace System.Web {
             info.SetType(typeof(HttpValueCollection));
         }
 
+#if WebFormsForCore
+        // Response headers without IIS7: written through to HttpResponse's header lists (see
+        // HttpResponse.Headers).
+        private bool IsClassicResponse => _iis7WorkerRequest == null && _response != null;
+
+        // Appends to the managed copy only: the header is already in HttpResponse's lists.
+        internal void SynchronizeAppend(String name, String value) {
+            base.Add(name, value);
+        }
+#endif
+
         public override void Add(String name, String value) {
+#if WebFormsForCore
+            if (IsClassicResponse) {
+                if (name == null) throw new ArgumentNullException("name");
+                if (value == null) throw new ArgumentNullException("value");
+                _response.SetHeaderClassic(name, value, replace: false);
+                base.Add(name, value);
+                return;
+            }
+#endif
             if (_iis7WorkerRequest == null) {
                 throw new PlatformNotSupportedException();
             }
@@ -89,6 +109,15 @@ namespace System.Web {
         }
 
         public override void Set(String name, String value) {
+#if WebFormsForCore
+            if (IsClassicResponse) {
+                if (name == null) throw new ArgumentNullException("name");
+                if (value == null) throw new ArgumentNullException("value");
+                _response.SetHeaderClassic(name, value, replace: true);
+                base.Set(name, value);
+                return;
+            }
+#endif
             if (_iis7WorkerRequest == null) {
                 throw new PlatformNotSupportedException();
             }
@@ -173,6 +202,14 @@ namespace System.Web {
         }
 
         public override void Remove(String name) {
+#if WebFormsForCore
+            if (IsClassicResponse) {
+                if (name == null) throw new ArgumentNullException("name");
+                _response.RemoveHeaderClassic(name);
+                base.Remove(name);
+                return;
+            }
+#endif
             if (_iis7WorkerRequest == null) {
                 throw new PlatformNotSupportedException();
             }

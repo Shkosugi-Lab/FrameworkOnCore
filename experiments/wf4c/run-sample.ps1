@@ -11,7 +11,9 @@ param(
     # Files left out of the build: sources that exercise the CONVERTER (.NET Framework APIs
     # .NET removed, e.g. DefaultsProbe's ProbeEmit.cs), which no page uses. Running them
     # unchanged is not what this experiment measures.
-    [string[]]$Exclude = @()
+    [string[]]$Exclude = @(),
+    # The original server's culture data (capture-culture.ps1), put in App_Data like convert-project.ps1 does.
+    [string]$CultureProfile
 )
 
 $ErrorActionPreference = 'Stop'
@@ -28,6 +30,10 @@ Move-Item (Join-Path $work "$Name.csproj") (Join-Path $work "$Name.csproj.netfx"
     Set-Content (Join-Path $work "$Name.csproj") -Encoding UTF8
 Copy-Item (Join-Path $PSScriptRoot 'Program.cs.txt') (Join-Path $work 'Program.cs')
 foreach ($file in $Exclude) { Remove-Item (Join-Path $work $file) }
+if ($CultureProfile) {
+    New-Item -ItemType Directory (Join-Path $work 'App_Data') -Force | Out-Null
+    Copy-Item $CultureProfile (Join-Path $work 'App_Data\culture-profile.json')
+}
 
 Push-Location $work
 try {

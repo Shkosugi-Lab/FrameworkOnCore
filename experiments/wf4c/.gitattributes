@@ -1,0 +1,2 @@
+# Run by bash in Linux containers.
+*.sh text eol=lf

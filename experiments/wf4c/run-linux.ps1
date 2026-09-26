@@ -89,6 +89,12 @@ mkdir -p /work
 cd /src && tar --exclude=./_upstream --exclude=./_linux --exclude='./*/bin' --exclude='./*/obj' --exclude='./*/*/bin' --exclude='./*/*/obj' -cf - . | (cd /work && tar xf -)
 cd /work/$appPath
 cp -r /overlay/. .
+# The original server's culture data (capture-culture.ps1, put in App_Data by the conversion) made
+# ICU's: new CultureInfo("ja-JP") and every other way of creating a culture gets them.
+if [ -f App_Data/culture-profile.json ]; then
+    bash /work/icu/build-icu-data.sh App_Data/culture-profile.json /icu-data
+    export ICU_DATA=/icu-data
+fi
 dotnet build -v q -nologo
 exec dotnet bin/$name.dll --urls http://0.0.0.0:$Port
 "@ -replace "`r", ''

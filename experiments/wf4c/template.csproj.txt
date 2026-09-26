@@ -41,6 +41,14 @@
     <ProjectReference Include="$(MSBuildThisFileDirectory)..\shims\System.Net.Http.WebRequest\System.Net.Http.WebRequest.csproj" />
   </ItemGroup>
 
+  <!-- Culture data from Windows (NLS), as on .NET Framework: .NET's default ICU data differ (ja-JP's
+       currency ￥ for ¥, its long date pattern), for every culture created without user overrides
+       (CultureInfo.GetCultureInfo). Windows only; on Linux ICU's data are made the server's instead
+       (experiments/wf4c/icu). -->
+  <ItemGroup>
+    <RuntimeHostConfigurationOption Include="System.Globalization.UseNls" Value="true" />
+  </ItemGroup>
+
 
   <Target Name="ChangeAliasesOfNugetRefs" BeforeTargets="FindReferenceAssembliesForReferences;ResolveReferences">
     <ItemGroup>

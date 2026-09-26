@@ -133,7 +133,6 @@ Web プロジェクトと、それが参照するライブラリ(BlogEngine.Core
 
 wt の残り:
 - 丸めの差(¥23 / ¥22)は Windows と同じ。
-- 通貨記号は正解データが `¥`(U+00A5)で、Linux は `￥`(全角、U+FFE5)。Linux の .NET は ICU のカルチャデータを使い、Windows の地域設定による上書きが無いため。**Linux 固有の差で、未対応。**
 - error-page は検証環境の差。Docker のポート転送では接続元がローカルにならず(`Request.IsLocal` が偽)、詳細が出ない。コンテナの中から開けば詳細が出ることを確認した。
 
 Linux で見つかって直したこと:
@@ -145,6 +144,36 @@ Linux で見つかって直したこと:
 - **接続文字列**: `.\SQLEXPRESS`・LocalDB・Windows 認証は Linux に無い。`-SqlServer` で SQL Server のコンテナを立て、web.config の接続文字列を書き換えたものを重ねる。アプリのファイルは変えない。
 - **カルチャ**: IIS はサーバーの OS のカルチャをアプリに渡す。コンテナには無い(インバリアントで通貨が `¤`)ので、`LANG` で渡す(既定は正解データを採ったこのマシンのカルチャ)。
 - **ポート**: ホストとコンテナで同じ番号にそろえる(IIS の SERVER_PORT はローカルのポート)。リバースプロキシの後ろに置く場合は、`aspnet:UseHostHeaderForRequestUrl` でポートも Host ヘッダーから取る。
+
+## カルチャのデータ(2026-09-26)
+
+.NET Framework は Windows のカルチャデータ(NLS)を使う。.NET は ICU のデータを使い、両者は異なる。
+- **Linux**: すべてのカルチャが ICU のデータ。
+- **Windows の .NET**: ユーザー設定を反映しないで作ったカルチャ(`CultureInfo.GetCultureInfo`)が ICU のデータ。
+
+ja-JP と en-US で見つかった差:
+- 通貨記号: `¥` と `￥`
+- 既定の小数桁(`N`): 2 と 3
+- 長い日付: 曜日の有無
+- 月の省略名: `1` と `1月`
+- en-US の負の通貨: `($n)` と `-$n`
+- en-US の AM/PM の前の空白: U+202F
+
+アプリが `new CultureInfo("ja-JP")` で作ったカルチャも含め、どの作り方でも元のサーバーと同じになるよう、データ源のほうを合わせる。
+
+1. **取得(元のサーバーで)**: `capture-culture.ps1` を Windows PowerShell(.NET Framework)で実行する。既定のカルチャ、web.config の `<globalization>`、指定したカルチャについて、数値と日付の書式を JSON に書き出す。変換時に `-CultureProfile` で渡すと `App_Data/culture-profile.json` に置かれる。
+2. **Windows**: `System.Globalization.UseNls=true`(テンプレートに記載)。.NET も Windows のデータを使う。
+3. **Linux**: `icu/build-icu-data.sh` がコンテナの中で次を行い、アプリは `ICU_DATA` を付けて起動する(`run-linux.ps1` が実行)。
+   - 取得したデータとランタイムの ICU のデータを比べる。
+   - 差がある項目だけを、そのカルチャの ICU リソース(ja_JP など)として生成する。ICU のソースはランタイムと同じ版(74.2)から取り、genrb でコンパイルする。
+   - 生成後に全項目を比べ直し、残った差を表示する。
+   - ICU は `ICU_DATA` の個別ファイルを組み込みのデータより先に探し、項目ごとに親(ja、root)へ継承するので、変える項目だけを置けばよい。
+
+Linux で ICU のデータに表せないもの:
+- 日付の代替パターンの一覧(`GetAllDateTimePatterns` の 2 つ目以降、`DateTime.GetDateTimeFormats`)。.NET は ICU から 1〜2 個しか取らない。
+- 文字列の並び順(照合)。Windows は `UseNls` で一致する。
+
+結果: Linux の wt で通貨記号が `¥` になった。Windows と Linux とも、サンプル・be・wt の結果は変わらない。
 
 ParityTest の修正: 拡張子なしのパスを HTTP で事前確認する方式をやめた(GET で Web Forms のページが
 実行されるため、AddToCart が 2 回実行されてカートが 2 件になった)。開いて失敗したら .aspx で開き直す。

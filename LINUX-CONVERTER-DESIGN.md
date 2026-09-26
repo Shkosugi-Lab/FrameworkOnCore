@@ -110,7 +110,15 @@
 
 Windows でしか動かないものを検出する。書き換えられるものは書き換え、残りは報告する。
 
-- パス: 大文字小文字の違いを検出する。ファイルシステム上の名前とコード・マークアップ中の参照(`~/Styles/site.css`、`Page Inherits`、`MasterPageFile`)を照合し、実在の名前に合わせる。`\` の区切りは Path.Combine などの文字列を検出する。
+- パスの大文字小文字: 変換器ではなくランタイムが扱う(フォーク 0008)。
+  - IIS と同じく、仮想パスから物理パスへの変換と設定ファイルの読み込みで、大文字小文字を区別せずに実在の名前を探す。
+  - 外部から来る URL にも効く。
+  - 変換器が扱うのは、アプリが物理パスを自分で組み立てる箇所(`Path.Combine(AppDomainAppPath, "app_data")` など)と、`\` の区切りの報告。
+- カルチャのデータ: 元のサーバーで `capture-culture.ps1` を実行して取得し、変換時に `App_Data/culture-profile.json` に置く。
+  - Windows: `UseNls` で .NET も Windows のデータを使う。
+  - Linux: イメージのビルド時に、差がある項目の ICU データを生成し、`ICU_DATA` で指す(`experiments/wf4c/icu`)。
+  - どちらも、アプリが `new CultureInfo(...)` で作るカルチャを含め、すべての作り方に効く。
+  - ICU で表せないもの(日付の代替パターンの一覧、並び順)は報告する。
 - System.Drawing: Linux では System.Drawing.Common が使えない。使っている箇所を報告する。代わりのライブラリは選択式にする(未決定)。
 - レジストリ、EventLog、パフォーマンスカウンター、WMI(System.Management)、Windows 認証、COM: 報告する。
 - 接続文字列: LocalDB(`(LocalDB)\...`)と `AttachDbFilename` は Linux に無い。SQL Server コンテナへの置き換えを提案し、設定で差し替えられるようにする。

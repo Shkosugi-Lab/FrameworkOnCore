@@ -1,0 +1,320 @@
+using System.Text;
+
+/// <summary>
+/// ICU resource bundle source (the .txt genrb compiles), read and written back: tables, arrays
+/// and strings are parsed; other typed resources (:int, :intvector, :alias, :bin, ...) are kept
+/// as they were written.
+/// </summary>
+abstract class IcuNode
+{
+    public abstract void Write(StringBuilder text, int indent);
+    public abstract IcuNode Copy();
+    protected static string Indent(int indent) => new(' ', indent * 4);
+}
+
+sealed class IcuString(string escaped) : IcuNode
+{
+    /// <summary>As written between the quotes (escapes kept).</summary>
+    public string Escaped { get; } = escaped;
+
+    public static IcuString FromValue(string value) =>
+        new(value.Replace("\\", "\\\\").Replace("\"", "\\\""));
+
+    public string Value
+    {
+        get
+        {
+            var result = new StringBuilder();
+            for (int i = 0; i < Escaped.Length; i++)
+            {
+                if (Escaped[i] != '\\' || i + 1 >= Escaped.Length) { result.Append(Escaped[i]); continue; }
+                var next = Escaped[++i];
+                if (next == 'u' && i + 4 < Escaped.Length) { result.Append((char)Convert.ToInt32(Escaped.Substring(i + 1, 4), 16)); i += 4; }
+                else result.Append(next);
+            }
+            return result.ToString();
+        }
+    }
+
+    public override void Write(StringBuilder text, int indent) => text.Append('"').Append(Escaped).Append('"');
+    public override IcuNode Copy() => new IcuString(Escaped);
+}
+
+sealed class IcuRaw(string typeAndBody) : IcuNode
+{
+    // ":int{12}", ":alias{"..."}": written back as read.
+    public string TypeAndBody { get; } = typeAndBody;
+    public override void Write(StringBuilder text, int indent) => text.Append(TypeAndBody);
+    public override IcuNode Copy() => new IcuRaw(TypeAndBody);
+}
+
+sealed class IcuArray : IcuNode
+{
+    public List<IcuNode> Items { get; } = new();
+
+    public override void Write(StringBuilder text, int indent)
+    {
+        text.Append("{\n");
+        foreach (var item in Items)
+        {
+            text.Append(Indent(indent + 1));
+            if (item is IcuString) { item.Write(text, indent + 1); text.Append(','); }
+            else item.Write(text, indent + 1);
+            text.Append('\n');
+        }
+        text.Append(Indent(indent)).Append('}');
+    }
+
+    public override IcuNode Copy()
+    {
+        var copy = new IcuArray();
+        foreach (var item in Items) copy.Items.Add(item.Copy());
+        return copy;
+    }
+}
+
+sealed class IcuTable : IcuNode
+{
+    // Key as written (with a type annotation such as ":table(nofallback)" kept in it).
+    public List<KeyValuePair<string, IcuNode>> Entries { get; } = new();
+
+    static string BareKey(string key) => key.Split(':')[0].Trim('"');
+
+    public IcuNode? Get(string key) => Entries.FirstOrDefault(e => BareKey(e.Key) == key).Value;
+
+    public void Set(string key, IcuNode value)
+    {
+        var index = Entries.FindIndex(e => BareKey(e.Key) == key);
+        if (index >= 0) Entries[index] = new(Entries[index].Key, value);
+        else Entries.Add(new(key, value));
+    }
+
+    public override void Write(StringBuilder text, int indent)
+    {
+        text.Append("{\n");
+        foreach (var (key, value) in Entries)
+        {
+            text.Append(Indent(indent + 1)).Append(key);
+            if (value is IcuRaw) value.Write(text, indent + 1);
+            else if (value is IcuString) { text.Append('{'); value.Write(text, indent + 1); text.Append('}'); }
+            else value.Write(text, indent + 1);
+            text.Append('\n');
+        }
+        text.Append(Indent(indent)).Append('}');
+    }
+
+    public override IcuNode Copy()
+    {
+        var copy = new IcuTable();
+        foreach (var (key, value) in Entries) copy.Entries.Add(new(key, value.Copy()));
+        return copy;
+    }
+}
+
+/// <summary>A resource bundle source file: its locale name and its table.</summary>
+sealed class IcuBundle(string name, IcuTable root)
+{
+    public string Name { get; } = name;
+    public IcuTable Root { get; } = root;
+
+    /// <summary>The resource at a path ("calendar/gregorian/DateTimePatterns"), or null.</summary>
+    public IcuNode? Get(string path)
+    {
+        IcuNode? node = Root;
+        foreach (var segment in path.Split('/'))
+        {
+            node = (node as IcuTable)?.Get(segment);
+            if (node == null) return null;
+        }
+        return node;
+    }
+
+    /// <summary>Sets the resource at a path, creating the tables on the way.</summary>
+    public void Set(string path, IcuNode value)
+    {
+        var segments = path.Split('/');
+        var table = Root;
+        foreach (var segment in segments[..^1])
+        {
+            if (table.Get(segment) is not IcuTable next) { next = new IcuTable(); table.Set(segment, next); }
+            table = next;
+        }
+        table.Set(segments[^1], value);
+    }
+
+    public string Write()
+    {
+        var text = new StringBuilder("// Generated by CultureIcu: the original server's culture data over ICU's.\n");
+        text.Append(Name);
+        Root.Write(text, 0);
+        return text.Append('\n').ToString();
+    }
+
+    public static IcuBundle Parse(string source) => new IcuParser(source).ParseBundle();
+}
+
+sealed class IcuParser(string source)
+{
+    int position;
+
+    public IcuBundle ParseBundle()
+    {
+        var key = ReadKey();
+        Expect('{');
+        return new IcuBundle(key.Split(':')[0], ParseTableBody());
+    }
+
+    // After "{": entries up to the matching "}".
+    IcuTable ParseTableBody()
+    {
+        var table = new IcuTable();
+        while (true)
+        {
+            SkipTrivia();
+            if (Peek() == '}') { position++; return table; }
+            var key = ReadKey();
+            table.Entries.Add(new(key, ParseValueAfterKey(key)));
+        }
+    }
+
+    IcuNode ParseValueAfterKey(string key)
+    {
+        var type = key.Contains(':') ? key[(key.IndexOf(':') + 1)..] : "";
+        if (type.Length > 0 && !type.StartsWith("table") && !type.StartsWith("array") && !type.StartsWith("string"))
+        {
+            // Typed resource kept as written: the braces and what is in them.
+            SkipTrivia();
+            var start = position;
+            SkipBalanced();
+            return new IcuRaw(source[start..position]);
+        }
+        Expect('{');
+        return ParseBody(type.StartsWith("table"));
+    }
+
+    // After "{": a table, an array or a string.
+    IcuNode ParseBody(bool isTable)
+    {
+        SkipTrivia();
+        if (isTable) return ParseTableBody();
+        if (Peek() == '}') { position++; return new IcuTable(); }
+        if (Peek() == '"')
+        {
+            var first = ReadString();
+            SkipTrivia();
+            if (Peek() == '}') { position++; return first; }
+            if (Peek() == '"')
+            {
+                // Adjacent strings: one string.
+                var joined = new StringBuilder(first.Escaped);
+                while (Peek() == '"') { joined.Append(ReadString().Escaped); SkipTrivia(); }
+                if (Peek() == '}') { position++; return new IcuString(joined.ToString()); }
+                first = new IcuString(joined.ToString());
+            }
+            var array = new IcuArray();
+            array.Items.Add(first);
+            ParseArrayRest(array);
+            return array;
+        }
+        if (Peek() == '{')
+        {
+            var array = new IcuArray();
+            ParseArrayRest(array);
+            return array;
+        }
+        return ParseTableBody();
+    }
+
+    void ParseArrayRest(IcuArray array)
+    {
+        while (true)
+        {
+            SkipTrivia();
+            var c = Peek();
+            if (c == ',') { position++; continue; }
+            if (c == '}') { position++; return; }
+            if (c == '"')
+            {
+                var value = ReadString();
+                SkipTrivia();
+                while (Peek() == '"') { value = new IcuString(value.Escaped + ReadString().Escaped); SkipTrivia(); }
+                array.Items.Add(value);
+            }
+            else if (c == '{') { position++; array.Items.Add(ParseBody(false)); }
+            else if (c == ':') { var start = position; while (Peek() != '{') position++; SkipBalanced(); array.Items.Add(new IcuRaw(source[start..position])); }
+            else throw Error("array item expected");
+        }
+    }
+
+    string ReadKey()
+    {
+        SkipTrivia();
+        var key = new StringBuilder();
+        if (Peek() == '"') key.Append('"').Append(ReadString().Escaped).Append('"');
+        while (position < source.Length && !char.IsWhiteSpace(source[position]) && source[position] != '{' && source[position] != '}')
+        {
+            key.Append(source[position++]);
+        }
+        if (key.Length == 0) throw Error("key expected");
+        SkipTrivia();
+        // "key:type" may be written "key :type".
+        if (Peek() == ':')
+        {
+            while (position < source.Length && source[position] != '{') key.Append(source[position++]);
+            return key.ToString().TrimEnd();
+        }
+        return key.ToString();
+    }
+
+    IcuString ReadString()
+    {
+        Expect('"');
+        var start = position;
+        while (source[position] != '"') position += source[position] == '\\' ? 2 : 1;
+        var escaped = source[start..position];
+        position++;
+        return new IcuString(escaped);
+    }
+
+    void SkipBalanced()
+    {
+        Expect('{');
+        int depth = 1;
+        while (depth > 0)
+        {
+            var c = source[position];
+            if (c == '"') { ReadString(); continue; }
+            if (c == '{') depth++;
+            else if (c == '}') depth--;
+            position++;
+        }
+    }
+
+    void SkipTrivia()
+    {
+        while (position < source.Length)
+        {
+            var c = source[position];
+            if (char.IsWhiteSpace(c) || c == '﻿') position++;
+            else if (c == '/' && Next() == '/') { while (position < source.Length && source[position] != '\n') position++; }
+            else if (c == '/' && Next() == '*') { position = source.IndexOf("*/", position + 2, StringComparison.Ordinal) + 2; }
+            else return;
+        }
+    }
+
+    char Peek() { SkipTrivia(); return position < source.Length ? source[position] : '\0'; }
+    char Next() => position + 1 < source.Length ? source[position + 1] : '\0';
+
+    void Expect(char c)
+    {
+        SkipTrivia();
+        if (Peek() != c) throw Error($"'{c}' expected");
+        position++;
+    }
+
+    Exception Error(string message)
+    {
+        var line = source[..Math.Min(position, source.Length)].Count(ch => ch == '\n') + 1;
+        return new FormatException($"ICU source, line {line}: {message}");
+    }
+}

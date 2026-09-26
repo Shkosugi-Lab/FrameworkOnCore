@@ -11,7 +11,10 @@ param(
     # Source files (as the original project names them) left out of the build: code on a .NET
     # Framework API .NET has no counterpart for. The new converter will exclude and stub these
     # itself (as the old one did); here they are named by hand.
-    [string[]]$ExcludeFiles = @()
+    [string[]]$ExcludeFiles = @(),
+    # The original server's culture data (capture-culture.ps1, run there), placed where the
+    # runtime looks for it (App_Data/culture-profile.json).
+    [string]$CultureProfile
 )
 
 $ErrorActionPreference = 'Stop'
@@ -212,6 +215,12 @@ function Convert-One([string]$projectPath, [bool]$isWeb) {
             $program = $program.Replace('options => options.UseAspNetCoreSessionProvider()', 'options => options.HandleAllRequestsWithWebForms().UseAspNetCoreSessionProvider()')
         }
         Set-Content (Join-Path $target 'Program.cs') $program -Encoding UTF8
+
+        if ($CultureProfile) {
+            $appData = Join-Path $target 'App_Data'
+            New-Item -ItemType Directory $appData -Force | Out-Null
+            Copy-Item $CultureProfile (Join-Path $appData 'culture-profile.json')
+        }
     }
 
     Write-Host "converted: $name ($($compile.Count) compile, $($packages.Count) packages, $($binaryReferences.Count) DLLs, $($projectReferences.Count) project refs) -> $target"

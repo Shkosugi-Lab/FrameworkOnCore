@@ -1,0 +1,73 @@
+{
+  "$comment": "Package and reference rules. \"$fork\" stands for the WebFormsForCore fork's version (forkVersion).",
+  "forkVersion": "1.6.5-w2l.1",
+
+  "$comment_webPackages": "The web project always gets these (Program.cs uses them; pages reference them at run time).",
+  "webPackages": [ "WebFormsForCore.Web", "WebFormsForCore.Web.Extensions", "WebFormsForCore.Configuration", "WebFormsForCore.Web.DynamicData" ],
+
+  "$comment_replacedPackages": "packages.config / PackageReference ids with a .NET 10 answer: [id, version].",
+  "replacedPackages": {
+    "Microsoft.AspNet.Web.Optimization": [ "WebFormsForCore.Web.Optimization", "$fork" ],
+    "Microsoft.AspNet.Web.Optimization.WebForms": [ "WebFormsForCore.Web.Optimization.WebForms", "$fork" ],
+    "WebGrease": [ "WebFormsForCore.WebGrease", "$fork" ],
+    "Microsoft.Web.Infrastructure": [ "WebFormsForCore.Web.Infrastructure", "$fork" ],
+    "AjaxControlToolkit": [ "WebFormsForCore.AjaxControlToolkit", "$fork" ],
+    "EntityFramework": [ "EntityFramework", "6.5.1" ],
+    "Newtonsoft.Json": [ "Newtonsoft.Json", "13.0.4" ]
+  },
+
+  "$comment_droppedPackages": "In the box on .NET, or tooling of the .NET Framework build. System.* 4.x packages are dropped as well.",
+  "droppedPackages": [
+    "NETStandard.Library", "Microsoft.NETCore.Platforms", "Microsoft.VisualStudio.Azure.Containers.Tools.Targets",
+    "Antlr", "Microsoft.CodeDom.Providers.DotNetCompilerPlatform", "Microsoft.Net.Compilers",
+    "Microsoft.Net.Compilers.Toolset", "Microsoft.NETFramework.ReferenceAssemblies"
+  ],
+
+  "$comment_frameworkReferences": ".NET Framework assembly references (no HintPath) with a .NET 10 answer. Others are in the box or have none.",
+  "frameworkReferences": {
+    "System.Web": [ "WebFormsForCore.Web", "$fork" ],
+    "System.Web.Extensions": [ "WebFormsForCore.Web.Extensions", "$fork" ],
+    "System.Web.ApplicationServices": [ "WebFormsForCore.Web.ApplicationServices", "$fork" ],
+    "System.Web.Services": [ "WebFormsForCore.Web.Services", "$fork" ],
+    "System.Web.DynamicData": [ "WebFormsForCore.Web.DynamicData", "$fork" ],
+    "System.Web.Abstractions": [ "WebFormsForCore.Web", "$fork" ],
+    "System.Web.Routing": [ "WebFormsForCore.Web", "$fork" ],
+    "System.Configuration": [ "WebFormsForCore.Configuration", "$fork" ],
+    "System.Drawing": [ "System.Drawing.Common", "10.0.0" ],
+    "System.Runtime.Caching": [ "System.Runtime.Caching", "10.0.0" ],
+    "System.DirectoryServices": [ "System.DirectoryServices", "10.0.0" ],
+    "System.DirectoryServices.AccountManagement": [ "System.DirectoryServices.AccountManagement", "10.0.0" ],
+    "System.Management": [ "System.Management", "10.0.0" ],
+    "System.ServiceModel": [ "System.ServiceModel.Http", "10.0.652802" ],
+    "System.ServiceModel.Web": [ "System.ServiceModel.Http", "10.0.652802" ]
+  },
+  "$comment_frameworkCompanions": "Added along with a framework reference: what the .NET Framework assembly also contained.",
+  "frameworkCompanions": {
+    "System.ServiceModel": [ [ "System.ServiceModel.Syndication", "10.0.0" ] ],
+    "System.ServiceModel.Web": [ [ "System.ServiceModel.Syndication", "10.0.0" ] ]
+  },
+
+  "$comment_noAnswer": "Assemblies .NET has no counterpart for (reported; the code using them is stubbed).",
+  "noAnswer": [ "System.Data.Linq", "System.Data.Services.Client", "System.Design", "System.Web.Mobile" ],
+
+  "$comment_sourcePackages": "What .NET Framework had in its own assemblies and .NET ships as packages: added when the sources use it.",
+  "sourcePackages": [
+    { "pattern": "\\bSystem\\.Data\\.SqlClient\\b|\\bMicrosoft\\.SqlServer\\.Server\\b", "id": "System.Data.SqlClient", "version": "4.9.0" },
+    { "pattern": "\\bSystem\\.Data\\.Odbc\\b", "id": "System.Data.Odbc", "version": "10.0.0" },
+    { "pattern": "\\bSystem\\.Data\\.OleDb\\b", "id": "System.Data.OleDb", "version": "10.0.0", "note": "OLE DB is Windows only" },
+    { "pattern": "\\bSystem\\.Security\\.Cryptography\\.Xml\\b", "id": "System.Security.Cryptography.Xml", "version": "10.0.0" },
+    { "pattern": "\\bSystem\\.Security\\.Cryptography\\.Pkcs\\b", "id": "System.Security.Cryptography.Pkcs", "version": "10.0.0" },
+    { "pattern": "\\bSystem\\.Security\\.Permissions\\b|\\bSecurityPermission(Attribute)?\\b|\\bReflectionPermission\\b|\\bFileIOPermission\\b", "id": "System.Security.Permissions", "version": "10.0.0" },
+    { "pattern": "\\bEventLog(Entry|EntryType)?\\b", "id": "System.Diagnostics.EventLog", "version": "10.0.0", "note": "the event log is Windows only" },
+    { "pattern": "\\bPerformanceCounter(Category|Type)?\\b", "id": "System.Diagnostics.PerformanceCounter", "version": "10.0.0", "note": "performance counters are Windows only" },
+    { "pattern": "\\bSystem\\.ServiceProcess\\b", "id": "System.ServiceProcess.ServiceController", "version": "10.0.0", "note": "Windows services" },
+    { "pattern": "\\bSystem\\.IO\\.Ports\\b", "id": "System.IO.Ports", "version": "10.0.0" },
+    { "pattern": "\\bSystem\\.ComponentModel\\.Composition\\b", "id": "System.ComponentModel.Composition", "version": "10.0.0" },
+    { "pattern": "\\bSystem\\.Runtime\\.Caching\\b", "id": "System.Runtime.Caching", "version": "10.0.0" },
+    { "pattern": "\\bSystem\\.DirectoryServices\\b", "id": "System.DirectoryServices", "version": "10.0.0", "note": "Active Directory (Windows; LDAP via System.DirectoryServices.Protocols)" },
+    { "pattern": "\\bSystem\\.Management\\b", "id": "System.Management", "version": "10.0.0", "note": "WMI is Windows only" },
+    { "pattern": "\\bSystem\\.Drawing\\b", "id": "System.Drawing.Common", "version": "10.0.0", "note": "System.Drawing is Windows only" },
+    { "pattern": "\\bSystem\\.ServiceModel\\.Syndication\\b", "id": "System.ServiceModel.Syndication", "version": "10.0.0" },
+    { "pattern": "\\bConfigurationManager\\b", "id": "WebFormsForCore.Configuration", "version": "$fork" }
+  ]
+}

@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- .NET Framework 4's System.Web.Abstractions.dll: a facade forwarding its types to System.Web, where WebFormsForCore
+       has them. web.config files and .NET Framework packages (MVC, Web API, routing modules) name it,
+       so it has to exist under its own name and at least its version. Forwards.cs is generated from
+       the .NET Framework 4.8 reference assembly's type forwards. -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <AssemblyName>System.Web.Abstractions</AssemblyName>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+    <Nullable>disable</Nullable>
+    <RestoreAdditionalProjectSources>$(MSBuildThisFileDirectory)..\..\_feed</RestoreAdditionalProjectSources>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="WebFormsForCore.Web" Version="1.6.5-w2l.1" />
+  </ItemGroup>
+
+  <Target Name="ChangeAliasesOfNugetRefs" BeforeTargets="FindReferenceAssembliesForReferences;ResolveReferences">
+    <ItemGroup>
+      <ReferencePath Remove="%(Identity)" Condition="'%(FileName)' == 'System.Web' AND $([System.Text.RegularExpressions.Regex]::IsMatch(%(Identity),'[/\x5C]dotnet[/\x5C]'))" />
+    </ItemGroup>
+  </Target>
+</Project>

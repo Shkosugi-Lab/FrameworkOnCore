@@ -53,6 +53,7 @@
 | 0007 | `System.Web.IHtmlString` を System.Web.HttpUtility へ型転送 | .NET Framework 版の System.Web.WebPages.Razor(be のウィジェット) |
 | 0008 | Linux: 物理パスを大文字小文字を区別せずに解決(MapPath、設定ファイル) | be の設定ファイル `Web.Config`(Linux で全画面エラー) |
 | 0009 | ASP.NET Core ホスト: SERVER_NAME を Host ヘッダーから(IIS と同じ) | be の error404 へのリダイレクト先がコンテナの IP アドレスになった |
+| 0010 | ASP.NET Core ホスト: .NET Framework にあったコードページを登録(CodePagesEncodingProvider) | mojo の web.config `fileEncoding="iso-8859-15"`(構成エラー) |
 
 未対応: VB のページコンパイラー(`VBCompiler.cs`)にも 0003 と同じ対応が要る(VB 対応のときに)。
 
@@ -71,6 +72,7 @@ fork.slnx に含めると、読み込み済みのタスク DLL とコピーが�
 公開鍵トークンが違っても名前とバージョンで解決される(DynamicData で確認)。
 
 - `System.Net.Http.WebRequest`(`WebRequestHandler`): Katana の Microsoft.Owin.Security.*
+- `System.Web.Routing`、`System.Web.Abstractions`: .NET Framework 4 では System.Web への型転送だけのファサード。web.config や .NET Framework 向けパッケージがこの名前を指す(n2 の構成エラー)。`Forwards.cs` は .NET Framework 4.8 の参照アセンブリの型転送から生成した。
 
 ## wt(WingtipToys、実在の OSS)
 
@@ -174,6 +176,44 @@ Linux で ICU のデータに表せないもの:
 - 文字列の並び順(照合)。Windows は `UseNls` で一致する。
 
 結果: Linux の wt で通貨記号が `¥` になった。Windows と Linux とも、サンプル・be・wt の結果は変わらない。
+
+## 新しい変換器 FrameworkOnCore(2026-09-27)
+
+`src/FrameworkOnCore.Converter`(C#)。convert-project.ps1 の変換規則を移植し(規則は `rules/packages.json`)、ビルドエラーを自動で処理する層を加えた。
+
+    .\experiments\wf4c\convert-corpora.ps1          # 6 本を変換してビルド(レポートは <out>\CONVERSION-REPORT.md)
+    .\experiments\wf4c\probe-corpora.ps1            # 起動して "/" を開く
+
+ビルドエラーの自動処理は、Roslyn でエラーの位置を構文木上で特定し、手を入れる範囲をできるだけ小さくする。
+
+| エラーの場所 | 処理 |
+|---|---|
+| 名前の衝突(`System.Range` など) | using の別名でアプリ側の型を選ぶ |
+| using、属性 | 外す |
+| 削除された仮想メンバーの override | `override` を外す |
+| メンバーの本体 | 本体だけを `PlatformNotSupportedException` にする(シグネチャは残る) |
+| フィールドやプロパティの初期化子 | 初期化子を外す |
+| 宣言 | メンバーを外す |
+| 上のどれでもない | ファイルを除外する |
+
+- 行ったことはすべてレポートに記録する。
+- 互換アセンブリで .NET に無い API を網羅するまでの受け皿である(設計書 §8)。
+- SYSLIB の警告(存在するが実行時に例外になるメンバー)も、レポートに記録する。
+
+| コーパス | ビルド | 実行 |
+|---|---|---|
+| be | 成功(手動の除外なし。自動処理は以前の手動除外と同じ 8 ファイル) | Windows 5/5 |
+| wt | 成功 | Windows 6/8(既知の丸めの差) |
+| mojo | 成功 | web.config の `<compilation><assemblies>` にある `System.Data.Linq`(.NET に無い)で構成エラー |
+| yaf | 成功 | `FieldAccessException`。アプリが Web API 2 の `HttpControllerRouteHandler._instance`(static readonly)をリフレクションで書き換えていて、.NET は型の初期化後の書き換えを禁止している。Web API 2 を DLL のまま使う限り直せないので、AspNetWebStack の移植が要る |
+| dnn | 成功(VB の DotNetNuke.WebUtility を使う箇所はスタブ) | `DataProvider.Instance()` が null。データプロバイダーは web.config から実行時に読み込まれる DLL で、元はビルドスクリプトが bin に配置する。インストールウィザードによる DB の作成も要る |
+| n2 | 成功 | インストーラー(`/N2/Installation/...`)が 404。管理画面は別プロジェクト(N2.Management)の中身で、元のビルドでは Web サイトに配置される |
+
+変換器を作る過程で直したこと:
+- NuGet の packages フォルダーの判定: DNN のソースフォルダー `Services\Installer\Packages` を除外していた。中身(.nupkg、repositories.config)で判定するようにした。convert-project.ps1(robocopy `/XD packages`)にも同じ問題がある。
+- アナライザーのプロジェクト参照(`OutputItemType="Analyzer"`)と Aliases の引き継ぎ: DNN はソースジェネレーターで部分メソッドの定義側を生成する(無いと CS0759)。
+- 変換したプロジェクトでは `TreatWarningsAsErrors` を外す: 変換で加えた編集が StyleCop の警告になり、.NET の SYSLIB の警告もエラーになっていた。
+- テンプレートのファイル名: `Program.cs.txt` の `cs` が MSBuild にチェコ語のカルチャと解釈され、サテライトアセンブリに回っていた。
 
 ## 全コーパスでの検証(2026-09-27)
 

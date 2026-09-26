@@ -193,6 +193,9 @@ Windows でしか動かないものを検出する。書き換えられるもの
 ## 9. 次の作業
 
 1. (済)Linux(Docker)で wt・be・サンプルを動かした。全コーパスで検証した(experiments/wf4c/README.md)。
-2. 新しい変換器の骨格を作る(発見、プロジェクト、ホスト、除外とスタブ、ビルド検証)。convert-project.ps1 と同じ結果になることを確認する。
+2. (済、2026-09-27)新しい変換器 FrameworkOnCore(`src/FrameworkOnCore.Converter`)の骨格を作った。
+   - プロジェクト変換とビルドエラーの自動処理を実装した。
+   - 6 本のコーパスすべてでビルドが通る。
+   - 実行時の課題は experiments/wf4c/README.md に記録した: mojo の web.config の assemblies、yaf の Web API 2(AspNetWebStack の移植が要る)、dnn のプロバイダーの配置と DB、n2 の管理画面の配置。
 3. VB 対応(VBCompiler のファサード、vbproj)。
 4. MVC 5(DLL のまま動くかの確認から)、Web API の動作確認、WCF(CoreWCF)。

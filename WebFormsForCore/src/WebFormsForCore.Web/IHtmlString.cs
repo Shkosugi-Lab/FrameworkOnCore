@@ -14,3 +14,8 @@ namespace System.Web {
     }
 }
 #endif
+#if !NETFRAMEWORK
+// On .NET the interface is in System.Web.HttpUtility. .NET Framework libraries built against System.Web
+// (System.Web.WebPages, MVC) look for it here.
+[assembly: System.Runtime.CompilerServices.TypeForwardedTo(typeof(System.Web.IHtmlString))]
+#endif

@@ -170,6 +170,10 @@ namespace Microsoft.AspNetCore.Builder
 		public static IApplicationBuilder UseWebForms(this IApplicationBuilder builder, Action<WebFormsOptions> optionsBuilder = null)
 		{
 			AssemblyLoaderNetCore.Init();
+			// The code pages .NET Framework had (iso-8859-15, shift_jis, windows-1252 ...): .NET has only the
+			// Unicode ones and Latin-1 until they are registered. web.config names them (<globalization
+			// fileEncoding>, requestEncoding, responseEncoding) and pages use them (Encoding.GetEncoding).
+			System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
 			if (optionsBuilder == null) optionsBuilder = options => { };
 			return builder.UseMiddleware<WebFormsMiddleware>(optionsBuilder);
         }

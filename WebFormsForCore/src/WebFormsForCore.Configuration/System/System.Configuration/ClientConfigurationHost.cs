@@ -107,40 +107,34 @@ namespace System.Configuration {
 					if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
 
                     var assembly = Assembly.GetExecutingAssembly();
-                    var linkerTimeStamp = assembly.GetCustomAttribute<BuildDateAttribute>()?.DateTime ?? DateTime.MinValue;
 
-
-                    if (!File.Exists(s_machineConfigFilePath) ||
-                        File.GetLastWriteTimeUtc(s_machineConfigFilePath) < linkerTimeStamp)
+                    // Rewritten whenever it differs from the embedded one. It used to be rewritten only when
+                    // older than the BuildDate attribute, which the assembly does not carry: the first file
+                    // written stayed, through package updates.
+                    var configName = UseNetFXMachineConfig ? MachineConfigNetFXFilename : MachineConfigFilename;
+                    using (var machineConfig = assembly
+                        .GetManifestResourceNames()
+                        .Where(name => name == configName || name.EndsWith($".{configName}"))
+                        .Select(name => assembly.GetManifestResourceStream(name))
+                        .FirstOrDefault())
+                    using (var reader = new StreamReader(machineConfig))
                     {
-                         var configName = UseNetFXMachineConfig ? MachineConfigNetFXFilename : MachineConfigFilename;
-                        using (var machineConfig = assembly
-                            .GetManifestResourceNames()
-                            .Where(name => name == configName || name.EndsWith($".{configName}"))
-                            .Select(name => assembly.GetManifestResourceStream(name))
-                            .FirstOrDefault())
+                        var txt = reader.ReadToEnd();
+                        var path = Path.GetDirectoryName(assembly.Location);
+                        if (File.Exists(Path.Combine(path, "System.Web.Mobile.dll")))
                         {
-                            var path = Path.GetDirectoryName(assembly.Location);
-                            if (File.Exists(Path.Combine(path, "System.Web.Mobile.dll")))
-                            {
-                                using (var reader = new StreamReader(machineConfig))
-                                {
-                                    var txt = reader.ReadToEnd();
-                                    // Uncomment Mobile sections
-                                    txt = Regex.Replace(txt, @"<!--@Mobile\s*(.*?)\s*-->", "$1", RegexOptions.Singleline);
-                                    File.WriteAllText(s_machineConfigFilePath, txt);
-                                }
-                            }
-                            else
-                            {
-                                using (var reader = new StreamReader(machineConfig))
-                                {
-                                    var txt = reader.ReadToEnd();
-                                    // Uncomment Mobile sections
-                                    txt = Regex.Replace(txt, @"<!--@!Mobile\s*(.*?)\s*-->", "$1", RegexOptions.Singleline);
-                                    File.WriteAllText(s_machineConfigFilePath, txt);
-                                }
-                            }
+                            // Uncomment Mobile sections
+                            txt = Regex.Replace(txt, @"<!--@Mobile\s*(.*?)\s*-->", "$1", RegexOptions.Singleline);
+                        }
+                        else
+                        {
+                            // Uncomment Mobile sections
+                            txt = Regex.Replace(txt, @"<!--@!Mobile\s*(.*?)\s*-->", "$1", RegexOptions.Singleline);
+                        }
+
+                        if (!File.Exists(s_machineConfigFilePath) || File.ReadAllText(s_machineConfigFilePath) != txt)
+                        {
+                            File.WriteAllText(s_machineConfigFilePath, txt);
                         }
                     }
                 }

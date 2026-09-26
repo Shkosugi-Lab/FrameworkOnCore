@@ -217,6 +217,11 @@ namespace System.Web.Hosting
 		public override int GetRemotePort() => Context.Connection.RemotePort;
 		public override string GetServerName()
 		{
+			// As IIS's SERVER_NAME: the host the client asked for (Request.Url, absolute redirects).
+			// The local address is what a client behind port mapping or a proxy cannot reach.
+			var host = Context.Request.Host;
+			if (host.HasValue && !string.IsNullOrEmpty(host.Host)) return host.Host;
+
 			string localAddress = GetLocalAddress();
 			if (localAddress.Equals("127.0.0.1") || localAddress.Equals("::1"))
 			{

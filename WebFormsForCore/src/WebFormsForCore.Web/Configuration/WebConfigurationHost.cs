@@ -560,7 +560,12 @@ internal sealed class WebConfigurationHost : DelegatingConfigHost, IInternalConf
                 // Dev10 Bug 835901: '?' (%3F), '*' (%2A), and ':' (%3A) are valid in a URL.  We need to return null
                 // if the path contains one of these characters.  Instead of explicitly checking for these characters, 
                 // we will rely on Path.Combine and Path.GetFullPath to throw when the path is invalid.
+#if WebFormsForCore
+                // Any casing, as on IIS ("Web.Config"). The map paths name it web.config.
+                return WebFormsForCore.PhysicalPathCasing.Resolve(CombineAndValidatePath(directory, baseName));
+#else
                 return CombineAndValidatePath(directory, baseName);
+#endif
             }
 
             return null;

@@ -1353,6 +1353,10 @@ namespace System.Web.Hosting
             }
             else
             {
+#if WebFormsForCore
+                // Virtual paths are case-insensitive on IIS ("~/default.aspx" for Default.aspx).
+                result = WebFormsForCore.PhysicalPathCasing.Resolve(result);
+#endif
                 // ensure extra '\\' in the physical path if the virtual path had extra '/'
                 // and the other way -- no extra '\\' in physical if virtual didn't have it.
                 if (virtualPath.HasTrailingSlash)

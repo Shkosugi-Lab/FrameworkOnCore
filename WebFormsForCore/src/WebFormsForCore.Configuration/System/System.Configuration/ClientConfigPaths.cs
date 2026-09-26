@@ -149,8 +149,9 @@ namespace System.Configuration {
                         if (File.Exists(webConfig)) _applicationConfigUri = webConfig;
                         else if (!OSInfo.IsWindows)
                         {
-                            webConfig = Path.Combine(dir, "Web.config");
-                            if (File.Exists(webConfig)) _applicationConfigUri = webConfig;
+                            // Any casing, as on IIS ("Web.config", "Web.Config").
+                            webConfig = WebFormsForCore.PhysicalPathCasing.FindEntry(dir, "web.config");
+                            if (webConfig != null && File.Exists(webConfig)) _applicationConfigUri = webConfig;
                         }
                     }
                 }

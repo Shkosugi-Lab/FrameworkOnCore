@@ -353,6 +353,8 @@ namespace System.Web.Hosting
 			}
 
 			mappedPath = mappedPath.Replace('/', Path.DirectorySeparatorChar);
+			// URLs are case-insensitive on IIS (/Default.aspx for default.aspx).
+			mappedPath = WebFormsForCore.PhysicalPathCasing.Resolve(mappedPath);
 
 			if (mappedPath.EndsWith("\\", StringComparison.Ordinal) &&
 				!mappedPath.EndsWith(":\\", StringComparison.Ordinal))

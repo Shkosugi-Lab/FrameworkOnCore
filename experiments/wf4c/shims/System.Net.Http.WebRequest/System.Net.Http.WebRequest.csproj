@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- .NET Framework's System.Net.Http.WebRequest.dll, which .NET does not ship. .NET Framework
+       packages reference it (Katana's Microsoft.Owin.Security.* create a WebRequestHandler as
+       their back channel), so it has to exist under its own name and at least its version. -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <AssemblyName>System.Net.Http.WebRequest</AssemblyName>
+    <RootNamespace>System.Net.Http</RootNamespace>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+    <Nullable>disable</Nullable>
+  </PropertyGroup>
+</Project>

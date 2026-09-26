@@ -14,6 +14,9 @@
     <OutputPath>bin_dotnet</OutputPath>
     <StartupObject>Program</StartupObject>
     <EnableDefaultContentItems>false</EnableDefaultContentItems>
+    <!-- The fork (experiments/wf4c/_upstream, branch w2l/*), packed into ../_feed. -->
+    <WebFormsForCoreVersion>1.6.5-w2l.1</WebFormsForCoreVersion>
+    <RestoreAdditionalProjectSources>$(MSBuildThisFileDirectory)..\_feed</RestoreAdditionalProjectSources>
   </PropertyGroup>
 
   <ItemGroup>
@@ -25,10 +28,18 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="WebFormsForCore.Web" Version="1.6.4" />
-    <PackageReference Include="WebFormsForCore.Web.Extensions" Version="1.6.4" />
-    <PackageReference Include="WebFormsForCore.Configuration" Version="1.6.4" />
+    <PackageReference Include="WebFormsForCore.Web" Version="$(WebFormsForCoreVersion)" />
+    <PackageReference Include="WebFormsForCore.Web.Extensions" Version="$(WebFormsForCoreVersion)" />
+    <PackageReference Include="WebFormsForCore.Configuration" Version="$(WebFormsForCoreVersion)" />
+    <PackageReference Include="WebFormsForCore.Web.DynamicData" Version="$(WebFormsForCoreVersion)" />
   </ItemGroup>
+
+
+  <!-- Assemblies .NET Framework had and .NET does not, referenced by .NET Framework packages. -->
+  <ItemGroup>
+    <ProjectReference Include="$(MSBuildThisFileDirectory)..\shims\System.Net.Http.WebRequest\System.Net.Http.WebRequest.csproj" />
+  </ItemGroup>
+
 
   <Target Name="ChangeAliasesOfNugetRefs" BeforeTargets="FindReferenceAssembliesForReferences;ResolveReferences">
     <ItemGroup>

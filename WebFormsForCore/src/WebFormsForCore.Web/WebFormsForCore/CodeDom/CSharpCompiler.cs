@@ -5,6 +5,8 @@ using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Runtime.Loader;
 using System.Text;
@@ -160,6 +162,18 @@ internal class CSharpCompiler : Compiler
 		if (systemRuntimeAssemblyPath != null)
 		{
 			allArgsBuilder.Append(string.Format("/R:\"{0}\" ", systemRuntimeAssemblyPath));
+		}
+
+		// .NET Framework / .NET Standard libraries name their base types by the assembly they
+		// lived in (mscorlib, netstandard); the runtime ships those names as type-forwarding
+		// facades. Without them a page calling such a library fails with CS0012 - WingtipToys'
+		// master page calls ASP.NET Identity's GetUserName(this IIdentity).
+		foreach (var facade in FrameworkFacades.Paths)
+		{
+			if (!parameters.ReferencedAssemblies.OfType<string>().Any(s => string.Equals(Path.GetFileName(s), Path.GetFileName(facade), StringComparison.OrdinalIgnoreCase)))
+			{
+				allArgsBuilder.Append(string.Format("/R:\"{0}\" ", facade));
+			}
 		}
 
 		foreach (string s in parameters.ReferencedAssemblies)

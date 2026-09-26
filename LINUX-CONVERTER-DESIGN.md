@@ -19,7 +19,8 @@
 | System.Web の振る舞いの差(ポートの不具合・未実装、IIS との差) | ランタイム(WebFormsForCore のフォーク) | Response.Headers(0002)、既定参照(0005)、App_GlobalResources(0006)、IHtmlString(0007) |
 | .NET で型ごと無くなったもの(アセンブリ・型) | 互換アセンブリ(`shims/`)。同じ名前で実装し、変換器は参照を足すだけ。ソースの無い .NET Framework 向け DLL にも効く | System.Net.Http.WebRequest。候補: Remoting の `CallContext` など |
 | プロジェクト・パッケージ・ホストの差 | 変換器(生成物) | SDK 形式、パッケージの置き換え、`bin` 出力、既定のドキュメント |
-| .NET で既存の型のメンバーが無くなったもの(.NET 本体の型には足せない) | 変換器(ソースの機械的な書き換え) | Reflection.Emit の削除 API(DefaultsProbe、n2)、`DbProviderFactory.CreatePermission`(yaf) |
+| .NET で既存の型のメンバーが無くなったもの | 互換アセンブリ内の C# 14 の拡張メンバー(メソッド、プロパティ、静的メンバー)+ 変換器が `global using` を足す(呼び出し箇所は書き換えない) | `AppDomain.DefineDynamicAssembly`(DefaultsProbe、n2) |
+| 拡張で補えないもの(override、コンストラクター、定数、存在するが実行時に例外になるメンバーなど) | 変換器(Roslyn の意味解析によるルールベースの書き換え) | `DbProviderFactory.CreatePermission` の override(yaf)、`AssemblyBuilderAccess.RunAndSave` |
 | .NET に代わりが無い(LINQ to SQL、WCF Data Services のクライアント、デザイナー) | 変換器が除外またはスタブ化し、報告する | be の 8 ファイル |
 | アプリの値の差(浮動小数の書式など) | 報告のみ | wt の ¥23 / ¥22 |
 
@@ -182,6 +183,12 @@ Windows でしか動かないものを検出する。書き換えられるもの
   3. 使われていて再現できるものから実装する。変換器は、ソースがその名前空間・型を使っていれば参照を足す。
 
   一覧にあるが未実装のものは、変換時に報告する。
+- **メンバー単位の一覧(同じ残課題)**: 両方にある型について、.NET Framework 4.8 にあって .NET 10 に無いメンバーと、.NET 10 にあるが常に `PlatformNotSupportedException` を投げるメンバーを列挙する。それぞれを次のどれで扱うかに分類する。
+  - 互換アセンブリの拡張メンバー(呼び出し箇所は変えずに `global using` を足す)
+  - ルールベースの書き換え(override、コンストラクター、定数が必要な場所、存在するが例外になるメンバー)
+  - 報告のみ(リフレクションや `dynamic` 経由の呼び出し、ソースの無い DLL からの呼び出し)
+
+  ソースの無い DLL が削除されたメンバーを呼ぶ場合は、拡張では補えない(`MissingMethodException`)。変換時に参照先の DLL を検査して報告する。IL の書き換えは別の課題とする。
 
 ## 9. 次の作業
 

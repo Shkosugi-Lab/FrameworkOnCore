@@ -2,10 +2,11 @@
 # and compare it, from the host, with the golden data recorded on IIS / .NET Framework.
 #
 #   .\experiments\wf4c\run-linux.ps1 -App ProductAdmin            # a sample (after run-sample.ps1)
-#   .\experiments\wf4c\run-linux.ps1 -App be\BlogEngine.NET -Scenario corpora\regression\be.scenario.json -Golden corpora\parity\be.golden-webforms.json
+#   .\experiments\wf4c\run-linux.ps1 -App be\BlogEngine\BlogEngine.NET -Scenario corpora\regression\be.scenario.json -Golden corpora\parity\be.golden-webforms.json
 #
-# experiments\wf4c is copied into the container as it is (without the upstream clone and the
-# Windows build output), so the project's relative paths to _feed and shims hold there too.
+# The app's tree (the first folder of -App, as convert-project.ps1 wrote it), _feed, shims and icu
+# are copied into the container as they are (without build output), so the projects' relative
+# paths to them hold there too.
 param(
     # The web project's directory, relative to experiments\wf4c.
     [Parameter(Mandatory = $true)][string]$App,
@@ -86,7 +87,7 @@ $script = @"
 set -e
 rm -rf /root/.nuget/packages/webformsforcore.*
 mkdir -p /work
-cd /src && tar --exclude=./_upstream --exclude=./_linux --exclude='./*/bin' --exclude='./*/obj' --exclude='./*/*/bin' --exclude='./*/*/obj' -cf - . | (cd /work && tar xf -)
+cd /src && tar --exclude='*/bin' --exclude='*/obj' -cf - _feed shims icu $($appPath.Split('/')[0]) | (cd /work && tar xf -)
 cd /work/$appPath
 cp -r /overlay/. .
 # The original server's culture data (capture-culture.ps1, put in App_Data by the conversion) made

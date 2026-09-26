@@ -53,6 +53,9 @@
   <Target Name="ChangeAliasesOfNugetRefs" BeforeTargets="FindReferenceAssembliesForReferences;ResolveReferences">
     <ItemGroup>
       <ReferencePath Remove="%(Identity)" Condition="'%(FileName)' == 'System.Web' AND $([System.Text.RegularExpressions.Regex]::IsMatch(%(Identity),'[/\x5C]dotnet[/\x5C]'))" />
+      <!-- CoreWCF (under WebFormsForCore.Web.Extensions) brings System.Web.Services.Description, whose
+           WSDL types (WsiProfiles, ServiceDescription, ...) System.Web.Services has too (CS0433). -->
+      <ReferencePath Remove="%(Identity)" Condition="'%(FileName)' == 'System.Web.Services.Description'" />
     </ItemGroup>
   </Target>
 </Project>

@@ -175,5 +175,70 @@ Linux で ICU のデータに表せないもの:
 
 結果: Linux の wt で通貨記号が `¥` になった。Windows と Linux とも、サンプル・be・wt の結果は変わらない。
 
+## 全コーパスでの検証(2026-09-27)
+
+`verify-corpora.ps1` で 6 本を変換してビルドした(Windows)。正解データがあるのは be と wt だけ。
+
+| コーパス | 結果 |
+|---|---|
+| be | ビルド成功。Windows 5/5、Linux 5/5 |
+| wt | ビルド成功。Windows 6/8、Linux 5/8(丸めの差 2 件と、Linux の error-page は検証環境の差) |
+| mojo | ライブラリ 11 本はすべてコンパイルできた。Web プロジェクトで止まる |
+| yaf | ライブラリ(ServiceStack.OrmLite)のコンパイルで止まる |
+| dnn | ライブラリ(DotNetNuke.Log4Net)のコンパイルで止まる |
+| n2 | ライブラリ(N2)のコンパイルで止まる |
+
+### 変換規則の穴(convert-project.ps1 を直した)
+
+1. **リポジトリ単位のコピー**
+   - 対象: dnn、yaf、n2(`..\SolutionInfo.cs` のリンク、`..\..\DNN_Platform.build`)。
+   - プロジェクトのフォルダーだけではなく、リポジトリ全体をコピーし、プロジェクトファイルをその場で書き換える。
+2. **SDK 形式のプロジェクト**
+   - 対象: yaf、dnn。
+   - 対象フレームワークは単一の net10.0 にする(netstandard2.0 の側は net10.0 のプロジェクトを参照できない、NU1201)。
+   - 条件式の中の `net472` などは net10.0 に付け替える。
+   - Reference は、その場で PackageReference に置き換える(条件が保たれる)。
+   - XCOPY の配置用 Target は外す。
+   - アナライザーとソースジェネレーターは付け替えない(RS1041)。
+3. **兄弟プロジェクトのビルド出力を指す HintPath**
+   - 対象: dnn(`..\bin\DotNetNuke.dll`)。
+   - 出力しているプロジェクトへの ProjectReference に置き換える。
+4. **構成ごとの条件の評価(Debug|AnyCPU)**
+   - 対象: mojo(構成ごとにデータプロバイダーを選ぶ)、dnn の log4net(DefineConstants)。
+   - 参照、コンパイル対象、DefineConstants に反映する。
+5. **パッケージのダウングレード(NU1605)**
+   - 対象: mojo、dnn。
+   - restore が報告する版まで上げる。
+6. **.NET Framework では標準で、.NET では別パッケージの API**
+   - 対象: mojo の `System.Data.SqlClient`。
+   - ソースで使われていれば追加する。同種として OleDb、Odbc、EventLog、PerformanceCounter、ServiceController、Cryptography.Xml、MEF なども表にした。
+7. **新しい脆弱性の警告(NU1902)**
+   - 対象: dnn(警告をエラーとして扱う設定)。
+   - 元がビルドされた後に公開されたものなので、エラーにはしない。
+8. **`System.Web.Services.Description` との型の重複(CS0433)**
+   - 対象: mojo の `WsiProfiles`。
+   - CoreWCF が持ち込むパッケージで、コンパイル参照から外す。
+
+### 残り: .NET に無い API(新しい変換器のソース書き換え・除外・スタブの担当)
+
+止めているファイルを手で除外して先に進めた範囲で見つかったもの:
+
+| 種類 | 例 |
+|---|---|
+| コードアクセスセキュリティ | yaf `DbProviderFactory.CreatePermission` のオーバーライド |
+| Remoting | yaf `CallContext`、dnn `RemotingServices`、`Activator.GetObject` |
+| Reflection.Emit の削除 API | n2・yaf `AppDomain.DefineDynamicAssembly`、`AssemblyBuilder.Save`、`RunAndSave` |
+| AppDomain | dnn `AppDomainSetup.ConfigurationFile` |
+| Windows の偽装 | dnn `WindowsImpersonationContext` |
+| シリアル化 | n2 `IDataContractSurrogate` |
+| 新しい BCL の型との名前の衝突 | n2 `Range`(`System.Range`)、`CollectionExtensions` |
+| WCF のサーバー | mojo `ServiceHost`、`ServiceHostFactory`(CoreWCF の担当) |
+| WCF Data Services のクライアント | mojo `DataServiceQuery<>` |
+| デザイナー(System.Design) | mojo `DataFieldConverter`(属性で使うだけ) |
+| 旧 API | mojo `ICertificatePolicy` |
+| .NET 向けのコード分岐 | yaf の ServiceStack(`#if NET6_0_OR_GREATER` の分岐が、元の net481 構成では除かれていたファイルを要求する) |
+
+旧変換器には、このうち Reflection.Emit(`RemovedEmitApis`)と名前の衝突(`CompatImportDisambiguator`)に対応する部品がある。
+
 ParityTest の修正: 拡張子なしのパスを HTTP で事前確認する方式をやめた(GET で Web Forms のページが
 実行されるため、AddToCart が 2 回実行されてカートが 2 件になった)。開いて失敗したら .aspx で開き直す。

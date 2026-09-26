@@ -11,7 +11,8 @@
     <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
     <IntermediateOutputPath>$(BaseIntermediateOutputPath)$(Configuration)\$(TargetFramework.ToLowerInvariant())\</IntermediateOutputPath>
     <OutputType>Exe</OutputType>
-    <OutputPath>bin_dotnet</OutputPath>
+    <!-- bin, as on .NET Framework: apps look for their assemblies in ~/bin (BlogEngine's extensions). -->
+    <OutputPath>bin</OutputPath>
     <StartupObject>Program</StartupObject>
     <EnableDefaultContentItems>false</EnableDefaultContentItems>
     <!-- The fork (experiments/wf4c/_upstream, branch w2l/*), packed into ../_feed. -->
@@ -20,11 +21,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="bin_dotnet\**\*.*" />
-    <None Remove="bin_dotnet\**\*.*" />
-    <Compile Remove="bin_dotnet\**\*.*" />
+    <Content Remove="bin\**\*.*" />
+    <None Remove="bin\**\*.*" />
+    <Compile Remove="bin\**\*.*" />
     <None Remove="__NAME__.csproj.netfx" />
-    <Content Include="**\*.aspx;**\*.ascx;**\*.master;**\*.Master;Web.config" Exclude="bin_dotnet\**" CopyToOutputDirectory="Never" />
+    <Content Include="**\*.aspx;**\*.ascx;**\*.master;**\*.Master;Web.config" Exclude="bin\**" CopyToOutputDirectory="Never" />
   </ItemGroup>
 
   <ItemGroup>

@@ -34,14 +34,17 @@ $projects = @(
     'WebFormsForCore.Web.DynamicData\WebFormsForCore.Web.DynamicData.csproj'
 )
 
-$toBuild = switch ($Build) {
-    'All' { $projects }
-    'Web' { @('WebFormsForCore.Web\WebFormsForCore.Web.csproj') }
-    default { @() }
+if ($Build -eq 'All') {
+    # As a solution (fork.slnx), the way upstream builds: one project at a time, Web.Extensions
+    # fails to see IHttpHandlerFactory through Web.Services. After a change in System.Web the first
+    # build still fails that way now and then (CS7069) and the second succeeds; hence one retry.
+    dotnet build (Join-Path $PSScriptRoot 'fork.slnx') -c Debug -v q -nologo
+    if ($LASTEXITCODE -ne 0) { dotnet build (Join-Path $PSScriptRoot 'fork.slnx') -c Debug -v q -nologo }
+    if ($LASTEXITCODE -ne 0) { throw "build failed: fork.slnx" }
 }
-foreach ($project in $toBuild) {
-    dotnet build (Join-Path $src $project) -c Debug -v q -nologo
-    if ($LASTEXITCODE -ne 0) { throw "build failed: $project" }
+elseif ($Build -eq 'Web') {
+    dotnet build (Join-Path $src 'WebFormsForCore.Web\WebFormsForCore.Web.csproj') -c Debug -v q -nologo
+    if ($LASTEXITCODE -ne 0) { throw "build failed: WebFormsForCore.Web" }
 }
 
 New-Item -ItemType Directory $feed -Force | Out-Null

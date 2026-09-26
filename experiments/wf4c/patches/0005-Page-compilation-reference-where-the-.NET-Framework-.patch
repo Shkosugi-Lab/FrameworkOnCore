@@ -1,0 +1,137 @@
+From 50833e06c48abaf4f8638a52b13b94352e5bb1e1 Mon Sep 17 00:00:00 2001
+From: shkosugi <sin.kosugi@gmail.com>
+Date: Sat, 26 Sep 2026 21:44:28 +0900
+Subject: [PATCH 5/7] Page compilation: reference where the .NET Framework
+ default references live on .NET
+
+machine.config <assemblies> lacked System.Linq and others that mscorlib / System /
+System.Core / System.Xml / System.Data / DataAnnotations / Microsoft.CSharp forward to, so a
+page using LINQ did not compile (CS1061 Where). Added the destinations of those facades'
+type forwards that are in Microsoft.NETCore.App.
+
+App_Data/machine.config is now rewritten whenever it differs from the embedded one. It was
+rewritten only when older than the BuildDate attribute, which the assembly does not carry,
+so the first file written stayed through package updates.
+---
+ .../Config/machine.config                     | 34 +++++++++++
+ .../ClientConfigurationHost.cs                | 56 +++++++++----------
+ 2 files changed, 59 insertions(+), 31 deletions(-)
+
+diff --git a/src/WebFormsForCore.Configuration/Config/machine.config b/src/WebFormsForCore.Configuration/Config/machine.config
+index 30a0f55..6772d18 100644
+--- a/src/WebFormsForCore.Configuration/Config/machine.config
++++ b/src/WebFormsForCore.Configuration/Config/machine.config
+@@ -246,6 +246,40 @@
+                 <add assembly="System.Xml.XmlSerializer"/>
+                 <add assembly="System.Xml.XDocument" />
+                 <add assembly="System.Xml.XPath.XDocument" />
++                <!-- Where the types of the .NET Framework default references (mscorlib, System, System.Core, System.Xml,
++                     System.Data, DataAnnotations, Microsoft.CSharp, ...) live on .NET: the destinations of their facades'
++                     type forwards in Microsoft.NETCore.App. Without System.Linq a page using LINQ does not compile. -->
++                <add assembly="Microsoft.CSharp" />
++                <add assembly="Microsoft.Win32.Registry" />
++                <add assembly="System.ComponentModel.Annotations" />
++                <add assembly="System.ComponentModel.EventBasedAsync" />
++                <add assembly="System.ComponentModel.Primitives" />
++                <add assembly="System.ComponentModel.TypeConverter" />
++                <add assembly="System.Console" />
++                <add assembly="System.Diagnostics.Process" />
++                <add assembly="System.IO.FileSystem.AccessControl" />
++                <add assembly="System.IO.FileSystem.DriveInfo" />
++                <add assembly="System.IO.IsolatedStorage" />
++                <add assembly="System.IO.MemoryMappedFiles" />
++                <add assembly="System.IO.Pipes" />
++                <add assembly="System.IO.Pipes.AccessControl" />
++                <add assembly="System.Linq" />
++                <add assembly="System.Linq.Expressions" />
++                <add assembly="System.Linq.Parallel" />
++                <add assembly="System.Linq.Queryable" />
++                <add assembly="System.Memory" />
++                <add assembly="System.ObjectModel" />
++                <add assembly="System.Reflection.TypeExtensions" />
++                <add assembly="System.Resources.Writer" />
++                <add assembly="System.Runtime.CompilerServices.VisualC" />
++                <add assembly="System.Runtime.Serialization.Formatters" />
++                <add assembly="System.Security.AccessControl" />
++                <add assembly="System.Security.Claims" />
++                <add assembly="System.Security.Cryptography" />
++                <add assembly="System.Security.Principal.Windows" />
++                <add assembly="System.Threading.AccessControl" />
++                <add assembly="System.Threading.Tasks.Parallel" />
++                <add assembly="System.Xml.XPath" />
+                 <add assembly="System.Web.HttpUtility" />
+                 <add assembly="System.Web" />
+                 <add assembly="System.Web.Services" />
+diff --git a/src/WebFormsForCore.Configuration/System/System.Configuration/ClientConfigurationHost.cs b/src/WebFormsForCore.Configuration/System/System.Configuration/ClientConfigurationHost.cs
+index abf967a..f43402f 100644
+--- a/src/WebFormsForCore.Configuration/System/System.Configuration/ClientConfigurationHost.cs
++++ b/src/WebFormsForCore.Configuration/System/System.Configuration/ClientConfigurationHost.cs
+@@ -107,40 +107,34 @@ namespace System.Configuration {
+ 					if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
+ 
+                     var assembly = Assembly.GetExecutingAssembly();
+-                    var linkerTimeStamp = assembly.GetCustomAttribute<BuildDateAttribute>()?.DateTime ?? DateTime.MinValue;
+ 
+-
+-                    if (!File.Exists(s_machineConfigFilePath) ||
+-                        File.GetLastWriteTimeUtc(s_machineConfigFilePath) < linkerTimeStamp)
++                    // Rewritten whenever it differs from the embedded one. It used to be rewritten only when
++                    // older than the BuildDate attribute, which the assembly does not carry: the first file
++                    // written stayed, through package updates.
++                    var configName = UseNetFXMachineConfig ? MachineConfigNetFXFilename : MachineConfigFilename;
++                    using (var machineConfig = assembly
++                        .GetManifestResourceNames()
++                        .Where(name => name == configName || name.EndsWith($".{configName}"))
++                        .Select(name => assembly.GetManifestResourceStream(name))
++                        .FirstOrDefault())
++                    using (var reader = new StreamReader(machineConfig))
+                     {
+-                         var configName = UseNetFXMachineConfig ? MachineConfigNetFXFilename : MachineConfigFilename;
+-                        using (var machineConfig = assembly
+-                            .GetManifestResourceNames()
+-                            .Where(name => name == configName || name.EndsWith($".{configName}"))
+-                            .Select(name => assembly.GetManifestResourceStream(name))
+-                            .FirstOrDefault())
++                        var txt = reader.ReadToEnd();
++                        var path = Path.GetDirectoryName(assembly.Location);
++                        if (File.Exists(Path.Combine(path, "System.Web.Mobile.dll")))
+                         {
+-                            var path = Path.GetDirectoryName(assembly.Location);
+-                            if (File.Exists(Path.Combine(path, "System.Web.Mobile.dll")))
+-                            {
+-                                using (var reader = new StreamReader(machineConfig))
+-                                {
+-                                    var txt = reader.ReadToEnd();
+-                                    // Uncomment Mobile sections
+-                                    txt = Regex.Replace(txt, @"<!--@Mobile\s*(.*?)\s*-->", "$1", RegexOptions.Singleline);
+-                                    File.WriteAllText(s_machineConfigFilePath, txt);
+-                                }
+-                            }
+-                            else
+-                            {
+-                                using (var reader = new StreamReader(machineConfig))
+-                                {
+-                                    var txt = reader.ReadToEnd();
+-                                    // Uncomment Mobile sections
+-                                    txt = Regex.Replace(txt, @"<!--@!Mobile\s*(.*?)\s*-->", "$1", RegexOptions.Singleline);
+-                                    File.WriteAllText(s_machineConfigFilePath, txt);
+-                                }
+-                            }
++                            // Uncomment Mobile sections
++                            txt = Regex.Replace(txt, @"<!--@Mobile\s*(.*?)\s*-->", "$1", RegexOptions.Singleline);
++                        }
++                        else
++                        {
++                            // Uncomment Mobile sections
++                            txt = Regex.Replace(txt, @"<!--@!Mobile\s*(.*?)\s*-->", "$1", RegexOptions.Singleline);
++                        }
++
++                        if (!File.Exists(s_machineConfigFilePath) || File.ReadAllText(s_machineConfigFilePath) != txt)
++                        {
++                            File.WriteAllText(s_machineConfigFilePath, txt);
+                         }
+                     }
+                 }
+-- 
+2.55.0.windows.3
+

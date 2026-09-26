@@ -1,0 +1,38 @@
+From 3d7c39cef90c0b1f6250cc177b4b54d0f7a7af0e Mon Sep 17 00:00:00 2001
+From: shkosugi <sin.kosugi@gmail.com>
+Date: Sat, 26 Sep 2026 21:44:28 +0900
+Subject: [PATCH 6/7] BuildManager: resolve App_GlobalResources / App_Code by
+ simple name on .NET
+
+.NET passes AssemblyResolve the full name ('App_GlobalResources, Culture=neutral,
+PublicKeyToken=null'), the mapping of the generated assemblies is by simple name, so
+Assembly.Load("App_GlobalResources") (resource designer classes) and Assembly.Load("App_Code")
+failed.
+---
+ src/WebFormsForCore.Web/Compilation/BuildManager.cs | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+diff --git a/src/WebFormsForCore.Web/Compilation/BuildManager.cs b/src/WebFormsForCore.Web/Compilation/BuildManager.cs
+index 77e5e44..a72b7b0 100644
+--- a/src/WebFormsForCore.Web/Compilation/BuildManager.cs
++++ b/src/WebFormsForCore.Web/Compilation/BuildManager.cs
+@@ -3750,6 +3750,16 @@ private static void GetGhostedVirtualPath(ref string virtualPath) {
+         {
+             assembly = (Assembly)_assemblyResolveMapping[name];
+ 
++#if NETCOREAPP
++            // .NET passes the full name (Assembly.Load("App_GlobalResources") arrives as
++            // "App_GlobalResources, Culture=neutral, PublicKeyToken=null"); the mapping is by simple name.
++            if (assembly == null && name.IndexOf(',') >= 0)
++            {
++                name = name.Substring(0, name.IndexOf(',')).Trim();
++                assembly = (Assembly)_assemblyResolveMapping[name];
++            }
++#endif
++
+             // Return the assembly if we have it in our mapping (VSWhidbey 276776)
+             if (assembly != null)
+             {
+-- 
+2.55.0.windows.3
+

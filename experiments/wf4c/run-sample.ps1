@@ -35,7 +35,7 @@ try {
     if ($LASTEXITCODE -ne 0) { throw "build failed" }
 
     $env:ASPNETCORE_URLS = "http://localhost:$Port"
-    $process = Start-Process -FilePath dotnet -ArgumentList "bin_dotnet\$Name.dll" -PassThru -WindowStyle Hidden `
+    $process = Start-Process -FilePath dotnet -ArgumentList "bin\$Name.dll" -PassThru -WindowStyle Hidden `
         -RedirectStandardOutput (Join-Path $work 'server.log') -RedirectStandardError (Join-Path $work 'server.err.log')
     try {
         foreach ($attempt in 1..60) {

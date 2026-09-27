@@ -94,7 +94,8 @@ namespace Microsoft.AspNetCore.Builder
 			this.next = next;
 			var path = System.Web.Hosting.AppBinDirectory.PhysicalPath;
 			if (path.EndsWith(Path.DirectorySeparatorChar.ToString())) path = path.Substring(0, path.Length - 1);
-			PhysicalPath = Path.GetDirectoryName(path);
+			// In a worker (WebFormsProcess), bin is a copy: the application's root is given.
+			PhysicalPath = WebFormsProcess.AppPath ?? Path.GetDirectoryName(path);
 			//PhysicalPath = Path.GetDirectoryName(Path.GetDirectoryName(new Uri(Assembly.GetEntryAssembly().CodeBase).AbsolutePath));
 			VirtualPath = "/";
 

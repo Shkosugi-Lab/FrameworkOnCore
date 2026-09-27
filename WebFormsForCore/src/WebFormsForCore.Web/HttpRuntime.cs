@@ -3187,7 +3187,13 @@ namespace System.Web
         /// </devdoc>
         public static String BinDirectory {
             get {
+#if NETFRAMEWORK
                 String path = BinDirectoryInternal;
+#else
+                // The application's bin, where it writes (installers). The assemblies may run from a copy
+                // of it (WebFormsProcess): BinDirectoryInternal.
+                String path = Path.Combine(_theRuntime._appDomainAppPath, BinDotnetDirectoryName) + Path.DirectorySeparatorChar;
+#endif
                 InternalSecurityPermissions.PathDiscovery(path).Demand();
                 return path;
             }
@@ -3198,7 +3204,9 @@ namespace System.Web
 #if NETFRAMEWORK
                 return Path.Combine(_theRuntime._appDomainAppPath, BinDirectoryName) + Path.DirectorySeparatorChar;
 #else
-                return Path.Combine(_theRuntime._appDomainAppPath, BinDotnetDirectoryName) + Path.DirectorySeparatorChar;
+                // Where the application's assemblies are loaded from: its bin, or the copy of it the worker
+                // runs from (WebFormsProcess), as the shadow copies of bin on .NET Framework.
+                return System.Web.Hosting.AppBinDirectory.PhysicalPath.TrimEnd(Path.DirectorySeparatorChar) + Path.DirectorySeparatorChar;
 
                 /*var path = AppDomain.CurrentDomain.BaseDirectory;
 				if (path.EndsWith(Path.DirectorySeparatorChar.ToString())) path = path.Substring(0, path.Length - 1);

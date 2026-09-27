@@ -82,16 +82,26 @@ public sealed class WindowsPathAnalyzer : DiagnosticAnalyzer
     {
         context.EnableConcurrentExecution();
         context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
-        context.RegisterSyntaxNodeAction(Analyze, SyntaxKind.StringLiteralExpression, SyntaxKind.CharacterLiteralExpression, SyntaxKind.InterpolatedStringExpression);
-        context.RegisterSyntaxNodeAction(AnalyzeTrim, SyntaxKind.InvocationExpression);
-        // The application's assemblies (its other projects), which the converter gives the build: their methods are
-        // not file APIs (they call those, which are wrapped there).
         context.RegisterCompilationStartAction(start =>
         {
-            start.Options.AnalyzerConfigOptionsProvider.GlobalOptions.TryGetValue("build_property.FrameworkOnCoreApplicationAssemblies", out var names);
-            var application = new HashSet<string>((names ?? "").Split(new[] { ';', ',' }, StringSplitOptions.RemoveEmptyEntries).Select(n => n.Trim()), StringComparer.OrdinalIgnoreCase);
+            var options = start.Options.AnalyzerConfigOptionsProvider.GlobalOptions;
+            // Projects built for .NET too (netstandard, netcoreapp): their code runs on Linux as it is, and what it does
+            // with Windows' separators is meant. Nothing here for them.
+            if (Names(options, "FrameworkOnCoreCrossPlatformAssemblies").Contains(start.Compilation.AssemblyName ?? "")) return;
+            start.RegisterSyntaxNodeAction(Analyze, SyntaxKind.StringLiteralExpression, SyntaxKind.CharacterLiteralExpression, SyntaxKind.InterpolatedStringExpression);
+            start.RegisterSyntaxNodeAction(AnalyzeTrim, SyntaxKind.InvocationExpression);
+            // The application's assemblies (its other projects), which the converter gives the build: their methods are
+            // not file APIs (they call those, which are wrapped there).
+            var application = Names(options, "FrameworkOnCoreApplicationAssemblies");
             start.RegisterSyntaxNodeAction(c => AnalyzeDataPaths(c, application), SyntaxKind.InvocationExpression, SyntaxKind.ObjectCreationExpression, SyntaxKind.ImplicitObjectCreationExpression);
         });
+    }
+
+    // A list of assembly names the converter passes as an MSBuild property (CompilerVisibleProperty).
+    static HashSet<string> Names(AnalyzerConfigOptions options, string property)
+    {
+        options.TryGetValue("build_property." + property, out var names);
+        return new HashSet<string>((names ?? "").Split(new[] { ';', ',' }, StringSplitOptions.RemoveEmptyEntries).Select(n => n.Trim()), StringComparer.OrdinalIgnoreCase);
     }
 
     // A path argument of a file API (.NET's method, a parameter named path, fileName, ...) whose value comes from data:
@@ -220,7 +230,13 @@ public sealed class WindowsPathAnalyzer : DiagnosticAnalyzer
         return !afterSeparators.All(s => escape.IsMatch(s));
     }
 
-    static bool IsPathName(string name) =>
+    // Named as a path, and not one of a file: a menu's or tree's item path (its separator is Menu.PathSeparator; mojo's
+    // menu adapters join it with '\\' for the postback argument), an XPath.
+    static readonly HashSet<string> notFilePaths = new(StringComparer.OrdinalIgnoreCase) { "ValuePath", "PathSeparator", "XPath", "DataPath" };
+
+    static bool IsPathName(string name) => !notFilePaths.Contains(name) && IsPathNameShape(name);
+
+    static bool IsPathNameShape(string name) =>
         pathName.IsMatch(name) || name.EndsWith("File", StringComparison.Ordinal) || name.EndsWith("Files", StringComparison.Ordinal) || name.EndsWith("Dir", StringComparison.Ordinal) || name.EndsWith("Dirs", StringComparison.Ordinal) ||
         name.Equals("dir", StringComparison.OrdinalIgnoreCase) || (name.StartsWith("dir", StringComparison.OrdinalIgnoreCase) && name.Length > 3 && (char.IsUpper(name[3]) || name[3] == '_'));
 

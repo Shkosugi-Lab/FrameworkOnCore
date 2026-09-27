@@ -328,7 +328,8 @@ Windows を前提にしたコードは、コンパイルは通るが Linux で�
 
 ほかに、式のテキストで決まるもの(`rules/packages.json` の `platformReplacements`。ビルドの前に書き換える):
 - `PrincipalPolicy.WindowsPrincipal`: Windows 以外では、以後の `Thread.CurrentPrincipal` がすべて例外になる(DNN のスケジューラーが設定し、全リクエストが 500)。
-- `WindowsIdentity.GetCurrent().Name`: Windows 以外は例外。
+- `WindowsIdentity.GetCurrent().Name`: Windows 以外は例外。`WindowsIdentity.GetCurrent()` だけのときは、Windows 以外では null(Windows のアカウントが無い。YAF はこれを null と比べてから偽装する)。
+- `AppDomain.CurrentDomain.RelativeSearchPath`: .NET では常に null。ASP.NET ではアプリのフォルダー(BaseDirectory)の下の `bin`。フォーク 0014 で BaseDirectory をアプリのフォルダーにしたので、YAF がアプリのフォルダーでデータプロバイダーの DLL を探し、見つからなかった(0014 以後の後退)。bin があれば `bin` を返す。
 - `Uri.TryCreate`・`Uri.IsWellFormedUriString`・`new Uri(x, UriKind...)`: .NET は Unix で `/Portals/...` を絶対の file URI とみなす(DNN の「絶対 URL か」の判定がすべて真になり、存在しない CSS を登録していた)。dnn・n2・mojo・be で使われている(be だけで 17 か所を書き換えた)。
 
 パッケージ:
@@ -343,7 +344,20 @@ Windows を前提にしたコードは、コンパイルは通るが Linux で�
 - dnn: Linux で空の DB からインストールが完了し、トップページ・ログインのページ・資源がすべて 200。Windows でもインストールが完了し、トップページが 200。
 - n2: Linux・Windows とも、空の DB から SQLite でインストールが完了し、トップページがコンテンツ付きで表示される。
 - be/wt: 変わらず(be 5/5、wt 6/8)。
-- mojo・yaf は確認していない(変換器の変更は影響しうる)。
+- mojo: Windows でトップページ、Linux で空の DB からセットアップ → トップページ・ログインが 200(以前と同じ)。
+- yaf: 以前と同じ `FieldAccessException`(Web API 2)。その手前で止まるようになっていた 2 つを直した: 上の RelativeSearchPath(データプロバイダーが見つからない)と、偽装を使うタイマーの処理がスタブ(例外)になり、タイマーの例外でプロセスが終了していたこと(互換アセンブリに `WindowsImpersonationContext` と `WindowsIdentity.Impersonate()` を置いた。Windows では本当に偽装する。dnn の log4net のスタブも 3 件減った)。
+
+mojo・yaf で見つかった誤検出と対応:
+- mojo のメニューのアダプター: `item.ValuePath.Replace(menu.PathSeparator, "\\")` は、メニューの項目のパス(ポストバックの引数)で、ファイルのパスではない。名前の規則(Path を含む)に当たっていた。`ValuePath`・`PathSeparator`・`XPath`・`DataPath` は対象外にした。
+- yaf の Lucene.Net: `path.IndexOf('\\') < 0` は、どの OS でもバックスラッシュを拒む意図(コメントあり)。元から .NET 向け(netstandard・netcoreapp・net5+)にビルドしていたプロジェクトは、FOC1001〜1004 の対象外にした(クロスプラットフォームのコードで、区切りの扱いは意図したもの)。ただし yaf が同梱する Lucene.Net は net481 だけにしてあるので、この規則では外れない。同じ条件の `Path.GetFileName(...)` も FOC1004 で合わせられるため、結果は変わらない(無害な誤検出として残す)。
+
+変換の結果の再現性:
+- 同じ入力でもレポートの件数が変わっていた(dnn のプロジェクトとパッケージが 215・245 など)。原因は 2 つ。
+  - NU1605 の版の引き上げ: restore が報告する順は並列の処理で変わり、2.1.1 → 8.0.2 → 10.0.5 と 2 段階で上げる回があった。求められた最も高い版まで一度に上げ、プロジェクトとパッケージごとに 1 件(元の版 → 最後の版)だけ記録する。
+  - FOC1004 のファイルごとの例示(括弧の中)が、ビルドの出力の順で変わっていた。並べて出す。
+- レポートの各節は、対象とテキストの順に並べる。dnn を続けて 2 回変換して、レポートが完全に一致することを確認した。
+
+テスト(`tests/FrameworkOnCore.Tests`、26 件): アナライザーが見つけるもの・見逃すべきもの(上の誤検出を含め、コーパスで見つかった形)、互換アセンブリの OS ごとの動き。Windows で `dotnet test`、Linux で `run-tests-linux.ps1`(.NET SDK のコンテナ)。どちらも全件成功。
 
 変換器を作る過程で直したこと:
 - 書き換えの後のビルドで、SYSLIB の警告(`obsoletions`)を消していた。後のビルドは変わったプロジェクトしかコンパイルしないので、ほかのプロジェクトの分がレポートから落ちていた(dnn で 19 件)。

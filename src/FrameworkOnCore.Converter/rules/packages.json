@@ -95,6 +95,8 @@
   "platformReplacements": [
     { "expression": "PrincipalPolicy.WindowsPrincipal", "replacement": "global::FrameworkOnCore.Platform.WindowsPrincipalPolicy", "note": "no Windows account elsewhere: an unauthenticated principal (with WindowsPrincipal every Thread.CurrentPrincipal throws: DNN's Scheduler, every request)" },
     { "expression": "WindowsIdentity.GetCurrent().Name", "replacement": "global::FrameworkOnCore.Platform.CurrentIdentityName", "note": "the account the application runs as: the user elsewhere" },
+    { "expression": "WindowsIdentity.GetCurrent()", "replacement": "global::FrameworkOnCore.Platform.CurrentWindowsIdentity", "note": "no Windows account elsewhere: null (.NET throws); code that impersonates it checks for null (YAF)" },
+    { "expression": "AppDomain.CurrentDomain.RelativeSearchPath", "replacement": "global::FrameworkOnCore.Platform.RelativeSearchPath", "note": "ASP.NET searched bin under the application's folder (its BaseDirectory, as WebFormsForCore gives it); .NET's RelativeSearchPath is always null: bin, on every platform" },
     { "expression": "Uri.TryCreate", "replacement": "global::FrameworkOnCore.WindowsUri.TryCreate", "note": "a path from the root (/Portals/0/home.css) is an absolute file URI on Unix, relative on Windows: as on Windows" },
     { "expression": "Uri.IsWellFormedUriString", "replacement": "global::FrameworkOnCore.WindowsUri.IsWellFormedUriString", "note": "a path from the root is an absolute file URI on Unix: as on Windows" },
     { "expression": "new Uri", "argument": "UriKind.", "replacement": "global::FrameworkOnCore.WindowsUri.Create", "note": "new Uri(path, UriKind...): a path from the root is an absolute file URI on Unix: as on Windows" }

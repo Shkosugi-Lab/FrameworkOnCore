@@ -6,7 +6,7 @@ using System.Xml.Linq;
 namespace FrameworkOnCore.Converter;
 
 /// <summary>A project as converted: its file in the output tree and its conditional compilation symbols.</summary>
-public sealed record ConvertedProject(string Name, string SourcePath, string TargetPath, bool IsWeb, IReadOnlyList<string> Defines, string? AssemblyName = null);
+public sealed record ConvertedProject(string Name, string SourcePath, string TargetPath, bool IsWeb, IReadOnlyList<string> Defines, string? AssemblyName = null, bool CrossPlatform = false);
 
 /// <summary>Where the runtime pieces the converted projects refer to are (the fork's feed, the shims).</summary>
 public sealed record RuntimeLayout(string Feed, IReadOnlyList<string> ShimProjects);
@@ -476,7 +476,10 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
         var defines = Elements(project, "DefineConstants").SelectMany(d => d.Value.Split(';')).Select(s => s.Trim())
             .Where(s => s.Length > 0 && !s.Contains('$')).Distinct().ToList();
         report.Add(Report.Kind.Project, name, $"SDK-style: {string.Join(';', frameworks)} -> net10.0");
-        return new ConvertedProject(name, projectPath, targetPath, false, defines, Elements(project, "AssemblyName").FirstOrDefault()?.Value ?? name);
+        // Built for .NET too (netstandard, netcoreapp, net5+): its code runs on Linux as it is, and what it does with
+        // Windows' separators is meant (Lucene.Net: a backslash is refused in a name on every platform).
+        var crossPlatform = frameworks.Any(f => Regex.IsMatch(f, @"^(netstandard|netcoreapp|net[5-9]\.|net\d\d\.)"));
+        return new ConvertedProject(name, projectPath, targetPath, false, defines, Elements(project, "AssemblyName").FirstOrDefault()?.Value ?? name, crossPlatform);
     }
 
     // The DLL of a package's .NET Framework asset, by the package's path property (GeneratePathProperty).

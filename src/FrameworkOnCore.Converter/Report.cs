@@ -44,7 +44,8 @@ public sealed class Report
         };
         foreach (var (kind, heading) in headings)
         {
-            var group = entries.Where(e => e.Kind == kind).ToList();
+            // In a fixed order: the builds report in the order their parallel work gives (the same conversion, the same report).
+            var group = entries.Where(e => e.Kind == kind).OrderBy(e => e.Subject, StringComparer.Ordinal).ThenBy(e => e.Text, StringComparer.Ordinal).ToList();
             text.Append($"## {heading}({group.Count} 件)\n\n");
             foreach (var entry in group) text.Append($"- **{entry.Subject}**: {entry.Text.Replace("\n", " ")}\n");
             text.Append('\n');

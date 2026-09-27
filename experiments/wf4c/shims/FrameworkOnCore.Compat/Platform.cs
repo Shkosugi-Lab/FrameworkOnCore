@@ -22,5 +22,24 @@ namespace FrameworkOnCore
 
         [SupportedOSPlatform("windows")]
         static string WindowsName() => WindowsIdentity.GetCurrent().Name;
+
+        /// <summary>
+        /// WindowsIdentity.GetCurrent(): the Windows account the thread runs as; elsewhere there is none (null), where .NET
+        /// throws PlatformNotSupportedException (YAF kept it to impersonate on its timers, when there was one).
+        /// </summary>
+        public static WindowsIdentity CurrentWindowsIdentity => System.OperatingSystem.IsWindows() ? WindowsCurrent() : null;
+
+        [SupportedOSPlatform("windows")]
+        static WindowsIdentity WindowsCurrent() => WindowsIdentity.GetCurrent();
+
+        /// <summary>
+        /// AppDomain.CurrentDomain.RelativeSearchPath: ASP.NET's application domain had its BaseDirectory in the
+        /// application's folder and searched "bin" under it. WebFormsForCore gives the BaseDirectory as ASP.NET did; .NET's
+        /// RelativeSearchPath is always null, and the application looked for its assemblies in its folder (YAF's
+        /// ModuleScanner: no data provider found). On every platform.
+        /// </summary>
+        public static string RelativeSearchPath =>
+            System.AppDomain.CurrentDomain.RelativeSearchPath ??
+            (System.IO.Directory.Exists(System.IO.Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "bin")) ? "bin" : null);
     }
 }

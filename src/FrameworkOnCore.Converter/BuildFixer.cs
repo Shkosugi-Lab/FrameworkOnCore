@@ -75,6 +75,7 @@ public sealed class BuildFixer(Report report, IReadOnlyCollection<ConvertedProje
                 result = RunRounds(webProject, maxRounds);
             }
         }
+        foreach (var ((project, id), (from, to)) in raised) report.Add(Report.Kind.Project, project, $"{id} raised {from} -> {to} (NU1605)");
         foreach (var (key, message) in obsoletions) report.Add(Report.Kind.Unsupported, key, message);
         foreach (var ((file, line, _), message) in constantPaths) report.Add(Report.Kind.Unsupported, $"{Relative(file)}:{line}", $"FOC1002: {message} (on Linux it needs the platform's separator)");
         return result;
@@ -140,6 +141,7 @@ public sealed class BuildFixer(Report report, IReadOnlyCollection<ConvertedProje
               <ItemGroup Condition="'$(Language)' == 'C#'">
                 <Analyzer Include="{System.Security.SecurityElement.Escape(dll)}" />
                 <CompilerVisibleProperty Include="FrameworkOnCoreApplicationAssemblies" />
+                <CompilerVisibleProperty Include="FrameworkOnCoreCrossPlatformAssemblies" />
               </ItemGroup>
             </Project>
             """);
@@ -190,7 +192,7 @@ public sealed class BuildFixer(Report report, IReadOnlyCollection<ConvertedProje
             var arguments = targets.Where(t => t.Value.Data).ToList();
             if (arguments.Count > 0)
                 report.Add(Report.Kind.Platform, Relative(file.Key),
-                    $"{arguments.Count} path argument(s) from data -> WindowsPath.Native(...) (FOC1004: {string.Join(", ", arguments.Select(a => a.Value.Reason.Replace("A path from data passed to a file API: Windows' separators in it are not Linux's ", "")).Distinct().Take(4))})");
+                    $"{arguments.Count} path argument(s) from data -> WindowsPath.Native(...) (FOC1004: {string.Join(", ", arguments.Select(a => a.Value.Reason.Replace("A path from data passed to a file API: Windows' separators in it are not Linux's ", "")).Distinct().OrderBy(r => r, StringComparer.Ordinal).Take(4))})");
             changed = true;
         }
         windowsPaths.Clear();
@@ -555,8 +557,10 @@ public sealed class BuildFixer(Report report, IReadOnlyCollection<ConvertedProje
     {
         // The application's assemblies: the analyzers tell its own methods from the file APIs (FOC1004).
         var application = string.Join("%3B", projects.Select(p => p.AssemblyName ?? p.Name).Distinct(StringComparer.OrdinalIgnoreCase));
+        // And those built for .NET too: the analyzers leave their Windows paths (FOC1001-1004).
+        var crossPlatform = string.Join("%3B", projects.Where(p => p.CrossPlatform).Select(p => p.AssemblyName ?? p.Name).Distinct(StringComparer.OrdinalIgnoreCase));
         var withAnalyzers = analyzers.Value is { } targets
-            ? $" \"-p:CustomAfterMicrosoftCommonTargets={targets}\" \"-p:FrameworkOnCoreApplicationAssemblies={application}\""
+            ? $" \"-p:CustomAfterMicrosoftCommonTargets={targets}\" \"-p:FrameworkOnCoreApplicationAssemblies={application}\" \"-p:FrameworkOnCoreCrossPlatformAssemblies={crossPlatform}\""
             : "";
         var (exitCode, output) = Dotnet($"build \"{webProject}\" -nologo -v q -clp:NoSummary{withAnalyzers}");
         var errors = new List<BuildError>();
@@ -594,13 +598,20 @@ public sealed class BuildFixer(Report report, IReadOnlyCollection<ConvertedProje
 
     // Package versions below what another package needs (NU1605, an error): raised to that, as restore
     // reports it, until restore is clean.
+    readonly SortedDictionary<(string Project, string Id), (string From, string To)> raised = new();
+
+    static Version ParseVersion(string version) => Version.TryParse(Regex.Match(version, @"^\d+(\.\d+){0,3}").Value, out var v) ? v : new Version(0, 0);
+
     void RaiseDowngrades(string webProject)
     {
         var downgrade = new Regex(@"Detected package downgrade: (\S+) from (\S+?)\.? to (\S+?)\.?\s");
         for (var round = 0; round < 10; round++)
         {
             var (_, output) = Dotnet($"restore \"{webProject}\" -nologo");
-            var found = downgrade.Matches(output).Select(m => (Id: m.Groups[1].Value, From: m.Groups[2].Value, To: m.Groups[3].Value)).Distinct().ToList();
+            // The highest version asked for, at once: restore reports the conflicts in the order it meets them, which
+            // varies from build to build (2.1.1 -> 8.0.2 -> 10.0.5, or 2.1.1 -> 10.0.5).
+            var found = downgrade.Matches(output).Select(m => (Id: m.Groups[1].Value, From: m.Groups[2].Value, To: m.Groups[3].Value))
+                .GroupBy(d => (d.Id, d.To)).Select(g => (g.Key.Id, From: g.Select(d => d.From).OrderByDescending(ParseVersion).First(), g.Key.To)).ToList();
             if (found.Count == 0) return;
             var changed = false;
             foreach (var (id, from, to) in found)
@@ -611,7 +622,9 @@ public sealed class BuildFixer(Report report, IReadOnlyCollection<ConvertedProje
                     var pattern = $"(<PackageReference Include=\"{Regex.Escape(id)}\" Version=\"){Regex.Escape(to)}\"";
                     if (!Regex.IsMatch(text, pattern)) continue;
                     File.WriteAllText(project.TargetPath, Regex.Replace(text, pattern, "${1}" + from + "\""), new UTF8Encoding(false));
-                    report.Add(Report.Kind.Project, project.Name, $"{id} raised {to} -> {from} (NU1605)");
+                    // Reported once, from the project's version to the last one (Run).
+                    var key = (project.Name, id);
+                    raised[key] = (raised.TryGetValue(key, out var before) ? before.From : to, from);
                     changed = true;
                 }
             }

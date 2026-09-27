@@ -198,7 +198,13 @@ namespace System.Web.Hosting
 		public override string GetHttpVersion() => Context.Request.Protocol;
 		public override string GetKnownRequestHeader(int index) => knownRequestHeaders[index];
 		public override string GetLocalAddress() => Context.Connection.LocalIpAddress.ToString();
-		public override int GetLocalPort() => Context.Connection.LocalPort;
+		// As SERVER_NAME (GetServerName), the port the client asked for: Request.Url and absolute
+		// redirects are built from them. The socket's port is not it behind port mapping (a container's
+		// 8080 published as another) or a reverse proxy: the Host header's port, or the scheme's.
+		public override int GetLocalPort() => Context.Request.Host.Port ?? (Context.Request.IsHttps ? 443 : 80);
+		// HTTPS as the client used it (a proxy that ends TLS says so in X-Forwarded-Proto, which ASP.NET
+		// Core applies with ASPNETCORE_FORWARDEDHEADERS_ENABLED=true). It was always http.
+		public override bool IsSecure() => Context.Request.IsHttps;
 		public override string GetPathInfo() => pathInfo;
 		public override byte[] GetPreloadedEntityBody() => null;
 		public override string GetQueryString() {

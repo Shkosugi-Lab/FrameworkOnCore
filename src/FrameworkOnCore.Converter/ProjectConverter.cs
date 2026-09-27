@@ -156,7 +156,11 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
         void AddPackage(Package p) => packages.TryAdd(p.Id, p.Version);
         void AddListed(string id, string version)
         {
-            if (rules.IsDropped(id, version)) return;
+            if (rules.IsDropped(id, version))
+            {
+                report.Add(Report.Kind.Project, name, $"{id} {version}: dropped (in .NET, or listed in droppedPackages)");
+                return;
+            }
             var package = rules.ReplacedPackages.TryGetValue(id, out var replaced) ? replaced : new Package(id, version);
             packages[package.Id] = package.Version;
         }
@@ -323,11 +327,14 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
         }
         text.Append("  </ItemGroup>\n");
 
+        // Every project: what .NET Framework had and .NET does not - assemblies .NET Framework packages
+        // reference (System.Web.Abstractions: a library using WebFormsMvp needs it to compile), types and
+        // members the sources use (FrameworkOnCore.Compat).
+        text.Append("\n  <!-- Assemblies, types and members .NET Framework had and .NET does not (shims). -->\n  <ItemGroup>\n");
+        foreach (var shim in runtime.ShimProjects) text.Append($"    <ProjectReference Include=\"{SecurityElement.Escape(Paths.FromProject(target, shim))}\" />\n");
+        text.Append("  </ItemGroup>\n");
         if (isWeb)
         {
-            text.Append("\n  <!-- Assemblies .NET Framework had and .NET does not, referenced by .NET Framework packages. -->\n  <ItemGroup>\n");
-            foreach (var shim in runtime.ShimProjects) text.Append($"    <ProjectReference Include=\"{SecurityElement.Escape(Paths.FromProject(target, shim))}\" />\n");
-            text.Append("  </ItemGroup>\n");
             text.Append("""
 
                   <!-- Culture data from Windows (NLS), as on .NET Framework; on Linux the ICU data are made the
@@ -439,6 +446,8 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
         if (preserialized && !HasPackage(ResourcesExtensions.Id)) added.Add(ResourcesExtensions);
         var itemGroup = new XElement(N("ItemGroup"), added.Items.Select(PackageElement));
         if (itemGroup.HasElements) root.Add(itemGroup);
+        // As the old-style projects: the shims (types and members .NET Framework had).
+        root.Add(new XElement(N("ItemGroup"), runtime.ShimProjects.Select(s => new XElement(N("ProjectReference"), new XAttribute("Include", Paths.FromProject(target, s))))));
         if (preserialized) root.Add(new XElement(N("PropertyGroup"), new XElement(N("GenerateResourceUsePreserializedResources"), "true")));
         root.Add(new XElement(N("PropertyGroup"),
             new XElement(N("NoWarn"), NoWarn),

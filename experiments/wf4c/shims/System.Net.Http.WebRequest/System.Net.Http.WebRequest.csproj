@@ -8,5 +8,9 @@
     <RootNamespace>System.Net.Http</RootNamespace>
     <AssemblyVersion>4.0.0.0</AssemblyVersion>
     <Nullable>disable</Nullable>
+  <!-- The identity .NET Framework's System.Net.Http.WebRequest has (its public key: ..\keys, extract-keys.ps1), which assemblies built against it reference. -->
+    <SignAssembly>true</SignAssembly>
+    <PublicSign>true</PublicSign>
+    <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)..\keys\b03f5f7f11d50a3a.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 </Project>

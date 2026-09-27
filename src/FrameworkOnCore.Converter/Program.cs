@@ -117,7 +117,7 @@ File.WriteAllText(buildTarget,
     new UTF8Encoding(false));
 
 var succeeded = true;
-if (build) succeeded = new BuildFixer(report, converter.Converted, outRoot).Run(buildTarget);
+if (build) succeeded = new BuildFixer(report, converter.Converted, outRoot, rules).Run(buildTarget);
 if (build && succeeded && site != null)
 {
     // The ones built on their own, as they are after the build (the web project's are in its bin).

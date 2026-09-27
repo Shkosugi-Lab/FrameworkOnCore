@@ -18,7 +18,7 @@ namespace FrameworkOnCore.Converter;
 /// left, the file. Every change is reported. The fallback until the compatibility assemblies cover
 /// what .NET removed (LINUX-CONVERTER-DESIGN.md).
 /// </summary>
-public sealed class BuildFixer(Report report, IReadOnlyCollection<ConvertedProject> projects, string outRoot)
+public sealed class BuildFixer(Report report, IReadOnlyCollection<ConvertedProject> projects, string outRoot, Rules rules)
 {
     sealed record BuildError(string? File, int Line, int Column, string Code, string Message, string? Project);
 
@@ -26,6 +26,7 @@ public sealed class BuildFixer(Report report, IReadOnlyCollection<ConvertedProje
     static readonly Regex otherError = new(@"error (?<code>\w+): (?<msg>.*?)(?: \[(?<proj>[^\]]+)\])?$", RegexOptions.Compiled);
     static readonly Regex ambiguous = new(@"'(?<name>[^']+)' is an ambiguous reference between '(?<a>[^']+)' and '(?<b>[^']+)'", RegexOptions.Compiled);
 
+    static readonly Regex missingMember = new(@"'(?<type>[^']+)' does not contain a definition for '(?<member>[^']+)'", RegexOptions.Compiled);
     static readonly Regex ambiguousCall = new(@"'(?<type>[\w.]+?)\.(?<method>\w+)(?:<[^>']*>)?\(", RegexOptions.Compiled);
 
     readonly Dictionary<string, int> attempts = new();
@@ -37,15 +38,25 @@ public sealed class BuildFixer(Report report, IReadOnlyCollection<ConvertedProje
     // SYSLIB0007: the parameterless Create of the cryptography base classes, which returned the
     // .NET Framework default algorithm (CryptoConfig) and throws on .NET. Where the compiler says.
     readonly HashSet<(string File, int Line, int Column)> defaultAlgorithms = new();
+    // CS9258: "field" in a property's accessor, which C# 14 binds to the property's backing field; the
+    // source (C# 7.3 on .NET Framework) meant its type's member named field (N2's Castle DynamicProxy:
+    // FieldReference.Reference returned a backing field never set). Where the compiler says: @field.
+    static readonly Regex fieldKeyword = new(@"^(?<file>.+?)\((?<line>\d+),(?<col>\d+)\): warning CS9258:", RegexOptions.Compiled);
+    readonly HashSet<(string File, int Line, int Column)> fieldKeywords = new();
 
     public bool Run(string webProject, int maxRounds = 60)
     {
         var result = RunRounds(webProject, maxRounds);
         // A type's own member is found before an extension member: these calls are rewritten.
-        if (result && defaultAlgorithms.Count > 0 && RewriteDefaultAlgorithms())
+        if (result && (defaultAlgorithms.Count > 0 || fieldKeywords.Count > 0))
         {
-            obsoletions.Clear();
-            result = RunRounds(webProject, maxRounds);
+            var changed = defaultAlgorithms.Count > 0 && RewriteDefaultAlgorithms();
+            changed |= fieldKeywords.Count > 0 && RewriteFieldKeywords();
+            if (changed)
+            {
+                obsoletions.Clear();
+                result = RunRounds(webProject, maxRounds);
+            }
         }
         foreach (var (key, message) in obsoletions) report.Add(Report.Kind.Unsupported, key, message);
         return result;
@@ -61,6 +72,31 @@ public sealed class BuildFixer(Report report, IReadOnlyCollection<ConvertedProje
         ["SymmetricAlgorithm"] = "System.Security.Cryptography.Aes.Create()",
         ["AsymmetricAlgorithm"] = "System.Security.Cryptography.RSA.Create()",
     };
+
+    bool RewriteFieldKeywords()
+    {
+        var changed = false;
+        foreach (var file in fieldKeywords.GroupBy(d => d.File, StringComparer.OrdinalIgnoreCase))
+        {
+            if (!File.Exists(file.Key)) continue;
+            var original = File.ReadAllText(file.Key);
+            var text = SourceText.From(original);
+            var root = CSharpSyntaxTree.ParseText(text).GetRoot();
+            var targets = file.Where(d => d.Line - 1 < text.Lines.Count)
+                .Select(d => root.FindToken(text.Lines[d.Line - 1].Start + d.Column - 1))
+                .Where(t => t.IsKind(SyntaxKind.IdentifierToken) && t.ValueText == "field" && t.Text == "field")
+                .Distinct().ToList();
+            if (targets.Count == 0) continue;
+            var rewritten = root.ReplaceTokens(targets, (t, _) => Identifier(t.LeadingTrivia, SyntaxKind.IdentifierToken, "@field", "field", t.TrailingTrivia));
+            File.WriteAllText(file.Key, rewritten.ToFullString(), new UTF8Encoding(false));
+            foreach (var t in targets)
+                report.Add(Report.Kind.Stub, $"{Relative(file.Key)}:{text.Lines.GetLineFromPosition(t.SpanStart).LineNumber + 1}",
+                    "field -> @field (CS9258: C# 14's field keyword; the source meant its type's member named field)");
+            changed = true;
+        }
+        fieldKeywords.Clear();
+        return changed;
+    }
 
     bool RewriteDefaultAlgorithms()
     {
@@ -154,6 +190,8 @@ public sealed class BuildFixer(Report report, IReadOnlyCollection<ConvertedProje
         foreach (var line in output.Split('\n').Select(l => l.TrimEnd('\r')))
         {
             var o = obsoletion.Match(line);
+            var k = fieldKeyword.Match(line);
+            if (k.Success) fieldKeywords.Add((k.Groups["file"].Value.Trim(), int.Parse(k.Groups["line"].Value), int.Parse(k.Groups["col"].Value)));
             if (o.Success && o.Groups["code"].Value == "SYSLIB0007")
                 defaultAlgorithms.Add((o.Groups["file"].Value.Trim(), int.Parse(o.Groups["line"].Value), int.Parse(o.Groups["col"].Value)));
             if (o.Success) obsoletions[$"{Relative(o.Groups["file"].Value.Trim())}:{o.Groups["line"].Value}"] = $"{o.Groups["code"].Value} (throws or goes at run time): {o.Groups["msg"].Value}";
@@ -199,7 +237,7 @@ public sealed class BuildFixer(Report report, IReadOnlyCollection<ConvertedProje
 
     // ------------------------------------------------------------------------------------------
 
-    enum Action { Alias, RemoveNode, RemoveOverride, StubBody, RemoveInitializer, ExcludeFile, ExplicitExtension }
+    enum Action { Alias, RemoveNode, RemoveOverride, StubBody, RemoveInitializer, ExcludeFile, ExplicitExtension, ReplaceMember }
 
     sealed record Fix_(Action Action, SyntaxNode Node, string Reason, string? Alias = null);
 
@@ -272,6 +310,10 @@ public sealed class BuildFixer(Report report, IReadOnlyCollection<ConvertedProje
                     });
                     report.Add(Report.Kind.Stub, subject, $"initializer removed ({fix.Reason})");
                     break;
+                case Action.ReplaceMember:
+                    newRoot = newRoot.ReplaceNode(node, ParseExpression("global::" + fix.Alias).WithTriviaFrom(node));
+                    report.Add(Report.Kind.Stub, subject, $"{node} -> {fix.Alias} ({fix.Reason})");
+                    break;
                 case Action.ExplicitExtension:
                     var call = (InvocationExpressionSyntax)node;
                     var access = (MemberAccessExpressionSyntax)call.Expression;
@@ -309,6 +351,14 @@ public sealed class BuildFixer(Report report, IReadOnlyCollection<ConvertedProje
         // A call ambiguous between the application's extension method and one .NET added
         // (CollectionExtensions.GetValueOrDefault): the application's, called as a static method, as
         // .NET Framework bound it.
+        // A member .NET removed that an extension member cannot give back (an enum's): rewritten
+        // (rules/packages.json memberReplacements).
+        if (error.Code == "CS0117" && missingMember.Match(error.Message) is { Success: true } missing &&
+            rules.MemberReplacements.FirstOrDefault(r => r.Type == missing.Groups["type"].Value.Split('.').Last() && r.Member == missing.Groups["member"].Value) is { } replacement &&
+            node.AncestorsAndSelf().OfType<MemberAccessExpressionSyntax>().FirstOrDefault(a => a.Name.Identifier.Text == replacement.Member) is { } access)
+        {
+            return new Fix_(Action.ReplaceMember, access, $"CS0117: {replacement.Note}", replacement.Replacement);
+        }
         if (error.Code == "CS0121")
         {
             var candidates = ambiguousCall.Matches(error.Message).Select(c => (Type: c.Groups["type"].Value, Method: c.Groups["method"].Value)).ToList();

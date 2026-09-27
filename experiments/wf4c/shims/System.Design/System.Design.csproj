@@ -10,5 +10,9 @@
     <AssemblyVersion>4.0.0.0</AssemblyVersion>
     <Nullable>disable</Nullable>
     <NoWarn>$(NoWarn);CS0108;CS0114;CS1591</NoWarn>
+  <!-- The identity .NET Framework's System.Design has (its public key: ..\keys, extract-keys.ps1), which assemblies built against it reference. -->
+    <SignAssembly>true</SignAssembly>
+    <PublicSign>true</PublicSign>
+    <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)..\keys\b03f5f7f11d50a3a.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 </Project>

@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- What .NET Framework had and .NET does not, as the applications' sources use it, where .NET's behaviour
+       is the answer (LINUX-CONVERTER-DESIGN.md: compatibility assemblies):
+       - RemovedTypes: whole types, in their namespaces (RemotingServices: no transparent proxies on .NET);
+       - RemovedMembers: members of .NET's types, as C# 14 extension members in the types' namespaces (found
+         wherever the namespace is imported).
+       Every converted project references it. -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <AssemblyName>FrameworkOnCore.Compat</AssemblyName>
+    <Nullable>disable</Nullable>
+    <LangVersion>14</LangVersion>
+  </PropertyGroup>
+</Project>

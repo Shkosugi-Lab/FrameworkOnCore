@@ -9,6 +9,10 @@
     <AssemblyVersion>4.0.0.0</AssemblyVersion>
     <Nullable>disable</Nullable>
     <RestoreAdditionalProjectSources>$(MSBuildThisFileDirectory)..\..\_feed</RestoreAdditionalProjectSources>
+  <!-- The identity .NET Framework's System.Web.Abstractions has (its public key: ..\keys, extract-keys.ps1), which assemblies built against it reference. -->
+    <SignAssembly>true</SignAssembly>
+    <PublicSign>true</PublicSign>
+    <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)..\keys\31bf3856ad364e35.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
   <ItemGroup>

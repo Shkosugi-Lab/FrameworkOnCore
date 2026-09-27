@@ -9,6 +9,9 @@ public sealed record Package(string Id, string Version);
 /// <summary>A package added when a project's sources use what it carries.</summary>
 public sealed record SourcePackage(Regex Pattern, Package Package, string? Note);
 
+/// <summary>A member .NET removed, rewritten where it is used (Type.Member -> Replacement).</summary>
+public sealed record MemberReplacement(string Type, string Member, string Replacement, string Note);
+
 /// <summary>What a project's sources do that behaves differently on .NET: reported.</summary>
 public sealed record SourceNote(Regex Pattern, string Note);
 
@@ -24,12 +27,35 @@ public sealed class Rules
     public required IReadOnlySet<string> NoAnswer { get; init; }
     public required IReadOnlyList<SourcePackage> SourcePackages { get; init; }
     public required IReadOnlyList<SourceNote> SourceNotes { get; init; }
+    public required IReadOnlyList<MemberReplacement> MemberReplacements { get; init; }
     /// <summary>Packages used by their .NET Framework asset (package id -> the DLL in the package, and why).</summary>
     public required IReadOnlyDictionary<string, (string Asset, string Note)> FrameworkAssets { get; init; }
 
-    /// <summary>Dropped: listed, or a System.* 4.x package (in the box on .NET).</summary>
+    /// <summary>
+    /// Dropped: listed, or a System.* 4.x package whose assembly .NET 10 has in the box (its reference
+    /// packs). Not every System.* 4.x package is .NET's own: System.IdentityModel.Tokens.Jwt 4.0 is not, and
+    /// dropping it stubbed DNN's JWT authentication.
+    /// </summary>
     public bool IsDropped(string id, string version) =>
-        DroppedPackages.Contains(id) || (id.StartsWith("System.", StringComparison.Ordinal) && version.StartsWith("4.", StringComparison.Ordinal));
+        DroppedPackages.Contains(id) ||
+        (id.StartsWith("System.", StringComparison.Ordinal) && version.StartsWith("4.", StringComparison.Ordinal) && InBox.Value.Contains(id));
+
+    // The assemblies of .NET 10's reference packs (Microsoft.NETCore.App, Microsoft.AspNetCore.App) of the
+    // .NET running this converter.
+    static readonly Lazy<HashSet<string>> InBox = new(() =>
+    {
+        var names = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        var root = Path.GetDirectoryName(Environment.ProcessPath)!;
+        foreach (var pack in new[] { "Microsoft.NETCore.App.Ref", "Microsoft.AspNetCore.App.Ref" })
+        {
+            var packDirectory = Path.Combine(root, "packs", pack);
+            if (!Directory.Exists(packDirectory)) continue;
+            var newest = Directory.EnumerateDirectories(packDirectory, "10.*").OrderBy(d => Version.TryParse(Path.GetFileName(d).Split('-')[0], out var v) ? v : new Version()).LastOrDefault();
+            if (newest == null) continue;
+            foreach (var dll in Directory.EnumerateFiles(Path.Combine(newest, "ref", "net10.0"), "*.dll")) names.Add(Path.GetFileNameWithoutExtension(dll));
+        }
+        return names;
+    });
 
     public static Rules Load(string path)
     {
@@ -59,6 +85,8 @@ public sealed class Rules
                 e.TryGetProperty("note", out var note) ? note.GetString() : null)).ToList(),
             FrameworkAssets = root.GetProperty("frameworkAssets").EnumerateObject().ToDictionary(p => p.Name,
                 p => (p.Value.GetProperty("asset").GetString()!, p.Value.GetProperty("note").GetString()!), StringComparer.OrdinalIgnoreCase),
+            MemberReplacements = root.GetProperty("memberReplacements").EnumerateArray().Select(e => new MemberReplacement(
+                e.GetProperty("type").GetString()!, e.GetProperty("member").GetString()!, e.GetProperty("replacement").GetString()!, e.GetProperty("note").GetString()!)).ToList(),
             SourceNotes = root.GetProperty("sourceNotes").EnumerateArray().Select(e => new SourceNote(
                 new Regex(e.GetProperty("pattern").GetString()!, RegexOptions.Compiled), e.GetProperty("note").GetString()!)).ToList(),
         };

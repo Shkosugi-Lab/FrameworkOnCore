@@ -76,6 +76,12 @@
     "PetaPoco.Compiled": { "asset": "lib/net45/PetaPoco.dll", "note": "net45 has Database(string connectionStringName), which reads the configuration; netstandard2.0 does not" }
   },
 
+  "$comment_memberReplacements": "Members .NET removed that an extension member cannot give back (enum members, static members found before extensions): the use is rewritten where the compiler says (CS0117), to the given expression.",
+  "memberReplacements": [
+    { "type": "AssemblyBuilderAccess", "member": "RunAndSave", "replacement": "System.Reflection.Emit.AssemblyBuilderAccess.Run", "note": ".NET's dynamic assemblies are not saved (RunAndSave saved them to look at them): Run" },
+    { "type": "AssemblyBuilderAccess", "member": "Save", "replacement": "System.Reflection.Emit.AssemblyBuilderAccess.Run", "note": ".NET's dynamic assemblies are not saved: Run" }
+  ],
+
   "$comment_sourceNotes": "What the sources do that behaves differently on .NET (reported).",
   "sourceNotes": [
     { "pattern": "\\|DataDirectory\\|", "note": "a connection string built with |DataDirectory| (AttachDBFilename) in code is rejected by .NET's System.Data.SqlClient (from web.config the runtime expands it); attached database files (LocalDB, SQL Server Express user instances) are Windows only: use a database server" }

@@ -1,0 +1,71 @@
+From 21ab1dc1485fa9ffa5ac7ac2692364959f90ea5b Mon Sep 17 00:00:00 2001
+From: shkosugi <sin.kosugi@gmail.com>
+Date: Sun, 27 Sep 2026 19:09:21 +0900
+Subject: [PATCH 24/25] Machine keys: the auto-generated keys kept across
+ restarts
+
+On .NET the auto-generated validation and decryption keys were new on every start, so
+ViewState, forms tickets and cookies from before a restart failed their MAC check (DNN
+after its install restart). They are kept, as .NET Framework keeps them in the registry,
+in LocalApplicationData/WebFormsForCore/AutogenKeys (mode 600 on Unix).
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+---
+ src/WebFormsForCore.Web/HttpRuntime.cs | 34 ++++++++++++++++++++++++++
+ 1 file changed, 34 insertions(+)
+
+diff --git a/src/WebFormsForCore.Web/HttpRuntime.cs b/src/WebFormsForCore.Web/HttpRuntime.cs
+index a0df6fd..8064351 100644
+--- a/src/WebFormsForCore.Web/HttpRuntime.cs
++++ b/src/WebFormsForCore.Web/HttpRuntime.cs
+@@ -1425,6 +1425,38 @@ namespace System.Web
+             _enableHeaderChecking = runtimeConfig.EnableHeaderChecking;
+         }
+ 
++#if !NETFRAMEWORK
++        // The auto-generated machine keys (<machineKey ... AutoGenerate>) are kept, as ASP.NET keeps them per
++        // worker process identity (in the registry): the same after the application restarts, so that
++        // what a page gave out before (view state, forms authentication tickets) is still valid - a
++        // restart comes with a change of web.config or bin (installers), in the middle of a form. Here per
++        // user, in the local application data (~/.local/share on Linux), readable by that user only;
++        // written the first time. (A container gets new ones when it is replaced: give <machineKey> keys
++        // for that, as for a web farm.)
++        private static bool GetStoredAutogenKeys(byte[] random, byte[] stored) {
++            try {
++                var directory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData, Environment.SpecialFolderOption.Create), "WebFormsForCore");
++                var file = Path.Combine(directory, "AutogenKeys");
++                if (!File.Exists(file)) {
++                    Directory.CreateDirectory(directory);
++                    var options = new FileStreamOptions { Mode = FileMode.CreateNew, Access = FileAccess.Write };
++                    if (!OperatingSystem.IsWindows()) options.UnixCreateMode = UnixFileMode.UserRead | UnixFileMode.UserWrite;
++                    using (var stream = new FileStream(file, options)) stream.Write(random, 0, random.Length);
++                }
++                var keys = File.ReadAllBytes(file);
++                if (keys.Length != stored.Length) return false;
++                Buffer.BlockCopy(keys, 0, stored, 0, stored.Length);
++                return true;
++            }
++            catch (IOException) {
++                return false;
++            }
++            catch (UnauthorizedAccessException) {
++                return false;
++            }
++        }
++#endif
++
+         private static void SetAutogenKeys() {
+ #if !FEATURE_PAL // FEATURE_PAL does not enable cryptography
+             byte[] bKeysRandom = new byte[s_autogenKeys.Length];
+@@ -1440,6 +1472,8 @@ namespace System.Web
+             if (!fGetStoredKeys)
+                 fGetStoredKeys = (UnsafeNativeMethods.EcbCallISAPI(IntPtr.Zero, UnsafeNativeMethods.CallISAPIFunc.GetAutogenKeys,
+                                                                    bKeysRandom, bKeysRandom.Length, bKeysStored, bKeysStored.Length) == 1);
++#else
++            fGetStoredKeys = GetStoredAutogenKeys(bKeysRandom, bKeysStored);
+ #endif
+             // If we managed to get stored keys, copy them in; else use random keys
+             if (fGetStoredKeys)
+-- 
+2.55.0.windows.3
+

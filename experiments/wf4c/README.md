@@ -67,8 +67,8 @@
 | 0021 | 構成: `configSource` と appSettings の `file` の `\` を、Linux でもディレクトリの区切りとして扱う(.NET Framework では `configSource` に `/` は書けない) | n2 の `configSource="App_Data\n2_host.config"`(Linux で構成エラー) |
 | 0022 | 構成: 配置先の設定を環境変数から(Azure App Service が .NET Framework のアプリに渡すのと同じ名前)。`APPSETTING_<キー>` は appSettings、`SQLCONNSTR_<名前>` などは connectionStrings を置き換える | コンテナや systemd で、web.config を書き換えずに DB などを渡す |
 | 0023 | ASP.NET Core ホスト: SERVER_PORT を Host ヘッダーのポート(無ければスキームの既定)から、HTTPS をリクエストのスキームから(`IsSecure` が常に false だった) | コンテナのポートを別の番号で公開すると、リダイレクト先がコンテナ内のポートになった。HTTPS を終端するプロキシの後ろで http の URL になる |
-
-未対応: VB のページコンパイラー(`VBCompiler.cs`)にも 0003 と同じ対応が要る(VB 対応のときに)。
+| 0024 | マシンキー: 自動生成の検証・暗号化キーを、再起動の後も同じものにする(.NET Framework はレジストリに保存する。ここでは `LocalApplicationData/WebFormsForCore/AutogenKeys`、Unix ではモード 600) | dnn のインストール後の再起動で、ViewState の MAC の検証に失敗した |
+| 0025 | VB のページコンパイラー: C# と同じく、ランタイムのライブラリを使う(`/nostdlib` と `/sdkpath` にランタイムのフォルダー、VB のランタイムは `Microsoft.VisualBasic.Core`、フレームワークのファサードも参照)。0003 の VB 版 | n2 の VB のページが BC2017(`Microsoft.VisualBasic.dll` が見つからない)でコンパイルできなかった |
 
 照合(0005・0007 のときに実施):
 - .NET Framework 4.8 の System.Web の公開型のうち、フォークで定義も型転送もされていないのは `IHtmlString`(0007 で対応)と `RegiisUtility`(IIS の登録用、対象外)だけ。
@@ -86,6 +86,13 @@ fork.slnx に含めると、読み込み済みのタスク DLL とコピーが�
 
 - `System.Net.Http.WebRequest`(`WebRequestHandler`): Katana の Microsoft.Owin.Security.*
 - `System.Web.Routing`、`System.Web.Abstractions`: .NET Framework 4 では System.Web への型転送だけのファサード。web.config や .NET Framework 向けパッケージがこの名前を指す(n2 の構成エラー)。`Forwards.cs` は .NET Framework 4.8 の参照アセンブリの型転送から生成した。
+- `FrameworkOnCore.Compat`: .NET で削除された型とメンバーを、元の名前空間に置く(メンバーは C# 14 の拡張メンバー)。
+  - `RemotingServices.IsTransparentProxy` など(.NET にはプロキシが無いので false、`GetRealProxy` は null)、`RealProxy`、`IRemotingTypeInfo`。
+  - `AppDomain.DefineDynamicAssembly` → `AssemblyBuilder.DefineDynamicAssembly`、`AppDomainSetup.ConfigurationFile`。
+  - `AssemblyBuilder.DefineDynamicModule` のファイル名・シンボルの引数を持つオーバーロード(メモリ上のモジュールを作る)。
+  - Remoting での受け渡し(`Marshal`、`Activator.GetObject`)や `AssemblyBuilder.Save` のように、動きを代われないものは置かない(変換器がスタブにして報告する)。
+- 変換器は、変換するすべてのプロジェクトに互換アセンブリを参照させる。
+- ファサードは Microsoft の公開鍵で公開署名する(`keys/`、`extract-keys.ps1` で .NET Framework のアセンブリから公開鍵を取り出したもの)。署名が無いと、元の名前で参照するアセンブリとの同一性が合わず CS0012 になる(dnn の ModulePresenterBase)。
 
 ## wt(WingtipToys、実在の OSS)
 
@@ -220,7 +227,7 @@ Linux で ICU のデータに表せないもの:
 | mojo | 成功。元のビルドはソリューションのビルド(`--build-original`) | **トップページが表示される**(`Home - mojoPortal`。DB は `.\SQLEXPRESS` の `mojo_w2l`)。**Linux でも**、空の DB からセットアップ画面がスキーマ(105 テーブル)を作り、トップページ・ログイン・サイトマップが 200(`run-linux-site.ps1`、SQL Server のコンテナ) |
 | yaf | 成功 | `FieldAccessException`。アプリが Web API 2 の `HttpControllerRouteHandler._instance`(static readonly)をリフレクションで書き換えていて、.NET は型の初期化後の書き換えを禁止している。Web API 2 を DLL のまま使う限り直せないので、AspNetWebStack の移植が要る |
 | dnn | 成功。元のビルドは DNN 自身の Cake ビルド(`--build-original`)。VB の DotNetNuke.WebUtility は配置済みサイトの .NET Framework の DLL をそのまま参照する | Windows: **インストール(`Install.aspx?mode=install`)が完了し、トップページが表示される**(`Home`。DB は `.\SQLEXPRESS` の `dnn_w2l`。`dnn-cycle.ps1` で DB の作成から通す)。Linux: 起動するが、DNN のコードが Windows のパス区切りを前提にしている(`BaseDirectory.Replace("/", "\\")`、`ApplicationMapPath + "\\web.config"` など。バックスラッシュを含む文字列リテラルが 148 ファイル 482 行)。変換器でのパスの書き換え(意味モデルでパスの API に流れる値を特定する)が次の課題 |
-| n2 | 成功。元のビルドはソリューションのビルドと、リポジトリのセットアップ手順(`--original-step build\n2.proj;Templates-PrepareDependencies`) | インストーラーが表示される(`Install N2`)。Linux でも同じ(フォーク 0021 の後)。インストールの実行はまだ |
+| n2 | 成功。元のビルドはソリューションのビルドと、リポジトリのセットアップ手順(`--original-step build\n2.proj;Templates-PrepareDependencies`) | インストーラーが表示される(`Install N2`)。Linux でも同じ(フォーク 0021 の後)。Windows: **SQLite(`App_Data\n2.sqlite.db`)で、空の DB からインストールが完了し(管理者のパスワード → テーブルの作成 → サンプルのコンテンツの取り込み。`n2-install.ps1`)、トップページがコンテンツ付きで表示される**(VB のページ。フォーク 0025) |
 
 ### 元のビルドと配置済みサイト
 
@@ -280,6 +287,25 @@ DNN を動かす過程で変換器に加えた規則:
 - `frameworkAssets`(`rules/packages.json`): .NET 向けの資産が .NET Framework 向けと API の違うパッケージは、.NET Framework 向けの DLL を参照する(PetaPoco.Compiled: net45 にだけ `Database(string connectionStringName)` がある)。
 - リポジトリのコピーで、プロジェクトがビルドしない bin フォルダー(チェックインされたバイナリ。DNN の `Controls\DotNetNuke.WebControls\bin`)は残す。
 - 互換アセンブリ System.Design(`shims/System.Design`): `System.Web.UI.Design` の型を .NET Framework 4.8 のものから生成(継承関係だけ、メンバーなし)。コントロールがデザイナーを属性で指していて、ページのコンパイルが属性を読むと型の読み込みに失敗していた。
+
+### スタブの見直し(2026-09-27)
+
+ビルドエラーの自動処理がスタブにした箇所(本体を `PlatformNotSupportedException` にしたもの)を見直した。
+
+| コーパス | 前 | 後 | 残ったもの |
+|---|---|---|---|
+| dnn | 24 | 17 | log4net の Windows の偽装(4)、Remoting での受け渡し(`Marshal`・`Disconnect`・`Activator.GetObject`、3)、JwtController(10) |
+| n2 | 10 | 3 | `IDataContractSurrogate`、`AssemblyBuilder.Save`、`SqlCommandCacheDependencyEnlister`(別の SqlClient の型) |
+
+残ったものは、どれも .NET では同じ動きにできないもので、コードの移行が要る。
+- JwtController: JWT 4.x(System.IdentityModel.Tokens.Jwt)は .NET Framework 専用(System.IdentityModel に依存)。ランタイムの Microsoft.Data.SqlClient 7.1 が JWT 8 を要求するので、4.x のままにはできない(`InMemorySymmetricSecurityKey` などの API の移行)。
+
+減らすために加えたもの:
+- 互換アセンブリ `FrameworkOnCore.Compat`(上の「互換アセンブリ」)と、ファサードの公開署名。
+- `memberReplacements`(`rules/packages.json`): .NET で削除されたメンバーを、同じ働きのメンバーに書き換える(CS0117 の位置)。`AssemblyBuilderAccess.RunAndSave`・`Save` → `Run`。
+- CS9258(C# 14 の `field` キーワード。プロパティのアクセサーの中の `field` という名前が、自動実装のフィールドを指すように変わった): `@field` に書き換える。n2 の `FieldReference.Reference` がプロキシの生成で ArgumentNull になっていた。
+  - 同じ問題がページ(実行時にコンパイルされる aspx・ascx・App_Code)に無いことを、6 本のコーパスで確認した。
+- 除外するパッケージの判定: .NET 10 の参照パック(`Microsoft.NETCore.App.Ref`、`Microsoft.AspNetCore.App.Ref`)に同名のアセンブリがあるものだけにした。以前は System.* 4.x を一律に外していて、JWT 4.x を黙って落としていた。外したパッケージはレポートに記録する。
 
 変換器を作る過程で直したこと:
 - NuGet の packages フォルダーの判定: DNN のソースフォルダー `Services\Installer\Packages` を除外していた。中身(.nupkg、repositories.config)で判定するようにした。convert-project.ps1(robocopy `/XD packages`)にも同じ問題がある。

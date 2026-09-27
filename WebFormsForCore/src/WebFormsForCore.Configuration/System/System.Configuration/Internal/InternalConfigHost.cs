@@ -68,6 +68,13 @@ namespace System.Configuration.Internal {
 
         [FileIOPermission(SecurityAction.Assert, AllFiles = FileIOPermissionAccess.PathDiscovery)]
         [SuppressMessage("Microsoft.Security", "CA2106:SecureAsserts", Justification = "The callers don't leak this information.")]
+        // A path relative to a configuration file, as .NET Framework reads it (configSource,
+        // appSettings file): '\' separates its directories - configSource may not even contain '/'
+        // (Config_source_invalid_chars). On Linux '\' is a character of a file's name: it is made the
+        // directory separator (N2's configSource="App_Data\n2_host.config").
+        static internal string FrameworkRelativePath(string path) =>
+            path == null || Path.DirectorySeparatorChar == '\\' ? path : path.Replace('\\', Path.DirectorySeparatorChar);
+
         static internal string StaticGetStreamNameForConfigSource(string streamName, string configSource) {
             //
             // Note (Microsoft 7/08/05):
@@ -92,7 +99,7 @@ namespace System.Configuration.Internal {
             string dirStream = UrlPath.GetDirectoryOrRootName(streamName);
 
             // combine with the new config source
-            string result = Path.Combine(dirStream, configSource);
+            string result = Path.Combine(dirStream, FrameworkRelativePath(configSource));
             result = Path.GetFullPath(result);
 
             // ensure the result is in or under the directory of the original source

@@ -113,11 +113,11 @@ namespace System.Configuration {
                 configFile = ElementInformation.Source;
 
                 if (String.IsNullOrEmpty(configFile)) {
-                    sourceFileFullPath = File;
+                    sourceFileFullPath = Internal.InternalConfigHost.FrameworkRelativePath(File);
                 }
                 else {
                     configFileDirectory = System.IO.Path.GetDirectoryName(configFile);
-                    sourceFileFullPath = System.IO.Path.Combine(configFileDirectory, File);
+                    sourceFileFullPath = System.IO.Path.Combine(configFileDirectory, Internal.InternalConfigHost.FrameworkRelativePath(File));
                 }
 
                 if (System.IO.File.Exists(sourceFileFullPath)) {

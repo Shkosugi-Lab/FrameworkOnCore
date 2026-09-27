@@ -850,6 +850,12 @@ namespace System.Web.Hosting
             HttpRuntime.ShutdownAppDomainWithStackTrace(ApplicationShutdownReason.HostingEnvironment,
                                                         SR.GetString(SR.Hosting_Env_Restart),
                                                         _shutDownStack);
+#if !NETFRAMEWORK
+            // The application is shut down: its AppDomain would be unloaded now, and the next request
+            // would start it again. In .NET's default AssemblyLoadContext, the process restarts.
+            if (AssemblyLoadContext.GetLoadContext(typeof(HostingEnvironment).Assembly) == AssemblyLoadContext.Default)
+                ProcessRestart.Request(HostingEnvironment.ShutdownReason.ToString());
+#endif
         }
 
         //

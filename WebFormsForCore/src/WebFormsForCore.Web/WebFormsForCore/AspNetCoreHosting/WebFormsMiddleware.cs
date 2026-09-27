@@ -114,6 +114,16 @@ namespace Microsoft.AspNetCore.Builder
 
 		public async Task Invoke(Core.HttpContext context)
 		{
+			// The application is restarting (web.config changed ...): on .NET Framework the requests from
+			// now on go to its new AppDomain; this one is ending (ProcessRestart), so they are to come
+			// again once it is started.
+			if (HostingEnvironment.ShutdownInitiated)
+			{
+				context.Response.StatusCode = 503;
+				context.Response.Headers["Retry-After"] = "1";
+				context.Response.Headers["Connection"] = "close";
+				return;
+			}
 			if (IsLegacyRequest(context))
 			{
 				AllowSynchronousIO(context);
@@ -175,6 +185,14 @@ namespace Microsoft.AspNetCore.Builder
 			// fileEncoding>, requestEncoding, responseEncoding) and pages use them (Encoding.GetEncoding).
 			System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
 			if (optionsBuilder == null) optionsBuilder = options => { };
+			// An application restart ends the process (ProcessRestart): through the host, which lets the
+			// pending requests complete.
+			var lifetime = builder.ApplicationServices?.GetService(typeof(Microsoft.Extensions.Hosting.IHostApplicationLifetime)) as Microsoft.Extensions.Hosting.IHostApplicationLifetime;
+			if (lifetime != null)
+			{
+				ProcessRestart.StopHost = lifetime.StopApplication;
+				ProcessRestart.HostStopping = () => lifetime.ApplicationStopping.IsCancellationRequested;
+			}
 			return builder.UseMiddleware<WebFormsMiddleware>(optionsBuilder);
         }
         public static IApplicationBuilder UseAspNetCoreSessionProvider(this IApplicationBuilder builder)

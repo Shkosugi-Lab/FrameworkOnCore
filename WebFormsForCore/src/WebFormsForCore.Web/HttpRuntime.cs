@@ -2032,6 +2032,11 @@ namespace System.Web
 #else
                     var context = ApplicationManager.GetLoadContext(Assembly.GetCallingAssembly());
 					if (context != AssemblyLoadContext.Default) context.Unload();
+					else {
+						// Not unloadable: the process restarts (ProcessRestart), and this loop ends.
+						ProcessRestart.Request(_shutdownReason + (_shutDownMessage != null ? ": " + _shutDownMessage.Replace("\r\n", "; ") : ""));
+						return;
+					}
 #endif
                 }
                 catch (CannotUnloadAppDomainException) {

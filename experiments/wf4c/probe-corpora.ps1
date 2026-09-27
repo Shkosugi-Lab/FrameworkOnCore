@@ -14,6 +14,9 @@ $webProjects = @{
 foreach ($name in $Only) {
     $project = Join-Path $PSScriptRoot $webProjects[$name]
     $directory = Split-Path $project -Parent
+    # The site assembled from the deployed one (convert-corpora.ps1 with an original build), if any.
+    $assembled = Join-Path $PSScriptRoot "$name\site"
+    if (Test-Path (Join-Path $assembled 'bin')) { $directory = $assembled }
     [xml]$x = Get-Content $project -Raw
     $assembly = ($x.Project.PropertyGroup | ForEach-Object { $_.AssemblyName } | Where-Object { $_ } | Select-Object -First 1)
     $dll = Join-Path $directory "bin\$assembly.dll"

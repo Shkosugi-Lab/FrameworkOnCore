@@ -12,8 +12,11 @@ using FrameworkOnCore.Converter;
 // --runtime  where the WebFormsForCore fork's feed (_feed) and the shims (shims) are
 //            (default: experiments/wf4c above the current folder)
 // --culture-profile  the original server's culture data (capture-culture.ps1), placed in App_Data
+// --site     the deployed site (the original build's web folder, or the site's folder on the IIS
+//            server): what the application is made of. Its assemblies built from the repository are
+//            rebuilt for .NET 10 and the site is assembled in <out>\site (run bin\<web>.dll there).
 
-string? project = null, outDirectory = null, rootDirectory = null, runtimeDirectory = null, cultureProfile = null;
+string? project = null, outDirectory = null, rootDirectory = null, runtimeDirectory = null, cultureProfile = null, site = null;
 var build = true;
 for (var i = 0; i < args.Length; i++)
 {
@@ -23,6 +26,7 @@ for (var i = 0; i < args.Length; i++)
         case "--root": rootDirectory = args[++i]; break;
         case "--runtime": runtimeDirectory = args[++i]; break;
         case "--culture-profile": cultureProfile = args[++i]; break;
+        case "--site": site = Path.GetFullPath(args[++i]); break;
         case "--no-build": build = false; break;
         default: project = args[i]; break;
     }
@@ -53,8 +57,40 @@ var converter = new ProjectConverter(rules, report, new Conditions("Debug", "Any
 var web = converter.Convert(project, isWeb: true);
 WriteHost(web);
 
+// With the deployed site: the assemblies in its bin built from the repository's projects are part of
+// the application, referenced by the web project or not (mojoPortal's features reference the web
+// project; its build scripts put them in the site).
+var others = new List<ConvertedProject>();
+if (site != null)
+{
+    foreach (var (assembly, member) in SiteAssembler.BuiltFromSource(site, converter))
+    {
+        if (!member.EndsWith(".csproj", StringComparison.OrdinalIgnoreCase))
+        {
+            report.Add(Report.Kind.Unsupported, assembly, $"in the deployed site, built by {Path.GetFileName(member)}: not converted (only C# projects so far); the .NET Framework assembly is left");
+            continue;
+        }
+        if (converter.Converted.Any(c => c.SourcePath.Equals(member, StringComparison.OrdinalIgnoreCase))) continue;
+        converter.CopyLocalProjects.Add(member);
+        others.Add(converter.Convert(member, isWeb: false));
+        report.Add(Report.Kind.Project, assembly, $"in the deployed site, built by {Path.GetFileName(member)} which the web project does not reference: converted and built on its own");
+    }
+}
+
+// Built as one solution: the web project and every converted project.
+var buildTarget = Path.Combine(outRoot, "FrameworkOnCore.slnx");
+File.WriteAllText(buildTarget,
+    "<Solution>\n" + string.Concat(converter.Converted.Select(c => $"  <Project Path=\"{System.Security.SecurityElement.Escape(Path.GetRelativePath(outRoot, c.TargetPath).Replace('\\', '/'))}\" />\n")) + "</Solution>\n",
+    new UTF8Encoding(false));
+
 var succeeded = true;
-if (build) succeeded = new BuildFixer(report, converter.Converted, outRoot).Run(web.TargetPath);
+if (build) succeeded = new BuildFixer(report, converter.Converted, outRoot).Run(buildTarget);
+if (build && succeeded && site != null)
+{
+    // The ones built on their own, as they are after the build (the web project's are in its bin).
+    var built = others.Select(o => converter.Converted.First(c => c.SourcePath == o.SourcePath)).ToList();
+    SiteAssembler.Assemble(site, Path.Combine(outRoot, "site"), web, built, converter, report, cultureProfile);
+}
 
 var reportPath = Path.Combine(outRoot, "CONVERSION-REPORT.md");
 File.WriteAllText(reportPath, report.ToMarkdown($"FrameworkOnCore: {Path.GetFileName(project)}"), new UTF8Encoding(false));

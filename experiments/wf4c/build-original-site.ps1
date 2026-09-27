@@ -1,14 +1,13 @@
 # Builds a corpus the way it is built for .NET Framework - the whole solution, post-build events
-# (xcopy into the site) and all - in a copy (experiments\wf4c\_original\<name>), without Visual
-# Studio. The web project's folder is then the deployed site: what FrameworkOnCore takes as the
-# application's composition (--site). On a real migration, the folder the site is deployed to on
-# the IIS server is that.
+# (xcopy into the site) and all - in a copy (experiments\wf4c\_original\<name>). The web project's
+# folder is then the deployed site: what FrameworkOnCore takes as the application's composition
+# (--site). On a real migration, the folder the site is deployed to on the IIS server is that.
 #
 #   .\experiments\wf4c\build-original-site.ps1 -Name mojo
 #
-# Tools: the .NET SDK's MSBuild (reads old-style and SDK-style projects), the .NET Framework
-# reference assemblies from NuGet (every version the projects target, in one root), nuget.exe for
-# packages.config.
+# Tools: Visual Studio (Build Tools) 2022's MSBuild - old-style projects with PackageReference need
+# its NuGet targets, which the .NET SDK does not have -, the .NET Framework reference assemblies
+# from NuGet (every version the projects target, in one root), nuget.exe for packages.config.
 param(
     [Parameter(Mandatory = $true)][string]$Name,
     [string]$Configuration = 'Release'
@@ -54,14 +53,57 @@ Write-Host 'restoring packages.config'
 foreach ($config in Get-ChildItem $work -Recurse -Filter packages.config -File) {
     & $nuget restore $config.FullName -PackagesDirectory (Join-Path $solutionDirectory 'packages') -NonInteractive | Out-Null
 }
-Write-Host 'restoring PackageReference'
-& dotnet restore $solutionPath "/p:TargetFrameworkRootPath=$refRootParent" --nologo -v q | Out-Null
+$vswhere = "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe"
+$msbuild = & $vswhere -latest -products * -requires Microsoft.Component.MSBuild -find 'MSBuild\**\Bin\MSBuild.exe' | Select-Object -First 1
+if (-not $msbuild) { throw 'Visual Studio (Build Tools) MSBuild not found: old-style projects with PackageReference need its NuGet targets' }
+
+# The newest C# compiler (the .NET SDK's): sources are written for the one their authors had, and a
+# recent codebase uses C# 14 (mojoPortal 3.1.6 has the "field" keyword, LangVersion latest), which
+# Visual Studio 2022's compiler does not know.
+$sdk = (& dotnet --list-sdks | Select-Object -Last 1) -replace '^(\S+) \[(.*)\]$', '$2\$1'
+$compiler = Join-Path $sdk 'Roslyn\bincore'
+# As Visual Studio builds a solution, which is how these are built by their authors: the solution
+# builds each project in order and a project reference only names the other's output. mojoPortal's
+# web project builds its feature projects after itself (mojoPortal.Web.wpp.targets), and they
+# reference it: from the command line, MSBuild would build it again from there (MSB4006, a cycle).
+
+#
+# So, as Visual Studio does: the projects the solution configuration builds, in the order their
+# project references give, one by one, with BuildingInsideVisualStudio.
+$solutionText = Get-Content $solutionPath -Raw
+$projects = [regex]::Matches($solutionText, 'Project\("\{[^}]+\}"\)\s*=\s*"([^"]*)",\s*"([^"]+\.csproj)",\s*"(\{[^}]+\})"') |
+    ForEach-Object { [pscustomobject]@{ Name = $_.Groups[1].Value; Path = [IO.Path]::GetFullPath((Join-Path $solutionDirectory $_.Groups[2].Value)); Guid = $_.Groups[3].Value } }
+$platforms = [regex]::Matches($solutionText, "(?m)^\s*$([regex]::Escape($Configuration))\|([^=]+?)\s*=") | ForEach-Object { $_.Groups[1].Value }
+$platform = @('Any CPU', 'Mixed Platforms') + $platforms | Where-Object { $platforms -contains $_ } | Select-Object -First 1
+$built = $projects | Where-Object { $solutionText -match ([regex]::Escape("$($_.Guid).$Configuration|$platform.Build.0")) }
+Write-Host "solution configuration ${Configuration}|${platform}: $(@($built).Count) of $(@($projects).Count) projects"
+
+$order = New-Object Collections.Generic.List[object]
+$visiting = @{}
+function Visit($project) {
+    if ($order.Contains($project) -or $visiting[$project.Path]) { return }
+    $visiting[$project.Path] = $true
+    [xml]$x = Get-Content $project.Path -Raw
+    foreach ($reference in $x.SelectNodes('//*[local-name()="ProjectReference"]')) {
+        $path = [IO.Path]::GetFullPath((Join-Path (Split-Path $project.Path -Parent) $reference.GetAttribute('Include')))
+        $dependency = $built | Where-Object { $_.Path -eq $path } | Select-Object -First 1
+        if ($dependency) { Visit $dependency }
+    }
+    $order.Add($project)
+}
+foreach ($project in $built) { Visit $project }
 
 Write-Host "building $solution ($Configuration)"
 $log = Join-Path $PSScriptRoot "_original\$Name.build.log"
-& dotnet msbuild $solutionPath "/p:Configuration=$Configuration" "/p:TargetFrameworkRootPath=$refRootParent" `
-    /p:VSToolsPath= /p:BuildInParallel=false /m:1 /v:m /nologo "/flp:LogFile=$log;Verbosity=normal" | Out-Null
-$code = $LASTEXITCODE
+Remove-Item $log -ErrorAction SilentlyContinue
+$code = 0
+foreach ($project in $order) {
+    & $msbuild $project.Path /restore "/p:Configuration=$Configuration" "/p:Platform=AnyCPU" "/p:SolutionDir=$solutionDirectory\" `
+        "/p:TargetFrameworkRootPath=$refRootParent" "/p:CscToolPath=$compiler" /p:CscToolExe=csc.exe `
+        /p:BuildingInsideVisualStudio=true /p:ShouldUnsetParentConfigurationAndPlatform=false `
+        /m:1 /v:m /nologo "/flp:LogFile=$log;Verbosity=normal;Append" | Out-Null
+    if ($LASTEXITCODE -ne 0) { $code = $LASTEXITCODE; Write-Host "  failed: $($project.Name)" }
+}
 $errors = Select-String -Path $log -Pattern ': error ' | ForEach-Object { $_.Line.Trim() } | Sort-Object -Unique
 Write-Host "build exit $code, $($errors.Count) error line(s)"
 $errors | Select-Object -First 15 | ForEach-Object { '  ' + $_.Substring(0, [Math]::Min(220, $_.Length)) }

@@ -6,7 +6,7 @@ using System.Xml.Linq;
 namespace FrameworkOnCore.Converter;
 
 /// <summary>A project as converted: its file in the output tree and its conditional compilation symbols.</summary>
-public sealed record ConvertedProject(string Name, string SourcePath, string TargetPath, bool IsWeb, IReadOnlyList<string> Defines);
+public sealed record ConvertedProject(string Name, string SourcePath, string TargetPath, bool IsWeb, IReadOnlyList<string> Defines, string? AssemblyName = null);
 
 /// <summary>Where the runtime pieces the converted projects refer to are (the fork's feed, the shims).</summary>
 public sealed record RuntimeLayout(string Feed, IReadOnlyList<string> ShimProjects);
@@ -76,6 +76,40 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
         converted[projectPath] = result;
         return result;
     }
+
+    /// <summary>
+    /// The web.config rules: the assemblies it names for page compilation get their packages, and the
+    /// ones .NET has no counterpart for are left out - loaded for page compilation, they fail the whole
+    /// configuration (every page). Pages using their types do not compile; a compatibility assembly
+    /// will take their place (LINUX-CONVERTER-DESIGN.md §8). Written to <paramref name="target"/> when
+    /// changed (the original is unchanged).
+    /// </summary>
+    public void TransformWebConfig(string source, string target, string subject, Action<Package>? addPackage)
+    {
+        try
+        {
+            var configDocument = XDocument.Load(source, LoadOptions.PreserveWhitespace);
+            var removed = false;
+            // Wherever system.web is (<location path="."> too, as mojoPortal has it).
+            foreach (var add in configDocument.Descendants().Where(e => e.Name.LocalName == "add" &&
+                         e.Parent?.Name.LocalName == "assemblies" && e.Parent.Parent?.Name.LocalName == "compilation").ToList())
+            {
+                var assembly = ((string?)add.Attribute("assembly") ?? "").Split(',')[0].Trim();
+                if (addPackage != null && rules.FrameworkReferences.TryGetValue(assembly, out var package)) addPackage(package);
+                if (rules.NoAnswer.Contains(assembly))
+                {
+                    add.Remove();
+                    removed = true;
+                    report.Add(Report.Kind.Unsupported, subject, $"web.config <compilation><assemblies>: {assembly} left out (no .NET counterpart; pages using it do not compile)");
+                }
+            }
+            if (removed) configDocument.Save(target, SaveOptions.DisableFormatting);
+        }
+        catch (System.Xml.XmlException e) { report.Add(Report.Kind.Error, subject, $"web.config not read: {e.Message}"); }
+    }
+
+    /// <summary>Projects built on their own (not referenced by the web project): their packages' assemblies are copied to their output, as .NET Framework did.</summary>
+    public HashSet<string> CopyLocalProjects { get; } = new(StringComparer.OrdinalIgnoreCase);
 
     static IEnumerable<XElement> Elements(XDocument document, string localName) =>
         document.Descendants().Where(e => e.Name.LocalName == localName).ToList();
@@ -170,30 +204,7 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
         var webConfig = isWeb ? Directory.EnumerateFiles(source, "web.config", new EnumerationOptions { MatchCasing = MatchCasing.CaseInsensitive }).FirstOrDefault() : null;
         if (webConfig != null)
         {
-            try
-            {
-                var configDocument = XDocument.Load(webConfig, LoadOptions.PreserveWhitespace);
-                var removed = false;
-                // Wherever system.web is (<location path="."> too, as mojoPortal has it).
-                foreach (var add in configDocument.Descendants().Where(e => e.Name.LocalName == "add" &&
-                             e.Parent?.Name.LocalName == "assemblies" && e.Parent.Parent?.Name.LocalName == "compilation").ToList())
-                {
-                    var assembly = ((string?)add.Attribute("assembly") ?? "").Split(',')[0].Trim();
-                    if (rules.FrameworkReferences.TryGetValue(assembly, out var package)) AddPackage(package);
-                    // An assembly .NET has no counterpart for fails the whole configuration (every page) when
-                    // it is loaded for page compilation: left out of the converted web.config (the original
-                    // is unchanged). Pages using its types do not compile. A compatibility assembly will
-                    // take its place (LINUX-CONVERTER-DESIGN.md §8).
-                    if (rules.NoAnswer.Contains(assembly))
-                    {
-                        add.Remove();
-                        removed = true;
-                        report.Add(Report.Kind.Unsupported, name, $"web.config <compilation><assemblies>: {assembly} left out (no .NET counterpart; pages using it do not compile)");
-                    }
-                }
-                if (removed) configDocument.Save(TargetOf(webConfig), SaveOptions.DisableFormatting);
-            }
-            catch (System.Xml.XmlException e) { report.Add(Report.Kind.Error, name, $"web.config not read: {e.Message}"); }
+            TransformWebConfig(webConfig, TargetOf(webConfig), name, AddPackage);
         }
 
         AddSourcePackages(name, compile.Select(c => Path.Combine(source, c)), AddPackage);
@@ -227,6 +238,10 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
             Prop("IntermediateOutputPath", "$(BaseIntermediateOutputPath)$(Configuration)\\$(TargetFramework.ToLowerInvariant())\\");
             Prop("StartupObject", "Program");
             Prop("EnableDefaultContentItems", "false");
+        }
+        else if (CopyLocalProjects.Contains(projectPath))
+        {
+            Prop("CopyLocalLockFileAssemblies", "true");
         }
         text.Append("  </PropertyGroup>\n\n");
 
@@ -299,7 +314,7 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
         File.WriteAllText(targetPath, text.ToString(), new UTF8Encoding(false));
 
         report.Add(Report.Kind.Project, name, $"{compile.Count} files, {packages.Count} packages, {binaryReferences.Count} DLLs -> {Path.GetRelativePath(outRoot, targetPath)}");
-        return new ConvertedProject(name, projectPath, targetPath, isWeb, defines);
+        return new ConvertedProject(name, projectPath, targetPath, isWeb, defines, assemblyName);
     }
 
     // ------------------------------------------------------------------------------------------
@@ -390,7 +405,7 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
         var defines = Elements(project, "DefineConstants").SelectMany(d => d.Value.Split(';')).Select(s => s.Trim())
             .Where(s => s.Length > 0 && !s.Contains('$')).Distinct().ToList();
         report.Add(Report.Kind.Project, name, $"SDK-style: {string.Join(';', frameworks)} -> net10.0");
-        return new ConvertedProject(name, projectPath, targetPath, false, defines);
+        return new ConvertedProject(name, projectPath, targetPath, false, defines, Elements(project, "AssemblyName").FirstOrDefault()?.Value ?? name);
     }
 
     sealed class ItemsToAdd
@@ -413,7 +428,7 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
 
     // Assembly name -> project file, for references to another project's build output (a HintPath
     // into its bin folder, which does not exist in a clean checkout).
-    string? ProjectOfAssembly(string assembly)
+    public string? ProjectOfAssembly(string assembly)
     {
         if (assemblyProjects == null)
         {

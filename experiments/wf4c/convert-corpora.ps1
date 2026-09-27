@@ -21,9 +21,21 @@ New-Item -ItemType Directory $logs -Force | Out-Null
 foreach ($name in $Only) {
     $root, $project = $corpora[$name]
     $log = Join-Path $logs "foc-$name.log"
+    # The deployed site of the original build (build-original-site.ps1), when there is one.
+    $siteArguments = @()
+    $original = Join-Path $PSScriptRoot "_original\$name\$(Split-Path "$root\$project" -Parent | Split-Path -NoQualifier | ForEach-Object { $_.Substring($root.Length).TrimStart('\') })"
+    if (Test-Path (Join-Path $original 'bin')) { $siteArguments = @('--site', $original) }
     dotnet $converter "corpora\work\$root\$project" --out "experiments\wf4c\$name" --root "corpora\work\$root" `
-        --culture-profile experiments\wf4c\_culture\culture-profile.json *> $log
+        --culture-profile experiments\wf4c\_culture\culture-profile.json @siteArguments *> $log
     $code = $LASTEXITCODE
+    # Deployment settings of this machine (not the application's): mojoPortal's database, the local
+    # SQL Server Express (database mojo_w2l, created by the setup page on first run).
+    if ($name -eq 'mojo' -and (Test-Path "experiments\wf4c\mojo\site")) {
+        $sample = Get-Content "corpora\work\$root\Web\user.config.sample" -Raw
+        $config = ($sample -replace '<add key="MSSQLConnectionString" value="[^"]*"', '<add key="MSSQLConnectionString" value="Data Source=.\SQLEXPRESS;Initial Catalog=mojo_w2l;Integrated Security=True;TrustServerCertificate=True"') `
+            -replace '</appSettings>', "  <add key=`"DisableSetup`" value=`"false`" />`r`n</appSettings>"
+        [IO.File]::WriteAllText((Join-Path $PSScriptRoot 'mojo\site\user.config'), $config, (New-Object Text.UTF8Encoding $false))
+    }
     $reportPath = "experiments\wf4c\$name\CONVERSION-REPORT.md"
     $counts = if (Test-Path $reportPath) { (Select-String -Path $reportPath -Pattern '^## .*件' | ForEach-Object { $_.Line -replace '^## ', '' }) -join ' / ' } else { '' }
     $rounds = (Select-String -Path $log -Pattern '^build \d+:').Count

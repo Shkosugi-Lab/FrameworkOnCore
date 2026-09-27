@@ -1,4 +1,4 @@
-From 645cdb5e6995f341cf90b1679eb5cd1cc9052281 Mon Sep 17 00:00:00 2001
+From acb23c0880658a22948277dbeb88d6aaf95b96e5 Mon Sep 17 00:00:00 2001
 From: shkosugi <sin.kosugi@gmail.com>
 Date: Sun, 27 Sep 2026 09:02:36 +0900
 Subject: [PATCH] Configuration: the Roslyn CodeDOM providers of .NET Framework
@@ -9,11 +9,11 @@ VBCodeProvider (the package every Visual Studio 2015+ web template has): 'Unable
 a configuration error for every page (mojoPortal). WebFormsForCore's own Roslyn providers do the
 same on .NET.
 ---
- .../Configuration/CodeDom/CompilerInfo.cs     | 19 ++++++++++++++++++-
- 1 file changed, 18 insertions(+), 1 deletion(-)
+ .../Configuration/CodeDom/CompilerInfo.cs     | 23 +++++++++++++++++--
+ 1 file changed, 21 insertions(+), 2 deletions(-)
 
 diff --git a/src/WebFormsForCore.Configuration/System/Configuration/CodeDom/CompilerInfo.cs b/src/WebFormsForCore.Configuration/System/Configuration/CodeDom/CompilerInfo.cs
-index 3e20b65..d2e3a60 100644
+index 3e20b65..f10e2cd 100644
 --- a/src/WebFormsForCore.Configuration/System/Configuration/CodeDom/CompilerInfo.cs
 +++ b/src/WebFormsForCore.Configuration/System/Configuration/CodeDom/CompilerInfo.cs
 @@ -46,6 +46,23 @@ namespace WebFormsForCore.CodeDom.Compiler
@@ -49,6 +49,17 @@ index 3e20b65..d2e3a60 100644
  								assemblyName => {
  									try
  									{
+@@ -98,7 +115,9 @@ namespace WebFormsForCore.CodeDom.Compiler
+ 			{
+                 //Type type = Type.GetType(_codeDomProviderTypeName);
+                 var alc = AssemblyLoadContext.GetLoadContext(Assembly.GetExecutingAssembly());
+-                type = Type.GetType(_codeDomProviderTypeName,
++                // Mapped as CodeDomProviderType maps it: this sets the type it returns (with the .NET
++                // Framework provider's DLL in bin, as a deployed site has it, it would be that one).
++                type = Type.GetType(MapFrameworkProvider(_codeDomProviderTypeName),
+                     assemblyName => {
+ 						try
+ 						{
 -- 
 2.55.0.windows.3
 

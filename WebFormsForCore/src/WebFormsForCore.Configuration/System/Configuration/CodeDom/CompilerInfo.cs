@@ -46,6 +46,23 @@ namespace WebFormsForCore.CodeDom.Compiler
 			return CloneCompilerExtensions();
 		}
 
+		// The Roslyn CodeDOM providers .NET Framework applications name in <system.codedom> (the
+		// Microsoft.CodeDom.Providers.DotNetCompilerPlatform package, in every Visual Studio 2015+ web
+		// template): WebFormsForCore's own Roslyn providers do the same on .NET.
+		static string MapFrameworkProvider(string typeName)
+		{
+			var name = typeName.Split(',')[0].Trim();
+			switch (name)
+			{
+				case "Microsoft.CodeDom.Providers.DotNetCompilerPlatform.CSharpCodeProvider":
+					return "WebFormsForCore.CodeDom.Compiler.CSharpCodeProvider, " + AssemblyRef.WebFormsForCoreWeb;
+				case "Microsoft.CodeDom.Providers.DotNetCompilerPlatform.VBCodeProvider":
+					return "WebFormsForCore.CodeDom.Compiler.VBCodeProvider, " + AssemblyRef.WebFormsForCoreWeb;
+				default:
+					return typeName;
+			}
+		}
+
 		public Type CodeDomProviderType
 		{
 			get
@@ -58,7 +75,7 @@ namespace WebFormsForCore.CodeDom.Compiler
 						{
                             //type = Type.GetType(_codeDomProviderTypeName);
                             var alc = AssemblyLoadContext.GetLoadContext(Assembly.GetExecutingAssembly());
-							type = Type.GetType(_codeDomProviderTypeName,
+							type = Type.GetType(MapFrameworkProvider(_codeDomProviderTypeName),
 								assemblyName => {
 									try
 									{
@@ -98,7 +115,9 @@ namespace WebFormsForCore.CodeDom.Compiler
 			{
                 //Type type = Type.GetType(_codeDomProviderTypeName);
                 var alc = AssemblyLoadContext.GetLoadContext(Assembly.GetExecutingAssembly());
-                type = Type.GetType(_codeDomProviderTypeName,
+                // Mapped as CodeDomProviderType maps it: this sets the type it returns (with the .NET
+                // Framework provider's DLL in bin, as a deployed site has it, it would be that one).
+                type = Type.GetType(MapFrameworkProvider(_codeDomProviderTypeName),
                     assemblyName => {
 						try
 						{

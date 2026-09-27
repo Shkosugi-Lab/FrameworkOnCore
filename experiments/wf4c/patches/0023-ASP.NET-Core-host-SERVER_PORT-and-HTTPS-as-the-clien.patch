@@ -1,0 +1,39 @@
+From 63d5be38aca85aa4d8d089d74cd9833d17da9d3b Mon Sep 17 00:00:00 2001
+From: shkosugi <sin.kosugi@gmail.com>
+Date: Sun, 27 Sep 2026 18:00:22 +0900
+Subject: [PATCH 23/23] ASP.NET Core host: SERVER_PORT and HTTPS as the client
+ used them
+
+Request.Url and absolute redirects are built from SERVER_NAME, SERVER_PORT and HTTPS.
+SERVER_NAME came from the Host header already (0009); the port was the socket's, which
+behind port mapping (a container's 8080 published as another) or a reverse proxy is not
+the one the client reached: redirects went to it. The Host header's port is taken, or
+the scheme's. HTTPS was never set (the worker request did not override IsSecure): it is
+the request's scheme, which a proxy ending TLS gives in X-Forwarded-Proto (applied by
+ASP.NET Core with ASPNETCORE_FORWARDEDHEADERS_ENABLED=true).
+---
+ .../AspNetCoreHosting/AspNetCoreWorkerRequest.cs          | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/src/WebFormsForCore.Web/WebFormsForCore/AspNetCoreHosting/AspNetCoreWorkerRequest.cs b/src/WebFormsForCore.Web/WebFormsForCore/AspNetCoreHosting/AspNetCoreWorkerRequest.cs
+index 3768e7a..dbbf93a 100644
+--- a/src/WebFormsForCore.Web/WebFormsForCore/AspNetCoreHosting/AspNetCoreWorkerRequest.cs
++++ b/src/WebFormsForCore.Web/WebFormsForCore/AspNetCoreHosting/AspNetCoreWorkerRequest.cs
+@@ -198,7 +198,13 @@ namespace System.Web.Hosting
+ 		public override string GetHttpVersion() => Context.Request.Protocol;
+ 		public override string GetKnownRequestHeader(int index) => knownRequestHeaders[index];
+ 		public override string GetLocalAddress() => Context.Connection.LocalIpAddress.ToString();
+-		public override int GetLocalPort() => Context.Connection.LocalPort;
++		// As SERVER_NAME (GetServerName), the port the client asked for: Request.Url and absolute
++		// redirects are built from them. The socket's port is not it behind port mapping (a container's
++		// 8080 published as another) or a reverse proxy: the Host header's port, or the scheme's.
++		public override int GetLocalPort() => Context.Request.Host.Port ?? (Context.Request.IsHttps ? 443 : 80);
++		// HTTPS as the client used it (a proxy that ends TLS says so in X-Forwarded-Proto, which ASP.NET
++		// Core applies with ASPNETCORE_FORWARDEDHEADERS_ENABLED=true). It was always http.
++		public override bool IsSecure() => Context.Request.IsHttps;
+ 		public override string GetPathInfo() => pathInfo;
+ 		public override byte[] GetPreloadedEntityBody() => null;
+ 		public override string GetQueryString() {
+-- 
+2.55.0.windows.3
+

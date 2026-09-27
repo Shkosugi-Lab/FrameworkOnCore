@@ -65,6 +65,8 @@
 | 0019 | SQL Server の接続: 接続文字列に `Encrypt` が無ければ .NET Framework と同じ false(ランタイムの SQL 部品は Microsoft.Data.SqlClient で、既定が true) | dnn のインストールで管理者を作れない(SQL Server Express の証明書を信頼できない) |
 | 0020 | 統合パイプラインの構成: web.config の `system.webServer` のマネージドのモジュールとハンドラーを、クラシックのパイプラインでも IIS と同じ規則で読む | dnn の URL 書き換えモジュールが動かず、どのページも PortalSettings が null |
 | 0021 | 構成: `configSource` と appSettings の `file` の `\` を、Linux でもディレクトリの区切りとして扱う(.NET Framework では `configSource` に `/` は書けない) | n2 の `configSource="App_Data\n2_host.config"`(Linux で構成エラー) |
+| 0022 | 構成: 配置先の設定を環境変数から(Azure App Service が .NET Framework のアプリに渡すのと同じ名前)。`APPSETTING_<キー>` は appSettings、`SQLCONNSTR_<名前>` などは connectionStrings を置き換える | コンテナや systemd で、web.config を書き換えずに DB などを渡す |
+| 0023 | ASP.NET Core ホスト: SERVER_PORT を Host ヘッダーのポート(無ければスキームの既定)から、HTTPS をリクエストのスキームから(`IsSecure` が常に false だった) | コンテナのポートを別の番号で公開すると、リダイレクト先がコンテナ内のポートになった。HTTPS を終端するプロキシの後ろで http の URL になる |
 
 未対応: VB のページコンパイラー(`VBCompiler.cs`)にも 0003 と同じ対応が要る(VB 対応のときに)。
 
@@ -243,6 +245,32 @@ Linux で ICU のデータに表せないもの:
 - サイトの中のパッケージ(DNN の `Install\Module\*.zip` など。拡張子によらず中身が zip のもの)にある DLL のうち、.NET のビルドで bin を置き換えたものは、パッケージの中も置き換える。インストールされると .NET Framework の DLL が bin に戻るため。
 - アプリは作業プロセスの中で、bin のコピーから動く(フォーク 0018。変換器の Program.cs が `WebFormsProcess.RunInWorker` を呼ぶ)。.NET Framework の ASP.NET のシャドウコピーに当たる。bin は書き込めるままで(DNN のインストーラーがモジュールの DLL を置く)、web.config や bin が変わるとアプリが再起動し(フォーク 0015・0016)、新しいコピーから起動し直す。`WEBFORMSFORCORE_SHADOWCOPY=0` なら bin から直接動き、再起動はプロセスの終了(終了コード 75)を監視役(IIS、systemd の `Restart=`、Docker の `--restart`、`supervise.ps1`)が拾う。
 - `run-linux-site.ps1`: 変換したサイトを、本番と同じ形(ASP.NET のランタイムイメージにサイトのフォルダーをコピーして起動。ビルドはしない)で Linux のコンテナで動かす。接続文字列は SQL Server のコンテナに向ける。
+
+### 配置(`--deploy`、2026-09-27)
+
+変換器は、Linux での配置のしかたも出力する。`--deploy container|linux|both|none`(既定は both)。
+
+- コンテナ: 出力フォルダーに `Dockerfile` と `.dockerignore`。出力フォルダーをコンテキストに `docker build`。
+  - ランタイムは `mcr.microsoft.com/dotnet/aspnet:10.0`。ICU のデータは同じイメージのステージで作る(ICU の版を合わせる)。
+  - ユーザー `app`(root ではない)、ポート 8080、`App_Data` はボリューム。
+- Linux のマシン: `deploy/linux/install.sh`(root で実行)。
+  - ASP.NET Core 10 のランタイムが無ければ入れる。専用ユーザーを作り、`/opt/<アプリ>` に置き、ICU のデータを作り、systemd のサービスとして起動する。
+  - 更新は同じコマンド(`App_Data` と設定は残る)。
+- 共通(`deploy/start.sh`、`deploy/README.md`):
+  - 設定は環境変数で渡す(フォーク 0022。`SQLCONNSTR_<名前>`、`APPSETTING_<キー>`)。コンテナは `-e`、systemd は `/etc/<アプリ>/environment`。ほかの設定ファイルは設定フォルダー(コンテナは `/config`、systemd は `/etc/<アプリ>/config`)に置けばサイトに上書きされる。
+  - カルチャは `LANG`(カルチャのプロファイルの既定のカルチャ)と、動かすマシンで作る ICU のデータ(`ICU_DATA`)。
+  - 作業プロセス(フォーク 0018)がそのまま動く(再起動はアプリ自身が行う)。
+  - リバースプロキシの後ろでは `ASPNETCORE_FORWARDEDHEADERS_ENABLED=true`(フォーク 0023 で URL がクライアントの見たホスト・ポート・スキームになる)。
+
+確認した結果:
+
+| 対象 | 結果 |
+|---|---|
+| mojo・コンテナ | イメージを作り(34 秒、ICU 74.2)、接続文字列を `APPSETTING_MSSQLConnectionString` だけで渡して、空の DB からセットアップ → トップページ・ログインが 200。ポートを 8089 で公開してもリダイレクト先が正しい。`X-Forwarded-Proto: https` と Host を付けると `https://www.example.com/...` にリダイレクトする |
+| mojo・Linux のマシン | systemd の動く Ubuntu 24.04(コンテナで代用)で `install.sh` → ランタイムの導入、ICU のデータ、サービスの起動。`/etc/mojoportal-web/environment` に接続文字列を書いて再起動 → セットアップ・トップページ・ログインが 200。停止で子プロセスも止まる。更新しても `App_Data` と設定は残る |
+| be・コンテナ | プロジェクトのフォルダーのまま(サイトの組み立て無し)のイメージで、正解データと比べて 5/5 |
+
+ICU のデータで表せないもの: `AllDateTimePatterns` の 2 番目以降のパターン(5 件)。主な書式(通貨記号、日付・時刻の既定の書式)は元のサーバーと同じ。
 - `|DataDirectory|` をコードで組み立てる接続文字列は、.NET の System.Data.SqlClient が拒否する。変換器はこれを報告する(`rules/packages.json` の `sourceNotes`)。ファイルを接続する DB(LocalDB、ユーザーインスタンス)は Windows 専用なので、DB サーバーを使う。
 
 DNN を動かす過程で変換器に加えた規則:

@@ -20,10 +20,13 @@ using FrameworkOnCore.Converter;
 //            in a copy (<out>.original); the site it deploys is then --site. Without one, the solution
 //            with the web project, as Visual Studio builds it (Windows, Visual Studio's MSBuild).
 // --original-step <project;target>  a setup step of the repository after its build (repeatable).
+// --deploy   how it is deployed on Linux: container (Dockerfile), linux (deploy/linux/install.sh, systemd),
+//            both (the default) or none. See DeployWriter.
 
 string? project = null, outDirectory = null, rootDirectory = null, runtimeDirectory = null, cultureProfile = null, site = null, originalTarget = null;
 var build = true;
 var buildOriginal = false;
+var deployKinds = "both";
 var originalSteps = new List<(string Project, string Target)>();
 for (var i = 0; i < args.Length; i++)
 {
@@ -35,6 +38,7 @@ for (var i = 0; i < args.Length; i++)
         case "--culture-profile": cultureProfile = args[++i]; break;
         case "--site": site = Path.GetFullPath(args[++i]); break;
         case "--no-build": build = false; break;
+        case "--deploy": deployKinds = args[++i]; break;
         case "--original-step":
             var step = args[++i].Split(';', 2);
             originalSteps.Add((step[0], step.Length > 1 ? step[1] : "Build"));
@@ -48,7 +52,7 @@ for (var i = 0; i < args.Length; i++)
 }
 if (project == null || outDirectory == null)
 {
-    Console.Error.WriteLine("usage: FrameworkOnCore.Converter <web project .csproj> --out <dir> [--root <dir>] [--runtime <dir>] [--culture-profile <file>] [--site <dir> | --build-original [target]] [--no-build]");
+    Console.Error.WriteLine("usage: FrameworkOnCore.Converter <web project .csproj> --out <dir> [--root <dir>] [--runtime <dir>] [--culture-profile <file>] [--site <dir> | --build-original [target]] [--deploy container|linux|both|none] [--no-build]");
     return 2;
 }
 
@@ -119,6 +123,12 @@ if (build && succeeded && site != null)
     // The ones built on their own, as they are after the build (the web project's are in its bin).
     var built = others.Select(o => converter.Converted.First(c => c.SourcePath == o.SourcePath)).ToList();
     SiteAssembler.Assemble(site, Path.Combine(outRoot, "site"), web, built, converter, report, cultureProfile);
+}
+// How it is deployed on Linux: the assembled site, or the web project's folder (built in place).
+if (build && succeeded)
+{
+    var deployedSite = site != null ? Path.Combine(outRoot, "site") : Path.GetDirectoryName(web.TargetPath)!;
+    new DeployWriter(report, outRoot, runtimeDirectory).Write(deployKinds, deployedSite, web, cultureProfile);
 }
 
 var reportPath = Path.Combine(outRoot, "CONVERSION-REPORT.md");

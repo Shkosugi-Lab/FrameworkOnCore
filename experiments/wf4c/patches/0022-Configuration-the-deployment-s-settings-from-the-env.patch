@@ -1,0 +1,103 @@
+From 0f7fdeaa04e22843e3f2b6de2db619a8063aea08 Mon Sep 17 00:00:00 2001
+From: shkosugi <sin.kosugi@gmail.com>
+Date: Sun, 27 Sep 2026 18:00:21 +0900
+Subject: [PATCH 22/23] Configuration: the deployment's settings from the
+ environment, as Azure App Service gives them
+
+A converted application runs in a container or as a systemd service, where the
+deployment's settings (the database, keys) are given in the environment, not by
+editing web.config inside the image. Azure App Service gives them to .NET Framework
+applications under names web.config's entries are replaced by, and applications
+deployed there rely on it:
+- APPSETTING_<key> sets appSettings' <key> (added if absent): the application gets a
+  read-only copy of the settings with them (the configuration's elements stay as they
+  are, and read-only);
+- SQLCONNSTR_<name> (SQLAZURECONNSTR_, MYSQLCONNSTR_, POSTGRESQLCONNSTR_,
+  CUSTOMCONNSTR_) replaces connectionStrings' <name>.
+---
+ .../AppSettingsSection.cs                     | 30 +++++++++++++++++++
+ .../ConnectionStringSettings.cs               | 17 ++++++++++-
+ 2 files changed, 46 insertions(+), 1 deletion(-)
+
+diff --git a/src/WebFormsForCore.Configuration/System/System.Configuration/AppSettingsSection.cs b/src/WebFormsForCore.Configuration/System/System.Configuration/AppSettingsSection.cs
+index 07831d3..28df9bf 100644
+--- a/src/WebFormsForCore.Configuration/System/System.Configuration/AppSettingsSection.cs
++++ b/src/WebFormsForCore.Configuration/System/System.Configuration/AppSettingsSection.cs
+@@ -50,9 +50,39 @@ namespace System.Configuration {
+ 
+         protected internal override object GetRuntimeObject() {
+             SetReadOnly();
++#if !NETFRAMEWORK
++            return WithEnvironment(this.InternalSettings);
++#else
+             return this.InternalSettings;            // return the read only object
++#endif
+         }
+ 
++#if !NETFRAMEWORK
++        // The deployment's settings from the environment, as Azure App Service gives them to .NET
++        // Framework applications: APPSETTING_<key> sets appSettings' <key> (and adds it if absent). A
++        // container (-e) or a systemd unit (Environment=) sets them; web.config stays as it is. The
++        // application gets a read-only copy with them (the configuration's elements are read-only).
++        internal const string EnvironmentPrefix = "APPSETTING_";
++
++        static NameValueCollection WithEnvironment(NameValueCollection settings) {
++            SettingsWithEnvironment copy = null;
++            foreach (System.Collections.DictionaryEntry variable in Environment.GetEnvironmentVariables()) {
++                var name = (string)variable.Key;
++                if (!name.StartsWith(EnvironmentPrefix, StringComparison.OrdinalIgnoreCase) || name.Length == EnvironmentPrefix.Length) continue;
++                copy ??= new SettingsWithEnvironment(settings);
++                copy[name.Substring(EnvironmentPrefix.Length)] = (string)variable.Value;
++            }
++            if (copy == null) return settings;
++            copy.Seal();
++            return copy;
++        }
++
++        sealed class SettingsWithEnvironment : NameValueCollection {
++            internal SettingsWithEnvironment(NameValueCollection settings) : base(settings) { }
++            internal void Seal() => IsReadOnly = true;
++        }
++#endif
++
+         internal NameValueCollection InternalSettings {
+             get {
+                 if (_KeyValueCollection == null) {
+diff --git a/src/WebFormsForCore.Configuration/System/System.Configuration/ConnectionStringSettings.cs b/src/WebFormsForCore.Configuration/System/System.Configuration/ConnectionStringSettings.cs
+index 4bf14ee..a570a4d 100644
+--- a/src/WebFormsForCore.Configuration/System/System.Configuration/ConnectionStringSettings.cs
++++ b/src/WebFormsForCore.Configuration/System/System.Configuration/ConnectionStringSettings.cs
+@@ -76,7 +76,7 @@ namespace System.Configuration {
+ #if NETFRAMEWORK
+                 return (string)base[_propConnectionString];
+ #else
+-                return ExpandDataDirectory((string)base[_propConnectionString]);
++                return ExpandDataDirectory(FromEnvironment(Name) ?? (string)base[_propConnectionString]);
+ #endif
+             }
+             set {
+@@ -93,6 +93,21 @@ namespace System.Configuration {
+         // the token (the stored value is not changed).
+         const string DataDirectoryToken = "|DataDirectory|";
+ 
++        // The deployment's connection string from the environment, as Azure App Service gives them to
++        // .NET Framework applications: SQLCONNSTR_<name> (and the other providers' prefixes) replaces
++        // connectionStrings' <name>. A container (-e) or a systemd unit (Environment=) sets them.
++        static readonly string[] EnvironmentPrefixes = {
++            "SQLCONNSTR_", "SQLAZURECONNSTR_", "MYSQLCONNSTR_", "POSTGRESQLCONNSTR_", "CUSTOMCONNSTR_" };
++
++        static string FromEnvironment(string name) {
++            if (string.IsNullOrEmpty(name)) return null;
++            foreach (var prefix in EnvironmentPrefixes) {
++                var value = Environment.GetEnvironmentVariable(prefix + name);
++                if (value != null) return value;
++            }
++            return null;
++        }
++
+         static string ExpandDataDirectory(string connectionString) {
+             if (connectionString == null || connectionString.IndexOf(DataDirectoryToken, StringComparison.OrdinalIgnoreCase) < 0)
+                 return connectionString;
+-- 
+2.55.0.windows.3
+

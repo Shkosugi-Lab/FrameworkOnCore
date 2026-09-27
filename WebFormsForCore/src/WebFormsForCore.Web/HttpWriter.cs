@@ -91,10 +91,15 @@ namespace System.Web {
         const int BufferSize = BufferingParams.OUTPUT_BUFFER_SIZE;
         private ArrayPool<byte> Pool = ArrayPool<byte>.Shared;
         private byte[] _data;
+        // Rented from the pool (the default constructor): returned once, in Recycle. A buffer the element
+        // was given (Clone, a caller's data) is not the pool's: returning it throws ("The buffer is not
+        // associated with this pool"), as Response.Flush in the middle of a page did (DNN's Install.aspx).
+        private bool _rented;
 
         internal HttpResponseBufferElement()
         {
             _data = Pool.Rent(BufferSize);
+            _rented = true;
             _size = _data.Length;
             _free = _size;
             _recycle = false;
@@ -123,7 +128,8 @@ namespace System.Web {
         }
 
         internal override void Recycle() {
-            Pool.Return(_data);
+            if (_rented && _data != null) Pool.Return(_data);
+            _rented = false;
             _data = null;
             _free = 0;
         }

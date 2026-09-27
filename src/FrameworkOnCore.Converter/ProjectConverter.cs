@@ -284,7 +284,16 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
         if (isWeb) text.Append("    <Compile Include=\"Program.cs\" />\n");
         foreach (var e in embedded) text.Append($"    <EmbeddedResource Include=\"{SecurityElement.Escape(e)}\" />\n");
         text.Append("  </ItemGroup>\n\n  <ItemGroup>\n");
-        foreach (var (id, version) in packages) text.Append($"    <PackageReference Include=\"{id}\" Version=\"{version}\" />\n");
+        foreach (var (id, version) in packages)
+        {
+            if (rules.FrameworkAssets.TryGetValue(id, out var asset))
+            {
+                text.Append($"    <PackageReference Include=\"{id}\" Version=\"{version}\" ExcludeAssets=\"compile;runtime\" GeneratePathProperty=\"true\" />\n");
+                text.Append($"    <Reference Include=\"{Path.GetFileNameWithoutExtension(asset.Asset)}\" HintPath=\"{FrameworkAssetPath(id, asset.Asset)}\" />\n");
+                report.Add(Report.Kind.Project, name, $"{id}: its .NET Framework asset ({asset.Asset}), as the site ran it: {asset.Note}");
+            }
+            else text.Append($"    <PackageReference Include=\"{id}\" Version=\"{version}\" />\n");
+        }
         foreach (var (assembly, hint, referenceAliases) in binaryReferences)
         {
             var aliasAttribute = string.IsNullOrWhiteSpace(referenceAliases) ? "" : $" Aliases=\"{SecurityElement.Escape(referenceAliases)}\"";
@@ -371,6 +380,16 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
         }
         var dropped = frameworks.Where(f => !netfx.Contains(f) && f != "net10.0").Distinct().ToList();
         if (dropped.Count > 0) report.Add(Report.Kind.Project, name, $"target frameworks {string.Join(';', frameworks)} -> net10.0 (items conditioned on {string.Join(", ", dropped)} no longer apply)");
+        // The .NET Framework target is the build the site ran: its code too (DNN's ModulePipeline registers
+        // its services under #if NET472). The symbols the SDK defines for it.
+        var frameworkSymbols = new List<string>();
+        if (netfx.Count > 0)
+        {
+            var framework = netfx.OrderBy(f => f.Length).ThenBy(f => f, StringComparer.Ordinal).Last();
+            frameworkSymbols = FrameworkSymbols(framework);
+            root.Add(new XElement(N("PropertyGroup"), new XElement(N("DefineConstants"), "$(DefineConstants);" + string.Join(';', frameworkSymbols))));
+            report.Add(Report.Kind.Project, name, $"{framework}'s symbols defined ({string.Join(", ", frameworkSymbols.Take(2))} ...): the site ran that build");
+        }
 
         bool HasPackage(string id) => Elements(project, "PackageReference").Any(p => string.Equals((string?)p.Attribute("Include"), id, StringComparison.OrdinalIgnoreCase));
         XElement PackageElement(Package p) => new(N("PackageReference"), new XAttribute("Include", p.Id), new XAttribute("Version", p.Version));
@@ -392,6 +411,14 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
             {
                 reference.SetAttributeValue("Include", replaced.Id);
                 if (reference.Attribute("Version") != null) reference.SetAttributeValue("Version", replaced.Version);
+            }
+            if (rules.FrameworkAssets.TryGetValue(id, out var asset))
+            {
+                reference.SetAttributeValue("ExcludeAssets", "compile;runtime");
+                reference.SetAttributeValue("GeneratePathProperty", "true");
+                reference.AddAfterSelf(new XElement(N("Reference"), new XAttribute("Include", Path.GetFileNameWithoutExtension(asset.Asset)),
+                    new XElement(N("HintPath"), FrameworkAssetPath(id, asset.Asset))));
+                report.Add(Report.Kind.Project, name, $"{id}: its .NET Framework asset ({asset.Asset}), as the site ran it: {asset.Note}");
             }
         }
         // Deployment steps copying build output into the site (XCOPY ...): Windows commands, and the
@@ -430,6 +457,21 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
             .Where(s => s.Length > 0 && !s.Contains('$')).Distinct().ToList();
         report.Add(Report.Kind.Project, name, $"SDK-style: {string.Join(';', frameworks)} -> net10.0");
         return new ConvertedProject(name, projectPath, targetPath, false, defines, Elements(project, "AssemblyName").FirstOrDefault()?.Value ?? name);
+    }
+
+    // The DLL of a package's .NET Framework asset, by the package's path property (GeneratePathProperty).
+    static string FrameworkAssetPath(string id, string asset) => $"$(Pkg{id.Replace('.', '_').Replace('-', '_')})\\{asset.Replace('/', '\\')}";
+
+    // What the .NET SDK defines for a .NET Framework target (net472: NETFRAMEWORK, NET472, NET20_OR_GREATER
+    // ... NET472_OR_GREATER).
+    static List<string> FrameworkSymbols(string framework)
+    {
+        string[] versions = ["20", "30", "35", "40", "45", "451", "452", "46", "461", "462", "47", "471", "472", "48", "481"];
+        var own = framework.Substring(3);
+        var index = Array.IndexOf(versions, own);
+        var symbols = new List<string> { "NETFRAMEWORK", "NET" + own.ToUpperInvariant() };
+        if (index >= 0) symbols.AddRange(versions.Take(index + 1).Select(v => $"NET{v}_OR_GREATER"));
+        return symbols;
     }
 
     // Resources that are not strings (images, icons: <data type="..."> or mimetype) are embedded

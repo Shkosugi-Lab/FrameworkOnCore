@@ -60,6 +60,10 @@
 | 0014 | `AppDomain.BaseDirectory` をアプリのルートにする(.NET Framework と同じ。bin のパスは先に読んで保持) | dnn のインストールウィザードが `Install\DotNetNuke.install.config` を bin の下に探した |
 | 0015 | ファイル変更通知: 監視フォルダーからの相対名で渡す(フルパスでは監視対象と一致せず、変更が一度も届いていなかった) | dnn のウィザードが web.config を書き換えても反映されず、同じページへのリダイレクトが続いた |
 | 0016 | アプリの再起動: プロセスを終了コード 75 で終え、スーパーバイザーが起動し直す(既定の AssemblyLoadContext は解放できない)。再起動が始まった後の要求には 503 と Retry-After | 同上。web.config の変更、bin の変更、`HttpRuntime.UnloadAppDomain` |
+| 0017 | 応答バッファ: プールから借りたものだけをプールに返す | dnn の `Install.aspx`(ページの途中の `Response.Flush`)が「バッファがこのプールのものではない」で失敗 |
+| 0018 | 作業プロセス: アプリを bin のコピーから子プロセスで動かし、再起動(終了コード 75)で新しいコピーから起動し直す(ASP.NET のシャドウコピーと w3wp に当たる)。`HttpRuntime.BinDirectory` はアプリの bin、読み込みはコピーから | dnn のインストーラーが bin にモジュールの DLL を置けない(使用中) |
+| 0019 | SQL Server の接続: 接続文字列に `Encrypt` が無ければ .NET Framework と同じ false(ランタイムの SQL 部品は Microsoft.Data.SqlClient で、既定が true) | dnn のインストールで管理者を作れない(SQL Server Express の証明書を信頼できない) |
+| 0020 | 統合パイプラインの構成: web.config の `system.webServer` のマネージドのモジュールとハンドラーを、クラシックのパイプラインでも IIS と同じ規則で読む | dnn の URL 書き換えモジュールが動かず、どのページも PortalSettings が null |
 
 未対応: VB のページコンパイラー(`VBCompiler.cs`)にも 0003 と同じ対応が要る(VB 対応のときに)。
 
@@ -210,10 +214,10 @@ Linux で ICU のデータに表せないもの:
 |---|---|---|
 | be | 成功(手動の除外なし。自動処理は以前の手動除外と同じ 8 ファイル) | Windows 5/5 |
 | wt | 成功 | Windows 6/8(既知の丸めの差) |
-| mojo | 成功 | web.config の `System.Data.Linq` は変換器が外し(報告する)、`<system.codedom>` はフォーク 0011 で解決。**セットアップ画面が動き、SQL Server(`.\SQLEXPRESS`)にスキーマを作成できた。** トップページは `mojoPortal.Features.UI` が無く失敗(機能モジュールは Web プロジェクトから参照されず、元のビルドではビルド後イベントの xcopy でサイトに配置される) |
+| mojo | 成功。元のビルドはソリューションのビルド(`--build-original`) | **トップページが表示される**(`Home - mojoPortal`。DB は `.\SQLEXPRESS` の `mojo_w2l`) |
 | yaf | 成功 | `FieldAccessException`。アプリが Web API 2 の `HttpControllerRouteHandler._instance`(static readonly)をリフレクションで書き換えていて、.NET は型の初期化後の書き換えを禁止している。Web API 2 を DLL のまま使う限り直せないので、AspNetWebStack の移植が要る |
-| dnn | 成功。元のビルドは DNN 自身の Cake ビルド(`--build-original`)。VB の DotNetNuke.WebUtility は配置済みサイトの .NET Framework の DLL をそのまま参照する | **インストールウィザードが表示される**(DB は `.\SQLEXPRESS` の `dnn_w2l`。ウィザードが web.config を書き換え、再起動 1 回の後に表示)。インストールの実行はまだ |
-| n2 | 成功 | インストーラー(`/N2/Installation/...`)が 404。管理画面は別プロジェクト(N2.Management)の中身で、元のビルドでは Web サイトに配置される |
+| dnn | 成功。元のビルドは DNN 自身の Cake ビルド(`--build-original`)。VB の DotNetNuke.WebUtility は配置済みサイトの .NET Framework の DLL をそのまま参照する | Windows: **インストール(`Install.aspx?mode=install`)が完了し、トップページが表示される**(`Home`。DB は `.\SQLEXPRESS` の `dnn_w2l`。`dnn-cycle.ps1` で DB の作成から通す)。Linux: 起動するが、DNN のコードが Windows のパス区切りを前提にしている(`BaseDirectory.Replace("/", "\\")`、`ApplicationMapPath + "\\web.config"` など。バックスラッシュを含む文字列リテラルが 148 ファイル 482 行)。変換器でのパスの書き換え(意味モデルでパスの API に流れる値を特定する)が次の課題 |
+| n2 | 成功。元のビルドはソリューションのビルドと、リポジトリのセットアップ手順(`--original-step build\n2.proj;Templates-PrepareDependencies`) | インストーラーが表示される(`Install N2`)。インストールの実行はまだ |
 
 ### 元のビルドと配置済みサイト
 
@@ -226,10 +230,27 @@ Linux で ICU のデータに表せないもの:
   - 長いパスは親フォルダーにドライブ文字を割り当てて避ける(ドライブのルートにあるリポジトリは GitVersion 5 が見つけられない)。MSBuild の常駐ノードと VBCSCompiler は使わない(コピーのファイルをつかんだまま残る)。
   - 配置済みサイトは「web.config と `bin\<Web プロジェクトのアセンブリ>.dll` があるフォルダー」で探す。Web プロジェクト自身のフォルダーより、ビルドが配置した先を選ぶ。
   - ビルドが配置の後で失敗したとき(DNN はパッケージ作成で、自身の参照解決が落とした DLL を探して止まる)は、配置済みサイトをそのまま使い、失敗をレポートに記録する。
-  - Cake 以外(ソリューションのビルド)は `build-original-site.ps1` で行う(mojo、n2)。
+  - ビルドスクリプトが無いリポジトリは、Web プロジェクトを含むソリューション(複数あれば最もプロジェクトが多いもの)を Visual Studio と同じ方法でビルドする(Windows のみ)。
+    - Visual Studio (Build Tools) 2022 の MSBuild(無ければインストール方法をレポートに書いて止まる。勝手には入れない)。
+    - .NET Framework の参照アセンブリ(全版、nuget.org から)と nuget.exe は、キャッシュに用意する。
+    - C# コンパイラーは .NET SDK の最新のもの。構成が選ぶプロジェクトを、参照とソリューションの依存関係の順に 1 本ずつ `BuildingInsideVisualStudio` でビルドし、失敗したものはもう一度ビルドする。
+    - リポジトリのセットアップ手順は `--original-step <プロジェクト;ターゲット>` で渡す(n2)。
+    - ビルドが割り当てたドライブを指すリンク(n2 のセットアップの `mklink /J`)は、ドライブを外す前にリンク先のコピーに置き換える。
+    - 配置済みサイトは Web プロジェクト自身のフォルダーを選ぶ(ビルド後イベントがそこへ配置する)。
+  - 以前の `build-original-site.ps1` はこれに置き換えた。
 - 変換しないプロジェクト(VB)は、配置済みサイトにあるその DLL を参照する(出力の `.deployed` にコピー)。
-- web.config の変更などでアプリが再起動すると(フォーク 0016)、プロセスは終了コード 75 で終わる。`supervise.ps1` が起動し直す(実運用では IIS、systemd の `Restart=`、Docker の `--restart`)。`probe-corpora.ps1` はこれを使う。
+- サイトの中のパッケージ(DNN の `Install\Module\*.zip` など。拡張子によらず中身が zip のもの)にある DLL のうち、.NET のビルドで bin を置き換えたものは、パッケージの中も置き換える。インストールされると .NET Framework の DLL が bin に戻るため。
+- アプリは作業プロセスの中で、bin のコピーから動く(フォーク 0018。変換器の Program.cs が `WebFormsProcess.RunInWorker` を呼ぶ)。.NET Framework の ASP.NET のシャドウコピーに当たる。bin は書き込めるままで(DNN のインストーラーがモジュールの DLL を置く)、web.config や bin が変わるとアプリが再起動し(フォーク 0015・0016)、新しいコピーから起動し直す。`WEBFORMSFORCORE_SHADOWCOPY=0` なら bin から直接動き、再起動はプロセスの終了(終了コード 75)を監視役(IIS、systemd の `Restart=`、Docker の `--restart`、`supervise.ps1`)が拾う。
+- `run-linux-site.ps1`: 変換したサイトを、本番と同じ形(ASP.NET のランタイムイメージにサイトのフォルダーをコピーして起動。ビルドはしない)で Linux のコンテナで動かす。接続文字列は SQL Server のコンテナに向ける。
 - `|DataDirectory|` をコードで組み立てる接続文字列は、.NET の System.Data.SqlClient が拒否する。変換器はこれを報告する(`rules/packages.json` の `sourceNotes`)。ファイルを接続する DB(LocalDB、ユーザーインスタンス)は Windows 専用なので、DB サーバーを使う。
+
+DNN を動かす過程で変換器に加えた規則:
+- SYSLIB0007(`HashAlgorithm.Create()` などの引数なしの Create): .NET Framework の既定のアルゴリズム(SHA1、HMACSHA1、AES、RSA)に書き換える。型のメンバーは拡張メンバーより先に見つかるので、拡張では補えない。位置はコンパイラーの警告から取る。
+- CS0121(アプリの拡張メソッドと、.NET が後から加えた拡張メソッドのあいまいさ。`CollectionExtensions.GetValueOrDefault`): アプリの方を静的メソッドとして明示的に呼ぶ。以前はメンバーをスタブにしていた。
+- .NET Framework を含む複数ターゲットの SDK 形式プロジェクト: .NET Framework の方のシンボル(`NETFRAMEWORK`、`NET472`、`…_OR_GREATER`)を定義する。サイトが動かしていたのはそのビルドだから(DNN の ModulePipeline は `#if NET472` でサービスを登録する)。
+- `frameworkAssets`(`rules/packages.json`): .NET 向けの資産が .NET Framework 向けと API の違うパッケージは、.NET Framework 向けの DLL を参照する(PetaPoco.Compiled: net45 にだけ `Database(string connectionStringName)` がある)。
+- リポジトリのコピーで、プロジェクトがビルドしない bin フォルダー(チェックインされたバイナリ。DNN の `Controls\DotNetNuke.WebControls\bin`)は残す。
+- 互換アセンブリ System.Design(`shims/System.Design`): `System.Web.UI.Design` の型を .NET Framework 4.8 のものから生成(継承関係だけ、メンバーなし)。コントロールがデザイナーを属性で指していて、ページのコンパイルが属性を読むと型の読み込みに失敗していた。
 
 変換器を作る過程で直したこと:
 - NuGet の packages フォルダーの判定: DNN のソースフォルダー `Services\Installer\Packages` を除外していた。中身(.nupkg、repositories.config)で判定するようにした。convert-project.ps1(robocopy `/XD packages`)にも同じ問題がある。

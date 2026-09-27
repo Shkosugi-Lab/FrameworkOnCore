@@ -12,6 +12,12 @@ static class Paths
         (File.Exists(Path.Combine(directory.FullName, "repositories.config")) ||
          directory.EnumerateDirectories().Any(d => d.EnumerateFiles("*.nupkg").Any()));
 
+    // A bin folder no project builds into: binaries checked into the repository, which projects reference
+    // (DNN's Controls\DotNetNuke.WebControls\bin\DotNetNuke.WebControls.dll, a third-party control).
+    static bool IsCheckedInBin(DirectoryInfo directory) =>
+        directory.Name.Equals("bin", StringComparison.OrdinalIgnoreCase) &&
+        !directory.Parent!.EnumerateFiles("*.*proj").Any(f => f.Extension is ".csproj" or ".vbproj" or ".fsproj");
+
     /// <summary>
     /// The repository a project is in: the topmost folder above it holding a solution (.sln), below the
     /// repository's root. Repositories share files across projects (..\SolutionInfo.cs, build output
@@ -46,7 +52,7 @@ static class Paths
             foreach (var file in from.EnumerateFiles()) file.CopyTo(Path.Combine(to, file.Name), overwrite: true);
             foreach (var directory in from.EnumerateDirectories())
             {
-                if (skipped.Contains(directory.Name) || IsNuGetPackages(directory)) continue;
+                if ((skipped.Contains(directory.Name) && !IsCheckedInBin(directory)) || IsNuGetPackages(directory)) continue;
                 Copy(directory, Path.Combine(to, directory.Name));
             }
         }

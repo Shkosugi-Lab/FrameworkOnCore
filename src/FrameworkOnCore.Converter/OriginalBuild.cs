@@ -1,4 +1,4 @@
-﻿using System.Diagnostics;
+using System.Diagnostics;
 using System.Text;
 using System.Text.Json;
 using System.Text.RegularExpressions;
@@ -15,7 +15,7 @@ namespace FrameworkOnCore.Converter;
 /// names (corepack). The deployed site is then found by what it has: a web.config and the web
 /// project's assembly in its bin.
 /// </summary>
-public sealed class OriginalBuild(Report report, string log)
+public sealed partial class OriginalBuild(Report report, string log)
 {
     static readonly string toolsCache = Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "FrameworkOnCore", "tools");
@@ -24,7 +24,7 @@ public sealed class OriginalBuild(Report report, string log)
     readonly List<string> path = new();
 
     /// <summary>The deployed site, or null when the build did not produce one.</summary>
-    public string? Run(string repository, string work, string webProject, string? target)
+    public string? Run(string repository, string work, string webProject, string? target, IReadOnlyList<(string Project, string Target)> steps)
     {
         Console.WriteLine($"copying {repository} -> {work}");
         CopyRepository(repository, work);
@@ -38,18 +38,21 @@ public sealed class OriginalBuild(Report report, string log)
         var drive = OperatingSystem.IsWindows() ? MapDrive(Path.GetDirectoryName(work)!) : null;
         if (drive != null) root = Path.Combine(drive + "\\", Path.GetFileName(work));
         bool? built;
+        string kind;
         try
         {
             if (!Directory.Exists(Path.Combine(repository, ".git"))) MakeRepository(repository, work);
             PrepareTools(root);
-            built = RunBuild(root, target);
+            (built, kind) = RunBuild(root, target, Path.Combine(root, relativeWeb), steps);
+            if (drive != null) MaterializeLinks(work, drive);
         }
         finally
         {
             if (drive != null) RunProcess("subst", $"{drive} /d", work, quiet: true);
         }
         if (built == null) return null;
-        var site = FindSite(work, Path.Combine(work, relativeWeb));
+        // A solution build deploys into the web project's folder; a build script elsewhere (DNN's .\Website).
+        var site = FindSite(work, Path.Combine(work, relativeWeb), preferProjectFolder: kind == "solution");
         // A build that fails after it deployed the site (in packaging: DNN's zips the components and
         // stops at a DLL its own reference resolution left out): the site is used, as it is.
         if (built == false && site != null)
@@ -60,8 +63,17 @@ public sealed class OriginalBuild(Report report, string log)
     // ------------------------------------------------------------------------------------------
     // The build
 
-    // True: built; false: failed; null: no build found.
-    bool? RunBuild(string root, string? target)
+    // True: built; false: failed; null: no build found. And which kind of build: cake, solution.
+    (bool?, string) RunBuild(string root, string? target, string webProject, IReadOnlyList<(string Project, string Target)> steps)
+    {
+        var (result, kind) = (RunScript(root, target), "cake");
+        // No build script: the solution, as Visual Studio builds it.
+        if (result == null) (result, kind) = (RunSolution(root, webProject, steps), "solution");
+        return (result, kind);
+    }
+
+    // A Cake build; null when there is none.
+    bool? RunScript(string root, string? target)
     {
         var targetArgument = target != null ? $" --target={target}" : "";
 
@@ -94,8 +106,37 @@ public sealed class OriginalBuild(Report report, string log)
             return RunProcess(Path.Combine(toolPath, "dotnet-cake"), $"\"{script}\"{targetArgument}", root) == 0;
         }
 
-        report.Add(Report.Kind.Error, "original build", "no Cake build found (Cake Frosting project or .cake script); build the solution with experiments/wf4c/build-original-site.ps1, or give the deployed site (--site)");
         return null;
+    }
+
+    // Links the build made through the mapped drive (N2's setup links its management pages into the
+    // site: mklink /J) point to it, and break when it is unmapped: each is replaced by a copy of what it
+    // points to, as deploying the site copies it. Not the build tools' (node_modules).
+    void MaterializeLinks(string work, string drive)
+    {
+        var links = new List<DirectoryInfo>();
+        void Find(DirectoryInfo directory)
+        {
+            foreach (var child in directory.EnumerateDirectories())
+            {
+                if (child.Name.Equals("node_modules", StringComparison.OrdinalIgnoreCase) || child.Name.Equals(".git", StringComparison.OrdinalIgnoreCase)) continue;
+                if ((child.Attributes & FileAttributes.ReparsePoint) != 0) { links.Add(child); continue; }
+                Find(child);
+            }
+        }
+        Find(new DirectoryInfo(work));
+        foreach (var link in links)
+        {
+            var target = link.LinkTarget;
+            if (target == null || !target.StartsWith(drive, StringComparison.OrdinalIgnoreCase)) continue;
+            var source = new DirectoryInfo(target);
+            if (!source.Exists) continue;
+            var copy = link.FullName + ".materialized";
+            CopyRepository(source.FullName, copy);
+            link.Delete();
+            Directory.Move(copy, link.FullName);
+            report.Add(Report.Kind.Project, "original build", $"{Path.GetRelativePath(work, link.FullName)}: a link to {target} (through the build's drive), copied in its place");
+        }
     }
 
     // A source archive, not a clone: the copy is made a repository of its own, with one commit, since
@@ -243,7 +284,7 @@ public sealed class OriginalBuild(Report report, string log)
     // The deployed site: a folder with a web.config and the web project's assembly in its bin; one the
     // build deployed to rather than the web project's own folder (DNN's Cake build assembles .\Website).
 
-    string? FindSite(string work, string webProject)
+    string? FindSite(string work, string webProject, bool preferProjectFolder)
     {
         var assembly = XDocument.Load(webProject).Descendants().FirstOrDefault(e => e.Name.LocalName == "AssemblyName")?.Value
                        ?? Path.GetFileNameWithoutExtension(webProject);
@@ -253,7 +294,7 @@ public sealed class OriginalBuild(Report report, string log)
             .Where(c => Directory.EnumerateFiles(c.Site, "web.config", new EnumerationOptions { MatchCasing = MatchCasing.CaseInsensitive }).Any())
             // A folder the build deployed to before the web project's own (the copies keep the
             // files' times: which was written last does not tell them apart).
-            .OrderBy(c => Path.GetFullPath(c.Site).TrimEnd('\\', '/').Equals(Path.GetDirectoryName(Path.GetFullPath(webProject)), StringComparison.OrdinalIgnoreCase) ? 1 : 0)
+            .OrderBy(c => Path.GetFullPath(c.Site).TrimEnd('\\', '/').Equals(Path.GetDirectoryName(Path.GetFullPath(webProject)), StringComparison.OrdinalIgnoreCase) == preferProjectFolder ? 0 : 1)
             .ThenByDescending(c => c.Written).ToList();
         if (candidates.Count == 0)
         {

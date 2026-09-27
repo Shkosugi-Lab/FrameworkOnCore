@@ -24,6 +24,8 @@ public sealed class Rules
     public required IReadOnlySet<string> NoAnswer { get; init; }
     public required IReadOnlyList<SourcePackage> SourcePackages { get; init; }
     public required IReadOnlyList<SourceNote> SourceNotes { get; init; }
+    /// <summary>Packages used by their .NET Framework asset (package id -> the DLL in the package, and why).</summary>
+    public required IReadOnlyDictionary<string, (string Asset, string Note)> FrameworkAssets { get; init; }
 
     /// <summary>Dropped: listed, or a System.* 4.x package (in the box on .NET).</summary>
     public bool IsDropped(string id, string version) =>
@@ -55,6 +57,8 @@ public sealed class Rules
                 new Regex(e.GetProperty("pattern").GetString()!, RegexOptions.Compiled),
                 new Package(e.GetProperty("id").GetString()!, Version(e.GetProperty("version").GetString()!)),
                 e.TryGetProperty("note", out var note) ? note.GetString() : null)).ToList(),
+            FrameworkAssets = root.GetProperty("frameworkAssets").EnumerateObject().ToDictionary(p => p.Name,
+                p => (p.Value.GetProperty("asset").GetString()!, p.Value.GetProperty("note").GetString()!), StringComparer.OrdinalIgnoreCase),
             SourceNotes = root.GetProperty("sourceNotes").EnumerateArray().Select(e => new SourceNote(
                 new Regex(e.GetProperty("pattern").GetString()!, RegexOptions.Compiled), e.GetProperty("note").GetString()!)).ToList(),
         };

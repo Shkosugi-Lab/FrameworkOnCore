@@ -13,8 +13,13 @@ $corpora = [ordered]@{
     dnn  = @('Dnn.Platform-9.13.10', 'DNN Platform\Website\DotNetNuke.Website.csproj')
     n2   = @('n2cms-master', 'src\WebForms\WebFormsTemplates\N2.Templates.csproj')
 }
-# Built by their own Cake build: the folder it deploys the site to.
-$cake = @{ dnn = 'Website' }
+# Their original build, by the converter (--build-original: a Cake build, or else the solution): the
+# folder it deploys the site to, relative to the repository, and the repository's setup steps after it.
+$originals = @{
+    dnn  = @{ Site = 'Website' }
+    mojo = @{ Site = 'Web' }
+    n2   = @{ Site = 'src\WebForms\WebFormsTemplates'; Steps = @('build\n2.proj;Templates-PrepareDependencies') }
+}
 dotnet build src\FrameworkOnCore.Converter\FrameworkOnCore.Converter.csproj -v q -nologo | Out-Null
 if ($LASTEXITCODE -ne 0) { throw 'converter build failed' }
 $converter = 'src\FrameworkOnCore.Converter\bin\Debug\net10.0\FrameworkOnCore.Converter.dll'
@@ -23,15 +28,13 @@ New-Item -ItemType Directory $logs -Force | Out-Null
 foreach ($name in $Only) {
     $root, $project = $corpora[$name]
     $log = Join-Path $logs "foc-$name.log"
-    # The deployed site of the original build (build-original-site.ps1), when there is one. A Cake
-    # build is run by the converter itself (--build-original, in <out>.original): the site it deployed
-    # before is taken if there is one (the build takes minutes; -Rebuild runs it again).
+    # The deployed site of the original build (in <out>.original): the one built before if there is one
+    # (the build takes minutes; -Rebuild runs it again).
     $siteArguments = @()
-    $original = Join-Path $PSScriptRoot "_original\$name\$(Split-Path "$root\$project" -Parent | Split-Path -NoQualifier | ForEach-Object { $_.Substring($root.Length).TrimStart('\') })"
-    if (Test-Path (Join-Path $original 'bin')) { $siteArguments = @('--site', $original) }
-    if ($cake.ContainsKey($name)) {
-        $deployed = Join-Path $PSScriptRoot "$name.original\$($cake[$name])"
-        $siteArguments = if ((Test-Path (Join-Path $deployed 'bin')) -and -not $Rebuild) { @('--site', $deployed) } else { @('--build-original') }
+    if ($originals.ContainsKey($name)) {
+        $deployed = Join-Path $PSScriptRoot "$name.original\$($originals[$name].Site)"
+        $siteArguments = @(if ((Test-Path (Join-Path $deployed 'bin')) -and -not $Rebuild) { '--site', $deployed }
+                         else { '--build-original'; $originals[$name].Steps | Where-Object { $_ } | ForEach-Object { '--original-step', $_ } })
     }
     dotnet $converter "corpora\work\$root\$project" --out "experiments\wf4c\$name" --root "corpora\work\$root" `
         --culture-profile experiments\wf4c\_culture\culture-profile.json @siteArguments *> $log
@@ -54,7 +57,7 @@ foreach ($name in $Only) {
         [IO.File]::WriteAllText($webConfig, $config, (New-Object Text.UTF8Encoding $false))
     }
     $reportPath = "experiments\wf4c\$name\CONVERSION-REPORT.md"
-    $counts = if (Test-Path $reportPath) { (Select-String -Path $reportPath -Pattern '^## .*莉ｶ' | ForEach-Object { $_.Line -replace '^## ', '' }) -join ' / ' } else { '' }
+    $counts = if (Test-Path $reportPath) { (Select-String -Path $reportPath -Pattern '^## .*件' | ForEach-Object { $_.Line -replace '^## ', '' }) -join ' / ' } else { '' }
     $rounds = (Select-String -Path $log -Pattern '^build \d+:').Count
     "=== $name $(if ($code -eq 0) { 'BUILD OK' } else { "FAILED ($code)" }) (rounds: $rounds) $counts"
     if ($code -ne 0) { Select-String -Path $log -Pattern '\[Error\]' | Select-Object -First 8 | ForEach-Object { '  ' + $_.Line.Trim().Substring(0, [Math]::Min(220, $_.Line.Trim().Length)) } }

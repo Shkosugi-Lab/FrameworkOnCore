@@ -6,6 +6,14 @@ public class Program
 {
     public static void Main(string[] args)
     {
+        // As ASP.NET runs it on .NET Framework: in a worker process, from a copy of bin (bin stays
+        // writable), started again when the application restarts (web.config or bin changed).
+        if (System.Web.Hosting.WebFormsProcess.RunInWorker(args, out var exitCode))
+        {
+            System.Environment.ExitCode = exitCode;
+            return;
+        }
+
         var builder = WebApplication.CreateBuilder(args);
         builder.Services.AddDistributedMemoryCache();
         builder.Services.AddSession();

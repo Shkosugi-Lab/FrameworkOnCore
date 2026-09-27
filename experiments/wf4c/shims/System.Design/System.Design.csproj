@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- .NET Framework 4's System.Design.dll, the designer types of Web Forms (System.Web.UI.Design): .NET has
+       none. Controls name their designers in attributes ([Designer(typeof(ControlDesigner))]; DNN's
+       DotNetNuke.WebControls), and the runtime reads the attributes (the page compiler,
+       TypeDescriptor.GetAttributes): the types have to load, their members are never used in a site.
+       Designers.cs is generated from .NET Framework 4.8's System.Design (generate.ps1). -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <AssemblyName>System.Design</AssemblyName>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+    <Nullable>disable</Nullable>
+    <NoWarn>$(NoWarn);CS0108;CS0114;CS1591</NoWarn>
+  </PropertyGroup>
+</Project>

@@ -26,18 +26,71 @@ public sealed class BuildFixer(Report report, IReadOnlyCollection<ConvertedProje
     static readonly Regex otherError = new(@"error (?<code>\w+): (?<msg>.*?)(?: \[(?<proj>[^\]]+)\])?$", RegexOptions.Compiled);
     static readonly Regex ambiguous = new(@"'(?<name>[^']+)' is an ambiguous reference between '(?<a>[^']+)' and '(?<b>[^']+)'", RegexOptions.Compiled);
 
+    static readonly Regex ambiguousCall = new(@"'(?<type>[\w.]+?)\.(?<method>\w+)(?:<[^>']*>)?\(", RegexOptions.Compiled);
+
     readonly Dictionary<string, int> attempts = new();
 
     // .NET's obsoletions (SYSLIB): members that are there but throw PlatformNotSupportedException, or will
     // go (Thread.Abort, AppDomain.CreateDomain). They compile; the calls fail at run time: reported.
-    static readonly Regex obsoletion = new(@"^(?<file>.+?)\((?<line>\d+),\d+\): warning (?<code>SYSLIB\d+): (?<msg>.*?)(?: \[[^\]]+\])?$", RegexOptions.Compiled);
+    static readonly Regex obsoletion = new(@"^(?<file>.+?)\((?<line>\d+),(?<col>\d+)\): warning (?<code>SYSLIB\d+): (?<msg>.*?)(?: \[[^\]]+\])?$", RegexOptions.Compiled);
     readonly Dictionary<string, string> obsoletions = new();
+    // SYSLIB0007: the parameterless Create of the cryptography base classes, which returned the
+    // .NET Framework default algorithm (CryptoConfig) and throws on .NET. Where the compiler says.
+    readonly HashSet<(string File, int Line, int Column)> defaultAlgorithms = new();
 
     public bool Run(string webProject, int maxRounds = 60)
     {
         var result = RunRounds(webProject, maxRounds);
+        // A type's own member is found before an extension member: these calls are rewritten.
+        if (result && defaultAlgorithms.Count > 0 && RewriteDefaultAlgorithms())
+        {
+            obsoletions.Clear();
+            result = RunRounds(webProject, maxRounds);
+        }
         foreach (var (key, message) in obsoletions) report.Add(Report.Kind.Unsupported, key, message);
         return result;
+    }
+
+    // The algorithm each Create() returned on .NET Framework (machine.config's CryptoConfig defaults).
+    static readonly Dictionary<string, string> frameworkDefaultAlgorithm = new()
+    {
+        ["HashAlgorithm"] = "System.Security.Cryptography.SHA1.Create()",
+        ["KeyedHashAlgorithm"] = "new System.Security.Cryptography.HMACSHA1()",
+        ["HMAC"] = "new System.Security.Cryptography.HMACSHA1()",
+        // Rijndael with its default 128-bit block: AES.
+        ["SymmetricAlgorithm"] = "System.Security.Cryptography.Aes.Create()",
+        ["AsymmetricAlgorithm"] = "System.Security.Cryptography.RSA.Create()",
+    };
+
+    bool RewriteDefaultAlgorithms()
+    {
+        var changed = false;
+        foreach (var file in defaultAlgorithms.GroupBy(d => d.File, StringComparer.OrdinalIgnoreCase))
+        {
+            if (!File.Exists(file.Key)) continue;
+            var text = SourceText.From(File.ReadAllText(file.Key));
+            var root = CSharpSyntaxTree.ParseText(text).GetRoot();
+            var targets = new Dictionary<InvocationExpressionSyntax, string>();
+            foreach (var (_, line, column) in file)
+            {
+                if (line - 1 >= text.Lines.Count) continue;
+                var position = text.Lines[line - 1].Start + column - 1;
+                var invocation = root.FindToken(position).Parent?.AncestorsAndSelf().OfType<InvocationExpressionSyntax>()
+                    .FirstOrDefault(i => i.ArgumentList.Arguments.Count == 0 && i.Expression is MemberAccessExpressionSyntax { Name.Identifier.Text: "Create" });
+                if (invocation == null) continue;
+                var type = ((MemberAccessExpressionSyntax)invocation.Expression).Expression.ToString().Split('.').Last();
+                if (frameworkDefaultAlgorithm.TryGetValue(type, out var replacement)) targets[invocation] = replacement;
+            }
+            if (targets.Count == 0) continue;
+            var rewritten = root.ReplaceNodes(targets.Keys, (original, _) => ParseExpression(targets[original]).WithTriviaFrom(original));
+            File.WriteAllText(file.Key, rewritten.ToFullString(), new UTF8Encoding(true));
+            foreach (var (invocation, replacement) in targets)
+                report.Add(Report.Kind.Stub, $"{Relative(file.Key)}:{text.Lines.GetLineFromPosition(invocation.SpanStart).LineNumber + 1}",
+                    $"{invocation} -> {replacement} (SYSLIB0007: the .NET Framework default algorithm; .NET throws)");
+            changed = true;
+        }
+        defaultAlgorithms.Clear();
+        return changed;
     }
 
     bool RunRounds(string webProject, int maxRounds)
@@ -101,6 +154,8 @@ public sealed class BuildFixer(Report report, IReadOnlyCollection<ConvertedProje
         foreach (var line in output.Split('\n').Select(l => l.TrimEnd('\r')))
         {
             var o = obsoletion.Match(line);
+            if (o.Success && o.Groups["code"].Value == "SYSLIB0007")
+                defaultAlgorithms.Add((o.Groups["file"].Value.Trim(), int.Parse(o.Groups["line"].Value), int.Parse(o.Groups["col"].Value)));
             if (o.Success) obsoletions[$"{Relative(o.Groups["file"].Value.Trim())}:{o.Groups["line"].Value}"] = $"{o.Groups["code"].Value} (throws or goes at run time): {o.Groups["msg"].Value}";
             var m = sourceError.Match(line);
             if (m.Success)
@@ -144,7 +199,7 @@ public sealed class BuildFixer(Report report, IReadOnlyCollection<ConvertedProje
 
     // ------------------------------------------------------------------------------------------
 
-    enum Action { Alias, RemoveNode, RemoveOverride, StubBody, RemoveInitializer, ExcludeFile }
+    enum Action { Alias, RemoveNode, RemoveOverride, StubBody, RemoveInitializer, ExcludeFile, ExplicitExtension }
 
     sealed record Fix_(Action Action, SyntaxNode Node, string Reason, string? Alias = null);
 
@@ -217,6 +272,15 @@ public sealed class BuildFixer(Report report, IReadOnlyCollection<ConvertedProje
                     });
                     report.Add(Report.Kind.Stub, subject, $"initializer removed ({fix.Reason})");
                     break;
+                case Action.ExplicitExtension:
+                    var call = (InvocationExpressionSyntax)node;
+                    var access = (MemberAccessExpressionSyntax)call.Expression;
+                    newRoot = newRoot.ReplaceNode(node, InvocationExpression(
+                            MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, ParseExpression("global::" + fix.Alias), access.Name.WithoutTrivia()),
+                            ArgumentList(call.ArgumentList.Arguments.Insert(0, Argument(access.Expression.WithoutTrivia()))))
+                        .WithTriviaFrom(call));
+                    report.Add(Report.Kind.Stub, subject, $"the application's {fix.Alias}.{access.Name} called explicitly ({fix.Reason})");
+                    break;
             }
         }
 
@@ -241,6 +305,21 @@ public sealed class BuildFixer(Report report, IReadOnlyCollection<ConvertedProje
             var candidates = new[] { m.Groups["a"].Value, m.Groups["b"].Value };
             var chosen = candidates.FirstOrDefault(c => !c.StartsWith("System.", StringComparison.Ordinal) && !c.StartsWith("Microsoft.", StringComparison.Ordinal));
             if (chosen != null) return new Fix_(Action.Alias, node, reason, $"{m.Groups["name"].Value} = global::{chosen}");
+        }
+        // A call ambiguous between the application's extension method and one .NET added
+        // (CollectionExtensions.GetValueOrDefault): the application's, called as a static method, as
+        // .NET Framework bound it.
+        if (error.Code == "CS0121")
+        {
+            var candidates = ambiguousCall.Matches(error.Message).Select(c => (Type: c.Groups["type"].Value, Method: c.Groups["method"].Value)).ToList();
+            var framework = candidates.Where(c => c.Type.StartsWith("System.", StringComparison.Ordinal) || c.Type.StartsWith("Microsoft.", StringComparison.Ordinal)).ToList();
+            var own = candidates.Except(framework).ToList();
+            if (candidates.Count == 2 && framework.Count == 1 && own.Count == 1 &&
+                node.AncestorsAndSelf().OfType<InvocationExpressionSyntax>().FirstOrDefault(i =>
+                    i.Expression is MemberAccessExpressionSyntax a && a.Name.Identifier.Text == own[0].Method) is { } invocation)
+            {
+                return new Fix_(Action.ExplicitExtension, invocation, reason, own[0].Type);
+            }
         }
         if (node.AncestorsAndSelf().OfType<UsingDirectiveSyntax>().FirstOrDefault() is { } usingDirective) return new Fix_(Action.RemoveNode, usingDirective, reason);
         if (node.AncestorsAndSelf().OfType<AttributeSyntax>().FirstOrDefault() is { } attribute)

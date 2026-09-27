@@ -71,6 +71,11 @@
     { "pattern": "\\bConfigurationManager\\b", "id": "WebFormsForCore.Configuration", "version": "$fork" }
   ],
 
+  "$comment_frameworkAssets": "Packages whose .NET asset has another API than the .NET Framework one the site ran: that one is referenced (restored, not compiled against). The DLL in the package, and why.",
+  "frameworkAssets": {
+    "PetaPoco.Compiled": { "asset": "lib/net45/PetaPoco.dll", "note": "net45 has Database(string connectionStringName), which reads the configuration; netstandard2.0 does not" }
+  },
+
   "$comment_sourceNotes": "What the sources do that behaves differently on .NET (reported).",
   "sourceNotes": [
     { "pattern": "\\|DataDirectory\\|", "note": "a connection string built with |DataDirectory| (AttachDBFilename) in code is rejected by .NET's System.Data.SqlClient (from web.config the runtime expands it); attached database files (LocalDB, SQL Server Express user instances) are Windows only: use a database server" }

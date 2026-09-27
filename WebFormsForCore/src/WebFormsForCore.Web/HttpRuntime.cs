@@ -1425,6 +1425,38 @@ namespace System.Web
             _enableHeaderChecking = runtimeConfig.EnableHeaderChecking;
         }
 
+#if !NETFRAMEWORK
+        // The auto-generated machine keys (<machineKey ... AutoGenerate>) are kept, as ASP.NET keeps them per
+        // worker process identity (in the registry): the same after the application restarts, so that
+        // what a page gave out before (view state, forms authentication tickets) is still valid - a
+        // restart comes with a change of web.config or bin (installers), in the middle of a form. Here per
+        // user, in the local application data (~/.local/share on Linux), readable by that user only;
+        // written the first time. (A container gets new ones when it is replaced: give <machineKey> keys
+        // for that, as for a web farm.)
+        private static bool GetStoredAutogenKeys(byte[] random, byte[] stored) {
+            try {
+                var directory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData, Environment.SpecialFolderOption.Create), "WebFormsForCore");
+                var file = Path.Combine(directory, "AutogenKeys");
+                if (!File.Exists(file)) {
+                    Directory.CreateDirectory(directory);
+                    var options = new FileStreamOptions { Mode = FileMode.CreateNew, Access = FileAccess.Write };
+                    if (!OperatingSystem.IsWindows()) options.UnixCreateMode = UnixFileMode.UserRead | UnixFileMode.UserWrite;
+                    using (var stream = new FileStream(file, options)) stream.Write(random, 0, random.Length);
+                }
+                var keys = File.ReadAllBytes(file);
+                if (keys.Length != stored.Length) return false;
+                Buffer.BlockCopy(keys, 0, stored, 0, stored.Length);
+                return true;
+            }
+            catch (IOException) {
+                return false;
+            }
+            catch (UnauthorizedAccessException) {
+                return false;
+            }
+        }
+#endif
+
         private static void SetAutogenKeys() {
 #if !FEATURE_PAL // FEATURE_PAL does not enable cryptography
             byte[] bKeysRandom = new byte[s_autogenKeys.Length];
@@ -1440,6 +1472,8 @@ namespace System.Web
             if (!fGetStoredKeys)
                 fGetStoredKeys = (UnsafeNativeMethods.EcbCallISAPI(IntPtr.Zero, UnsafeNativeMethods.CallISAPIFunc.GetAutogenKeys,
                                                                    bKeysRandom, bKeysRandom.Length, bKeysStored, bKeysStored.Length) == 1);
+#else
+            fGetStoredKeys = GetStoredAutogenKeys(bKeysRandom, bKeysStored);
 #endif
             // If we managed to get stored keys, copy them in; else use random keys
             if (fGetStoredKeys)

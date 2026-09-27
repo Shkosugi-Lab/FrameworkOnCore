@@ -47,13 +47,15 @@ if ($Database) {
     docker exec w2l-sql /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P $sqlPassword -C -b -Q "IF DB_ID('$Database') IS NOT NULL BEGIN ALTER DATABASE [$Database] SET SINGLE_USER WITH ROLLBACK IMMEDIATE; DROP DATABASE [$Database] END; CREATE DATABASE [$Database]" | Out-Null
 }
 
-# web.config: every connection string to a local SQL Server, anywhere in it (connectionStrings, appSettings).
-$webConfigFile = Get-ChildItem $siteDirectory -Filter 'web.config' | Select-Object -First 1
-$text = [IO.File]::ReadAllText($webConfigFile.FullName)
+# The site's .config files (web.config, and those it includes: mojoPortal's user.config): every connection
+# string to a local SQL Server, anywhere in them (connectionStrings, appSettings).
 $new = "Data Source=w2l-sql;Initial Catalog=$Database;User ID=sa;Password=$sqlPassword;TrustServerCertificate=True"
-$text = [regex]::Replace($text, '(?<=(connectionString|value)=")[^"]*(Data Source|Server)=(\.|\(local\)|localhost|\(LocalDB\))[^"]*(?=")', $new, 'IgnoreCase')
-if ($ShowErrors) { $text = [regex]::Replace($text, '<customErrors\s+mode="[^"]*"', '<customErrors mode="Off"') }
-[IO.File]::WriteAllText((Join-Path $overlay $webConfigFile.Name), $text, (New-Object Text.UTF8Encoding $false))
+foreach ($configFile in Get-ChildItem $siteDirectory -Filter '*.config' -File) {
+    $text = [IO.File]::ReadAllText($configFile.FullName)
+    $changed = [regex]::Replace($text, '(?<=(connectionString|value)=")[^"]*(Data Source|Server)=(\.|\(local\)|localhost|\(LocalDB\))[^"]*(?=")', $new, 'IgnoreCase')
+    if ($ShowErrors -and $configFile.Name -eq 'web.config') { $changed = [regex]::Replace($changed, '<customErrors\s+mode="[^"]*"', '<customErrors mode="Off"') }
+    if ($changed -ne $text) { [IO.File]::WriteAllText((Join-Path $overlay $configFile.Name), $changed, (New-Object Text.UTF8Encoding $false)) }
+}
 
 $script = @"
 set -e

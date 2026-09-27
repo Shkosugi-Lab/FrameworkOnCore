@@ -50,8 +50,38 @@ namespace System.Configuration {
 
         protected internal override object GetRuntimeObject() {
             SetReadOnly();
+#if !NETFRAMEWORK
+            return WithEnvironment(this.InternalSettings);
+#else
             return this.InternalSettings;            // return the read only object
+#endif
         }
+
+#if !NETFRAMEWORK
+        // The deployment's settings from the environment, as Azure App Service gives them to .NET
+        // Framework applications: APPSETTING_<key> sets appSettings' <key> (and adds it if absent). A
+        // container (-e) or a systemd unit (Environment=) sets them; web.config stays as it is. The
+        // application gets a read-only copy with them (the configuration's elements are read-only).
+        internal const string EnvironmentPrefix = "APPSETTING_";
+
+        static NameValueCollection WithEnvironment(NameValueCollection settings) {
+            SettingsWithEnvironment copy = null;
+            foreach (System.Collections.DictionaryEntry variable in Environment.GetEnvironmentVariables()) {
+                var name = (string)variable.Key;
+                if (!name.StartsWith(EnvironmentPrefix, StringComparison.OrdinalIgnoreCase) || name.Length == EnvironmentPrefix.Length) continue;
+                copy ??= new SettingsWithEnvironment(settings);
+                copy[name.Substring(EnvironmentPrefix.Length)] = (string)variable.Value;
+            }
+            if (copy == null) return settings;
+            copy.Seal();
+            return copy;
+        }
+
+        sealed class SettingsWithEnvironment : NameValueCollection {
+            internal SettingsWithEnvironment(NameValueCollection settings) : base(settings) { }
+            internal void Seal() => IsReadOnly = true;
+        }
+#endif
 
         internal NameValueCollection InternalSettings {
             get {

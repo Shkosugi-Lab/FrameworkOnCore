@@ -76,7 +76,7 @@ namespace System.Configuration {
 #if NETFRAMEWORK
                 return (string)base[_propConnectionString];
 #else
-                return ExpandDataDirectory((string)base[_propConnectionString]);
+                return ExpandDataDirectory(FromEnvironment(Name) ?? (string)base[_propConnectionString]);
 #endif
             }
             set {
@@ -92,6 +92,21 @@ namespace System.Configuration {
         // application reads are expanded here, as the provider would have. The configuration file keeps
         // the token (the stored value is not changed).
         const string DataDirectoryToken = "|DataDirectory|";
+
+        // The deployment's connection string from the environment, as Azure App Service gives them to
+        // .NET Framework applications: SQLCONNSTR_<name> (and the other providers' prefixes) replaces
+        // connectionStrings' <name>. A container (-e) or a systemd unit (Environment=) sets them.
+        static readonly string[] EnvironmentPrefixes = {
+            "SQLCONNSTR_", "SQLAZURECONNSTR_", "MYSQLCONNSTR_", "POSTGRESQLCONNSTR_", "CUSTOMCONNSTR_" };
+
+        static string FromEnvironment(string name) {
+            if (string.IsNullOrEmpty(name)) return null;
+            foreach (var prefix in EnvironmentPrefixes) {
+                var value = Environment.GetEnvironmentVariable(prefix + name);
+                if (value != null) return value;
+            }
+            return null;
+        }
 
         static string ExpandDataDirectory(string connectionString) {
             if (connectionString == null || connectionString.IndexOf(DataDirectoryToken, StringComparison.OrdinalIgnoreCase) < 0)

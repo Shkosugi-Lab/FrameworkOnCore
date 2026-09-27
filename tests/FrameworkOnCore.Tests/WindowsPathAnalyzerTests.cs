@@ -66,7 +66,7 @@ public class WindowsPathAnalyzerTests
     public void A_trim_before_a_combine_is_found()
     {
         var found = Find("string F(string root, string filename) => Path.Combine(root, filename.TrimStart('\\\\', '/'));");
-        Assert.Contains(("FOC1003", "TrimStart"), found);
+        Assert.Contains(("FOC1003", "filename.TrimStart('\\\\', '/')"), found);
     }
 
     [Fact]

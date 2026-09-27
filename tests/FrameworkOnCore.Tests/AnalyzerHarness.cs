@@ -38,8 +38,11 @@ static class AnalyzerHarness
         var compilation = Compile(source);
         var options = new AnalyzerOptions(ImmutableArray<AdditionalText>.Empty, new Options(new Dictionary<string, string>()));
         return compilation.WithAnalyzers(ImmutableArray.Create(analyzer), options).GetAnalyzerDiagnosticsAsync().GetAwaiter().GetResult()
-            .Select(d => (d.Id, d.Location.SourceTree!.GetText().ToString(d.Location.SourceSpan), d.GetMessage())).ToList();
+            .Select(d => (d.Id, d.Location.SourceTree!.GetText().ToString(d.Location.SourceSpan), WithoutTail(d.GetMessage()))).ToList();
     }
+
+    /// <summary>The message without the place the analyzers add for the converter (" [len=12,char]").</summary>
+    public static string WithoutTail(string message) => System.Text.RegularExpressions.Regex.Replace(message, @" \[len=\d+(,\w+)?\]", "");
 
     sealed class Options(IDictionary<string, string> properties) : AnalyzerConfigOptionsProvider
     {

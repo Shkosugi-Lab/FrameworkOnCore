@@ -3,11 +3,9 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using System.Text.RegularExpressions;
-using System.Threading;
 using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CSharp;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
+using Microsoft.CodeAnalysis.Operations;
 
 namespace FrameworkOnCore.Analyzers;
 
@@ -15,7 +13,7 @@ namespace FrameworkOnCore.Analyzers;
 /// Literals with Windows' path separator where they are paths, which Linux does not read as separators:
 /// AppDomain.CurrentDomain.BaseDirectory + "bin\\" (N2), Globals.ApplicationMapPath + "\\web.config",
 /// baseDirectory.IndexOf("\\bin\\"), path.Replace('/', '\\') (DNN). A literal is a path by where it goes, as
-/// the compiler binds it:
+/// the compiler binds it (its operations: the same for C# and Visual Basic):
 /// - an argument of a file API's path parameter (File, Directory, Path, FileStream, XmlDocument.Load: a
 ///   .NET method's parameter named path, fileName, ...);
 /// - joined to a path (a member or local named as one: ...Path, ...Folder, ...Directory; MapPath(), Path.*());
@@ -28,8 +26,9 @@ namespace FrameworkOnCore.Analyzers;
 /// FOC1002 those in constants, which a call cannot wrap (made static readonly where they can be).
 /// FOC1003: separators trimmed off a path joined to a folder next (an absolute path keeps its root).
 /// FOC1004: a path from data (manifests, the database) passed to a file API (WindowsPath.Native at the argument).
+/// Every message ends with the node's place for the converter (Located.Tail).
 /// </summary>
-[DiagnosticAnalyzer(LanguageNames.CSharp)]
+[DiagnosticAnalyzer(LanguageNames.CSharp, LanguageNames.VisualBasic)]
 public sealed class WindowsPathAnalyzer : DiagnosticAnalyzer
 {
     public const string RewriteId = "FOC1001";
@@ -87,21 +86,14 @@ public sealed class WindowsPathAnalyzer : DiagnosticAnalyzer
             var options = start.Options.AnalyzerConfigOptionsProvider.GlobalOptions;
             // Projects built for .NET too (netstandard, netcoreapp): their code runs on Linux as it is, and what it does
             // with Windows' separators is meant. Nothing here for them.
-            if (Names(options, "FrameworkOnCoreCrossPlatformAssemblies").Contains(start.Compilation.AssemblyName ?? "")) return;
-            start.RegisterSyntaxNodeAction(Analyze, SyntaxKind.StringLiteralExpression, SyntaxKind.CharacterLiteralExpression, SyntaxKind.InterpolatedStringExpression);
-            start.RegisterSyntaxNodeAction(AnalyzeTrim, SyntaxKind.InvocationExpression);
+            if (Located.Names(options, "FrameworkOnCoreCrossPlatformAssemblies").Contains(start.Compilation.AssemblyName ?? "")) return;
+            start.RegisterOperationAction(Analyze, OperationKind.Literal, OperationKind.InterpolatedString);
+            start.RegisterOperationAction(AnalyzeTrim, OperationKind.Invocation);
             // The application's assemblies (its other projects), which the converter gives the build: their methods are
             // not file APIs (they call those, which are wrapped there).
-            var application = Names(options, "FrameworkOnCoreApplicationAssemblies");
-            start.RegisterSyntaxNodeAction(c => AnalyzeDataPaths(c, application), SyntaxKind.InvocationExpression, SyntaxKind.ObjectCreationExpression, SyntaxKind.ImplicitObjectCreationExpression);
+            var application = Located.Names(options, "FrameworkOnCoreApplicationAssemblies");
+            start.RegisterOperationAction(c => AnalyzeDataPaths(c, application), OperationKind.Invocation, OperationKind.ObjectCreation);
         });
-    }
-
-    // A list of assembly names the converter passes as an MSBuild property (CompilerVisibleProperty).
-    static HashSet<string> Names(AnalyzerConfigOptions options, string property)
-    {
-        options.TryGetValue("build_property." + property, out var names);
-        return new HashSet<string>((names ?? "").Split(new[] { ';', ',' }, StringSplitOptions.RemoveEmptyEntries).Select(n => n.Trim()), StringComparer.OrdinalIgnoreCase);
     }
 
     // A path argument of a file API (.NET's method, a parameter named path, fileName, ...) whose value comes from data:
@@ -109,114 +101,150 @@ public sealed class WindowsPathAnalyzer : DiagnosticAnalyzer
     // platform's; on Linux they are part of a name. FOC1004 at the argument: WindowsPath.Native(argument), as Mono's
     // IOMAP made them separators on the way to the file system. Not: literals (FOC1001), constants without a
     // backslash, what is already wrapped, and paths .NET gives (Path.*, MapPath, BaseDirectory, FileInfo.FullName).
-    static void AnalyzeDataPaths(SyntaxNodeAnalysisContext context, HashSet<string> application)
+    static void AnalyzeDataPaths(OperationAnalysisContext context, HashSet<string> application)
     {
-        var call = (ExpressionSyntax)context.Node;
-        var list = call switch
+        var (method, arguments) = context.Operation switch
         {
-            InvocationExpressionSyntax invocation => invocation.ArgumentList,
-            BaseObjectCreationExpressionSyntax creation => creation.ArgumentList,
-            _ => null,
+            IInvocationOperation invocation => (invocation.TargetMethod, invocation.Arguments),
+            IObjectCreationOperation { Constructor: { } constructor } creation => (constructor, creation.Arguments),
+            _ => (null, ImmutableArray<IArgumentOperation>.Empty),
         };
-        if (list == null || list.Arguments.Count == 0) return;
-        var model = context.SemanticModel;
-        var ct = context.CancellationToken;
-        if (model.GetSymbolInfo(call, ct).Symbol is not IMethodSymbol method || method.Locations.Any(l => l.IsInSource)) return;
+        if (method == null || arguments.IsEmpty || method.Locations.Any(l => l.IsInSource)) return;
         // Not the application's own (its other projects), nor what takes a URL.
         if ((method.ContainingAssembly != null && application.Contains(method.ContainingAssembly.Name)) || method.ContainingNamespace?.ToDisplayString() == "FrameworkOnCore" ||
             urlMethods.Contains(method.Name) || method.ContainingType.Name == "VirtualPathUtility")
         {
             return;
         }
-        foreach (var argument in list.Arguments)
+        foreach (var argument in arguments)
         {
-            var parameter = ParameterOf(method, list, argument);
-            if (parameter == null || !pathParameters.Contains(parameter.Name)) continue;
-            var type = parameter.IsParams && parameter.Type is IArrayTypeSymbol array ? array.ElementType : parameter.Type;
-            if (type.SpecialType != SpecialType.System_String || !MayCarryWindowsSeparators(argument.Expression, model, ct)) continue;
-            context.ReportDiagnostic(Diagnostic.Create(Data, argument.Expression.GetLocation(), $"{method.ContainingType.Name}.{method.Name}({parameter.Name})"));
+            if (argument.ArgumentKind == ArgumentKind.DefaultValue || argument.Parameter is not { } parameter || !pathParameters.Contains(parameter.Name)) continue;
+            // A params array: its elements, as written.
+            var values = argument.ArgumentKind == ArgumentKind.ParamArray ? Elements(argument.Value).ToImmutableArray() : ImmutableArray.Create(argument.Value);
+            var type = parameter.IsParams ? parameter.Type switch
+            {
+                IArrayTypeSymbol array => array.ElementType,
+                INamedTypeSymbol { TypeArguments.Length: 1 } span => span.TypeArguments[0],
+                var other => other,
+            } : parameter.Type;
+            if (type.SpecialType != SpecialType.System_String) continue;
+            foreach (var value in values)
+            {
+                if (value.IsImplicit && value is not IConversionOperation || !MayCarryWindowsSeparators(value)) continue;
+                context.ReportDiagnostic(Located.Create(Data, value.Syntax, $"{method.ContainingType.Name}.{method.Name}({parameter.Name})"));
+            }
         }
     }
 
-    static bool MayCarryWindowsSeparators(ExpressionSyntax expression, SemanticModel model, CancellationToken ct)
+    static bool MayCarryWindowsSeparators(IOperation value)
     {
-        while (expression is ParenthesizedExpressionSyntax parenthesized) expression = parenthesized.Expression;
-        if (expression is LiteralExpressionSyntax || expression.IsKind(SyntaxKind.NullLiteralExpression)) return false;
-        var constant = model.GetConstantValue(expression, ct);
-        if (constant.HasValue) return constant.Value is string s && s.IndexOf('\\') >= 0;
-        var symbol = model.GetSymbolInfo(expression, ct).Symbol;
-        if (symbol is IMethodSymbol { ContainingNamespace: { } ns } && ns.ToDisplayString() == "FrameworkOnCore") return false;
-        if (symbol is IMethodSymbol { ContainingType: { } owner } && owner.ToDisplayString() == "System.IO.Path") return false;
-        if (symbol != null && !symbol.Locations.Any(l => l.IsInSource) && platformPaths.Contains(symbol.Name)) return false;
-        if (symbol is IPropertySymbol { Name: "FullName" or "DirectoryName" or "Name" } info && DerivesFrom(info.ContainingType, "System.IO.FileSystemInfo", "System.IO.FileInfo")) return false;
-        return true;
+        value = Unwrapped(value);
+        if (value is ILiteralOperation) return false;
+        if (value.ConstantValue.HasValue) return value.ConstantValue.Value is string s && s.IndexOf('\\') >= 0;
+        switch (value)
+        {
+            case IInvocationOperation { TargetMethod: var method }:
+                if (method.ContainingNamespace?.ToDisplayString() == "FrameworkOnCore" || method.ContainingType?.ToDisplayString() == "System.IO.Path") return false;
+                return !(!method.Locations.Any(l => l.IsInSource) && platformPaths.Contains(method.Name));
+            case IPropertyReferenceOperation { Property: var property }:
+                if (!property.Locations.Any(l => l.IsInSource) && platformPaths.Contains(property.Name)) return false;
+                return !(property.Name is "FullName" or "DirectoryName" or "Name" && DerivesFrom(property.ContainingType, "System.IO.FileSystemInfo", "System.IO.FileInfo"));
+            case IFieldReferenceOperation { Field: var field }:
+                return !(!field.Locations.Any(l => l.IsInSource) && platformPaths.Contains(field.Name));
+            default:
+                return true;
+        }
     }
 
     // Path.Combine(root, filename.TrimStart('\\', '/')) (DNN's Config.Save): a path starting with a separator is
     // taken as relative to the folder. On Windows an absolute path keeps its drive and Path.Combine returns it;
-    // on Linux the trim takes its root. FOC1003 at the method's name: WindowsPath.TrimStartRelative.
-    static void AnalyzeTrim(SyntaxNodeAnalysisContext context)
+    // on Linux the trim takes its root. FOC1003 at the call: WindowsPath.TrimStartRelative.
+    static void AnalyzeTrim(OperationAnalysisContext context)
     {
-        var invocation = (InvocationExpressionSyntax)context.Node;
-        if (invocation.Expression is not MemberAccessExpressionSyntax { Name.Identifier.Text: "TrimStart" or "Trim" } access) return;
-        if (invocation.ArgumentList.Arguments.Count == 0 || !invocation.ArgumentList.Arguments.All(a => IsSeparators(a.Expression, context.SemanticModel, context.CancellationToken))) return;
-        if (context.SemanticModel.GetSymbolInfo(invocation, context.CancellationToken).Symbol is not IMethodSymbol { ContainingType.SpecialType: SpecialType.System_String }) return;
-        SyntaxNode current = invocation;
-        while (current.Parent is ParenthesizedExpressionSyntax) current = current.Parent;
-        if (current.Parent is not ArgumentSyntax { Parent: ArgumentListSyntax { Parent: InvocationExpressionSyntax combine } list } argument || list.Arguments.IndexOf(argument) == 0) return;
-        if (context.SemanticModel.GetSymbolInfo(combine, context.CancellationToken).Symbol is not IMethodSymbol { Name: "Combine" or "Join", ContainingType: { } path } ||
-            path.ToDisplayString() != "System.IO.Path")
+        var invocation = (IInvocationOperation)context.Operation;
+        if (invocation.TargetMethod is not { Name: "TrimStart" or "Trim", ContainingType.SpecialType: SpecialType.System_String } method || invocation.Instance == null) return;
+        var separators = invocation.Arguments.Where(a => a.ArgumentKind != ArgumentKind.DefaultValue).SelectMany(a => Elements(a.Value)).ToList();
+        if (separators.Count == 0 || !separators.All(IsSeparator)) return;
+        // Up to the argument of Path.Combine (or Join) it is, not the first.
+        IOperation current = invocation;
+        var index = -1;
+        while (current.Parent is IParenthesizedOperation or IConversionOperation) current = current.Parent;
+        if (current.Parent is IArrayInitializerOperation initializer && initializer.Parent is IArrayCreationOperation { IsImplicit: true } implicitArray)
         {
-            return;
+            index = initializer.ElementValues.IndexOf(current);
+            current = implicitArray;
         }
-        context.ReportDiagnostic(Diagnostic.Create(Trim, access.Name.GetLocation(), $"{access.Expression}.{access.Name} in Path.{((IMethodSymbol)context.SemanticModel.GetSymbolInfo(combine, context.CancellationToken).Symbol!).Name}"));
+        else if (current.Parent is ICollectionExpressionOperation { IsImplicit: true } implicitSpan)
+        {
+            index = implicitSpan.Elements.IndexOf(current);
+            current = implicitSpan;
+        }
+        while (current.Parent is IConversionOperation) current = current.Parent;
+        if (current.Parent is not IArgumentOperation { Parameter: { } parameter, Parent: IInvocationOperation { TargetMethod: { Name: "Combine" or "Join", ContainingType: { } path } combine } }) return;
+        if (path.ToDisplayString() != "System.IO.Path" || (index < 0 ? parameter.Ordinal : index) == 0) return;
+        context.ReportDiagnostic(Located.Create(Trim, invocation.Syntax, $"{method.Name} in Path.{combine.Name}"));
     }
 
-    // '/', '\\', Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar, or an array of them.
-    static bool IsSeparators(ExpressionSyntax expression, SemanticModel model, CancellationToken ct)
+    // A value and, for an array, its elements.
+    // (params arrays; .NET 9's params spans are collection expressions: TrimStart('\\', '/'), Path.Combine of 5.)
+    static IEnumerable<IOperation> Elements(IOperation value)
     {
-        switch (expression)
+        value = Unwrapped(value);
+        return value switch
         {
-            case LiteralExpressionSyntax literal when literal.IsKind(SyntaxKind.CharacterLiteralExpression):
-                return literal.Token.ValueText is "/" or "\\";
-            case ArrayCreationExpressionSyntax { Initializer: { } initializer }:
-                return initializer.Expressions.All(e => IsSeparators(e, model, ct));
-            case ImplicitArrayCreationExpressionSyntax implicitArray:
-                return implicitArray.Initializer.Expressions.All(e => IsSeparators(e, model, ct));
-            default:
-                return model.GetSymbolInfo(expression, ct).Symbol is IFieldSymbol { Name: "DirectorySeparatorChar" or "AltDirectorySeparatorChar", ContainingType: { } type } &&
-                       type.ToDisplayString() == "System.IO.Path";
-        }
+            IArrayCreationOperation { Initializer: { } initializer } => initializer.ElementValues.Select(Unwrapped),
+            ICollectionExpressionOperation collection => collection.Elements.Select(Unwrapped),
+            _ => new[] { value },
+        };
     }
 
-    static void Analyze(SyntaxNodeAnalysisContext context)
+    // '/', '\\', Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar.
+    static bool IsSeparator(IOperation value)
     {
-        var node = (ExpressionSyntax)context.Node;
-        if (!IsWindowsPathLiteral(node)) return;
-        var model = context.SemanticModel;
-        var ct = context.CancellationToken;
+        value = Unwrapped(value);
+        if (value is ILiteralOperation { ConstantValue: { HasValue: true, Value: char c } }) return c is '/' or '\\';
+        return value is IFieldReferenceOperation { Field: { Name: "DirectorySeparatorChar" or "AltDirectorySeparatorChar", ContainingType: { } type } } &&
+               type.ToDisplayString() == "System.IO.Path";
+    }
+
+    static IOperation Unwrapped(IOperation value)
+    {
+        while (value is IParenthesizedOperation or IConversionOperation)
+            value = value is IParenthesizedOperation p ? p.Operand : ((IConversionOperation)value).Operand;
+        return value;
+    }
+
+    static void Analyze(OperationAnalysisContext context)
+    {
+        var node = context.Operation;
+        // The text of an interpolated string is its own operation (a literal): the string is analyzed as a whole.
+        if (node.Parent is IInterpolatedStringTextOperation) return;
+        if (!IsWindowsPathLiteral(node, out var isChar)) return;
 
         if (InConstant(node, out var constantName))
         {
             if (constantName != null && IsPathName(constantName))
-                context.ReportDiagnostic(Diagnostic.Create(Constant, node.GetLocation(), $"constant {constantName}"));
+                context.ReportDiagnostic(Located.Create(Constant, node.Syntax, $"constant {constantName}"));
             return;
         }
         // $"{folder}\\{name}": a path made from one.
-        var reason = node is InterpolatedStringExpressionSyntax && Pathish(node, model, 0, ct) is { } made ? $"made from {made}" : Flow(node, model, 0, ct);
-        if (reason != null) context.ReportDiagnostic(Diagnostic.Create(Rewrite, node.GetLocation(), reason));
+        var reason = node is IInterpolatedStringOperation && Pathish(node, 0) is { } made ? $"made from {made}" : Flow(node, 0);
+        if (reason != null) context.ReportDiagnostic(Located.Create(Rewrite, node.Syntax, reason, isChar ? "char" : null));
     }
 
-    static bool IsWindowsPathLiteral(ExpressionSyntax node)
+    static bool IsWindowsPathLiteral(IOperation node, out bool isChar)
     {
+        isChar = false;
         switch (node)
         {
-            case LiteralExpressionSyntax literal when literal.IsKind(SyntaxKind.CharacterLiteralExpression):
-                return literal.Token.ValueText == "\\";
-            case LiteralExpressionSyntax literal:
-                return IsPathShaped(literal.Token.ValueText);
-            case InterpolatedStringExpressionSyntax interpolated:
-                var value = string.Concat(interpolated.Contents.Select(c => c is InterpolatedStringTextSyntax t ? t.TextToken.ValueText : "{0}"));
+            case ILiteralOperation { ConstantValue: { HasValue: true, Value: char c } }:
+                isChar = true;
+                return c == '\\';
+            case ILiteralOperation { ConstantValue: { HasValue: true, Value: string s } }:
+                return IsPathShaped(s);
+            case IInterpolatedStringOperation interpolated:
+                var value = string.Concat(interpolated.Parts.Select(p =>
+                    p is IInterpolatedStringTextOperation { Text.ConstantValue: { HasValue: true, Value: string text } } ? text : "{0}"));
                 return IsPathShaped(value);
             default:
                 return false;
@@ -240,84 +268,94 @@ public sealed class WindowsPathAnalyzer : DiagnosticAnalyzer
         pathName.IsMatch(name) || name.EndsWith("File", StringComparison.Ordinal) || name.EndsWith("Files", StringComparison.Ordinal) || name.EndsWith("Dir", StringComparison.Ordinal) || name.EndsWith("Dirs", StringComparison.Ordinal) ||
         name.Equals("dir", StringComparison.OrdinalIgnoreCase) || (name.StartsWith("dir", StringComparison.OrdinalIgnoreCase) && name.Length > 3 && (char.IsUpper(name[3]) || name[3] == '_'));
 
-    static bool InConstant(SyntaxNode node, out string? name)
+    // Where only a constant can be: a constant's value (its name), an attribute's argument, a case label, a pattern,
+    // a parameter's default value.
+    static bool InConstant(IOperation node, out string? name)
     {
         name = null;
-        foreach (var ancestor in node.Ancestors())
+        for (var parent = node.Parent; parent != null; parent = parent.Parent)
         {
-            switch (ancestor)
+            switch (parent)
             {
-                case FieldDeclarationSyntax field when field.Modifiers.Any(SyntaxKind.ConstKeyword):
-                    name = field.Declaration.Variables.FirstOrDefault(v => v.Span.Contains(node.Span))?.Identifier.Text;
+                case IFieldInitializerOperation field:
+                    if (field.InitializedFields.FirstOrDefault(f => f.IsConst) is not { } constant) return false;
+                    name = constant.Name;
                     return true;
-                case LocalDeclarationStatementSyntax local when local.IsConst:
-                    name = local.Declaration.Variables.FirstOrDefault(v => v.Span.Contains(node.Span))?.Identifier.Text;
+                case IVariableDeclaratorOperation { Symbol.IsConst: true } local:
+                    name = local.Symbol.Name;
                     return true;
-                case AttributeArgumentSyntax or CaseSwitchLabelSyntax or ConstantPatternSyntax or ParameterSyntax:
+                case IParameterInitializerOperation or ICaseClauseOperation or IPatternOperation:
                     return true;
-                case StatementSyntax or MemberDeclarationSyntax:
-                    return false;
+                case IAttributeOperation:
+                    return true;
             }
         }
-        return false;
+        // An attribute's argument has no statement above it.
+        return node.Syntax.Ancestors().Any(a => a.GetType().Name is "AttributeArgumentSyntax" or "AttributeSyntax");
     }
 
     // Where the value goes, until it is a path (the reason) or is not (null).
-    static string? Flow(ExpressionSyntax start, SemanticModel model, int depth, CancellationToken ct)
+    static string? Flow(IOperation start, int depth)
     {
-        SyntaxNode current = start;
+        var current = start;
         for (var steps = 0; steps < 32; steps++)
         {
             if (current.Parent is not { } parent) return null;
             switch (parent)
             {
-                case ParenthesizedExpressionSyntax or CastExpressionSyntax:
+                case IParenthesizedOperation or IConversionOperation:
                     current = parent;
                     continue;
-                case ConditionalExpressionSyntax conditional when conditional.Condition != current:
+                case IConditionalOperation conditional when conditional.Condition != current:
                     current = parent;
                     continue;
-                case BinaryExpressionSyntax coalesce when coalesce.IsKind(SyntaxKind.CoalesceExpression):
+                case ICoalesceOperation:
                     current = parent;
                     continue;
-                case BinaryExpressionSyntax add when add.IsKind(SyntaxKind.AddExpression):
-                    if (Pathish(add.Left == current ? add.Right : add.Left, model, 0, ct) is { } joined) return $"joined to {joined}";
+                case IBinaryOperation { OperatorKind: BinaryOperatorKind.Add or BinaryOperatorKind.Concatenate } add:
+                    if (Pathish(add.LeftOperand == current ? add.RightOperand : add.LeftOperand, 0) is { } joined) return $"joined to {joined}";
                     current = parent;
                     continue;
-                case InterpolationSyntax { Parent: InterpolatedStringExpressionSyntax interpolated }:
-                    if (Pathish(interpolated, model, 0, ct) is { } inside) return $"joined to {inside}";
+                case IInterpolationOperation { Parent: IInterpolatedStringOperation interpolated }:
+                    if (Pathish(interpolated, 0) is { } inside) return $"joined to {inside}";
                     current = interpolated;
                     continue;
-                case InitializerExpressionSyntax { Parent: ArrayCreationExpressionSyntax or ImplicitArrayCreationExpressionSyntax } initializer:
-                    current = initializer.Parent!;
+                case IArrayInitializerOperation { Parent: IArrayCreationOperation creation }:
+                    current = creation;
                     continue;
-                case MemberAccessExpressionSyntax access when access.Expression == current && access.Parent is InvocationExpressionSyntax transformed &&
-                                                              stringTransforms.Contains(access.Name.Identifier.Text):
+                case ICollectionExpressionOperation:
+                    current = parent;
+                    continue;
+                case IInvocationOperation transformed when transformed.Instance == current && stringTransforms.Contains(transformed.TargetMethod.Name) &&
+                                                           transformed.TargetMethod.ContainingType.SpecialType == SpecialType.System_String:
                     current = transformed;
                     continue;
-                case ArgumentSyntax { Parent: BaseArgumentListSyntax { Parent: ExpressionSyntax call } list } argument:
-                    if (model.GetSymbolInfo(call, ct).Symbol is not IMethodSymbol method) return null;
-                    if (method.ContainingNamespace?.ToDisplayString() == "FrameworkOnCore") return null;
-                    var parameter = ParameterOf(method, list, argument);
-                    if (parameter == null) return null;
+                case IArgumentOperation { Parameter: { } parameter, Parent: { } call } argument:
+                    var method = call switch
+                    {
+                        IInvocationOperation i => i.TargetMethod,
+                        IObjectCreationOperation o => o.Constructor,
+                        _ => null,
+                    };
+                    if (method == null || method.ContainingNamespace?.ToDisplayString() == "FrameworkOnCore") return null;
                     var external = !method.Locations.Any(l => l.IsInSource);
                     if (external && pathParameters.Contains(parameter.Name)) return $"{method.ContainingType.Name}.{method.Name}({parameter.Name})";
                     if (method.ContainingType.SpecialType == SpecialType.System_String)
                     {
-                        if (HandlesBoth(method.Name, list, argument)) return null;
+                        if (call is not IInvocationOperation stringCall) return null;
+                        var arguments = stringCall.Arguments;
+                        if (HandlesBoth(method.Name, arguments, argument)) return null;
                         if (method.IsStatic)
                         {
                             if (method.Name is not ("Concat" or "Format" or "Join")) return null;
-                            foreach (var other in list.Arguments.Where(a => a != argument))
-                                if (Pathish(other.Expression, model, 0, ct) is { } with) return $"joined to {with}";
+                            // The other values (a params array's elements each), not the one the literal is in.
+                            foreach (var other in arguments.Where(a => a.ArgumentKind != ArgumentKind.DefaultValue).SelectMany(a => Elements(a.Value)))
+                                if (!other.Syntax.Span.Contains(start.Syntax.Span) && Pathish(other, 0) is { } with) return $"joined to {with}";
                             current = call;
                             continue;
                         }
-                        if (call is InvocationExpressionSyntax { Expression: MemberAccessExpressionSyntax receiver } &&
-                            stringQueries.Contains(method.Name) && Pathish(receiver.Expression, model, 0, ct) is { } searched)
-                        {
+                        if (stringCall.Instance is { } receiver && stringQueries.Contains(method.Name) && Pathish(receiver, 0) is { } searched)
                             return $"{method.Name} on {searched}";
-                        }
                         if (!stringTransforms.Contains(method.Name)) return null;
                         current = call;
                         continue;
@@ -325,23 +363,19 @@ public sealed class WindowsPathAnalyzer : DiagnosticAnalyzer
                     // The application's own method, passing it on as a path.
                     if (!external && IsPathName(parameter.Name)) return $"parameter {parameter.Name}";
                     return null;
-                case EqualsValueClauseSyntax { Parent: VariableDeclaratorSyntax declarator }:
-                    return Stored(model.GetDeclaredSymbol(declarator, ct), parent, model, depth, ct);
-                case EqualsValueClauseSyntax { Parent: PropertyDeclarationSyntax property }:
-                    return IsPathName(property.Identifier.Text) ? $"property {property.Identifier.Text}" : null;
-                case AssignmentExpressionSyntax assignment when assignment.Right == current &&
-                                                                (assignment.IsKind(SyntaxKind.SimpleAssignmentExpression) || assignment.IsKind(SyntaxKind.AddAssignmentExpression)):
-                    if (assignment.IsKind(SyntaxKind.AddAssignmentExpression) && Pathish(assignment.Left, model, 0, ct) is { } appended) return $"joined to {appended}";
-                    return Stored(model.GetSymbolInfo(assignment.Left, ct).Symbol, assignment, model, depth, ct);
-                case ReturnStatementSyntax or ArrowExpressionClauseSyntax:
-                    var member = parent.Ancestors().FirstOrDefault(a => a is MethodDeclarationSyntax or PropertyDeclarationSyntax or LocalFunctionStatementSyntax);
-                    var name = member switch
-                    {
-                        MethodDeclarationSyntax m => m.Identifier.Text,
-                        PropertyDeclarationSyntax p => p.Identifier.Text,
-                        LocalFunctionStatementSyntax f => f.Identifier.Text,
-                        _ => null,
-                    };
+                case IVariableInitializerOperation { Parent: IVariableDeclaratorOperation declarator }:
+                    return Stored(declarator.Symbol, parent, depth);
+                case IFieldInitializerOperation field:
+                    return field.InitializedFields.Select(f => Stored(f, parent, depth)).FirstOrDefault(r => r != null);
+                case IPropertyInitializerOperation property:
+                    return property.InitializedProperties.FirstOrDefault(p => IsPathName(p.Name)) is { } named ? $"property {named.Name}" : null;
+                case ISimpleAssignmentOperation assignment when assignment.Value == current:
+                    return Stored(Referenced(assignment.Target), assignment, depth);
+                case ICompoundAssignmentOperation { OperatorKind: BinaryOperatorKind.Add or BinaryOperatorKind.Concatenate } appending when appending.Value == current:
+                    if (Pathish(appending.Target, 0) is { } appended) return $"joined to {appended}";
+                    return Stored(Referenced(appending.Target), appending, depth);
+                case IReturnOperation:
+                    var name = ReturningMember(parent);
                     return name != null && IsPathName(name) ? $"returned as {name}" : null;
                 default:
                     return null;
@@ -350,94 +384,106 @@ public sealed class WindowsPathAnalyzer : DiagnosticAnalyzer
         return null;
     }
 
+    // The member a return is in (a method, a property's accessor: the property, a local function).
+    static string? ReturningMember(IOperation operation)
+    {
+        var symbol = operation.SemanticModel?.GetEnclosingSymbol(operation.Syntax.SpanStart);
+        // A lambda's return: the member it is written in.
+        while (symbol is IMethodSymbol { MethodKind: MethodKind.AnonymousFunction }) symbol = symbol.ContainingSymbol;
+        return symbol switch
+        {
+            IMethodSymbol { AssociatedSymbol: IPropertySymbol property } => property.Name,
+            IMethodSymbol method => method.Name,
+            _ => null,
+        };
+    }
+
+    static ISymbol? Referenced(IOperation target) => target switch
+    {
+        ILocalReferenceOperation l => l.Local,
+        IFieldReferenceOperation f => f.Field,
+        IPropertyReferenceOperation p => p.Property,
+        IParameterReferenceOperation p => p.Parameter,
+        _ => null,
+    };
+
     // Code that handles both separators: Replace('\\', '/'), TrimEnd('/', '\\'), Split(new[] { '/', '\\' }).
     // Only the call's own arguments (and an array of them) count: string.Format("{0}\\{1}\\", root, dir.Replace("/", "\\"))
     // has a "/" further in, and is a Windows path all the same (DNN's PortalInfo.HomeDirectoryMapPath).
-    static bool HandlesBoth(string method, BaseArgumentListSyntax list, ArgumentSyntax argument)
+    static bool HandlesBoth(string method, ImmutableArray<IArgumentOperation> arguments, IArgumentOperation argument)
     {
-        if (method == "Replace") return list.Arguments.IndexOf(argument) == 0;
+        if (method == "Replace") return argument.Parameter?.Ordinal == 0;
         if (method is not ("Trim" or "TrimStart" or "TrimEnd" or "Split" or "IndexOfAny" or "LastIndexOfAny")) return false;
-        return list.Arguments.SelectMany(a => a.Expression switch
-            {
-                ArrayCreationExpressionSyntax { Initializer: { } i } => i.Expressions,
-                ImplicitArrayCreationExpressionSyntax i => i.Initializer.Expressions,
-                var e => (IEnumerable<ExpressionSyntax>)new[] { e },
-            })
-            .OfType<LiteralExpressionSyntax>().Any(l => l.Token.ValueText == "/");
-    }
-
-    static IParameterSymbol? ParameterOf(IMethodSymbol method, BaseArgumentListSyntax list, ArgumentSyntax argument)
-    {
-        if (argument.NameColon != null) return method.Parameters.FirstOrDefault(p => p.Name == argument.NameColon.Name.Identifier.Text);
-        var index = list.Arguments.IndexOf(argument);
-        if (index < method.Parameters.Length) return method.Parameters[index];
-        return method.Parameters.Length > 0 && method.Parameters[method.Parameters.Length - 1].IsParams ? method.Parameters[method.Parameters.Length - 1] : null;
+        return arguments.SelectMany(a => Elements(a.Value)).Any(v => v is ILiteralOperation { ConstantValue: { HasValue: true, Value: var c } } && (c as string == "/" || c is '/'));
     }
 
     // Stored in a symbol: a path if it is named as one; a local, if it goes on to be one.
-    static string? Stored(ISymbol? symbol, SyntaxNode at, SemanticModel model, int depth, CancellationToken ct)
+    static string? Stored(ISymbol? symbol, IOperation at, int depth)
     {
         if (symbol == null) return null;
         if (IsPathName(symbol.Name)) return $"stored in {symbol.Name}";
         if (symbol is not ILocalSymbol local || depth >= 2) return null;
-        var body = at.Ancestors().FirstOrDefault(a => a is BaseMethodDeclarationSyntax or AccessorDeclarationSyntax or LocalFunctionStatementSyntax or AnonymousFunctionExpressionSyntax);
-        if (body == null) return null;
-        foreach (var use in body.DescendantNodes().OfType<IdentifierNameSyntax>())
+        var body = at;
+        while (body.Parent != null) body = body.Parent;
+        foreach (var use in body.Descendants().OfType<ILocalReferenceOperation>())
         {
-            if (use.Identifier.Text != local.Name || use.SpanStart < at.Span.End) continue;
-            if (use.Parent is AssignmentExpressionSyntax assigned && assigned.Left == use) continue;
-            if (!SymbolEqualityComparer.Default.Equals(model.GetSymbolInfo(use, ct).Symbol, local)) continue;
-            if (Flow(use, model, depth + 1, ct) is { } reason) return $"{local.Name}, {reason}";
+            if (!SymbolEqualityComparer.Default.Equals(use.Local, local) || use.Syntax.SpanStart < at.Syntax.Span.End) continue;
+            if (use.Parent is ISimpleAssignmentOperation assigned && assigned.Target == use) continue;
+            if (Flow(use, depth + 1) is { } reason) return $"{local.Name}, {reason}";
         }
         return null;
     }
 
-    // Whether the expression is a path: a string member, local or parameter named as one, a method returning one
+    // Whether the value is a path: a string member, local or parameter named as one, a method returning one
     // (MapPath, Path.Combine), or a value made from one.
-    static string? Pathish(ExpressionSyntax expression, SemanticModel model, int depth, CancellationToken ct)
+    static string? Pathish(IOperation value, int depth)
     {
         if (depth > 3) return null;
-        switch (expression)
+        switch (value)
         {
-            case ParenthesizedExpressionSyntax p:
-                return Pathish(p.Expression, model, depth, ct);
-            case CastExpressionSyntax c:
-                return Pathish(c.Expression, model, depth, ct);
-            case BinaryExpressionSyntax b when b.IsKind(SyntaxKind.AddExpression) || b.IsKind(SyntaxKind.CoalesceExpression):
-                return Pathish(b.Left, model, depth + 1, ct) ?? Pathish(b.Right, model, depth + 1, ct);
-            case ConditionalExpressionSyntax c:
-                return Pathish(c.WhenTrue, model, depth + 1, ct) ?? Pathish(c.WhenFalse, model, depth + 1, ct);
-            case InterpolatedStringExpressionSyntax s:
-                return s.Contents.OfType<InterpolationSyntax>().Select(i => Pathish(i.Expression, model, depth + 1, ct)).FirstOrDefault(r => r != null);
-            case InvocationExpressionSyntax invocation:
-                if (model.GetSymbolInfo(invocation, ct).Symbol is not IMethodSymbol method || method.ReturnType.SpecialType != SpecialType.System_String) return null;
+            case IParenthesizedOperation p:
+                return Pathish(p.Operand, depth);
+            case IConversionOperation c:
+                return Pathish(c.Operand, depth);
+            case IBinaryOperation { OperatorKind: BinaryOperatorKind.Add or BinaryOperatorKind.Concatenate } b:
+                return Pathish(b.LeftOperand, depth + 1) ?? Pathish(b.RightOperand, depth + 1);
+            case ICoalesceOperation c:
+                return Pathish(c.Value, depth + 1) ?? Pathish(c.WhenNull, depth + 1);
+            case IConditionalOperation { WhenFalse: { } whenFalse } c:
+                return Pathish(c.WhenTrue, depth + 1) ?? Pathish(whenFalse, depth + 1);
+            case IInterpolatedStringOperation s:
+                return s.Parts.OfType<IInterpolationOperation>().Select(i => Pathish(i.Expression, depth + 1)).FirstOrDefault(r => r != null);
+            case IInvocationOperation { TargetMethod: var method } invocation:
+                if (method.ReturnType.SpecialType != SpecialType.System_String) return null;
                 if (method.ContainingType?.ToDisplayString() == "System.IO.Path") return $"Path.{method.Name}()";
                 if (IsPathName(method.Name) || method.Name == "MapPath") return $"{method.Name}()";
-                if (method.ContainingType?.SpecialType == SpecialType.System_String && stringTransforms.Contains(method.Name) &&
-                    invocation.Expression is MemberAccessExpressionSyntax transformed)
-                {
-                    return Pathish(transformed.Expression, model, depth + 1, ct);
-                }
+                if (method.ContainingType?.SpecialType == SpecialType.System_String && stringTransforms.Contains(method.Name) && invocation.Instance is { } transformed)
+                    return Pathish(transformed, depth + 1);
                 return null;
-            case IdentifierNameSyntax or MemberAccessExpressionSyntax or ConditionalAccessExpressionSyntax or ElementAccessExpressionSyntax:
-                var symbol = model.GetSymbolInfo(expression, ct).Symbol;
-                var type = symbol switch
-                {
-                    IPropertySymbol property => property.Type,
-                    IFieldSymbol field => field.Type,
-                    ILocalSymbol local => local.Type,
-                    IParameterSymbol parameter => parameter.Type,
-                    _ => null,
-                };
-                if (type?.SpecialType != SpecialType.System_String) return null;
-                if (IsPathName(symbol!.Name)) return symbol.Name;
+            case IPropertyReferenceOperation { Property: var property }:
+                if (property.Type.SpecialType != SpecialType.System_String || property.IsIndexer) return null;
+                if (IsPathName(property.Name)) return property.Name;
+                if (property.Name is "FullName" or "DirectoryName" && DerivesFrom(property.ContainingType, "System.IO.FileSystemInfo", "System.IO.FileInfo"))
+                    return $"{property.ContainingType.Name}.{property.Name}";
+                return null;
+            case IFieldReferenceOperation { Field: var field }:
+                return field.Type.SpecialType == SpecialType.System_String && IsPathName(field.Name) ? field.Name : null;
+            case IParameterReferenceOperation { Parameter: var parameter }:
+                if (parameter.Type.SpecialType != SpecialType.System_String) return null;
+                if (IsPathName(parameter.Name)) return parameter.Name;
                 // A parameter of a type about paths (DNN's PathUtils.AddTrailingSlash(string source)).
-                if (symbol is IParameterSymbol { ContainingSymbol: IMethodSymbol { ContainingType: { } owner } } && IsPathName(owner.Name)) return $"{owner.Name}'s {symbol.Name}";
-                if (symbol is IPropertySymbol { Name: "FullName" or "DirectoryName" } info && DerivesFrom(info.ContainingType, "System.IO.FileSystemInfo", "System.IO.FileInfo")) return $"{info.ContainingType.Name}.{info.Name}";
-                if (symbol is ILocalSymbol declared && declared.DeclaringSyntaxReferences.FirstOrDefault()?.GetSyntax(ct) is VariableDeclaratorSyntax { Initializer.Value: { } initial } &&
-                    initial.SyntaxTree == expression.SyntaxTree)
+                if (parameter.ContainingSymbol is IMethodSymbol { ContainingType: { } owner } && IsPathName(owner.Name)) return $"{owner.Name}'s {parameter.Name}";
+                return null;
+            case ILocalReferenceOperation { Local: var local } reference:
+                if (local.Type.SpecialType != SpecialType.System_String) return null;
+                if (IsPathName(local.Name)) return local.Name;
+                // What it was declared with (in the same file).
+                if (local.DeclaringSyntaxReferences.FirstOrDefault()?.GetSyntax() is { } declaration && declaration.SyntaxTree == reference.Syntax.SyntaxTree &&
+                    // (C#: the declarator; Visual Basic: the name, in a declarator)
+                    (reference.SemanticModel?.GetOperation(declaration) ?? reference.SemanticModel?.GetOperation(declaration.Parent!)) is IVariableDeclaratorOperation declarator &&
+                    (declarator.Initializer ?? (declarator.Parent as IVariableDeclarationOperation)?.Initializer) is { } initializer)
                 {
-                    return Pathish(initial, model, depth + 1, ct);
+                    return Pathish(initializer.Value, depth + 1);
                 }
                 return null;
             default:

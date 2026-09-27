@@ -12,6 +12,8 @@
   <ItemGroup>
     <!-- Build errors are located in the syntax tree to stub members (never by text). -->
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.*" />
+    <!-- Visual Basic's sources: the rewrites write in the file's language (SourceLanguage). -->
+    <PackageReference Include="Microsoft.CodeAnalysis.VisualBasic" Version="4.*" />
   </ItemGroup>
 
   <ItemGroup>

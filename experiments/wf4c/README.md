@@ -359,6 +359,25 @@ mojo・yaf で見つかった誤検出と対応:
 
 テスト(`tests/FrameworkOnCore.Tests`、26 件): アナライザーが見つけるもの・見逃すべきもの(上の誤検出を含め、コーパスで見つかった形)、互換アセンブリの OS ごとの動き。Windows で `dotnet test`、Linux で `run-tests-linux.ps1`(.NET SDK のコンテナ)。どちらも全件成功。
 
+### 言語に依存しない形に(VB 対応の準備、2026-09-28)
+
+VB のプロジェクトに同じ書き換えを使えるように、判定と書き換えを言語から切り離した。変換の出力は、下の意図した差を除いて前と同じ(6 本のコーパスを変換前後で比べた。``snapshot-conversion.ps1``)。
+
+- アナライザー(FOC1001〜1006)は、C# の構文ではなくコンパイラーの操作(IOperation)で判定する。C# と VB の両方で動く(``Language`` が VB のプロジェクトにも差し込む)。
+- 診断のメッセージの末尾に、対象のノードの長さと種類を付ける(``[len=12,char]``)。変換器は開始位置と長さでノードを特定する(言語によらない)。
+- 書き換えは 1 つのファイルにつき 1 回(``SourceEdits``)。入れ子の書き換え(区切りを除く呼び出しを、さらに ``WindowsPath.Native`` で包む)も 1 回で行う。以前は種類ごとに書き換えては読み直し、同じ行の前の書き換えで列がずれる問題があった(行で探して避けていた)。
+- 言語ごとの書き方は ``SourceLanguage``(C# と VB)。呼び出し、配列、キャスト、``global::``/``Global.``、定数の宣言。呼び出しの対象だけを差し替え、引数は書かれたとおり(改行・コメント)に残す。
+- 式のテキストで決めていた置き換え(``platformReplacements``)は、シンボルで決める規則にしてアナライザー(FOC1006、PlatformAnalyzer)に移した。規則は変換器が追加ファイルとしてビルドに渡す。``System.Uri.TryCreate`` は ``UriKind`` を取る形だけ(Uri と文字列を取る形には Unix の問題が無い)。
+- エラーの位置で書き換えたファイル(スタブ)の、ほかの書き換えの位置は捨てる(次のビルドがまた指す)。
+- .NET 9 以降の params の Span(``TrimStart('\\', '/')``、5 個以上の ``Path.Combine``)の引数も読む。
+- C# 14 は ``field`` をキーワードとして読むので、CS9258 の書き換えはその形も受け付ける。
+
+変換前後の差(意図したもの):
+- dnn: ``TrimStartRelative``・``AsyncDelegate.BeginInvoke`` の引数の区切りに空白(``a, b``)。
+- mojo: ``Uri.TryCreate(Uri, string, out Uri)`` は書き換えない。動的な呼び出し(``dynamic`` の引数)のアプリ自身のメソッドは FOC1004 の対象外。
+- yaf: 拡張メソッドの受け手(``this.ThemeFile.CombineWith(...)``)も、パスの引数として包む。
+
+テストは 35 件(書き換えの C# と VB を含む。Windows・Linux とも成功)。VB 対応に残るのは、ビルドエラーの自動処理(スタブ・除外など。今は C# の構文とエラーコードだけ)と、VB のプロジェクトの変換そのもの。
 変換器を作る過程で直したこと:
 - 書き換えの後のビルドで、SYSLIB の警告(`obsoletions`)を消していた。後のビルドは変わったプロジェクトしかコンパイルしないので、ほかのプロジェクトの分がレポートから落ちていた(dnn で 19 件)。
 - NuGet の packages フォルダーの判定: DNN のソースフォルダー `Services\Installer\Packages` を除外していた。中身(.nupkg、repositories.config)で判定するようにした。convert-project.ps1(robocopy `/XD packages`)にも同じ問題がある。

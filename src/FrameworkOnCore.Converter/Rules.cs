@@ -12,8 +12,15 @@ public sealed record SourcePackage(Regex Pattern, Package Package, string? Note)
 /// <summary>A member .NET removed, rewritten where it is used (Type.Member -> Replacement).</summary>
 public sealed record MemberReplacement(string Type, string Member, string Replacement, string Note);
 
-/// <summary>An expression that works on Windows only (PrincipalPolicy.WindowsPrincipal), and what it is rewritten to.</summary>
-public sealed record PlatformReplacement(string Expression, string Replacement, string Note, string? Argument = null);
+/// <summary>
+/// A member that works on Windows only (PrincipalPolicy.WindowsPrincipal), and what replaces it (FOC1006): the whole
+/// expression (Replace "expression") or the call's target (Replace "call"). Then, Arguments, ParameterType narrow it.
+/// </summary>
+public sealed record PlatformReplacement(string Member, string? Then, int? Arguments, string? ParameterType, string Replace, string Replacement, string Note)
+{
+    /// <summary>The rule as PlatformAnalyzer reads it (a line of frameworkoncore.platform.txt).</summary>
+    public string Line => $"{Member}|{Then}|{Arguments}|{ParameterType}";
+}
 
 /// <summary>What a project's sources do that behaves differently on .NET: reported.</summary>
 public sealed record SourceNote(Regex Pattern, string Note);
@@ -72,6 +79,7 @@ public sealed class Rules
         Package PackageOf(JsonElement pair) => new(pair[0].GetString()!, Version(pair[1].GetString()!));
         Dictionary<string, Package> Map(string name) =>
             root.GetProperty(name).EnumerateObject().ToDictionary(p => p.Name, p => PackageOf(p.Value), StringComparer.OrdinalIgnoreCase);
+        static string? Optional(JsonElement e, string name) => e.TryGetProperty(name, out var value) ? value.GetString() : null;
         HashSet<string> Set(string name) =>
             root.GetProperty(name).EnumerateArray().Select(e => e.GetString()!).ToHashSet(StringComparer.OrdinalIgnoreCase);
 
@@ -95,8 +103,8 @@ public sealed class Rules
             MemberReplacements = root.GetProperty("memberReplacements").EnumerateArray().Select(e => new MemberReplacement(
                 e.GetProperty("type").GetString()!, e.GetProperty("member").GetString()!, e.GetProperty("replacement").GetString()!, e.GetProperty("note").GetString()!)).ToList(),
             PlatformReplacements = root.GetProperty("platformReplacements").EnumerateArray().Select(e => new PlatformReplacement(
-                e.GetProperty("expression").GetString()!, e.GetProperty("replacement").GetString()!, e.GetProperty("note").GetString()!,
-                e.TryGetProperty("argument", out var argument) ? argument.GetString() : null)).ToList(),
+                e.GetProperty("member").GetString()!, Optional(e, "then"), e.TryGetProperty("arguments", out var count) ? count.GetInt32() : null,
+                Optional(e, "parameterType"), e.GetProperty("replace").GetString()!, e.GetProperty("replacement").GetString()!, e.GetProperty("note").GetString()!)).ToList(),
             SourceNotes = root.GetProperty("sourceNotes").EnumerateArray().Select(e => new SourceNote(
                 new Regex(e.GetProperty("pattern").GetString()!, RegexOptions.Compiled), e.GetProperty("note").GetString()!)).ToList(),
         };

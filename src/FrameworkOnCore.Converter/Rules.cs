@@ -12,6 +12,9 @@ public sealed record SourcePackage(Regex Pattern, Package Package, string? Note)
 /// <summary>A member .NET removed, rewritten where it is used (Type.Member -> Replacement).</summary>
 public sealed record MemberReplacement(string Type, string Member, string Replacement, string Note);
 
+/// <summary>An expression that works on Windows only (PrincipalPolicy.WindowsPrincipal), and what it is rewritten to.</summary>
+public sealed record PlatformReplacement(string Expression, string Replacement, string Note, string? Argument = null);
+
 /// <summary>What a project's sources do that behaves differently on .NET: reported.</summary>
 public sealed record SourceNote(Regex Pattern, string Note);
 
@@ -22,12 +25,15 @@ public sealed class Rules
     public required IReadOnlyList<string> WebPackages { get; init; }
     public required IReadOnlyDictionary<string, Package> ReplacedPackages { get; init; }
     public required IReadOnlySet<string> DroppedPackages { get; init; }
+    /// <summary>Packages whose API a shim gives (shims/), where the package works on Windows only: id -> why.</summary>
+    public required IReadOnlyDictionary<string, string> ShimPackages { get; init; }
     public required IReadOnlyDictionary<string, Package> FrameworkReferences { get; init; }
     public required IReadOnlyDictionary<string, IReadOnlyList<Package>> FrameworkCompanions { get; init; }
     public required IReadOnlySet<string> NoAnswer { get; init; }
     public required IReadOnlyList<SourcePackage> SourcePackages { get; init; }
     public required IReadOnlyList<SourceNote> SourceNotes { get; init; }
     public required IReadOnlyList<MemberReplacement> MemberReplacements { get; init; }
+    public required IReadOnlyList<PlatformReplacement> PlatformReplacements { get; init; }
     /// <summary>Packages used by their .NET Framework asset (package id -> the DLL in the package, and why).</summary>
     public required IReadOnlyDictionary<string, (string Asset, string Note)> FrameworkAssets { get; init; }
 
@@ -75,6 +81,7 @@ public sealed class Rules
             WebPackages = root.GetProperty("webPackages").EnumerateArray().Select(e => e.GetString()!).ToList(),
             ReplacedPackages = Map("replacedPackages"),
             DroppedPackages = Set("droppedPackages"),
+            ShimPackages = root.GetProperty("shimPackages").EnumerateObject().ToDictionary(p => p.Name, p => p.Value.GetString()!, StringComparer.OrdinalIgnoreCase),
             FrameworkReferences = Map("frameworkReferences"),
             FrameworkCompanions = root.GetProperty("frameworkCompanions").EnumerateObject().ToDictionary(
                 p => p.Name, p => (IReadOnlyList<Package>)p.Value.EnumerateArray().Select(PackageOf).ToList(), StringComparer.OrdinalIgnoreCase),
@@ -87,6 +94,9 @@ public sealed class Rules
                 p => (p.Value.GetProperty("asset").GetString()!, p.Value.GetProperty("note").GetString()!), StringComparer.OrdinalIgnoreCase),
             MemberReplacements = root.GetProperty("memberReplacements").EnumerateArray().Select(e => new MemberReplacement(
                 e.GetProperty("type").GetString()!, e.GetProperty("member").GetString()!, e.GetProperty("replacement").GetString()!, e.GetProperty("note").GetString()!)).ToList(),
+            PlatformReplacements = root.GetProperty("platformReplacements").EnumerateArray().Select(e => new PlatformReplacement(
+                e.GetProperty("expression").GetString()!, e.GetProperty("replacement").GetString()!, e.GetProperty("note").GetString()!,
+                e.TryGetProperty("argument", out var argument) ? argument.GetString() : null)).ToList(),
             SourceNotes = root.GetProperty("sourceNotes").EnumerateArray().Select(e => new SourceNote(
                 new Regex(e.GetProperty("pattern").GetString()!, RegexOptions.Compiled), e.GetProperty("note").GetString()!)).ToList(),
         };

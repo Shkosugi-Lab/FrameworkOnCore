@@ -69,6 +69,7 @@
 | 0023 | ASP.NET Core ホスト: SERVER_PORT を Host ヘッダーのポート(無ければスキームの既定)から、HTTPS をリクエストのスキームから(`IsSecure` が常に false だった) | コンテナのポートを別の番号で公開すると、リダイレクト先がコンテナ内のポートになった。HTTPS を終端するプロキシの後ろで http の URL になる |
 | 0024 | マシンキー: 自動生成の検証・暗号化キーを、再起動の後も同じものにする(.NET Framework はレジストリに保存する。ここでは `LocalApplicationData/WebFormsForCore/AutogenKeys`、Unix ではモード 600) | dnn のインストール後の再起動で、ViewState の MAC の検証に失敗した |
 | 0025 | VB のページコンパイラー: C# と同じく、ランタイムのライブラリを使う(`/nostdlib` と `/sdkpath` にランタイムのフォルダー、VB のランタイムは `Microsoft.VisualBasic.Core`、フレームワークのファサードも参照)。0003 の VB 版 | n2 の VB のページが BC2017(`Microsoft.VisualBasic.dll` が見つからない)でコンパイルできなかった |
+| 0026 | ファイル変更通知(Linux): ファイルの監視をファイル名で引けるようにする(Linux ではフルパスを名前にしていて、変更の通知がどの監視とも一致しなかった)。bin・App_Code などの特別なフォルダーは全 OS で監視する(ツリー全体の名前変更の監視は Windows だけ。inotify ではフォルダーごとに 1 つ要る) | Linux で web.config を変えてもアプリが再起動せず、DNN のインストーラーが自分へのリダイレクトを繰り返した |
 
 照合(0005・0007 のときに実施):
 - .NET Framework 4.8 の System.Web の公開型のうち、フォークで定義も型転送もされていないのは `IHtmlString`(0007 で対応)と `RegiisUtility`(IIS の登録用、対象外)だけ。
@@ -91,6 +92,12 @@ fork.slnx に含めると、読み込み済みのタスク DLL とコピーが�
   - `AppDomain.DefineDynamicAssembly` → `AssemblyBuilder.DefineDynamicAssembly`、`AppDomainSetup.ConfigurationFile`。
   - `AssemblyBuilder.DefineDynamicModule` のファイル名・シンボルの引数を持つオーバーロード(メモリ上のモジュールを作る)。
   - Remoting での受け渡し(`Marshal`、`Activator.GetObject`)や `AssemblyBuilder.Save` のように、動きを代われないものは置かない(変換器がスタブにして報告する)。
+  - Linux で動かすための部品(変換器がソースをこれらの呼び出しに書き換える。Windows では元のソースと同じ動き):
+    - `WindowsPath.Native`: パスの `\` をその OS の区切りにし、アプリのフォルダーの中ではファイル名の大文字小文字をディスク上のものに合わせる(Windows のファイル名は大文字小文字を区別しない。Mono の IOMAP と同じ)。`TrimStartRelative`: フォルダーに結合する前に区切りを取り除くとき、絶対パスはそのままにする。
+    - `WindowsUri`: `/Portals/0/home.css` のようなルートからのパスを、Windows と同じく相対 URI として扱う(.NET は Unix では絶対の file URI とみなす)。
+    - `Platform`: `PrincipalPolicy.WindowsPrincipal`(Windows 以外では認証されていないプリンシパル)、`WindowsIdentity.GetCurrent().Name`(ユーザー名)。
+    - `AsyncDelegate`: デリゲートの `BeginInvoke`/`EndInvoke`(.NET には無い。スレッドプールで実行する)。
+- `QuickIO.NET`(アセンブリ `SchwabenCode.QuickIO`): Win32 のファイル API を使う Windows 専用のパッケージ(DNN の FileSystemUtils)。同じ API を System.IO で提供し、`PathNotFoundException` などの例外も同じ型で投げる。変換器はパッケージを外す(`rules/packages.json` の `shimPackages`)。
 - 変換器は、変換するすべてのプロジェクトに互換アセンブリを参照させる。
 - ファサードは Microsoft の公開鍵で公開署名する(`keys/`、`extract-keys.ps1` で .NET Framework のアセンブリから公開鍵を取り出したもの)。署名が無いと、元の名前で参照するアセンブリとの同一性が合わず CS0012 になる(dnn の ModulePresenterBase)。
 
@@ -226,8 +233,8 @@ Linux で ICU のデータに表せないもの:
 | wt | 成功 | Windows 6/8(既知の丸めの差) |
 | mojo | 成功。元のビルドはソリューションのビルド(`--build-original`) | **トップページが表示される**(`Home - mojoPortal`。DB は `.\SQLEXPRESS` の `mojo_w2l`)。**Linux でも**、空の DB からセットアップ画面がスキーマ(105 テーブル)を作り、トップページ・ログイン・サイトマップが 200(`run-linux-site.ps1`、SQL Server のコンテナ) |
 | yaf | 成功 | `FieldAccessException`。アプリが Web API 2 の `HttpControllerRouteHandler._instance`(static readonly)をリフレクションで書き換えていて、.NET は型の初期化後の書き換えを禁止している。Web API 2 を DLL のまま使う限り直せないので、AspNetWebStack の移植が要る |
-| dnn | 成功。元のビルドは DNN 自身の Cake ビルド(`--build-original`)。VB の DotNetNuke.WebUtility は配置済みサイトの .NET Framework の DLL をそのまま参照する | Windows: **インストール(`Install.aspx?mode=install`)が完了し、トップページが表示される**(`Home`。DB は `.\SQLEXPRESS` の `dnn_w2l`。`dnn-cycle.ps1` で DB の作成から通す)。Linux: 起動するが、DNN のコードが Windows のパス区切りを前提にしている(`BaseDirectory.Replace("/", "\\")`、`ApplicationMapPath + "\\web.config"` など。バックスラッシュを含む文字列リテラルが 148 ファイル 482 行)。変換器でのパスの書き換え(意味モデルでパスの API に流れる値を特定する)が次の課題 |
-| n2 | 成功。元のビルドはソリューションのビルドと、リポジトリのセットアップ手順(`--original-step build\n2.proj;Templates-PrepareDependencies`) | インストーラーが表示される(`Install N2`)。Linux でも同じ(フォーク 0021 の後)。Windows: **SQLite(`App_Data\n2.sqlite.db`)で、空の DB からインストールが完了し(管理者のパスワード → テーブルの作成 → サンプルのコンテンツの取り込み。`n2-install.ps1`)、トップページがコンテンツ付きで表示される**(VB のページ。フォーク 0025) |
+| dnn | 成功。元のビルドは DNN 自身の Cake ビルド(`--build-original`)。VB の DotNetNuke.WebUtility は配置済みサイトの .NET Framework の DLL をそのまま参照する | Windows: **インストール(`Install.aspx?mode=install`)が完了し、トップページが表示される**(`Home`。DB は `.\SQLEXPRESS` の `dnn_w2l`。`dnn-cycle.ps1` で DB の作成から通す)。**Linux でも**、空の DB からインストールが完了し(サイトの作成、スキンなどのモジュールの導入)、トップページ・`/Login`・`/Terms` が 200、ページの CSS・JS・画像 21 件がすべて 200、host でのログインが通る(`run-linux-site.ps1`、SQL Server のコンテナ。下の「Linux で動かすための書き換え」) |
+| n2 | 成功。元のビルドはソリューションのビルドと、リポジトリのセットアップ手順(`--original-step build\n2.proj;Templates-PrepareDependencies`) | インストーラーが表示される(`Install N2`)。Linux でも同じ(フォーク 0021 の後)。Windows: **SQLite(`App_Data\n2.sqlite.db`)で、空の DB からインストールが完了し(管理者のパスワード → テーブルの作成 → サンプルのコンテンツの取り込み。`n2-install.ps1`)、トップページがコンテンツ付きで表示される**(VB のページ。フォーク 0025)。**Linux でも同じ**(`run-linux-site.ps1 -Keep` の後 `n2-install.ps1 -Port 5098 -Running`)。SQLite は 1.0.119 に上げる(下) |
 
 ### 元のビルドと配置済みサイト
 
@@ -307,7 +314,39 @@ DNN を動かす過程で変換器に加えた規則:
   - 同じ問題がページ(実行時にコンパイルされる aspx・ascx・App_Code)に無いことを、6 本のコーパスで確認した。
 - 除外するパッケージの判定: .NET 10 の参照パック(`Microsoft.NETCore.App.Ref`、`Microsoft.AspNetCore.App.Ref`)に同名のアセンブリがあるものだけにした。以前は System.* 4.x を一律に外していて、JWT 4.x を黙って落としていた。外したパッケージはレポートに記録する。
 
+### Linux で動かすための書き換え(2026-09-27)
+
+Windows を前提にしたコードは、コンパイルは通るが Linux では動かない。変換器は Roslyn のアナライザー(`src/FrameworkOnCore.Analyzers`)を変換時のビルドに差し込み、コンパイラーの意味モデルで対象を特定して、その位置を書き換える(アナライザーは変換したプロジェクトには残らない)。書き換え先は互換アセンブリ `FrameworkOnCore.Compat` の呼び出しで、Windows では元のソースと同じ動きをする。レポートでは「Linux で動かすために変えたソース」にまとめる。
+
+| 診断 | 対象 | 書き換え | 例 |
+|---|---|---|---|
+| FOC1001 | パスとして使われる `\` 入りのリテラル。パスかどうかは値の行き先で判定する(ファイル API のパスの引数、パスの名前の変数・メンバーへの格納や結合、パスに対する `IndexOf`・`EndsWith`・`Split`・`Replace`)。正規表現・エスケープ・`Replace('\\', '/')` のように両方を扱うコードは対象外 | `WindowsPath.Native("...")`、文字 `'\\'` は `Path.DirectorySeparatorChar` | n2 `BaseDirectory + "bin\\"`、DNN `string.Format("{0}\\{1}\\", ApplicationMapPath, ...)` |
+| FOC1002 | 同じものが定数の中にある | 定数が必須の場所(case・属性・既定値・他の定数)で使われていなければ `static readonly` にする | DNN `glbConfigFolder = "\\Config\\"` |
+| FOC1003 | フォルダーに結合する前の区切りの除去(`Path.Combine(root, x.TrimStart('\\', '/'))`) | `WindowsPath.TrimStartRelative`(絶対パスはそのまま。Windows ではドライブ付きなので残る) | DNN `Config.Save` が `/app/app/Config/...` に書こうとした |
+| FOC1004 | データ(マニフェスト、DB)から来るパスをファイル API に渡す引数。アプリ自身の他のプロジェクトのメソッドと URL を取るメソッドは対象外 | `WindowsPath.Native(引数)`(区切りと大文字小文字) | DNN のモジュールのマニフェスト `Providers\DataProviders\...`、`resource-skin.zip` と `Resource-Skin.zip` |
+| FOC1005 | デリゲートの `BeginInvoke`・`EndInvoke` | `AsyncDelegate`(引数は呼び出し時に評価し、スレッドプールで実行) | DNN のスケジューラー |
+
+ほかに、式のテキストで決まるもの(`rules/packages.json` の `platformReplacements`。ビルドの前に書き換える):
+- `PrincipalPolicy.WindowsPrincipal`: Windows 以外では、以後の `Thread.CurrentPrincipal` がすべて例外になる(DNN のスケジューラーが設定し、全リクエストが 500)。
+- `WindowsIdentity.GetCurrent().Name`: Windows 以外は例外。
+- `Uri.TryCreate`・`Uri.IsWellFormedUriString`・`new Uri(x, UriKind...)`: .NET は Unix で `/Portals/...` を絶対の file URI とみなす(DNN の「絶対 URL か」の判定がすべて真になり、存在しない CSS を登録していた)。dnn・n2・mojo・be で使われている(be だけで 17 か所を書き換えた)。
+
+パッケージ:
+- `System.Data.SQLite(.Core)` は 1.0.119 に上げる。1.0.116 より前のネイティブライブラリ(`SQLite.Interop.dll`)は Windows 用だけ(n2 が Linux で DB に接続できなかった)。2.x はネイティブライブラリを含まない。
+- 配置済みサイトの .NET Framework 形式のネイティブライブラリ(`bin\x86`、`bin\x64`)は、.NET のビルドが `runtimes\<rid>\native` に同じ名前のものを持つとき削除する(古い版が先に読み込まれていた)。
+- QuickIO.NET は互換アセンブリに置き換える(`shimPackages`、上の「互換アセンブリ」)。
+- mojo の SQLite 版のデータプロバイダーが使う Mono.Data.Sqlite は OS の `sqlite3` を呼ぶ。SQLite 構成の mojo を Linux で動かすには libsqlite3 が要る(未確認。mojo の既定の構成は SQL Server)。
+
+ルーティングの判定: 拡張子のない URL(DNN の `/Login`)は、Web Forms にすべての要求を渡さないと届かない(IIS では ExtensionlessUrlHandler が ASP.NET に渡す)。Web プロジェクトだけでなく、変換するすべてのプロジェクトのソースでルートの登録(`RouteTable.Routes`)を探すようにした(DNN は DotNetNuke.Web で登録する)。
+
+確認した結果:
+- dnn: Linux で空の DB からインストールが完了し、トップページ・ログインのページ・資源がすべて 200。Windows でもインストールが完了し、トップページが 200。
+- n2: Linux・Windows とも、空の DB から SQLite でインストールが完了し、トップページがコンテンツ付きで表示される。
+- be/wt: 変わらず(be 5/5、wt 6/8)。
+- mojo・yaf は確認していない(変換器の変更は影響しうる)。
+
 変換器を作る過程で直したこと:
+- 書き換えの後のビルドで、SYSLIB の警告(`obsoletions`)を消していた。後のビルドは変わったプロジェクトしかコンパイルしないので、ほかのプロジェクトの分がレポートから落ちていた(dnn で 19 件)。
 - NuGet の packages フォルダーの判定: DNN のソースフォルダー `Services\Installer\Packages` を除外していた。中身(.nupkg、repositories.config)で判定するようにした。convert-project.ps1(robocopy `/XD packages`)にも同じ問題がある。
 - アナライザーのプロジェクト参照(`OutputItemType="Analyzer"`)と Aliases の引き継ぎ: DNN はソースジェネレーターで部分メソッドの定義側を生成する(無いと CS0759)。
 - 変換したプロジェクトでは `TreatWarningsAsErrors` を外す: 変換で加えた編集が StyleCop の警告になり、.NET の SYSLIB の警告もエラーになっていた。

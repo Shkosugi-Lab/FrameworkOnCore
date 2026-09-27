@@ -13,6 +13,8 @@ public sealed class Report
         Unsupported,
         /// <summary>Source changed to compile: a member stubbed or removed, a using or attribute removed.</summary>
         Stub,
+        /// <summary>Source changed to run on Linux: Windows paths made the platform's.</summary>
+        Platform,
         /// <summary>Something the conversion could not settle.</summary>
         Error,
     }
@@ -26,7 +28,7 @@ public sealed class Report
     {
         entries.Add(new Entry(kind, subject, text));
         // The stubs are many: in the report only (the build rounds print their count).
-        if (kind != Kind.Stub) Console.WriteLine($"  [{kind}] {subject}: {text}");
+        if (kind is not (Kind.Stub or Kind.Platform)) Console.WriteLine($"  [{kind}] {subject}: {text}");
     }
 
     public string ToMarkdown(string title)
@@ -37,6 +39,7 @@ public sealed class Report
             [Kind.Error] = "未解決(変換で解決できなかったもの)",
             [Kind.Unsupported] = ".NET に無い、または Windows 専用の API",
             [Kind.Stub] = "コンパイルのために変えたソース(スタブ・削除)",
+            [Kind.Platform] = "Linux で動かすために変えたソース(Windows のパス)",
             [Kind.Project] = "プロジェクトとパッケージ",
         };
         foreach (var (kind, heading) in headings)

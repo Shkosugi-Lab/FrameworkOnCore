@@ -62,6 +62,7 @@ public static class SiteAssembler
         }
         bool IsFromWebBuild(string name) => File.Exists(Path.Combine(webBin, name));
 
+        RemoveFrameworkNatives(bin, webBin, report);
         ReplaceInPackages(output, bin, rebuilt, report);
 
         // The web.config rules, on the deployed web.config.
@@ -74,6 +75,32 @@ public static class SiteAssembler
             File.Copy(cultureProfile, Path.Combine(output, "App_Data", "culture-profile.json"), overwrite: true);
         }
         report.Add(Report.Kind.Project, "site", $"assembled from the deployed site: {fromWeb} file(s) from the web project's build, {fromOthers} from the projects built on their own -> {output}");
+    }
+
+    /// <summary>
+    /// The native libraries the .NET build brings in runtimes\&lt;rid&gt;\native (System.Data.SQLite's
+    /// SQLite.Interop.dll), which the deployed site has in .NET Framework's layout (bin\x86, bin\x64: the
+    /// package's build targets put them there): those are the old versions, and a library that looks there
+    /// first would load one. Removed.
+    /// </summary>
+    static void RemoveFrameworkNatives(string bin, string webBin, Report report)
+    {
+        var runtimes = Path.Combine(webBin, "runtimes");
+        if (!Directory.Exists(runtimes)) return;
+        var natives = Directory.EnumerateFiles(runtimes, "*", SearchOption.AllDirectories)
+            .Where(f => Path.GetFileName(Path.GetDirectoryName(f)!).Equals("native", StringComparison.OrdinalIgnoreCase))
+            .Select(f => Path.GetFileName(f)!).ToHashSet(StringComparer.OrdinalIgnoreCase);
+        var removed = new List<string>();
+        foreach (var file in Directory.EnumerateFiles(bin, "*", SearchOption.AllDirectories).ToList())
+        {
+            var relative = Path.GetRelativePath(bin, file);
+            if (relative.StartsWith("runtimes" + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase) ||
+                !natives.Contains(Path.GetFileName(file)) || File.Exists(Path.Combine(webBin, relative))) continue;
+            File.Delete(file);
+            removed.Add(relative);
+        }
+        if (removed.Count > 0)
+            report.Add(Report.Kind.Project, "site", $"the deployed site's .NET Framework native libraries removed ({string.Join(", ", removed)}): the .NET build has them in runtimes");
     }
 
     /// <summary>

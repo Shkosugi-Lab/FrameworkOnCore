@@ -1,0 +1,120 @@
+From 18a508a451d501f0b317a024000b451a9e072c08 Mon Sep 17 00:00:00 2001
+From: shkosugi <sin.kosugi@gmail.com>
+Date: Sun, 27 Sep 2026 22:46:36 +0900
+Subject: [PATCH] File change notification on Linux: the file monitors found,
+ bin watched
+
+On Linux a change to web.config never restarted the application (DNN's installer changes
+it and redirects to itself: it went round). FindFileData gave the full path as the file's
+name, where FindFirstFile gives the name: the directory's file monitors are found by it,
+and the change notifications (the name) matched none. The relative path (a monitor of the
+application's whole tree) is made without FindFirstFile too.
+
+bin, App_Code and the other special directories are watched on every platform (a module
+installed into bin restarts the application); the renames of the whole tree stay Windows
+only: on Linux that is a watch per directory of the application.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+---
+ src/WebFormsForCore.Web/FileChangesMonitor.cs | 21 ++++++++++------
+ src/WebFormsForCore.Web/HttpRuntime.cs        |  4 ++-
+ src/WebFormsForCore.Web/Util/FileUtil.cs      | 25 ++++++++++++++-----
+ 3 files changed, 35 insertions(+), 15 deletions(-)
+
+diff --git a/src/WebFormsForCore.Web/FileChangesMonitor.cs b/src/WebFormsForCore.Web/FileChangesMonitor.cs
+index 11683d6..80e23ed 100644
+--- a/src/WebFormsForCore.Web/FileChangesMonitor.cs
++++ b/src/WebFormsForCore.Web/FileChangesMonitor.cs
+@@ -2241,14 +2241,19 @@ namespace System.Web {
+                     // to avoid overwhelming changes when the user writes to a subdirectory
+                     // of the app directory.
+ 
+-                    _dirMonSubdirs = new DirectoryMonitor(dirRoot, true, UnsafeNativeMethods.RDCW_FILTER_DIR_RENAMES, true, _FCNMode);
+-                    try {
+-                        _dirMonSubdirs.StartMonitoringFileWithAssert(null, new FileChangeEventHandler(this.OnSubdirChange), dirRoot);
+-                    }
+-                    catch {
+-                        ((IDisposable)_dirMonSubdirs).Dispose();
+-                        _dirMonSubdirs = null;
+-                        throw;
++                    // The renames of the application's subdirectories: a watch of the whole tree, which on
++                    // Linux (inotify) is one per directory of the application (DNN: thousands). Windows only;
++                    // the special directories below are watched everywhere.
++                    if (OSInfo.IsWindows) {
++                        _dirMonSubdirs = new DirectoryMonitor(dirRoot, true, UnsafeNativeMethods.RDCW_FILTER_DIR_RENAMES, true, _FCNMode);
++                        try {
++                            _dirMonSubdirs.StartMonitoringFileWithAssert(null, new FileChangeEventHandler(this.OnSubdirChange), dirRoot);
++                        }
++                        catch {
++                            ((IDisposable)_dirMonSubdirs).Dispose();
++                            _dirMonSubdirs = null;
++                            throw;
++                        }
+                     }
+ 
+                     _dirMonSpecialDirs = new ArrayList();
+diff --git a/src/WebFormsForCore.Web/HttpRuntime.cs b/src/WebFormsForCore.Web/HttpRuntime.cs
+index 8064351..8f56d36 100644
+--- a/src/WebFormsForCore.Web/HttpRuntime.cs
++++ b/src/WebFormsForCore.Web/HttpRuntime.cs
+@@ -781,7 +781,9 @@ namespace System.Web
+ 
+         private void StartMonitoringDirectoryRenamesAndBinDirectory() {
+ 
+-            if (OSInfo.IsWindows) _fcm.StartMonitoringDirectoryRenamesAndBinDirectory(AppDomainAppPathInternal, new FileChangeEventHandler(this.OnCriticalDirectoryChange));
++            // On every platform: bin, App_Code and the other special directories restart the application (a module
++            // installed into bin: DNN). FileChangesMonitor leaves out what is Windows-only there.
++            _fcm.StartMonitoringDirectoryRenamesAndBinDirectory(AppDomainAppPathInternal, new FileChangeEventHandler(this.OnCriticalDirectoryChange));
+         }
+ 
+         //
+diff --git a/src/WebFormsForCore.Web/Util/FileUtil.cs b/src/WebFormsForCore.Web/Util/FileUtil.cs
+index 72ea804..4536d48 100644
+--- a/src/WebFormsForCore.Web/Util/FileUtil.cs
++++ b/src/WebFormsForCore.Web/Util/FileUtil.cs
+@@ -571,9 +571,12 @@ namespace System.Web.Util
+ 			{
+ 				if (File.Exists(path))
+ 				{
++					// The file's name, as FindFirstFile's cFileName: the file monitors of a directory are
++					// found by it (the full path matched no change notification: web.config changed on
++					// Linux, the application went on).
+ 					data = new FindFileData()
+ 					{
+-						FileNameLong = path,
++						FileNameLong = Path.GetFileName(path),
+ 						FileNameShort = null,
+ 						FileAttributesData = new FileAttributesData(new FileInfo(path))
+ 					};
+@@ -629,13 +632,23 @@ namespace System.Web.Util
+ 			{
+ 
+ 				UnsafeNativeMethods.WIN32_FIND_DATA fd;
+-				IntPtr hFindFile = UnsafeNativeMethods.FindFirstFile(currentParentDir, out fd);
+-				int lastError = Marshal.GetLastWin32Error(); // FXCOP demands that this preceed the == 
+-				if (hFindFile == UnsafeNativeMethods.INVALID_HANDLE_VALUE)
++				if (OSInfo.IsWindows)
+ 				{
+-					return HttpException.HResultFromLastError(lastError);
++					IntPtr hFindFile = UnsafeNativeMethods.FindFirstFile(currentParentDir, out fd);
++					int lastError = Marshal.GetLastWin32Error(); // FXCOP demands that this preceed the == 
++					if (hFindFile == UnsafeNativeMethods.INVALID_HANDLE_VALUE)
++					{
++						return HttpException.HResultFromLastError(lastError);
++					}
++					UnsafeNativeMethods.FindClose(hFindFile);
++				}
++				else
++				{
++					// The directory's name (no short names).
++					if (!Directory.Exists(currentParentDir)) return HResults.E_FILENOTFOUND;
++					fd = default;
++					fd.cFileName = Path.GetFileName(currentParentDir);
+ 				}
+-				UnsafeNativeMethods.FindClose(hFindFile);
+ 
+ #if DBG
+             Debug.Assert(!String.IsNullOrEmpty(fd.cFileName), "!String.IsNullOrEmpty(fd.cFileName)");
+-- 
+2.55.0.windows.3
+

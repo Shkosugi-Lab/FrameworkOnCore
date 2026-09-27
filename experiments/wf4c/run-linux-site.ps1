@@ -17,6 +17,8 @@ param(
     [string]$Culture = 'en-US',
     # The error details to remote requests too (customErrors Off: the host is not "local" to the container).
     [switch]$ShowErrors,
+    # More environment variables for the site (WEBFORMSFORCORE_SHADOWCOPY = '0', ...).
+    [hashtable]$Environment = @{},
     [switch]$Keep
 )
 
@@ -67,7 +69,8 @@ exec dotnet bin/$Dll.dll --urls http://0.0.0.0:$Port
 "@ -replace "`r", ''
 
 docker rm -f $container 2>$null | Out-Null
-docker run -d --name $container --network w2l -e "LANG=$($Culture.Replace('-', '_')).UTF-8" -p "${Port}:${Port}" -v "${siteDirectory}:/site:ro" -v "${overlay}:/overlay:ro" $Image bash -c $script | Out-Null
+$environmentArguments = @($Environment.Keys | ForEach-Object { '-e'; "$_=$($Environment[$_])" })
+docker run -d --name $container --network w2l -e "LANG=$($Culture.Replace('-', '_')).UTF-8" @environmentArguments -p "${Port}:${Port}" -v "${siteDirectory}:/site:ro" -v "${overlay}:/overlay:ro" $Image bash -c $script | Out-Null
 if ($LASTEXITCODE -ne 0) { throw 'docker run failed' }
 try {
     $ready = $false

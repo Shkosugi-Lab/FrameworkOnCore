@@ -146,8 +146,12 @@ void WriteHost(ConvertedProject web)
     using var stream = typeof(Report).Assembly.GetManifestResourceStream("ProgramTemplate.txt")!;
     var program = new StreamReader(stream).ReadToEnd();
     var projectText = File.ReadAllText(web.TargetPath);
+    // Routes registered by the application, in any of its projects (DNN: DotNetNuke.Web's ServicesRoutingManager;
+    // its friendly URLs, /Login, /Terms, are rewritten by a module, for requests that reach it).
     var routes = projectText.Contains("Microsoft.AspNet.FriendlyUrls", StringComparison.OrdinalIgnoreCase) ||
-                 Directory.EnumerateFiles(directory, "*.cs", SearchOption.AllDirectories)
+                 converter.Converted.Select(c => Path.GetDirectoryName(c.TargetPath)!).Append(directory).Distinct(StringComparer.OrdinalIgnoreCase)
+                     .SelectMany(d => Directory.EnumerateFiles(d, "*.cs", SearchOption.AllDirectories))
+                     .Where(f => !Regex.IsMatch(f, @"[\\/](obj|bin)[\\/]"))
                      .Any(f => Regex.IsMatch(File.ReadAllText(f), @"RouteTable\.Routes|RouteCollection"));
     if (routes)
     {

@@ -156,6 +156,11 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
         void AddPackage(Package p) => packages.TryAdd(p.Id, p.Version);
         void AddListed(string id, string version)
         {
+            if (rules.ShimPackages.TryGetValue(id, out var shim))
+            {
+                report.Add(Report.Kind.Project, name, $"{id} {version}: replaced by its shim ({shim})");
+                return;
+            }
             if (rules.IsDropped(id, version))
             {
                 report.Add(Report.Kind.Project, name, $"{id} {version}: dropped (in .NET, or listed in droppedPackages)");
@@ -414,6 +419,12 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
         {
             var id = (string?)reference.Attribute("Include") ?? "";
             if (rules.DroppedPackages.Contains(id)) { reference.Remove(); continue; }
+            if (rules.ShimPackages.TryGetValue(id, out var shim))
+            {
+                report.Add(Report.Kind.Project, name, $"{id}: replaced by its shim ({shim})");
+                reference.Remove();
+                continue;
+            }
             if (rules.ReplacedPackages.TryGetValue(id, out var replaced))
             {
                 reference.SetAttributeValue("Include", replaced.Id);

@@ -15,6 +15,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <!-- Run in the converted applications' build (BuildFixer): copied next to the converter. -->
+    <ProjectReference Include="..\FrameworkOnCore.Analyzers\FrameworkOnCore.Analyzers.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <!-- The rules are data: adding one is the usual maintenance. -->
     <None Include="rules\*.json" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>

@@ -73,5 +73,6 @@ $RECYCLE.BIN/
 tools/legacy/nuget.exe
 tools/legacy/localdb/*.msi
 tools/legacy/packages/
+tools/legacy/reference-assemblies/
 tools/legacy/WebFormsHost/*.exe
 tools/legacy/WebFormsHost/*.dll

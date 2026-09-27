@@ -172,11 +172,26 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
         {
             try
             {
-                foreach (var add in XDocument.Load(webConfig).XPathSelect("configuration/system.web/compilation/assemblies/add"))
+                var configDocument = XDocument.Load(webConfig, LoadOptions.PreserveWhitespace);
+                var removed = false;
+                // Wherever system.web is (<location path="."> too, as mojoPortal has it).
+                foreach (var add in configDocument.Descendants().Where(e => e.Name.LocalName == "add" &&
+                             e.Parent?.Name.LocalName == "assemblies" && e.Parent.Parent?.Name.LocalName == "compilation").ToList())
                 {
                     var assembly = ((string?)add.Attribute("assembly") ?? "").Split(',')[0].Trim();
                     if (rules.FrameworkReferences.TryGetValue(assembly, out var package)) AddPackage(package);
+                    // An assembly .NET has no counterpart for fails the whole configuration (every page) when
+                    // it is loaded for page compilation: left out of the converted web.config (the original
+                    // is unchanged). Pages using its types do not compile. A compatibility assembly will
+                    // take its place (LINUX-CONVERTER-DESIGN.md §8).
+                    if (rules.NoAnswer.Contains(assembly))
+                    {
+                        add.Remove();
+                        removed = true;
+                        report.Add(Report.Kind.Unsupported, name, $"web.config <compilation><assemblies>: {assembly} left out (no .NET counterpart; pages using it do not compile)");
+                    }
                 }
+                if (removed) configDocument.Save(TargetOf(webConfig), SaveOptions.DisableFormatting);
             }
             catch (System.Xml.XmlException e) { report.Add(Report.Kind.Error, name, $"web.config not read: {e.Message}"); }
         }

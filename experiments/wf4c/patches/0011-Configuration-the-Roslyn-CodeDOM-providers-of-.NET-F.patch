@@ -1,0 +1,54 @@
+From 645cdb5e6995f341cf90b1679eb5cd1cc9052281 Mon Sep 17 00:00:00 2001
+From: shkosugi <sin.kosugi@gmail.com>
+Date: Sun, 27 Sep 2026 09:02:36 +0900
+Subject: [PATCH] Configuration: the Roslyn CodeDOM providers of .NET Framework
+ applications are WebFormsForCore's
+
+<system.codedom> names Microsoft.CodeDom.Providers.DotNetCompilerPlatform.CSharpCodeProvider /
+VBCodeProvider (the package every Visual Studio 2015+ web template has): 'Unable to locate type',
+a configuration error for every page (mojoPortal). WebFormsForCore's own Roslyn providers do the
+same on .NET.
+---
+ .../Configuration/CodeDom/CompilerInfo.cs     | 19 ++++++++++++++++++-
+ 1 file changed, 18 insertions(+), 1 deletion(-)
+
+diff --git a/src/WebFormsForCore.Configuration/System/Configuration/CodeDom/CompilerInfo.cs b/src/WebFormsForCore.Configuration/System/Configuration/CodeDom/CompilerInfo.cs
+index 3e20b65..d2e3a60 100644
+--- a/src/WebFormsForCore.Configuration/System/Configuration/CodeDom/CompilerInfo.cs
++++ b/src/WebFormsForCore.Configuration/System/Configuration/CodeDom/CompilerInfo.cs
+@@ -46,6 +46,23 @@ namespace WebFormsForCore.CodeDom.Compiler
+ 			return CloneCompilerExtensions();
+ 		}
+ 
++		// The Roslyn CodeDOM providers .NET Framework applications name in <system.codedom> (the
++		// Microsoft.CodeDom.Providers.DotNetCompilerPlatform package, in every Visual Studio 2015+ web
++		// template): WebFormsForCore's own Roslyn providers do the same on .NET.
++		static string MapFrameworkProvider(string typeName)
++		{
++			var name = typeName.Split(',')[0].Trim();
++			switch (name)
++			{
++				case "Microsoft.CodeDom.Providers.DotNetCompilerPlatform.CSharpCodeProvider":
++					return "WebFormsForCore.CodeDom.Compiler.CSharpCodeProvider, " + AssemblyRef.WebFormsForCoreWeb;
++				case "Microsoft.CodeDom.Providers.DotNetCompilerPlatform.VBCodeProvider":
++					return "WebFormsForCore.CodeDom.Compiler.VBCodeProvider, " + AssemblyRef.WebFormsForCoreWeb;
++				default:
++					return typeName;
++			}
++		}
++
+ 		public Type CodeDomProviderType
+ 		{
+ 			get
+@@ -58,7 +75,7 @@ namespace WebFormsForCore.CodeDom.Compiler
+ 						{
+                             //type = Type.GetType(_codeDomProviderTypeName);
+                             var alc = AssemblyLoadContext.GetLoadContext(Assembly.GetExecutingAssembly());
+-							type = Type.GetType(_codeDomProviderTypeName,
++							type = Type.GetType(MapFrameworkProvider(_codeDomProviderTypeName),
+ 								assemblyName => {
+ 									try
+ 									{
+-- 
+2.55.0.windows.3
+

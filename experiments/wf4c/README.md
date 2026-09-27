@@ -54,6 +54,7 @@
 | 0008 | Linux: 物理パスを大文字小文字を区別せずに解決(MapPath、設定ファイル) | be の設定ファイル `Web.Config`(Linux で全画面エラー) |
 | 0009 | ASP.NET Core ホスト: SERVER_NAME を Host ヘッダーから(IIS と同じ) | be の error404 へのリダイレクト先がコンテナの IP アドレスになった |
 | 0010 | ASP.NET Core ホスト: .NET Framework にあったコードページを登録(CodePagesEncodingProvider) | mojo の web.config `fileEncoding="iso-8859-15"`(構成エラー) |
+| 0011 | 構成: `<system.codedom>` の Roslyn プロバイダー(DotNetCompilerPlatform の C# / VB)を WebFormsForCore のプロバイダーに対応付ける | mojo の構成エラー(Unable to locate type)。Visual Studio 2015 以降の Web テンプレートは全部この指定を持つ |
 
 未対応: VB のページコンパイラー(`VBCompiler.cs`)にも 0003 と同じ対応が要る(VB 対応のときに)。
 
@@ -204,7 +205,7 @@ Linux で ICU のデータに表せないもの:
 |---|---|---|
 | be | 成功(手動の除外なし。自動処理は以前の手動除外と同じ 8 ファイル) | Windows 5/5 |
 | wt | 成功 | Windows 6/8(既知の丸めの差) |
-| mojo | 成功 | web.config の `<compilation><assemblies>` にある `System.Data.Linq`(.NET に無い)で構成エラー |
+| mojo | 成功 | web.config の `System.Data.Linq` は変換器が外し(報告する)、`<system.codedom>` はフォーク 0011 で解決。**セットアップ画面が動き、SQL Server(`.\SQLEXPRESS`)にスキーマを作成できた。** トップページは `mojoPortal.Features.UI` が無く失敗(機能モジュールは Web プロジェクトから参照されず、元のビルドではビルド後イベントの xcopy でサイトに配置される) |
 | yaf | 成功 | `FieldAccessException`。アプリが Web API 2 の `HttpControllerRouteHandler._instance`(static readonly)をリフレクションで書き換えていて、.NET は型の初期化後の書き換えを禁止している。Web API 2 を DLL のまま使う限り直せないので、AspNetWebStack の移植が要る |
 | dnn | 成功(VB の DotNetNuke.WebUtility を使う箇所はスタブ) | `DataProvider.Instance()` が null。データプロバイダーは web.config から実行時に読み込まれる DLL で、元はビルドスクリプトが bin に配置する。インストールウィザードによる DB の作成も要る |
 | n2 | 成功 | インストーラー(`/N2/Installation/...`)が 404。管理画面は別プロジェクト(N2.Management)の中身で、元のビルドでは Web サイトに配置される |

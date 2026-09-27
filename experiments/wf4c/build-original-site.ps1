@@ -104,6 +104,18 @@ foreach ($project in $order) {
         /m:1 /v:m /nologo "/flp:LogFile=$log;Verbosity=normal;Append" | Out-Null
     if ($LASTEXITCODE -ne 0) { $code = $LASTEXITCODE; Write-Host "  failed: $($project.Name)" }
 }
+# The repository's own setup steps its documentation has run after the build (not part of the
+# solution): N2 links its management pages into the templates site (build.bat
+# /t:Source-PrepareDependencies; mklink, or a copy where the link cannot be made).
+$setup = @{ n2 = @('build\n2.proj', 'Templates-PrepareDependencies') }
+if ($setup.ContainsKey($Name)) {
+    $setupProject, $setupTarget = $setup[$Name]
+    Write-Host "setup: $setupProject /t:$setupTarget"
+    & $msbuild (Join-Path $work $setupProject) "/t:$setupTarget" "/p:Configuration=$Configuration" `
+        "/p:TargetFrameworkRootPath=$refRootParent" "/p:CscToolPath=$compiler" /p:CscToolExe=csc.exe `
+        /m:1 /v:m /nologo "/flp:LogFile=$log;Verbosity=normal;Append" | Out-Null
+    if ($LASTEXITCODE -ne 0) { $code = $LASTEXITCODE; Write-Host "  setup failed" }
+}
 $errors = Select-String -Path $log -Pattern ': error ' | ForEach-Object { $_.Line.Trim() } | Sort-Object -Unique
 Write-Host "build exit $code, $($errors.Count) error line(s)"
 $errors | Select-Object -First 15 | ForEach-Object { '  ' + $_.Substring(0, [Math]::Min(220, $_.Length)) }

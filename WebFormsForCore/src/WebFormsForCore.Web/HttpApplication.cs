@@ -1612,6 +1612,16 @@ namespace System.Web
 					return handler;
 				}
 
+#if !NETFRAMEWORK
+				// An application written for the integrated pipeline maps its handlers in system.webServer,
+				// before the inherited mappings.
+				string integratedType = IntegratedModeConfiguration.FindHandlerType(requestType, path);
+				IHttpHandlerFactory factory = integratedType != null ? GetFactory(integratedType) : null;
+				if (factory == null)
+#else
+				IHttpHandlerFactory factory;
+#endif
+				{
 				// Map new handler
 				HttpHandlerAction mapping = GetHandlerMapping(context, requestType, path, useAppConfig);
 
@@ -1626,7 +1636,8 @@ namespace System.Web
 				}
 
 				// Get factory from the mapping
-				IHttpHandlerFactory factory = GetFactory(mapping);
+				factory = GetFactory(mapping);
+				}
 
 
 				// Get factory from the mapping
@@ -2817,6 +2828,10 @@ namespace System.Web
 			HttpModuleCollection dynamicModules = CreateDynamicModules();
 
 			moduleCollection.AppendCollection(dynamicModules);
+#if !NETFRAMEWORK
+			// An application written for the integrated pipeline declares its modules in system.webServer.
+			moduleCollection = IntegratedModeConfiguration.ApplyModules(moduleCollection);
+#endif
 			_moduleCollection = moduleCollection; // don't assign until all ops have succeeded
 
 			InitModulesCommon();

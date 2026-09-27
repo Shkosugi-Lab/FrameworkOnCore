@@ -1,0 +1,126 @@
+﻿#if NETCOREAPP
+
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text.RegularExpressions;
+using System.Web.Configuration;
+using System.Web.Hosting;
+using System.Xml.Linq;
+
+namespace System.Web
+{
+	/// <summary>
+	/// The IIS integrated pipeline's configuration of the application (web.config's system.webServer), in
+	/// the classic pipeline this runtime has. An application written for integrated mode - IIS's default
+	/// since IIS 7 - declares its modules and handlers there only (DNN: the URL rewriter that sets up every
+	/// page); IIS reads it, and the classic pipeline reads system.web's httpModules and httpHandlers.
+	/// Only the managed entries (with a type: the others are IIS's native modules and handlers).
+	/// </summary>
+	internal static class IntegratedModeConfiguration
+	{
+		internal sealed record Handler(string Name, string Path, string Verb, string Type);
+
+		static readonly object gate = new object();
+		static (DateTime Written, List<XElement> Modules, List<Handler> Handlers) cache;
+
+		// The application's web.config (read again when it changes: DNN writes it at run time).
+		static (List<XElement> Modules, List<Handler> Handlers) Read()
+		{
+			var file = HostingEnvironment.MapPath("~/web.config");
+			if (file == null || !File.Exists(file)) return (new List<XElement>(), new List<Handler>());
+			var written = File.GetLastWriteTimeUtc(file);
+			lock (gate)
+			{
+				if (cache.Modules != null && cache.Written == written) return (cache.Modules, cache.Handlers);
+				var modules = new List<XElement>();
+				var handlers = new List<Handler>();
+				try
+				{
+					var root = XDocument.Load(file).Root;
+					// system.webServer directly under configuration, or in a <location> for the application itself.
+					var sections = root.Elements("system.webServer")
+						.Concat(root.Elements("location")
+							.Where(l => { var p = (string)l.Attribute("path"); return string.IsNullOrEmpty(p) || p == "."; })
+							.Elements("system.webServer"));
+					foreach (var section in sections)
+					{
+						modules.AddRange(section.Elements("modules").Elements());
+						foreach (var entry in section.Elements("handlers").Elements())
+						{
+							var name = (string)entry.Attribute("name") ?? "";
+							switch (entry.Name.LocalName)
+							{
+								case "clear": handlers.Clear(); break;
+								case "remove": handlers.RemoveAll(h => h.Name.Equals(name, StringComparison.OrdinalIgnoreCase)); break;
+								case "add":
+									var type = (string)entry.Attribute("type");
+									var path = (string)entry.Attribute("path");
+									// IIS's TransferRequestHandler (extensionless URLs to the managed pipeline): here every
+									// request reaches it already.
+									if (string.IsNullOrEmpty(type) || string.IsNullOrEmpty(path) || type.StartsWith("System.Web.Handlers.TransferRequestHandler", StringComparison.Ordinal)) break;
+									handlers.RemoveAll(h => h.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
+									handlers.Add(new Handler(name, path, (string)entry.Attribute("verb") ?? "*", type));
+									break;
+							}
+						}
+					}
+				}
+				catch (Exception e) when (e is System.Xml.XmlException || e is IOException)
+				{
+				}
+				cache = (written, modules, handlers);
+				return (modules, handlers);
+			}
+		}
+
+		/// <summary>The application's modules after its system.webServer/modules, in IIS's order.</summary>
+		internal static HttpModuleCollection ApplyModules(HttpModuleCollection modules)
+		{
+			var entries = Read().Modules;
+			if (entries.Count == 0) return modules;
+			var list = Enumerable.Range(0, modules.Count).Select(i => (Name: modules.GetKey(i), Module: modules[i])).ToList();
+			foreach (var entry in entries)
+			{
+				var name = (string)entry.Attribute("name") ?? "";
+				switch (entry.Name.LocalName)
+				{
+					case "clear": list.Clear(); break;
+					case "remove": list.RemoveAll(m => m.Name.Equals(name, StringComparison.OrdinalIgnoreCase)); break;
+					case "add":
+						var type = (string)entry.Attribute("type");
+						if (string.IsNullOrEmpty(type)) break;
+						list.RemoveAll(m => m.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
+						list.Add((name, new System.Web.Configuration.Common.ModulesEntry(name, type, "type", null).Create()));
+						break;
+				}
+			}
+			var result = new HttpModuleCollection();
+			foreach (var (moduleName, module) in list) result.AddModule(moduleName, module);
+			return result;
+		}
+
+		/// <summary>The application's handler for the request in system.webServer/handlers; null if none.</summary>
+		internal static string FindHandlerType(string verb, VirtualPath path)
+		{
+			var handlers = Read().Handlers;
+			if (handlers.Count == 0) return null;
+			var virtualPath = path.VirtualPathString;
+			var fileName = virtualPath.Substring(virtualPath.LastIndexOf('/') + 1);
+			foreach (var handler in handlers)
+			{
+				// Without a '/', IIS matches the path against the request's file name; with one, the whole path.
+				var subject = handler.Path.Contains('/') ? virtualPath : fileName;
+				if (!Wildcard(handler.Path.TrimStart('~')).IsMatch(subject)) continue;
+				if (handler.Verb != "*" && !handler.Verb.Split(',').Any(v => v.Trim().Equals(verb, StringComparison.OrdinalIgnoreCase))) continue;
+				return handler.Type;
+			}
+			return null;
+		}
+
+		static Regex Wildcard(string pattern) =>
+			new Regex("^" + Regex.Escape(pattern).Replace(@"\*", ".*").Replace(@"\?", ".") + "$", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant);
+	}
+}
+
+#endif

@@ -11,4 +11,9 @@
     <Nullable>disable</Nullable>
     <LangVersion>14</LangVersion>
   </PropertyGroup>
+
+  <ItemGroup>
+    <!-- EventLogs: the event log on Windows. -->
+    <PackageReference Include="System.Diagnostics.EventLog" Version="10.0.0" />
+  </ItemGroup>
 </Project>

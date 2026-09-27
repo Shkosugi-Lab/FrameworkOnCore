@@ -138,7 +138,8 @@ public sealed class SourceEdits(SourceLanguage language, Rules rules)
                         done.Add(new Done(LineOf(node), p.Code, $"{p.Message.Split(' ').FirstOrDefault(w => w.Contains("Invoke"))}(...) -> FrameworkOnCore.AsyncDelegate (FOC1005: .NET has no asynchronous delegate call; the thread pool runs it)", Report.Kind.Platform));
                         break;
                     case "FOC1006":
-                        if (p.Tag is not { } tag || !tag.StartsWith("rule", StringComparison.Ordinal) || !int.TryParse(tag[4..], out var number) ||
+                        var instanceCall = p.Tag?.EndsWith("_instance", StringComparison.Ordinal) == true;
+                        if (p.Tag is not { } tag || !tag.StartsWith("rule", StringComparison.Ordinal) || !int.TryParse(tag[4..^(instanceCall ? "_instance".Length : 0)], out var number) ||
                             number >= rules.PlatformReplacements.Count)
                         {
                             left.Add(p);
@@ -146,7 +147,14 @@ public sealed class SourceEdits(SourceLanguage language, Rules rules)
                         }
                         var rule = rules.PlatformReplacements[number];
                         var replacement = language.Global(rule.Replacement);
-                        if (rule.Replace == "call") Put(node, inner => language.Retarget(inner, replacement), Shape);
+                        // A call of an instance method: its receiver is the replacement's first argument (log.WriteEntry(m) ->
+                        // EventLogs.WriteEntry(log, m)); one without a receiver written is left.
+                        if (rule.Replace == "call" && instanceCall)
+                        {
+                            if (!language.TrySplitCall(node, out var instanceReceiver, out _, out _) || instanceReceiver == null) { left.Add(p); break; }
+                            Put(node, inner => language.TrySplitCall(inner, out var receiver, out _, out _) && receiver != null ? language.Retarget(inner, replacement, receiver) : null, Shape);
+                        }
+                        else if (rule.Replace == "call") Put(node, inner => language.Retarget(inner, replacement), Shape);
                         else Add(node, _ => replacement);
                         done.Add(new Done(LineOf(node), p.Code, $"{rule.Member}{(rule.Then != null ? "." + rule.Then : "")} -> {rule.Replacement} ({rule.Note})", Report.Kind.Platform));
                         break;

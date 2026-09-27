@@ -56,8 +56,8 @@
     "System.ServiceModel.Web": [ [ "System.ServiceModel.Syndication", "10.0.0" ] ]
   },
 
-  "$comment_noAnswer": "Assemblies .NET has no counterpart for (reported; the code using them is stubbed).",
-  "noAnswer": [ "System.Data.Linq", "System.Data.Services.Client", "System.Design", "System.Web.Mobile" ],
+  "$comment_noAnswer": "Assemblies .NET has no counterpart for (reported; the code using them is stubbed; left out of web.config's page compilation, where loading them fails every page). Designers' (System.Design, System.Web.Extensions.Design: Visual Studio's) and the desktop's (System.Windows.Forms: Windows desktop applications', not a web application's).",
+  "noAnswer": [ "System.Data.Linq", "System.Data.Services.Client", "System.Design", "System.Web.Extensions.Design", "System.Web.Mobile", "System.Windows.Forms" ],
 
   "$comment_sourcePackages": "What .NET Framework had in its own assemblies and .NET ships as packages: added when the sources use it.",
   "sourcePackages": [
@@ -91,7 +91,7 @@
     { "type": "AssemblyBuilderAccess", "member": "Save", "replacement": "System.Reflection.Emit.AssemblyBuilderAccess.Run", "note": ".NET's dynamic assemblies are not saved: Run" }
   ],
 
-  "$comment_platformReplacements": "Members that work on Windows only (they compile, and throw PlatformNotSupportedException elsewhere) or otherwise elsewhere, replaced by FrameworkOnCore.Compat's, which is the same on Windows. By symbol (FrameworkOnCore.Analyzers' PlatformAnalyzer, FOC1006; C# and Visual Basic): member is the type's full name and the member's (.ctor: a constructor); then: a property read on its value, the read replaced; arguments: the call's count; parameterType: a type one of its parameters has. replace: expression (the whole expression becomes the replacement) or call (the call keeps its arguments). The first rule that applies.",
+  "$comment_platformReplacements": "Members that work on Windows only (they compile, and throw PlatformNotSupportedException elsewhere) or otherwise elsewhere, replaced by FrameworkOnCore.Compat's, which is the same on Windows. By symbol (FrameworkOnCore.Analyzers' PlatformAnalyzer, FOC1006; C# and Visual Basic): member is the type's full name and the member's (.ctor: a constructor); then: a property read on its value, the read replaced; arguments: the call's count; parameterType: a type one of its parameters has. replace: expression (the whole expression becomes the replacement) or call (the call keeps its arguments; a call on an object passes it first). The first rule that applies.",
   "platformReplacements": [
     { "member": "System.Security.Principal.PrincipalPolicy.WindowsPrincipal", "replace": "expression", "replacement": "FrameworkOnCore.Platform.WindowsPrincipalPolicy", "note": "no Windows account elsewhere: an unauthenticated principal (with WindowsPrincipal every Thread.CurrentPrincipal throws: DNN's Scheduler, every request)" },
     { "member": "System.Security.Principal.WindowsIdentity.GetCurrent", "arguments": 0, "then": "Name", "replace": "expression", "replacement": "FrameworkOnCore.Platform.CurrentIdentityName", "note": "the account the application runs as: the user elsewhere" },
@@ -99,7 +99,10 @@
     { "member": "System.AppDomain.RelativeSearchPath", "replace": "expression", "replacement": "FrameworkOnCore.Platform.RelativeSearchPath", "note": "ASP.NET searched bin under the application's folder (its BaseDirectory, as WebFormsForCore gives it); .NET's RelativeSearchPath is always null: bin, on every platform" },
     { "member": "System.Uri.TryCreate", "parameterType": "System.UriKind", "replace": "call", "replacement": "FrameworkOnCore.WindowsUri.TryCreate", "note": "a path from the root (/Portals/0/home.css) is an absolute file URI on Unix, relative on Windows: as on Windows" },
     { "member": "System.Uri.IsWellFormedUriString", "replace": "call", "replacement": "FrameworkOnCore.WindowsUri.IsWellFormedUriString", "note": "a path from the root is an absolute file URI on Unix: as on Windows" },
-    { "member": "System.Uri..ctor", "parameterType": "System.UriKind", "replace": "call", "replacement": "FrameworkOnCore.WindowsUri.Create", "note": "new Uri(path, UriKind...): a path from the root is an absolute file URI on Unix: as on Windows" }
+    { "member": "System.Uri..ctor", "parameterType": "System.UriKind", "replace": "call", "replacement": "FrameworkOnCore.WindowsUri.Create", "note": "new Uri(path, UriKind...): a path from the root is an absolute file URI on Unix: as on Windows" },
+    { "member": "System.Diagnostics.EventLog.WriteEntry", "replace": "call", "replacement": "FrameworkOnCore.EventLogs.WriteEntry", "note": "the event log is Windows only (elsewhere .NET throws): elsewhere the entry goes to the standard error, which the service's journal or the container's log keeps; the event log on Windows" },
+    { "member": "System.Diagnostics.EventLog.SourceExists", "replace": "call", "replacement": "FrameworkOnCore.EventLogs.SourceExists", "note": "the event log is Windows only: elsewhere every source exists (its entries go to the standard error)" },
+    { "member": "System.Diagnostics.EventLog.CreateEventSource", "replace": "call", "replacement": "FrameworkOnCore.EventLogs.CreateEventSource", "note": "the event log is Windows only: elsewhere there is no source to create" }
   ],
   "$comment_sourceNotes": "What the sources do that behaves differently on .NET (reported).",
   "sourceNotes": [

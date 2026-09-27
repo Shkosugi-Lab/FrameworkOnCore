@@ -2,7 +2,7 @@
 # that should not change what it writes, and compared after (a refactoring).
 #   .\experiments\wf4c\snapshot-conversion.ps1 -Only be,wt,n2,dnn -Save       # _linux\snapshot-<name>.json
 #   .\experiments\wf4c\snapshot-conversion.ps1 -Only be,wt,n2,dnn            # compare: the files that differ
-param([string[]]$Only = @('be', 'wt', 'mojo', 'yaf', 'dnn', 'n2'), [switch]$Save)
+param([string[]]$Only = @('be', 'wt', 'mojo', 'yaf', 'dnn', 'n2', 'imis'), [switch]$Save)
 $sha = [Security.Cryptography.SHA256]::Create()
 foreach ($name in $Only) {
     $root = Join-Path $PSScriptRoot $name

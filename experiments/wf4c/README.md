@@ -97,6 +97,8 @@ fork.slnx に含めると、読み込み済みのタスク DLL とコピーが�
     - `WindowsUri`: `/Portals/0/home.css` のようなルートからのパスを、Windows と同じく相対 URI として扱う(.NET は Unix では絶対の file URI とみなす)。
     - `Platform`: `PrincipalPolicy.WindowsPrincipal`(Windows 以外では認証されていないプリンシパル)、`WindowsIdentity.GetCurrent().Name`(ユーザー名)。
     - `AsyncDelegate`: デリゲートの `BeginInvoke`/`EndInvoke`(.NET には無い。スレッドプールで実行する)。
+    - `EventLogs`: イベントログ(`EventLog.WriteEntry`・`SourceExists`・`CreateEventSource`)。Windows 以外では .NET は例外を投げる。エントリーを標準エラーに書く(systemd のジャーナルやコンテナのログに残る)。
+  - VB の My(Web のプロジェクトのもの。.NET Framework の Microsoft.VisualBasic.dll にあり、.NET では Windows のデスクトップの Microsoft.VisualBasic.Forms にしかないか、どこにも無い): `ContextValue`(コンパイラーの My のテンプレートが使う。要求ごと、要求の外ではスレッドごと)、`ServerComputer`(My.Computer)と `FileSystemProxy`(My.Computer.FileSystem。.NET にある `Microsoft.VisualBasic.FileIO.FileSystem` に任せる。`FindInFiles` は自前)、`WebUser`(My.User。要求のユーザー)、`AspLog`(My.Log。System.Diagnostics のトレース)。
 - `QuickIO.NET`(アセンブリ `SchwabenCode.QuickIO`): Win32 のファイル API を使う Windows 専用のパッケージ(DNN の FileSystemUtils)。同じ API を System.IO で提供し、`PathNotFoundException` などの例外も同じ型で投げる。変換器はパッケージを外す(`rules/packages.json` の `shimPackages`)。
 - 変換器は、変換するすべてのプロジェクトに互換アセンブリを参照させる。
 - ファサードは Microsoft の公開鍵で公開署名する(`keys/`、`extract-keys.ps1` で .NET Framework のアセンブリから公開鍵を取り出したもの)。署名が無いと、元の名前で参照するアセンブリとの同一性が合わず CS0012 になる(dnn の ModulePresenterBase)。
@@ -208,7 +210,7 @@ Linux で ICU のデータに表せないもの:
 
 `src/FrameworkOnCore.Converter`(C#)。convert-project.ps1 の変換規則を移植し(規則は `rules/packages.json`)、ビルドエラーを自動で処理する層を加えた。
 
-    .\experiments\wf4c\convert-corpora.ps1          # 6 本を変換してビルド(レポートは <out>\CONVERSION-REPORT.md)
+    .\experiments\wf4c\convert-corpora.ps1          # 7 本を変換してビルド(レポートは <out>\CONVERSION-REPORT.md)
     .\experiments\wf4c\probe-corpora.ps1            # 起動して "/" を開く
 
 ビルドエラーの自動処理は、Roslyn でエラーの位置を構文木上で特定し、手を入れる範囲をできるだけ小さくする。
@@ -233,7 +235,8 @@ Linux で ICU のデータに表せないもの:
 | wt | 成功 | Windows 6/8(既知の丸めの差) |
 | mojo | 成功。元のビルドはソリューションのビルド(`--build-original`) | **トップページが表示される**(`Home - mojoPortal`。DB は `.\SQLEXPRESS` の `mojo_w2l`)。**Linux でも**、空の DB からセットアップ画面がスキーマ(105 テーブル)を作り、トップページ・ログイン・サイトマップが 200(`run-linux-site.ps1`、SQL Server のコンテナ) |
 | yaf | 成功 | `FieldAccessException`。アプリが Web API 2 の `HttpControllerRouteHandler._instance`(static readonly)をリフレクションで書き換えていて、.NET は型の初期化後の書き換えを禁止している。Web API 2 を DLL のまま使う限り直せないので、AspNetWebStack の移植が要る |
-| dnn | 成功。元のビルドは DNN 自身の Cake ビルド(`--build-original`)。VB の DotNetNuke.WebUtility は配置済みサイトの .NET Framework の DLL をそのまま参照する | Windows: **インストール(`Install.aspx?mode=install`)が完了し、トップページが表示される**(`Home`。DB は `.\SQLEXPRESS` の `dnn_w2l`。`dnn-cycle.ps1` で DB の作成から通す)。**Linux でも**、空の DB からインストールが完了し(サイトの作成、スキンなどのモジュールの導入)、トップページ・`/Login`・`/Terms` が 200、ページの CSS・JS・画像 21 件がすべて 200、host でのログインが通る(`run-linux-site.ps1`、SQL Server のコンテナ。下の「Linux で動かすための書き換え」) |
+| dnn | 成功。元のビルドは DNN 自身の Cake ビルド(`--build-original`)。VB の DotNetNuke.WebUtility は配置済みサイトの .NET Framework の DLL をそのまま参照する(2026-09-28 から VB のプロジェクトも変換する。dnn はその後未検証) | Windows: **インストール(`Install.aspx?mode=install`)が完了し、トップページが表示される**(`Home`。DB は `.\SQLEXPRESS` の `dnn_w2l`。`dnn-cycle.ps1` で DB の作成から通す)。**Linux でも**、空の DB からインストールが完了し(サイトの作成、スキンなどのモジュールの導入)、トップページ・`/Login`・`/Terms` が 200、ページの CSS・JS・画像 21 件がすべて 200、host でのログインが通る(`run-linux-site.ps1`、SQL Server のコンテナ。下の「Linux で動かすための書き換え」) |
+| imis | 成功(VB のプロジェクト 5 本)。元のビルドはソリューションのビルド(構成 `DemoRelease`) | Windows・Linux とも、**デモの DB でログインでき、主な画面(ホーム、世帯・被保険者・保険・請求・ユーザーの検索、レポート)が 200**(`imis-login.ps1`。下の「VB のプロジェクト」) |
 | n2 | 成功。元のビルドはソリューションのビルドと、リポジトリのセットアップ手順(`--original-step build\n2.proj;Templates-PrepareDependencies`) | インストーラーが表示される(`Install N2`)。Linux でも同じ(フォーク 0021 の後)。Windows: **SQLite(`App_Data\n2.sqlite.db`)で、空の DB からインストールが完了し(管理者のパスワード → テーブルの作成 → サンプルのコンテンツの取り込み。`n2-install.ps1`)、トップページがコンテンツ付きで表示される**(VB のページ。フォーク 0025)。**Linux でも同じ**(`run-linux-site.ps1 -Keep` の後 `n2-install.ps1 -Port 5098 -Running`)。SQLite は 1.0.119 に上げる(下) |
 
 ### 元のビルドと配置済みサイト
@@ -255,7 +258,7 @@ Linux で ICU のデータに表せないもの:
     - ビルドが割り当てたドライブを指すリンク(n2 のセットアップの `mklink /J`)は、ドライブを外す前にリンク先のコピーに置き換える。
     - 配置済みサイトは Web プロジェクト自身のフォルダーを選ぶ(ビルド後イベントがそこへ配置する)。
   - 以前の `build-original-site.ps1` はこれに置き換えた。
-- 変換しないプロジェクト(VB)は、配置済みサイトにあるその DLL を参照する(出力の `.deployed` にコピー)。
+- 変換しないプロジェクト(C# と VB 以外)は、配置済みサイトにあるその DLL を参照する(出力の `.deployed` にコピー)。
 - サイトの中のパッケージ(DNN の `Install\Module\*.zip` など。拡張子によらず中身が zip のもの)にある DLL のうち、.NET のビルドで bin を置き換えたものは、パッケージの中も置き換える。インストールされると .NET Framework の DLL が bin に戻るため。
 - アプリは作業プロセスの中で、bin のコピーから動く(フォーク 0018。変換器の Program.cs が `WebFormsProcess.RunInWorker` を呼ぶ)。.NET Framework の ASP.NET のシャドウコピーに当たる。bin は書き込めるままで(DNN のインストーラーがモジュールの DLL を置く)、web.config や bin が変わるとアプリが再起動し(フォーク 0015・0016)、新しいコピーから起動し直す。`WEBFORMSFORCORE_SHADOWCOPY=0` なら bin から直接動き、再起動はプロセスの終了(終了コード 75)を監視役(IIS、systemd の `Restart=`、Docker の `--restart`、`supervise.ps1`)が拾う。
 - `run-linux-site.ps1`: 変換したサイトを、本番と同じ形(ASP.NET のランタイムイメージにサイトのフォルダーをコピーして起動。ビルドはしない)で Linux のコンテナで動かす。接続文字列は SQL Server のコンテナに向ける。
@@ -385,6 +388,45 @@ VB のプロジェクトに同じ書き換えを使えるように、判定と�
 - 変換したプロジェクトでは `TreatWarningsAsErrors` を外す: 変換で加えた編集が StyleCop の警告になり、.NET の SYSLIB の警告もエラーになっていた。
 - テンプレートのファイル名: `Program.cs.txt` の `cs` が MSBuild にチェコ語のカルチャと解釈され、サテライトアセンブリに回っていた。
 
+### VB のプロジェクト(openIMIS、2026-09-28)
+
+VB のプロジェクト(.vbproj)も、C# と同じ形で変換する。コーパスは openIMIS(`web_app_vb`、VB の Web Forms のアプリ。5 本のプロジェクトがすべて VB。DB は `database_ms_sqlserver` 24.10 のスクリプト。`corpora/fetch.ps1` の `imis`・`imisdb`)。
+
+    .\experiments\wf4c\convert-corpora.ps1 -Only imis     # 元のビルド、変換、DB(.\SQLEXPRESS の imis_w2l)
+    .\experiments\wf4c\imis-login.ps1                     # 起動したサイトにログインして主な画面を開く
+
+変換:
+- 旧形式の .vbproj は SDK 形式の .vbproj にする(言語は拡張子で決まる)。VB の設定をそのまま移す: `OptionStrict`(Off なら遅延バインディング)・`OptionExplicit`・`OptionCompare`・`OptionInfer`、プロジェクトの `Import`(SDK の既定の一覧は元と違うので `DisableImplicitNamespaceImports`)、`RootNamespace`(VB はすべての型をその中に置く。空も空のまま。SDK は空をプロジェクト名にしてしまう)。
+- `DefineConstants` は VB の書き方(カンマ区切り、`BEPHA=1` のような値付き)。SDK の既定の定数は VB では `FinalDefineConstants` にあるので、前に `$(DefineConstants)` を付けない。ソースを読むとき(`#If`)も値付きで読む。
+- `MyType`: デスクトップの My(`Windows`・`WindowsForms`・`Console`。My.Application・My.Computer・My.User)は .NET では Windows のデスクトップにしか無く、コンパイラーの My のテンプレートがその型を指すと、直しようのないエラー(ソースの位置が無い)になる。ソースが My を使っていなければ `Empty`、使っていればサーバーの My(`Web`。互換アセンブリの型)にする(DNN の DotNetNuke.WebUtility は `Windows` で、My を使っていない)。
+- Web プロジェクトの入口は `Program.vb`(`templates/ProgramTemplate.vb.txt`。ルートの名前空間の外に置くため `Namespace Global`)。
+- 同じソースファイルが 2 回並んでいるプロジェクト(openIMIS の `Resource1.designer.vb`)は 1 回だけコンパイルする。Visual Studio のプロジェクトシステムは 1 回にするが、コマンドラインの VB コンパイラーは型を 2 回定義する(BC30179)。元のビルド(ソリューション)でも、コンパイルの前に `Compile` の重複を除くターゲットを差し込む(`CustomAfterMicrosoftCommonTargets`)。
+- `--configuration <名前>`: 元のビルドの構成(ソリューションのビルドの既定は Release)と、変換でプロジェクトの条件を読む構成(既定は Debug)。openIMIS は `DemoRelease`(リポジトリに web.config の変換があるのはこれだけ。`#If DEMO` のコードもその構成のもの)。
+- ページ(`Language="vb"`)は、フォークの VB のコード プロバイダーが実行時にコンパイルする(変更なし)。
+
+ビルドエラーの自動処理(`BuildFixer.VisualBasic.cs`): C# と同じ判断を VB の構文で行う(Imports・属性を外す、`Overrides` を外す、本体を `Throw New PlatformNotSupportedException` にする、初期化子・宣言を外す、ファイルを除外する)。VB だけのもの:
+- BC36908(遅延バインディングの呼び出しに拡張メソッドは使えない): `Option Strict Off` で型の無い引数を渡す呼び出し(`Encoding.UTF8.GetBytes(inputString)`)は、.NET Framework では実行時に受け手のメンバーから選ばれていた。.NET が同じ名前の拡張メソッド(`EncodingExtensions.GetBytes`)を加えたのでエラーになる。受け手を `CObj(...)` にして、元と同じ遅延バインディングにする。
+
+Windows 専用の API の置き換え(`platformReplacements`、FOC1006)に加えたもの:
+- `EventLog.WriteEntry`・`SourceExists`・`CreateEventSource` → 互換アセンブリの `EventLogs`。openIMIS はログインのたびにイベントログに書き、`Application_Start` でソースを作る(Linux ではログインが 500 になっていた)。
+- インスタンスのメソッドの呼び出し(`log.WriteEntry(m)`)は、受け手を置き換え先の最初の引数にする(`EventLogs.WriteEntry(log, m)`)。構文では型の名前(静的な呼び出し)と区別できないので、アナライザーがシンボルで判定して診断に付ける(`rule7_instance`)。以前は受け手を黙って落とす作りだった(既存の規則は静的なメンバーだけなので影響なし)。
+
+`rules/packages.json` の `noAnswer` に加えたもの: `System.Web.Extensions.Design`(Visual Studio のデザイナー)と `System.Windows.Forms`(デスクトップ)。web.config のページのコンパイルの `<assemblies>` にあると、読み込みに失敗して全ページが構成エラーになる(openIMIS)。ほかのコーパスではプロジェクトの参照にあるだけで、以前から黙って外していた(レポートに 1 行ずつ増える)。
+
+フォーク: Ajax Control Toolkit(サブモジュール `src/WebFormsForCore.AjaxControlToolkit`)もパッケージにする(`pack-fork.ps1`、`fork.slnx`)。openIMIS が使う。初回は `git submodule update --init src/WebFormsForCore.AjaxControlToolkit`。
+
+確認した結果:
+- 元のビルド: 5 本とも成功。
+- 変換: 5 本ともビルド成功。変換で変えたソース: 遅延バインディング 1 件(上の BC36908)、Linux のパスの書き換え 123 件(`ReportPath` の `Reports\*.rdlc`、`MapPath` への結合、7-Zip の DLL の場所など)。
+- Windows(`.\SQLEXPRESS`)・Linux(`run-linux-site.ps1 -SqlScripts` でコンテナの SQL Server に DB のスクリプトを流す): デモの `Admin` でログインし、主な画面が 200。Linux ではログインの記録がコンテナのログに出る(`IMIS: Information 1: Admin has logged in.`)。
+- be/wt: 変換結果は変わらない(`snapshot-conversion.ps1`)。Linux で be 5/5、wt 5/8(以前と同じ)。
+- テスト 41 件(EventLog の書き換えの C# と VB、互換アセンブリの EventLogs と VB の My)。Windows・Linux とも成功。
+
+未確認・残り:
+- レポートの画面(ReportViewer)で実際にレポートを出すこと。ReportViewer は .NET Framework 向けの DLL のまま参照している(ビルドは通る)。
+- 7-Zip(SevenZipSharp)・SQL Server の型(Microsoft.SqlServer.Types)のネイティブライブラリを使う機能(オフラインのデータの書き出しなど)。
+- dnn は、DotNetNuke.WebUtility(VB)をソースから変換するようになった。dnn・n2 は `EventLog` の書き換えでも変換結果が変わる(log4net の EventLogAppender、N2 の DynamicProxy のロガー。どちらも構成したときだけ使う)。どちらも未検証。
+- Linux の 1 回目の実行で、`/` が 1 度だけエラーページ(`Error.htm`)になった。その後の 4 回は再現しない。`Application_Start` の `EventLog.SourceExists` が Linux で例外を投げていたことと関係する可能性がある(今は置き換えた)。
 ## 全コーパスでの検証(2026-09-27)
 
 `verify-corpora.ps1` で 6 本を変換してビルドした(Windows)。正解データがあるのは be と wt だけ。

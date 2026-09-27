@@ -1,0 +1,42 @@
+Option Strict On
+Option Infer On
+
+Imports Microsoft.AspNetCore.Builder
+Imports Microsoft.Extensions.DependencyInjection
+Imports Microsoft.Extensions.FileProviders
+
+' Outside the project's root namespace: the entry point is Program (StartupObject).
+Namespace Global
+
+    Public Class Program
+        Public Shared Sub Main(args As String())
+            ' As ASP.NET runs it on .NET Framework: in a worker process, from a copy of bin (bin stays
+            ' writable), started again when the application restarts (web.config or bin changed).
+            Dim exitCode As Integer
+            If System.Web.Hosting.WebFormsProcess.RunInWorker(args, exitCode) Then
+                System.Environment.ExitCode = exitCode
+                Return
+            End If
+
+            Dim builder = WebApplication.CreateBuilder(args)
+            builder.Services.AddDistributedMemoryCache()
+            builder.Services.AddSession()
+
+            Dim app = builder.Build()
+
+            ' IIS's default document: "/" (and "/folder/") serves Default.aspx. Kestrel has no such
+            ' feature; the pages live in the content root, not wwwroot, so the provider is set.
+            Dim defaults = New DefaultFilesOptions With {.FileProvider = New PhysicalFileProvider(builder.Environment.ContentRootPath)}
+            defaults.DefaultFileNames.Clear()
+            For Each name In {"Default.aspx", "default.aspx", "Index.aspx", "index.aspx"}
+                defaults.DefaultFileNames.Add(name)
+            Next
+            app.UseDefaultFiles(defaults)
+
+            app.UseSession()
+            app.UseWebForms(Sub(options) options.UseAspNetCoreSessionProvider())
+            app.Run()
+        End Sub
+    End Class
+
+End Namespace

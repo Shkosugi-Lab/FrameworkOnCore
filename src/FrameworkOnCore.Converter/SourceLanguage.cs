@@ -172,7 +172,17 @@ public abstract class SourceLanguage
     {
         public override SyntaxTree Parse(SourceText text, string path, IEnumerable<string> symbols) =>
             VB.VisualBasicSyntaxTree.ParseText(text, new VB.VisualBasicParseOptions(VB.LanguageVersion.Latest,
-                preprocessorSymbols: symbols.Select(s => new KeyValuePair<string, object>(s, true))), path);
+                preprocessorSymbols: symbols.Select(Symbol)), path);
+
+        // A Visual Basic constant has a value (BEPHA=1, _MyType="Web"): a number, a string, or True without one.
+        static KeyValuePair<string, object> Symbol(string symbol)
+        {
+            var (name, value) = symbol.IndexOf('=') is var equals and > 0 ? (symbol[..equals].Trim(), symbol[(equals + 1)..].Trim()) : (symbol, "True");
+            object parsed = value.Length >= 2 && value[0] == '"' && value[^1] == '"' ? value[1..^1]
+                : int.TryParse(value, out var number) ? number
+                : !value.Equals("False", StringComparison.OrdinalIgnoreCase);
+            return new(name, parsed);
+        }
 
         public override SyntaxNode Expression(string text) => VB.SyntaxFactory.ParseExpression(text);
 

@@ -15,7 +15,7 @@ namespace FrameworkOnCore.Converter;
 /// names (corepack). The deployed site is then found by what it has: a web.config and the web
 /// project's assembly in its bin.
 /// </summary>
-public sealed partial class OriginalBuild(Report report, string log)
+public sealed partial class OriginalBuild(Report report, string log, string? configuration = null)
 {
     static readonly string toolsCache = Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "FrameworkOnCore", "tools");

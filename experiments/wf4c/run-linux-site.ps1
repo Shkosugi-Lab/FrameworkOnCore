@@ -1,16 +1,20 @@
-# Runs a converted site (FrameworkOnCore's <out>\site) in a Linux container as it is deployed: the site
+﻿# Runs a converted site (FrameworkOnCore's <out>\site) in a Linux container as it is deployed: the site
 # folder copied into the ASP.NET runtime image (mcr.microsoft.com/dotnet/aspnet:10.0), no build, the web
 # assembly started from bin. SQL Server runs in a container too (w2l-sql, kept between runs): the site's
 # connection strings to a local instance (.\SQLEXPRESS, (local), localhost) are pointed at it, database
 # -Database. Then the paths are requested in order, and each one's status and title printed.
 #
 #   .\experiments\wf4c\run-linux-site.ps1 -Site dnn\site -Dll DotNetNuke.Website -Database dnn_linux -Paths '/Install/Install.aspx?mode=install', '/'
+#   .\experiments\wf4c\run-linux-site.ps1 -Site imis\site -Dll IMIS -Database imis_linux -SqlScripts (imis-sql-scripts)
 param(
     # The site folder, relative to experiments\wf4c.
     [Parameter(Mandatory = $true)][string]$Site,
     # The web project's assembly (bin\<Dll>.dll).
     [Parameter(Mandatory = $true)][string]$Dll,
     [string]$Database,
+    # The application's database scripts, run in order in -Database once it is created (openIMIS: its schema,
+    # stored procedures and demo data; the others create theirs from the site).
+    [string[]]$SqlScripts = @(),
     [string[]]$Paths = @('/'),
     [int]$Port = 5098,
     [string]$Image = 'mcr.microsoft.com/dotnet/aspnet:10.0',
@@ -47,6 +51,11 @@ foreach ($attempt in 1..60) {
 }
 if ($Database) {
     docker exec w2l-sql /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P $sqlPassword -C -b -Q "IF DB_ID('$Database') IS NOT NULL BEGIN ALTER DATABASE [$Database] SET SINGLE_USER WITH ROLLBACK IMMEDIATE; DROP DATABASE [$Database] END; CREATE DATABASE [$Database]" | Out-Null
+    foreach ($sqlScript in $SqlScripts) {
+        docker cp $sqlScript w2l-sql:/tmp/w2l-script.sql | Out-Null
+        docker exec w2l-sql /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P $sqlPassword -C -d $Database -f 65001 -i /tmp/w2l-script.sql *> (Join-Path $logDir "sql-$([IO.Path]::GetFileNameWithoutExtension($sqlScript)).log")
+        if ($LASTEXITCODE -ne 0) { Write-Warning "$sqlScript failed (see $logDir)" }
+    }
 }
 
 # The site's .config files (web.config, and those it includes: mojoPortal's user.config): every connection

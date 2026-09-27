@@ -90,4 +90,58 @@ public class CompatTests
         var failed = AsyncDelegate.BeginInvoke(fail, new object[] { 1 }, null, null);
         Assert.Throws<InvalidOperationException>(() => AsyncDelegate.EndInvoke(failed));
     }
+
+    [Fact] // openIMIS logs every login to the event log: elsewhere a line on the standard error
+    public void Event_log_entries_go_to_the_standard_error_elsewhere()
+    {
+        if (OperatingSystem.IsWindows()) return;   // the event log itself (writing to it needs a registered source)
+        var before = Console.Error;
+        var written = new StringWriter();
+        Console.SetError(written);
+        try { EventLogs.WriteEntry("IMIS", "Admin has logged in.", System.Diagnostics.EventLogEntryType.Information, 1); }
+        finally { Console.SetError(before); }
+        Assert.Equal("IMIS: Information 1: Admin has logged in.", written.ToString().Trim());
+        Assert.True(EventLogs.SourceExists("IMIS"));
+        EventLogs.CreateEventSource("IMIS", "Application");
+    }
+
+    [Fact] // Visual Basic's My (the compiler's ThreadSafeObjectProvider): a value per thread outside a request
+    public void Context_value_is_per_thread_outside_a_request()
+    {
+        var value = new Microsoft.VisualBasic.MyServices.Internal.ContextValue<string> { Value = "here" };
+        string? other = "unset";
+        var thread = new Thread(() => other = value.Value);
+        thread.Start();
+        thread.Join();
+        Assert.Equal("here", value.Value);
+        Assert.Null(other);
+    }
+
+    [Fact] // My.Computer.FileSystem (openIMIS); FindInFiles is not in .NET's FileSystem
+    public void My_computer_file_system_finds_in_files()
+    {
+        var folder = Path.Combine(root, "FindProbe");
+        Directory.CreateDirectory(folder);
+        File.WriteAllText(Path.Combine(folder, "a.txt"), "Hello World");
+        File.WriteAllText(Path.Combine(folder, "b.txt"), "nothing");
+        var fileSystem = new Microsoft.VisualBasic.Devices.ServerComputer().FileSystem;
+        var found = fileSystem.FindInFiles(folder, "hello", true, Microsoft.VisualBasic.FileIO.SearchOption.SearchTopLevelOnly, "*.txt");
+        Assert.Equal(new[] { Path.Combine(folder, "a.txt") }, found);
+        Assert.True(fileSystem.DirectoryExists(folder));
+    }
+
+    [Fact] // My.User outside a request: the thread's principal
+    public void Web_user_outside_a_request_is_the_thread_s()
+    {
+        var before = Thread.CurrentPrincipal;
+        try
+        {
+            Thread.CurrentPrincipal = new System.Security.Principal.GenericPrincipal(new System.Security.Principal.GenericIdentity("admin"), new[] { "Admins" });
+            var user = new Microsoft.VisualBasic.ApplicationServices.WebUser();
+            Assert.Equal("admin", user.Name);
+            Assert.True(user.IsAuthenticated);
+            Assert.True(user.IsInRole("Admins"));
+        }
+        finally { Thread.CurrentPrincipal = before; }
+    }
 }

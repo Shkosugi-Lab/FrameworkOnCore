@@ -19,6 +19,9 @@ namespace FrameworkOnCore.Converter;
 ///   and the solution's own dependencies give, with BuildingInsideVisualStudio: a project reference then
 ///   only names the other's output (from the command line, MSBuild builds it again: MSB4006, a cycle in
 ///   mojoPortal). Those that fail are built once more (DNN's ModulePipeline copies another target's output).
+/// - A source file listed twice in a project compiled once, as Visual Studio does (its project system holds a file
+///   once; the Visual Basic compiler on the command line defines its types twice: openIMIS's Resource1.designer.vb,
+///   BC30179).
 /// - The repository's own setup steps after it (--original-step project;target: N2 links its management
 ///   pages into the templates site).
 /// </summary>
@@ -57,12 +60,13 @@ public sealed partial class OriginalBuild
         var sdkMatch = Regex.Match(sdk, @"^(\S+) \[(.*)\]$");
         var compiler = Path.Combine(sdkMatch.Groups[2].Value, sdkMatch.Groups[1].Value, "Roslyn", "bincore");
 
+        var afterCommon = WriteAfterCommonTargets();
         var order = SolutionOrder(solution, configuration);
         report.Add(Report.Kind.Project, "original build", $"{order.Count} project(s) in the solution configuration, built one by one");
         string Arguments(string project) =>
             $"\"{project}\" /restore /p:Configuration={configuration} /p:Platform=AnyCPU \"/p:SolutionDir={solutionDirectory}\\\\\" " +
             $"\"/p:TargetFrameworkRootPath={referenceRoot}\\\\\" \"/p:CscToolPath={compiler}\" /p:CscToolExe=csc.exe " +
-            "/p:BuildingInsideVisualStudio=true /p:ShouldUnsetParentConfigurationAndPlatform=false /m:1 /v:m /nologo";
+            $"\"/p:CustomAfterMicrosoftCommonTargets={afterCommon}\" /p:BuildingInsideVisualStudio=true /p:ShouldUnsetParentConfigurationAndPlatform=false /m:1 /v:m /nologo";
         var failed = order.Where(p => RunProcess(msbuild, Arguments(p), root, quiet: true) != 0).ToList();
         if (failed.Count > 0) failed = failed.Where(p => RunProcess(msbuild, Arguments(p), root, quiet: true) != 0).ToList();
         foreach (var project in failed) report.Add(Report.Kind.Error, "original build", $"{Path.GetRelativePath(root, project)} did not build (see {log})");
@@ -132,6 +136,27 @@ public sealed partial class OriginalBuild
         }
         foreach (var project in built) Visit(project);
         return order;
+    }
+
+    // Imported after Microsoft.Common.targets in every project: the Compile items made unique before the compiler runs.
+    static string WriteAfterCommonTargets()
+    {
+        var file = Path.Combine(toolsCache, "original-build.targets");
+        Directory.CreateDirectory(toolsCache);
+        File.WriteAllText(file, """
+            <Project>
+              <Target Name="FrameworkOnCoreUniqueCompile" BeforeTargets="CoreCompile">
+                <RemoveDuplicates Inputs="@(Compile)">
+                  <Output TaskParameter="Filtered" ItemName="_FrameworkOnCoreCompile" />
+                </RemoveDuplicates>
+                <ItemGroup>
+                  <Compile Remove="@(Compile)" />
+                  <Compile Include="@(_FrameworkOnCoreCompile)" />
+                </ItemGroup>
+              </Target>
+            </Project>
+            """);
+        return file;
     }
 
     static string? FindMSBuild()

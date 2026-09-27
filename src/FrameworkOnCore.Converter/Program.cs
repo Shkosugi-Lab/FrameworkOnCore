@@ -3,9 +3,9 @@ using System.Text.RegularExpressions;
 using FrameworkOnCore.Converter;
 
 // FrameworkOnCore: converts a .NET Framework web application (Web Forms, C#) to .NET 10 on
-// WebFormsForCore, to run on Linux. See LINUX-CONVERTER-DESIGN.md.
+// WebFormsForCore, to run on Linux. See LINUX-CONVERTER-DESIGN.md. Its projects are C# and Visual Basic.
 //
-//   FrameworkOnCore.Converter <web project .csproj> --out <dir> [--root <dir>] [--runtime <dir>]
+//   FrameworkOnCore.Converter <web project .csproj|.vbproj> --out <dir> [--root <dir>] [--runtime <dir>]
 //                             [--culture-profile <file>] [--no-build]
 //
 // --root     the repository to copy (default: the topmost folder above the project with a .sln)
@@ -19,11 +19,14 @@ using FrameworkOnCore.Converter;
 //            (a Cake build: Cake Frosting or a .cake script; its default target, or the one given)
 //            in a copy (<out>.original); the site it deploys is then --site. Without one, the solution
 //            with the web project, as Visual Studio builds it (Windows, Visual Studio's MSBuild).
+// --configuration <name>  the configuration the site is built in: the projects' conditions are read for it
+//            (Debug when not given) and a solution is built in it (Release when not given). openIMIS: DemoRelease,
+//            the one whose web.config transform the repository has; its code under #If DEMO is that build's.
 // --original-step <project;target>  a setup step of the repository after its build (repeatable).
 // --deploy   how it is deployed on Linux: container (Dockerfile), linux (deploy/linux/install.sh, systemd),
 //            both (the default) or none. See DeployWriter.
 
-string? project = null, outDirectory = null, rootDirectory = null, runtimeDirectory = null, cultureProfile = null, site = null, originalTarget = null;
+string? project = null, outDirectory = null, rootDirectory = null, runtimeDirectory = null, cultureProfile = null, site = null, originalTarget = null, configuration = null;
 var build = true;
 var buildOriginal = false;
 var deployKinds = "both";
@@ -39,6 +42,7 @@ for (var i = 0; i < args.Length; i++)
         case "--site": site = Path.GetFullPath(args[++i]); break;
         case "--no-build": build = false; break;
         case "--deploy": deployKinds = args[++i]; break;
+        case "--configuration": configuration = args[++i]; break;
         case "--original-step":
             var step = args[++i].Split(';', 2);
             originalSteps.Add((step[0], step.Length > 1 ? step[1] : "Build"));
@@ -52,7 +56,7 @@ for (var i = 0; i < args.Length; i++)
 }
 if (project == null || outDirectory == null)
 {
-    Console.Error.WriteLine("usage: FrameworkOnCore.Converter <web project .csproj> --out <dir> [--root <dir>] [--runtime <dir>] [--culture-profile <file>] [--site <dir> | --build-original [target]] [--deploy container|linux|both|none] [--no-build]");
+    Console.Error.WriteLine("usage: FrameworkOnCore.Converter <web project .csproj|.vbproj> --out <dir> [--root <dir>] [--runtime <dir>] [--culture-profile <file>] [--configuration <name>] [--site <dir> | --build-original [target]] [--deploy container|linux|both|none] [--no-build]");
     return 2;
 }
 
@@ -74,7 +78,7 @@ if (buildOriginal)
     var originalWork = outRoot.TrimEnd('\\', '/') + ".original";
     var originalLog = originalWork + ".build.log";
     File.Delete(originalLog);
-    site = new OriginalBuild(report, originalLog).Run(sourceRoot, originalWork, project, originalTarget, originalSteps);
+    site = new OriginalBuild(report, originalLog, configuration).Run(sourceRoot, originalWork, project, originalTarget, originalSteps);
     if (site == null)
     {
         File.WriteAllText(Path.Combine(Directory.CreateDirectory(outRoot).FullName, "CONVERSION-REPORT.md"), report.ToMarkdown($"FrameworkOnCore: {Path.GetFileName(project)}"), new UTF8Encoding(false));
@@ -85,7 +89,7 @@ if (buildOriginal)
 Console.WriteLine($"copying {sourceRoot} -> {outRoot}");
 Paths.CopyTree(sourceRoot, outRoot);
 
-var converter = new ProjectConverter(rules, report, new Conditions("Debug", "AnyCPU", report), sourceRoot, outRoot, runtime);
+var converter = new ProjectConverter(rules, report, new Conditions(configuration ?? "Debug", "AnyCPU", report), sourceRoot, outRoot, runtime);
 if (site != null) converter.DeployedBin = Path.Combine(site, "bin");
 var web = converter.Convert(project, isWeb: true);
 WriteHost(web);
@@ -98,9 +102,9 @@ if (site != null)
 {
     foreach (var (assembly, member) in SiteAssembler.BuiltFromSource(site, converter))
     {
-        if (!member.EndsWith(".csproj", StringComparison.OrdinalIgnoreCase))
+        if (!ProjectConverter.IsConvertible(member))
         {
-            report.Add(Report.Kind.Unsupported, assembly, $"in the deployed site, built by {Path.GetFileName(member)}: not converted (only C# projects so far); the .NET Framework assembly is left");
+            report.Add(Report.Kind.Unsupported, assembly, $"in the deployed site, built by {Path.GetFileName(member)}: not converted (only C# and Visual Basic projects); the .NET Framework assembly is left");
             continue;
         }
         if (converter.Converted.Any(c => c.SourcePath.Equals(member, StringComparison.OrdinalIgnoreCase))) continue;
@@ -136,30 +140,33 @@ File.WriteAllText(reportPath, report.ToMarkdown($"FrameworkOnCore: {Path.GetFile
 Console.WriteLine($"{(build ? (succeeded ? "build succeeded" : "build FAILED") : "not built")}; web project: {web.TargetPath}; report: {reportPath}");
 return succeeded ? 0 : 1;
 
-// Program.cs of the web project, and the culture profile. An application that routes
+// Program.cs (Program.vb) of the web project, and the culture profile. An application that routes
 // (System.Web.Routing, FriendlyUrls) serves extensionless URLs, which reach Web Forms only when
 // every request is handed to it; it also answers "/" itself, so IIS's default document is not
 // emulated.
 void WriteHost(ConvertedProject web)
 {
     var directory = Path.GetDirectoryName(web.TargetPath)!;
-    using var stream = typeof(Report).Assembly.GetManifestResourceStream("ProgramTemplate.txt")!;
+    var visualBasic = ProjectConverter.IsVisualBasic(web.TargetPath);
+    using var stream = typeof(Report).Assembly.GetManifestResourceStream(visualBasic ? "ProgramTemplate.vb.txt" : "ProgramTemplate.txt")!;
     var program = new StreamReader(stream).ReadToEnd();
     var projectText = File.ReadAllText(web.TargetPath);
     // Routes registered by the application, in any of its projects (DNN: DotNetNuke.Web's ServicesRoutingManager;
     // its friendly URLs, /Login, /Terms, are rewritten by a module, for requests that reach it).
     var routes = projectText.Contains("Microsoft.AspNet.FriendlyUrls", StringComparison.OrdinalIgnoreCase) ||
                  converter.Converted.Select(c => Path.GetDirectoryName(c.TargetPath)!).Append(directory).Distinct(StringComparer.OrdinalIgnoreCase)
-                     .SelectMany(d => Directory.EnumerateFiles(d, "*.cs", SearchOption.AllDirectories))
+                     .SelectMany(d => Directory.EnumerateFiles(d, "*.*", SearchOption.AllDirectories)).Where(f => SourceLanguage.For(f) != null)
                      .Where(f => !Regex.IsMatch(f, @"[\\/](obj|bin)[\\/]"))
                      .Any(f => Regex.IsMatch(File.ReadAllText(f), @"RouteTable\.Routes|RouteCollection"));
     if (routes)
     {
-        program = program.Replace("app.UseDefaultFiles(defaults);", "// Routed application: Web Forms answers \"/\".")
-            .Replace("options => options.UseAspNetCoreSessionProvider()", "options => options.HandleAllRequestsWithWebForms().UseAspNetCoreSessionProvider()");
+        program = (visualBasic
+                ? program.Replace("app.UseDefaultFiles(defaults)", "' Routed application: Web Forms answers \"/\".")
+                : program.Replace("app.UseDefaultFiles(defaults);", "// Routed application: Web Forms answers \"/\"."))
+            .Replace("options.UseAspNetCoreSessionProvider()", "options.HandleAllRequestsWithWebForms().UseAspNetCoreSessionProvider()");
         report.Add(Report.Kind.Project, web.Name, "routes: every request goes to Web Forms");
     }
-    File.WriteAllText(Path.Combine(directory, "Program.cs"), program, new UTF8Encoding(false));
+    File.WriteAllText(Path.Combine(directory, ProjectConverter.ProgramFile(web.TargetPath)), program, new UTF8Encoding(false));
 
     if (cultureProfile != null)
     {

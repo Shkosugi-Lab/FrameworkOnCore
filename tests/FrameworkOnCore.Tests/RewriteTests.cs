@@ -63,6 +63,15 @@ public class RewriteTests
         Assert.Contains("string K() => global::FrameworkOnCore.Platform.RelativeSearchPath;", written);
     }
 
+    [Fact] // openIMIS's log (every login): the event log; a call on an EventLog passes it first
+    public void Event_log_calls_are_replaced_with_their_receiver()
+    {
+        var written = CSharp(InClass(
+            "void F(System.Diagnostics.EventLog log) { System.Diagnostics.EventLog.WriteEntry(\"IMIS\", \"m\", System.Diagnostics.EventLogEntryType.Error, 1); log.WriteEntry(\"m\"); }"));
+        Assert.Contains("global::FrameworkOnCore.EventLogs.WriteEntry(\"IMIS\", \"m\", System.Diagnostics.EventLogEntryType.Error, 1);", written);
+        Assert.Contains("global::FrameworkOnCore.EventLogs.WriteEntry(log, \"m\");", written);
+    }
+
     [Fact] // Uri.TryCreate(Uri, string, out Uri) has no Unix path problem: left
     public void Other_uri_overloads_are_left() =>
         Assert.Contains("Uri.TryCreate(b, s, out _)", CSharp(InClass("bool F(Uri b, string s) => Uri.TryCreate(b, s, out _);")));
@@ -94,5 +103,14 @@ public class RewriteTests
         Assert.Contains("Global.FrameworkOnCore.AsyncDelegate.BeginInvoke(work, New Object() {1}, Nothing, Nothing)", written);
         Assert.Contains("CType(Global.FrameworkOnCore.AsyncDelegate.EndInvoke(r), Integer)", written);
         Assert.Contains("Global.FrameworkOnCore.WindowsUri.TryCreate(s, UriKind.Absolute, u)", written);
+    }
+
+    [Fact] // openIMIS's IMIS_Gen.Log
+    public void Visual_basic_event_log_calls_are_replaced()
+    {
+        var written = VisualBasic(
+            "Imports System.Diagnostics\nPublic Class C\n  Sub F(log As EventLog)\n    EventLog.WriteEntry(\"IMIS\", \"m\", EventLogEntryType.Information, 1)\n    log.WriteEntry(\"m\")\n  End Sub\nEnd Class");
+        Assert.Contains("Global.FrameworkOnCore.EventLogs.WriteEntry(\"IMIS\", \"m\", EventLogEntryType.Information, 1)", written);
+        Assert.Contains("Global.FrameworkOnCore.EventLogs.WriteEntry(log, \"m\")", written);
     }
 }

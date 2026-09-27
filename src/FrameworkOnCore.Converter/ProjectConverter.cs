@@ -67,16 +67,16 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
         {
             if (!isSdk && !ItemHolds(reference, name)) continue;
             var referenced = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(projectPath)!, (string)reference.Attribute("Include")!));
-            if (!referenced.EndsWith(".csproj", StringComparison.OrdinalIgnoreCase))
+            if (!IsConvertible(referenced))
             {
                 if (DeployedAssembly(referenced) is { } dll)
                 {
                     deployed.Add(dll);
-                    report.Add(Report.Kind.Unsupported, name, $"{Path.GetFileName(referenced)} not converted (only C# projects so far): its .NET Framework assembly in the deployed site is referenced as it is");
+                    report.Add(Report.Kind.Unsupported, name, $"{Path.GetFileName(referenced)} not converted (only C# and Visual Basic projects): its .NET Framework assembly in the deployed site is referenced as it is");
                     // In an SDK-style project, the reference is rewritten where it is (its conditions stay).
                     if (isSdk) reference.ReplaceWith(DeployedReference(reference.Name.Namespace, dll, Path.GetDirectoryName(TargetOf(projectPath))!));
                 }
-                else report.Add(Report.Kind.Unsupported, name, $"project reference not converted (not C#): {referenced}");
+                else report.Add(Report.Kind.Unsupported, name, $"project reference not converted (not C# or Visual Basic): {referenced}");
                 continue;
             }
             if (!File.Exists(referenced)) { report.Add(Report.Kind.Error, name, $"project reference not found: {referenced}"); continue; }
@@ -123,6 +123,15 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
     /// <summary>Projects built on their own (not referenced by the web project): their packages' assemblies are copied to their output, as .NET Framework did.</summary>
     public HashSet<string> CopyLocalProjects { get; } = new(StringComparer.OrdinalIgnoreCase);
 
+    /// <summary>The projects converted: C# and Visual Basic (an SDK-style project of the same language).</summary>
+    public static bool IsConvertible(string project) =>
+        project.EndsWith(".csproj", StringComparison.OrdinalIgnoreCase) || project.EndsWith(".vbproj", StringComparison.OrdinalIgnoreCase);
+
+    public static bool IsVisualBasic(string project) => project.EndsWith(".vbproj", StringComparison.OrdinalIgnoreCase);
+
+    /// <summary>The web project's entry point (the host Program writes): Program.cs, Program.vb.</summary>
+    public static string ProgramFile(string project) => IsVisualBasic(project) ? "Program.vb" : "Program.cs";
+
     static IEnumerable<XElement> Elements(XDocument document, string localName) =>
         document.Descendants().Where(e => e.Name.LocalName == localName).ToList();
 
@@ -141,11 +150,15 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
         string? Property(string property) => old.Descendants(msbuild + property).FirstOrDefault()?.Value;
 
         // What the original compiled and embedded, in its order (linked files keep their paths: the
-        // repository is copied as a whole).
-        var compile = old.Descendants(msbuild + "Compile").Where(e => ItemHolds(e, name)).Select(e => (string)e.Attribute("Include")!).ToList();
+        // repository is copied as a whole). A file listed twice is compiled once, as Visual Studio does (openIMIS's
+        // Resource1.designer.vb; the Visual Basic compiler would define its types twice).
+        var visualBasic = IsVisualBasic(projectPath);
+        var compile = old.Descendants(msbuild + "Compile").Where(e => ItemHolds(e, name)).Select(e => (string)e.Attribute("Include")!).Distinct(StringComparer.OrdinalIgnoreCase).ToList();
         var embedded = old.Descendants(msbuild + "EmbeddedResource").Where(e => ItemHolds(e, name)).Select(e => (string)e.Attribute("Include")!).ToList();
         var assemblyName = Property("AssemblyName") ?? name;
-        var rootNamespace = Property("RootNamespace") ?? assemblyName;
+        // Visual Basic's puts every type in it: as written, empty too (DNN's DotNetNuke.WebUtility; the SDK would make it
+        // the project's name).
+        var rootNamespace = visualBasic ? Property("RootNamespace")?.Trim() ?? "" : Property("RootNamespace") ?? assemblyName;
         // Conditional compilation symbols of the configuration built (NET_4_0 and the like select code).
         var defines = old.Descendants(msbuild + "DefineConstants")
             .Where(d => conditions.Holds((string?)d.Parent?.Attribute("Condition"), name))
@@ -195,14 +208,14 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
                 var producer = ProjectOfAssembly(assembly);
                 if (producer != null && (Regex.IsMatch(hint, @"(^|\\)bin\\", RegexOptions.IgnoreCase) || !File.Exists(dll)))
                 {
-                    if (!producer.EndsWith(".csproj", StringComparison.OrdinalIgnoreCase))
+                    if (!IsConvertible(producer))
                     {
                         if (DeployedAssembly(producer) is { } deployedDll)
                         {
                             binaryReferences.Add((deployedDll.Assembly, Paths.FromProject(target, deployedDll.Dll), reference.Element(msbuild + "Aliases")?.Value));
-                            report.Add(Report.Kind.Unsupported, name, $"{assembly} is built by {Path.GetFileName(producer)}, not converted (only C# projects so far): its .NET Framework assembly in the deployed site is referenced as it is");
+                            report.Add(Report.Kind.Unsupported, name, $"{assembly} is built by {Path.GetFileName(producer)}, not converted (only C# and Visual Basic projects): its .NET Framework assembly in the deployed site is referenced as it is");
                         }
-                        else report.Add(Report.Kind.Unsupported, name, $"{assembly} is built by {Path.GetFileName(producer)}: not converted (only C# projects so far); the code using it is stubbed");
+                        else report.Add(Report.Kind.Unsupported, name, $"{assembly} is built by {Path.GetFileName(producer)}: not converted (only C# and Visual Basic projects); the code using it is stubbed");
                         continue;
                     }
                     Convert(producer, false);
@@ -254,7 +267,20 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
         Prop("GenerateAssemblyInfo", "false");
         Prop("NoWarn", NoWarn);
         Prop("WarningsNotAsErrors", WarningsNotAsErrors);
-        if (defines.Count > 0) Prop("DefineConstants", "$(DefineConstants);" + string.Join(';', defines));
+        // Visual Basic's are separated by commas, and the SDK's own are not in DefineConstants (FinalDefineConstants).
+        if (defines.Count > 0) Prop("DefineConstants", visualBasic ? string.Join(',', defines) : "$(DefineConstants);" + string.Join(';', defines));
+        if (visualBasic)
+        {
+            // The language options the sources were written for (Option Strict Off: late binding), and the project's
+            // imports as they are (the SDK's own set differs: System.Threading.Tasks, no System.Data).
+            string? Option(string option) => old.Descendants(msbuild + option).FirstOrDefault(o => conditions.Holds((string?)o.Parent?.Attribute("Condition"), name))?.Value.Trim();
+            foreach (var option in new[] { "OptionExplicit", "OptionCompare", "OptionStrict", "OptionInfer" })
+            {
+                if (Option(option) is { Length: > 0 } value) Prop(option, value);
+            }
+            if (Option("MyType") is { Length: > 0 } myType) Prop("MyType", ServerMyType(name, myType, compile.Select(c => Path.Combine(source, c))));
+            Prop("DisableImplicitNamespaceImports", "true");
+        }
         Prop("RestoreAdditionalProjectSources", Paths.FromProject(target, runtime.Feed));
         if (preserialized) Prop("GenerateResourceUsePreserializedResources", "true");
         if (isWeb)
@@ -290,7 +316,9 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
 
         text.Append("  <ItemGroup>\n");
         foreach (var c in compile) text.Append($"    <Compile Include=\"{SecurityElement.Escape(c)}\" />\n");
-        if (isWeb) text.Append("    <Compile Include=\"Program.cs\" />\n");
+        if (isWeb) text.Append($"    <Compile Include=\"{ProgramFile(projectPath)}\" />\n");
+        foreach (var import in old.Descendants(msbuild + "Import").Where(e => e.Attribute("Include") != null && ItemHolds(e, name)))
+            text.Append($"    <Import Include=\"{SecurityElement.Escape((string)import.Attribute("Include")!)}\" />\n");
         foreach (var e in embedded) text.Append($"    <EmbeddedResource Include=\"{SecurityElement.Escape(e)}\" />\n");
         text.Append("  </ItemGroup>\n\n  <ItemGroup>\n");
         foreach (var (id, version) in packages)
@@ -449,7 +477,7 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
 
         var added = new ItemsToAdd();
         var directory = Path.GetDirectoryName(projectPath)!;
-        var sources = Directory.EnumerateFiles(directory, "*.cs", SearchOption.AllDirectories)
+        var sources = Directory.EnumerateFiles(directory, IsVisualBasic(projectPath) ? "*.vb" : "*.cs", SearchOption.AllDirectories)
             .Where(f => !Regex.IsMatch(Path.GetRelativePath(directory, f), @"(^|[\\/])(bin|obj)[\\/]", RegexOptions.IgnoreCase));
         AddSourcePackages(name, sources, p => { if (!HasPackage(p.Id)) added.Add(p); });
         var preserialized = HasNonStringResources(Directory.EnumerateFiles(directory, "*.resx", SearchOption.AllDirectories)
@@ -495,6 +523,20 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
         var symbols = new List<string> { "NETFRAMEWORK", "NET" + own.ToUpperInvariant() };
         if (index >= 0) symbols.AddRange(versions.Take(index + 1).Select(v => $"NET{v}_OR_GREATER"));
         return symbols;
+    }
+
+    // Visual Basic's My: a desktop application's (MyType Windows, WindowsForms, Console: My.Application, My.Computer, My.User)
+    // is in .NET's Windows desktop only (Microsoft.VisualBasic.Forms); the compiler's My template would name its types, in no
+    // source file the build could fix. A server's (Web: My.Computer, My.User, My.Log, My.Request, My.Response) is in
+    // FrameworkOnCore.Compat: a library of a web application that uses My gets that one, one that does not none (Empty).
+    string ServerMyType(string name, string myType, IEnumerable<string> sources)
+    {
+        if (myType is not ("Windows" or "WindowsForms" or "WindowsFormsWithCustomSubMain" or "Console")) return myType;
+        var usesMy = sources.Where(File.Exists).Any(f => Regex.IsMatch(File.ReadAllText(f), @"\bMy\.(Application|Computer|User|Log)\b"));
+        var server = usesMy ? "Web" : "Empty";
+        report.Add(Report.Kind.Project, name, $"MyType {myType} -> {server}: a desktop application's My is not in .NET outside the Windows desktop" +
+            (usesMy ? "; the sources use My: a server's (My.Computer, My.User, My.Log; not My.Application)" : "; the sources do not use it"));
+        return server;
     }
 
     // Resources that are not strings (images, icons: <data type="..."> or mimetype) are embedded

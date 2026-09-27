@@ -1,4 +1,4 @@
-# Packs the WebFormsForCore fork (experiments/wf4c/_upstream, local branch w2l/*) into
+﻿# Packs the WebFormsForCore fork (experiments/wf4c/_upstream, local branch w2l/*) into
 # experiments/wf4c/_feed as version $Version, and drops that version from the NuGet cache so the
 # next restore picks the new build up (a package version is cached once and never re-read).
 #
@@ -32,6 +32,8 @@ $projects = @(
     'WebFormsForCore.Web.Optimization.WebForms\WebFormsForCore.Web.Optimization.WebForms.csproj'
     'WebFormsForCore.WebGrease\WebFormsForCore.WebGrease.csproj'
     'WebFormsForCore.Web.DynamicData\WebFormsForCore.Web.DynamicData.csproj'
+    # A submodule (git submodule update --init src/WebFormsForCore.AjaxControlToolkit): openIMIS uses it.
+    'WebFormsForCore.AjaxControlToolkit\AjaxControlToolkit\AjaxControlToolkit.csproj'
 )
 
 if ($Build -eq 'All') {

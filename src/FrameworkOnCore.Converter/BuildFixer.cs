@@ -11,14 +11,14 @@ namespace FrameworkOnCore.Converter;
 
 /// <summary>
 /// Builds the converted application and, while the compiler reports errors in its C# sources, makes
-/// them compile with as little of the code touched as it can: an ambiguous name gets a using alias;
+/// them compile with as little of the code touched as it can (Visual Basic's: BuildFixer.VisualBasic.cs): an ambiguous name gets a using alias;
 /// a using or an attribute naming what .NET does not have is removed; an override of a member .NET
 /// removed loses "override"; a member whose body uses what .NET does not have keeps its signature
 /// and throws PlatformNotSupportedException; a member whose declaration does is removed; what is
 /// left, the file. Every change is reported. The fallback until the compatibility assemblies cover
 /// what .NET removed (LINUX-CONVERTER-DESIGN.md).
 /// </summary>
-public sealed class BuildFixer(Report report, IReadOnlyCollection<ConvertedProject> projects, string outRoot, Rules rules)
+public sealed partial class BuildFixer(Report report, IReadOnlyCollection<ConvertedProject> projects, string outRoot, Rules rules)
 {
     sealed record BuildError(string? File, int Line, int Column, string Code, string Message, string? Project);
 
@@ -155,8 +155,9 @@ public sealed class BuildFixer(Report report, IReadOnlyCollection<ConvertedProje
             Console.WriteLine($"build {round}: {(exitCode == 0 ? "succeeded" : $"{errors.Count} error(s)")}");
             if (exitCode == 0) return true;
 
-            var fixable = errors.Where(e => e.File != null && e.File.EndsWith(".cs", StringComparison.OrdinalIgnoreCase) &&
-                                            e.Code.StartsWith("CS", StringComparison.Ordinal) && IsUnder(e.File, outRoot) &&
+            // The compiler's errors in the sources: C#'s (CS) in .cs files, Visual Basic's (BC) in .vb files.
+            var fixable = errors.Where(e => e.File != null && SourceLanguage.For(e.File) is { } language &&
+                                            e.Code.StartsWith(language == SourceLanguage.CSharp ? "CS" : "BC", StringComparison.Ordinal) && IsUnder(e.File, outRoot) &&
                                             !Regex.IsMatch(e.File, @"[\\/]obj[\\/]")).ToList();
             if (fixable.Count == 0 || errors.Count == 0)
             {
@@ -166,7 +167,8 @@ public sealed class BuildFixer(Report report, IReadOnlyCollection<ConvertedProje
             }
             var changed = false;
             var before = report.Entries.Count(e => e.Kind == Report.Kind.Stub);
-            foreach (var file in fixable.GroupBy(e => e.File!, StringComparer.OrdinalIgnoreCase)) changed |= Fix(file.Key, file.ToList());
+            foreach (var file in fixable.GroupBy(e => e.File!, StringComparer.OrdinalIgnoreCase))
+                changed |= SourceLanguage.For(file.Key) == SourceLanguage.VisualBasic ? FixVisualBasic(file.Key, file.ToList()) : Fix(file.Key, file.ToList());
             Console.WriteLine($"  {report.Entries.Count(e => e.Kind == Report.Kind.Stub) - before} change(s) in {fixable.Select(e => e.File).Distinct(StringComparer.OrdinalIgnoreCase).Count()} file(s)");
             if (!changed)
             {
@@ -275,7 +277,7 @@ public sealed class BuildFixer(Report report, IReadOnlyCollection<ConvertedProje
 
     // ------------------------------------------------------------------------------------------
 
-    enum Action { Alias, RemoveNode, RemoveOverride, StubBody, RemoveInitializer, ExcludeFile, ExplicitExtension, ReplaceMember }
+    enum Action { Alias, RemoveNode, RemoveOverride, StubBody, RemoveInitializer, ExcludeFile, ExplicitExtension, ReplaceMember, LateBound }
 
     sealed record Fix_(Action Action, SyntaxNode Node, string Reason, string? Alias = null);
 

@@ -1,6 +1,6 @@
 <Solution>
-  <!-- The WebFormsForCore projects the experiment packs (pack-fork.ps1), without the
-       AjaxControlToolkit submodule. Built as a solution: built one by one, Web.Extensions fails.
+  <!-- The WebFormsForCore projects the experiment packs (pack-fork.ps1); the AjaxControlToolkit
+       submodule's control library too (initialized by git submodule update, see pack-fork.ps1). Built as a solution: built one by one, Web.Extensions fails.
        Not WebFormsForCore.Build: build it once beforehand. Rebuilt here, copying its task DLL
        collides with the MSBuild nodes that have it loaded. -->
   <Project Path="_upstream/src/WebFormsForCore.Compilers/WebFormsForCore.Compilers.csproj" />
@@ -17,4 +17,5 @@
   <Project Path="_upstream/src/WebFormsForCore.Web.Optimization.WebForms/WebFormsForCore.Web.Optimization.WebForms.csproj" />
   <Project Path="_upstream/src/WebFormsForCore.WebGrease/WebFormsForCore.WebGrease.csproj" />
   <Project Path="_upstream/src/WebFormsForCore.Web.DynamicData/WebFormsForCore.Web.DynamicData.csproj" />
+  <Project Path="_upstream/src/WebFormsForCore.AjaxControlToolkit/AjaxControlToolkit/AjaxControlToolkit.csproj" />
 </Solution>

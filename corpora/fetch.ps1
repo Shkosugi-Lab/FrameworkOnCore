@@ -47,7 +47,17 @@ $corpora = @(
 
     @{ Name = 'wt';   Title = 'WingtipToys (master)'
        Url = 'https://github.com/corn-mendoza/wingtiptoys/archive/refs/heads/master.zip'
-       ExtractedAs = 'wingtiptoys-master' }
+       ExtractedAs = 'wingtiptoys-master' },
+
+    # Visual Basic: openIMIS, a health insurance management system in use by governments (AGPL-3.0). The web application
+    # (archived: its main is the last, 24.10) and the database scripts of the same release (fullDemoDatabase.sql).
+    @{ Name = 'imis'; Title = 'openIMIS web application (main, 24.10)'
+       Url = 'https://github.com/openimis/web_app_vb/archive/refs/heads/main.zip'
+       ExtractedAs = 'web_app_vb-main' },
+
+    @{ Name = 'imisdb'; Title = 'openIMIS SQL Server database 24.10'
+       Url = 'https://github.com/openimis/database_ms_sqlserver/archive/refs/tags/24.10.zip'
+       ExtractedAs = 'database_ms_sqlserver-24.10' }
 )
 
 # nopCommerce 1.90 について:
@@ -63,7 +73,7 @@ $corpora = @(
 if ($Only) {
     $corpora = $corpora | Where-Object { $Only -contains $_.Name }
     if (-not $corpora) {
-        Write-Error "-Only に一致するコーパスがありません。指定可能: be, mojo, yaf, dnn, n2, wt"
+        Write-Error "-Only に一致するコーパスがありません。指定可能: be, mojo, yaf, dnn, n2, wt, imis, imisdb"
     }
 }
 

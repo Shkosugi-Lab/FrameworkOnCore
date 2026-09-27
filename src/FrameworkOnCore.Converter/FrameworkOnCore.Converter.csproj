@@ -29,5 +29,6 @@
   <ItemGroup>
     <!-- Not "Program.cs.txt": "cs" would be read as a culture (Czech), into a satellite assembly. -->
     <EmbeddedResource Include="templates\ProgramTemplate.txt" LogicalName="ProgramTemplate.txt" />
+    <EmbeddedResource Include="templates\ProgramTemplate.vb.txt" LogicalName="ProgramTemplate.vb.txt" />
   </ItemGroup>
 </Project>

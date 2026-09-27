@@ -191,7 +191,7 @@ namespace System.Web.SessionState {
             string          attachDBFilename = null;
 
             try {
-                dummyConnection = new SqlConnection(sqlConnectionString);
+                dummyConnection = new SqlConnection(System.Web.DataAccess.FrameworkSqlDefaults.Apply(sqlConnectionString));
             }
             catch (Exception e) {
                 if (s_usePartition) {
@@ -1188,7 +1188,7 @@ namespace System.Web.SessionState {
                 Debug.Trace("SessionStateConnectionIdentity", "Connecting under " + WindowsIdentity.GetCurrent().Name);
 
                 _partitionInfo = sqlPartitionInfo;
-                _sqlConnection = new SqlConnection(sqlPartitionInfo.SqlConnectionString);
+                _sqlConnection = new SqlConnection(System.Web.DataAccess.FrameworkSqlDefaults.Apply(sqlPartitionInfo.SqlConnectionString));
 
                 bool isFirstAttempt = true;
                 DateTime endRetryTime = DateTime.UtcNow;

@@ -733,7 +733,7 @@ namespace System.Web.Management {
 
             try {
                 Debug.Trace("SqlServices", "Connecting to SQL: " + connectionString);
-                sqlConnection = new SqlConnection(connectionString);
+                sqlConnection = new SqlConnection(System.Web.DataAccess.FrameworkSqlDefaults.Apply(connectionString));
                 sqlConnection.Open();
             }
             catch (Exception e) {

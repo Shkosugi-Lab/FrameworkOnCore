@@ -811,7 +811,7 @@ namespace System.Web.UI.WebControls {
         internal DbConnection CreateConnection(string connectionString) {
             DbProviderFactory factory = GetDbProviderFactorySecure();
             DbConnection connection = factory.CreateConnection();
-            connection.ConnectionString = connectionString;
+            connection.ConnectionString = connection is SqlConnection ? System.Web.DataAccess.FrameworkSqlDefaults.Apply(connectionString) : connectionString;
             return connection;
         }
 

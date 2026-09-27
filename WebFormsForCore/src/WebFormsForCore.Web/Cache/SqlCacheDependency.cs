@@ -1506,7 +1506,7 @@ namespace System.Web.Caching {
             }
             
             try {
-                sqlConnection = new SqlConnection(connectionString);
+                sqlConnection = new SqlConnection(System.Web.DataAccess.FrameworkSqlDefaults.Apply(connectionString));
                 sqlConnection.Open();
 
                 sqlCmd = new SqlCommand(null, sqlConnection);
@@ -1701,7 +1701,7 @@ namespace System.Web.Caching {
             ArrayList           tablesObj = new ArrayList();
 
             try {
-                sqlConn = new SqlConnection(connectionString);
+                sqlConn = new SqlConnection(System.Web.DataAccess.FrameworkSqlDefaults.Apply(connectionString));
                 sqlConn.Open();
 
                 sqlCmd = new SqlCommand(SQL_QUERY_REGISTERED_TABLES_SP_DBO, sqlConn);

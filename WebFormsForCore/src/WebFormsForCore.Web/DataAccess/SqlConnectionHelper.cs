@@ -271,7 +271,7 @@ namespace System.Web.DataAccess {
         }
 
         private static void DetachDB(string databaseName, string connectionString) {
-            SqlConnection connection = new SqlConnection(connectionString);
+            SqlConnection connection = new SqlConnection(System.Web.DataAccess.FrameworkSqlDefaults.Apply(connectionString));
             try {
                 connection.Open();
                 SqlCommand command = new SqlCommand("USE master", connection);
@@ -300,7 +300,7 @@ namespace System.Web.DataAccess {
 
         internal SqlConnectionHolder(string connectionString) {
             try {
-                _Connection = new SqlConnection(connectionString);
+                _Connection = new SqlConnection(System.Web.DataAccess.FrameworkSqlDefaults.Apply(connectionString));
                 System.Web.Util.Debug.Assert(_Connection != null);
             }
             catch (ArgumentException e) {

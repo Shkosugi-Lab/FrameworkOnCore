@@ -63,7 +63,7 @@ namespace System.Web.ClientServices.Providers
                 }
             }
 
-            DbConnection connection = new SqlConnection(connectionString);
+            DbConnection connection = new SqlConnection(System.Web.DataAccess.FrameworkSqlDefaults.Apply(connectionString));
             connection.Open();
             return connection;
         }

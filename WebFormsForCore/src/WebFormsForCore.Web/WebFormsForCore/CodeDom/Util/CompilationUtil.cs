@@ -223,11 +223,11 @@ namespace WebFormsForCore.CodeDom.Compiler {
             string appPath = @"";
 #endif
             // Check bin folder first
-            string compilerFullPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, webPath);
+            string compilerFullPath = Path.Combine(System.Web.Hosting.AppBinDirectory.PhysicalPath, webPath);
 
             // Then appdomain base
             if (!Directory.Exists(compilerFullPath))
-                compilerFullPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, appPath);
+                compilerFullPath = Path.Combine(System.Web.Hosting.AppBinDirectory.PhysicalPath, appPath);
 
             return compilerFullPath;
         }

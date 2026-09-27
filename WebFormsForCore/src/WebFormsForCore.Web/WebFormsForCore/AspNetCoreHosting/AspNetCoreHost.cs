@@ -158,6 +158,13 @@ namespace System.Web.Hosting
             ApplicationManager.SetLoadContextData(".appPath", physicalPath, assembly);
 			ApplicationManager.SetLoadContextData(".appVPath", virtualPath, assembly);
 
+			// AppDomain.BaseDirectory is the application's root on .NET Framework (bin is its private bin
+			// path), and applications find their files from it (DNN: Install\DotNetNuke.install.config);
+			// on .NET it is the entry assembly's folder, bin. AppContext.BaseDirectory reads
+			// APP_CONTEXT_BASE_DIRECTORY first: the root, once bin's path is kept (AppBinDirectory).
+			_ = AppBinDirectory.PhysicalPath;
+			AppContext.SetData("APP_CONTEXT_BASE_DIRECTORY", physicalPath.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar) + Path.DirectorySeparatorChar);
+
 			physicalClientScriptPath = HttpRuntime.AspClientScriptPhysicalPath + Path.DirectorySeparatorChar;
             lowerCasedClientScriptPathWithTrailingSlash =
                 CultureInfo.InvariantCulture.TextInfo.ToLower(HttpRuntime.AspClientScriptVirtualPath + "/");
@@ -268,7 +275,7 @@ namespace System.Web.Hosting
             }
 
 			return HandleAllRequestsWithWebForms || File.Exists(mappedPath) &&
-                Path.GetDirectoryName(mappedPath) != AppDomain.CurrentDomain.BaseDirectory; // Do not serve bin_dotnet directory
+                Path.GetDirectoryName(mappedPath) != AppBinDirectory.PhysicalPath; // Do not serve bin_dotnet directory
 		}
 
 		public bool IsVirtualPathInApp(String path)

@@ -92,7 +92,7 @@ namespace Microsoft.AspNetCore.Builder
 		public WebFormsMiddleware(Core.RequestDelegate next, Action<WebFormsOptions> optionsBuilder)
 		{
 			this.next = next;
-			var path = AppDomain.CurrentDomain.BaseDirectory;
+			var path = System.Web.Hosting.AppBinDirectory.PhysicalPath;
 			if (path.EndsWith(Path.DirectorySeparatorChar.ToString())) path = path.Substring(0, path.Length - 1);
 			PhysicalPath = Path.GetDirectoryName(path);
 			//PhysicalPath = Path.GetDirectoryName(Path.GetDirectoryName(new Uri(Assembly.GetEntryAssembly().CodeBase).AbsolutePath));

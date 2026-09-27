@@ -68,7 +68,7 @@ namespace System.Web
 		//
 
 		internal const string BinDirectoryName = "bin";
-        internal static string BinDotnetDirectoryName => CustomBinDirectory ?? Path.GetFileName(AppDomain.CurrentDomain.BaseDirectory.TrimEnd(Path.DirectorySeparatorChar));
+        internal static string BinDotnetDirectoryName => CustomBinDirectory ?? Path.GetFileName(System.Web.Hosting.AppBinDirectory.PhysicalPath.TrimEnd(Path.DirectorySeparatorChar));
         public static string CustomBinDirectory { get; set; } = null;
 		internal const string CodeDirectoryName = "App_Code";
 		internal const string WebRefDirectoryName = "App_WebReferences";

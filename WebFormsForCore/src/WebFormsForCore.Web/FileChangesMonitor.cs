@@ -2241,14 +2241,19 @@ namespace System.Web {
                     // to avoid overwhelming changes when the user writes to a subdirectory
                     // of the app directory.
 
-                    _dirMonSubdirs = new DirectoryMonitor(dirRoot, true, UnsafeNativeMethods.RDCW_FILTER_DIR_RENAMES, true, _FCNMode);
-                    try {
-                        _dirMonSubdirs.StartMonitoringFileWithAssert(null, new FileChangeEventHandler(this.OnSubdirChange), dirRoot);
-                    }
-                    catch {
-                        ((IDisposable)_dirMonSubdirs).Dispose();
-                        _dirMonSubdirs = null;
-                        throw;
+                    // The renames of the application's subdirectories: a watch of the whole tree, which on
+                    // Linux (inotify) is one per directory of the application (DNN: thousands). Windows only;
+                    // the special directories below are watched everywhere.
+                    if (OSInfo.IsWindows) {
+                        _dirMonSubdirs = new DirectoryMonitor(dirRoot, true, UnsafeNativeMethods.RDCW_FILTER_DIR_RENAMES, true, _FCNMode);
+                        try {
+                            _dirMonSubdirs.StartMonitoringFileWithAssert(null, new FileChangeEventHandler(this.OnSubdirChange), dirRoot);
+                        }
+                        catch {
+                            ((IDisposable)_dirMonSubdirs).Dispose();
+                            _dirMonSubdirs = null;
+                            throw;
+                        }
                     }
 
                     _dirMonSpecialDirs = new ArrayList();

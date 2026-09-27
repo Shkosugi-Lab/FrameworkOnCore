@@ -781,7 +781,9 @@ namespace System.Web
 
         private void StartMonitoringDirectoryRenamesAndBinDirectory() {
 
-            if (OSInfo.IsWindows) _fcm.StartMonitoringDirectoryRenamesAndBinDirectory(AppDomainAppPathInternal, new FileChangeEventHandler(this.OnCriticalDirectoryChange));
+            // On every platform: bin, App_Code and the other special directories restart the application (a module
+            // installed into bin: DNN). FileChangesMonitor leaves out what is Windows-only there.
+            _fcm.StartMonitoringDirectoryRenamesAndBinDirectory(AppDomainAppPathInternal, new FileChangeEventHandler(this.OnCriticalDirectoryChange));
         }
 
         //

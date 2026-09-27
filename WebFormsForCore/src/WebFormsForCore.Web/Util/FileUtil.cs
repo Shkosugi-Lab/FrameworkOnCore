@@ -571,9 +571,12 @@ namespace System.Web.Util
 			{
 				if (File.Exists(path))
 				{
+					// The file's name, as FindFirstFile's cFileName: the file monitors of a directory are
+					// found by it (the full path matched no change notification: web.config changed on
+					// Linux, the application went on).
 					data = new FindFileData()
 					{
-						FileNameLong = path,
+						FileNameLong = Path.GetFileName(path),
 						FileNameShort = null,
 						FileAttributesData = new FileAttributesData(new FileInfo(path))
 					};
@@ -629,13 +632,23 @@ namespace System.Web.Util
 			{
 
 				UnsafeNativeMethods.WIN32_FIND_DATA fd;
-				IntPtr hFindFile = UnsafeNativeMethods.FindFirstFile(currentParentDir, out fd);
-				int lastError = Marshal.GetLastWin32Error(); // FXCOP demands that this preceed the == 
-				if (hFindFile == UnsafeNativeMethods.INVALID_HANDLE_VALUE)
+				if (OSInfo.IsWindows)
 				{
-					return HttpException.HResultFromLastError(lastError);
+					IntPtr hFindFile = UnsafeNativeMethods.FindFirstFile(currentParentDir, out fd);
+					int lastError = Marshal.GetLastWin32Error(); // FXCOP demands that this preceed the == 
+					if (hFindFile == UnsafeNativeMethods.INVALID_HANDLE_VALUE)
+					{
+						return HttpException.HResultFromLastError(lastError);
+					}
+					UnsafeNativeMethods.FindClose(hFindFile);
 				}
-				UnsafeNativeMethods.FindClose(hFindFile);
+				else
+				{
+					// The directory's name (no short names).
+					if (!Directory.Exists(currentParentDir)) return HResults.E_FILENOTFOUND;
+					fd = default;
+					fd.cFileName = Path.GetFileName(currentParentDir);
+				}
 
 #if DBG
             Debug.Assert(!String.IsNullOrEmpty(fd.cFileName), "!String.IsNullOrEmpty(fd.cFileName)");

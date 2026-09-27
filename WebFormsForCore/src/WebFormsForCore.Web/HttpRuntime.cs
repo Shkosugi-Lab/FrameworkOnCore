@@ -374,6 +374,11 @@ namespace System.Web
                 new FileIOPermission(FileIOPermissionAccess.PathDiscovery, dataDirectory));
 #else
             ApplicationManager.SetLoadContextData("DataDirectory", dataDirectory);
+            // The process's too: the data providers expand |DataDirectory| in connection strings from
+            // AppDomain.CurrentDomain.GetData("DataDirectory") (SqlClient: AttachDBFilename), which is
+            // the application's domain on .NET Framework. Unset, the connection string is rejected.
+            if (AppDomain.CurrentDomain.GetData("DataDirectory") == null)
+                AppDomain.CurrentDomain.SetData("DataDirectory", dataDirectory);
 #endif
 		}
 

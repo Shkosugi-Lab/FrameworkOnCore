@@ -73,12 +73,44 @@ namespace System.Configuration {
         [ConfigurationProperty("connectionString", Options = ConfigurationPropertyOptions.IsRequired, DefaultValue = "")]
         public string ConnectionString {
             get {
+#if NETFRAMEWORK
                 return (string)base[_propConnectionString];
+#else
+                return ExpandDataDirectory((string)base[_propConnectionString]);
+#endif
             }
             set {
                 base[_propConnectionString] = value;
             }
         }
+
+#if !NETFRAMEWORK
+        // |DataDirectory| (AttachDBFilename=|DataDirectory|Site.mdf): on .NET Framework the data
+        // providers expanded it (SqlClient, OleDb, Odbc) from the application domain's DataDirectory,
+        // ~/App_Data in a web application. .NET's System.Data.SqlClient does not, and rejects the
+        // connection string ("Invalid value for key 'attachdbfilename'"): the connection strings the
+        // application reads are expanded here, as the provider would have. The configuration file keeps
+        // the token (the stored value is not changed).
+        const string DataDirectoryToken = "|DataDirectory|";
+
+        static string ExpandDataDirectory(string connectionString) {
+            if (connectionString == null || connectionString.IndexOf(DataDirectoryToken, StringComparison.OrdinalIgnoreCase) < 0)
+                return connectionString;
+            if (!(AppDomain.CurrentDomain.GetData("DataDirectory") is string dataDirectory) || dataDirectory.Length == 0)
+                return connectionString;
+            if (!dataDirectory.EndsWith("\\") && !dataDirectory.EndsWith("/"))
+                dataDirectory += IO.Path.DirectorySeparatorChar;
+            var text = new Text.StringBuilder();
+            var start = 0;
+            for (int at; (at = connectionString.IndexOf(DataDirectoryToken, start, StringComparison.OrdinalIgnoreCase)) >= 0; start = at + DataDirectoryToken.Length) {
+                text.Append(connectionString, start, at - start).Append(dataDirectory);
+                // "|DataDirectory|\Site.mdf": one separator
+                var next = at + DataDirectoryToken.Length;
+                if (next < connectionString.Length && (connectionString[next] == '\\' || connectionString[next] == '/')) at++;
+            }
+            return text.Append(connectionString, start, connectionString.Length - start).ToString();
+        }
+#endif
 
         public override string ToString() {
             return ConnectionString;

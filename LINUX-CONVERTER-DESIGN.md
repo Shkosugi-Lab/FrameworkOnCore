@@ -197,5 +197,7 @@ Windows でしか動かないものを検出する。書き換えられるもの
    - プロジェクト変換とビルドエラーの自動処理を実装した。
    - 6 本のコーパスすべてでビルドが通る。
    - 実行時の課題は experiments/wf4c/README.md に記録した: mojo の web.config の assemblies、yaf の Web API 2(AspNetWebStack の移植が要る)、dnn のプロバイダーの配置と DB、n2 の管理画面の配置。
+   - (済)アプリの構成は、元のビルドが配置したサイトから取る(`--site`)。元のビルドは、リポジトリのビルドスクリプトをそのまま動かす。Cake(Frosting、スクリプト)は変換器が汎用に実行する(`--build-original`)。dnn はこれでインストールウィザードまで表示できた。
+   - (済)アプリの再起動(web.config の変更など)は、プロセスを終了コード 75 で終え、スーパーバイザーが起動し直す(フォーク 0016)。生成する Dockerfile には再起動の方針(`--restart`)を含める。
 3. VB 対応(VBCompiler のファサード、vbproj)。
 4. MVC 5(DLL のまま動くかの確認から)、Web API の動作確認、WCF(CoreWCF)。

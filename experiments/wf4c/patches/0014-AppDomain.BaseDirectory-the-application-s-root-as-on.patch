@@ -1,0 +1,117 @@
+From 95306915be23c6d0e37eafe92dc0712e00296b34 Mon Sep 17 00:00:00 2001
+From: shkosugi <sin.kosugi@gmail.com>
+Date: Sun, 27 Sep 2026 12:48:03 +0900
+Subject: [PATCH 14/16] AppDomain.BaseDirectory: the application's root, as on
+ .NET Framework
+
+On .NET Framework an ASP.NET application's AppDomain.BaseDirectory is its root (bin is
+the private bin path), and applications find their files from it: DNN's install wizard
+opens Install\DotNetNuke.install.config there. On .NET it is the entry assembly's
+folder, bin. AppContext.BaseDirectory reads APP_CONTEXT_BASE_DIRECTORY first:
+AspNetCoreHost.Configure sets it to the application's root.
+
+The runtime took bin's path from AppDomain.BaseDirectory (the application's root as its
+parent, the bin folder's name, the compiler's folder, the bin files not served): it is
+read before the change and kept (AppBinDirectory), in a class of its own, since the
+middleware reads it before the application's HttpRuntime may be initialized.
+---
+ src/WebFormsForCore.Web/HttpRuntime.cs               |  2 +-
+ .../AspNetCoreHosting/AppBinDirectory.cs             | 12 ++++++++++++
+ .../AspNetCoreHosting/AspNetCoreHost.cs              |  9 ++++++++-
+ .../AspNetCoreHosting/WebFormsMiddleware.cs          |  2 +-
+ .../WebFormsForCore/CodeDom/Util/CompilationUtil.cs  |  4 ++--
+ 5 files changed, 24 insertions(+), 5 deletions(-)
+ create mode 100644 src/WebFormsForCore.Web/WebFormsForCore/AspNetCoreHosting/AppBinDirectory.cs
+
+diff --git a/src/WebFormsForCore.Web/HttpRuntime.cs b/src/WebFormsForCore.Web/HttpRuntime.cs
+index c0dfbc7..143e3c0 100644
+--- a/src/WebFormsForCore.Web/HttpRuntime.cs
++++ b/src/WebFormsForCore.Web/HttpRuntime.cs
+@@ -68,7 +68,7 @@ namespace System.Web
+ 		//
+ 
+ 		internal const string BinDirectoryName = "bin";
+-        internal static string BinDotnetDirectoryName => CustomBinDirectory ?? Path.GetFileName(AppDomain.CurrentDomain.BaseDirectory.TrimEnd(Path.DirectorySeparatorChar));
++        internal static string BinDotnetDirectoryName => CustomBinDirectory ?? Path.GetFileName(System.Web.Hosting.AppBinDirectory.PhysicalPath.TrimEnd(Path.DirectorySeparatorChar));
+         public static string CustomBinDirectory { get; set; } = null;
+ 		internal const string CodeDirectoryName = "App_Code";
+ 		internal const string WebRefDirectoryName = "App_WebReferences";
+diff --git a/src/WebFormsForCore.Web/WebFormsForCore/AspNetCoreHosting/AppBinDirectory.cs b/src/WebFormsForCore.Web/WebFormsForCore/AspNetCoreHosting/AppBinDirectory.cs
+new file mode 100644
+index 0000000..1936980
+--- /dev/null
++++ b/src/WebFormsForCore.Web/WebFormsForCore/AspNetCoreHosting/AppBinDirectory.cs
+@@ -0,0 +1,12 @@
++namespace System.Web.Hosting
++{
++	// The folder the application's assemblies are in (bin): AppDomain.BaseDirectory as .NET starts the
++	// process. The host then sets AppDomain.BaseDirectory to the application's root, as it is on .NET
++	// Framework (AspNetCoreHost.Configure): this is read before, and kept. A class of its own: read
++	// before the application's HttpRuntime is (WebFormsMiddleware), which must not be initialized then.
++	internal static class AppBinDirectory
++	{
++		static string physicalPath;
++		internal static string PhysicalPath => physicalPath ??= AppContext.BaseDirectory;
++	}
++}
+diff --git a/src/WebFormsForCore.Web/WebFormsForCore/AspNetCoreHosting/AspNetCoreHost.cs b/src/WebFormsForCore.Web/WebFormsForCore/AspNetCoreHosting/AspNetCoreHost.cs
+index 5117906..490408d 100644
+--- a/src/WebFormsForCore.Web/WebFormsForCore/AspNetCoreHosting/AspNetCoreHost.cs
++++ b/src/WebFormsForCore.Web/WebFormsForCore/AspNetCoreHosting/AspNetCoreHost.cs
+@@ -158,6 +158,13 @@ namespace System.Web.Hosting
+             ApplicationManager.SetLoadContextData(".appPath", physicalPath, assembly);
+ 			ApplicationManager.SetLoadContextData(".appVPath", virtualPath, assembly);
+ 
++			// AppDomain.BaseDirectory is the application's root on .NET Framework (bin is its private bin
++			// path), and applications find their files from it (DNN: Install\DotNetNuke.install.config);
++			// on .NET it is the entry assembly's folder, bin. AppContext.BaseDirectory reads
++			// APP_CONTEXT_BASE_DIRECTORY first: the root, once bin's path is kept (AppBinDirectory).
++			_ = AppBinDirectory.PhysicalPath;
++			AppContext.SetData("APP_CONTEXT_BASE_DIRECTORY", physicalPath.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar) + Path.DirectorySeparatorChar);
++
+ 			physicalClientScriptPath = HttpRuntime.AspClientScriptPhysicalPath + Path.DirectorySeparatorChar;
+             lowerCasedClientScriptPathWithTrailingSlash =
+                 CultureInfo.InvariantCulture.TextInfo.ToLower(HttpRuntime.AspClientScriptVirtualPath + "/");
+@@ -268,7 +275,7 @@ namespace System.Web.Hosting
+             }
+ 
+ 			return HandleAllRequestsWithWebForms || File.Exists(mappedPath) &&
+-                Path.GetDirectoryName(mappedPath) != AppDomain.CurrentDomain.BaseDirectory; // Do not serve bin_dotnet directory
++                Path.GetDirectoryName(mappedPath) != AppBinDirectory.PhysicalPath; // Do not serve bin_dotnet directory
+ 		}
+ 
+ 		public bool IsVirtualPathInApp(String path)
+diff --git a/src/WebFormsForCore.Web/WebFormsForCore/AspNetCoreHosting/WebFormsMiddleware.cs b/src/WebFormsForCore.Web/WebFormsForCore/AspNetCoreHosting/WebFormsMiddleware.cs
+index d8fa37b..83f8bf1 100644
+--- a/src/WebFormsForCore.Web/WebFormsForCore/AspNetCoreHosting/WebFormsMiddleware.cs
++++ b/src/WebFormsForCore.Web/WebFormsForCore/AspNetCoreHosting/WebFormsMiddleware.cs
+@@ -92,7 +92,7 @@ namespace Microsoft.AspNetCore.Builder
+ 		public WebFormsMiddleware(Core.RequestDelegate next, Action<WebFormsOptions> optionsBuilder)
+ 		{
+ 			this.next = next;
+-			var path = AppDomain.CurrentDomain.BaseDirectory;
++			var path = System.Web.Hosting.AppBinDirectory.PhysicalPath;
+ 			if (path.EndsWith(Path.DirectorySeparatorChar.ToString())) path = path.Substring(0, path.Length - 1);
+ 			PhysicalPath = Path.GetDirectoryName(path);
+ 			//PhysicalPath = Path.GetDirectoryName(Path.GetDirectoryName(new Uri(Assembly.GetEntryAssembly().CodeBase).AbsolutePath));
+diff --git a/src/WebFormsForCore.Web/WebFormsForCore/CodeDom/Util/CompilationUtil.cs b/src/WebFormsForCore.Web/WebFormsForCore/CodeDom/Util/CompilationUtil.cs
+index eb7036e..96ef568 100644
+--- a/src/WebFormsForCore.Web/WebFormsForCore/CodeDom/Util/CompilationUtil.cs
++++ b/src/WebFormsForCore.Web/WebFormsForCore/CodeDom/Util/CompilationUtil.cs
+@@ -223,11 +223,11 @@ namespace WebFormsForCore.CodeDom.Compiler {
+             string appPath = @"";
+ #endif
+             // Check bin folder first
+-            string compilerFullPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, webPath);
++            string compilerFullPath = Path.Combine(System.Web.Hosting.AppBinDirectory.PhysicalPath, webPath);
+ 
+             // Then appdomain base
+             if (!Directory.Exists(compilerFullPath))
+-                compilerFullPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, appPath);
++                compilerFullPath = Path.Combine(System.Web.Hosting.AppBinDirectory.PhysicalPath, appPath);
+ 
+             return compilerFullPath;
+         }
+-- 
+2.55.0.windows.3
+

@@ -9,6 +9,9 @@ public sealed record Package(string Id, string Version);
 /// <summary>A package added when a project's sources use what it carries.</summary>
 public sealed record SourcePackage(Regex Pattern, Package Package, string? Note);
 
+/// <summary>What a project's sources do that behaves differently on .NET: reported.</summary>
+public sealed record SourceNote(Regex Pattern, string Note);
+
 /// <summary>The package and reference rules (rules/packages.json).</summary>
 public sealed class Rules
 {
@@ -20,6 +23,7 @@ public sealed class Rules
     public required IReadOnlyDictionary<string, IReadOnlyList<Package>> FrameworkCompanions { get; init; }
     public required IReadOnlySet<string> NoAnswer { get; init; }
     public required IReadOnlyList<SourcePackage> SourcePackages { get; init; }
+    public required IReadOnlyList<SourceNote> SourceNotes { get; init; }
 
     /// <summary>Dropped: listed, or a System.* 4.x package (in the box on .NET).</summary>
     public bool IsDropped(string id, string version) =>
@@ -51,6 +55,8 @@ public sealed class Rules
                 new Regex(e.GetProperty("pattern").GetString()!, RegexOptions.Compiled),
                 new Package(e.GetProperty("id").GetString()!, Version(e.GetProperty("version").GetString()!)),
                 e.TryGetProperty("note", out var note) ? note.GetString() : null)).ToList(),
+            SourceNotes = root.GetProperty("sourceNotes").EnumerateArray().Select(e => new SourceNote(
+                new Regex(e.GetProperty("pattern").GetString()!, RegexOptions.Compiled), e.GetProperty("note").GetString()!)).ToList(),
         };
     }
 }

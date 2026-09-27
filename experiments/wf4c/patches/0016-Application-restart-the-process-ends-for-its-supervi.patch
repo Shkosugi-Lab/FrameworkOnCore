@@ -1,0 +1,142 @@
+From 4f371c5d3e126fb8a3fb07189dfe6db941a388d3 Mon Sep 17 00:00:00 2001
+From: shkosugi <sin.kosugi@gmail.com>
+Date: Sun, 27 Sep 2026 12:48:13 +0900
+Subject: [PATCH 16/16] Application restart: the process ends for its
+ supervisor to start it again
+
+An application restart (web.config or bin changed, HttpRuntime.UnloadAppDomain) unloads
+the AppDomain on .NET Framework, and the next request starts the application again. An
+application in .NET's default AssemblyLoadContext cannot be unloaded, and its static
+state stays: the runtime was disposed and a thread spun in the unload loop, while the
+requests went on with the old configuration.
+
+The process ends instead, as ASP.NET Core's IIS module ends it when web.config changes,
+and its supervisor starts it again (IIS, systemd Restart=, Docker --restart): exit code
+75 (EX_TEMPFAIL), through the host's IHostApplicationLifetime.StopApplication, so the
+pending requests complete; not when the host is stopping already. Once the restart has
+begun, requests get 503 with Retry-After: on .NET Framework they would go to the new
+AppDomain.
+---
+ .../Hosting/HostingEnvironment.cs             |  6 +++
+ src/WebFormsForCore.Web/HttpRuntime.cs        |  5 +++
+ .../AspNetCoreHosting/ProcessRestart.cs       | 38 +++++++++++++++++++
+ .../AspNetCoreHosting/WebFormsMiddleware.cs   | 18 +++++++++
+ 4 files changed, 67 insertions(+)
+ create mode 100644 src/WebFormsForCore.Web/WebFormsForCore/AspNetCoreHosting/ProcessRestart.cs
+
+diff --git a/src/WebFormsForCore.Web/Hosting/HostingEnvironment.cs b/src/WebFormsForCore.Web/Hosting/HostingEnvironment.cs
+index 1a48b60..c58a841 100644
+--- a/src/WebFormsForCore.Web/Hosting/HostingEnvironment.cs
++++ b/src/WebFormsForCore.Web/Hosting/HostingEnvironment.cs
+@@ -850,6 +850,12 @@ namespace System.Web.Hosting
+             HttpRuntime.ShutdownAppDomainWithStackTrace(ApplicationShutdownReason.HostingEnvironment,
+                                                         SR.GetString(SR.Hosting_Env_Restart),
+                                                         _shutDownStack);
++#if !NETFRAMEWORK
++            // The application is shut down: its AppDomain would be unloaded now, and the next request
++            // would start it again. In .NET's default AssemblyLoadContext, the process restarts.
++            if (AssemblyLoadContext.GetLoadContext(typeof(HostingEnvironment).Assembly) == AssemblyLoadContext.Default)
++                ProcessRestart.Request(HostingEnvironment.ShutdownReason.ToString());
++#endif
+         }
+ 
+         //
+diff --git a/src/WebFormsForCore.Web/HttpRuntime.cs b/src/WebFormsForCore.Web/HttpRuntime.cs
+index 143e3c0..098a496 100644
+--- a/src/WebFormsForCore.Web/HttpRuntime.cs
++++ b/src/WebFormsForCore.Web/HttpRuntime.cs
+@@ -2032,6 +2032,11 @@ namespace System.Web
+ #else
+                     var context = ApplicationManager.GetLoadContext(Assembly.GetCallingAssembly());
+ 					if (context != AssemblyLoadContext.Default) context.Unload();
++					else {
++						// Not unloadable: the process restarts (ProcessRestart), and this loop ends.
++						ProcessRestart.Request(_shutdownReason + (_shutDownMessage != null ? ": " + _shutDownMessage.Replace("\r\n", "; ") : ""));
++						return;
++					}
+ #endif
+                 }
+                 catch (CannotUnloadAppDomainException) {
+diff --git a/src/WebFormsForCore.Web/WebFormsForCore/AspNetCoreHosting/ProcessRestart.cs b/src/WebFormsForCore.Web/WebFormsForCore/AspNetCoreHosting/ProcessRestart.cs
+new file mode 100644
+index 0000000..da10386
+--- /dev/null
++++ b/src/WebFormsForCore.Web/WebFormsForCore/AspNetCoreHosting/ProcessRestart.cs
+@@ -0,0 +1,38 @@
++#if NETCOREAPP
++
++using System.Threading;
++
++namespace System.Web.Hosting
++{
++	// An application restart (web.config or bin changed, HttpRuntime.UnloadAppDomain) unloads its
++	// AppDomain on .NET Framework, and the next request starts it again. An application in .NET's
++	// default AssemblyLoadContext cannot be unloaded, and its static state stays: the process ends
++	// instead, as ASP.NET Core's IIS module ends it when web.config changes, and the process's
++	// supervisor starts it again (IIS, systemd Restart=, Docker --restart). Exit code 75 (EX_TEMPFAIL:
++	// "try again") tells it from a failure.
++	internal static class ProcessRestart
++	{
++		internal const int ExitCode = 75;
++
++		// The host's stop (IHostApplicationLifetime.StopApplication, set by UseWebForms): pending
++		// requests complete. Without a host, the process exits.
++		internal static Action StopHost;
++		// Whether the host is stopping already (IHostApplicationLifetime.ApplicationStopping): the
++		// process ends then, and is not to be started again.
++		internal static Func<bool> HostStopping;
++
++		static int requested;
++
++		internal static void Request(string reason)
++		{
++			if (HostStopping?.Invoke() == true) return;
++			if (Interlocked.Exchange(ref requested, 1) != 0) return;
++			Console.Error.WriteLine($"WebFormsForCore: application restart ({reason}): the process ends with exit code {ExitCode}, for its supervisor to start it again.");
++			Environment.ExitCode = ExitCode;
++			if (StopHost != null) StopHost();
++			else Environment.Exit(ExitCode);
++		}
++	}
++}
++
++#endif
+diff --git a/src/WebFormsForCore.Web/WebFormsForCore/AspNetCoreHosting/WebFormsMiddleware.cs b/src/WebFormsForCore.Web/WebFormsForCore/AspNetCoreHosting/WebFormsMiddleware.cs
+index 83f8bf1..14472c5 100644
+--- a/src/WebFormsForCore.Web/WebFormsForCore/AspNetCoreHosting/WebFormsMiddleware.cs
++++ b/src/WebFormsForCore.Web/WebFormsForCore/AspNetCoreHosting/WebFormsMiddleware.cs
+@@ -114,6 +114,16 @@ namespace Microsoft.AspNetCore.Builder
+ 
+ 		public async Task Invoke(Core.HttpContext context)
+ 		{
++			// The application is restarting (web.config changed ...): on .NET Framework the requests from
++			// now on go to its new AppDomain; this one is ending (ProcessRestart), so they are to come
++			// again once it is started.
++			if (HostingEnvironment.ShutdownInitiated)
++			{
++				context.Response.StatusCode = 503;
++				context.Response.Headers["Retry-After"] = "1";
++				context.Response.Headers["Connection"] = "close";
++				return;
++			}
+ 			if (IsLegacyRequest(context))
+ 			{
+ 				AllowSynchronousIO(context);
+@@ -175,6 +185,14 @@ namespace Microsoft.AspNetCore.Builder
+ 			// fileEncoding>, requestEncoding, responseEncoding) and pages use them (Encoding.GetEncoding).
+ 			System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
+ 			if (optionsBuilder == null) optionsBuilder = options => { };
++			// An application restart ends the process (ProcessRestart): through the host, which lets the
++			// pending requests complete.
++			var lifetime = builder.ApplicationServices?.GetService(typeof(Microsoft.Extensions.Hosting.IHostApplicationLifetime)) as Microsoft.Extensions.Hosting.IHostApplicationLifetime;
++			if (lifetime != null)
++			{
++				ProcessRestart.StopHost = lifetime.StopApplication;
++				ProcessRestart.HostStopping = () => lifetime.ApplicationStopping.IsCancellationRequested;
++			}
+ 			return builder.UseMiddleware<WebFormsMiddleware>(optionsBuilder);
+         }
+         public static IApplicationBuilder UseAspNetCoreSessionProvider(this IApplicationBuilder builder)
+-- 
+2.55.0.windows.3
+

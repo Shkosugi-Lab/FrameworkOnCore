@@ -15,9 +15,13 @@ using FrameworkOnCore.Converter;
 // --site     the deployed site (the original build's web folder, or the site's folder on the IIS
 //            server): what the application is made of. Its assemblies built from the repository are
 //            rebuilt for .NET 10 and the site is assembled in <out>\site (run bin\<web>.dll there).
+// --build-original [target]  get the deployed site by building the repository with its own build
+//            (a Cake build: Cake Frosting or a .cake script; its default target, or the one given)
+//            in a copy (<out>.original); the site it deploys is then --site.
 
-string? project = null, outDirectory = null, rootDirectory = null, runtimeDirectory = null, cultureProfile = null, site = null;
+string? project = null, outDirectory = null, rootDirectory = null, runtimeDirectory = null, cultureProfile = null, site = null, originalTarget = null;
 var build = true;
+var buildOriginal = false;
 for (var i = 0; i < args.Length; i++)
 {
     switch (args[i])
@@ -28,12 +32,16 @@ for (var i = 0; i < args.Length; i++)
         case "--culture-profile": cultureProfile = args[++i]; break;
         case "--site": site = Path.GetFullPath(args[++i]); break;
         case "--no-build": build = false; break;
+        case "--build-original":
+            buildOriginal = true;
+            if (i + 1 < args.Length && !args[i + 1].StartsWith("--", StringComparison.Ordinal) && !args[i + 1].EndsWith("proj", StringComparison.OrdinalIgnoreCase)) originalTarget = args[++i];
+            break;
         default: project = args[i]; break;
     }
 }
 if (project == null || outDirectory == null)
 {
-    Console.Error.WriteLine("usage: FrameworkOnCore.Converter <web project .csproj> --out <dir> [--root <dir>] [--runtime <dir>] [--culture-profile <file>] [--no-build]");
+    Console.Error.WriteLine("usage: FrameworkOnCore.Converter <web project .csproj> --out <dir> [--root <dir>] [--runtime <dir>] [--culture-profile <file>] [--site <dir> | --build-original [target]] [--no-build]");
     return 2;
 }
 
@@ -50,10 +58,24 @@ var runtime = new RuntimeLayout(
 
 var report = new Report();
 var rules = Rules.Load(Path.Combine(AppContext.BaseDirectory, "rules", "packages.json"));
+if (buildOriginal)
+{
+    var originalWork = outRoot.TrimEnd('\\', '/') + ".original";
+    var originalLog = originalWork + ".build.log";
+    File.Delete(originalLog);
+    site = new OriginalBuild(report, originalLog).Run(sourceRoot, originalWork, project, originalTarget);
+    if (site == null)
+    {
+        File.WriteAllText(Path.Combine(Directory.CreateDirectory(outRoot).FullName, "CONVERSION-REPORT.md"), report.ToMarkdown($"FrameworkOnCore: {Path.GetFileName(project)}"), new UTF8Encoding(false));
+        Console.WriteLine($"original build FAILED; log: {originalLog}");
+        return 1;
+    }
+}
 Console.WriteLine($"copying {sourceRoot} -> {outRoot}");
 Paths.CopyTree(sourceRoot, outRoot);
 
 var converter = new ProjectConverter(rules, report, new Conditions("Debug", "AnyCPU", report), sourceRoot, outRoot, runtime);
+if (site != null) converter.DeployedBin = Path.Combine(site, "bin");
 var web = converter.Convert(project, isWeb: true);
 WriteHost(web);
 

@@ -1,7 +1,7 @@
-# Converts the corpora (corpora\work) with the FrameworkOnCore converter (src\FrameworkOnCore.Converter)
+﻿# Converts the corpora (corpora\work) with the FrameworkOnCore converter (src\FrameworkOnCore.Converter)
 # and prints each one's outcome; the report is <out>\CONVERSION-REPORT.md.
 #   .\experiments\wf4c\convert-corpora.ps1 [-Only be,wt]
-param([string[]]$Only = @('be', 'wt', 'mojo', 'yaf', 'dnn', 'n2'))
+param([string[]]$Only = @('be', 'wt', 'mojo', 'yaf', 'dnn', 'n2'), [switch]$Rebuild)
 
 $repo = Resolve-Path (Join-Path $PSScriptRoot '..\..')
 Set-Location $repo
@@ -13,6 +13,8 @@ $corpora = [ordered]@{
     dnn  = @('Dnn.Platform-9.13.10', 'DNN Platform\Website\DotNetNuke.Website.csproj')
     n2   = @('n2cms-master', 'src\WebForms\WebFormsTemplates\N2.Templates.csproj')
 }
+# Built by their own Cake build: the folder it deploys the site to.
+$cake = @{ dnn = 'Website' }
 dotnet build src\FrameworkOnCore.Converter\FrameworkOnCore.Converter.csproj -v q -nologo | Out-Null
 if ($LASTEXITCODE -ne 0) { throw 'converter build failed' }
 $converter = 'src\FrameworkOnCore.Converter\bin\Debug\net10.0\FrameworkOnCore.Converter.dll'
@@ -21,10 +23,16 @@ New-Item -ItemType Directory $logs -Force | Out-Null
 foreach ($name in $Only) {
     $root, $project = $corpora[$name]
     $log = Join-Path $logs "foc-$name.log"
-    # The deployed site of the original build (build-original-site.ps1), when there is one.
+    # The deployed site of the original build (build-original-site.ps1), when there is one. A Cake
+    # build is run by the converter itself (--build-original, in <out>.original): the site it deployed
+    # before is taken if there is one (the build takes minutes; -Rebuild runs it again).
     $siteArguments = @()
     $original = Join-Path $PSScriptRoot "_original\$name\$(Split-Path "$root\$project" -Parent | Split-Path -NoQualifier | ForEach-Object { $_.Substring($root.Length).TrimStart('\') })"
     if (Test-Path (Join-Path $original 'bin')) { $siteArguments = @('--site', $original) }
+    if ($cake.ContainsKey($name)) {
+        $deployed = Join-Path $PSScriptRoot "$name.original\$($cake[$name])"
+        $siteArguments = if ((Test-Path (Join-Path $deployed 'bin')) -and -not $Rebuild) { @('--site', $deployed) } else { @('--build-original') }
+    }
     dotnet $converter "corpora\work\$root\$project" --out "experiments\wf4c\$name" --root "corpora\work\$root" `
         --culture-profile experiments\wf4c\_culture\culture-profile.json @siteArguments *> $log
     $code = $LASTEXITCODE
@@ -36,8 +44,17 @@ foreach ($name in $Only) {
             -replace '</appSettings>', "  <add key=`"DisableSetup`" value=`"false`" />`r`n</appSettings>"
         [IO.File]::WriteAllText((Join-Path $PSScriptRoot 'mojo\site\user.config'), $config, (New-Object Text.UTF8Encoding $false))
     }
+    # DNN's: SQL Server Express's database dnn_w2l (the install wizard creates the schema). The
+    # release web.config names an attached file (|DataDirectory|Database.mdf, a user instance), which
+    # .NET's SqlClient does not open.
+    if ($name -eq 'dnn' -and (Test-Path "experiments\wf4c\dnn\site\web.config")) {
+        sqlcmd -S .\SQLEXPRESS -E -C -b -Q "IF DB_ID('dnn_w2l') IS NULL CREATE DATABASE dnn_w2l" | Out-Null
+        $webConfig = Join-Path $PSScriptRoot 'dnn\site\web.config'
+        $config = [IO.File]::ReadAllText($webConfig) -replace '(<add name="SiteSqlServer" connectionString=")[^"]*"', '$1Data Source=.\SQLEXPRESS;Initial Catalog=dnn_w2l;Integrated Security=True"'
+        [IO.File]::WriteAllText($webConfig, $config, (New-Object Text.UTF8Encoding $false))
+    }
     $reportPath = "experiments\wf4c\$name\CONVERSION-REPORT.md"
-    $counts = if (Test-Path $reportPath) { (Select-String -Path $reportPath -Pattern '^## .*件' | ForEach-Object { $_.Line -replace '^## ', '' }) -join ' / ' } else { '' }
+    $counts = if (Test-Path $reportPath) { (Select-String -Path $reportPath -Pattern '^## .*莉ｶ' | ForEach-Object { $_.Line -replace '^## ', '' }) -join ' / ' } else { '' }
     $rounds = (Select-String -Path $log -Pattern '^build \d+:').Count
     "=== $name $(if ($code -eq 0) { 'BUILD OK' } else { "FAILED ($code)" }) (rounds: $rounds) $counts"
     if ($code -ne 0) { Select-String -Path $log -Pattern '\[Error\]' | Select-Object -First 8 | ForEach-Object { '  ' + $_.Line.Trim().Substring(0, [Math]::Min(220, $_.Line.Trim().Length)) } }

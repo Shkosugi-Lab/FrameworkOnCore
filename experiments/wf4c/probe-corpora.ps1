@@ -22,15 +22,23 @@ foreach ($name in $Only) {
     $dll = Join-Path $directory "bin\$assembly.dll"
     if (-not (Test-Path $dll)) { "=== ${name}: $dll not built"; continue }
     $log = Join-Path $directory 'probe.log'
-    $process = Start-Process -FilePath dotnet -ArgumentList "`"$dll`"", '--urls', "http://localhost:$Port" -WorkingDirectory $directory -PassThru -WindowStyle Hidden -RedirectStandardOutput $log -RedirectStandardError "$log.err"
+    Remove-Item $log, "$log.err" -ErrorAction SilentlyContinue
+    # Under a supervisor (supervise.ps1): an application restart (exit code 75) starts it again.
+    $process = Start-Process -FilePath powershell -ArgumentList '-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', "`"$PSScriptRoot\supervise.ps1`"", '-Dll', "`"$dll`"", '-Port', $Port, '-Log', "`"$log`"" -WorkingDirectory $directory -PassThru -WindowStyle Hidden
     try {
         foreach ($i in 1..60) { if ((Test-Path $log) -and (Select-String -Path $log -Pattern 'Now listening' -Quiet)) { break }; if ($process.HasExited) { break }; Start-Sleep 1 }
-        if ($process.HasExited) { "=== ${name}: exited ($($process.ExitCode))"; Get-Content "$log.err", $log -ErrorAction SilentlyContinue | Select-Object -Last 8; continue }
-        $out = curl.exe -s -L --max-redirs 5 -m 180 -o "$directory\probe.html" -w "%{http_code} %{url_effective} %{time_total}s" "http://localhost:$Port/"
+        if ($process.HasExited) { "=== ${name}: exited"; Get-Content $log -ErrorAction SilentlyContinue | Select-Object -Last 8; continue }
+        # Retried while the application restarts (the port is closed then).
+        $out = curl.exe -s -L --max-redirs 5 -m 300 --retry 10 --retry-connrefused --retry-delay 3 -o "$directory\probe.html" -w "%{http_code} %{url_effective} %{time_total}s" "http://localhost:$Port/"
+        $restarts = @(Select-String -Path $log -Pattern '^=== supervise: exit 75' -ErrorAction SilentlyContinue).Count
+        if ($restarts -gt 0) { $out += " ($restarts restart(s))" }
         $html = if (Test-Path "$directory\probe.html") { Get-Content "$directory\probe.html" -Raw -Encoding UTF8 } else { '' }
         $title = if ($html -match '<title>\s*([^<]*?)\s*</title>') { $Matches[1] } else { '' }
         $detail = if ($html -match '<b>\s*Exception Details:\s*</b>\s*([^<]{0,200})') { $Matches[1] } elseif ($html -match '(?s)<h2>\s*<i>(.{0,200}?)</i>') { $Matches[1] } else { '' }
         "=== ${name}: $out title='$title' $detail"
     }
-    finally { Stop-Process -Id $process.Id -Force -ErrorAction SilentlyContinue }
+    finally {
+        Stop-Process -Id $process.Id -Force -ErrorAction SilentlyContinue
+        Get-NetTCPConnection -LocalPort $Port -State Listen -ErrorAction SilentlyContinue | ForEach-Object { Stop-Process -Id $_.OwningProcess -Force -ErrorAction SilentlyContinue }
+    }
 }

@@ -62,17 +62,29 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
         var isSdk = document.Root!.Attribute("Sdk") != null;
 
         var references = new List<string>();
-        foreach (var reference in Elements(document, "ProjectReference"))
+        var deployed = new List<(string Assembly, string Dll)>();
+        foreach (var reference in Elements(document, "ProjectReference").ToList())
         {
             if (!isSdk && !ItemHolds(reference, name)) continue;
             var referenced = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(projectPath)!, (string)reference.Attribute("Include")!));
-            if (!referenced.EndsWith(".csproj", StringComparison.OrdinalIgnoreCase)) { report.Add(Report.Kind.Unsupported, name, $"project reference not converted (not C#): {referenced}"); continue; }
+            if (!referenced.EndsWith(".csproj", StringComparison.OrdinalIgnoreCase))
+            {
+                if (DeployedAssembly(referenced) is { } dll)
+                {
+                    deployed.Add(dll);
+                    report.Add(Report.Kind.Unsupported, name, $"{Path.GetFileName(referenced)} not converted (only C# projects so far): its .NET Framework assembly in the deployed site is referenced as it is");
+                    // In an SDK-style project, the reference is rewritten where it is (its conditions stay).
+                    if (isSdk) reference.ReplaceWith(DeployedReference(reference.Name.Namespace, dll, Path.GetDirectoryName(TargetOf(projectPath))!));
+                }
+                else report.Add(Report.Kind.Unsupported, name, $"project reference not converted (not C#): {referenced}");
+                continue;
+            }
             if (!File.Exists(referenced)) { report.Add(Report.Kind.Error, name, $"project reference not found: {referenced}"); continue; }
             Convert(referenced, false);
             references.Add(referenced);
         }
 
-        var result = isSdk ? ConvertSdk(projectPath, name, document) : ConvertOld(projectPath, name, document, isWeb, references);
+        var result = isSdk ? ConvertSdk(projectPath, name, document) : ConvertOld(projectPath, name, document, isWeb, references, deployed);
         converted[projectPath] = result;
         return result;
     }
@@ -121,7 +133,7 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
     // ------------------------------------------------------------------------------------------
     // Old-style (.NET Framework) projects: a new SDK-style project file with the original's items.
 
-    ConvertedProject ConvertOld(string projectPath, string name, XDocument old, bool isWeb, List<string> projectReferences)
+    ConvertedProject ConvertOld(string projectPath, string name, XDocument old, bool isWeb, List<string> projectReferences, List<(string Assembly, string Dll)> deployed)
     {
         var source = Path.GetDirectoryName(projectPath)!;
         var targetPath = TargetOf(projectPath);
@@ -159,7 +171,7 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
         }
         if (isWeb) foreach (var id in rules.WebPackages) AddPackage(new Package(id, rules.ForkVersion));
 
-        var binaryReferences = new List<(string Assembly, string HintPath, string? Aliases)>();
+        var binaryReferences = deployed.Select(d => (d.Assembly, HintPath: Paths.FromProject(target, d.Dll), Aliases: (string?)null)).ToList();
         var builtReferences = new List<string>();
         foreach (var reference in old.Descendants(msbuild + "Reference").Where(e => ItemHolds(e, name)))
         {
@@ -176,7 +188,12 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
                 {
                     if (!producer.EndsWith(".csproj", StringComparison.OrdinalIgnoreCase))
                     {
-                        report.Add(Report.Kind.Unsupported, name, $"{assembly} is built by {Path.GetFileName(producer)}: not converted (only C# projects so far); the code using it is stubbed");
+                        if (DeployedAssembly(producer) is { } deployedDll)
+                        {
+                            binaryReferences.Add((deployedDll.Assembly, Paths.FromProject(target, deployedDll.Dll), reference.Element(msbuild + "Aliases")?.Value));
+                            report.Add(Report.Kind.Unsupported, name, $"{assembly} is built by {Path.GetFileName(producer)}, not converted (only C# projects so far): its .NET Framework assembly in the deployed site is referenced as it is");
+                        }
+                        else report.Add(Report.Kind.Unsupported, name, $"{assembly} is built by {Path.GetFileName(producer)}: not converted (only C# projects so far); the code using it is stubbed");
                         continue;
                     }
                     Convert(producer, false);
@@ -208,6 +225,8 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
         }
 
         AddSourcePackages(name, compile.Select(c => Path.Combine(source, c)), AddPackage);
+        var preserialized = HasNonStringResources(embedded.Select(e => Path.Combine(source, e)));
+        if (preserialized) AddPackage(ResourcesExtensions);
         var usesWebFormsForCore = isWeb || packages.Keys.Any(k => k.StartsWith("WebFormsForCore.", StringComparison.OrdinalIgnoreCase));
 
         // The project file.
@@ -228,6 +247,7 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
         Prop("WarningsNotAsErrors", WarningsNotAsErrors);
         if (defines.Count > 0) Prop("DefineConstants", "$(DefineConstants);" + string.Join(';', defines));
         Prop("RestoreAdditionalProjectSources", Paths.FromProject(target, runtime.Feed));
+        if (preserialized) Prop("GenerateResourceUsePreserializedResources", "true");
         if (isWeb)
         {
             Prop("OutputType", "Exe");
@@ -387,8 +407,12 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
         var sources = Directory.EnumerateFiles(directory, "*.cs", SearchOption.AllDirectories)
             .Where(f => !Regex.IsMatch(Path.GetRelativePath(directory, f), @"(^|[\\/])(bin|obj)[\\/]", RegexOptions.IgnoreCase));
         AddSourcePackages(name, sources, p => { if (!HasPackage(p.Id)) added.Add(p); });
+        var preserialized = HasNonStringResources(Directory.EnumerateFiles(directory, "*.resx", SearchOption.AllDirectories)
+            .Where(f => !Regex.IsMatch(Path.GetRelativePath(directory, f), @"(^|[\\/])(bin|obj)[\\/]", RegexOptions.IgnoreCase)));
+        if (preserialized && !HasPackage(ResourcesExtensions.Id)) added.Add(ResourcesExtensions);
         var itemGroup = new XElement(N("ItemGroup"), added.Items.Select(PackageElement));
         if (itemGroup.HasElements) root.Add(itemGroup);
+        if (preserialized) root.Add(new XElement(N("PropertyGroup"), new XElement(N("GenerateResourceUsePreserializedResources"), "true")));
         root.Add(new XElement(N("PropertyGroup"),
             new XElement(N("NoWarn"), NoWarn),
             new XElement(N("WarningsNotAsErrors"), WarningsNotAsErrors),
@@ -408,6 +432,50 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
         return new ConvertedProject(name, projectPath, targetPath, false, defines, Elements(project, "AssemblyName").FirstOrDefault()?.Value ?? name);
     }
 
+    // Resources that are not strings (images, icons: <data type="..."> or mimetype) are embedded
+    // serialized; .NET's build does that with System.Resources.Extensions, which reads them at run
+    // time (MSB3822 without it).
+    static readonly Package ResourcesExtensions = new("System.Resources.Extensions", "10.0.0");
+
+    static bool HasNonStringResources(IEnumerable<string> files) =>
+        files.Where(f => f.EndsWith(".resx", StringComparison.OrdinalIgnoreCase) && File.Exists(f)).Any(f =>
+        {
+            try
+            {
+                return XDocument.Load(f).Root!.Elements("data").Any(d =>
+                    d.Attribute("mimetype") != null ||
+                    (d.Attribute("type") is { } type && !type.Value.StartsWith("System.String", StringComparison.Ordinal)));
+            }
+            catch (System.Xml.XmlException) { return false; }
+        });
+
+    /// <summary>
+    /// The deployed site's bin (--site). A project this converter does not convert (VB) is referenced by
+    /// the assembly its build put there, as it is: a .NET Framework assembly, which .NET loads (its
+    /// System.Web is the runtime's).
+    /// </summary>
+    public string? DeployedBin { get; set; }
+
+    // Copied into the output (.deployed), referenced from there: null without a deployed site, or
+    // without that assembly in it.
+    (string Assembly, string Dll)? DeployedAssembly(string producer)
+    {
+        if (DeployedBin == null || !File.Exists(producer)) return null;
+        string? assembly = null;
+        try { assembly = XDocument.Load(producer).Descendants().FirstOrDefault(e => e.Name.LocalName == "AssemblyName")?.Value; }
+        catch (System.Xml.XmlException) { }
+        if (string.IsNullOrWhiteSpace(assembly)) assembly = Path.GetFileNameWithoutExtension(producer);
+        var dll = Path.Combine(DeployedBin, assembly + ".dll");
+        if (!File.Exists(dll)) return null;
+        var copy = Path.Combine(outRoot, ".deployed", assembly + ".dll");
+        Directory.CreateDirectory(Path.GetDirectoryName(copy)!);
+        File.Copy(dll, copy, overwrite: true);
+        return (assembly, copy);
+    }
+
+    static XElement DeployedReference(XNamespace ns, (string Assembly, string Dll) dll, string projectDirectory) =>
+        new(ns + "Reference", new XAttribute("Include", dll.Assembly), new XElement(ns + "HintPath", Paths.FromProject(projectDirectory, dll.Dll)));
+
     sealed class ItemsToAdd
     {
         public List<Package> Items { get; } = new();
@@ -423,6 +491,10 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
             if (!rule.Pattern.IsMatch(text)) continue;
             add(rule.Package);
             if (rule.Note != null) report.Add(Report.Kind.Unsupported, name, $"uses {rule.Package.Id}: {rule.Note}");
+        }
+        foreach (var note in rules.SourceNotes)
+        {
+            if (note.Pattern.IsMatch(text)) report.Add(Report.Kind.Unsupported, name, note.Note);
         }
     }
 

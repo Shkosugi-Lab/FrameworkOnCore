@@ -69,5 +69,10 @@
     { "pattern": "\\bSystem\\.Drawing\\b", "id": "System.Drawing.Common", "version": "10.0.0", "note": "System.Drawing is Windows only" },
     { "pattern": "\\bSystem\\.ServiceModel\\.Syndication\\b", "id": "System.ServiceModel.Syndication", "version": "10.0.0" },
     { "pattern": "\\bConfigurationManager\\b", "id": "WebFormsForCore.Configuration", "version": "$fork" }
+  ],
+
+  "$comment_sourceNotes": "What the sources do that behaves differently on .NET (reported).",
+  "sourceNotes": [
+    { "pattern": "\\|DataDirectory\\|", "note": "a connection string built with |DataDirectory| (AttachDBFilename) in code is rejected by .NET's System.Data.SqlClient (from web.config the runtime expands it); attached database files (LocalDB, SQL Server Express user instances) are Windows only: use a database server" }
   ]
 }

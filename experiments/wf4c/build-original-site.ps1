@@ -47,7 +47,13 @@ $refRootParent = (Split-Path $refRoot -Parent) + '\'
 Write-Host "copying $source -> $work"
 robocopy $source $work /MIR /XD .git /NFL /NDL /NJH /NJS /NP | Out-Null
 
-$solutionPath = Join-Path $work $solution
+# Built through a drive letter mapped to the copy: DNN's deepest paths go past Windows' 260
+# characters under this folder (MSB3491), not under a short root, where its authors build it.
+$drive = @('W', 'V', 'U', 'T', 'S', 'R', 'Q', 'P') | Where-Object { -not (Test-Path "${_}:\") } | Select-Object -First 1
+subst "${drive}:" $work
+$buildRoot = "${drive}:\"
+Write-Host "building in $buildRoot ($work)"
+$solutionPath = Join-Path $buildRoot $solution
 $solutionDirectory = Split-Path $solutionPath -Parent
 Write-Host 'restoring packages.config'
 foreach ($config in Get-ChildItem $work -Recurse -Filter packages.config -File) {
@@ -71,12 +77,23 @@ $compiler = Join-Path $sdk 'Roslyn\bincore'
 # So, as Visual Studio does: the projects the solution configuration builds, in the order their
 # project references give, one by one, with BuildingInsideVisualStudio.
 $solutionText = Get-Content $solutionPath -Raw
-$projects = [regex]::Matches($solutionText, 'Project\("\{[^}]+\}"\)\s*=\s*"([^"]*)",\s*"([^"]+\.csproj)",\s*"(\{[^}]+\})"') |
+# C# and VB projects (DNN's WebUtility is VB; the C# projects use its output).
+$projects = [regex]::Matches($solutionText, 'Project\("\{[^}]+\}"\)\s*=\s*"([^"]*)",\s*"([^"]+\.(?:cs|vb)proj)",\s*"(\{[^}]+\})"') |
     ForEach-Object { [pscustomobject]@{ Name = $_.Groups[1].Value; Path = [IO.Path]::GetFullPath((Join-Path $solutionDirectory $_.Groups[2].Value)); Guid = $_.Groups[3].Value } }
 $platforms = [regex]::Matches($solutionText, "(?m)^\s*$([regex]::Escape($Configuration))\|([^=]+?)\s*=") | ForEach-Object { $_.Groups[1].Value }
 $platform = @('Any CPU', 'Mixed Platforms') + $platforms | Where-Object { $platforms -contains $_ } | Select-Object -First 1
 $built = $projects | Where-Object { $solutionText -match ([regex]::Escape("$($_.Guid).$Configuration|$platform.Build.0")) }
 Write-Host "solution configuration ${Configuration}|${platform}: $(@($built).Count) of $(@($projects).Count) projects"
+
+# The solution's own build dependencies too (ProjectSection(ProjectDependencies)): a project may use
+# another's output by a reference to its DLL, not a project reference (DNN's Instrumentation and log4net).
+$solutionDependencies = @{}
+foreach ($block in [regex]::Matches($solutionText, '(?s)Project\("\{[^}]+\}"\)\s*=\s*"[^"]*",\s*"[^"]+",\s*"(\{[^}]+\})"(.*?)EndProject\b')) {
+    $section = [regex]::Match($block.Groups[2].Value, '(?s)ProjectSection\(ProjectDependencies\)(.*?)EndProjectSection')
+    if ($section.Success) {
+        $solutionDependencies[$block.Groups[1].Value] = [regex]::Matches($section.Groups[1].Value, '(\{[^}]+\})\s*=') | ForEach-Object { $_.Groups[1].Value }
+    }
+}
 
 $order = New-Object Collections.Generic.List[object]
 $visiting = @{}
@@ -89,6 +106,10 @@ function Visit($project) {
         $dependency = $built | Where-Object { $_.Path -eq $path } | Select-Object -First 1
         if ($dependency) { Visit $dependency }
     }
+    foreach ($guid in @($solutionDependencies[$project.Guid])) {
+        $dependency = $built | Where-Object { $_.Guid -eq $guid } | Select-Object -First 1
+        if ($dependency) { Visit $dependency }
+    }
     $order.Add($project)
 }
 foreach ($project in $built) { Visit $project }
@@ -96,14 +117,27 @@ foreach ($project in $built) { Visit $project }
 Write-Host "building $solution ($Configuration)"
 $log = Join-Path $PSScriptRoot "_original\$Name.build.log"
 Remove-Item $log -ErrorAction SilentlyContinue
-$code = 0
-foreach ($project in $order) {
-    & $msbuild $project.Path /restore "/p:Configuration=$Configuration" "/p:Platform=AnyCPU" "/p:SolutionDir=$solutionDirectory\" `
-        "/p:TargetFrameworkRootPath=$refRootParent" "/p:CscToolPath=$compiler" /p:CscToolExe=csc.exe `
-        /p:BuildingInsideVisualStudio=true /p:ShouldUnsetParentConfigurationAndPlatform=false `
-        /m:1 /v:m /nologo "/flp:LogFile=$log;Verbosity=normal;Append" | Out-Null
-    if ($LASTEXITCODE -ne 0) { $code = $LASTEXITCODE; Write-Host "  failed: $($project.Name)" }
+function Build-Projects($projects) {
+    $failed = New-Object Collections.Generic.List[object]
+    foreach ($project in $projects) {
+        & $msbuild $project.Path /restore "/p:Configuration=$Configuration" "/p:Platform=AnyCPU" "/p:SolutionDir=$solutionDirectory\" `
+            "/p:TargetFrameworkRootPath=$refRootParent" "/p:CscToolPath=$compiler" /p:CscToolExe=csc.exe `
+            /p:BuildingInsideVisualStudio=true /p:ShouldUnsetParentConfigurationAndPlatform=false `
+            /m:1 /v:m /nologo "/flp:LogFile=$log;Verbosity=normal;Append" | Out-Null
+        if ($LASTEXITCODE -ne 0) { $failed.Add($project) }
+    }
+    return , $failed
 }
+$failed = Build-Projects $order
+# Once more for the ones that failed, as their authors would: a post-build step of a multi-targeted
+# project copies another target's output, built after it the first time (DNN's ModulePipeline
+# XCOPYs bin\Release\net472 from its netstandard2.0 build).
+if ($failed.Count -gt 0) {
+    Write-Host "building again: $(($failed | ForEach-Object { $_.Name }) -join ', ')"
+    $failed = Build-Projects $failed
+}
+$code = if ($failed.Count -gt 0) { 1 } else { 0 }
+foreach ($project in $failed) { Write-Host "  failed: $($project.Name)" }
 # The repository's own setup steps its documentation has run after the build (not part of the
 # solution): N2 links its management pages into the templates site (build.bat
 # /t:Source-PrepareDependencies; mklink, or a copy where the link cannot be made).
@@ -111,13 +145,14 @@ $setup = @{ n2 = @('build\n2.proj', 'Templates-PrepareDependencies') }
 if ($setup.ContainsKey($Name)) {
     $setupProject, $setupTarget = $setup[$Name]
     Write-Host "setup: $setupProject /t:$setupTarget"
-    & $msbuild (Join-Path $work $setupProject) "/t:$setupTarget" "/p:Configuration=$Configuration" `
+    & $msbuild (Join-Path $buildRoot $setupProject) "/t:$setupTarget" "/p:Configuration=$Configuration" `
         "/p:TargetFrameworkRootPath=$refRootParent" "/p:CscToolPath=$compiler" /p:CscToolExe=csc.exe `
         /m:1 /v:m /nologo "/flp:LogFile=$log;Verbosity=normal;Append" | Out-Null
     if ($LASTEXITCODE -ne 0) { $code = $LASTEXITCODE; Write-Host "  setup failed" }
 }
+subst "${drive}:" /d
 $errors = Select-String -Path $log -Pattern ': error ' | ForEach-Object { $_.Line.Trim() } | Sort-Object -Unique
-Write-Host "build exit $code, $($errors.Count) error line(s)"
+Write-Host "build exit $code, $($errors.Count) error line(s) (both passes)"
 $errors | Select-Object -First 15 | ForEach-Object { '  ' + $_.Substring(0, [Math]::Min(220, $_.Length)) }
 $siteDirectory = Join-Path $work $site
 Write-Host "site: $siteDirectory ($(@(Get-ChildItem (Join-Path $siteDirectory 'bin') -Filter *.dll -ErrorAction SilentlyContinue).Count) DLLs in bin)"

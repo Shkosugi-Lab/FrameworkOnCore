@@ -608,7 +608,7 @@ namespace System.Web.Security
                             if (typeAzAuthorizationStoreClass == null) {
                                 _NewAuthInterface = false;
                                 typeAzAuthorizationStoreClass = Type.GetType("Microsoft.Interop.Security.AzRoles.AzAuthorizationStoreClass, Microsoft.Interop.Security.AzRoles, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35",
-                                    assemblyName => alc.LoadFromAssemblyName(assemblyName),
+                                    assemblyName => { try { return alc.LoadFromAssemblyName(assemblyName); } catch (System.IO.FileNotFoundException) { return null; } },
                                     (asm, typeName, ignoreCase) => asm?.GetType(typeName, true, ignoreCase),
                                                                         true /*throwOnError*/);
                             } 

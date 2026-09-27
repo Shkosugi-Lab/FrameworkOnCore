@@ -33,7 +33,7 @@ public class VBCodeProviderBase : W.CodeDomProvider
 		{
             var alc = AssemblyLoadContext.GetLoadContext(Assembly.GetExecutingAssembly());
             return Type.GetType($"Microsoft.VisualBasic.VBCodeGenerator, {CodeDomAssembly}",
-                assemblyName => alc.LoadFromAssemblyName(assemblyName),
+                assemblyName => { try { return alc.LoadFromAssemblyName(assemblyName); } catch (System.IO.FileNotFoundException) { return null; } },
                 (asm, typeName, ignoreCase) => asm?.GetType(typeName, false, ignoreCase));
         }
     } 
@@ -43,7 +43,7 @@ public class VBCodeProviderBase : W.CodeDomProvider
 		{
             var alc = AssemblyLoadContext.GetLoadContext(Assembly.GetExecutingAssembly());
             return Type.GetType($"Microsoft.VisualBasic.VBTypeAttributeConverter, {CodeDomAssembly}",
-                assemblyName => alc.LoadFromAssemblyName(assemblyName),
+                assemblyName => { try { return alc.LoadFromAssemblyName(assemblyName); } catch (System.IO.FileNotFoundException) { return null; } },
                 (asm, typeName, ignoreCase) => asm?.GetType(typeName, false, ignoreCase));
         }
     }
@@ -53,7 +53,7 @@ public class VBCodeProviderBase : W.CodeDomProvider
 		{
             var alc = AssemblyLoadContext.GetLoadContext(Assembly.GetExecutingAssembly());
             return Type.GetType($"Microsoft.VisualBasic.VBMemberAttributeConverter, {CodeDomAssembly}",
-                assemblyName => alc.LoadFromAssemblyName(assemblyName),
+                assemblyName => { try { return alc.LoadFromAssemblyName(assemblyName); } catch (System.IO.FileNotFoundException) { return null; } },
                 (asm, typeName, ignoreCase) => asm?.GetType(typeName, false, ignoreCase));
         }
     }

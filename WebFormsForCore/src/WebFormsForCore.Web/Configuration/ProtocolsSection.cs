@@ -272,7 +272,7 @@ namespace System.Web.Configuration
                 //processHandlerType = Type.GetType(ProcessHandlerType, true /*throwOnError*/);
                 var alc = AssemblyLoadContext.GetLoadContext(Assembly.GetExecutingAssembly());
                 processHandlerType = Type.GetType(ProcessHandlerType,
-                    assemblyName => alc.LoadFromAssemblyName(assemblyName),
+                    assemblyName => { try { return alc.LoadFromAssemblyName(assemblyName); } catch (System.IO.FileNotFoundException) { return null; } },
                     (asm, typeName, ignoreCase) => asm?.GetType(typeName, true, ignoreCase),
                     true /*throwOnError*/);
             }
@@ -294,7 +294,7 @@ namespace System.Web.Configuration
                 //appDomainHandlerType = Type.GetType(AppDomainHandlerType, true /*throwOnError*/);
                 var alc = AssemblyLoadContext.GetLoadContext(Assembly.GetExecutingAssembly());
                 appDomainHandlerType = Type.GetType(AppDomainHandlerType,
-                    assemblyName => alc.LoadFromAssemblyName(assemblyName),
+                    assemblyName => { try { return alc.LoadFromAssemblyName(assemblyName); } catch (System.IO.FileNotFoundException) { return null; } },
                    (asm, typeName, ignoreCase) => asm?.GetType(typeName, true, ignoreCase),
                     true /*throwOnError*/);
             }

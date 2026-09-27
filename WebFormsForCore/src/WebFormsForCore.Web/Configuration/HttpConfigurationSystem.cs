@@ -93,7 +93,7 @@ namespace System.Web.Configuration {
                         //Type typeConfigSystem = Type.GetType(ConfigSystemTypeString, true);
                         var alc = AssemblyLoadContext.GetLoadContext(Assembly.GetExecutingAssembly());
                         Type typeConfigSystem = Type.GetType(ConfigSystemTypeString,
-                            assemblyName => alc.LoadFromAssemblyName(assemblyName),
+                            assemblyName => { try { return alc.LoadFromAssemblyName(assemblyName); } catch (System.IO.FileNotFoundException) { return null; } },
                             (asm, typeName, ignoreCase) => asm?.GetType(typeName, true, ignoreCase),
                             true);
                         s_configSystem = (IConfigSystem) Activator.CreateInstance(typeConfigSystem, true);
@@ -124,7 +124,7 @@ namespace System.Web.Configuration {
                         // reflection and that's what we want to avoid.
                         //Type typeFactory = Type.GetType(InternalConfigSettingsFactoryTypeString, true);
                         Type typeFactory = Type.GetType(InternalConfigSettingsFactoryTypeString,
-                            assemblyName => alc.LoadFromAssemblyName(assemblyName),
+                            assemblyName => { try { return alc.LoadFromAssemblyName(assemblyName); } catch (System.IO.FileNotFoundException) { return null; } },
                             (asm, typeName, ignoreCase) => asm?.GetType(typeName, true, ignoreCase),
                             true);
                         s_configSettingsFactory = (IInternalConfigSettingsFactory) Activator.CreateInstance(typeFactory, true);

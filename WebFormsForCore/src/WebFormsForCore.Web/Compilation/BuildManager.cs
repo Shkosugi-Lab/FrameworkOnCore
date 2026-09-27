@@ -618,7 +618,7 @@ public sealed class BuildManager
         //Type t = Type.GetType(AppSettings.PortableCompilationOutputSnapshotType, true);
         var alc = AssemblyLoadContext.GetLoadContext(Assembly.GetExecutingAssembly());
         Type t = Type.GetType(AppSettings.PortableCompilationOutputSnapshotType,
-            assemblyName => alc.LoadFromAssemblyName(assemblyName),
+            assemblyName => { try { return alc.LoadFromAssemblyName(assemblyName); } catch (System.IO.FileNotFoundException) { return null; } },
             (asm, typeName, ignoreCase) => asm?.GetType(typeName, true, ignoreCase),
             true);
         object[] args = new Object[] { AppSettings.PortableCompilationOutputSnapshotTypeOptions };
@@ -1501,7 +1501,7 @@ public sealed class BuildManager
         {
             var alc = AssemblyLoadContext.GetLoadContext(Assembly.GetExecutingAssembly());
             type = Type.GetType(typeName,
-                assemblyName => alc.LoadFromAssemblyName(assemblyName),
+                assemblyName => { try { return alc.LoadFromAssemblyName(assemblyName); } catch (System.IO.FileNotFoundException) { return null; } },
                 (asm, typeName, ignoreCase) => asm?.GetType(typeName, false, ignoreCase),
                 throwOnError, ignoreCase);
 
@@ -1517,7 +1517,7 @@ public sealed class BuildManager
         {
             var alc = AssemblyLoadContext.GetLoadContext(Assembly.GetExecutingAssembly());
             return Type.GetType(typeName,
-                assemblyName => alc.LoadFromAssemblyName(assemblyName),
+                assemblyName => { try { return alc.LoadFromAssemblyName(assemblyName); } catch (System.IO.FileNotFoundException) { return null; } },
                 (asm, typeName, ignoreCase) => asm?.GetType(typeName, false, ignoreCase),
                 throwOnError, ignoreCase);
         }

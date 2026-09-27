@@ -545,7 +545,7 @@ namespace System.Web.Hosting
             // Type.GetType will return null if the type doesn't exist; it will throw on catastrophic failure.
             var alc = AssemblyLoadContext.GetLoadContext(Assembly.GetExecutingAssembly()); ;
             Type appContextType = Type.GetType("System.AppContext, " + AssemblyRef.Mscorlib,
-                    assemblyName => alc.LoadFromAssemblyName(assemblyName),
+                    assemblyName => { try { return alc.LoadFromAssemblyName(assemblyName); } catch (System.IO.FileNotFoundException) { return null; } },
                     (asm, typeName, ignoreCase) => asm?.GetType(typeName, false, ignoreCase));
             if (appContextType == null)
             {
@@ -863,7 +863,7 @@ namespace System.Web.Hosting
             //Type type = Type.GetType(assemblyQualifiedName, true);
             var alc = AssemblyLoadContext.GetLoadContext(Assembly.GetExecutingAssembly());
             Type type = Type.GetType(assemblyQualifiedName,
-                assemblyName => alc.LoadFromAssemblyName(assemblyName),
+                assemblyName => { try { return alc.LoadFromAssemblyName(assemblyName); } catch (System.IO.FileNotFoundException) { return null; } },
                 (asm, typeName, ignoreCase) => asm?.GetType(typeName, true, ignoreCase),
                 true);
             return new ObjectHandle(Activator.CreateInstance(type));
@@ -876,7 +876,7 @@ namespace System.Web.Hosting
             //Type type = Type.GetType(assemblyQualifiedName, true);
             var alc = AssemblyLoadContext.GetLoadContext(Assembly.GetExecutingAssembly());
             Type type = Type.GetType(assemblyQualifiedName,
-                assemblyName => alc.LoadFromAssemblyName(assemblyName),
+                assemblyName => { try { return alc.LoadFromAssemblyName(assemblyName); } catch (System.IO.FileNotFoundException) { return null; } },
                 (asm, typeName, ignoreCase) => asm?.GetType(typeName, true, ignoreCase),
                 true);
             return Activator.CreateInstance(type);
@@ -889,7 +889,7 @@ namespace System.Web.Hosting
             //Type type = Type.GetType(assemblyQualifiedName, true);
             var alc = AssemblyLoadContext.GetLoadContext(Assembly.GetExecutingAssembly());
             Type type = Type.GetType(assemblyQualifiedName,
-                assemblyName => alc.LoadFromAssemblyName(assemblyName),
+                assemblyName => { try { return alc.LoadFromAssemblyName(assemblyName); } catch (System.IO.FileNotFoundException) { return null; } },
                 (asm, typeName, ignoreCase) => asm?.GetType(typeName, true, ignoreCase),
                 true);
             IRegisteredObject obj = null;
@@ -925,7 +925,7 @@ namespace System.Web.Hosting
         {
             var alc = AssemblyLoadContext.GetLoadContext(Assembly.GetExecutingAssembly());
             Type type = Type.GetType(assemblyQualifiedName,
-                assemblyName => alc.LoadFromAssemblyName(assemblyName),
+                assemblyName => { try { return alc.LoadFromAssemblyName(assemblyName); } catch (System.IO.FileNotFoundException) { return null; } },
                 (asm, typeName, ignoreCase) => asm?.GetType(typeName, true, ignoreCase),
                 true);
             IRegisteredObject obj = null;
@@ -978,7 +978,7 @@ namespace System.Web.Hosting
             //Type type = Type.GetType(assemblyQualifiedName, true);
             var alc = AssemblyLoadContext.GetLoadContext(Assembly.GetExecutingAssembly());
             Type type = Type.GetType(assemblyQualifiedName,
-                assemblyName => alc.LoadFromAssemblyName(assemblyName),
+                assemblyName => { try { return alc.LoadFromAssemblyName(assemblyName); } catch (System.IO.FileNotFoundException) { return null; } },
                 (asm, typeName, ignoreCase) => asm?.GetType(typeName, true, ignoreCase),
                 true);
             IRegisteredObject obj = null;
@@ -999,7 +999,7 @@ namespace System.Web.Hosting
             //Type type = Type.GetType(assemblyQualifiedName, true);
             var alc = AssemblyLoadContext.GetLoadContext(Assembly.GetExecutingAssembly());
             Type type = Type.GetType(assemblyQualifiedName,
-                assemblyName => alc.LoadFromAssemblyName(assemblyName),
+                assemblyName => { try { return alc.LoadFromAssemblyName(assemblyName); } catch (System.IO.FileNotFoundException) { return null; } },
                 (asm, typeName, ignoreCase) => asm?.GetType(typeName, true, ignoreCase),
                 true);
             IRegisteredObject obj = null;

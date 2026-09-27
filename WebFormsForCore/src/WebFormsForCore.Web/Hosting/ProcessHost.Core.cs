@@ -401,7 +401,7 @@ namespace System.Web.Hosting
             {
                 var alc = AssemblyLoadContext.GetLoadContext(Assembly.GetExecutingAssembly());
                 handlerType = Type.GetType(typeName,
-                    assemblyName => alc.LoadFromAssemblyName(assemblyName),
+                    assemblyName => { try { return alc.LoadFromAssemblyName(assemblyName); } catch (System.IO.FileNotFoundException) { return null; } },
                     (asm, typeName, ignoreCase) => asm?.GetType(typeName, true, ignoreCase),
                     true /*throwOnError*/);
             }

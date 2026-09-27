@@ -478,7 +478,7 @@ namespace System.Web.UI {
                         //resolvedType = Type.GetType(typeName, true);
                         var alc = AssemblyLoadContext.GetLoadContext(Assembly.GetExecutingAssembly());
                         resolvedType = Type.GetType(typeName,
-                            assemblyName => alc.LoadFromAssemblyName(assemblyName),
+                            assemblyName => { try { return alc.LoadFromAssemblyName(assemblyName); } catch (System.IO.FileNotFoundException) { return null; } },
                             (asm, typeName, ignoreCase) => asm?.GetType(typeName, true, ignoreCase),
                             true);
                     }

@@ -259,7 +259,7 @@ namespace System.Web.Configuration
             //Type t = Type.GetType(protectionProviderType, true);
             var alc = AssemblyLoadContext.GetLoadContext(Assembly.GetExecutingAssembly());
             Type t = Type.GetType(protectionProviderType,
-                assemblyName => alc.LoadFromAssemblyName(assemblyName),
+                assemblyName => { try { return alc.LoadFromAssemblyName(assemblyName); } catch (System.IO.FileNotFoundException) { return null; } },
                 (asm, typeName, ignoreCase) => asm?.GetType(typeName, true, ignoreCase),
                 true);
             if (!typeof(ProtectedConfigurationProvider).IsAssignableFrom(t))

@@ -80,7 +80,7 @@ namespace System.Resources
             if (name.IndexOf(',') != -1) {
                 var alc = AssemblyLoadContext.GetLoadContext(Assembly.GetExecutingAssembly());
                 type = System.Type.GetType(name,
-                    assemblyName => alc.LoadFromAssemblyName(assemblyName),
+                    assemblyName => { try { return alc.LoadFromAssemblyName(assemblyName); } catch (System.IO.FileNotFoundException) { return null; } },
                     (asm, typeName, ignoreCase) => asm?.GetType(typeName, false, ignoreCase),
                     false, ignoreCase);
             }

@@ -245,7 +245,7 @@ namespace System.Resources
                     //Type type = Type.GetType(resxFileRefString[1], true);
                     var alc = AssemblyLoadContext.GetLoadContext(Assembly.GetExecutingAssembly());
 					Type type = Type.GetType(resxFileRefString[1],
-		                assemblyName => alc.LoadFromAssemblyName(assemblyName),
+		                assemblyName => { try { return alc.LoadFromAssemblyName(assemblyName); } catch (System.IO.FileNotFoundException) { return null; } },
                         (asm, typeName, ignoreCase) => asm?.GetType(typeName, true, ignoreCase),
 						true);
 					if (type.Equals(typeof(string)))

@@ -248,7 +248,7 @@ namespace System.Web.Profile {
 
                 var alc = AssemblyLoadContext.GetLoadContext(Assembly.GetExecutingAssembly());
                 Type t = Type.GetType(inheritsType,
-                    assemblyName => alc.LoadFromAssemblyName(assemblyName),
+                    assemblyName => { try { return alc.LoadFromAssemblyName(assemblyName); } catch (System.IO.FileNotFoundException) { return null; } },
                     (asm, typeName, ignoreCase) => asm?.GetType(typeName, false, ignoreCase),
                     false, true);
                 if (t == null)
@@ -274,7 +274,7 @@ namespace System.Web.Profile {
 
                 var alc = AssemblyLoadContext.GetLoadContext (Assembly.GetExecutingAssembly());
                 Type t = Type.GetType(inheritsType,
-                    assemblyName => alc.LoadFromAssemblyName(assemblyName),
+                    assemblyName => { try { return alc.LoadFromAssemblyName(assemblyName); } catch (System.IO.FileNotFoundException) { return null; } },
                     (asm, typeName, ignoreCase) => asm?.GetType(typeName, false, ignoreCase),
                     false, true);
                 if (t == null || t != typeof(ProfileBase))
@@ -634,7 +634,7 @@ namespace System.Web.Profile {
         static private Type GetPropType(string typeName) {
             var alc = AssemblyLoadContext.GetLoadContext(Assembly.GetExecutingAssembly());
             return Type.GetType(typeName,
-                assemblyName => alc.LoadFromAssemblyName(assemblyName),
+                assemblyName => { try { return alc.LoadFromAssemblyName(assemblyName); } catch (System.IO.FileNotFoundException) { return null; } },
                 (asm, typeName, ignoreCase) => asm?.GetType(typeName, false, ignoreCase),
                 true, true);
         }

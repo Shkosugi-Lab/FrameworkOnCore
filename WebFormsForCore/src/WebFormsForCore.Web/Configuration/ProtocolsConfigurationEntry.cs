@@ -63,7 +63,7 @@ namespace System.Web.Configuration {
             {
                 //processHandlerType = Type.GetType(_processHandlerTypeName, true /*throwOnError*/);
                 processHandlerType = Type.GetType(_processHandlerTypeName,
-                    assemblyName => alc.LoadFromAssemblyName(assemblyName),
+                    assemblyName => { try { return alc.LoadFromAssemblyName(assemblyName); } catch (System.IO.FileNotFoundException) { return null; } },
                     (asm, typeName, ignoreCase) => asm?.GetType(typeName, true, ignoreCase),
                      true /*throwOnError*/);
             }
@@ -78,7 +78,7 @@ namespace System.Web.Configuration {
             try {
                 //appDomainHandlerType = Type.GetType(_appDomainHandlerTypeName, true /*throwOnError*/);
                 appDomainHandlerType = Type.GetType(_appDomainHandlerTypeName,
-                    assemblyName => alc.LoadFromAssemblyName(assemblyName),
+                    assemblyName => { try { return alc.LoadFromAssemblyName(assemblyName); } catch (System.IO.FileNotFoundException) { return null; } },
                     (asm, typeName, ignoreCase) => asm?.GetType(typeName, true, ignoreCase),
                     true /*throwOnError*/);
             }

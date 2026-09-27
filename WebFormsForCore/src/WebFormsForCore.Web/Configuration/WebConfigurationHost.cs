@@ -89,7 +89,7 @@ internal sealed class WebConfigurationHost : DelegatingConfigHost, IInternalConf
         //Type type = Type.GetType(InternalHostTypeName, true);
         var alc = AssemblyLoadContext.GetLoadContext(Assembly.GetExecutingAssembly());
         Type type = Type.GetType(InternalHostTypeName,
-            assemblyName => alc.LoadFromAssemblyName(assemblyName),
+            assemblyName => { try { return alc.LoadFromAssemblyName(assemblyName); } catch (System.IO.FileNotFoundException) { return null; } },
             (asm, typeName, ignoreCase) => asm?.GetType(typeName, true, ignoreCase),
             true);
         Host = (IInternalConfigHost)Activator.CreateInstance(type, true);
@@ -978,7 +978,7 @@ internal sealed class WebConfigurationHost : DelegatingConfigHost, IInternalConf
                 //Type type = Type.GetType(InternalConfigConfigurationFactoryTypeName, true);
                 var alc = AssemblyLoadContext.GetLoadContext(Assembly.GetExecutingAssembly());
                 Type type = Type.GetType(InternalConfigConfigurationFactoryTypeName,
-                    assemblyName => alc.LoadFromAssemblyName(assemblyName),
+                    assemblyName => { try { return alc.LoadFromAssemblyName(assemblyName); } catch (System.IO.FileNotFoundException) { return null; } },
                     (asm, typeName, ignoreCase) => asm?.GetType(typeName, true, ignoreCase),
                     true);
                 s_configurationFactory = (IInternalConfigConfigurationFactory)Activator.CreateInstance(type, true);

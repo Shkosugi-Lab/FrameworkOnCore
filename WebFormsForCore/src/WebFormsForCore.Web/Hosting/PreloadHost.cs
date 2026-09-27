@@ -29,7 +29,7 @@ namespace System.Web.Hosting {
                     //preloadObjType = Type.GetType(preloadObjTypeName, true);
                     var alc = AssemblyLoadContext.GetLoadContext(Assembly.GetExecutingAssembly());
                     preloadObjType = Type.GetType(preloadObjTypeName,
-                        assemblyName => alc.LoadFromAssemblyName(assemblyName),
+                        assemblyName => { try { return alc.LoadFromAssemblyName(assemblyName); } catch (System.IO.FileNotFoundException) { return null; } },
                         (asm, typeName, ignoreCase) => asm?.GetType(typeName, true, ignoreCase),
                         true);
                 }

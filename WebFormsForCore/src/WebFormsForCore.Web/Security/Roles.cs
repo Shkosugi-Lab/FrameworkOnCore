@@ -538,7 +538,7 @@ namespace System.Web.Security {
                     var alc = AssemblyLoadContext.GetLoadContext(Assembly.GetExecutingAssembly());
                     foreach (ProviderSettings ps in settings.Providers) {
                         Type t = Type.GetType(ps.Type,
-                            assemblyName => alc.LoadFromAssemblyName(assemblyName),
+                            assemblyName => { try { return alc.LoadFromAssemblyName(assemblyName); } catch (System.IO.FileNotFoundException) { return null; } },
                             (asm, typeName, ignoreCase) => asm?.GetType(typeName, false, ignoreCase),
                             true, true);
                         if (!typeof(RoleProvider).IsAssignableFrom(t))

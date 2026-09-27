@@ -121,6 +121,14 @@ namespace WebFormsForCore.CodeDom.Compiler {
                     coreAssemblyFileName = probableCoreAssemblyFilePath;
                 }
             }
+#if !NETFRAMEWORK
+            // The runtime's core library, as the C# compiler has it: with /nostdlib and the runtime's
+            // folder as the SDK path, vbc does not look for .NET Framework's System.dll and
+            // Microsoft.VisualBasic.dll next to itself (BC2017, BC40049: N2's VB pages).
+            if (String.IsNullOrWhiteSpace(coreAssemblyFileName)) {
+                coreAssemblyFileName = typeof(object).Assembly.Location;
+            }
+#endif
 
             if (!String.IsNullOrWhiteSpace(coreAssemblyFileName)) {
 
@@ -155,7 +163,8 @@ namespace WebFormsForCore.CodeDom.Compiler {
 			{
                 //var visualBasicAssembly = Assembly.Load("System.Runtime, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a");
                 var alc = AssemblyLoadContext.GetLoadContext(Assembly.GetExecutingAssembly());
-                var visualBasicAssembly = alc.LoadFromAssemblyName(new AssemblyName("System.Runtime, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"));
+                // Microsoft.VisualBasic (it was System.Runtime again): its reference makes the VB runtime below.
+                var visualBasicAssembly = alc.LoadFromAssemblyName(new AssemblyName("Microsoft.VisualBasic"));
                 visualBasicAssemblyPath = visualBasicAssembly.Location;
 			}
 			catch
@@ -197,14 +206,16 @@ namespace WebFormsForCore.CodeDom.Compiler {
 #else
                 if (string.Compare(fileName, "Microsoft.VisualBasic.dll", StringComparison.OrdinalIgnoreCase) == 0)
                 {
+                    bool hasCore = false;
+                    string coreFile = Path.Combine(Path.GetDirectoryName(s), "Microsoft.VisualBasic.Core.dll");
+                    // The VB runtime is Microsoft.VisualBasic.Core on .NET (Microsoft.VisualBasic is its
+                    // facade), as the .NET SDK gives it to vbc.
                     allArgsBuilder.Append("/vbruntime:");
                     allArgsBuilder.Append("\"");
-                    allArgsBuilder.Append(s);
+                    allArgsBuilder.Append(File.Exists(coreFile) ? coreFile : s);
                     allArgsBuilder.Append("\"");
                     allArgsBuilder.Append(" ");
 
-                    bool hasCore = false;
-                    string coreFile = Path.Combine(Path.GetDirectoryName(s), "Microsoft.VisualBasic.Core.dll");
                     foreach (string file in parameters.ReferencedAssemblies)
                     {
                         if (string.Equals(Path.GetFileName(file), "Microsoft.VisualBasic.Core.dll", StringComparison.OrdinalIgnoreCase))
@@ -236,6 +247,22 @@ namespace WebFormsForCore.CodeDom.Compiler {
                 allArgsBuilder.Append(" ");
             }
 
+#if !NETFRAMEWORK
+            // As for C# (CSharpCompiler): the facades for the assembly names .NET Framework libraries
+            // reference their base types by (mscorlib, netstandard).
+            foreach (var facade in FrameworkFacades.Paths)
+            {
+                bool referenced = false;
+                foreach (string s in parameters.ReferencedAssemblies)
+                {
+                    referenced |= string.Equals(Path.GetFileName(s), Path.GetFileName(facade), StringComparison.OrdinalIgnoreCase);
+                }
+                if (!referenced)
+                {
+                    allArgsBuilder.Append(string.Format("/R:\"{0}\" ", facade));
+                }
+            }
+#endif
             allArgsBuilder.Append("/out:");
             allArgsBuilder.Append("\"");
             allArgsBuilder.Append(parameters.OutputAssembly);

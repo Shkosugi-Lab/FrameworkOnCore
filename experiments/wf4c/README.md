@@ -487,6 +487,23 @@ Windows はファイル名の大文字小文字を区別しない。アプリは
 フォークのパッケージ: Ajax Control Toolkit は net10.0 だけでビルド・パッケージにする(`pack-fork.ps1`)。ソリューションの中で net8.0 のビルドが CS7069 で失敗するようになった。`-f net10.0` でビルドし、`--no-restore` でパッケージにする(`TargetFrameworks` をグローバルプロパティで渡すと、参照先のプロジェクトまで net10.0 だけで復元され、そのパッケージが作れなくなる)。ソリューションのビルドの再試行は 3 回まで。
 - arm64: CaseProbe(22 項目)が、エミュレーション(Docker Desktop)の arm64 の ASP.NET のイメージで、無しでは Linux、有りでは Windows の動き。be のコンテナを arm64 でビルドして 5/5(`start.sh` が linux-arm64 のライブラリを選ぶ)。見つけた問題: ライブラリの中で呼ぶ古い stat 関数(`__xstat64`)に構造体の版を `1` と書いていた。x86_64 の値で、aarch64 は `0`。arm64 ではすべての呼び出しが失敗し、何も探せていなかった。ビルドする CPU のヘッダーの `_STAT_VER` を使う。- 見つけた問題: glibc 2.35 でライブラリを読み込むと .NET のホストが起動しなかった(`Failed to resolve full path of the current executable`)。glibc の `realpath` には 2 つの版(GLIBC_2.2.5 と 2.3)があり、名前だけで探す `dlsym` が古い版を返した。古い版は結果の置き場所に NULL を受け付けない(.NET のホストは NULL で呼ぶ)。複数の版があるもの(`realpath`、`dlopen`)は版を指定して探す(`dlvsym`)。ほかの包む関数は版が 1 つだけ(Ubuntu 22.04・24.04、Debian 12 で確認)。
 - `install.sh` が systemd の無いマシン向けに示す起動のコマンドは、`/etc/<app>/environment`(root だけが読める)を別のユーザーで読もうとして失敗していた。root で読んでから `setpriv` でユーザーを切り替える形にした。
+全コーパスの変換し直しと確認(2026-09-29、フォーク 0027・0028、大文字小文字のライブラリの後):
+
+- 変換結果(`snapshot-conversion.ps1`): 7 本とも変換したソースは前と同じ。配置の出力には 7 本とも `deploy/casefs`(x64・arm64)が入る。
+- Linux は、配置の既定と同じ構成(ライブラリを読み込み、`WEBFORMSFORCORE_PATH_CASING=0`。`run-linux-site.ps1 -CaseInsensitive -Environment @{ WEBFORMSFORCORE_PATH_CASING = '0' }`)で確かめた。
+
+| コーパス | Linux | Windows |
+|---|---|---|
+| wt | トップ・About が 200。`/Admin/AdminPage`・`/admin/adminpage`・`/checkout/checkoutreview` はログインへ 302、`/content/SITE.css` は 200 | トップが 200 |
+| mojo | 空の DB からセットアップ → トップ・ログイン(`/secure/LOGIN.aspx` も)が 200、`/Admin` はログインへ | トップが 200 |
+| yaf | 下 | 下 |
+| dnn | 空の DB からインストールが完了、トップ・`/Login`・`/Terms`・資源 21 件が 200、host の資格情報が通る(パスワードの強制変更へ) | インストールが完了、トップが 200 |
+| n2 | インストーラーが完了、トップがコンテンツ付き、`/N2/`・`/n2/installation/` はログインなしでログインへ 302 | 同じ |
+| imis | ログインし、主な画面 7 つが 200 | 同じ |
+
+- ライブラリが大文字小文字違いで見つけた名前: dnn 1065、n2 197、imis 67、wt 34 など。yaf は出力先が `Bin`(大文字)で、Linux の `bin/YAF.dll` をライブラリが見つけて起動した。yaf の `customErrors` の `Error.aspx` も実際の `error.aspx` で見つかった。
+- yaf: Linux・Windows とも同じところで止まる。ServiceStack.OrmLite の `Env` の静的コンストラクターが変換のスタブ(CS0103 `PclExport`: ServiceStack の `#if NET6_0_OR_GREATER` の分岐が、元の net481 構成では除かれていたファイルを要求する)で例外になり、エラーのページになる。以前の記録(`/` で Web API 2 の `FieldAccessException`)とは止まる場所が違う。変換したソースは前と同じで、理由は突き止めていない(`FieldAccessException` は型の初期化の前か後かで出たり出なかったりする可能性がある)。
+- yaf を curl で確かめるときは Cookie を保つこと: yaf は `Session_Start` で起動時の確認をするので、Cookie なしの要求は毎回新しいセッションになり、インストーラーへのリダイレクトが繰り返される(ブラウザーでは起きない)。
 ## 全コーパスでの検証(2026-09-27)
 
 `verify-corpora.ps1` で 6 本を変換してビルドした(Windows)。正解データがあるのは be と wt だけ。

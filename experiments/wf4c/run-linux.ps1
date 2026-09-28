@@ -24,7 +24,10 @@ param(
     # this machine's, which is where the golden data was recorded.
     [string]$Culture = (Get-Culture).Name,
     # Leave the container running afterwards (docker exec into it; docker rm -f to remove).
-    [switch]$Keep
+    [switch]$Keep,
+    # File names without regard to case, as on Windows (casefs/libfoccase.so, preloaded into the application's process,
+    # for its folder). casefs\build.ps1 builds it.
+    [switch]$CaseInsensitive
 )
 
 # Not Stop: Windows PowerShell turns docker's stderr ("no such object") into terminating errors.
@@ -97,11 +100,14 @@ if [ -f App_Data/culture-profile.json ]; then
     export ICU_DATA=/icu-data
 fi
 dotnet build -v q -nologo
+$(if ($CaseInsensitive) { "export LD_PRELOAD=/foccase/libfoccase.so FOC_CASE_ROOTS=/work/$appPath FOC_CASE_LOG=1" })
 exec dotnet bin/$name.dll --urls http://0.0.0.0:$Port
 "@ -replace "`r", ''
 
 docker rm -f $container 2>$null | Out-Null
-docker run -d --name $container @network -e "LANG=$($Culture.Replace('-', '_')).UTF-8" -p "${Port}:${Port}" -v "${PSScriptRoot}:/src:ro" -v "${overlay}:/overlay:ro" -v w2l-nuget:/root/.nuget/packages $Image bash -c $script | Out-Null
+$caseArguments = @()
+if ($CaseInsensitive) { $caseArguments = '-v', "$(Join-Path $PSScriptRoot 'casefs\out'):/foccase:ro" }
+docker run -d --name $container @network @caseArguments -e "LANG=$($Culture.Replace('-', '_')).UTF-8" -p "${Port}:${Port}" -v "${PSScriptRoot}:/src:ro" -v "${overlay}:/overlay:ro" -v w2l-nuget:/root/.nuget/packages $Image bash -c $script | Out-Null
 if ($LASTEXITCODE -ne 0) { throw "docker run failed" }
 try {
     # Build (restore included) and start-up: wait until the app answers, or the container stops.

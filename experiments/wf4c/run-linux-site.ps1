@@ -23,6 +23,9 @@ param(
     [switch]$ShowErrors,
     # More environment variables for the site (WEBFORMSFORCORE_SHADOWCOPY = '0', ...).
     [hashtable]$Environment = @{},
+    # File names without regard to case, as on Windows (casefs/libfoccase.so, preloaded into the site's process, for
+    # /app). casefs\build.ps1 builds it.
+    [switch]$CaseInsensitive,
     [switch]$Keep
 )
 
@@ -74,11 +77,17 @@ mkdir -p /app
 cp -r /site/. /app
 cp -r /overlay/. /app
 cd /app
+$(if ($CaseInsensitive) { "export LD_PRELOAD=/foccase/libfoccase.so FOC_CASE_ROOTS=/app FOC_CASE_LOG=1" })
 exec dotnet bin/$Dll.dll --urls http://0.0.0.0:$Port
 "@ -replace "`r", ''
 
 docker rm -f $container 2>$null | Out-Null
 $environmentArguments = @($Environment.Keys | ForEach-Object { '-e'; "$_=$($Environment[$_])" })
+if ($CaseInsensitive) {
+    $library = Join-Path $PSScriptRoot 'casefs\out'
+    if (-not (Test-Path (Join-Path $library 'libfoccase.so'))) { throw 'casefs\out\libfoccase.so: run casefs\build.ps1' }
+    $environmentArguments += '-v', "${library}:/foccase:ro"
+}
 docker run -d --name $container --network w2l -e "LANG=$($Culture.Replace('-', '_')).UTF-8" @environmentArguments -p "${Port}:${Port}" -v "${siteDirectory}:/site:ro" -v "${overlay}:/overlay:ro" $Image bash -c $script | Out-Null
 if ($LASTEXITCODE -ne 0) { throw 'docker run failed' }
 try {

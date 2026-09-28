@@ -10,3 +10,7 @@ shims/*/obj/
 !/icu/
 icu/*/bin/
 icu/*/obj/
+!/casefs/
+casefs/out/
+casefs/test/*/bin/
+casefs/test/*/obj/

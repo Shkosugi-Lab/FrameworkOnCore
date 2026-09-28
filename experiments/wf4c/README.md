@@ -444,6 +444,30 @@ VB のプロジェクトの変換と `EventLog` の書き換えの後、dnn・n2
 - このマシン(メモリ 8 GB、Docker は 4 GB)では、Docker Desktop のエンジンが何度か止まった(`docker desktop restart` で戻る)。SQL Server のコンテナは要らないときは止める。
 
 be/wt(フォーク 0027 の後): Linux で be 5/5、wt 5/8(以前と同じ)。
+### ファイル名の大文字小文字(試作、2026-09-28)
+
+Windows はファイル名の大文字小文字を区別しない。アプリは食い違った名前で書かれていることが多く(be の `Web.Config`・`Global.asax`・`Custom`、ASP.NET 自身の小文字の構成パス)、Linux では見つからない。これまではフォーク(0008・0027)と変換器の書き換え(`WindowsPath.Native`)で箇所ごとに直していたが、サードパーティの DLL やネイティブライブラリには届かない。根本的な対策として、プロセスの中でファイルの操作に割り込む共有ライブラリを試作した(`casefs/`)。
+
+- `libfoccase.so`(`casefs/foccase.c`、C): `LD_PRELOAD` で読み込み、C ライブラリのファイルの関数(open・stat・opendir・mkdir・rename・unlink・realpath・inotify_add_watch・dlopen など。.NET の System.Native・coreclr・hostpolicy が使うものを `nm` で調べて選んだ)を包む。
+  - まず頼まれたとおりに呼ぶ。名前が無くて失敗したとき(ENOENT・ENOTDIR)だけ、パスの各部分を大文字小文字を区別せずに探して、もう一度呼ぶ。正しい名前の呼び出しには何もしない。
+  - 作成(O_CREAT・mkdir・rename の行き先など)は Windows と同じ: 大文字小文字違いの名前があればそれ、新しい名前は既にあるフォルダーの中に作る。大文字小文字だけの名前の変更もできる。
+  - `FOC_CASE_ROOTS`(`:` 区切り)の下だけ。未設定なら何もしない。`FOC_CASE_LOG=1` で、大文字小文字違いで見つけたパスを標準エラーに 1 回ずつ書く(アプリの食い違いの一覧になる)。
+  - フォルダーの一覧はキャッシュする(フォルダーの更新時刻で無効にする)。
+- 作り方・試し方: `casefs\build.ps1`(Ubuntu 24.04 の gcc。ASP.NET のランタイムイメージと同じ glibc 2.39)、`casefs\test.ps1`(`test/CaseProbe` を、ライブラリ無し(Linux の動き)と有り(Windows の動き)で実行)。`run-linux.ps1`・`run-linux-site.ps1` の `-CaseInsensitive` で、サイトのプロセスに読み込ませる。
+
+確認した結果:
+- CaseProbe の 16 項目: 無しではすべて Linux の動き、有りではすべて Windows の動き。別の大文字小文字での存在確認・読み込み・一覧、既存の名前への書き込み(同じファイル)、大文字小文字違いのフォルダーへの新しいファイル・フォルダー、移動、大文字小文字だけの名前の変更、削除、相対パス、FileSystemWatcher、アセンブリの読み込み、対象外のパスは変わらないこと。
+- be(Linux、読み込みあり): 5/5。wt: 5/8(以前と同じ)。wt の `/admin/adminpage`・`/ADMIN/ADMINPAGE.ASPX` はログインの画面へ 302、`/content/SITE.css` は 200。作業プロセス(フォーク 0018)にも環境変数で引き継がれる。
+- 速さ(File.Exists 1 回): 正しい名前 2.97 µs(無しで 2.95)、大文字小文字違い 14.5 µs、無い名前 9.4 µs(無しでどちらも約 2 µs)。
+
+途中で見つかったこと: wt を Linux で動かすと `/Admin/AdminPage` にログインせずに入れた。変換がフォーク 0027 より前だったため(bin の System.Web が古い)。変換し直すと 302 になった。0027 より前に変換したサイト(mojo・yaf)は、変換し直さないと同じ状態のまま。
+
+制約・残り:
+- 大文字小文字の比較は ASCII の英字だけ(ほかの文字はそのまま比べる)。Windows の対応表(NTFS の upcase table)に合わせるのは残り。
+- x64 の glibc だけ(arm64、Alpine の musl は未対応)。C ライブラリを通らないもの(システムコールを直接呼ぶプログラム、静的リンク、setuid)には効かない。.NET とそのネイティブライブラリは対象。
+- 区切り文字(`\`)は扱わない(.NET の `Path` がシステムコールより手前で区切りを解釈するため)。アナライザーの書き換えは引き続き要る。
+- フォークの 0008・0027 と `WindowsPath.Native` の大文字小文字の部分は残した。ライブラリがあると、それらの存在の確認がライブラリを通って成功するので、実際の解決はライブラリが行う。外すかどうかは、ライブラリだけで同じ結果になることを確かめてから。
+- 変換器の配置の出力(Dockerfile・install.sh)への組み込みはまだ。
 ## 全コーパスでの検証(2026-09-27)
 
 `verify-corpora.ps1` で 6 本を変換してビルドした(Windows)。正解データがあるのは be と wt だけ。

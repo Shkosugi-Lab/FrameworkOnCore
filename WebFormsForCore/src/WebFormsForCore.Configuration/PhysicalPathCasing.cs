@@ -12,13 +12,20 @@ namespace WebFormsForCore;
 public static class PhysicalPathCasing
 {
 	/// <summary>
+	/// WEBFORMSFORCORE_PATH_CASING=0: paths are used as asked. For a process whose file system calls already find names
+	/// without regard to case (a preloaded library, a case-insensitive file system), where resolving them here is only
+	/// work done twice.
+	/// </summary>
+	public static readonly bool Enabled = Environment.GetEnvironmentVariable("WEBFORMSFORCORE_PATH_CASING") != "0";
+
+	/// <summary>
 	/// The path as it exists on disk, segment by segment. Where a segment exists under no casing (or
 	/// under several), the rest of the path is kept as asked (a file about to be created).
 	/// Unchanged on Windows and when the path exists as it is.
 	/// </summary>
 	public static string Resolve(string path)
 	{
-		if (string.IsNullOrEmpty(path) || OSInfo.IsWindows || File.Exists(path) || Directory.Exists(path)) return path;
+		if (!Enabled || string.IsNullOrEmpty(path) || OSInfo.IsWindows || File.Exists(path) || Directory.Exists(path)) return path;
 
 		try
 		{
@@ -58,6 +65,11 @@ public static class PhysicalPathCasing
 	public static string FindEntry(string directory, string name)
 	{
 		if (!Directory.Exists(directory)) return null;
+		if (!Enabled)
+		{
+			var exact = Path.Combine(directory, name);
+			return File.Exists(exact) || Directory.Exists(exact) ? exact : null;
+		}
 
 		string match = null;
 		foreach (var entry in Directory.EnumerateFileSystemEntries(directory))

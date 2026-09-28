@@ -16,8 +16,13 @@ namespace FrameworkOnCore
         public static string Native(string windowsPath)
         {
             if (System.IO.Path.DirectorySeparatorChar == '\\' || windowsPath == null) return windowsPath;
-            return MatchCase(windowsPath.Replace('\\', System.IO.Path.DirectorySeparatorChar));
+            var native = windowsPath.Replace('\\', System.IO.Path.DirectorySeparatorChar);
+            return matchCase ? MatchCase(native) : native;
         }
+
+        // WEBFORMSFORCORE_PATH_CASING=0 (the WebFormsForCore fork's switch): names as written, the process finding them
+        // without regard to case itself (the deployment's casefs/libfoccase.so).
+        static readonly bool matchCase = System.Environment.GetEnvironmentVariable("WEBFORMSFORCORE_PATH_CASING") != "0";
 
         // Where the path is not there as written: each name that is not, the one there that differs in case only
         // (an exact name first); from the first one missing altogether (a file to create), the rest as written.

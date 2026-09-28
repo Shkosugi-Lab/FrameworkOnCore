@@ -1,0 +1,57 @@
+From 380cbd14af2df718bc928fdcaf36b577937a00a6 Mon Sep 17 00:00:00 2001
+From: shkosugi <sin.kosugi@gmail.com>
+Date: Mon, 28 Sep 2026 23:02:05 +0900
+Subject: [PATCH] Physical paths: WEBFORMSFORCORE_PATH_CASING=0 uses paths as
+ asked
+
+For a process whose file system calls already find names without regard to case (a preloaded library
+such as FrameworkOnCore's libfoccase.so, a case-insensitive file system): PhysicalPathCasing.Resolve and
+FindEntry do not match case again (work done twice). Without it, as before.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+---
+ .../PhysicalPathCasing.cs                          | 14 +++++++++++++-
+ 1 file changed, 13 insertions(+), 1 deletion(-)
+
+diff --git a/src/WebFormsForCore.Configuration/PhysicalPathCasing.cs b/src/WebFormsForCore.Configuration/PhysicalPathCasing.cs
+index 1be653e..002db82 100644
+--- a/src/WebFormsForCore.Configuration/PhysicalPathCasing.cs
++++ b/src/WebFormsForCore.Configuration/PhysicalPathCasing.cs
+@@ -11,6 +11,13 @@ namespace WebFormsForCore;
+ /// </summary>
+ public static class PhysicalPathCasing
+ {
++	/// <summary>
++	/// WEBFORMSFORCORE_PATH_CASING=0: paths are used as asked. For a process whose file system calls already find names
++	/// without regard to case (a preloaded library, a case-insensitive file system), where resolving them here is only
++	/// work done twice.
++	/// </summary>
++	public static readonly bool Enabled = Environment.GetEnvironmentVariable("WEBFORMSFORCORE_PATH_CASING") != "0";
++
+ 	/// <summary>
+ 	/// The path as it exists on disk, segment by segment. Where a segment exists under no casing (or
+ 	/// under several), the rest of the path is kept as asked (a file about to be created).
+@@ -18,7 +25,7 @@ public static class PhysicalPathCasing
+ 	/// </summary>
+ 	public static string Resolve(string path)
+ 	{
+-		if (string.IsNullOrEmpty(path) || OSInfo.IsWindows || File.Exists(path) || Directory.Exists(path)) return path;
++		if (!Enabled || string.IsNullOrEmpty(path) || OSInfo.IsWindows || File.Exists(path) || Directory.Exists(path)) return path;
+ 
+ 		try
+ 		{
+@@ -58,6 +65,11 @@ public static class PhysicalPathCasing
+ 	public static string FindEntry(string directory, string name)
+ 	{
+ 		if (!Directory.Exists(directory)) return null;
++		if (!Enabled)
++		{
++			var exact = Path.Combine(directory, name);
++			return File.Exists(exact) || Directory.Exists(exact) ? exact : null;
++		}
+ 
+ 		string match = null;
+ 		foreach (var entry in Directory.EnumerateFileSystemEntries(directory))
+-- 
+2.55.0.windows.3
+

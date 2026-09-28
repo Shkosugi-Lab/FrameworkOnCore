@@ -27,7 +27,9 @@ param(
     [switch]$Keep,
     # File names without regard to case, as on Windows (casefs/libfoccase.so, preloaded into the application's process,
     # for its folder). casefs\build.ps1 builds it.
-    [switch]$CaseInsensitive
+    [switch]$CaseInsensitive,
+    # More environment variables for the application (WEBFORMSFORCORE_PATH_CASING = '0', ...).
+    [hashtable]$Environment = @{}
 )
 
 # Not Stop: Windows PowerShell turns docker's stderr ("no such object") into terminating errors.
@@ -107,6 +109,7 @@ exec dotnet bin/$name.dll --urls http://0.0.0.0:$Port
 docker rm -f $container 2>$null | Out-Null
 $caseArguments = @()
 if ($CaseInsensitive) { $caseArguments = '-v', "$(Join-Path $PSScriptRoot 'casefs\out'):/foccase:ro" }
+$caseArguments += @($Environment.Keys | ForEach-Object { '-e'; "$_=$($Environment[$_])" })
 docker run -d --name $container @network @caseArguments -e "LANG=$($Culture.Replace('-', '_')).UTF-8" -p "${Port}:${Port}" -v "${PSScriptRoot}:/src:ro" -v "${overlay}:/overlay:ro" -v w2l-nuget:/root/.nuget/packages $Image bash -c $script | Out-Null
 if ($LASTEXITCODE -ne 0) { throw "docker run failed" }
 try {

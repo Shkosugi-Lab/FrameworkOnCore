@@ -71,6 +71,7 @@
 | 0025 | VB のページコンパイラー: C# と同じく、ランタイムのライブラリを使う(`/nostdlib` と `/sdkpath` にランタイムのフォルダー、VB のランタイムは `Microsoft.VisualBasic.Core`、フレームワークのファサードも参照)。0003 の VB 版 | n2 の VB のページが BC2017(`Microsoft.VisualBasic.dll` が見つからない)でコンパイルできなかった |
 | 0026 | ファイル変更通知(Linux): ファイルの監視をファイル名で引けるようにする(Linux ではフルパスを名前にしていて、変更の通知がどの監視とも一致しなかった)。bin・App_Code などの特別なフォルダーは全 OS で監視する(ツリー全体の名前変更の監視は Windows だけ。inotify ではフォルダーごとに 1 つ要る) | Linux で web.config を変えてもアプリが再起動せず、DNN のインストーラーが自分へのリダイレクトを繰り返した |
 | 0027 | 構成(Linux): フォルダーの web.config を、小文字の構成パス(`machine/webroot/1/n2`)からも見つける。`UserMapPath` が物理パスを大文字小文字の違う実在のフォルダー(`N2`)に解決する(0008 の `PhysicalPathCasing`) | Linux で大文字を含むフォルダー(n2 の `N2`、wt の `Admin`、DNN の `Portals` など)の web.config が読まれず、その承認の規則が効いていなかった。n2 の管理画面(`/N2/`)に、ログインせずに入れた |
+| 0028 | パスの大文字小文字: `WEBFORMSFORCORE_PATH_CASING=0` で、フォーク自身の大文字小文字の照合(`PhysicalPathCasing`)をしない | プロセスのファイル操作が大文字小文字を区別しないとき(`casefs/libfoccase.so`、区別しないファイルシステム)、同じ照合を 2 回しない。配置の `start.sh` が、ライブラリを読み込んだときに設定する |
 
 照合(0005・0007 のときに実施):
 - .NET Framework 4.8 の System.Web の公開型のうち、フォークで定義も型転送もされていないのは `IHtmlString`(0007 で対応)と `RegiisUtility`(IIS の登録用、対象外)だけ。
@@ -467,11 +468,23 @@ Windows はファイル名の大文字小文字を区別しない。アプリは
 - 大文字小文字の比較は ASCII の英字だけ(ほかの文字はそのまま比べる)。Windows の対応表(NTFS の upcase table)に合わせるのは残り。
 - glibc だけ(Alpine の musl は未対応。読み込めないので start.sh が外す)。C ライブラリを通らないもの(システムコールを直接呼ぶプログラム、静的リンク、setuid)には効かない。.NET とそのネイティブライブラリは対象。
 - 区切り文字(`\`)は扱わない(.NET の `Path` がシステムコールより手前で区切りを解釈するため)。アナライザーの書き換えは引き続き要る。
-- フォークの 0008・0027 と `WindowsPath.Native` の大文字小文字の部分は残した。ライブラリがあると、それらの存在の確認がライブラリを通って成功するので、実際の解決はライブラリが行う。外すかどうかは、ライブラリだけで同じ結果になることを確かめてから。
+- フォークの 0008・0027 と `WindowsPath.Native` の大文字小文字の照合は、ライブラリを読み込めないマシンのために残す。`WEBFORMSFORCORE_PATH_CASING=0`(フォーク 0028、互換アセンブリの `WindowsPath` も従う)で止められ、配置の `start.sh` はライブラリを読み込んだときにこれを設定する(ライブラリだけで照合する)。
 
 配置の出力に組み込んだ後の確認:
 - be のコンテナ(`docker build`、生成された Dockerfile): 正解データと比べて 5/5。ログに大文字小文字違いで見つけた名前(`web.config` → `Web.Config`、`Default.aspx` → `default.aspx` など)。`FOC_CASE_INSENSITIVE=0` では 1 件も出ない。`--case-insensitive off` の変換では `deploy/casefs` も Dockerfile の COPY も無い。
 - be を `install.sh` で(Ubuntu 22.04・glibc 2.35、Debian 12・glibc 2.36): `/` が 200、ライブラリが働く。Alpine(musl)では読み込みの試しでエラーになり、区別するまま動く。
+ライブラリだけで足りるかの確認(`casefs\verify-alone.ps1`、Linux、be/wt を正解データと比べる。wt は保護されたフォルダーを大文字小文字を変えて要求する):
+
+| 構成 | be | wt | wt の `/Admin/AdminPage`(ログインなし) | wt の `/admin/adminpage`・`/checkout/checkoutreview` | wt の `/content/SITE.css` |
+|---|---|---|---|---|---|
+| 既定(フォークが照合、ライブラリなし) | 5/5 | 5/8 | 302(ログイン) | 302 | 200 |
+| 照合なし(`WEBFORMSFORCORE_PATH_CASING=0`、ライブラリなし) | **0/5**(`/` が 500) | 5/8 | **200(管理画面が開く)** | 404 | 404 |
+| ライブラリだけ(`WEBFORMSFORCORE_PATH_CASING=0`、ライブラリあり) | 5/5 | 5/8 | 302 | 302 | 200 |
+
+- ライブラリだけで、既定と同じ結果になる(wt の 3 件の差は以前からの既知のもの)。照合をすべて外すと be は動かず、wt の `Admin` の承認が効かなくなる(大文字小文字の照合がそれを担っていた)。
+- 配置の `start.sh` で、ライブラリを読み込んだときに `WEBFORMSFORCORE_PATH_CASING=0` にした後も、be のコンテナは 5/5。
+
+フォークのパッケージ: Ajax Control Toolkit は net10.0 だけでビルド・パッケージにする(`pack-fork.ps1`)。ソリューションの中で net8.0 のビルドが CS7069 で失敗するようになった。`-f net10.0` でビルドし、`--no-restore` でパッケージにする(`TargetFrameworks` をグローバルプロパティで渡すと、参照先のプロジェクトまで net10.0 だけで復元され、そのパッケージが作れなくなる)。ソリューションのビルドの再試行は 3 回まで。
 - 見つけた問題: glibc 2.35 でライブラリを読み込むと .NET のホストが起動しなかった(`Failed to resolve full path of the current executable`)。glibc の `realpath` には 2 つの版(GLIBC_2.2.5 と 2.3)があり、名前だけで探す `dlsym` が古い版を返した。古い版は結果の置き場所に NULL を受け付けない(.NET のホストは NULL で呼ぶ)。複数の版があるもの(`realpath`、`dlopen`)は版を指定して探す(`dlvsym`)。ほかの包む関数は版が 1 つだけ(Ubuntu 22.04・24.04、Debian 12 で確認)。
 - `install.sh` が systemd の無いマシン向けに示す起動のコマンドは、`/etc/<app>/environment`(root だけが読める)を別のユーザーで読もうとして失敗していた。root で読んでから `setpriv` でユーザーを切り替える形にした。
 ## 全コーパスでの検証(2026-09-27)

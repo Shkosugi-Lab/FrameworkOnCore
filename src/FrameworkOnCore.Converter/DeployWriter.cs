@@ -131,6 +131,9 @@ public sealed class DeployWriter(Report report, string outRoot, string runtimeDi
             if [ -n "$runtime" ] && [ -f "$library" ] && [ -z "$(LD_PRELOAD="$library" /bin/true 2>&1)" ]; then
                 export LD_PRELOAD="$library${LD_PRELOAD:+:$LD_PRELOAD}"
                 export FOC_CASE_ROOTS="${FOC_CASE_ROOTS:-$app}"
+                # The library finds the names: the runtime's own matching of case (WebFormsForCore, FrameworkOnCore.Compat)
+                # would only do it twice. Without the library that one stays.
+                export WEBFORMSFORCORE_PATH_CASING="${WEBFORMSFORCORE_PATH_CASING:-0}"
             else
                 echo "file names are case-sensitive: casefs has no library that loads here ($(uname -m))" >&2
             fi

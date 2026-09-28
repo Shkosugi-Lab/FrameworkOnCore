@@ -138,6 +138,10 @@ namespace System.Web.Configuration {
 
                 if (OSInfo.IsWindows) childPart = childPart.Replace('/', Path.DirectorySeparatorChar);
                 physicalPath = Path.Combine(mapping.PhysicalDirectory, childPart);
+                // Configuration paths are lower case (machine/webroot/1/n2): on a case-sensitive file system the folder
+                // is the one that exists under another casing (N2), as on Windows. Else a request that first creates the
+                // path's configuration finds no folder, and the folder's web.config (its authorization) is not read.
+                physicalPath = WebFormsForCore.PhysicalPathCasing.Resolve(physicalPath);
             }
 
             // Throw if the resulting physical path is not canonical, to prevent potential

@@ -453,7 +453,8 @@ Windows はファイル名の大文字小文字を区別しない。アプリは
   - 作成(O_CREAT・mkdir・rename の行き先など)は Windows と同じ: 大文字小文字違いの名前があればそれ、新しい名前は既にあるフォルダーの中に作る。大文字小文字だけの名前の変更もできる。
   - `FOC_CASE_ROOTS`(`:` 区切り)の下だけ。未設定なら何もしない。`FOC_CASE_LOG=1` で、大文字小文字違いで見つけたパスを標準エラーに 1 回ずつ書く(アプリの食い違いの一覧になる)。
   - フォルダーの一覧はキャッシュする(フォルダーの更新時刻で無効にする)。
-- 作り方・試し方: `casefs\build.ps1`(Ubuntu 24.04 の gcc。ASP.NET のランタイムイメージと同じ glibc 2.39)、`casefs\test.ps1`(`test/CaseProbe` を、ライブラリ無し(Linux の動き)と有り(Windows の動き)で実行)。`run-linux.ps1`・`run-linux-site.ps1` の `-CaseInsensitive` で、サイトのプロセスに読み込ませる。
+- 作り方・試し方: `casefs\build.ps1`(linux-x64 と linux-arm64。古い glibc の Ubuntu 20.04 でビルドし、必要な glibc は x64 で 2.14、arm64 で 2.17 以上。.NET 10 が動くディストリビューションはすべて満たす)、`casefs\test.ps1`(`test/CaseProbe` を、ライブラリ無し(Linux の動き)と有り(Windows の動き)で実行。`-Platform linux/arm64` で arm64)。`run-linux.ps1`・`run-linux-site.ps1` の `-CaseInsensitive` で、サイトのプロセスに読み込ませる。`casefs/test-install.sh` は、変換の出力を `install.sh` で入れて起動する(systemd の無いコンテナで)。
+- 変換器の配置の出力に組み込む(`--case-insensitive on|off`、既定は on): `deploy/casefs/<linux-x64|linux-arm64>/libfoccase.so`(と `foccase.c`)を置き、`start.sh` が CPU に合うものを、読み込めるか試してから `LD_PRELOAD` に入れる(`FOC_CASE_ROOTS` の既定はサイトのフォルダー)。読み込めないマシン(Alpine の musl など)では警告を出して区別するまま動く。配置した後は `FOC_CASE_INSENSITIVE=0` で止める。Dockerfile は `deploy/casefs` を `/opt/foc/casefs` に、`install.sh` は `<prefix>/casefs` に置く。`off` なら置かない(`casefs\build.ps1` でビルドしていなければ、エラーをレポートに書いて置かない)。
 
 確認した結果:
 - CaseProbe の 16 項目: 無しではすべて Linux の動き、有りではすべて Windows の動き。別の大文字小文字での存在確認・読み込み・一覧、既存の名前への書き込み(同じファイル)、大文字小文字違いのフォルダーへの新しいファイル・フォルダー、移動、大文字小文字だけの名前の変更、削除、相対パス、FileSystemWatcher、アセンブリの読み込み、対象外のパスは変わらないこと。
@@ -464,10 +465,15 @@ Windows はファイル名の大文字小文字を区別しない。アプリは
 
 制約・残り:
 - 大文字小文字の比較は ASCII の英字だけ(ほかの文字はそのまま比べる)。Windows の対応表(NTFS の upcase table)に合わせるのは残り。
-- x64 の glibc だけ(arm64、Alpine の musl は未対応)。C ライブラリを通らないもの(システムコールを直接呼ぶプログラム、静的リンク、setuid)には効かない。.NET とそのネイティブライブラリは対象。
+- glibc だけ(Alpine の musl は未対応。読み込めないので start.sh が外す)。C ライブラリを通らないもの(システムコールを直接呼ぶプログラム、静的リンク、setuid)には効かない。.NET とそのネイティブライブラリは対象。
 - 区切り文字(`\`)は扱わない(.NET の `Path` がシステムコールより手前で区切りを解釈するため)。アナライザーの書き換えは引き続き要る。
 - フォークの 0008・0027 と `WindowsPath.Native` の大文字小文字の部分は残した。ライブラリがあると、それらの存在の確認がライブラリを通って成功するので、実際の解決はライブラリが行う。外すかどうかは、ライブラリだけで同じ結果になることを確かめてから。
-- 変換器の配置の出力(Dockerfile・install.sh)への組み込みはまだ。
+
+配置の出力に組み込んだ後の確認:
+- be のコンテナ(`docker build`、生成された Dockerfile): 正解データと比べて 5/5。ログに大文字小文字違いで見つけた名前(`web.config` → `Web.Config`、`Default.aspx` → `default.aspx` など)。`FOC_CASE_INSENSITIVE=0` では 1 件も出ない。`--case-insensitive off` の変換では `deploy/casefs` も Dockerfile の COPY も無い。
+- be を `install.sh` で(Ubuntu 22.04・glibc 2.35、Debian 12・glibc 2.36): `/` が 200、ライブラリが働く。Alpine(musl)では読み込みの試しでエラーになり、区別するまま動く。
+- 見つけた問題: glibc 2.35 でライブラリを読み込むと .NET のホストが起動しなかった(`Failed to resolve full path of the current executable`)。glibc の `realpath` には 2 つの版(GLIBC_2.2.5 と 2.3)があり、名前だけで探す `dlsym` が古い版を返した。古い版は結果の置き場所に NULL を受け付けない(.NET のホストは NULL で呼ぶ)。複数の版があるもの(`realpath`、`dlopen`)は版を指定して探す(`dlvsym`)。ほかの包む関数は版が 1 つだけ(Ubuntu 22.04・24.04、Debian 12 で確認)。
+- `install.sh` が systemd の無いマシン向けに示す起動のコマンドは、`/etc/<app>/environment`(root だけが読める)を別のユーザーで読もうとして失敗していた。root で読んでから `setpriv` でユーザーを切り替える形にした。
 ## 全コーパスでの検証(2026-09-27)
 
 `verify-corpora.ps1` で 6 本を変換してビルドした(Windows)。正解データがあるのは be と wt だけ。

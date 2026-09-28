@@ -91,6 +91,18 @@ static size_t root_of(const char *path)
     }
 #define LOAD(name) (get_##name())
 
+// A function the C library has in several versions (the old one behaves otherwise: realpath@GLIBC_2.2.5 refuses a NULL
+// buffer, which the .NET host passes): the version programs are linked to now, where there is one (x86_64), looked up
+// by name. dlsym may give the old one (glibc 2.35 does).
+#define REAL_VERSIONED(name, version)                                                              \
+    static __typeof__(name) *real_##name;                                                          \
+    static __typeof__(name) *get_##name(void)                                                      \
+    {                                                                                              \
+        if (real_##name == NULL) real_##name = (__typeof__(name) *)dlvsym(RTLD_NEXT, #name, version); \
+        if (real_##name == NULL) real_##name = (__typeof__(name) *)dlsym(RTLD_NEXT, #name);        \
+        return real_##name;                                                                        \
+    }
+
 extern int __xstat64(int, const char *, struct stat64 *);
 extern int __lxstat64(int, const char *, struct stat64 *);
 extern int __fxstatat64(int, int, const char *, struct stat64 *, int);
@@ -99,9 +111,9 @@ REAL(open); REAL(open64); REAL(openat); REAL(openat64); REAL(creat); REAL(creat6
 REAL(stat); REAL(stat64); REAL(lstat); REAL(lstat64); REAL(fstatat); REAL(fstatat64);
 REAL(__xstat64); REAL(__lxstat64); REAL(__fxstatat64);
 REAL(access); REAL(faccessat); REAL(opendir); REAL(mkdir); REAL(rmdir); REAL(unlink); REAL(rename);
-REAL(link); REAL(symlink); REAL(readlink); REAL(realpath); REAL(chmod); REAL(utimensat); REAL(chdir);
+REAL(link); REAL(symlink); REAL(readlink); REAL_VERSIONED(realpath, "GLIBC_2.3"); REAL(chmod); REAL(utimensat); REAL(chdir);
 REAL(statfs); REAL(statfs64); REAL(fopen); REAL(fopen64); REAL(truncate); REAL(mkfifo); REAL(pathconf);
-REAL(inotify_add_watch); REAL(dlopen);
+REAL(inotify_add_watch); REAL_VERSIONED(dlopen, "GLIBC_2.34");
 
 static int exists(const char *path)
 {

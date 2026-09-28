@@ -17,11 +17,13 @@ namespace FrameworkOnCore.Converter;
 /// - the deployment's settings: environment variables as Azure App Service gives them to .NET Framework
 ///   applications (APPSETTING_key, SQLCONNSTR_name: the runtime reads them), and files laid over the
 ///   site from a configuration folder (CONFIG_DIR) for the rest;
-/// - the folder the application writes to (App_Data), kept when the application is replaced.
+/// - the folder the application writes to (App_Data), kept when the application is replaced;
+/// - file names without regard to case, as on Windows (--case-insensitive, on unless off: casefs/libfoccase.so, preloaded
+///   by start.sh on the machines it loads on; FOC_CASE_INSENSITIVE=0 turns it off there).
 /// </summary>
 public sealed class DeployWriter(Report report, string outRoot, string runtimeDirectory)
 {
-    public void Write(string kinds, string site, ConvertedProject web, string? cultureProfile)
+    public void Write(string kinds, string site, ConvertedProject web, string? cultureProfile, bool caseInsensitive = true)
     {
         var container = kinds is "both" or "container";
         var linux = kinds is "both" or "linux";
@@ -43,10 +45,11 @@ public sealed class DeployWriter(Report report, string outRoot, string runtimeDi
         }
         var lang = culture != null ? culture.Replace('-', '_') + ".UTF-8" : "C.UTF-8";
 
+        if (caseInsensitive) caseInsensitive = WriteCaseLibraries(Path.Combine(deploy, "casefs"));
         WriteText(Path.Combine(deploy, "start.sh"), StartScript.Replace("__DLL__", assembly));
         if (container)
         {
-            WriteText(Path.Combine(outRoot, "Dockerfile"), Dockerfile(siteRelative, lang, cultureProfile != null));
+            WriteText(Path.Combine(outRoot, "Dockerfile"), Dockerfile(siteRelative, lang, cultureProfile != null, caseInsensitive));
             WriteText(Path.Combine(outRoot, ".dockerignore"), $"# The build context is the conversion's output: only the site and deploy.\n*\n!{siteRelative}\n!deploy\n**/obj\n");
         }
         if (linux)
@@ -55,8 +58,31 @@ public sealed class DeployWriter(Report report, string outRoot, string runtimeDi
                 .Replace("__APP__", app).Replace("__SITE__", siteRelative).Replace("__LANG__", lang)
                 .Replace("__ICU__", cultureProfile != null ? "1" : ""));
         }
-        WriteText(Path.Combine(deploy, "README.md"), Readme(app, assembly, siteRelative, lang, container, linux, cultureProfile != null));
-        report.Add(Report.Kind.Project, "deploy", $"{(container ? "Dockerfile" : "")}{(container && linux ? " and " : "")}{(linux ? "deploy/linux/install.sh (systemd)" : "")}: {app}, site {siteRelative}, culture {lang} (deploy/README.md)");
+        WriteText(Path.Combine(deploy, "README.md"), Readme(app, assembly, siteRelative, lang, container, linux, cultureProfile != null, caseInsensitive));
+        report.Add(Report.Kind.Project, "deploy", $"{(container ? "Dockerfile" : "")}{(container && linux ? " and " : "")}{(linux ? "deploy/linux/install.sh (systemd)" : "")}: {app}, site {siteRelative}, culture {lang}, " +
+            $"file names {(caseInsensitive ? "without regard to case (deploy/casefs; FOC_CASE_INSENSITIVE=0 turns it off)" : "case-sensitive")} (deploy/README.md)");
+    }
+
+    // The library of file names without regard to case (casefs/libfoccase.so, built by casefs/build.ps1) for each
+    // processor, and its source. False when it has not been built: the deployment is made without it.
+    static readonly string[] caseRuntimes = ["linux-x64", "linux-arm64"];
+
+    bool WriteCaseLibraries(string directory)
+    {
+        var built = Path.Combine(runtimeDirectory, "casefs", "out");
+        var missing = caseRuntimes.Where(r => !File.Exists(Path.Combine(built, r, "libfoccase.so"))).ToList();
+        if (missing.Count > 0)
+        {
+            report.Add(Report.Kind.Error, "deploy", $"casefs/out/{string.Join(", ", missing)}/libfoccase.so not built (casefs/build.ps1): deployed without file names without regard to case");
+            return false;
+        }
+        foreach (var runtime in caseRuntimes)
+        {
+            Directory.CreateDirectory(Path.Combine(directory, runtime));
+            File.Copy(Path.Combine(built, runtime, "libfoccase.so"), Path.Combine(directory, runtime, "libfoccase.so"), overwrite: true);
+        }
+        File.Copy(Path.Combine(runtimeDirectory, "casefs", "foccase.c"), Path.Combine(directory, "foccase.c"), overwrite: true);
+        return true;
     }
 
     // The ICU data tool (CultureIcu, framework-dependent: the runtime runs it) and the profile.
@@ -87,13 +113,28 @@ public sealed class DeployWriter(Report report, string outRoot, string runtimeDi
         #   APP_DIR     the site (web.config, bin)
         #   CONFIG_DIR  files laid over the site before it starts (web.config, user.config ...), if any
         #   ICU_DATA    the original server's culture data (deploy/icu), if built
+        #   FOC_CASE_INSENSITIVE  0: file names case-sensitive (by default without regard to case, as on Windows, when
+        #               casefs is next to this script); FOC_CASE_ROOTS: the folders it applies to (the site by default,
+        #               ":" between them); FOC_CASE_LOG=1: the names found under another case, on the standard error
         # Settings from the environment: APPSETTING_<key> (appSettings), SQLCONNSTR_<name> (connectionStrings).
         set -e
         app="${APP_DIR:?APP_DIR: the folder of the site}"
+        here="$(cd "$(dirname "$0")" && pwd)"
         if [ -n "${CONFIG_DIR:-}" ] && [ -d "$CONFIG_DIR" ] && [ -n "$(ls -A "$CONFIG_DIR")" ]; then
             cp -r "$CONFIG_DIR"/. "$app"/
         fi
         if [ -n "${ICU_DATA:-}" ] && [ ! -d "$ICU_DATA" ]; then unset ICU_DATA; fi
+        # File names without regard to case (casefs/<runtime>/libfoccase.so), if the library loads on this machine (glibc).
+        if [ -d "$here/casefs" ] && [ "${FOC_CASE_INSENSITIVE:-1}" != 0 ]; then
+            case "$(uname -m)" in x86_64) runtime=linux-x64 ;; aarch64|arm64) runtime=linux-arm64 ;; *) runtime= ;; esac
+            library="$here/casefs/$runtime/libfoccase.so"
+            if [ -n "$runtime" ] && [ -f "$library" ] && [ -z "$(LD_PRELOAD="$library" /bin/true 2>&1)" ]; then
+                export LD_PRELOAD="$library${LD_PRELOAD:+:$LD_PRELOAD}"
+                export FOC_CASE_ROOTS="${FOC_CASE_ROOTS:-$app}"
+            else
+                echo "file names are case-sensitive: casefs has no library that loads here ($(uname -m))" >&2
+            fi
+        fi
         cd "$app"
         exec dotnet "bin/__DLL__.dll" "$@"
 
@@ -128,7 +169,7 @@ public sealed class DeployWriter(Report report, string outRoot, string runtimeDi
 
         """;
 
-    static string Dockerfile(string site, string lang, bool icu)
+    static string Dockerfile(string site, string lang, bool icu, bool caseInsensitive)
     {
         var text = new StringBuilder("""
             # Generated by FrameworkOnCore. Built from the conversion's output folder:
@@ -156,6 +197,7 @@ public sealed class DeployWriter(Report report, string outRoot, string runtimeDi
             COPY deploy/start.sh /opt/foc/start.sh
 
             """);
+        if (caseInsensitive) text.Append("# File names without regard to case, as on Windows (start.sh preloads it; FOC_CASE_INSENSITIVE=0 turns it off).\nCOPY deploy/casefs /opt/foc/casefs\n");
         if (icu) text.Append("COPY --from=icu /opt/foc/icu-data /opt/foc/icu-data\nENV ICU_DATA=/opt/foc/icu-data\n");
         text.Append($"""
             ENV APP_DIR=/app CONFIG_DIR=/config LANG={lang} ASPNETCORE_HTTP_PORTS=8080
@@ -211,6 +253,10 @@ public sealed class DeployWriter(Report report, string outRoot, string runtimeDi
             cp -r "$output/__SITE__"/. "$prefix/site/"
         fi
         cp "$output/deploy/start.sh" "$prefix/start.sh"
+        # File names without regard to case (start.sh preloads it; FOC_CASE_INSENSITIVE=0 in /etc/$app/environment turns
+        # it off). Replaced as a whole: an output without it removes it.
+        rm -rf "$prefix/casefs"
+        if [ -d "$output/deploy/casefs" ]; then cp -r "$output/deploy/casefs" "$prefix/casefs"; fi
         icu=
         if [ -n "__ICU__" ]; then
             bash "$output/deploy/icu/build-icu-data.sh" "$output/deploy/icu/culture-profile.json" "$prefix/icu-data"
@@ -263,13 +309,14 @@ public sealed class DeployWriter(Report report, string outRoot, string runtimeDi
             if [ -n "$start" ]; then systemctl restart "$app"; echo "started: systemctl status $app, journalctl -u $app"; fi
         else
             echo "systemd is not running here: start it with"
-            echo "  sudo -u $user bash -c 'set -a; . /etc/$app/service.env; . /etc/$app/environment; exec bash $prefix/start.sh'"
+            # As root: /etc/$app/environment is readable by root only (as systemd reads it).
+            echo "  sudo bash -c 'set -a; . /etc/$app/service.env; . /etc/$app/environment; exec setpriv --reuid=$user --regid=$user --init-groups bash $prefix/start.sh'"
         fi
         echo "installed $app in $prefix (http://0.0.0.0:$port)"
 
         """;
 
-    static string Readme(string app, string assembly, string site, string lang, bool container, bool linux, bool icu)
+    static string Readme(string app, string assembly, string site, string lang, bool container, bool linux, bool icu, bool caseInsensitive)
     {
         var text = new StringBuilder($"""
             # {app} の配置(FrameworkOnCore が生成)
@@ -286,6 +333,7 @@ public sealed class DeployWriter(Report report, string outRoot, string runtimeDi
             - アプリは作業プロセスの中で bin のコピーから動き、web.config や bin が変わると自分で再起動する。
             - URL(`Request.Url`、絶対 URL へのリダイレクト)は、クライアントが送った Host ヘッダーのホスト名とポートから作る。HTTPS を終端するリバースプロキシの後ろでは `ASPNETCORE_FORWARDEDHEADERS_ENABLED=true` を設定し、プロキシが `X-Forwarded-Proto` と元の `Host` を渡すようにする。
             - アプリが書き込む場所: `App_Data`。ほかにも書き込むアプリがある(インストーラーがモジュールを置くなど)ので、サイト全体をアプリのユーザーが書けるようにしてある。
+            - ファイル名の大文字小文字: {(caseInsensitive ? "Windows と同じく区別しない(`deploy/casefs` の `libfoccase.so` を `start.sh` がプロセスに読み込む。x64・arm64 の glibc の Linux。読み込めないマシン(Alpine の musl など)では警告を出し、区別するまま動く)。`FOC_CASE_INSENSITIVE=0` で止める。対象はサイトのフォルダー(`FOC_CASE_ROOTS` に `:` 区切りでフォルダーを加えられる)。`FOC_CASE_LOG=1` で、大文字小文字違いで見つけたファイル名を標準エラーに出す(アプリの食い違いの一覧になる)。" : "区別する(変換の `--case-insensitive off`)。アプリが大文字小文字の違う名前でファイルを参照していると、Linux では見つからない。")}
 
 
             """);

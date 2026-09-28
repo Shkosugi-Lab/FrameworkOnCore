@@ -25,11 +25,14 @@ using FrameworkOnCore.Converter;
 // --original-step <project;target>  a setup step of the repository after its build (repeatable).
 // --deploy   how it is deployed on Linux: container (Dockerfile), linux (deploy/linux/install.sh, systemd),
 //            both (the default) or none. See DeployWriter.
+// --case-insensitive on|off  file names without regard to case in the deployment, as on Windows (on, the default: the
+//            library casefs/libfoccase.so, which casefs/build.ps1 builds, preloaded by start.sh; off: Linux's).
 
 string? project = null, outDirectory = null, rootDirectory = null, runtimeDirectory = null, cultureProfile = null, site = null, originalTarget = null, configuration = null;
 var build = true;
 var buildOriginal = false;
 var deployKinds = "both";
+var caseInsensitive = true;
 var originalSteps = new List<(string Project, string Target)>();
 for (var i = 0; i < args.Length; i++)
 {
@@ -42,6 +45,11 @@ for (var i = 0; i < args.Length; i++)
         case "--site": site = Path.GetFullPath(args[++i]); break;
         case "--no-build": build = false; break;
         case "--deploy": deployKinds = args[++i]; break;
+        case "--case-insensitive":
+            var value = args[++i];
+            if (value is not ("on" or "off")) { Console.Error.WriteLine($"--case-insensitive: on or off, not {value}"); return 2; }
+            caseInsensitive = value == "on";
+            break;
         case "--configuration": configuration = args[++i]; break;
         case "--original-step":
             var step = args[++i].Split(';', 2);
@@ -56,7 +64,7 @@ for (var i = 0; i < args.Length; i++)
 }
 if (project == null || outDirectory == null)
 {
-    Console.Error.WriteLine("usage: FrameworkOnCore.Converter <web project .csproj|.vbproj> --out <dir> [--root <dir>] [--runtime <dir>] [--culture-profile <file>] [--configuration <name>] [--site <dir> | --build-original [target]] [--deploy container|linux|both|none] [--no-build]");
+    Console.Error.WriteLine("usage: FrameworkOnCore.Converter <web project .csproj|.vbproj> --out <dir> [--root <dir>] [--runtime <dir>] [--culture-profile <file>] [--configuration <name>] [--site <dir> | --build-original [target]] [--deploy container|linux|both|none] [--case-insensitive on|off] [--no-build]");
     return 2;
 }
 
@@ -132,7 +140,7 @@ if (build && succeeded && site != null)
 if (build && succeeded)
 {
     var deployedSite = site != null ? Path.Combine(outRoot, "site") : Path.GetDirectoryName(web.TargetPath)!;
-    new DeployWriter(report, outRoot, runtimeDirectory).Write(deployKinds, deployedSite, web, cultureProfile);
+    new DeployWriter(report, outRoot, runtimeDirectory).Write(deployKinds, deployedSite, web, cultureProfile, caseInsensitive);
 }
 
 var reportPath = Path.Combine(outRoot, "CONVERSION-REPORT.md");

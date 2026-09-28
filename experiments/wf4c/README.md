@@ -465,7 +465,7 @@ Windows はファイル名の大文字小文字を区別しない。アプリは
 途中で見つかったこと: wt を Linux で動かすと `/Admin/AdminPage` にログインせずに入れた。変換がフォーク 0027 より前だったため(bin の System.Web が古い)。変換し直すと 302 になった。0027 より前に変換したサイト(mojo・yaf)は、変換し直さないと同じ状態のまま。
 
 制約・残り:
-- 大文字小文字の比較は ASCII の英字だけ(ほかの文字はそのまま比べる)。Windows の対応表(NTFS の upcase table)に合わせるのは残り。
+- 名前の比べ方は Windows と同じ(NTFS の upcase table。`casefs/casemap.h`、`make-casemap.ps1` が Windows の `RtlUpcaseUnicodeChar` から作る。973 文字。基本多言語面の外の文字と UTF-8 でないバイトはそのまま比べる)。`Äpfel`・`Ωmega`・全角の `Ｆｕｌｌ`・`ÿ`/`Ÿ` は同じ名前、`Straße` と `STRASSE`、語末のシグマ `ς` と `Σ` は別の名前(この Windows の NTFS で同じ結果になることを確かめた)。
 - glibc だけ(Alpine の musl は未対応。読み込めないので start.sh が外す)。C ライブラリを通らないもの(システムコールを直接呼ぶプログラム、静的リンク、setuid)には効かない。.NET とそのネイティブライブラリは対象。
 - 区切り文字(`\`)は扱わない(.NET の `Path` がシステムコールより手前で区切りを解釈するため)。アナライザーの書き換えは引き続き要る。
 - フォークの 0008・0027 と `WindowsPath.Native` の大文字小文字の照合は、ライブラリを読み込めないマシンのために残す。`WEBFORMSFORCORE_PATH_CASING=0`(フォーク 0028、互換アセンブリの `WindowsPath` も従う)で止められ、配置の `start.sh` はライブラリを読み込んだときにこれを設定する(ライブラリだけで照合する)。
@@ -485,7 +485,7 @@ Windows はファイル名の大文字小文字を区別しない。アプリは
 - 配置の `start.sh` で、ライブラリを読み込んだときに `WEBFORMSFORCORE_PATH_CASING=0` にした後も、be のコンテナは 5/5。
 
 フォークのパッケージ: Ajax Control Toolkit は net10.0 だけでビルド・パッケージにする(`pack-fork.ps1`)。ソリューションの中で net8.0 のビルドが CS7069 で失敗するようになった。`-f net10.0` でビルドし、`--no-restore` でパッケージにする(`TargetFrameworks` をグローバルプロパティで渡すと、参照先のプロジェクトまで net10.0 だけで復元され、そのパッケージが作れなくなる)。ソリューションのビルドの再試行は 3 回まで。
-- 見つけた問題: glibc 2.35 でライブラリを読み込むと .NET のホストが起動しなかった(`Failed to resolve full path of the current executable`)。glibc の `realpath` には 2 つの版(GLIBC_2.2.5 と 2.3)があり、名前だけで探す `dlsym` が古い版を返した。古い版は結果の置き場所に NULL を受け付けない(.NET のホストは NULL で呼ぶ)。複数の版があるもの(`realpath`、`dlopen`)は版を指定して探す(`dlvsym`)。ほかの包む関数は版が 1 つだけ(Ubuntu 22.04・24.04、Debian 12 で確認)。
+- arm64: CaseProbe(22 項目)が、エミュレーション(Docker Desktop)の arm64 の ASP.NET のイメージで、無しでは Linux、有りでは Windows の動き。be のコンテナを arm64 でビルドして 5/5(`start.sh` が linux-arm64 のライブラリを選ぶ)。見つけた問題: ライブラリの中で呼ぶ古い stat 関数(`__xstat64`)に構造体の版を `1` と書いていた。x86_64 の値で、aarch64 は `0`。arm64 ではすべての呼び出しが失敗し、何も探せていなかった。ビルドする CPU のヘッダーの `_STAT_VER` を使う。- 見つけた問題: glibc 2.35 でライブラリを読み込むと .NET のホストが起動しなかった(`Failed to resolve full path of the current executable`)。glibc の `realpath` には 2 つの版(GLIBC_2.2.5 と 2.3)があり、名前だけで探す `dlsym` が古い版を返した。古い版は結果の置き場所に NULL を受け付けない(.NET のホストは NULL で呼ぶ)。複数の版があるもの(`realpath`、`dlopen`)は版を指定して探す(`dlvsym`)。ほかの包む関数は版が 1 つだけ(Ubuntu 22.04・24.04、Debian 12 で確認)。
 - `install.sh` が systemd の無いマシン向けに示す起動のコマンドは、`/etc/<app>/environment`(root だけが読める)を別のユーザーで読もうとして失敗していた。root で読んでから `setpriv` でユーザーを切り替える形にした。
 ## 全コーパスでの検証(2026-09-27)
 

@@ -11,7 +11,9 @@
 //   FOC_CASE_LOG    1: each path found under another case is written (once) to the standard error (the case mismatches of
 //                   the application, to fix or to know of).
 //
-// Names are compared without regard to the case of ASCII letters; other characters are compared as they are.
+// Names are compared as Windows compares file names (NTFS's upcase table, casemap.h: make-casemap.ps1): UTF-8 names,
+// character by character in upper case; bytes that are not UTF-8, and characters outside the Basic Multilingual Plane,
+// as they are.
 // Of several names differing only in case (which Windows cannot have), the first in byte order is taken.
 
 #define _GNU_SOURCE
@@ -31,6 +33,8 @@
 #include <sys/statfs.h>
 #include <sys/types.h>
 #include <unistd.h>
+
+#include "casemap.h"
 
 // ---------------------------------------------------------------------------------------------------------------
 // Configuration
@@ -103,6 +107,12 @@ static size_t root_of(const char *path)
         return real_##name;                                                                        \
     }
 
+// The version of struct stat the old stat functions are asked for: the processor's (x86_64 1, aarch64 0), as the
+// headers built against (glibc 2.31) define it. A wrong one fails every call (EINVAL).
+#ifndef _STAT_VER
+#error "_STAT_VER: build against glibc headers that define it (before 2.33: Dockerfile.build)"
+#endif
+
 extern int __xstat64(int, const char *, struct stat64 *);
 extern int __lxstat64(int, const char *, struct stat64 *);
 extern int __fxstatat64(int, int, const char *, struct stat64 *, int);
@@ -118,7 +128,7 @@ REAL(inotify_add_watch); REAL_VERSIONED(dlopen, "GLIBC_2.34");
 static int exists(const char *path)
 {
     struct stat64 s;
-    return LOAD(__lxstat64)(1, path, &s) == 0;
+    return LOAD(__lxstat64)(_STAT_VER, path, &s) == 0;
 }
 
 // ---------------------------------------------------------------------------------------------------------------
@@ -144,23 +154,57 @@ static size_t hash(const char *s)
     return h % CACHE_SIZE;
 }
 
+// A character of Windows' file names as NTFS compares it: upper case by its table (casemap.h).
+static unsigned upcase(unsigned c)
+{
+    if (c < 0x80) return c >= 'a' && c <= 'z' ? c - 32 : c;
+    if (c > 0xFFFF) return c;
+    size_t low = 0, high = sizeof upcase_table / sizeof upcase_table[0];
+    while (low < high)
+    {
+        size_t middle = (low + high) / 2;
+        unsigned key = upcase_table[middle][0];
+        if (key == c) return upcase_table[middle][1];
+        if (key < c) low = middle + 1; else high = middle;
+    }
+    return c;
+}
+
+// The next character of a UTF-8 name; a byte that is not UTF-8 stands for itself (compared as it is).
+static unsigned next_character(const unsigned char **s)
+{
+    const unsigned char *p = *s;
+    unsigned c = p[0];
+    int more = c < 0x80 ? 0 : (c & 0xE0) == 0xC0 ? 1 : (c & 0xF0) == 0xE0 ? 2 : (c & 0xF8) == 0xF0 ? 3 : -1;
+    if (more == 0) { *s = p + 1; return c; }
+    if (more < 0) { *s = p + 1; return 0x110000 + c; }
+    unsigned value = c & (0x3Fu >> more);
+    for (int i = 1; i <= more; i++)
+    {
+        if ((p[i] & 0xC0) != 0x80) { *s = p + 1; return 0x110000 + c; }
+        value = (value << 6) | (p[i] & 0x3F);
+    }
+    *s = p + more + 1;
+    return value;
+}
+
+// Whether two names are the same name on Windows (NTFS: both in upper case by its table, character by character).
 static int same_name(const char *a, const char *b)
 {
-    for (; *a && *b; a++, b++)
+    const unsigned char *x = (const unsigned char *)a, *y = (const unsigned char *)b;
+    while (*x && *y)
     {
-        unsigned char x = (unsigned char)*a, y = (unsigned char)*b;
-        if (x >= 'A' && x <= 'Z') x += 32;
-        if (y >= 'A' && y <= 'Z') y += 32;
-        if (x != y) return 0;
+        unsigned cx = next_character(&x), cy = next_character(&y);
+        if (cx != cy && upcase(cx) != upcase(cy)) return 0;
     }
-    return *a == *b;
+    return *x == *y;
 }
 
 // The name in the folder that matches without regard to case (the first in byte order), copied to found.
 static int find_in_folder(const char *folder, const char *name, char *found, size_t size)
 {
     struct stat64 s;
-    if (LOAD(__xstat64)(1, folder, &s) != 0 || !S_ISDIR(s.st_mode)) return 0;
+    if (LOAD(__xstat64)(_STAT_VER, folder, &s) != 0 || !S_ISDIR(s.st_mode)) return 0;
     int result = 0;
     int ambiguous = 0;
     pthread_mutex_lock(&cache_lock);
@@ -490,7 +534,7 @@ int rename(const char *from, const char *to)
     if (target != to)
     {
         struct stat64 a, b;
-        if (LOAD(__lxstat64)(1, source, &a) == 0 && LOAD(__lxstat64)(1, target, &b) == 0 && a.st_ino == b.st_ino && a.st_dev == b.st_dev)
+        if (LOAD(__lxstat64)(_STAT_VER, source, &a) == 0 && LOAD(__lxstat64)(_STAT_VER, target, &b) == 0 && a.st_ino == b.st_ino && a.st_dev == b.st_dev)
         {
             // The same file: its folder as on disk, its new name as written.
             const char *name = strrchr(to, '/');

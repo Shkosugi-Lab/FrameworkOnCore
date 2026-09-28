@@ -108,6 +108,16 @@ File.Copy(Path.Combine(Path.GetDirectoryName(copied)!, "CaseProbe.dll"), $"{root
 var loaded = Try(() => { try { Assembly.LoadFile($"{root}/BIN/app.plugin.DLL"); } catch (FileNotFoundException) { throw new IOException(); } catch (BadImageFormatException) { } });
 Check("Assembly.LoadFile by another case", windows: loaded, linux: !loaded);
 
+// Names beyond ASCII, as Windows compares them (NTFS's upcase table): the same names by their upper case; not those
+// Windows tells apart ('ß' is not "SS"; the final sigma is not made 'Σ').
+Directory.CreateDirectory($"{root}/Intl");
+foreach (var name in new[] { "Äpfel.txt", "Ωmega.txt", "Ｆｕｌｌ.txt", "ÿ.txt", "Straße.txt", "ς.txt" }) File.WriteAllText($"{root}/Intl/{name}", name);
+foreach (var (asked, sameOnWindows) in new[] { ("äPFEL.TXT", true), ("ωMEGA.txt", true), ("ｆｕｌｌ.TXT", true), ("Ÿ.TXT", true), ("STRASSE.txt", false), ("Σ.txt", false) })
+{
+    var found = File.Exists($"{root}/Intl/{asked}");
+    Check($"'{asked}' {(sameOnWindows ? "is" : "is not")} a name there on Windows", windows: found == sameOnWindows, linux: !found);
+}
+
 // Outside the roots: as Linux has it.
 Check("outside the roots: not looked up", windows: !File.Exists($"{outside}/n2/web.config"), linux: !File.Exists($"{outside}/n2/web.config"));
 

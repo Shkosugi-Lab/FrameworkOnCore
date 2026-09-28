@@ -81,7 +81,8 @@ public sealed class DeployWriter(Report report, string outRoot, string runtimeDi
             Directory.CreateDirectory(Path.Combine(directory, runtime));
             File.Copy(Path.Combine(built, runtime, "libfoccase.so"), Path.Combine(directory, runtime, "libfoccase.so"), overwrite: true);
         }
-        File.Copy(Path.Combine(runtimeDirectory, "casefs", "foccase.c"), Path.Combine(directory, "foccase.c"), overwrite: true);
+        foreach (var source in new[] { "foccase.c", "casemap.h" })
+            File.Copy(Path.Combine(runtimeDirectory, "casefs", source), Path.Combine(directory, source), overwrite: true);
         return true;
     }
 

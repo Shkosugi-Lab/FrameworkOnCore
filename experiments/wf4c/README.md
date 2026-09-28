@@ -70,6 +70,7 @@
 | 0024 | マシンキー: 自動生成の検証・暗号化キーを、再起動の後も同じものにする(.NET Framework はレジストリに保存する。ここでは `LocalApplicationData/WebFormsForCore/AutogenKeys`、Unix ではモード 600) | dnn のインストール後の再起動で、ViewState の MAC の検証に失敗した |
 | 0025 | VB のページコンパイラー: C# と同じく、ランタイムのライブラリを使う(`/nostdlib` と `/sdkpath` にランタイムのフォルダー、VB のランタイムは `Microsoft.VisualBasic.Core`、フレームワークのファサードも参照)。0003 の VB 版 | n2 の VB のページが BC2017(`Microsoft.VisualBasic.dll` が見つからない)でコンパイルできなかった |
 | 0026 | ファイル変更通知(Linux): ファイルの監視をファイル名で引けるようにする(Linux ではフルパスを名前にしていて、変更の通知がどの監視とも一致しなかった)。bin・App_Code などの特別なフォルダーは全 OS で監視する(ツリー全体の名前変更の監視は Windows だけ。inotify ではフォルダーごとに 1 つ要る) | Linux で web.config を変えてもアプリが再起動せず、DNN のインストーラーが自分へのリダイレクトを繰り返した |
+| 0027 | 構成(Linux): フォルダーの web.config を、小文字の構成パス(`machine/webroot/1/n2`)からも見つける。`UserMapPath` が物理パスを大文字小文字の違う実在のフォルダー(`N2`)に解決する(0008 の `PhysicalPathCasing`) | Linux で大文字を含むフォルダー(n2 の `N2`、wt の `Admin`、DNN の `Portals` など)の web.config が読まれず、その承認の規則が効いていなかった。n2 の管理画面(`/N2/`)に、ログインせずに入れた |
 
 照合(0005・0007 のときに実施):
 - .NET Framework 4.8 の System.Web の公開型のうち、フォークで定義も型転送もされていないのは `IHtmlString`(0007 で対応)と `RegiisUtility`(IIS の登録用、対象外)だけ。
@@ -235,7 +236,7 @@ Linux で ICU のデータに表せないもの:
 | wt | 成功 | Windows 6/8(既知の丸めの差) |
 | mojo | 成功。元のビルドはソリューションのビルド(`--build-original`) | **トップページが表示される**(`Home - mojoPortal`。DB は `.\SQLEXPRESS` の `mojo_w2l`)。**Linux でも**、空の DB からセットアップ画面がスキーマ(105 テーブル)を作り、トップページ・ログイン・サイトマップが 200(`run-linux-site.ps1`、SQL Server のコンテナ) |
 | yaf | 成功 | `FieldAccessException`。アプリが Web API 2 の `HttpControllerRouteHandler._instance`(static readonly)をリフレクションで書き換えていて、.NET は型の初期化後の書き換えを禁止している。Web API 2 を DLL のまま使う限り直せないので、AspNetWebStack の移植が要る |
-| dnn | 成功。元のビルドは DNN 自身の Cake ビルド(`--build-original`)。VB の DotNetNuke.WebUtility は配置済みサイトの .NET Framework の DLL をそのまま参照する(2026-09-28 から VB のプロジェクトも変換する。dnn はその後未検証) | Windows: **インストール(`Install.aspx?mode=install`)が完了し、トップページが表示される**(`Home`。DB は `.\SQLEXPRESS` の `dnn_w2l`。`dnn-cycle.ps1` で DB の作成から通す)。**Linux でも**、空の DB からインストールが完了し(サイトの作成、スキンなどのモジュールの導入)、トップページ・`/Login`・`/Terms` が 200、ページの CSS・JS・画像 21 件がすべて 200、host でのログインが通る(`run-linux-site.ps1`、SQL Server のコンテナ。下の「Linux で動かすための書き換え」) |
+| dnn | 成功。元のビルドは DNN 自身の Cake ビルド(`--build-original`)。VB の DotNetNuke.WebUtility は配置済みサイトの .NET Framework の DLL をそのまま参照する(2026-09-28 から VB のプロジェクトも変換する。その後 Windows・Linux とも再検証した) | Windows: **インストール(`Install.aspx?mode=install`)が完了し、トップページが表示される**(`Home`。DB は `.\SQLEXPRESS` の `dnn_w2l`。`dnn-cycle.ps1` で DB の作成から通す)。**Linux でも**、空の DB からインストールが完了し(サイトの作成、スキンなどのモジュールの導入)、トップページ・`/Login`・`/Terms` が 200、ページの CSS・JS・画像 21 件がすべて 200、host でのログインが通る(`run-linux-site.ps1`、SQL Server のコンテナ。下の「Linux で動かすための書き換え」) |
 | imis | 成功(VB のプロジェクト 5 本)。元のビルドはソリューションのビルド(構成 `DemoRelease`) | Windows・Linux とも、**デモの DB でログインでき、主な画面(ホーム、世帯・被保険者・保険・請求・ユーザーの検索、レポート)が 200**(`imis-login.ps1`。下の「VB のプロジェクト」) |
 | n2 | 成功。元のビルドはソリューションのビルドと、リポジトリのセットアップ手順(`--original-step build\n2.proj;Templates-PrepareDependencies`) | インストーラーが表示される(`Install N2`)。Linux でも同じ(フォーク 0021 の後)。Windows: **SQLite(`App_Data\n2.sqlite.db`)で、空の DB からインストールが完了し(管理者のパスワード → テーブルの作成 → サンプルのコンテンツの取り込み。`n2-install.ps1`)、トップページがコンテンツ付きで表示される**(VB のページ。フォーク 0025)。**Linux でも同じ**(`run-linux-site.ps1 -Keep` の後 `n2-install.ps1 -Port 5098 -Running`)。SQLite は 1.0.119 に上げる(下) |
 
@@ -425,8 +426,24 @@ Windows 専用の API の置き換え(`platformReplacements`、FOC1006)に加え
 未確認・残り:
 - レポートの画面(ReportViewer)で実際にレポートを出すこと。ReportViewer は .NET Framework 向けの DLL のまま参照している(ビルドは通る)。
 - 7-Zip(SevenZipSharp)・SQL Server の型(Microsoft.SqlServer.Types)のネイティブライブラリを使う機能(オフラインのデータの書き出しなど)。
-- dnn は、DotNetNuke.WebUtility(VB)をソースから変換するようになった。dnn・n2 は `EventLog` の書き換えでも変換結果が変わる(log4net の EventLogAppender、N2 の DynamicProxy のロガー。どちらも構成したときだけ使う)。どちらも未検証。
+- dnn・n2 の再検証(2026-09-28、下の「dnn・n2 の再検証」)。
 - Linux の 1 回目の実行で、`/` が 1 度だけエラーページ(`Error.htm`)になった。その後の 4 回は再現しない。`Application_Start` の `EventLog.SourceExists` が Linux で例外を投げていたことと関係する可能性がある(今は置き換えた)。
+### dnn・n2 の再検証(2026-09-28)
+
+VB のプロジェクトの変換と `EventLog` の書き換えの後、dnn・n2 を Windows・Linux で動かし直した。
+
+- 変換結果の差(`snapshot-conversion.ps1`): dnn は 17 ファイル。DotNetNuke.WebUtility(VB)をソースから変換するようになり(`MyType Windows` → `Empty`、空の `RootNamespace` のまま)、参照する 13 プロジェクトがそのプロジェクトを参照する。WebUtility のパスの書き換え(ClientAPI・BrowserCaps)と、log4net の EventLogAppender の `EventLog` の書き換え。n2 は差なし。
+- dnn: Windows(`dnn-cycle.ps1`)・Linux とも、空の DB からインストールが完了し、トップページ・`/Login`・`/Terms` が 200、ページの資源 21 件がすべて 200。host のログインは資格情報が通り、DNN のパスワードの強制変更の画面に進む(誤ったパスワードでは「Login Failed」)。
+- n2: Windows・Linux とも、インストーラー(管理者のパスワード → テーブルの作成 → サンプルのコンテンツの取り込み)が完了し、トップページがコンテンツ付きで表示される。
+
+見つかったこと:
+- **Linux で、大文字を含むフォルダーの web.config が読まれていなかった**(フォーク 0027 で直した)。ASP.NET は構成パスを小文字で扱う(`machine/webroot/1/n2`)。その物理パス `/app/n2` は Linux には無いので、そのフォルダーの構成は無いものとされ、親の構成が使われていた。n2 の管理画面(`/N2/Default.aspx`、インストーラー)が、ログインせずに 200 になっていた(Windows はログインの画面へ 302)。同じ仕組みで、wt の `Admin`・`Checkout`、DNN の `Portals`・`Install`・`DesktopModules/MVC`、mojo の `Data`・`Views`、be の `Account` などのフォルダーの web.config も効いていなかったはず(直す前の状態を確かめたのは n2 だけ)。直した後、n2 と wt の保護されたページはログインの画面へ 302。
+- n2 の以前の確認(Linux で「インストールが完了」)は、この問題でインストーラーに誰でも入れたために通っていた。リポジトリの `App_Data\n2.sqlite.db` にはサンプルのサイトが入っているので、`/` はインストーラーではなくサイトになる。`n2-install.ps1` は、インストーラーの最初のページを開いてからそのフォームを送るようにした(以前は `/` のフォームを送っていた)。
+- DNN のインストーラーは、完了すると `Install\*.aspx` を消す。Windows でインストールしたサイトのフォルダーでは Linux のインストールはできない(変換し直してサイトを組み立て直す)。
+- インストーラーが web.config を書き換えるとアプリが再起動し、その間の要求は応答が無い(`000`・503)。続けて要求すれば完了する。
+- このマシン(メモリ 8 GB、Docker は 4 GB)では、Docker Desktop のエンジンが何度か止まった(`docker desktop restart` で戻る)。SQL Server のコンテナは要らないときは止める。
+
+be/wt(フォーク 0027 の後): Linux で be 5/5、wt 5/8(以前と同じ)。
 ## 全コーパスでの検証(2026-09-27)
 
 `verify-corpora.ps1` で 6 本を変換してビルドした(Windows)。正解データがあるのは be と wt だけ。

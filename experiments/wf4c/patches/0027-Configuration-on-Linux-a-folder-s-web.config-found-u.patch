@@ -1,0 +1,35 @@
+From d2201def3b9b9a009c6faa545aa1e124bbeabadf Mon Sep 17 00:00:00 2001
+From: shkosugi <sin.kosugi@gmail.com>
+Date: Mon, 28 Sep 2026 11:36:14 +0900
+Subject: [PATCH] Configuration on Linux: a folder's web.config found under the
+ lower-case configuration path
+
+Configuration paths are lower case (machine/webroot/1/n2). UserMapPath mapped them to physical paths as
+written, so on a case-sensitive file system a folder with capitals (N2, Admin, Portals) was not found:
+IsConfigRecordRequired gave no record for it and the folder's web.config - its authorization - was not
+read (N2's management pages and WingtipToys' Admin pages open to anonymous users). The folder is now
+the one that exists under another casing, as on Windows (PhysicalPathCasing).
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+---
+ src/WebFormsForCore.Web/Configuration/UserMapPath.cs | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/src/WebFormsForCore.Web/Configuration/UserMapPath.cs b/src/WebFormsForCore.Web/Configuration/UserMapPath.cs
+index 8c4915b..237c30d 100644
+--- a/src/WebFormsForCore.Web/Configuration/UserMapPath.cs
++++ b/src/WebFormsForCore.Web/Configuration/UserMapPath.cs
+@@ -138,6 +138,10 @@ namespace System.Web.Configuration {
+ 
+                 if (OSInfo.IsWindows) childPart = childPart.Replace('/', Path.DirectorySeparatorChar);
+                 physicalPath = Path.Combine(mapping.PhysicalDirectory, childPart);
++                // Configuration paths are lower case (machine/webroot/1/n2): on a case-sensitive file system the folder
++                // is the one that exists under another casing (N2), as on Windows. Else a request that first creates the
++                // path's configuration finds no folder, and the folder's web.config (its authorization) is not read.
++                physicalPath = WebFormsForCore.PhysicalPathCasing.Resolve(physicalPath);
+             }
+ 
+             // Throw if the resulting physical path is not canonical, to prevent potential
+-- 
+2.55.0.windows.3
+

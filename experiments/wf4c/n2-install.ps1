@@ -19,6 +19,9 @@ $base = "http://localhost:$Port"
 
 '--- 0. the administrator'
 & $page -Url "$base/" -TextLength 200
+# The installer's first page, then its form (page.ps1 posts the form of the page requested last). "/" is the site when
+# the database already has content (the repository's App_Data\n2.sqlite.db has the sample site).
+& $page -Url "$base/N2/Installation/Begin/Default.aspx?action=install" -TextLength 100
 & $page -Url "$base/N2/Installation/Begin/Default.aspx?action=install" -Submit ctl11 -Fields @{ chkLoginUrl = 'on'; txtPassword = $Password; txtRepeatPassword = $Password } -TextLength 200
 Start-Sleep 5   # web.config changed: the application restarts
 '--- login'

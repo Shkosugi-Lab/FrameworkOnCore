@@ -58,7 +58,7 @@ dotnet src\FrameworkOnCore.Studio\bin\Debug\net10.0\FrameworkOnCore.Studio.dll
 # http://127.0.0.1:5300/ を開く(localhost だけで待ち受ける)
 ```
 
-「新しい解析」で .NET Framework の Web プロジェクト(.csproj / .vbproj)を指定すると、解析結果が出ます。部品ごとに対応を選んで保存すると、その選択で変換するコマンドをコピーできます。
+「新しい解析」で .NET Framework の Web プロジェクト(.csproj / .vbproj)を指定すると、解析結果が出ます。部品ごとに対応を選んで保存し、「変換してビルド」を押すと、その選択で変換とビルドを行います。ビルドできたら、Linux に配置できる形(Dockerfile と systemd 用のスクリプト付き、`obj` を除く)を ZIP でダウンロードできます。コマンドラインで変換するためのコマンドもコピーできます。
 
 ### コマンドライン
 

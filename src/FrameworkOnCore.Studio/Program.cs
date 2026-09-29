@@ -33,7 +33,11 @@ builder.Services.ConfigureHttpJsonOptions(o =>
     o.SerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
     o.SerializerOptions.DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull;
 });
-builder.Services.AddSingleton(new AnalysisStore(data, runtime));
+var store = new AnalysisStore(data, runtime);
+var conversions = new Conversions(store, runtime);
+store.Deleting = conversions.Forget;
+builder.Services.AddSingleton(store);
+builder.Services.AddSingleton(conversions);
 var app = builder.Build();
 app.UseDefaultFiles();
 app.UseStaticFiles();
@@ -111,6 +115,24 @@ api.MapGet("/analyses/{id}/command", (string id, AnalysisStore store) =>
         command = $"dotnet \"{converter}\" \"{entry.Project}\" --root \"{entry.Root}\" --configuration {entry.Configuration} --choices \"{store.ChoicesFile(id)}\" --out <出力先>",
     });
 });
+
+// Converting and building in Studio (the saved choices), and the output as a zip.
+api.MapGet("/analyses/{id}/conversion", (string id, Conversions conversions) =>
+    Results.Ok(new { conversion = conversions.Get(id), stale = conversions.Stale(id), log = conversions.Log(id).TakeLast(300) }));
+
+api.MapPost("/analyses/{id}/conversion", (string id, ConversionRequest? request, Conversions conversions) =>
+{
+    try { return Results.Ok(conversions.Start(id, request?.BuildOriginal ?? false)); }
+    catch (InvalidOperationException e) { return Results.Conflict(new { error = e.Message }); }
+});
+
+api.MapDelete("/analyses/{id}/conversion", (string id, Conversions conversions) => conversions.Cancel(id) ? Results.NoContent() : Results.NotFound());
+
+api.MapGet("/analyses/{id}/conversion/zip", (string id, Conversions conversions) =>
+    conversions.Zip(id) is { } zip && File.Exists(zip) ? Results.File(zip, "application/zip", Path.GetFileName(zip)) : Results.NotFound());
+
+api.MapGet("/analyses/{id}/conversion/report", (string id, Conversions conversions) =>
+    File.Exists(conversions.Report(id)) ? Results.Text(File.ReadAllText(conversions.Report(id)), "text/markdown; charset=utf-8") : Results.NotFound());
 
 Console.WriteLine($"FrameworkOnCore Studio: http://127.0.0.1:{port}/  (data: {data})");
 app.Run();

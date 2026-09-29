@@ -92,7 +92,8 @@ function renderSidebar() {
 async function select(id) {
   if (state.id !== id && isDirty() && !confirm('保存していない選択があります。破棄して移りますか?')) return;
   clearTimeout(state.poll);
-  Object.assign(state, { id, entry: null, result: null, choices: null, saved: null, command: null, errors: [] });
+  clearTimeout(state.convertPoll);
+  Object.assign(state, { id, entry: null, result: null, choices: null, saved: null, command: null, errors: [], conversion: null });
   state.expanded.clear();
   state.rows.clear();
   if (!location.hash.startsWith(`#/a/${id}`)) location.hash = id ? `#/a/${id}` : '';
@@ -127,7 +128,7 @@ async function refresh() {
     if (linked) state.expanded.add(linked);
     renderResult();
     if (linked) document.getElementById(`c-${linked}`)?.scrollIntoView({ block: 'start' });
-    await loadAnalyses();
+    await Promise.all([loadAnalyses(), loadConversion()]);
   } else {
     renderRunning(entry, log);
     if (entry.state !== 'failed') state.poll = setTimeout(() => refresh().catch(console.error), 1500);
@@ -194,6 +195,8 @@ function renderResult() {
       ${tile('名前の解決率', resolvedRate.toFixed(1), '%', `解決できなかった名前 ${fmt(unresolved)}`)}
     </div>
 
+    <div class="card card-pad convert" id="convert"></div>
+
     <div class="card card-pad breakdown">
       <h2>そのまま動かない API の使用(状態別)</h2>
       <div class="hint" id="breakdown-hint"></div>
@@ -218,6 +221,7 @@ function renderResult() {
   $('#delete').addEventListener('click', () => removeAnalysis(e.id).catch(err => toast(err.message)));
   $('#reanalyze').addEventListener('click', () => startAnalysis({ project: e.project, root: e.root, configuration: e.configuration, name: e.name }));
   $('#search').addEventListener('input', ev => { state.filter.q = ev.target.value; renderComponents(); });
+  renderConversion();
   renderBreakdown();
   renderSettings();
   renderChips();
@@ -413,6 +417,110 @@ function apiTable(c, apis, options) {
     <tbody>${rows}</tbody></table>
     ${apis.length > limit ? `<div class="more"><button class="btn ghost small show-more" data-id="${esc(c.id)}">さらに表示(残り ${fmt(apis.length - limit)} 件)</button></div>` : ''}
   </div>`;
+}
+
+// ---------------------------------------------------------------------------------------------------------------------
+// Converting and building in Studio: the saved choices; when built, the output as a zip.
+
+const CONVERSION = {
+  queued: { label: '待機中', icon: '…', color: 'var(--accent-2)' },
+  running: { label: '変換・ビルド中', icon: '⟳', color: 'var(--accent-2)' },
+  done: { label: 'ビルド成功', icon: '✓', color: 'var(--status-good)' },
+  failed: { label: '失敗', icon: '✕', color: 'var(--status-critical)' },
+  cancelled: { label: '中止', icon: '■', color: 'var(--status-neutral)' },
+};
+
+async function loadConversion() {
+  const id = state.id;
+  clearTimeout(state.convertPoll);
+  const body = await api(`/analyses/${id}/conversion`);
+  if (id !== state.id) return;
+  state.conversion = body;
+  renderConversion();
+  const c = body.conversion;
+  if (c && (c.state === 'queued' || c.state === 'running'))
+    state.convertPoll = setTimeout(() => loadConversion().catch(console.error), 2000);
+  else if (c) loadAnalyses().catch(console.error);
+}
+
+function duration(from, to) {
+  const s = Math.max(0, Math.round(((to ? new Date(to) : new Date()) - new Date(from)) / 1000));
+  return s < 60 ? `${s} 秒` : `${Math.floor(s / 60)} 分 ${s % 60} 秒`;
+}
+
+function renderConversion() {
+  const root = $('#convert');
+  if (!root) return;
+  const body = state.conversion;
+  const c = body?.conversion;
+  const active = c && (c.state === 'queued' || c.state === 'running');
+  const log = (body?.log ?? []).join('\n');
+  const logBlock = open => log ? `<details class="convert-log" ${open ? 'open' : ''}><summary>ログ(${fmt(body.log.length)} 行)</summary><pre class="log">${esc(log)}</pre></details>` : '';
+  const sections = c?.sections?.length
+    ? `<div class="convert-sections">${c.sections.map(s => `<span class="sec ${s.count ? 'has' : ''}" title="${esc(s.title)}"><b>${fmt(s.count)}</b> ${esc(s.title.replace(/\(.*$/, ''))}</span>`).join('')}</div>`
+    : '';
+  const origin = `<label class="check"><input type="checkbox" id="build-original" ${c?.buildOriginal ? 'checked' : ''}>
+      元のアプリをそのビルド手順でビルドし、配置されるサイトから組み立てる <span class="muted">(--build-original。Windows と Visual Studio の MSBuild が必要。DNN など、ビルドでサイトを作るアプリ向け)</span></label>`;
+  const pill = s => { const k = CONVERSION[s]; return `<span class="pill" style="--c:${k.color}"><span class="ic" aria-hidden="true">${k.icon}</span>${esc(k.label)}</span>`; };
+
+  let html;
+  if (!c) {
+    html = `<div class="convert-head"><div><h2>変換してビルド</h2>
+        <div class="hint">保存した選択で .NET 10 のプロジェクトに変換し、そのままビルドします。ビルドできたら、Linux に配置できる形(Dockerfile と systemd 用のスクリプト付き)を ZIP でダウンロードできます。</div></div>
+        <button class="btn primary" id="convert-start">▶ 変換してビルド</button></div>${origin}`;
+  } else if (active) {
+    html = `<div class="convert-head"><div><h2>変換してビルド ${pill(c.state)}</h2>
+        <div class="hint">${c.state === 'queued' ? 'ほかの解析・変換が終わるのを待っています' : `${duration(c.started)} 経過。プロジェクトの変換、パッケージの復元、ビルドの順に進みます(数分かかります)`}</div></div>
+        <button class="btn ghost danger" id="convert-cancel">中止</button></div>
+      <div class="progress"></div>${logBlock(true)}`;
+  } else {
+    const done = c.state === 'done';
+    html = `<div class="convert-head"><div><h2>変換してビルド ${pill(c.state)}</h2>
+        <div class="hint">${esc(new Date(c.finished ?? c.started).toLocaleString('ja-JP'))} ・ ${duration(c.started, c.finished)}${c.buildOriginal ? ' ・ 元のビルドから' : ''}${c.error ? ` ・ ${esc(c.error)}` : ''}</div>
+        ${body.stale ? '<div class="stale">⚠ この変換のあとに選択を保存しています。今の選択にするには、もう一度変換してください。</div>' : ''}</div>
+        <div class="convert-actions">
+          ${done ? `<a class="btn primary" id="convert-zip" href="/api/analyses/${esc(state.id)}/conversion/zip" download>⤓ ZIP をダウンロード <span class="size">${(c.zipSize / 1048576).toFixed(1)} MB</span></a>` : ''}
+          ${c.sections ? '<button class="btn ghost" id="convert-report">レポートを見る</button>' : ''}
+          <button class="btn ghost" id="convert-start">↻ もう一度変換</button>
+        </div></div>
+      ${sections}${done ? '' : origin}${logBlock(!done && !c.sections)}`;
+  }
+  root.innerHTML = html;
+  root.style.setProperty('--c', c ? CONVERSION[c.state].color : 'var(--accent)');
+  $('#convert-start')?.addEventListener('click', () => startConversion().catch(e => toast(e.message)));
+  $('#convert-cancel')?.addEventListener('click', () => cancelConversion().catch(e => toast(e.message)));
+  $('#convert-report')?.addEventListener('click', () => showReport().catch(e => toast(e.message)));
+  const pre = root.querySelector('.log');
+  if (pre) pre.scrollTop = pre.scrollHeight;
+}
+
+async function startConversion() {
+  // What is converted is what is saved: unsaved changes are saved first.
+  if (isDirty()) {
+    await save();
+    if (state.errors.length) return;
+  }
+  const buildOriginal = $('#build-original')?.checked ?? state.conversion?.conversion?.buildOriginal ?? false;
+  await api(`/analyses/${state.id}/conversion`, { method: 'POST', body: JSON.stringify({ buildOriginal }) });
+  await loadConversion();
+  await loadAnalyses();
+}
+
+async function cancelConversion() {
+  if (!confirm('変換を中止しますか?')) return;
+  await api(`/analyses/${state.id}/conversion`, { method: 'DELETE' });
+  await loadConversion();
+}
+
+async function showReport() {
+  const response = await fetch(`/api/analyses/${state.id}/conversion/report`);
+  if (!response.ok) throw new Error('レポートがありません');
+  const text = await response.text();
+  $('#drawer-title').textContent = 'CONVERSION-REPORT.md';
+  $('#drawer-sub').textContent = `${state.entry.name} の変換の結果`;
+  $('#drawer-code').innerHTML = text.split('\n').map(line => `<span class="ln ${line.startsWith('## ') ? 'hit' : ''}">${esc(line)}</span>`).join('');
+  $('#drawer').classList.add('open');
+  $('#drawer').setAttribute('aria-hidden', 'false');
 }
 
 // ---------------------------------------------------------------------------------------------------------------------

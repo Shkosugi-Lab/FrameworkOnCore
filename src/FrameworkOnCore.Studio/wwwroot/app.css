@@ -176,6 +176,28 @@ body {
 
 /* Status breakdown */
 .breakdown { margin-bottom: 16px; }
+
+/* Converting and building */
+.convert { margin-bottom: 16px; position: relative; overflow: hidden; box-shadow: var(--shadow), inset 3px 0 0 var(--c); }
+.convert-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 18px; }
+.convert-head h2 { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.convert-head .hint { margin-top: 4px; max-width: 760px; }
+.convert-actions { display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; flex: none; }
+.convert-actions a.btn { text-decoration: none; }
+.convert-actions .size { font-weight: 500; opacity: 0.85; font-size: 12.5px; }
+.convert .stale { margin-top: 8px; font-size: 12.5px; color: var(--status-warning); }
+.convert .check { display: flex; gap: 9px; align-items: flex-start; margin-top: 14px; font-size: 13px; color: var(--text-secondary); cursor: pointer; }
+.convert .check input { margin-top: 3px; accent-color: var(--accent); }
+.convert-sections { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.convert-sections .sec {
+  font-size: 12.5px; padding: 5px 11px; border-radius: 999px; border: 1px solid var(--border); color: var(--text-muted); background: var(--surface-1);
+}
+.convert-sections .sec b { color: var(--text-secondary); font-weight: 700; margin-right: 2px; }
+.convert-sections .sec.has { color: var(--text-secondary); border-color: var(--border-strong); }
+.convert-sections .sec.has b { color: var(--text-primary); }
+.convert-log { margin-top: 14px; }
+.convert-log summary { cursor: pointer; font-size: 12.5px; color: var(--text-muted); user-select: none; }
+.convert-log .log { margin-top: 8px; max-height: 320px; }
 .stack { display: flex; gap: 2px; height: 18px; margin: 16px 0 12px; }
 .stack .seg { height: 100%; min-width: 3px; cursor: default; transition: filter 0.15s, transform 0.15s; }
 .stack .seg:first-child { border-radius: 4px 0 0 4px; }

@@ -44,6 +44,12 @@ public sealed class AnalysisStore
 
     public Catalog Catalog { get; } = Catalog.Default();
 
+    /// <summary>One heavy job at a time, analyses and conversions alike (each compiles the whole application: memory).</summary>
+    public SemaphoreSlim Heavy => one;
+
+    /// <summary>Called before an analysis is deleted (its conversion stops).</summary>
+    public Action<string>? Deleting { get; set; }
+
     public AnalysisStore(string data, string runtime)
     {
         (this.data, this.runtime) = (data, runtime);
@@ -124,6 +130,8 @@ public sealed class AnalysisStore
     /// </summary>
     public bool Delete(string id)
     {
+        if (!entries.ContainsKey(id)) return false;
+        Deleting?.Invoke(id);
         if (!entries.TryRemove(id, out var entry)) return false;
         logs.TryRemove(id, out _);
         if (entry.State is "queued" or "running") cancelled[id] = true;

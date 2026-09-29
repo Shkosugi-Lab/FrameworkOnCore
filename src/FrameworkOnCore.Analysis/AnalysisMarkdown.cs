@@ -41,12 +41,17 @@ public static class AnalysisMarkdown
         text.AppendLine();
         text.AppendLine("状態は部品の中で最も悪い API のもの。「要対応」はそのまま動かない API(廃止予定を含む)とその回数、「全体」は部品のすべての API。");
         text.AppendLine();
-        text.AppendLine("| 部品 | 状態 | 要対応 API | 要対応の回数 | 全体の API | 全体の回数 | ファイル | DLL | 説明 |");
-        text.AppendLine("|---|---|---:|---:|---:|---:|---:|---:|---|");
+        text.AppendLine("| 部品 | 状態 | 要対応 API | 要対応の回数 | 全体の API | 全体の回数 | ファイル | DLL | 選択肢(★ 既定、☆ 予定) | 説明 |");
+        text.AppendLine("|---|---|---:|---:|---:|---:|---:|---:|---|---|");
         foreach (var c in attention)
         {
-            text.AppendLine($"| {Cell(c.Title)} | {Label(c.Status)} | {c.AttentionApis} | {c.AttentionCount} | {c.Apis} | {c.Count} | {c.Files} | {c.BinaryReferences} | {Cell(c.Note ?? "")} |");
+            var options = string.Join("<br>", c.Options.Select(o => $"{(o.Default ? "★" : o.Planned ? "☆" : "・")}{o.Id}: {o.Title}"));
+            text.AppendLine($"| {Cell(c.Title)}<br>`{c.Id}` | {Label(c.Status)} | {c.AttentionApis} | {c.AttentionCount} | {c.Apis} | {c.Count} | {c.Files} | {c.BinaryReferences} | {Cell(options)} | {Cell(c.Note ?? "")} |");
         }
+        text.AppendLine();
+        text.AppendLine("設定(API ではなくアプリの選択): " + string.Join("、", result.Settings.Select(s => $"{s.Title} `{s.Id}`: " +
+            string.Join(" / ", s.Options.Select(o => $"{(o.Default ? "★" : "")}{o.Id}")))));
+        text.AppendLine("選ぶには、foc-choices.json(既定の値で書いてある)を直して、変換に --choices で渡す。");
         text.AppendLine();
 
         foreach (var c in attention)

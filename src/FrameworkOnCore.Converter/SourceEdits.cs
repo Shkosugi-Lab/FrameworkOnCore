@@ -115,6 +115,12 @@ public sealed class SourceEdits(SourceLanguage language, Rules rules)
                         break;
                     case "FOC1005":
                         var returns = Regex.Match(p.Message, @"\.(?<method>BeginInvoke|EndInvoke) returns (?<type>.+)$");
+                        // The user chose to leave them (async-delegates: none): the call throws, reported.
+                        if (!rules.IsChosen("async-delegates:compat"))
+                        {
+                            done.Add(new Done(LineOf(node), p.Code, $"FOC1005: {p.Message} (not rewritten: async-delegates is none; it throws PlatformNotSupportedException)", Report.Kind.Unsupported));
+                            break;
+                        }
                         if (!returns.Success || returns.Groups["type"].Value == "ref/out")
                         {
                             done.Add(new Done(LineOf(node), p.Code, $"FOC1005: {p.Message} (a delegate with ref/out parameters: its EndInvoke gives them back; not rewritten)", Report.Kind.Unsupported));

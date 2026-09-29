@@ -37,7 +37,7 @@
 |---|---|---|---|
 | **Thread.ResetAbort** | dnn(AdvancedUrlRewriter、Exceptions、ModuleHost、ProfileModuleUserControlBase、Modulesettings) | PNSE | **対応済み**:`Platform.ResetAbort`(フォークの `HttpResponse.ResetThreadAbort` を呼ぶ)。未対応だとリダイレクトが 503 になり、catch の後が実行されなかった |
 | **BinaryFormatter** | n2(ContentDetail:DB に保存するオブジェクト)、be(拡張の設定)、mojo、yaf、dnn | PNSE(.NET 9 で削除) | **対応済み**:互換パッケージ System.Runtime.Serialization.Formatters 10.0.12 と、Web プロジェクトの `EnableUnsafeBinaryFormatterSerialization`。.NET Framework 4.8 が書いたデータを読めることを確認した。**残り**:ソースのない DLL だけが使う場合は検出しない(imis の ReportViewer など) |
-| **Encoding.GetEncoding(コードページ)** | nop(Alipay)、dnn。日本語アプリでは Shift_JIS | `NotSupportedException` | **対応済み**:Program.cs(.vb)のテンプレートの最初で CodePagesEncodingProvider を登録する(web.config の `responseEncoding="shift_jis"` も動く) |
+| **Encoding.GetEncoding(コードページ)** | nop(Alipay)、dnn。日本語アプリでは Shift_JIS | `NotSupportedException` | **対応済み**:フォークの `UseWebForms` が CodePagesEncodingProvider を登録する(web.config の `responseEncoding="shift_jis"` も動く。テンプレートに入れた登録は重複だったので外した) |
 | **Encoding.Default** | be、mojo、n2、nop、imis(コメント)、dnn(log4net) | .NET Framework は ANSI コードページ(日本語 Windows では Shift_JIS)、.NET は UTF-8 | **対応済み**:`Platform.DefaultEncoding`(Windows は GetACP、Linux は LANG のカルチャの ANSI コードページ)。**残り**:`Encoding.GetEncoding(0)`、VB の `FileOpen` 系は未対応(コーパスでは未使用) |
 | AppDomain.CreateDomain | dnn(Telerik の保守ツール) | PNSE | 報告のみ |
 | Delegate.BeginInvoke | dnn 1 件 | PNSE | 対応済み(FOC1005:`AsyncDelegate`) |

@@ -16,9 +16,23 @@ public sealed class Catalog
     public IReadOnlyList<Component> Components { get; }
     /// <summary>.NET's obsoletions (SYSLIB) whose members throw: diagnostic id -> what.</summary>
     public IReadOnlyDictionary<string, string> ThrowingObsoletions { get; }
+    /// <summary>The application's choices that are no API's (file names' case on Linux).</summary>
+    public IReadOnlyList<Setting> Settings { get; }
+    readonly IReadOnlyDictionary<string, IReadOnlyList<ComponentOption>> options;
+    readonly ComponentOption none;
 
-    Catalog(int version, IReadOnlyList<Component> components, IReadOnlyDictionary<string, string> throwing) =>
-        (Version, Components, ThrowingObsoletions) = (version, components, throwing);
+    Catalog(int version, IReadOnlyList<Component> components, IReadOnlyDictionary<string, string> throwing,
+        IReadOnlyDictionary<string, IReadOnlyList<ComponentOption>> options, ComponentOption none, IReadOnlyList<Setting> settings) =>
+        (Version, Components, ThrowingObsoletions, this.options, this.none, Settings) = (version, components, throwing, options, none, settings);
+
+    /// <summary>What the user can choose for a component: its options, or "none" alone (what the conversion does without one).</summary>
+    public IReadOnlyList<ComponentOption> OptionsOf(string component) => options.TryGetValue(component, out var list) ? list : [none with { Default = true }];
+
+    /// <summary>The option a component has when the user chose none.</summary>
+    public ComponentOption DefaultOf(string component) => OptionsOf(component).FirstOrDefault(o => o.Default) ?? OptionsOf(component)[0];
+
+    /// <summary>Whether a component is the catalog's (not an assembly's own, "fw:System.Xml").</summary>
+    public bool Knows(string component) => Components.Any(c => c.Id == component) || options.ContainsKey(component);
 
     public static Catalog Load(Stream json)
     {
@@ -38,7 +52,14 @@ public sealed class Catalog
                 match.TryGetProperty("delegateAsync", out var delegates) && delegates.GetBoolean());
         }).ToList();
         var throwing = root.GetProperty("throwingObsoletions").EnumerateObject().ToDictionary(p => p.Name, p => p.Value.GetString()!);
-        return new Catalog(root.GetProperty("version").GetInt32(), components, throwing);
+        static ComponentOption Option(JsonElement o) => new(o.GetProperty("id").GetString()!, o.GetProperty("title").GetString()!,
+            o.TryGetProperty("description", out var d) ? d.GetString() : null,
+            o.TryGetProperty("default", out var isDefault) && isDefault.GetBoolean(), o.TryGetProperty("planned", out var planned) && planned.GetBoolean());
+        var options = root.TryGetProperty("options", out var o) ? o.EnumerateObject().ToDictionary(p => p.Name, p => (IReadOnlyList<ComponentOption>)p.Value.EnumerateArray().Select(Option).ToList()) : [];
+        var settings = root.TryGetProperty("settings", out var s)
+            ? s.EnumerateArray().Select(e => new Setting(e.GetProperty("id").GetString()!, e.GetProperty("title").GetString()!, e.GetProperty("options").EnumerateArray().Select(Option).ToList())).ToList()
+            : [];
+        return new Catalog(root.GetProperty("version").GetInt32(), components, throwing, options, Option(root.GetProperty("noneOption")), settings);
     }
 
     /// <summary>The catalog this assembly has.</summary>
@@ -67,6 +88,15 @@ public sealed class Catalog
         if (api.Member != null && c.Members.Any(m => m == api.Type + "." + api.Member || m == api.Id)) return true;
         return false;
     }
+}
+
+/// <summary>An option of a component (or a setting): what the conversion does with it. Planned: not there yet.</summary>
+public sealed record ComponentOption(string Id, string Title, string? Description, bool Default, bool Planned);
+
+/// <summary>A choice of the application's that is no API's (file names' case on Linux), with its options.</summary>
+public sealed record Setting(string Id, string Title, IReadOnlyList<ComponentOption> Options)
+{
+    public ComponentOption DefaultOption => Options.FirstOrDefault(o => o.Default) ?? Options[0];
 }
 
 /// <summary>

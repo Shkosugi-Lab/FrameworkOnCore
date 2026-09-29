@@ -43,6 +43,8 @@ public sealed record AnalysisResult
     public required IReadOnlyList<LibraryUsage> Libraries { get; init; }
     /// <summary>The DLLs without source the projects reference: read, or not and why (a package with a .NET build).</summary>
     public required IReadOnlyList<BinaryFile> Binaries { get; init; }
+    /// <summary>The application's choices that are no API's, with their options.</summary>
+    public required IReadOnlyList<Setting> Settings { get; init; }
 
     public static readonly JsonSerializerOptions Json = new()
     {
@@ -71,7 +73,9 @@ public sealed record ComponentUsage(
     int AttentionApis, int AttentionCount,
     /// <summary>References from DLLs without source (metadata: each is one reference, not a call count).</summary>
     int BinaryReferences,
-    IReadOnlyList<string> Projects, string? Note);
+    IReadOnlyList<string> Projects, string? Note,
+    /// <summary>What the user can choose for it (the default marked).</summary>
+    IReadOnlyList<ComponentOption> Options);
 
 /// <summary>An API of .NET Framework the application uses.</summary>
 public sealed record ApiUsage

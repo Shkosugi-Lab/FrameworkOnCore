@@ -100,7 +100,7 @@ public sealed class ApiAnalyzer(TargetApis target, Catalog catalog, IEnumerable<
                 g.Count(a => a.Status < ApiStatus.Available), g.Where(a => a.Status < ApiStatus.Available).Sum(a => a.Count),
                 g.Sum(a => a.Binaries?.Sum(b => b.Count) ?? 0),
                 g.SelectMany(a => sink.Apis[a.Id].Projects.Keys).Distinct().Order(StringComparer.Ordinal).ToList(),
-                component?.Note);
+                component?.Note, catalog.OptionsOf(g.Key));
         }).OrderBy(c => c.Status).ThenByDescending(c => c.AttentionCount).ThenByDescending(c => c.BinaryReferences).ThenBy(c => c.Id, StringComparer.Ordinal).ToList();
 
         return new AnalysisResult
@@ -117,6 +117,7 @@ public sealed class ApiAnalyzer(TargetApis target, Catalog catalog, IEnumerable<
             Libraries = sink.Libraries.Select(l => new LibraryUsage(l.Key, l.Value.Origin, l.Value.Count, l.Value.Files.Count))
                 .OrderByDescending(l => l.Count).ThenBy(l => l.Assembly, StringComparer.OrdinalIgnoreCase).ToList(),
             Binaries = binaryFiles,
+            Settings = catalog.Settings,
         };
     }
 

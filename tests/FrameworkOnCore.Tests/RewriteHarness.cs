@@ -20,19 +20,20 @@ static class RewriteHarness
 
     public static readonly Rules Rules = Rules.Load(Path.Combine(AppContext.BaseDirectory, "rules", "packages.json"));
 
-    public static string CSharp(string source) => Rewrite(source, SourceLanguage.CSharp,
+    /// <param name="rules">The rules to rewrite with (narrowed to choices); the file's, else.</param>
+    public static string CSharp(string source, Rules? rules = null) => Rewrite(source, SourceLanguage.CSharp, rules ?? Rules,
         CSharpCompilation.Create("App", new[] { CSharpSyntaxTree.ParseText(source, new CSharpParseOptions(Microsoft.CodeAnalysis.CSharp.LanguageVersion.Latest)) },
             framework, new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary)));
 
-    public static string VisualBasic(string source) => Rewrite(source, SourceLanguage.VisualBasic,
+    public static string VisualBasic(string source, Rules? rules = null) => Rewrite(source, SourceLanguage.VisualBasic, rules ?? Rules,
         VisualBasicCompilation.Create("App", new[] { VisualBasicSyntaxTree.ParseText(source) },
             framework, new VisualBasicCompilationOptions(OutputKind.DynamicallyLinkedLibrary)));
 
-    static string Rewrite(string source, SourceLanguage language, Compilation compilation)
+    static string Rewrite(string source, SourceLanguage language, Rules rules, Compilation compilation)
     {
         var errors = compilation.GetDiagnostics().Where(d => d.Severity == DiagnosticSeverity.Error).ToList();
         Assert.True(errors.Count == 0, string.Join("\n", errors));
-        var platform = new Text(PlatformAnalyzer.RulesFile, string.Join("\n", Rules.PlatformReplacements.Select(r => r.Line)));
+        var platform = new Text(PlatformAnalyzer.RulesFile, string.Join("\n", rules.PlatformReplacements.Select(r => r.Line)));
         var options = new AnalyzerOptions(ImmutableArray.Create<AdditionalText>(platform));
         var analyzers = ImmutableArray.Create<DiagnosticAnalyzer>(new WindowsPathAnalyzer(), new AsyncDelegateAnalyzer(), new PlatformAnalyzer());
         var pointed = compilation.WithAnalyzers(analyzers, options).GetAnalyzerDiagnosticsAsync().GetAwaiter().GetResult()
@@ -42,11 +43,11 @@ static class RewriteHarness
                 return Pointed.From(d.Id, start.Line + 1, start.Character + 1, d.GetMessage());
             })
             .ToList();
-        return language.Apply(source, pointed);
+        return language.Apply(source, pointed, rules);
     }
 
-    static string Apply(this SourceLanguage language, string source, List<Pointed> pointed) =>
-        new SourceEdits(language, Rules).Apply(SourceText.From(source), "test", Array.Empty<string>(), pointed, (_, _) => true).Text;
+    static string Apply(this SourceLanguage language, string source, List<Pointed> pointed, Rules rules) =>
+        new SourceEdits(language, rules).Apply(SourceText.From(source), "test", Array.Empty<string>(), pointed, (_, _) => true).Text;
 
     sealed class Text(string path, string text) : AdditionalText
     {

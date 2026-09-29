@@ -27,6 +27,9 @@ using FrameworkOnCore.Converter;
 //            both (the default) or none. See DeployWriter.
 // --case-insensitive on|off  file names without regard to case in the deployment, as on Windows (on, the default: the
 //            library casefs/libfoccase.so, which casefs/build.ps1 builds, preloaded by start.sh; off: Linux's).
+// --choices <file>  what the user chose per component (foc-choices.json; analyze writes one with the defaults): the
+//            rules of options not chosen are left out. Without it, the catalog's defaults (as always). --case-insensitive
+//            given is over the file's file-name-case.
 
 //
 //   FrameworkOnCore.Converter analyze <project> --out <dir> [--root <dir>] [--configuration <name>] [--runtime <dir>]
@@ -39,7 +42,8 @@ string? project = null, outDirectory = null, rootDirectory = null, runtimeDirect
 var build = true;
 var buildOriginal = false;
 var deployKinds = "both";
-var caseInsensitive = true;
+bool? caseInsensitive = null;
+string? choicesFile = null;
 var originalSteps = new List<(string Project, string Target)>();
 for (var i = 0; i < args.Length; i++)
 {
@@ -58,6 +62,7 @@ for (var i = 0; i < args.Length; i++)
             caseInsensitive = value == "on";
             break;
         case "--configuration": configuration = args[++i]; break;
+        case "--choices": choicesFile = args[++i]; break;
         case "--original-step":
             var step = args[++i].Split(';', 2);
             originalSteps.Add((step[0], step.Length > 1 ? step[1] : "Build"));
@@ -88,6 +93,22 @@ var runtime = new RuntimeLayout(
 
 var report = new Report();
 var rules = Rules.Load(Path.Combine(AppContext.BaseDirectory, "rules", "packages.json"));
+// The user's choices: validated against the catalog, the rules narrowed to them; each one not the default reported.
+var catalog = FrameworkOnCore.Analysis.Catalog.Default();
+var choices = choicesFile != null ? FrameworkOnCore.Analysis.Choices.Load(choicesFile) : new FrameworkOnCore.Analysis.Choices();
+if (choices.Validate(catalog) is { Count: > 0 } choiceErrors)
+{
+    foreach (var error in choiceErrors) Console.Error.WriteLine($"--choices {choicesFile}: {error}");
+    return 2;
+}
+rules = rules.Choose(choices, catalog);
+foreach (var (component, option) in choices.Components.Where(c => catalog.DefaultOf(c.Key).Id != c.Value))
+    report.Add(Report.Kind.Project, "choices", $"{component}: {option} (default {catalog.DefaultOf(component).Id})");
+foreach (var (api, option) in choices.Apis)
+    report.Add(Report.Kind.Project, "choices", $"{api}: {option}");
+if (caseInsensitive == null && choices.Settings.TryGetValue("file-name-case", out var nameCase) && nameCase != catalog.Settings.First(s => s.Id == "file-name-case").DefaultOption.Id)
+    report.Add(Report.Kind.Project, "choices", $"file-name-case: {nameCase}");
+caseInsensitive ??= choices.SettingOf(catalog, "file-name-case") == "insensitive";
 if (buildOriginal)
 {
     var originalWork = outRoot.TrimEnd('\\', '/') + ".original";
@@ -147,7 +168,7 @@ if (build && succeeded && site != null)
 if (build && succeeded)
 {
     var deployedSite = site != null ? Path.Combine(outRoot, "site") : Path.GetDirectoryName(web.TargetPath)!;
-    new DeployWriter(report, outRoot, runtimeDirectory).Write(deployKinds, deployedSite, web, cultureProfile, caseInsensitive);
+    new DeployWriter(report, outRoot, runtimeDirectory).Write(deployKinds, deployedSite, web, cultureProfile, caseInsensitive.Value);
 }
 
 var reportPath = Path.Combine(outRoot, "CONVERSION-REPORT.md");

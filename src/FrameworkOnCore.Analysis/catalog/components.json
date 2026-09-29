@@ -10,6 +10,71 @@
     "SYSLIB0024": "AppDomain の作成・アンロード",
     "SYSLIB0050": "書式設定子によるシリアル化の一部"
   },
+  "$comment_options": "What the user can choose for a component (component id -> its options; the default first or marked). The converter's rules name the option they belong to (rules/packages.json \"option\": \"component:option\"): a rule works when its option is chosen. planned: not there yet (shown, not chosen). A component with none has noneOption.",
+  "noneOption": { "id": "none", "title": "対応しない", "description": ".NET に無いものはコンパイルのためにスタブ(実行すると例外)、あるものはそのまま(例外や動きの違いはそのまま)。変換レポートに残る" },
+  "options": {
+    "thread-abort": [
+      { "id": "compat", "title": "互換(Response.End の中断を取り消す)", "description": "Thread.ResetAbort を Platform.ResetAbort に置き換える。catch の後も .NET Framework と同じく動く", "default": true },
+      { "id": "none", "title": "対応しない", "description": "ResetAbort は例外になる(リダイレクトの後の catch で 503 など)" }
+    ],
+    "async-delegates": [
+      { "id": "compat", "title": "互換(スレッドプールで実行)", "description": "BeginInvoke / EndInvoke を FrameworkOnCore.AsyncDelegate に置き換える", "default": true },
+      { "id": "none", "title": "対応しない", "description": "呼び出しは例外になる" }
+    ],
+    "binary-formatter": [
+      { "id": "compat-package", "title": "互換パッケージ", "description": "System.Runtime.Serialization.Formatters と EnableUnsafeBinaryFormatterSerialization。既存のデータを読める。信頼できないデータの読み込みは危険(.NET Framework と同じ)", "default": true },
+      { "id": "none", "title": "対応しない", "description": "シリアル化は例外になる" }
+    ],
+    "encoding-default": [
+      { "id": "framework", "title": ".NET Framework と同じ(ANSI コードページ)", "description": "Encoding.Default を Platform.DefaultEncoding に置き換える(Windows は OS の設定、Linux は LANG のカルチャ)", "default": true },
+      { "id": "none", "title": ".NET のまま(UTF-8)", "description": "ファイルやハッシュのバイト列が .NET Framework と変わりうる" }
+    ],
+    "code-pages": [
+      { "id": "register", "title": "登録する(常に)", "description": "フォーク(WebFormsForCore の UseWebForms)が起動時に CodePagesEncodingProvider を登録する。Shift_JIS、EUC-JP などが使える", "default": true }
+    ],
+    "event-log": [
+      { "id": "stderr", "title": "Linux では標準エラーへ", "description": "Windows ではイベントログ、Linux ではサービスのジャーナル・コンテナのログに出る(FrameworkOnCore.EventLogs)", "default": true },
+      { "id": "none", "title": "対応しない", "description": "Linux では例外" }
+    ],
+    "windows-identity": [
+      { "id": "compat", "title": "互換(Windows 以外はアカウントなし)", "description": "WindowsIdentity.GetCurrent などを Platform の置き換えに", "default": true },
+      { "id": "none", "title": "対応しない", "description": "Linux では例外" }
+    ],
+    "entity-framework-4": [
+      { "id": "ef6", "title": "EF6 に移す", "description": "EntityFramework 6 のパッケージを加え、名前空間を書き換え、EDMX を埋め込む", "default": true },
+      { "id": "none", "title": "対応しない", "description": "EF4 の型はスタブになる" }
+    ],
+    "file-access-control": [
+      { "id": "compat", "title": "互換(Windows のみ動く)", "description": "Directory/File.GetAccessControl などを FrameworkOnCore.DirectoryAcl・FileAcl に(Linux では例外)", "default": true },
+      { "id": "none", "title": "対応しない", "description": "スタブ" }
+    ],
+    "system-drawing": [
+      { "id": "windows-only", "title": "Windows のみ", "description": "System.Drawing.Common 10。Linux では例外", "default": true },
+      { "id": "libgdiplus", "title": "Linux でも動かす(libgdiplus)", "description": "Linux では System.Drawing.Common 6.0 と libgdiplus(サポート切れ)", "planned": true }
+    ],
+    "linq-to-sql": [
+      { "id": "none", "title": "対応しない", "description": "スタブ", "default": true },
+      { "id": "port", "title": "移植版を使う", "description": "referencesource(MIT)から移植した System.Data.Linq", "planned": true }
+    ],
+    "charts": [
+      { "id": "none", "title": "対応しない", "description": "スタブ(グラフの画面は例外)", "default": true },
+      { "id": "port", "title": "移植版を使う", "description": "referencesource(MIT)から移植した System.Web.DataVisualization", "planned": true }
+    ],
+    "wcf-server": [
+      { "id": "none", "title": "対応しない", "description": "スタブ", "default": true },
+      { "id": "corewcf", "title": "CoreWCF", "description": "サービスを CoreWCF で動かす", "planned": true }
+    ]
+  },
+  "$comment_settings": "Choices that are the application's, not an API's: shown whatever the analysis finds.",
+  "settings": [
+    {
+      "id": "file-name-case", "title": "ファイル名の大文字小文字(Linux)",
+      "options": [
+        { "id": "insensitive", "title": "Windows と同じく区別しない", "description": "配置に casefs(libfoccase.so)を含め、start.sh が読み込む", "default": true },
+        { "id": "sensitive", "title": "区別する(Linux のまま)", "description": "アプリが違う大文字小文字でファイルを参照していると見つからない" }
+      ]
+    }
+  ],
   "components": [
     {
       "id": "thread-abort", "title": "スレッドの中断(Thread.Abort / ResetAbort)",
@@ -33,8 +98,8 @@
     },
     {
       "id": "code-pages", "title": "コードページ(Shift_JIS など)",
-      "match": { "members": [ "System.Text.Encoding.GetEncoding", "System.Text.Encoding.GetEncodings" ] }, "status": "Behavior",
-      "note": ".NET はプロバイダーを登録しないと Unicode と ASCII・Latin-1 だけ。変換器: Program で CodePagesEncodingProvider を登録する"
+      "match": { "members": [ "System.Text.Encoding.GetEncoding", "System.Text.Encoding.GetEncodings" ] },
+      "note": ".NET はプロバイダーを登録しないと Unicode と ASCII・Latin-1 だけ。フォーク(UseWebForms)が起動時に登録する"
     },
     {
       "id": "system-drawing", "title": "System.Drawing(画像・フォント、GDI+)",

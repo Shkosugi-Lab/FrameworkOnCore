@@ -6,11 +6,6 @@ public class Program
 {
     public static void Main(string[] args)
     {
-        // The code pages .NET Framework had (Shift_JIS, EUC-JP, GB2312, Windows-1252, ...): .NET has only the
-        // Unicode ones and ASCII, Latin-1 until a provider is registered. Before web.config is read (its
-        // <globalization> encodings).
-        System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
-
         // As ASP.NET runs it on .NET Framework: in a worker process, from a copy of bin (bin stays
         // writable), started again when the application restarts (web.config or bin changed).
         if (System.Web.Hosting.WebFormsProcess.RunInWorker(args, out var exitCode))

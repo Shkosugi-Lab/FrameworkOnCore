@@ -9,7 +9,7 @@ namespace FrameworkOnCore.Converter;
 /// FrameworkOnCore.Converter analyze &lt;project&gt; --out &lt;dir&gt; [--root &lt;dir&gt;] [--configuration &lt;name&gt;] [--runtime &lt;dir&gt;]:
 /// the APIs of .NET Framework the application uses, with their counts, and what a converted application has of each
 /// on .NET 10: .NET's, the packages these rules add, the fork's (the feed), the compatibility assembly (the shims).
-/// Writes api-analysis.json (the data a UI reads) and API-ANALYSIS.md.
+/// Writes api-analysis.json (the data a UI reads), API-ANALYSIS.md, and foc-choices.json (the choices at their defaults).
 /// </summary>
 static class AnalyzeCommand
 {
@@ -46,6 +46,8 @@ static class AnalyzeCommand
         Directory.CreateDirectory(outDirectory);
         File.WriteAllText(Path.Combine(outDirectory, "api-analysis.json"), JsonSerializer.Serialize(result, AnalysisResult.Json), new UTF8Encoding(false));
         File.WriteAllText(Path.Combine(outDirectory, "API-ANALYSIS.md"), AnalysisMarkdown.Write(result), new UTF8Encoding(false));
+        // The choices to make, at their defaults: what the user edits (or a UI writes) and gives the conversion (--choices).
+        Choices.Defaults(result, Catalog.Default()).Save(Path.Combine(outDirectory, "foc-choices.json"));
         var attention = result.Components.Where(c => c.Status < ApiStatus.Available).ToList();
         Console.WriteLine($"{result.Apis.Count} APIs, {result.Apis.Sum(a => a.Count)} uses; {attention.Count} components to decide: " +
                           string.Join(", ", attention.Select(c => $"{c.Id} ({AnalysisMarkdown.Label(c.Status)}, {c.AttentionApis} APIs, {c.AttentionCount} uses)")));

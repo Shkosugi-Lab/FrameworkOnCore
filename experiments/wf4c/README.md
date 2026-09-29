@@ -533,7 +533,7 @@ nopCommerce の最後の Web Forms 版(2011、.NET Framework 4.0、56 プロジ�
 
 8 コーパスの変換レポートとソースから洗い出し、.NET 10 / Linux での実際の挙動を確かめた(`FRAMEWORK-ONLY-APIS.md`、`api-probe/`)。例外になる 3 つを変換器で直した。確認用に `samples/RuntimeProbe`(.NET Framework の Web Forms)を作り、変換して Windows と Linux で開く(`probe-requests.ps1 [-Linux]`)。
 
-- コードページ(Shift_JIS など): .NET はプロバイダーを登録しないと Unicode と ASCII・Latin-1 だけ。Program.cs(.vb)のテンプレートの最初で `CodePagesEncodingProvider` を登録する(web.config の `responseEncoding="shift_jis"` を読む前)。
+- コードページ(Shift_JIS など): .NET はプロバイダーを登録しないと Unicode と ASCII・Latin-1 だけ。**(訂正 2026-09-29)** フォークの `UseWebForms` が以前から登録していた(検索が .gitignore のフォークのソースを見ておらず、見落とした)。Program.cs(.vb)のテンプレートに入れた登録は重複なので外した。
 - `Encoding.Default`: .NET Framework はシステムの ANSI コードページ(日本語の Windows では Shift_JIS)、.NET は UTF-8。互換アセンブリの `Platform.DefaultEncoding` に置き換える(Windows は GetACP、Linux は LANG のカルチャの ANSI コードページ。deploy の start.sh は元のサーバーのカルチャを LANG にする)。be・mojo・n2・nop が使う。
 - `Thread.ResetAbort`: .NET では例外。フォークの `Response.End`(Redirect・Transfer)は ThreadAbortException を投げるので、DNN の `catch (ThreadAbortException) { Thread.ResetAbort(); }`(URL の書き換え、モジュールの読み込みなど 5 か所)は実際に通る。互換アセンブリの `Platform.ResetAbort` に置き換える(フォークの `HttpResponse.ResetThreadAbort` を実行時に探して呼ぶ。互換アセンブリはフォークを参照しない)。直さないと、リダイレクトが 503 になり、catch の後のコードが動かなかった。
 - `BinaryFormatter`: .NET 9 で削除(例外)。ソースが使っていれば、互換パッケージ `System.Runtime.Serialization.Formatters` 10.0.12 を加え、Web プロジェクトに `EnableUnsafeBinaryFormatterSerialization`(`sourcePackages` の `appProperties`: 使うのがライブラリでも、実行されるアプリに付ける)。パッケージのアセンブリ(10.0.0.0)はランタイムのもの(8.1.0.0)より上なので、ランタイムの修正版に関係なくこちらが読み込まれる。.NET Framework 4.8 が書いたデータ(Hashtable、List<string>、DateTime)を読めることを確認した。フォークの `WebFormsForCore.Serialization.Formatters` は別の名前空間で、フォーク自身のためのもの。
@@ -566,7 +566,15 @@ System.Drawing を Linux で動かす試み(`api-probe/drawing`、Ubuntu 24.04 �
 
 誤検出を直したもの: 名前付きタプルの要素(実体は Item1)、内部の型、.NET で基底型に移ったメンバー(DirectoryInfo.FullName)、インデクサー(Roslyn の ID は Item、VB は ItemOf)、Roslyn の ID の戻り値の型(`~System.String`)、フォークの依存パッケージ、互換アセンブリの拡張メソッド。
 
-次: カタログに部品ごとの選択肢を持たせ、選択のファイル(`--choices`)に従って変換する(第 2 段階)。その後に GUI。
+### 部品ごとの選択(第 2 段階、2026-09-30)
+
+- カタログ(`catalog/components.json`)に部品ごとの選択肢(`options`。既定、予定 `planned` は選べない)と、API でないアプリの設定(`settings`: ファイル名の大文字小文字)。選択肢の無い部品は「対応しない」だけ。
+- 選択のファイル `foc-choices.json`(`Choices`: 部品 -> 選択肢、API ごと(ドキュメント ID)、設定)。`analyze` が、対応を選ぶ部品を既定の値で書き出す。
+- 変換器の `--choices <file>`: カタログで検証し(無い部品・選択肢、予定の選択肢はエラー)、規則を絞る(`Rules.Choose`)。規則は属する選択肢を `"option": "部品:選択肢"` で持つ(packages.json の 14 規則、EF4 の名前空間の移動は `namespaceMovesOption`)。コードの分岐は `rules.IsChosen`(FOC1005 のデリゲート、EDMX の埋め込み)。ファイル名は `--case-insensitive` を指定しなければ設定の値。既定と違う選択はレポートに残す。
+- 確認: 選択なしと既定のファイルは同じ変換(be・wt はスナップショットで一致)。RuntimeProbe を「対応しない」で変換すると、差分は選んだ分だけ(4 ファイル、配置に casefs なし)で、実行すると .NET の既定の動き(ResetAbort の後が動かない、Encoding.Default が UTF-8、BinaryFormatter が 500)。テスト 55 件(Windows・Linux)、be は Linux で 5/5。
+- 訂正: コードページはフォークが登録するので、選択肢は「登録する(常に)」だけにした。
+
+次: GUI(ローカルの Web 画面。解析の JSON とカタログを読み、選択のファイルを書く)。
 ## 全コーパスでの検証(2026-09-27)
 
 `verify-corpora.ps1` で 6 本を変換してビルドした(Windows)。正解データがあるのは be と wt だけ。

@@ -359,7 +359,8 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
         foreach (var import in old.Descendants(msbuild + "Import").Where(e => e.Attribute("Include") != null && ItemHolds(e, name)))
             text.Append($"    <Import Include=\"{SecurityElement.Escape((string)import.Attribute("Include")!)}\" />\n");
         foreach (var e in embedded) text.Append($"    <EmbeddedResource Include=\"{SecurityElement.Escape(e)}\" />\n");
-        foreach (var (file, logicalName) in EntityDeploy(name, old, source, target))
+        // The models embedded for EF6 (entity-framework-4: ef6, the default).
+        foreach (var (file, logicalName) in rules.IsChosen("entity-framework-4:ef6") ? EntityDeploy(name, old, source, target) : [])
             text.Append($"    <EmbeddedResource Include=\"{SecurityElement.Escape(file)}\" LogicalName=\"{SecurityElement.Escape(logicalName)}\" />\n");
         text.Append("  </ItemGroup>\n\n  <ItemGroup>\n");
         foreach (var (id, version) in packages)

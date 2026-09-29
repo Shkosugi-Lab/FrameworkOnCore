@@ -83,7 +83,7 @@ static class BinaryScanner
     }
 
     /// <summary>Types as documentation ids write them: System.Collections.Generic.List{System.String}, `0, ``0, T[], T@.</summary>
-    sealed class DocIdTypeProvider(MetadataReader reader) : ISignatureTypeProvider<string, object?>
+    internal sealed class DocIdTypeProvider(MetadataReader reader) : ISignatureTypeProvider<string, object?>
     {
         public string TypeName(TypeReferenceHandle handle)
         {
@@ -127,8 +127,25 @@ static class BinaryScanner
         public string GetArrayType(string elementType, ArrayShape shape) => elementType + "[" + string.Join(",", Enumerable.Repeat("0:", shape.Rank)) + "]";
         public string GetByReferenceType(string elementType) => elementType + "@";
         public string GetPointerType(string elementType) => elementType + "*";
-        public string GetGenericInstantiation(string genericType, ImmutableArray<string> typeArguments) =>
-            System.Text.RegularExpressions.Regex.Replace(genericType, @"`\d+$", "") + "{" + string.Join(",", typeArguments) + "}";
+        // The arguments go to the names that declare them (a type nested in a generic one has its declaring type's):
+        // List`1.Enumerator with `0 is List{`0}.Enumerator, Dictionary`2.KeyCollection Dictionary{`0,`1}.KeyCollection.
+        public string GetGenericInstantiation(string genericType, ImmutableArray<string> typeArguments)
+        {
+            var parts = genericType.Split('.');
+            var used = 0;
+            for (var i = 0; i < parts.Length; i++)
+            {
+                var arity = System.Text.RegularExpressions.Regex.Match(parts[i], @"^(?<name>.*)`(?<n>\d+)$");
+                if (!arity.Success) continue;
+                var n = int.Parse(arity.Groups["n"].Value);
+                if (used + n > typeArguments.Length) break;
+                parts[i] = arity.Groups["name"].Value + "{" + string.Join(",", typeArguments.Skip(used).Take(n)) + "}";
+                used += n;
+            }
+            return used == typeArguments.Length && used > 0
+                ? string.Join('.', parts)
+                : System.Text.RegularExpressions.Regex.Replace(genericType, @"`\d+$", "") + "{" + string.Join(",", typeArguments) + "}";
+        }
         public string GetGenericTypeParameter(object? context, int index) => "`" + index;
         public string GetGenericMethodParameter(object? context, int index) => "``" + index;
         public string GetModifiedType(string modifier, string unmodifiedType, bool isRequired) => unmodifiedType;

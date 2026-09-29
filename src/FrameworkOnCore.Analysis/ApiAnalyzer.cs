@@ -159,9 +159,10 @@ public sealed class ApiAnalyzer(TargetApis target, Catalog catalog, IEnumerable<
         else if (info.ObsoleteId != null) status = ApiStatus.Obsolete;
         else status = ApiStatus.Available;
         // The compatibility assembly's extension member stands for a member .NET removed: a call in the sources compiles
-        // against it, a DLL's reference to the member is not bound to it (MissingMethodException when it runs).
-        if (info is { Assembly: null } && !api.Binaries.IsEmpty)
-            note = (note != null ? note + " " : "") + "ソースの無い DLL からの呼び出しは、互換アセンブリの拡張メンバーでは補えない(実行すると MissingMethodException)";
+        // against it; a DLL's call is replaced by the converter with a call of it (AssemblyRetargeter.ReplaceMembers).
+        var replacedCall = info is { Assembly: null } && !api.Binaries.IsEmpty;
+        if (replacedCall)
+            note = (note != null ? note + " " : "") + "ソースの無い DLL からの呼び出しは、変換器が互換アセンブリの拡張メンバーの呼び出しに置き換える";
         return new ApiUsage
         {
             Id = api.Key.Id, Name = api.Name, Kind = api.Kind, Assembly = api.Key.Assembly, Namespace = api.Key.Namespace,
@@ -174,7 +175,9 @@ public sealed class ApiAnalyzer(TargetApis target, Catalog catalog, IEnumerable<
             Binaries = api.Binaries.IsEmpty ? null : api.Binaries.Select(b => new FileCount(b.Key, b.Value)).OrderBy(b => b.File, StringComparer.Ordinal).ToList(),
             // DLLs bind [assembly]type: .NET has the type, but not where the DLLs look (the fork's CallContext is in its
             // System.Web, not in mscorlib) - the converter retargets those references.
-            RetargetedTo = !api.Binaries.IsEmpty && info is { Assembly: { } where, Type: { } type } && !target.Binds(api.Key.Assembly, type) ? where : null,
+            RetargetedTo = replacedCall ? "FrameworkOnCore.Compat"
+                : !api.Binaries.IsEmpty && info is { Assembly: { } where, Type: { } type } && !target.Binds(api.Key.Assembly, type) ? where : null,
+            CallReplaced = replacedCall,
         };
     }
 

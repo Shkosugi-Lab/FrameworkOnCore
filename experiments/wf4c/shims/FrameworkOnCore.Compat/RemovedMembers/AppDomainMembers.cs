@@ -30,6 +30,25 @@ namespace System
             public string ConfigurationFile =>
                 AppDomain.CurrentDomain.GetData("APP_CONFIG_FILE") as string ??
                 IO.Path.Combine(AppContext.BaseDirectory, "web.config");
+
+            /// <summary>
+            /// Where the application's assemblies are, under ApplicationBase: bin, as ASP.NET set it (OWIN's startup
+            /// discovery scans these folders). Setting it has no effect: .NET does not probe such folders.
+            /// </summary>
+            public string PrivateBinPath
+            {
+                get => "bin";
+                set { }
+            }
+
+            /// <summary>
+            /// Not null: the application's base folder itself is not searched, only PrivateBinPath ("*", as ASP.NET set it).
+            /// </summary>
+            public string PrivateBinPathProbe
+            {
+                get => "*";
+                set { }
+            }
         }
     }
 }

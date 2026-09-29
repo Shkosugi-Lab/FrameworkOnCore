@@ -43,7 +43,61 @@ public sealed class TargetApis
                 if (method.Parameters[0].Type.OriginalDefinition is INamedTypeSymbol extended)
                     extensions.TryAdd(FullName(extended) + "." + method.Name, "compat");
             }
+            // C# 14's extension members as metadata has them (properties, static members: what [Extension] does not mark).
+            foreach (var (type, member) in ExtensionMembers(reference.FilePath!)) extensions.TryAdd(type + "." + member, "compat");
         }
+    }
+
+    // A C# 14 extension block: a grouping type (<G>$...) in the static class, with the members as written (marked
+    // ExtensionMarker("<M>$...")) and a marker type whose <Extension>$(receiver) names the type extended. A property is
+    // its name (get_X, set_X: X).
+    static IEnumerable<(string Type, string Member)> ExtensionMembers(string file)
+    {
+        var found = new List<(string, string)>();
+        try
+        {
+            using var stream = File.OpenRead(file);
+            using var pe = new System.Reflection.PortableExecutable.PEReader(stream);
+            var reader = System.Reflection.Metadata.PEReaderExtensions.GetMetadataReader(pe);
+            var provider = new BinaryScanner.DocIdTypeProvider(reader);
+            foreach (var groupingHandle in reader.TypeDefinitions)
+            {
+                var grouping = reader.GetTypeDefinition(groupingHandle);
+                if (grouping.GetDeclaringType().IsNil || !reader.GetString(grouping.Name).StartsWith("<G>$", StringComparison.Ordinal)) continue;
+                var receivers = new Dictionary<string, string>(StringComparer.Ordinal);
+                foreach (var markerHandle in grouping.GetNestedTypes())
+                {
+                    var marker = reader.GetTypeDefinition(markerHandle);
+                    foreach (var methodHandle in marker.GetMethods())
+                    {
+                        var method = reader.GetMethodDefinition(methodHandle);
+                        if (reader.GetString(method.Name) != "<Extension>$") continue;
+                        var signature = method.DecodeSignature(provider, null);
+                        if (signature.ParameterTypes.Length == 1)
+                            receivers[reader.GetString(marker.Name)] = System.Text.RegularExpressions.Regex.Replace(signature.ParameterTypes[0], @"\{.*\}$", "");
+                    }
+                }
+                foreach (var methodHandle in grouping.GetMethods())
+                {
+                    var method = reader.GetMethodDefinition(methodHandle);
+                    foreach (var attributeHandle in method.GetCustomAttributes())
+                    {
+                        var attribute = reader.GetCustomAttribute(attributeHandle);
+                        if (attribute.Constructor.Kind != System.Reflection.Metadata.HandleKind.MemberReference) continue;
+                        var constructor = reader.GetMemberReference((System.Reflection.Metadata.MemberReferenceHandle)attribute.Constructor);
+                        if (constructor.Parent.Kind != System.Reflection.Metadata.HandleKind.TypeReference ||
+                            reader.GetString(reader.GetTypeReference((System.Reflection.Metadata.TypeReferenceHandle)constructor.Parent).Name) != "ExtensionMarkerAttribute") continue;
+                        var value = reader.GetBlobReader(attribute.Value);
+                        value.ReadUInt16();  // prolog
+                        if (value.ReadSerializedString() is not { } markerName || !receivers.TryGetValue(markerName, out var receiver)) continue;
+                        var name = reader.GetString(method.Name);
+                        found.Add((receiver, name.StartsWith("get_", StringComparison.Ordinal) || name.StartsWith("set_", StringComparison.Ordinal) ? name.Substring(4) : name));
+                    }
+                }
+            }
+        }
+        catch (Exception e) when (e is BadImageFormatException or InvalidOperationException) { }
+        return found;
     }
 
     static IEnumerable<INamedTypeSymbol> Types(INamespaceSymbol ns) =>
@@ -62,7 +116,7 @@ public sealed class TargetApis
         if (symbol == null)
         {
             var key = ApiKey.From(id, "");
-            return id[0] == 'M' && key.Member != null && extensions.TryGetValue(key.Type + "." + key.Member, out var extension)
+            return id[0] is 'M' or 'P' && key.Member != null && extensions.TryGetValue(key.Type + "." + key.Member, out var extension)
                 ? new TargetInfo(extension, false, null, null) : null;
         }
         var reference = compilation.GetMetadataReference(symbol.ContainingAssembly) as PortableExecutableReference;

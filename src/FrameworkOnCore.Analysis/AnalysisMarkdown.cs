@@ -84,10 +84,11 @@ public static class AnalysisMarkdown
         text.AppendLine();
 
         // The references the converter retargets: .NET has the type, not in the assembly the DLL names.
-        var retargeted = result.Apis.Where(a => a.RetargetedTo != null).GroupBy(a => (a.Assembly, To: a.RetargetedTo!)).ToList();
+        var retargeted = result.Apis.Where(a => a.RetargetedTo != null).GroupBy(a => (a.Assembly, To: a.RetargetedTo!, a.CallReplaced)).ToList();
         text.AppendLine($"## DLL の参照の付け替え({retargeted.Sum(g => g.Count())} 件)");
         text.AppendLine();
-        text.AppendLine("ソースのない DLL は型を「アセンブリ+型名」で参照する。次の型は .NET 10 にあるが、DLL が参照するアセンブリには無いので、変換器が DLL の参照先を付け替える(動く)。");
+        text.AppendLine("ソースのない DLL は型を「アセンブリ+型名」で参照する。次の型は .NET 10 にあるが、DLL が参照するアセンブリには無いので、変換器が DLL の参照先を付け替える(動く)。" +
+            "「呼び出しを置き換え」は、.NET の型に無いメンバーを互換アセンブリが拡張メンバーとして持つもので、変換器が DLL の呼び出しをそれに置き換える。");
         text.AppendLine();
         if (retargeted.Count > 0)
         {
@@ -97,7 +98,7 @@ public static class AnalysisMarkdown
             {
                 var names = g.OrderBy(a => a.Kind != "Type").ThenBy(a => a.Name, StringComparer.Ordinal).Select(a => a.Name).ToList();
                 var dlls = g.SelectMany(a => a.Binaries ?? []).Select(b => Path.GetFileName(b.File)).Distinct(StringComparer.OrdinalIgnoreCase).ToList();
-                text.AppendLine($"| {g.Key.Assembly} → {g.Key.To} | {Cell(string.Join("、", names.Take(8)) + (names.Count > 8 ? $" ほか {names.Count - 8}" : ""))} | {Cell(string.Join(", ", dlls.Take(5)) + (dlls.Count > 5 ? $" ほか {dlls.Count - 5}" : ""))} |");
+                text.AppendLine($"| {g.Key.Assembly} → {g.Key.To}{(g.Key.CallReplaced ? "(呼び出しを置き換え)" : "")} | {Cell(string.Join("、", names.Take(8)) + (names.Count > 8 ? $" ほか {names.Count - 8}" : ""))} | {Cell(string.Join(", ", dlls.Take(5)) + (dlls.Count > 5 ? $" ほか {dlls.Count - 5}" : ""))} |");
             }
             text.AppendLine();
         }

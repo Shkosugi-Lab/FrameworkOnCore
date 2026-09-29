@@ -123,6 +123,53 @@ public sealed class AssemblyRetargeterTests : IDisposable
     }
 
     [Fact]
+    public void A_call_of_a_member_NET_does_not_have_goes_to_the_compatibility_assemblys_extension_member()
+    {
+        // The compatibility assembly as it is built (AppDomainSetup.PrivateBinPath: an extension property).
+        var runtime = RuntimeSetup.Find()!;
+        RuntimeSetup.EnsureShims(runtime);
+        var compat = RuntimeSetup.ShimAssembly(RuntimeSetup.ShimProjects(runtime).Single(p => Path.GetFileNameWithoutExtension(p) == "FrameworkOnCore.Compat"));
+        File.Copy(compat, Path.Combine(Bin, "FrameworkOnCore.Compat.dll"));
+
+        // A .NET Framework library's call: AppDomain.CurrentDomain.SetupInformation.PrivateBinPath (OWIN's startup discovery).
+        const string name = "Owin.Like";
+        using (var assembly = AssemblyDefinition.CreateAssembly(new AssemblyNameDefinition(name, new Version(1, 0)), name, ModuleKind.Dll))
+        {
+            var module = assembly.MainModule;
+            var mscorlib = new AssemblyNameReference("mscorlib", new Version(4, 0, 0, 0)) { PublicKeyToken = [0xb7, 0x7a, 0x5c, 0x56, 0x19, 0x34, 0xe0, 0x89] };
+            module.AssemblyReferences.Add(mscorlib);
+            var appDomain = new TypeReference("System", "AppDomain", module, mscorlib);
+            var setup = new TypeReference("System", "AppDomainSetup", module, mscorlib);
+            var @string = new TypeReference("System", "String", module, mscorlib);
+            var holder = new TypeDefinition("Library", "Loader", TypeAttributes.Public | TypeAttributes.Class | TypeAttributes.Abstract | TypeAttributes.Sealed, module.TypeSystem.Object);
+            module.Types.Add(holder);
+            var method = new MethodDefinition("BinPath", MethodAttributes.Public | MethodAttributes.Static, module.TypeSystem.String);
+            holder.Methods.Add(method);
+            var il = method.Body.GetILProcessor();
+            il.Emit(Mono.Cecil.Cil.OpCodes.Call, new MethodReference("get_CurrentDomain", appDomain, appDomain));
+            il.Emit(Mono.Cecil.Cil.OpCodes.Callvirt, new MethodReference("get_SetupInformation", setup, appDomain) { HasThis = true });
+            il.Emit(Mono.Cecil.Cil.OpCodes.Callvirt, new MethodReference("get_PrivateBinPath", @string, setup) { HasThis = true });
+            il.Emit(Mono.Cecil.Cil.OpCodes.Ret);
+            assembly.Write(Path.Combine(Bin, name + ".dll"));
+        }
+        var into = Path.Combine(directory, "retargeted");
+
+        var result = Assert.Single(AssemblyRetargeter.RetargetFolder(Bin, into, new HashSet<string> { "FrameworkOnCore.Compat" }, new HashSet<string>(), new Report()));
+
+        Assert.Equal(("System.AppDomainSetup::get_PrivateBinPath", "System.AppDomainMembers::get_PrivateBinPath (FrameworkOnCore.Compat)"), Assert.Single(result.Replaced));
+        Assert.Empty(result.MissingMembers);
+        // It runs: the call is the compatibility assembly's (bin, as ASP.NET had it).
+        var context = new System.Runtime.Loader.AssemblyLoadContext("retargeted", isCollectible: true);
+        context.Resolving += (c, n) => n.Name == "FrameworkOnCore.Compat" ? c.LoadFromAssemblyPath(Path.Combine(Bin, "FrameworkOnCore.Compat.dll")) : null;
+        try
+        {
+            var loaded = context.LoadFromStream(new MemoryStream(File.ReadAllBytes(Path.Combine(into, name + ".dll"))));
+            Assert.Equal("bin", loaded.GetType("Library.Loader")!.GetMethod("BinPath")!.Invoke(null, null));
+        }
+        finally { context.Unload(); }
+    }
+
+    [Fact]
     public void The_applications_own_assemblies_are_not_looked_at()
     {
         Provider("System.Web", new Version(4, 0), "System.Runtime.Remoting.Messaging.CallContext");

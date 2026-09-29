@@ -110,6 +110,11 @@ public sealed record ApiUsage
     /// they resolve as they are, or no DLL references it.
     /// </summary>
     public string? RetargetedTo { get; init; }
+    /// <summary>
+    /// The member is not on .NET's type; the compatibility assembly gives it (an extension member): a DLL's call is
+    /// replaced with a call of it (RetargetedTo is the compatibility assembly).
+    /// </summary>
+    public bool CallReplaced { get; init; }
 }
 
 public sealed record FileCount(string File, int Count);

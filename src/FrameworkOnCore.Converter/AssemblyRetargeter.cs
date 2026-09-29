@@ -4,6 +4,10 @@ using System.Reflection.PortableExecutable;
 using System.Runtime.InteropServices;
 using Mono.Cecil;
 using ModuleDefinition = Mono.Cecil.ModuleDefinition;
+using AssemblyDefinition = Mono.Cecil.AssemblyDefinition;
+using TypeDefinition = Mono.Cecil.TypeDefinition;
+using TypeReference = Mono.Cecil.TypeReference;
+using MethodDefinition = Mono.Cecil.MethodDefinition;
 
 namespace FrameworkOnCore.Converter;
 
@@ -26,12 +30,23 @@ public sealed class AssemblyRetargeter
     sealed record Target(string Name, string Path, Version Version, byte[] PublicKeyToken, int Rank,
         HashSet<string> Types, HashSet<string> PublicTypes, Dictionary<string, string> Forwards);
 
-    /// <summary>What was done to one DLL: the references retargeted, and those nothing has.</summary>
-    public sealed record Result(string File, IReadOnlyList<(string Type, string From, string To)> Retargeted, IReadOnlyList<(string Type, string From)> Unresolved);
+    /// <summary>
+    /// What was done to one DLL: the type references retargeted, those nothing has; the calls of members .NET does not
+    /// have replaced by the compatibility assembly's (Replaced: member -> its method), those left (MissingMembers).
+    /// </summary>
+    public sealed record Result(string File, IReadOnlyList<(string Type, string From, string To)> Retargeted, IReadOnlyList<(string Type, string From)> Unresolved)
+    {
+        public IReadOnlyList<(string Member, string To)> Replaced { get; init; } = [];
+        public IReadOnlyList<string> MissingMembers { get; init; } = [];
+    }
 
     const int Preferred = 0, Application = 1, Framework = 2;
     readonly Dictionary<string, Target> assemblies = new(StringComparer.OrdinalIgnoreCase);
     readonly Dictionary<string, List<Target>> byType = new(StringComparer.Ordinal);
+    // Members .NET does not have that the preferred assemblies give (C# 14 extension members): by the extended type,
+    // name, instance or static, parameter and return types -> the static method they compile to.
+    Dictionary<string, MethodDefinition>? replacements;
+    readonly Resolver resolver;
 
     /// <param name="application">The application's assemblies (a bin folder).</param>
     /// <param name="preferred">The names of the assemblies that exist to give .NET Framework's types (the fork's, the shims').</param>
@@ -42,6 +57,139 @@ public sealed class AssemblyRetargeter
         // The application's over .NET's: a package that ships an assembly .NET also has (System.Drawing.Common).
         foreach (var file in Directory.EnumerateFiles(application, "*.dll"))
             Add(file, preferred.Contains(Path.GetFileNameWithoutExtension(file)) ? Preferred : Application);
+        resolver = new Resolver(this);
+    }
+
+    /// <summary>Cecil's resolution (a member on its type and the types it derives from) over the same assemblies.</summary>
+    sealed class Resolver(AssemblyRetargeter owner) : IAssemblyResolver
+    {
+        readonly Dictionary<string, AssemblyDefinition?> loaded = new(StringComparer.OrdinalIgnoreCase);
+
+        public AssemblyDefinition Resolve(AssemblyNameReference name) => Resolve(name, new ReaderParameters());
+
+        public AssemblyDefinition Resolve(AssemblyNameReference name, ReaderParameters parameters)
+        {
+            if (!loaded.TryGetValue(name.Name, out var assembly))
+            {
+                assembly = owner.assemblies.TryGetValue(name.Name, out var target)
+                    ? AssemblyDefinition.ReadAssembly(target.Path, new ReaderParameters { AssemblyResolver = this })
+                    : null;
+                loaded[name.Name] = assembly;
+            }
+            return assembly ?? throw new AssemblyResolutionException(name);
+        }
+
+        public void Dispose()
+        {
+            foreach (var assembly in loaded.Values) assembly?.Dispose();
+            loaded.Clear();
+        }
+    }
+
+    static string Signature(IEnumerable<TypeReference> parameters, TypeReference returnType) =>
+        "(" + string.Join(",", parameters.Select(p => p.FullName)) + ")" + returnType.FullName;
+
+    static string Key(string type, string name, bool instance, string signature) => $"{type}|{name}|{(instance ? "i" : "s")}|{signature}";
+
+    // The preferred assemblies' C# 14 extension members: a static class, its grouping types (<G>$...) with the members as
+    // written (skeletons, marked ExtensionMarker("<M>$...")), the marker type's <Extension>$(receiver) naming the type
+    // extended; the static method each compiles to (the receiver first for an instance member) is in the class.
+    Dictionary<string, MethodDefinition> Replacements()
+    {
+        var found = new Dictionary<string, MethodDefinition>(StringComparer.Ordinal);
+        foreach (var target in assemblies.Values.Where(a => a.Rank == Preferred))
+        {
+            AssemblyDefinition assembly;
+            try { assembly = resolver.Resolve(new AssemblyNameReference(target.Name, target.Version)); }
+            catch (Exception e) when (e is AssemblyResolutionException or BadImageFormatException) { continue; }
+            foreach (var container in assembly.MainModule.Types.Where(t => t.IsPublic && t.IsAbstract && t.IsSealed))
+            {
+                foreach (var grouping in container.NestedTypes.Where(n => n.Name.StartsWith("<G>$", StringComparison.Ordinal)))
+                {
+                    var receivers = grouping.NestedTypes.Where(n => n.Name.StartsWith("<M>$", StringComparison.Ordinal))
+                        .Select(m => (m.Name, Receiver: m.Methods.FirstOrDefault(x => x.Name == "<Extension>$")?.Parameters.FirstOrDefault()?.ParameterType))
+                        .Where(m => m.Receiver != null && !m.Receiver.ContainsGenericParameter)
+                        .ToDictionary(m => m.Name, m => m.Receiver!, StringComparer.Ordinal);
+                    foreach (var skeleton in grouping.Methods.Where(m => !m.IsConstructor))
+                    {
+                        var marker = skeleton.CustomAttributes.FirstOrDefault(a => a.AttributeType.Name == "ExtensionMarkerAttribute")?.ConstructorArguments.FirstOrDefault().Value as string;
+                        if (marker == null || !receivers.TryGetValue(marker, out var receiver) || skeleton.HasGenericParameters) continue;
+                        var parameters = skeleton.Parameters.Select(p => p.ParameterType).ToList();
+                        var implementation = Signature(skeleton.IsStatic ? parameters : parameters.Prepend(receiver), skeleton.ReturnType);
+                        var method = container.Methods.FirstOrDefault(m => m.IsStatic && m.IsPublic && m.Name == skeleton.Name && Signature(m.Parameters.Select(p => p.ParameterType), m.ReturnType) == implementation);
+                        if (method != null) found.TryAdd(Key(receiver.FullName, skeleton.Name, !skeleton.IsStatic, Signature(parameters, skeleton.ReturnType)), method);
+                    }
+                }
+            }
+        }
+        return found;
+    }
+
+    // The replacement of a member .NET does not have: an extension member of the type or of one it derives from.
+    MethodDefinition? Replacement(TypeDefinition declaring, MethodReference member)
+    {
+        replacements ??= Replacements();
+        var signature = Signature(member.Parameters.Select(p => p.ParameterType), member.ReturnType);
+        for (var type = declaring; type != null;)
+        {
+            if (replacements.TryGetValue(Key(type.FullName, member.Name, member.HasThis, signature), out var method)) return method;
+            try { type = type.BaseType?.Resolve(); }
+            catch (AssemblyResolutionException) { type = null; }
+        }
+        return null;
+    }
+
+    // The calls of members .NET does not have (the type is there, the member is not: MissingMethodException when it
+    // runs) that an extension member of the compatibility assembly gives: `callvirt T::M(args)` becomes
+    // `call Members::M(T, args)` (the receiver is already first on the stack), a static call the static method.
+    // Those it cannot (a constructor, a generic member, a call through `constrained.`, a delegate to it) are listed.
+    (List<(string, string)> Replaced, List<string> Missing) ReplaceMembers(ModuleDefinition module)
+    {
+        var replaced = new List<(string, string)>();
+        var missing = new List<string>();
+        var map = new Dictionary<MethodReference, MethodDefinition>();
+        foreach (var member in module.GetMemberReferences().OfType<MethodReference>())
+        {
+            if (member.DeclaringType is ArrayType || member is GenericInstanceMethod) continue;
+            TypeDefinition? declaring;
+            MethodDefinition? resolved;
+            try
+            {
+                declaring = member.DeclaringType.Resolve();
+                if (declaring == null || declaring.Module == module) continue;
+                resolved = member.Resolve();
+            }
+            catch (AssemblyResolutionException) { continue; }
+            if (resolved != null) continue;
+            var name = $"{member.DeclaringType.FullName}::{member.Name}{Signature(member.Parameters.Select(p => p.ParameterType), member.ReturnType)}";
+            var replacement = member.DeclaringType.IsGenericInstance || member.HasGenericParameters || member.Name == ".ctor" ? null : Replacement(declaring, member);
+            if (replacement == null) missing.Add(name);
+            else map[member] = replacement;
+        }
+        if (map.Count == 0) return (replaced, missing);
+        var done = new HashSet<MethodReference>();
+        foreach (var type in module.GetTypes())
+        {
+            foreach (var method in type.Methods.Where(m => m.HasBody))
+            {
+                var instructions = method.Body.Instructions;
+                for (var i = 0; i < instructions.Count; i++)
+                {
+                    if (instructions[i].Operand is not MethodReference target || !map.TryGetValue(target, out var replacement)) continue;
+                    var call = instructions[i].OpCode.Code is Mono.Cecil.Cil.Code.Call or Mono.Cecil.Cil.Code.Callvirt;
+                    var constrained = i > 0 && instructions[i - 1].OpCode.Code == Mono.Cecil.Cil.Code.Constrained;
+                    if (!call || constrained)
+                    {
+                        missing.Add($"{target.DeclaringType.FullName}::{target.Name} ({instructions[i].OpCode}{(constrained ? " constrained." : "")}: not replaced)");
+                        continue;
+                    }
+                    instructions[i].OpCode = Mono.Cecil.Cil.OpCodes.Call;
+                    instructions[i].Operand = module.ImportReference(replacement);
+                    if (done.Add(target)) replaced.Add(($"{target.DeclaringType.FullName}::{target.Name}", $"{replacement.DeclaringType.FullName}::{replacement.Name} ({replacement.Module.Assembly.Name.Name})"));
+                }
+            }
+        }
+        return (replaced, missing.Distinct().ToList());
     }
 
     /// <summary>The shared frameworks a web application runs on: this runtime's Microsoft.NETCore.App and its ASP.NET Core.</summary>
@@ -132,7 +280,7 @@ public sealed class AssemblyRetargeter
     public Result? Retarget(string file, string output)
     {
         ModuleDefinition module;
-        try { module = ModuleDefinition.ReadModule(file, new ReaderParameters { InMemory = true }); }
+        try { module = ModuleDefinition.ReadModule(file, new ReaderParameters { InMemory = true, AssemblyResolver = resolver }); }
         catch (BadImageFormatException) { return null; }
         using (module)
         {
@@ -161,12 +309,21 @@ public sealed class AssemblyRetargeter
                 retargeted.Add(($"(version {reference.Version})", reference.Name, $"{available.Name} {available.Version}"));
                 reference.Version = available.Version;
             }
-            if (retargeted.Count == 0) return new Result(file, retargeted, unresolved);
+            // With the types where they are: the members the types do not have.
+            List<(string, string)> replaced;
+            List<string> missingMembers;
+            try { (replaced, missingMembers) = ReplaceMembers(module); }
+            catch (Exception e) when (e is AssemblyResolutionException or BadImageFormatException or InvalidOperationException or NotSupportedException)
+            {
+                (replaced, missingMembers) = ([], [$"(members not examined: {e.Message})"]);
+            }
+            if (retargeted.Count == 0 && replaced.Count == 0) return new Result(file, retargeted, unresolved) { MissingMembers = missingMembers };
             if ((module.Attributes & ModuleAttributes.ILOnly) == 0)
-                return new Result(file, [], unresolved.Concat(retargeted.Select(r => (r.Item1, r.Item2 + " (not IL only: not rewritten)"))).ToList());
+                return new Result(file, [], unresolved.Concat(retargeted.Select(r => (r.Item1, r.Item2 + " (not IL only: not rewritten)"))).ToList())
+                    { MissingMembers = missingMembers.Concat(replaced.Select(r => r.Item1 + " (not IL only: not rewritten)")).ToList() };
             Directory.CreateDirectory(Path.GetDirectoryName(output)!);
             module.Write(output);
-            return new Result(file, retargeted, unresolved);
+            return new Result(file, retargeted, unresolved) { Replaced = replaced, MissingMembers = missingMembers };
         }
     }
 
@@ -204,6 +361,7 @@ public sealed class AssemblyRetargeter
     public static List<Result> RetargetFolder(string bin, string? into, ISet<string> preferred, ISet<string> skip, Report report)
     {
         var retargeter = new AssemblyRetargeter(bin, preferred);
+        using var _ = retargeter.resolver;
         var results = new List<Result>();
         foreach (var file in Directory.EnumerateFiles(bin, "*.dll").OrderBy(f => f, StringComparer.OrdinalIgnoreCase))
         {
@@ -219,6 +377,13 @@ public sealed class AssemblyRetargeter
                 report.Add(Report.Kind.Unsupported, Path.GetFileName(file),
                     $"type references that neither .NET 10 nor the application has ({result.Unresolved.Count}; TypeLoadException where they are used): " +
                     string.Join(", ", result.Unresolved.Take(8).Select(u => $"[{u.From}]{u.Type}")) + (result.Unresolved.Count > 8 ? ", ..." : ""));
+            if (result.Replaced.Count > 0)
+                report.Add(Report.Kind.Project, Path.GetFileName(file),
+                    $"calls of members .NET does not have replaced ({result.Replaced.Count}): " + string.Join(", ", result.Replaced.Select(r => $"{r.Member} -> {r.To}")));
+            if (result.MissingMembers.Count > 0)
+                report.Add(Report.Kind.Unsupported, Path.GetFileName(file),
+                    $"members that neither .NET 10 nor the compatibility assembly has ({result.MissingMembers.Count}; MissingMethodException where they are used): " +
+                    string.Join(", ", result.MissingMembers.Take(8)) + (result.MissingMembers.Count > 8 ? ", ..." : ""));
         }
         return results;
     }

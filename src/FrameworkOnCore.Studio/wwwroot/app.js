@@ -398,17 +398,19 @@ function retargetCard(r) {
   if (!apis.length) return '';
   const groups = new Map();
   for (const a of apis) {
-    const key = `${a.assembly} → ${a.retargetedTo}`;
-    if (!groups.has(key)) groups.set(key, { from: a.assembly, to: a.retargetedTo, apis: [], dlls: new Set() });
+    const key = `${a.assembly} → ${a.retargetedTo}${a.callReplaced ? ' call' : ''}`;
+    if (!groups.has(key)) groups.set(key, { from: a.assembly, to: a.retargetedTo, call: a.callReplaced, apis: [], dlls: new Set() });
     const g = groups.get(key);
     g.apis.push(a);
     for (const b of a.binaries ?? []) g.dlls.add(b.file.split('/').pop());
   }
   const rows = [...groups.values()].map(g => {
-    const types = g.apis.filter(a => a.kind === 'Type').map(a => a.name);  // broken after a dot, not within a name
+    // A call replaced: the members themselves (the type is .NET's); retargeted: the types (and how many members).
+    const types = g.apis.filter(a => g.call || a.kind === 'Type').map(a => a.name);  // broken after a dot, not within a name
     const members = g.apis.length - types.length;
     return `<tr>
-      <td><span class="retarget-flow"><code>${esc(g.from)}</code><span class="arrow" aria-hidden="true">→</span><code>${esc(g.to)}</code></span></td>
+      <td><span class="retarget-flow"><code>${esc(g.from)}</code><span class="arrow" aria-hidden="true">→</span><code>${esc(g.to)}</code></span>
+        ${g.call ? '<div class="api-detail">呼び出しを置き換え(.NET の型に無いメンバー)</div>' : ''}</td>
       <td>${types.map(t => `<div class="api-name">${esc(t).replaceAll('.', '.<wbr>')}</div>`).join('')}${members ? `<div class="api-detail">そのメンバー ${fmt(members)} 件</div>` : ''}</td>
       <td class="dlls">${[...g.dlls].map(d => `<div>${esc(d)}</div>`).join('')}</td>
     </tr>`;
@@ -440,7 +442,7 @@ function apiTable(c, apis, options) {
     const dlls = (a.binaries ?? []).map(b => b.file.split('/').pop());
     return `<tr>
       <td><div class="api-name">${esc(a.name)}</div>${a.obsolete || a.note ? `<div class="api-detail">${esc(a.obsolete ?? a.note)}</div>` : ''}
-        ${a.retargetedTo ? `<div class="api-retarget">↪ DLL の参照を付け替え: <code>${esc(a.assembly)}</code> → <code>${esc(a.retargetedTo)}</code></div>` : ''}</td>
+        ${a.retargetedTo ? `<div class="api-retarget">↪ ${a.callReplaced ? 'DLL の呼び出しを置き換え' : 'DLL の参照を付け替え'}: <code>${esc(a.assembly)}</code> → <code>${esc(a.retargetedTo)}</code></div>` : ''}</td>
       <td>${pill(a.status)}</td>
       <td class="r">${fmt(a.count)}</td>
       <td>${place ? `<button class="place" data-file="${esc(place.file)}" data-line="${place.line}" data-api="${esc(a.name)}">${esc(place.file)}:${place.line}</button>

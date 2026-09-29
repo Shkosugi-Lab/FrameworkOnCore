@@ -38,6 +38,7 @@
 | `wt` | WingtipToys | `corn-mendoza/wingtiptoys` @ `master` |
 | `imis` | openIMIS Web Application(VB。24.10 で開発終了) | `openimis/web_app_vb` @ `main` |
 | `imisdb` | openIMIS の SQL Server の DB(`imis` のデモの DB を作るスクリプト) | `openimis/database_ms_sqlserver` @ `24.10` |
+| `nop` | nopCommerce 1.90(C#。最後の Web Forms 版、EF4) | `nopSolutions/nopCommerce` @ `release-1.90` |
 
 `n2` は**ホールドアウト**として後から追加したものです。他の 5 本は変換器を育てる過程で
 使ってきたため、それらへの適合しすぎを検出する対照が必要でした。追加時点の初回変換で、

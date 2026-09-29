@@ -1,0 +1,34 @@
+From f0a1cd3abe472b13d62bcd635ac9e0005237ccf0 Mon Sep 17 00:00:00 2001
+From: shkosugi <sin.kosugi@gmail.com>
+Date: Tue, 29 Sep 2026 18:21:53 +0900
+Subject: [PATCH] Server.MachineName on Linux: the host's name as .NET has it
+
+HttpServerUtility.MachineName called kernel32's GetComputerName, which is not there elsewhere than on
+Windows (DllNotFoundException: nopCommerce 1.90's installer page). Elsewhere: Environment.MachineName.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+---
+ src/WebFormsForCore.Web/HttpServerUtility.cs | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/src/WebFormsForCore.Web/HttpServerUtility.cs b/src/WebFormsForCore.Web/HttpServerUtility.cs
+index 50f48fe..1d4c9f1 100644
+--- a/src/WebFormsForCore.Web/HttpServerUtility.cs
++++ b/src/WebFormsForCore.Web/HttpServerUtility.cs
+@@ -911,6 +911,13 @@ namespace System.Web {
+                 if (_machineName != null)
+                     return _machineName;
+ 
++                // Elsewhere than Windows, kernel32's GetComputerName is not there: the host's name as .NET has it.
++                if (!OperatingSystem.IsWindows())
++                {
++                    _machineName = Environment.MachineName;
++                    return _machineName;
++                }
++
+                 StringBuilder   buf = new StringBuilder (_maxMachineNameLength);
+                 int             len = _maxMachineNameLength;
+ 
+-- 
+2.55.0.windows.3
+

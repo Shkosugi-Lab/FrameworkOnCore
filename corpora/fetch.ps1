@@ -57,7 +57,13 @@ $corpora = @(
 
     @{ Name = 'imisdb'; Title = 'openIMIS SQL Server database 24.10'
        Url = 'https://github.com/openimis/database_ms_sqlserver/archive/refs/tags/24.10.zip'
-       ExtractedAs = 'database_ms_sqlserver-24.10' }
+       ExtractedAs = 'database_ms_sqlserver-24.10' },
+
+    # nopCommerce 1.90 (2011), the last Web Forms version of the e-commerce platform (C#, .NET Framework 4.0, Entity Framework 4
+    # with an EDMX model: System.Data.Objects). Later versions are MVC (2.x-3.x) and ASP.NET Core (4.x).
+    @{ Name = 'nop'; Title = 'nopCommerce 1.90 (Web Forms)'
+       Url = 'https://github.com/nopSolutions/nopCommerce/archive/refs/tags/release-1.90.zip'
+       ExtractedAs = 'nopCommerce-release-1.90' }
 )
 
 # nopCommerce 1.90 について:

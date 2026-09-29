@@ -67,6 +67,14 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
         {
             if (!isSdk && !ItemHolds(reference, name)) continue;
             var referenced = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(projectPath)!, (string)reference.Attribute("Include")!));
+            // A path that is not there (a project moved in the repository: nopCommerce's promotion providers name
+            // ..\Nop.BusinessLogic, which is in Libraries): the repository's project of its GUID, as Visual Studio finds it.
+            if (!File.Exists(referenced) && reference.Elements().FirstOrDefault(e => e.Name.LocalName == "Project")?.Value is { } guid &&
+                ProjectOfGuid(guid) is { } byGuid)
+            {
+                report.Add(Report.Kind.Project, name, $"project reference {(string)reference.Attribute("Include")!} is not there: the project of its GUID, {Path.GetRelativePath(sourceRoot, byGuid)} (as Visual Studio finds it)");
+                referenced = byGuid;
+            }
             if (!IsConvertible(referenced))
             {
                 if (DeployedAssembly(referenced) is { } dll)
@@ -114,6 +122,20 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
                     removed = true;
                     report.Add(Report.Kind.Unsupported, subject, $"web.config <compilation><assemblies>: {assembly} left out (no .NET counterpart; pages using it do not compile)");
                 }
+            }
+            // What else names such an assembly: controls registered from it (<pages><controls>: the tag prefix's lookup
+            // loads it for every page with that prefix; nopCommerce registers asp: from System.Web.DataVisualization), and
+            // handlers and modules of its types (type="..., Assembly").
+            foreach (var add in configDocument.Descendants().Where(e => e.Name.LocalName == "add").ToList())
+            {
+                var parent = add.Parent?.Name.LocalName;
+                var assembly = parent == "controls" ? (string?)add.Attribute("assembly")
+                    : parent is "httpHandlers" or "handlers" or "httpModules" or "modules" && ((string?)add.Attribute("type"))?.Split(',') is { Length: > 1 } parts ? parts[1] : null;
+                var assemblyName = assembly?.Split(',')[0].Trim();
+                if (assemblyName == null || !rules.NoAnswer.Contains(assemblyName)) continue;
+                add.Remove();
+                removed = true;
+                report.Add(Report.Kind.Unsupported, subject, $"web.config <{parent}>: {(string?)add.Attribute("tagPrefix") ?? (string?)add.Attribute("name") ?? (string?)add.Attribute("path")} of {assemblyName} left out (no .NET counterpart)");
             }
             if (removed) configDocument.Save(target, SaveOptions.DisableFormatting);
         }
@@ -224,6 +246,14 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
                 }
                 // As MSBuild does with a HintPath to nothing (warning MSB3245): the reference is left out.
                 if (!File.Exists(dll)) { report.Add(Report.Kind.Project, name, $"{assembly}: HintPath to a file that is not there ({hint}), left out as MSBuild does"); continue; }
+                // A DLL checked into the repository of a package that has a .NET answer (nopCommerce's AjaxControlToolkit 4.1,
+                // which .NET's ASP.NET AJAX refuses): that package, as for a package reference.
+                if (rules.ReplacedPackages.TryGetValue(assembly, out var replacement))
+                {
+                    packages[replacement.Id] = replacement.Version;
+                    report.Add(Report.Kind.Project, name, $"{assembly}: a DLL in the repository ({hint}), replaced by the package {replacement.Id} {replacement.Version} (replacedPackages)");
+                    continue;
+                }
                 // A DLL checked into the repository: referenced where it is.
                 binaryReferences.Add((assembly, hint, reference.Element(msbuild + "Aliases")?.Value));
             }
@@ -244,6 +274,10 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
         if (webConfig != null)
         {
             TransformWebConfig(webConfig, TargetOf(webConfig), name, AddPackage);
+            // The folders' (nopCommerce's Administration registers controls of an assembly .NET does not have).
+            foreach (var folderConfig in Directory.EnumerateFiles(source, "web.config", new EnumerationOptions { MatchCasing = MatchCasing.CaseInsensitive, RecurseSubdirectories = true })
+                         .Where(c => !string.Equals(c, webConfig, StringComparison.OrdinalIgnoreCase) && !Regex.IsMatch(Path.GetRelativePath(source, c), @"^(bin|obj)[\\/]", RegexOptions.IgnoreCase)))
+                TransformWebConfig(folderConfig, TargetOf(folderConfig), $"{name} {Path.GetRelativePath(source, folderConfig)}", null);
         }
 
         AddSourcePackages(name, compile.Select(c => Path.Combine(source, c)), AddPackage);
@@ -320,6 +354,8 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
         foreach (var import in old.Descendants(msbuild + "Import").Where(e => e.Attribute("Include") != null && ItemHolds(e, name)))
             text.Append($"    <Import Include=\"{SecurityElement.Escape((string)import.Attribute("Include")!)}\" />\n");
         foreach (var e in embedded) text.Append($"    <EmbeddedResource Include=\"{SecurityElement.Escape(e)}\" />\n");
+        foreach (var (file, logicalName) in EntityDeploy(name, old, source, target))
+            text.Append($"    <EmbeddedResource Include=\"{SecurityElement.Escape(file)}\" LogicalName=\"{SecurityElement.Escape(logicalName)}\" />\n");
         text.Append("  </ItemGroup>\n\n  <ItemGroup>\n");
         foreach (var (id, version) in packages)
         {
@@ -525,6 +561,38 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
         return symbols;
     }
 
+    // Entity Framework's models (EntityDeploy: an .edmx): the .NET Framework build split each into its conceptual, storage
+    // and mapping models and embedded them (Data\NopModel.edmx: Data.NopModel.csdl, .ssdl, .msl; the connection string names
+    // them, res://*/Data.NopModel.csdl). The .NET SDK has no EntityDeploy: split here, embedded by the same names (nopCommerce's
+    // EF4, openIMIS's EF6 model).
+    List<(string File, string LogicalName)> EntityDeploy(string name, XDocument old, string source, string target)
+    {
+        var resources = new List<(string, string)>();
+        foreach (var model in old.Descendants(msbuild + "EntityDeploy").Where(e => ItemHolds(e, name)).Select(e => (string)e.Attribute("Include")!))
+        {
+            var path = Path.Combine(source, model);
+            if (!File.Exists(path)) { report.Add(Report.Kind.Error, name, $"EntityDeploy {model}: not there"); continue; }
+            var baseName = Path.ChangeExtension(model, null).Replace('\\', '.').Replace('/', '.');
+            XDocument edmx;
+            try { edmx = XDocument.Load(path); }
+            catch (System.Xml.XmlException e) { report.Add(Report.Kind.Error, name, $"EntityDeploy {model}: {e.Message}"); continue; }
+            var runtime = edmx.Descendants().FirstOrDefault(e => e.Name.LocalName == "Runtime");
+            var parts = new[] { ("ConceptualModels", ".csdl"), ("StorageModels", ".ssdl"), ("Mappings", ".msl") };
+            foreach (var (section, extension) in parts)
+            {
+                var content = runtime?.Elements().FirstOrDefault(e => e.Name.LocalName == section)?.Elements().FirstOrDefault();
+                if (content == null) { report.Add(Report.Kind.Error, name, $"EntityDeploy {model}: no {section}"); continue; }
+                var file = Path.Combine("FrameworkOnCore.EntityDeploy", baseName + extension);
+                var output = Path.Combine(target, file);
+                Directory.CreateDirectory(Path.GetDirectoryName(output)!);
+                new XDocument(new XDeclaration("1.0", "utf-8", null), new XElement(content)).Save(output);
+                resources.Add((file, baseName + extension));
+            }
+            report.Add(Report.Kind.Project, name, $"EntityDeploy {model}: its conceptual, storage and mapping models embedded ({baseName}.csdl, .ssdl, .msl), as the .NET Framework build did");
+        }
+        return resources;
+    }
+
     // Visual Basic's My: a desktop application's (MyType Windows, WindowsForms, Console: My.Application, My.Computer, My.User)
     // is in .NET's Windows desktop only (Microsoft.VisualBasic.Forms); the compiler's My template would name its types, in no
     // source file the build could fix. A server's (Web: My.Computer, My.User, My.Log, My.Request, My.Response) is in
@@ -603,6 +671,25 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
         {
             if (note.Pattern.IsMatch(text)) report.Add(Report.Kind.Unsupported, name, note.Note);
         }
+    }
+
+    Dictionary<string, string>? guidProjects;
+
+    // Project GUID -> project file (the repository's projects).
+    string? ProjectOfGuid(string guid)
+    {
+        if (guidProjects == null)
+        {
+            guidProjects = new(StringComparer.OrdinalIgnoreCase);
+            foreach (var file in Directory.EnumerateFiles(sourceRoot, "*.*proj", SearchOption.AllDirectories).Where(IsConvertible))
+            {
+                string? projectGuid = null;
+                try { projectGuid = XDocument.Load(file).Descendants().FirstOrDefault(e => e.Name.LocalName == "ProjectGuid")?.Value; }
+                catch (System.Xml.XmlException) { continue; }
+                if (!string.IsNullOrWhiteSpace(projectGuid)) guidProjects.TryAdd(projectGuid.Trim(), file);
+            }
+        }
+        return guidProjects.GetValueOrDefault(guid.Trim());
     }
 
     // Assembly name -> project file, for references to another project's build output (a HintPath

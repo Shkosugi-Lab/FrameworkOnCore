@@ -43,6 +43,13 @@ public sealed class Rules
     public required IReadOnlyList<PlatformReplacement> PlatformReplacements { get; init; }
     /// <summary>Packages used by their .NET Framework asset (package id -> the DLL in the package, and why).</summary>
     public required IReadOnlyDictionary<string, (string Asset, string Note)> FrameworkAssets { get; init; }
+    /// <summary>Namespaces a package moved (Entity Framework 4's System.Data.Objects, EF6's System.Data.Entity.Core.Objects): old -> new.</summary>
+    public required IReadOnlyDictionary<string, string> NamespaceMoves { get; init; }
+    /// <summary>Types a package moved out of a namespace the sources import (System.Data.EntityState): name -> its full name now.</summary>
+    public required IReadOnlyDictionary<string, string> TypeMoves { get; init; }
+    public required string NamespaceMovesNote { get; init; }
+    /// <summary>The namespaces the moved types were in (System.Data): a file that imports one names them unqualified.</summary>
+    public required IReadOnlyList<string> TypeMoveOrigins { get; init; }
 
     /// <summary>
     /// Dropped: listed, or a System.* 4.x package whose assembly .NET 10 has in the box (its reference
@@ -105,6 +112,10 @@ public sealed class Rules
             PlatformReplacements = root.GetProperty("platformReplacements").EnumerateArray().Select(e => new PlatformReplacement(
                 e.GetProperty("member").GetString()!, Optional(e, "then"), e.TryGetProperty("arguments", out var count) ? count.GetInt32() : null,
                 Optional(e, "parameterType"), e.GetProperty("replace").GetString()!, e.GetProperty("replacement").GetString()!, e.GetProperty("note").GetString()!)).ToList(),
+            NamespaceMoves = root.GetProperty("namespaceMoves").EnumerateObject().ToDictionary(p => p.Name, p => p.Value.GetString()!, StringComparer.Ordinal),
+            TypeMoves = root.GetProperty("typeMoves").EnumerateObject().ToDictionary(p => p.Name, p => p.Value.GetString()!, StringComparer.Ordinal),
+            NamespaceMovesNote = root.GetProperty("$comment_namespaceMoves").GetString()!,
+            TypeMoveOrigins = root.GetProperty("typeMoveOrigins").EnumerateArray().Select(e => e.GetString()!).ToList(),
             SourceNotes = root.GetProperty("sourceNotes").EnumerateArray().Select(e => new SourceNote(
                 new Regex(e.GetProperty("pattern").GetString()!, RegexOptions.Compiled), e.GetProperty("note").GetString()!)).ToList(),
         };

@@ -165,6 +165,16 @@ public sealed partial class BuildFixer(Report report, IReadOnlyCollection<Conver
                 if (errors.Count == 0) report.Add(Report.Kind.Error, "build", "the build failed without a compiler error (see the build output)");
                 return false;
             }
+            // Namespaces and types a package moved (BuildFixer.Moves.cs): only those this round; what follows from them is the
+            // next build's.
+            var moves = fixable.Where(e => SourceLanguage.For(e.File!) == SourceLanguage.CSharp && IsMove(e)).ToList();
+            if (moves.Count > 0)
+            {
+                var moved = false;
+                foreach (var file in moves.GroupBy(e => e.File!, StringComparer.OrdinalIgnoreCase)) moved |= FixMoves(file.Key, file.ToList());
+                Console.WriteLine($"  moved namespaces and types in {moves.Select(e => e.File).Distinct(StringComparer.OrdinalIgnoreCase).Count()} file(s)");
+                if (moved) continue;
+            }
             var changed = false;
             var before = report.Entries.Count(e => e.Kind == Report.Kind.Stub);
             foreach (var file in fixable.GroupBy(e => e.File!, StringComparer.OrdinalIgnoreCase))
@@ -396,11 +406,11 @@ public sealed partial class BuildFixer(Report report, IReadOnlyCollection<Conver
         // .NET Framework bound it.
         // A member .NET removed that an extension member cannot give back (an enum's): rewritten
         // (rules/packages.json memberReplacements).
-        if (error.Code == "CS0117" && missingMember.Match(error.Message) is { Success: true } missing &&
+        if (error.Code is "CS0117" or "CS1929" && missingMember.Match(error.Message) is { Success: true } missing &&
             rules.MemberReplacements.FirstOrDefault(r => r.Type == missing.Groups["type"].Value.Split('.').Last() && r.Member == missing.Groups["member"].Value) is { } replacement &&
             node.AncestorsAndSelf().OfType<MemberAccessExpressionSyntax>().FirstOrDefault(a => a.Name.Identifier.Text == replacement.Member) is { } access)
         {
-            return new Fix_(Action.ReplaceMember, access, $"CS0117: {replacement.Note}", replacement.Replacement);
+            return new Fix_(Action.ReplaceMember, access, $"{error.Code}: {replacement.Note}", replacement.Replacement);
         }
         if (error.Code == "CS0121")
         {

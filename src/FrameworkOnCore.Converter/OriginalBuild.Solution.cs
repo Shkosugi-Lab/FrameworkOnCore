@@ -19,6 +19,14 @@ namespace FrameworkOnCore.Converter;
 ///   and the solution's own dependencies give, with BuildingInsideVisualStudio: a project reference then
 ///   only names the other's output (from the command line, MSBuild builds it again: MSB4006, a cycle in
 ///   mojoPortal). Those that fail are built once more (DNN's ModulePipeline copies another target's output).
+/// - Web projects that import the Web Application targets of the Visual Studio they were made with, by its version
+///   (VisualStudio\v10.0: nopCommerce 1.90) and unconditionally: the path made the installed version's, as Visual Studio's
+///   project upgrade does (in the copy; reported).
+/// - A project reference whose path is not there (a project moved in the repository: nopCommerce's promotion providers name
+///   ..\Nop.BusinessLogic, which is in Libraries): the solution's project of its GUID, as Visual Studio finds it (in the
+///   copy; reported).
+/// - .NET Framework 2.0-3.5 projects: MSBuild's check that .NET Framework 3.5 is installed skipped (BypassFrameworkInstallChecks;
+///   their reference assemblies are the ones from NuGet).
 /// - A source file listed twice in a project compiled once, as Visual Studio does (its project system holds a file
 ///   once; the Visual Basic compiler on the command line defines its types twice: openIMIS's Resource1.designer.vb,
 ///   BC30179).
@@ -27,7 +35,7 @@ namespace FrameworkOnCore.Converter;
 /// </summary>
 public sealed partial class OriginalBuild
 {
-    static readonly string[] frameworkVersions = ["net45", "net451", "net452", "net46", "net461", "net462", "net47", "net471", "net472", "net48", "net481"];
+    static readonly string[] frameworkVersions = ["net20", "net35", "net40", "net45", "net451", "net452", "net46", "net461", "net462", "net47", "net471", "net472", "net48", "net481"];
 
     bool? RunSolution(string root, string webProject, IReadOnlyList<(string Project, string Target)> steps, string configuration = "Release")
     {
@@ -61,12 +69,14 @@ public sealed partial class OriginalBuild
         var compiler = Path.Combine(sdkMatch.Groups[2].Value, sdkMatch.Groups[1].Value, "Roslyn", "bincore");
 
         var afterCommon = WriteAfterCommonTargets();
+        RepairProjectReferences(root, solution);
         var order = SolutionOrder(solution, configuration);
+        UpgradeWebApplicationTargets(root, order, msbuild);
         report.Add(Report.Kind.Project, "original build", $"{order.Count} project(s) in the solution configuration, built one by one");
         string Arguments(string project) =>
             $"\"{project}\" /restore /p:Configuration={configuration} /p:Platform=AnyCPU \"/p:SolutionDir={solutionDirectory}\\\\\" " +
             $"\"/p:TargetFrameworkRootPath={referenceRoot}\\\\\" \"/p:CscToolPath={compiler}\" /p:CscToolExe=csc.exe " +
-            $"\"/p:CustomAfterMicrosoftCommonTargets={afterCommon}\" /p:BuildingInsideVisualStudio=true /p:ShouldUnsetParentConfigurationAndPlatform=false /m:1 /v:m /nologo";
+            $"\"/p:CustomAfterMicrosoftCommonTargets={afterCommon}\" /p:BypassFrameworkInstallChecks=true /p:BuildingInsideVisualStudio=true /p:ShouldUnsetParentConfigurationAndPlatform=false /m:1 /v:m /nologo";
         var failed = order.Where(p => RunProcess(msbuild, Arguments(p), root, quiet: true) != 0).ToList();
         if (failed.Count > 0) failed = failed.Where(p => RunProcess(msbuild, Arguments(p), root, quiet: true) != 0).ToList();
         foreach (var project in failed) report.Add(Report.Kind.Error, "original build", $"{Path.GetRelativePath(root, project)} did not build (see {log})");
@@ -136,6 +146,56 @@ public sealed partial class OriginalBuild
         }
         foreach (var project in built) Visit(project);
         return order;
+    }
+
+    // Project references to a path that is not there, whose project (its GUID) is in the solution: that project.
+    void RepairProjectReferences(string root, string solution)
+    {
+        var byGuid = SolutionProjects(solution).GroupBy(p => p.Guid).ToDictionary(g => g.Key, g => g.First().Path, StringComparer.OrdinalIgnoreCase);
+        foreach (var (_, project, _) in SolutionProjects(solution))
+        {
+            if (!File.Exists(project)) continue;
+            var document = XDocument.Load(project, LoadOptions.PreserveWhitespace);
+            var changed = false;
+            foreach (var reference in document.Descendants().Where(e => e.Name.LocalName == "ProjectReference"))
+            {
+                var include = (string?)reference.Attribute("Include");
+                var guid = reference.Elements().FirstOrDefault(e => e.Name.LocalName == "Project")?.Value.Trim().ToUpperInvariant();
+                if (include == null || guid == null || File.Exists(Path.Combine(Path.GetDirectoryName(project)!, include))) continue;
+                if (!byGuid.TryGetValue(guid, out var target) || !File.Exists(target)) continue;
+                var repaired = Path.GetRelativePath(Path.GetDirectoryName(project)!, target);
+                reference.SetAttributeValue("Include", repaired);
+                changed = true;
+                report.Add(Report.Kind.Project, "original build", $"{Path.GetRelativePath(root, project)}: project reference {include} is not there; the solution's project of its GUID ({repaired}), as Visual Studio finds it");
+            }
+            if (changed) document.Save(project, SaveOptions.DisableFormatting);
+        }
+    }
+
+    static readonly Regex webApplicationTargets = new(@"(?<prefix>\$\(MSBuildExtensionsPath(32)?\)\\Microsoft\\VisualStudio\\)v(?<version>\d+\.\d+)(?<suffix>\\WebApplications\\Microsoft\.WebApplication\.targets)", RegexOptions.Compiled);
+
+    // An unconditional import of an older Visual Studio's Web Application targets (not installed): the installed one's.
+    void UpgradeWebApplicationTargets(string root, IEnumerable<string> projects, string msbuild)
+    {
+        // <VS>\MSBuild\Current\Bin\MSBuild.exe (or Bin\amd64): the extensions are under <VS>\MSBuild.
+        var extensions = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(msbuild)!, msbuild.Contains(@"\amd64\", StringComparison.OrdinalIgnoreCase) ? @"..\..\.." : @"..\.."));
+        foreach (var project in projects)
+        {
+            var text = File.ReadAllText(project);
+            var changed = false;
+            var upgraded = Regex.Replace(text, @"<Import\s+Project=""(?<path>[^""]*)""\s*/>", import =>
+            {
+                var match = webApplicationTargets.Match(import.Groups["path"].Value);
+                if (!match.Success) return import.Value;
+                var installed = Path.Combine(extensions, "Microsoft", "VisualStudio", "v" + match.Groups["version"].Value, "WebApplications", "Microsoft.WebApplication.targets");
+                if (File.Exists(installed)) return import.Value;
+                changed = true;
+                return import.Value.Replace(match.Value, match.Groups["prefix"].Value + "v$(VisualStudioVersion)" + match.Groups["suffix"].Value);
+            });
+            if (!changed) continue;
+            File.WriteAllText(project, upgraded);
+            report.Add(Report.Kind.Project, "original build", $"{Path.GetRelativePath(root, project)}: the Web Application targets of an older Visual Studio (not installed) made the installed one's, as Visual Studio's project upgrade does");
+        }
     }
 
     // Imported after Microsoft.Common.targets in every project: the Compile items made unique before the compiler runs.

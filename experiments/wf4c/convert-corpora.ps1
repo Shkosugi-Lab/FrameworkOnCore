@@ -1,7 +1,7 @@
 ﻿# Converts the corpora (corpora\work) with the FrameworkOnCore converter (src\FrameworkOnCore.Converter)
 # and prints each one's outcome; the report is <out>\CONVERSION-REPORT.md.
 #   .\experiments\wf4c\convert-corpora.ps1 [-Only be,wt]
-param([string[]]$Only = @('be', 'wt', 'mojo', 'yaf', 'dnn', 'n2', 'imis'), [switch]$Rebuild)
+param([string[]]$Only = @('be', 'wt', 'mojo', 'yaf', 'dnn', 'n2', 'imis', 'nop'), [switch]$Rebuild)
 
 $repo = Resolve-Path (Join-Path $PSScriptRoot '..\..')
 Set-Location $repo
@@ -13,6 +13,7 @@ $corpora = [ordered]@{
     dnn  = @('Dnn.Platform-9.13.10', 'DNN Platform\Website\DotNetNuke.Website.csproj')
     n2   = @('n2cms-master', 'src\WebForms\WebFormsTemplates\N2.Templates.csproj')
     imis = @('web_app_vb-main', 'IMIS\IMIS.vbproj')
+    nop  = @('nopCommerce-release-1.90', 'NopCommerceStore\NopCommerceStore.csproj')
 }
 # Their original build, by the converter (--build-original: a Cake build, or else the solution): the
 # folder it deploys the site to, relative to the repository, the configuration (--configuration: the solution is built
@@ -23,6 +24,7 @@ $originals = @{
     mojo = @{ Site = 'Web' }
     n2   = @{ Site = 'src\WebForms\WebFormsTemplates'; Steps = @('build\n2.proj;Templates-PrepareDependencies') }
     imis = @{ Site = 'IMIS'; Configuration = 'DemoRelease' }
+    nop  = @{ Site = 'NopCommerceStore' }
 }
 dotnet build src\FrameworkOnCore.Converter\FrameworkOnCore.Converter.csproj -v q -nologo | Out-Null
 if ($LASTEXITCODE -ne 0) { throw 'converter build failed' }

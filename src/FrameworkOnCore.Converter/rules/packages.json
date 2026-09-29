@@ -56,8 +56,8 @@
     "System.ServiceModel.Web": [ [ "System.ServiceModel.Syndication", "10.0.0" ] ]
   },
 
-  "$comment_noAnswer": "Assemblies .NET has no counterpart for (reported; the code using them is stubbed; left out of web.config's page compilation, where loading them fails every page). Designers' (System.Design, System.Web.Extensions.Design: Visual Studio's) and the desktop's (System.Windows.Forms: Windows desktop applications', not a web application's).",
-  "noAnswer": [ "System.Data.Linq", "System.Data.Services.Client", "System.Design", "System.Web.Extensions.Design", "System.Web.Mobile", "System.Windows.Forms" ],
+  "$comment_noAnswer": "Assemblies .NET has no counterpart for (reported; the code using them is stubbed; left out of web.config's page compilation, where loading them fails every page). Designers' (System.Design, System.Web.Extensions.Design: Visual Studio's) the desktop's (System.Windows.Forms: Windows desktop applications', not a web application's), and ASP.NET's chart controls (System.Web.DataVisualization).",
+  "noAnswer": [ "System.Data.Linq", "System.Data.Services.Client", "System.Design", "System.Web.DataVisualization", "System.Web.Extensions.Design", "System.Web.Mobile", "System.Windows.Forms" ],
 
   "$comment_sourcePackages": "What .NET Framework had in its own assemblies and .NET ships as packages: added when the sources use it.",
   "sourcePackages": [
@@ -77,18 +77,49 @@
     { "pattern": "\\bSystem\\.Management\\b", "id": "System.Management", "version": "10.0.0", "note": "WMI is Windows only" },
     { "pattern": "\\bSystem\\.Drawing\\b", "id": "System.Drawing.Common", "version": "10.0.0", "note": "System.Drawing is Windows only" },
     { "pattern": "\\bSystem\\.ServiceModel\\.Syndication\\b", "id": "System.ServiceModel.Syndication", "version": "10.0.0" },
-    { "pattern": "\\bConfigurationManager\\b", "id": "WebFormsForCore.Configuration", "version": "$fork" }
+    { "pattern": "\\bConfigurationManager\\b", "id": "WebFormsForCore.Configuration", "version": "$fork" },
+    { "pattern": "\\bSystem\\.Data\\.(Objects|EntityClient|Metadata\\.Edm)\\b", "id": "EntityFramework", "version": "6.5.1", "note": "Entity Framework 4 (.NET Framework's System.Data.Entity): EF6, whose namespaces moved (namespaceMoves, typeMoves)" }
   ],
+  "$comment_namespaceMoves": "Namespaces and types a package moved: where the build does not find them (CS0234, CS0246), the sources name them where they are now. Entity Framework 4, .NET Framework's own (System.Data.Entity), is EF6 on .NET (Upgrading to EF6: its core types in System.Data.Entity.Core).",
+  "namespaceMoves": {
+    "System.Data.Objects": "System.Data.Entity.Core.Objects",
+    "System.Data.Objects.DataClasses": "System.Data.Entity.Core.Objects.DataClasses",
+    "System.Data.Objects.SqlClient": "System.Data.Entity.SqlServer",
+    "System.Data.EntityClient": "System.Data.Entity.Core.EntityClient",
+    "System.Data.Metadata.Edm": "System.Data.Entity.Core.Metadata.Edm",
+    "System.Data.Mapping": "System.Data.Entity.Core.Mapping",
+    "System.Data.Common.CommandTrees": "System.Data.Entity.Core.Common.CommandTrees",
+    "System.Data.Common.EntitySql": "System.Data.Entity.Core.Common.EntitySql"
+  },
+  "typeMoveOrigins": [ "System.Data" ],
+  "typeMoves": {
+    "EntityState": "System.Data.Entity.EntityState",
+    "EntityKey": "System.Data.Entity.Core.EntityKey",
+    "EntityKeyMember": "System.Data.Entity.Core.EntityKeyMember",
+    "EntityException": "System.Data.Entity.Core.EntityException",
+    "EntityCommandExecutionException": "System.Data.Entity.Core.EntityCommandExecutionException",
+    "EntitySqlException": "System.Data.Entity.Core.EntitySqlException",
+    "UpdateException": "System.Data.Entity.Core.UpdateException",
+    "OptimisticConcurrencyException": "System.Data.Entity.Core.OptimisticConcurrencyException",
+    "ObjectNotFoundException": "System.Data.Entity.Core.ObjectNotFoundException",
+    "MappingException": "System.Data.Entity.Core.MappingException",
+    "MetadataException": "System.Data.Entity.Core.MetadataException",
+    "InvalidCommandTreeException": "System.Data.Entity.Core.InvalidCommandTreeException"
+  },
 
   "$comment_frameworkAssets": "Packages whose .NET asset has another API than the .NET Framework one the site ran: that one is referenced (restored, not compiled against). The DLL in the package, and why.",
   "frameworkAssets": {
     "PetaPoco.Compiled": { "asset": "lib/net45/PetaPoco.dll", "note": "net45 has Database(string connectionStringName), which reads the configuration; netstandard2.0 does not" }
   },
 
-  "$comment_memberReplacements": "Members .NET removed that an extension member cannot give back (enum members, static members found before extensions): the use is rewritten where the compiler says (CS0117), to the given expression.",
+  "$comment_memberReplacements": "Members .NET removed that an extension member cannot give back (enum members, static members found before extensions, static members of static classes): the use is rewritten where the compiler says (CS0117, CS1929), to the given expression.",
   "memberReplacements": [
     { "type": "AssemblyBuilderAccess", "member": "RunAndSave", "replacement": "System.Reflection.Emit.AssemblyBuilderAccess.Run", "note": ".NET's dynamic assemblies are not saved (RunAndSave saved them to look at them): Run" },
-    { "type": "AssemblyBuilderAccess", "member": "Save", "replacement": "System.Reflection.Emit.AssemblyBuilderAccess.Run", "note": ".NET's dynamic assemblies are not saved: Run" }
+    { "type": "AssemblyBuilderAccess", "member": "Save", "replacement": "System.Reflection.Emit.AssemblyBuilderAccess.Run", "note": ".NET's dynamic assemblies are not saved: Run" },
+    { "type": "Directory", "member": "GetAccessControl", "replacement": "FrameworkOnCore.DirectoryAcl.GetAccessControl", "note": ".NET has it as DirectoryInfo's extension (CS1929): the compatibility assembly's, by path (Windows only, as on .NET)" },
+    { "type": "Directory", "member": "SetAccessControl", "replacement": "FrameworkOnCore.DirectoryAcl.SetAccessControl", "note": ".NET has it as DirectoryInfo's extension (CS1929): the compatibility assembly's, by path (Windows only, as on .NET)" },
+    { "type": "File", "member": "GetAccessControl", "replacement": "FrameworkOnCore.FileAcl.GetAccessControl", "note": ".NET has it as FileInfo's extension (CS1929): the compatibility assembly's, by path (Windows only, as on .NET)" },
+    { "type": "File", "member": "SetAccessControl", "replacement": "FrameworkOnCore.FileAcl.SetAccessControl", "note": ".NET has it as FileInfo's extension (CS1929): the compatibility assembly's, by path (Windows only, as on .NET)" }
   ],
 
   "$comment_platformReplacements": "Members that work on Windows only (they compile, and throw PlatformNotSupportedException elsewhere) or otherwise elsewhere, replaced by FrameworkOnCore.Compat's, which is the same on Windows. By symbol (FrameworkOnCore.Analyzers' PlatformAnalyzer, FOC1006; C# and Visual Basic): member is the type's full name and the member's (.ctor: a constructor); then: a property read on its value, the read replaced; arguments: the call's count; parameterType: a type one of its parameters has. replace: expression (the whole expression becomes the replacement) or call (the call keeps its arguments; a call on an object passes it first). The first rule that applies.",

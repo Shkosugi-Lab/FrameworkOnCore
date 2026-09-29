@@ -72,6 +72,7 @@
 | 0026 | ファイル変更通知(Linux): ファイルの監視をファイル名で引けるようにする(Linux ではフルパスを名前にしていて、変更の通知がどの監視とも一致しなかった)。bin・App_Code などの特別なフォルダーは全 OS で監視する(ツリー全体の名前変更の監視は Windows だけ。inotify ではフォルダーごとに 1 つ要る) | Linux で web.config を変えてもアプリが再起動せず、DNN のインストーラーが自分へのリダイレクトを繰り返した |
 | 0027 | 構成(Linux): フォルダーの web.config を、小文字の構成パス(`machine/webroot/1/n2`)からも見つける。`UserMapPath` が物理パスを大文字小文字の違う実在のフォルダー(`N2`)に解決する(0008 の `PhysicalPathCasing`) | Linux で大文字を含むフォルダー(n2 の `N2`、wt の `Admin`、DNN の `Portals` など)の web.config が読まれず、その承認の規則が効いていなかった。n2 の管理画面(`/N2/`)に、ログインせずに入れた |
 | 0028 | パスの大文字小文字: `WEBFORMSFORCORE_PATH_CASING=0` で、フォーク自身の大文字小文字の照合(`PhysicalPathCasing`)をしない | プロセスのファイル操作が大文字小文字を区別しないとき(`casefs/libfoccase.so`、区別しないファイルシステム)、同じ照合を 2 回しない。配置の `start.sh` が、ライブラリを読み込んだときに設定する |
+| 0029 | `Server.MachineName`(Linux): kernel32 の `GetComputerName` ではなく `Environment.MachineName` | nopCommerce 1.90 のインストーラーのページが Linux で DllNotFoundException |
 
 照合(0005・0007 のときに実施):
 - .NET Framework 4.8 の System.Web の公開型のうち、フォークで定義も型転送もされていないのは `IHtmlString`(0007 で対応)と `RegiisUtility`(IIS の登録用、対象外)だけ。
@@ -504,6 +505,29 @@ Windows はファイル名の大文字小文字を区別しない。アプリは
 - ライブラリが大文字小文字違いで見つけた名前: dnn 1065、n2 197、imis 67、wt 34 など。yaf は出力先が `Bin`(大文字)で、Linux の `bin/YAF.dll` をライブラリが見つけて起動した。yaf の `customErrors` の `Error.aspx` も実際の `error.aspx` で見つかった。
 - yaf: Linux・Windows とも同じところで止まる。ServiceStack.OrmLite の `Env` の静的コンストラクターが変換のスタブ(CS0103 `PclExport`: ServiceStack の `#if NET6_0_OR_GREATER` の分岐が、元の net481 構成では除かれていたファイルを要求する)で例外になり、エラーのページになる。以前の記録(`/` で Web API 2 の `FieldAccessException`)とは止まる場所が違う。変換したソースは前と同じで、理由は突き止めていない(`FieldAccessException` は型の初期化の前か後かで出たり出なかったりする可能性がある)。
 - yaf を curl で確かめるときは Cookie を保つこと: yaf は `Session_Start` で起動時の確認をするので、Cookie なしの要求は毎回新しいセッションになり、インストーラーへのリダイレクトが繰り返される(ブラウザーでは起きない)。
+### nopCommerce 1.90(C#、2026-09-29)
+
+nopCommerce の最後の Web Forms 版(2011、.NET Framework 4.0、56 プロジェクト、Entity Framework 4 の EDMX)。`corpora/fetch.ps1` の `nop`、`convert-corpora.ps1 -Only nop`(元のビルドはソリューション)。DB はアプリのインストーラー(`/install/install.aspx`: SQL Server、新しい DB か空の DB、サンプルデータ)。
+
+変換器に加えたもの(ほかのコーパスにも当てはまる形で):
+- 元のビルド: .NET Framework 2.0・3.5・4.0 の参照アセンブリ(nuget.org)。2.0・3.5 のプロジェクトは MSBuild の「.NET Framework 3.5 がインストールされているか」の確認を飛ばす(`BypassFrameworkInstallChecks`)。古い Visual Studio の Web Application のターゲット(`VisualStudio\v10.0`、条件なしの Import)は、インストールされた版のものに(Visual Studio のプロジェクトの変換と同じ。コピーの中で)。
+- プロジェクトの参照のパスが無いとき、その GUID のプロジェクト(Visual Studio がソリューションで見つけるのと同じ。nopCommerce の販促プロバイダーは `..\Nop.BusinessLogic` を指すが、実際は `Libraries` の下)。元のビルドと変換の両方。
+- Entity Framework 4(.NET Framework の `System.Data.Entity`)→ EF6: ソースが EF4 の名前空間を使っていれば EF6 のパッケージを加え、ビルドが見つけない名前空間(CS0234: `System.Data.Objects` → `System.Data.Entity.Core.Objects` など)と型(CS0246・CS0103: `System.Data` にあった `EntityState` など。`using System.Data` のあるファイルだけ)を、今の場所で書く(`namespaceMoves`・`typeMoves`)。移動を見つけたラウンドは移動だけを行う(それに続くエラーは次のビルドのもの。スタブにしない)。スタブは 876 件 → 39 件。
+- `EntityDeploy`(.edmx): .NET の SDK には無い。概念・格納・マッピングのモデルに分け、元のビルドと同じ名前で埋め込む(`Data.NopModel.csdl` など。元の DLL のリソース名と一致を確認)。openIMIS の EF6 のモデル(`Model1.edmx`)も、これまで埋め込まれていなかった。
+- `Directory.GetAccessControl` など(.NET では DirectoryInfo の拡張メソッド、CS1929): 互換アセンブリの `DirectoryAcl`・`FileAcl`(Windows のみ、ほかでは .NET と同じく例外)。`memberReplacements` は CS1929 も扱う。
+- リポジトリに置かれた DLL にも `replacedPackages` を当てる(nopCommerce の AjaxControlToolkit 4.1 → フォークの Ajax Control Toolkit。.NET の ASP.NET AJAX は古い版を受け付けない)。
+- `noAnswer` に `System.Web.DataVisualization`(グラフのコントロール)。web.config からは、ページのコンパイルのアセンブリに加え、それを指す `<pages><controls>`(タグの接頭辞の解決で、その接頭辞のすべてのページが読み込もうとする)、ハンドラー・モジュールも外す。サイトと Web プロジェクトのすべての web.config(フォルダーのものも)。
+
+確認した結果:
+- 変換: 56 プロジェクトのビルドが通る。スタブ 47 件(グラフ 2 画面、`ToolkitScriptManager` の宣言 9 件、使われていない `MobileControls` の using)。
+- Windows: インストーラーで DB を作り(サンプルデータ)、トップ・ログイン・検索が 200(DB の分類・メーカー・タグが出る)。管理画面はログインが通るが、各ページは 500。
+- Linux(ライブラリあり): インストーラーが完了、ログイン・検索が 200。トップは 500(System.Drawing: 商品画像の縮小に GDI+。Linux には無い)。管理画面は同じく 500。
+
+残り:
+- `ToolkitScriptManager`: 新しい Ajax Control Toolkit では無くなった(`asp:ScriptManager` を使う)。マークアップ(`<ajaxToolkit:ToolkitScriptManager>`)の書き換えが要る。管理画面のマスターページなどが使う。
+- System.Drawing(Linux): 画像の処理。以前に挙げた「Linux で実行時に例外になる API」の最大のもの。
+- グラフ(`System.Web.DataVisualization`): .NET に無い。管理画面のレポート 2 つ。
+- フォークの kernel32 の直接の呼び出し: `Server.MachineName` は直した(0029)。IIS 以外から呼ばれうるものを機械的に拾うと 100 件ほど(多くは呼ばれないか、呼ぶ側で OS を確かめている)。
 ## 全コーパスでの検証(2026-09-27)
 
 `verify-corpora.ps1` で 6 本を変換してビルドした(Windows)。正解データがあるのは be と wt だけ。

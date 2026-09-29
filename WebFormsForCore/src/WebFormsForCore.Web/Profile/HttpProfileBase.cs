@@ -249,7 +249,7 @@ namespace System.Web.Profile {
                 var alc = AssemblyLoadContext.GetLoadContext(Assembly.GetExecutingAssembly());
                 Type t = Type.GetType(inheritsType,
                     assemblyName => { try { return alc.LoadFromAssemblyName(assemblyName); } catch (System.IO.FileNotFoundException) { return null; } },
-                    (asm, typeName, ignoreCase) => asm?.GetType(typeName, false, ignoreCase),
+                    (asm, typeName, ignoreCase) => asm != null ? asm.GetType(typeName, false, ignoreCase) : Type.GetType(typeName, false, ignoreCase),
                     false, true);
                 if (t == null)
                     return inheritsType;
@@ -275,7 +275,7 @@ namespace System.Web.Profile {
                 var alc = AssemblyLoadContext.GetLoadContext (Assembly.GetExecutingAssembly());
                 Type t = Type.GetType(inheritsType,
                     assemblyName => { try { return alc.LoadFromAssemblyName(assemblyName); } catch (System.IO.FileNotFoundException) { return null; } },
-                    (asm, typeName, ignoreCase) => asm?.GetType(typeName, false, ignoreCase),
+                    (asm, typeName, ignoreCase) => asm != null ? asm.GetType(typeName, false, ignoreCase) : Type.GetType(typeName, false, ignoreCase),
                     false, true);
                 if (t == null || t != typeof(ProfileBase))
                     return true;
@@ -635,7 +635,7 @@ namespace System.Web.Profile {
             var alc = AssemblyLoadContext.GetLoadContext(Assembly.GetExecutingAssembly());
             return Type.GetType(typeName,
                 assemblyName => { try { return alc.LoadFromAssemblyName(assemblyName); } catch (System.IO.FileNotFoundException) { return null; } },
-                (asm, typeName, ignoreCase) => asm?.GetType(typeName, false, ignoreCase),
+                (asm, typeName, ignoreCase) => asm != null ? asm.GetType(typeName, false, ignoreCase) : Type.GetType(typeName, false, ignoreCase),
                 true, true);
         }
 

@@ -89,7 +89,7 @@ namespace System.Web.Configuration {
                         var alc = AssemblyLoadContext.GetLoadContext(Assembly.GetExecutingAssembly());
                         Type t = System.Type.GetType(BrowserCapabilitiesProviderType,
                             assemblyName => { try { return alc.LoadFromAssemblyName(assemblyName); } catch (System.IO.FileNotFoundException) { return null; } },
-                            (asm, typeName, ignoreCase) => asm?.GetType(typeName, false, ignoreCase),
+                            (asm, typeName, ignoreCase) => asm != null ? asm.GetType(typeName, false, ignoreCase) : Type.GetType(typeName, false, ignoreCase),
                             true, true);
                         _browserCapabilitiesProvider = (HttpCapabilitiesProvider)Activator.CreateInstance(t);
                     }

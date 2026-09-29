@@ -222,7 +222,7 @@ namespace System.Runtime.Serialization.Formatters.Soap {
                                 return null;
                             }
                         },
-                        (assembly, name, ignoreCase) => assembly?.GetType(name, false, ignoreCase),
+                        (assembly, name, ignoreCase) => assembly != null ? assembly.GetType(name, false, ignoreCase) : Type.GetType(name, false, ignoreCase),
 						false);
                 }
                 else
@@ -240,7 +240,7 @@ namespace System.Runtime.Serialization.Formatters.Soap {
                                 return null;
                             }
                         },
-                        (assembly, name, ignoreCase) => assembly?.GetType(name, false, ignoreCase),
+                        (assembly, name, ignoreCase) => assembly != null ? assembly.GetType(name, false, ignoreCase) : Type.GetType(name, false, ignoreCase),
                         false);
                     if (type == null) 
 					{ 

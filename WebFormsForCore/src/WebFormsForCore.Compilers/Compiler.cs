@@ -46,15 +46,15 @@ namespace WebFormsForCore.Compilers
 #if NET8_0
                 var loader = Activator.CreateInstance(Type.GetType("Microsoft.CodeAnalysis.DefaultAnalyzerAssemblyLoader, Microsoft.CodeAnalysis",
 					assemblyName => { try { return alc.LoadFromAssemblyName(assemblyName); } catch (System.IO.FileNotFoundException) { return null; } },
-                    (asm, typeName, ignoreCase) => asm?.GetType(typeName, true, ignoreCase)), true);
+                    (asm, typeName, ignoreCase) => asm != null ? asm.GetType(typeName, true, ignoreCase) : Type.GetType(typeName, true, ignoreCase)), true);
 #else
                 var loader = Activator.CreateInstance(Type.GetType("Microsoft.CodeAnalysis.AnalyzerAssemblyLoader, Microsoft.CodeAnalysis",
 					assemblyName => { try { return alc.LoadFromAssemblyName(assemblyName); } catch (System.IO.FileNotFoundException) { return null; } },
-                    (asm, typeName, ignoreCase) => asm?.GetType(typeName, true, ignoreCase)), true);
+                    (asm, typeName, ignoreCase) => asm != null ? asm.GetType(typeName, true, ignoreCase) : Type.GetType(typeName, true, ignoreCase)), true);
 #endif
                 var buildPaths = Activator.CreateInstance(Type.GetType("Microsoft.CodeAnalysis.BuildPaths, Microsoft.CodeAnalysis",
                    assemblyName => { try { return alc.LoadFromAssemblyName(assemblyName); } catch (System.IO.FileNotFoundException) { return null; } },
-                   (asm, typeName, ignoreCase) => asm?.GetType(typeName, false, ignoreCase), false),
+                   (asm, typeName, ignoreCase) => asm != null ? asm.GetType(typeName, false, ignoreCase) : Type.GetType(typeName, false, ignoreCase), false),
                        BindingFlags.NonPublic | BindingFlags.Instance,
                        null,
                        new object[] { clientPath, workingDirectory, sdkPath, tempPath },

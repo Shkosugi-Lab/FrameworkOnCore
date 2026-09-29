@@ -94,7 +94,7 @@ namespace System.Web.Configuration {
                         var alc = AssemblyLoadContext.GetLoadContext(Assembly.GetExecutingAssembly());
                         Type typeConfigSystem = Type.GetType(ConfigSystemTypeString,
                             assemblyName => { try { return alc.LoadFromAssemblyName(assemblyName); } catch (System.IO.FileNotFoundException) { return null; } },
-                            (asm, typeName, ignoreCase) => asm?.GetType(typeName, true, ignoreCase),
+                            (asm, typeName, ignoreCase) => asm != null ? asm.GetType(typeName, true, ignoreCase) : Type.GetType(typeName, true, ignoreCase),
                             true);
                         s_configSystem = (IConfigSystem) Activator.CreateInstance(typeConfigSystem, true);
                         s_configSystem.Init(
@@ -125,7 +125,7 @@ namespace System.Web.Configuration {
                         //Type typeFactory = Type.GetType(InternalConfigSettingsFactoryTypeString, true);
                         Type typeFactory = Type.GetType(InternalConfigSettingsFactoryTypeString,
                             assemblyName => { try { return alc.LoadFromAssemblyName(assemblyName); } catch (System.IO.FileNotFoundException) { return null; } },
-                            (asm, typeName, ignoreCase) => asm?.GetType(typeName, true, ignoreCase),
+                            (asm, typeName, ignoreCase) => asm != null ? asm.GetType(typeName, true, ignoreCase) : Type.GetType(typeName, true, ignoreCase),
                             true);
                         s_configSettingsFactory = (IInternalConfigSettingsFactory) Activator.CreateInstance(typeFactory, true);
                         s_configSettingsFactory.SetConfigurationSystem(configSystem, initComplete);

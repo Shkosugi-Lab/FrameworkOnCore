@@ -2541,7 +2541,7 @@ namespace System.Configuration {
 										        return null;
 									        }
 								        },
-                                        (assembly, name, ignoreCase) => assembly?.GetType(name, false, ignoreCase),
+                                        (assembly, name, ignoreCase) => assembly != null ? assembly.GetType(name, false, ignoreCase) : Type.GetType(name, false, ignoreCase),
                                         false);
                                     if (!StringUtil.Equals(tagName, RESERVED_SECTION_CONFIGURATION_BUILDERS) || sectionType != ConfigurationBuildersSectionType) {
                                     throw new ConfigurationErrorsException(SR.GetString(SR.Config_tag_name_cannot_begin_with_config), xmlUtil);
@@ -4389,7 +4389,7 @@ namespace System.Configuration {
                             return null;
                         }
                     },
-                    (assembly, name, ignoreCase) => assembly?.GetType(name, false, ignoreCase),
+                    (assembly, name, ignoreCase) => assembly != null ? assembly.GetType(name, false, ignoreCase) : Type.GetType(name, false, ignoreCase),
                     false);
             }
         }

@@ -273,7 +273,7 @@ namespace System.Web.Configuration
                 var alc = AssemblyLoadContext.GetLoadContext(Assembly.GetExecutingAssembly());
                 processHandlerType = Type.GetType(ProcessHandlerType,
                     assemblyName => { try { return alc.LoadFromAssemblyName(assemblyName); } catch (System.IO.FileNotFoundException) { return null; } },
-                    (asm, typeName, ignoreCase) => asm?.GetType(typeName, true, ignoreCase),
+                    (asm, typeName, ignoreCase) => asm != null ? asm.GetType(typeName, true, ignoreCase) : Type.GetType(typeName, true, ignoreCase),
                     true /*throwOnError*/);
             }
             catch (Exception e)
@@ -295,7 +295,7 @@ namespace System.Web.Configuration
                 var alc = AssemblyLoadContext.GetLoadContext(Assembly.GetExecutingAssembly());
                 appDomainHandlerType = Type.GetType(AppDomainHandlerType,
                     assemblyName => { try { return alc.LoadFromAssemblyName(assemblyName); } catch (System.IO.FileNotFoundException) { return null; } },
-                   (asm, typeName, ignoreCase) => asm?.GetType(typeName, true, ignoreCase),
+                   (asm, typeName, ignoreCase) => asm != null ? asm.GetType(typeName, true, ignoreCase) : Type.GetType(typeName, true, ignoreCase),
                     true /*throwOnError*/);
             }
             catch (Exception e)

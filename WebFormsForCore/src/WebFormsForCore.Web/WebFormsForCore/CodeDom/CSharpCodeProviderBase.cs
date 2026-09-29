@@ -34,7 +34,7 @@ public class CSharpCodeProviderBase : W.CodeDomProvider
 			var alc = AssemblyLoadContext.GetLoadContext(Assembly.GetExecutingAssembly());
 			return Type.GetType($"Microsoft.CSharp.CSharpCodeGenerator, {CodeDomAssembly}",
 				assemblyName => { try { return alc.LoadFromAssemblyName(assemblyName); } catch (System.IO.FileNotFoundException) { return null; } },
-				(asm, typeName, ignoreCase) => asm?.GetType(typeName, false, ignoreCase));
+				(asm, typeName, ignoreCase) => asm != null ? asm.GetType(typeName, false, ignoreCase) : Type.GetType(typeName, false, ignoreCase));
 		}
     }
     private Type typeAttributeConverterType
@@ -44,7 +44,7 @@ public class CSharpCodeProviderBase : W.CodeDomProvider
             var alc = AssemblyLoadContext.GetLoadContext(Assembly.GetExecutingAssembly());
             return Type.GetType($"Microsoft.CSharp.CSharpTypeAttributeConverter, {CodeDomAssembly}",
                 assemblyName => { try { return alc.LoadFromAssemblyName(assemblyName); } catch (System.IO.FileNotFoundException) { return null; } },
-                (asm, typeName, ignoreCase) => asm?.GetType(typeName, false, ignoreCase));
+                (asm, typeName, ignoreCase) => asm != null ? asm.GetType(typeName, false, ignoreCase) : Type.GetType(typeName, false, ignoreCase));
 		}
 	}
 	private Type memberAttributeConverterType
@@ -54,7 +54,7 @@ public class CSharpCodeProviderBase : W.CodeDomProvider
             var alc = AssemblyLoadContext.GetLoadContext(Assembly.GetExecutingAssembly());
             return Type.GetType($"Microsoft.CSharp.CSharpMemberAttributeConverter, {CodeDomAssembly}",
                 assemblyName => { try { return alc.LoadFromAssemblyName(assemblyName); } catch (System.IO.FileNotFoundException) { return null; } },
-                (asm, typeName, ignoreCase) => asm?.GetType(typeName, false, ignoreCase));
+                (asm, typeName, ignoreCase) => asm != null ? asm.GetType(typeName, false, ignoreCase) : Type.GetType(typeName, false, ignoreCase));
         }
     }
 

@@ -468,7 +468,7 @@ namespace System.Web.Security {
                 foreach (ProviderSettings ps in settings.Providers) {
                     Type t = Type.GetType(ps.Type,
                         assemblyName => { try { return alc.LoadFromAssemblyName(assemblyName); } catch (System.IO.FileNotFoundException) { return null; } },
-                        (asm, typeName, ignoreCase) => asm?.GetType(typeName, false, ignoreCase),
+                        (asm, typeName, ignoreCase) => asm != null ? asm.GetType(typeName, false, ignoreCase) : Type.GetType(typeName, false, ignoreCase),
                         true, true);
                     if (!typeof(MembershipProvider).IsAssignableFrom(t))
                         throw new ArgumentException(SR.GetString(SR.Provider_must_implement_type, typeof(MembershipProvider).ToString()));

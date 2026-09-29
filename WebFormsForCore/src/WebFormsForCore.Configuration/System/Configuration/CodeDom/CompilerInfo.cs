@@ -86,7 +86,7 @@ namespace WebFormsForCore.CodeDom.Compiler
 										return null;
 									}
 								},
-                                (assembly, name, ignoreCase) => assembly?.GetType(name, false, ignoreCase),
+                                (assembly, name, ignoreCase) => assembly != null ? assembly.GetType(name, false, ignoreCase) : Type.GetType(name, false, ignoreCase),
 								false);
 							if (type == null)
 							{
@@ -127,7 +127,7 @@ namespace WebFormsForCore.CodeDom.Compiler
 							return null;
 						}
 					},
-                    (assembly, name, ignoreCase) => assembly?.GetType(name, false, ignoreCase),
+                    (assembly, name, ignoreCase) => assembly != null ? assembly.GetType(name, false, ignoreCase) : Type.GetType(name, false, ignoreCase),
                     false);
 				return (type != null);
 			}

@@ -221,7 +221,7 @@ namespace System.Web {
                     var alc = AssemblyLoadContext.GetLoadContext(Assembly.GetExecutingAssembly());
                     entry = new HttpStaticObjectsEntry(name, Type.GetType(typename,
                         assemblyName => { try { return alc.LoadFromAssemblyName(assemblyName); } catch (System.IO.FileNotFoundException) { return null; } },
-                        (asm, typeName, ignoreCase) => asm?.GetType(typeName, false, ignoreCase)
+                        (asm, typeName, ignoreCase) => asm != null ? asm.GetType(typeName, false, ignoreCase) : Type.GetType(typeName, false, ignoreCase)
                         ), lateBound);
                 }
 

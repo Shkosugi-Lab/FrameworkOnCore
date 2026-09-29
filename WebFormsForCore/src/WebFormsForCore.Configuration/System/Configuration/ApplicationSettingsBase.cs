@@ -368,7 +368,7 @@ namespace System.Configuration
                                         return null;
                                     }
                                 },
-                                (assembly, name, ignoreCase) => assembly?.GetType(name, false, ignoreCase), false);
+                                (assembly, name, ignoreCase) => assembly != null ? assembly.GetType(name, false, ignoreCase) : Type.GetType(name, false, ignoreCase), false);
 							if (type != (Type)null)
 							{
 								if (SecurityUtils.SecureCreateInstance(type) is SettingsProvider settingsProvider)
@@ -470,7 +470,7 @@ namespace System.Configuration
 													return null;
 												}
 											},
-                                            (assembly, name, ignoreCase) => assembly?.GetType(name, false, ignoreCase), false);
+                                            (assembly, name, ignoreCase) => assembly != null ? assembly.GetType(name, false, ignoreCase) : Type.GetType(name, false, ignoreCase), false);
                                         if (type != (Type)null)
 										{
 											settingsProvider = SecurityUtils.SecureCreateInstance(type) is SettingsProvider instance ? instance : throw new ConfigurationErrorsException(SR.GetString("ProviderInstantiationFailed", (object)providerTypeName));

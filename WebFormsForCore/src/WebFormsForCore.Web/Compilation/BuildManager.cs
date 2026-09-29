@@ -619,7 +619,7 @@ public sealed class BuildManager
         var alc = AssemblyLoadContext.GetLoadContext(Assembly.GetExecutingAssembly());
         Type t = Type.GetType(AppSettings.PortableCompilationOutputSnapshotType,
             assemblyName => { try { return alc.LoadFromAssemblyName(assemblyName); } catch (System.IO.FileNotFoundException) { return null; } },
-            (asm, typeName, ignoreCase) => asm?.GetType(typeName, true, ignoreCase),
+            (asm, typeName, ignoreCase) => asm != null ? asm.GetType(typeName, true, ignoreCase) : Type.GetType(typeName, true, ignoreCase),
             true);
         object[] args = new Object[] { AppSettings.PortableCompilationOutputSnapshotTypeOptions };
         t.InvokeMember("RestoreSnapshot", BindingFlags.Static | BindingFlags.Public | BindingFlags.InvokeMethod, null, t, args, CultureInfo.InvariantCulture);
@@ -1502,7 +1502,7 @@ public sealed class BuildManager
             var alc = AssemblyLoadContext.GetLoadContext(Assembly.GetExecutingAssembly());
             type = Type.GetType(typeName,
                 assemblyName => { try { return alc.LoadFromAssemblyName(assemblyName); } catch (System.IO.FileNotFoundException) { return null; } },
-                (asm, typeName, ignoreCase) => asm?.GetType(typeName, false, ignoreCase),
+                (asm, typeName, ignoreCase) => asm != null ? asm.GetType(typeName, false, ignoreCase) : Type.GetType(typeName, false, ignoreCase),
                 throwOnError, ignoreCase);
 
             if (type != null)
@@ -1518,7 +1518,7 @@ public sealed class BuildManager
             var alc = AssemblyLoadContext.GetLoadContext(Assembly.GetExecutingAssembly());
             return Type.GetType(typeName,
                 assemblyName => { try { return alc.LoadFromAssemblyName(assemblyName); } catch (System.IO.FileNotFoundException) { return null; } },
-                (asm, typeName, ignoreCase) => asm?.GetType(typeName, false, ignoreCase),
+                (asm, typeName, ignoreCase) => asm != null ? asm.GetType(typeName, false, ignoreCase) : Type.GetType(typeName, false, ignoreCase),
                 throwOnError, ignoreCase);
         }
 

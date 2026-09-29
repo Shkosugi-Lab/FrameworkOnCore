@@ -1836,7 +1836,7 @@ setup,
                         hostSecurityPolicyResolver = Activator.CreateInstance(
                             Type.GetType(HttpRuntime.HostSecurityPolicyResolverType,
                                 assemblyName => { try { return alc.LoadFromAssemblyName(assemblyName); } catch (System.IO.FileNotFoundException) { return null; } },
-                                (asm, typeName, ignoreCase) => asm?.GetType(typeName, false, ignoreCase)
+                                (asm, typeName, ignoreCase) => asm != null ? asm.GetType(typeName, false, ignoreCase) : Type.GetType(typeName, false, ignoreCase)
                                 )) as HostSecurityPolicyResolver;
                     }
 

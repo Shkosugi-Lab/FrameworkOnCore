@@ -911,6 +911,13 @@ namespace System.Web {
                 if (_machineName != null)
                     return _machineName;
 
+                // Elsewhere than Windows, kernel32's GetComputerName is not there: the host's name as .NET has it.
+                if (!OperatingSystem.IsWindows())
+                {
+                    _machineName = Environment.MachineName;
+                    return _machineName;
+                }
+
                 StringBuilder   buf = new StringBuilder (_maxMachineNameLength);
                 int             len = _maxMachineNameLength;
 

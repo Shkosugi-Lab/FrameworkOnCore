@@ -5,8 +5,8 @@ namespace FrameworkOnCore.ParityTest;
 
 /// <summary>
 /// Runs the scenario and captures snapshots.
-/// Selector and URL differences are absorbed here so the same scenario runs against
-/// both the source (WebForms) and the converted app (some of it for the earlier Blazor output: extensionless routes, bare IDs).
+/// The same scenario runs against the source (Web Forms on IIS) and the converted app; the paths are opened as the
+/// scenario has them on both. Selector differences are absorbed here (bare IDs: for the earlier Blazor output).
 /// </summary>
 public sealed class ScenarioRunner(IPage page, string baseUrl, List<Regex> ignorePatterns)
 {
@@ -35,26 +35,18 @@ public sealed class ScenarioRunner(IPage page, string baseUrl, List<Regex> ignor
             {
                 case "goto":
                     {
-                        // The Blazor app uses extensionless routes; the WebForms app uses
-                        // physical paths (.aspx). The bare path is opened first and, when the
-                        // server does not have it (404, or an error without a body, which makes
-                        // Playwright throw), the .aspx is opened instead (keeping the query string
-                        // after the path).
-                        //
-                        // Opened, not probed over HTTP first: a GET runs a Web Forms page, and a
-                        // probe ran WingtipToys' AddToCart twice - the cart showed 2 items. After a
-                        // failure the browser is still moving to its own error page, which would
-                        // interrupt the next navigation, so that load is waited out first.
+                        // The path as the scenario has it, on both sides: the converted application
+                        // answers the URLs the original answered (a URL the original rewrote, such as
+                        // BlogEngine's /archive, is no file: a 404 here is a difference, not something
+                        // to work around by opening /archive.aspx). An error without a body makes
+                        // Playwright throw; the browser's own error page is then what is compared.
                         var path = step.Path ?? "/";
-                        IResponse? response = null;
-                        var failed = false;
                         try
                         {
-                            response = await page.GotoAsync(_root + path, new() { WaitUntil = WaitUntilState.NetworkIdle });
+                            await page.GotoAsync(_root + path, new() { WaitUntil = WaitUntilState.NetworkIdle });
                         }
                         catch (PlaywrightException) when (path != "/")
                         {
-                            failed = true;
                             try
                             {
                                 await page.WaitForLoadStateAsync(LoadState.Load, new() { Timeout = 5000 });
@@ -64,31 +56,7 @@ public sealed class ScenarioRunner(IPage page, string baseUrl, List<Regex> ignor
                                 // Already settled.
                             }
                         }
-                        if ((failed || response is { Status: 404 }) && path != "/")
-                        {
-                            var separatorIndex = path.IndexOfAny(['?', '#']);
-                            var pathOnly = separatorIndex >= 0 ? path[..separatorIndex] : path;
-                            var suffix = separatorIndex >= 0 ? path[separatorIndex..] : string.Empty;
-                            if (!pathOnly.EndsWith(".aspx", StringComparison.OrdinalIgnoreCase))
-                            {
-                                // The browser's own error page can still arrive after the load
-                                // above; a navigation it interrupts is simply started again.
-                                for (var attempt = 1; ; attempt++)
-                                {
-                                    try
-                                    {
-                                        await page.GotoAsync(_root + pathOnly + ".aspx" + suffix,
-                                            new() { WaitUntil = WaitUntilState.NetworkIdle });
-                                        break;
-                                    }
-                                    catch (PlaywrightException error) when (attempt < 5 && error.Message.Contains("interrupted by another navigation"))
-                                    {
-                                        await page.WaitForTimeoutAsync(300);
-                                    }
-                                }
-                            }
-                        }
-                        await page.WaitForTimeoutAsync(1800); // SignalR connection + init wait (for WebForms it is simply extra waiting)
+                        await page.WaitForTimeoutAsync(1800); // scripts that run after the load
                         await WaitUntilSettledAsync(page);
                         break;
                     }

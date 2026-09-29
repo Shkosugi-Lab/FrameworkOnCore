@@ -165,6 +165,10 @@ Web プロジェクトと、それが参照するライブラリ(BlogEngine.Core
 | be | **5/5** | 5/5 |
 | wt | 5/8 | 6/8 |
 
+be の 5/5 の見直し(2026-09-30): それまでの 5/5 は、ParityTest が 404 のときに `.aspx` を開き直す仕組み(Blazor 化のときの名残り)に助けられていた。変換後の be は `/archive`・`/post/...`・`/category/...`・`/page/...` が 404 だった(BlogEngine は URL を HttpModule で書き換え、IIS は `runAllManagedModulesForAllRequests` でどの要求もモジュールに渡す)。変換器は、web.config がどの要求もマネージドのモジュールに渡すとき(`runAllManagedModulesForAllRequests="true"`、または `managedHandler` の前提条件の無いモジュール)、すべての要求を Web Forms に渡すようにした。ParityTest の開き直しはやめ、シナリオはその時に開いていたパス(`.aspx`)にした(正解データは同じ)。Linux のコンテナで 5/5(開き直し無し)。同じ判定で mojo・n2・yaf もすべての要求を Web Forms に渡すようになる(未検証)。
+
+be の残り: 管理画面の Web API(`/api/dashboard` など)が 500。SimpleInjector の古い DLL(ExecutionContextScoping)が `System.Runtime.Remoting.Messaging.CallContext`(mscorlib)を使い、.NET に無い。フォークの `CallContext` は別のアセンブリなので、DLL からは見えない(解析はこれを「そのまま」と判定していた)。Windows でも同じ。
+
 wt の残り:
 - 丸めの差(¥23 / ¥22)は Windows と同じ。
 - error-page は検証環境の差。Docker のポート転送では接続元がローカルにならず(`Request.IsLocal` が偽)、詳細が出ない。コンテナの中から開けば詳細が出ることを確認した。

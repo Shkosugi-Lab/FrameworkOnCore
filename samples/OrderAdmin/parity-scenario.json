@@ -16,13 +16,13 @@
     { "action": "clickText", "value": "選択" },
     { "action": "snapshot", "name": "一覧-選択後(サイドバー更新)" },
 
-    { "action": "goto", "path": "/Detail?id=2" },
+    { "action": "goto", "path": "/Detail.aspx?id=2" },
     { "action": "snapshot", "name": "詳細-受付の受注" },
 
     { "action": "click", "target": "btnShip" },
     { "action": "snapshot", "name": "詳細-出荷済にした後" },
 
-    { "action": "goto", "path": "/Entry" },
+    { "action": "goto", "path": "/Entry.aspx" },
     { "action": "fill", "target": "txtCustomer", "value": "新規テスト商会" },
     { "action": "fill", "target": "txtQuantity", "value": "5" },
     { "action": "select", "target": "ddlProduct", "value": "電子辞書" },

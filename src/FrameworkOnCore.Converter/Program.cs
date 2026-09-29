@@ -177,6 +177,26 @@ return succeeded ? 0 : 1;
 // (System.Web.Routing, FriendlyUrls) serves extensionless URLs, which reach Web Forms only when
 // every request is handed to it; it also answers "/" itself, so IIS's default document is not
 // emulated.
+// Why IIS's integrated pipeline gives every request to the application's managed modules (web.config's
+// system.webServer/modules), or null: runAllManagedModulesForAllRequests="true", or a module added without the
+// managedHandler precondition (IIS runs those for static files and URLs that are no file too).
+static string? ModulesForAllRequests(string webDirectory)
+{
+    var config = Directory.EnumerateFiles(webDirectory, "web.config", new EnumerationOptions { MatchCasing = MatchCasing.CaseInsensitive }).FirstOrDefault();
+    if (config == null) return null;
+    System.Xml.Linq.XElement? modules;
+    // By local name: old web.configs have the .NET 2.0 configuration namespace.
+    try { modules = System.Xml.Linq.XDocument.Load(config).Root?.Elements().FirstOrDefault(e => e.Name.LocalName == "system.webServer")?.Elements().FirstOrDefault(e => e.Name.LocalName == "modules"); }
+    catch (System.Xml.XmlException) { return null; }
+    if (modules == null) return null;
+    if (string.Equals((string?)modules.Attribute("runAllManagedModulesForAllRequests"), "true", StringComparison.OrdinalIgnoreCase))
+        return "web.config: runAllManagedModulesForAllRequests";
+    var forAll = modules.Elements().Where(e => e.Name.LocalName == "add")
+        .Where(a => a.Attribute("type") != null && !((string?)a.Attribute("preCondition") ?? "").Contains("managedHandler", StringComparison.OrdinalIgnoreCase))
+        .Select(a => (string?)a.Attribute("name")).ToList();
+    return forAll.Count > 0 ? $"web.config: modules without the managedHandler precondition ({string.Join(", ", forAll)})" : null;
+}
+
 void WriteHost(ConvertedProject web)
 {
     var directory = Path.GetDirectoryName(web.TargetPath)!;
@@ -198,6 +218,14 @@ void WriteHost(ConvertedProject web)
                 : program.Replace("app.UseDefaultFiles(defaults);", "// Routed application: Web Forms answers \"/\"."))
             .Replace("options.UseAspNetCoreSessionProvider()", "options.HandleAllRequestsWithWebForms().UseAspNetCoreSessionProvider()");
         report.Add(Report.Kind.Project, web.Name, "routes: every request goes to Web Forms");
+    }
+    // Managed modules IIS runs for every request (runAllManagedModulesForAllRequests, or a module without the
+    // managedHandler precondition): a URL rewriter among them answers URLs that are no file (BlogEngine's /post/...,
+    // /archive). Every request goes to Web Forms, as IIS gives it to them; "/" is still the default document.
+    else if (ModulesForAllRequests(directory) is { } why)
+    {
+        program = program.Replace("options.UseAspNetCoreSessionProvider()", "options.HandleAllRequestsWithWebForms().UseAspNetCoreSessionProvider()");
+        report.Add(Report.Kind.Project, web.Name, $"every request goes to Web Forms: {why}");
     }
     File.WriteAllText(Path.Combine(directory, ProjectConverter.ProgramFile(web.TargetPath)), program, new UTF8Encoding(false));
 

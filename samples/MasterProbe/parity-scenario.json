@@ -8,7 +8,7 @@
     { "action": "click", "target": "pPageButton" },
     { "action": "snapshot", "name": "レイアウト-ポストバック後" },
 
-    { "action": "goto", "path": "/SideOverride" },
+    { "action": "goto", "path": "/SideOverride.aspx" },
     { "action": "snapshot", "name": "レイアウト-既定コンテンツを上書き" }
   ]
 }

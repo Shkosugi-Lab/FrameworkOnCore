@@ -75,7 +75,9 @@ public sealed record ComponentUsage(
     int BinaryReferences,
     IReadOnlyList<string> Projects, string? Note,
     /// <summary>What the user can choose for it (the default marked).</summary>
-    IReadOnlyList<ComponentOption> Options);
+    IReadOnlyList<ComponentOption> Options,
+    /// <summary>Its APIs whose references from DLLs the converter retargets (ApiUsage.RetargetedTo).</summary>
+    int RetargetedApis = 0);
 
 /// <summary>An API of .NET Framework the application uses.</summary>
 public sealed record ApiUsage
@@ -102,6 +104,12 @@ public sealed record ApiUsage
     public required IReadOnlyList<SourcePlace> Places { get; init; }
     /// <summary>DLLs without source referencing it (metadata), with their references.</summary>
     public IReadOnlyList<FileCount>? Binaries { get; init; }
+    /// <summary>
+    /// The assembly the DLLs' references to it are retargeted to (the converter's AssemblyRetargeter): they name the
+    /// .NET Framework assembly (<see cref="Assembly"/>), which on .NET 10 does not have it, while this one does. Null when
+    /// they resolve as they are, or no DLL references it.
+    /// </summary>
+    public string? RetargetedTo { get; init; }
 }
 
 public sealed record FileCount(string File, int Count);

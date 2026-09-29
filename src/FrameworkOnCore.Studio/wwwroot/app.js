@@ -209,6 +209,8 @@ function renderResult() {
       <div class="legend" id="legend"></div>
     </div>
 
+    ${retargetCard(r)}
+
     <div class="card card-pad settings">
       <h2>アプリの設定</h2>
       <div class="hint">API ではなく、アプリ全体に対する選択です。</div>
@@ -372,6 +374,7 @@ function componentCard(c) {
       <div>
         <div class="component-title"><h3>${esc(c.title)}</h3><span class="cid">${esc(c.id)}</span>${pill(c.status)}
           ${c.attentionCount === 0 && c.binaryReferences > 0 ? '<span class="badge planned" title="ソースでは使われず、ソースのない DLL だけが参照している">DLL だけ</span>' : ''}
+          ${c.retargetedApis ? `<span class="badge retarget-badge" title="DLL の参照先を変換器が付け替える API">↪ 付け替え ${fmt(c.retargetedApis)}</span>` : ''}
           ${changed ? '<span class="changed">変更</span>' : ''}</div>
         ${c.note ? `<p class="note">${esc(c.note)}</p>` : ''}
       </div>
@@ -386,6 +389,37 @@ function componentCard(c) {
       API を見る(${fmt(attentionApis.length)} 件)</button>
     ${expanded ? apiTable(c, attentionApis, options) : ''}
   </article>`;
+}
+
+// The DLLs' references the converter retargets: .NET has the type, not in the assembly the DLL names (the fork's
+// CallContext is in its System.Web, the DLL looks in mscorlib). Grouped by from -> to.
+function retargetCard(r) {
+  const apis = r.apis.filter(a => a.retargetedTo);
+  if (!apis.length) return '';
+  const groups = new Map();
+  for (const a of apis) {
+    const key = `${a.assembly} → ${a.retargetedTo}`;
+    if (!groups.has(key)) groups.set(key, { from: a.assembly, to: a.retargetedTo, apis: [], dlls: new Set() });
+    const g = groups.get(key);
+    g.apis.push(a);
+    for (const b of a.binaries ?? []) g.dlls.add(b.file.split('/').pop());
+  }
+  const rows = [...groups.values()].map(g => {
+    const types = g.apis.filter(a => a.kind === 'Type').map(a => a.name);  // broken after a dot, not within a name
+    const members = g.apis.length - types.length;
+    return `<tr>
+      <td><span class="retarget-flow"><code>${esc(g.from)}</code><span class="arrow" aria-hidden="true">→</span><code>${esc(g.to)}</code></span></td>
+      <td>${types.map(t => `<div class="api-name">${esc(t).replaceAll('.', '.<wbr>')}</div>`).join('')}${members ? `<div class="api-detail">そのメンバー ${fmt(members)} 件</div>` : ''}</td>
+      <td class="dlls">${[...g.dlls].map(d => `<div>${esc(d)}</div>`).join('')}</td>
+    </tr>`;
+  }).join('');
+  return `<div class="card card-pad retarget">
+    <h2><span class="retarget-ic" aria-hidden="true">↪</span> DLL の参照の付け替え <span class="muted">(${fmt(apis.length)} API)</span></h2>
+    <div class="hint">ソースの無い DLL は型を「アセンブリ + 型名」で参照します。次の型は .NET 10 にありますが、DLL が参照するアセンブリには無いので、変換器が DLL の参照先を付け替えます(そのまま動きます。変換レポートの「references retargeted」)。</div>
+    <div class="api-wrap"><table class="api-table">
+      <thead><tr><th>参照先 → 付け替え先</th><th>型</th><th>DLL</th></tr></thead>
+      <tbody>${rows}</tbody></table></div>
+  </div>`;
 }
 
 function num(n, label) { return `<div class="num"><div class="n">${fmt(n)}</div><div class="l">${esc(label)}</div></div>`; }
@@ -405,7 +439,8 @@ function apiTable(c, apis, options) {
     const override = state.choices.apis[a.id] ?? '';
     const dlls = (a.binaries ?? []).map(b => b.file.split('/').pop());
     return `<tr>
-      <td><div class="api-name">${esc(a.name)}</div>${a.obsolete || a.note ? `<div class="api-detail">${esc(a.obsolete ?? a.note)}</div>` : ''}</td>
+      <td><div class="api-name">${esc(a.name)}</div>${a.obsolete || a.note ? `<div class="api-detail">${esc(a.obsolete ?? a.note)}</div>` : ''}
+        ${a.retargetedTo ? `<div class="api-retarget">↪ DLL の参照を付け替え: <code>${esc(a.assembly)}</code> → <code>${esc(a.retargetedTo)}</code></div>` : ''}</td>
       <td>${pill(a.status)}</td>
       <td class="r">${fmt(a.count)}</td>
       <td>${place ? `<button class="place" data-file="${esc(place.file)}" data-line="${place.line}" data-api="${esc(a.name)}">${esc(place.file)}:${place.line}</button>

@@ -83,6 +83,25 @@ public static class AnalysisMarkdown
         foreach (var b in result.Binaries) text.AppendLine($"- {b.File}{(b.Skipped != null ? $": 読まない({b.Skipped})" : "")}");
         text.AppendLine();
 
+        // The references the converter retargets: .NET has the type, not in the assembly the DLL names.
+        var retargeted = result.Apis.Where(a => a.RetargetedTo != null).GroupBy(a => (a.Assembly, To: a.RetargetedTo!)).ToList();
+        text.AppendLine($"## DLL の参照の付け替え({retargeted.Sum(g => g.Count())} 件)");
+        text.AppendLine();
+        text.AppendLine("ソースのない DLL は型を「アセンブリ+型名」で参照する。次の型は .NET 10 にあるが、DLL が参照するアセンブリには無いので、変換器が DLL の参照先を付け替える(動く)。");
+        text.AppendLine();
+        if (retargeted.Count > 0)
+        {
+            text.AppendLine("| 参照先 → 付け替え先 | API | DLL |");
+            text.AppendLine("|---|---|---|");
+            foreach (var g in retargeted)
+            {
+                var names = g.OrderBy(a => a.Kind != "Type").ThenBy(a => a.Name, StringComparer.Ordinal).Select(a => a.Name).ToList();
+                var dlls = g.SelectMany(a => a.Binaries ?? []).Select(b => Path.GetFileName(b.File)).Distinct(StringComparer.OrdinalIgnoreCase).ToList();
+                text.AppendLine($"| {g.Key.Assembly} → {g.Key.To} | {Cell(string.Join("、", names.Take(8)) + (names.Count > 8 ? $" ほか {names.Count - 8}" : ""))} | {Cell(string.Join(", ", dlls.Take(5)) + (dlls.Count > 5 ? $" ほか {dlls.Count - 5}" : ""))} |");
+            }
+            text.AppendLine();
+        }
+
         text.AppendLine("## ほかのライブラリ(.NET Framework 以外)");
         text.AppendLine();
         text.AppendLine("| アセンブリ | 由来 | 回数 | ファイル |");

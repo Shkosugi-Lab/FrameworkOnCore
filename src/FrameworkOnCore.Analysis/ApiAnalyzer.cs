@@ -100,7 +100,7 @@ public sealed class ApiAnalyzer(TargetApis target, Catalog catalog, IEnumerable<
                 g.Count(a => a.Status < ApiStatus.Available), g.Where(a => a.Status < ApiStatus.Available).Sum(a => a.Count),
                 g.Sum(a => a.Binaries?.Sum(b => b.Count) ?? 0),
                 g.SelectMany(a => sink.Apis[a.Id].Projects.Keys).Distinct().Order(StringComparer.Ordinal).ToList(),
-                component?.Note, catalog.OptionsOf(g.Key));
+                component?.Note, catalog.OptionsOf(g.Key), g.Count(a => a.RetargetedTo != null));
         }).OrderBy(c => c.Status).ThenByDescending(c => c.AttentionCount).ThenByDescending(c => c.BinaryReferences).ThenBy(c => c.Id, StringComparer.Ordinal).ToList();
 
         return new AnalysisResult
@@ -158,6 +158,10 @@ public sealed class ApiAnalyzer(TargetApis target, Catalog catalog, IEnumerable<
         else if (component?.Status is { } known) status = known;
         else if (info.ObsoleteId != null) status = ApiStatus.Obsolete;
         else status = ApiStatus.Available;
+        // The compatibility assembly's extension member stands for a member .NET removed: a call in the sources compiles
+        // against it, a DLL's reference to the member is not bound to it (MissingMethodException when it runs).
+        if (info is { Assembly: null } && !api.Binaries.IsEmpty)
+            note = (note != null ? note + " " : "") + "ソースの無い DLL からの呼び出しは、互換アセンブリの拡張メンバーでは補えない(実行すると MissingMethodException)";
         return new ApiUsage
         {
             Id = api.Key.Id, Name = api.Name, Kind = api.Kind, Assembly = api.Key.Assembly, Namespace = api.Key.Namespace,
@@ -168,6 +172,9 @@ public sealed class ApiAnalyzer(TargetApis target, Catalog catalog, IEnumerable<
             Files = api.Files.Select(f => new FileCount(f.Key, f.Value)).OrderByDescending(f => f.Count).ThenBy(f => f.File, StringComparer.Ordinal).ToList(),
             Places = api.Places.OrderBy(p => p.File, StringComparer.Ordinal).ThenBy(p => p.Line).Take(20).ToList(),
             Binaries = api.Binaries.IsEmpty ? null : api.Binaries.Select(b => new FileCount(b.Key, b.Value)).OrderBy(b => b.File, StringComparer.Ordinal).ToList(),
+            // DLLs bind [assembly]type: .NET has the type, but not where the DLLs look (the fork's CallContext is in its
+            // System.Web, not in mscorlib) - the converter retargets those references.
+            RetargetedTo = !api.Binaries.IsEmpty && info is { Assembly: { } where, Type: { } type } && !target.Binds(api.Key.Assembly, type) ? where : null,
         };
     }
 

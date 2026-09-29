@@ -4,8 +4,11 @@ using Microsoft.CodeAnalysis.CSharp;
 
 namespace FrameworkOnCore.Analysis;
 
-/// <summary>Where an API is on .NET 10, and what .NET says of it there.</summary>
-public sealed record TargetInfo(string Where, bool WindowsOnly, string? ObsoleteId, string? ObsoleteMessage);
+/// <summary>
+/// Where an API is on .NET 10, and what .NET says of it there; the assembly that has it and its type as metadata names it
+/// (the outermost: System.Collections.Generic.List`1), for a DLL's reference to it.
+/// </summary>
+public sealed record TargetInfo(string Where, bool WindowsOnly, string? ObsoleteId, string? ObsoleteMessage, string? Assembly = null, string? Type = null);
 
 /// <summary>
 /// What a converted application has on .NET 10: .NET's own assemblies, the packages the converter adds, the fork's
@@ -65,8 +68,61 @@ public sealed class TargetApis
         var reference = compilation.GetMetadataReference(symbol.ContainingAssembly) as PortableExecutableReference;
         var label = reference?.FilePath is { } file && where.TryGetValue(file, out var w) ? w : "in-box";
         var (obsoleteId, obsoleteMessage) = Obsoletion(symbol);
-        return new TargetInfo(label, IsWindowsOnly(symbol), obsoleteId, obsoleteMessage);
+        var outermost = symbol as INamedTypeSymbol ?? symbol.ContainingType;
+        while (outermost?.ContainingType != null) outermost = outermost.ContainingType;
+        var metadataName = outermost == null ? null
+            : outermost.ContainingNamespace.IsGlobalNamespace ? outermost.MetadataName : outermost.ContainingNamespace.ToDisplayString() + "." + outermost.MetadataName;
+        return new TargetInfo(label, IsWindowsOnly(symbol), obsoleteId, obsoleteMessage, symbol.ContainingAssembly?.Name, metadataName);
     });
+
+    // Each assembly's types and the types it forwards (and where), for a DLL's references as the runtime binds them.
+    Dictionary<string, (HashSet<string> Types, Dictionary<string, string> Forwards)>? binding;
+
+    /// <summary>
+    /// A DLL's reference [assembly]type resolves on .NET 10 as it is: the assembly of that name has the type, or forwards
+    /// it to one that does. When it does not while .NET has the type elsewhere (a .NET Framework type the fork has in its
+    /// System.Web), the converter retargets the DLL's reference (AssemblyRetargeter).
+    /// </summary>
+    public bool Binds(string assembly, string type)
+    {
+        lock (where) binding ??= Binding();
+        for (var depth = 0; depth < 8 && binding.TryGetValue(assembly, out var entry); depth++)
+        {
+            if (entry.Types.Contains(type)) return true;
+            if (!entry.Forwards.TryGetValue(type, out var to)) return false;
+            assembly = to;
+        }
+        return false;
+    }
+
+    Dictionary<string, (HashSet<string>, Dictionary<string, string>)> Binding()
+    {
+        var result = new Dictionary<string, (HashSet<string>, Dictionary<string, string>)>(StringComparer.OrdinalIgnoreCase);
+        foreach (var file in where.Keys)
+        {
+            try
+            {
+                using var stream = File.OpenRead(file);
+                using var pe = new System.Reflection.PortableExecutable.PEReader(stream);
+                if (!pe.HasMetadata) continue;
+                var reader = System.Reflection.Metadata.PEReaderExtensions.GetMetadataReader(pe);
+                if (!reader.IsAssembly) continue;
+                string Name(System.Reflection.Metadata.StringHandle ns, System.Reflection.Metadata.StringHandle name) =>
+                    reader.GetString(ns) is { Length: > 0 } n ? n + "." + reader.GetString(name) : reader.GetString(name);
+                var types = reader.TypeDefinitions.Select(reader.GetTypeDefinition).Where(t => t.GetDeclaringType().IsNil)
+                    .Select(t => Name(t.Namespace, t.Name)).ToHashSet(StringComparer.Ordinal);
+                var forwards = new Dictionary<string, string>(StringComparer.Ordinal);
+                foreach (var exported in reader.ExportedTypes.Select(reader.GetExportedType))
+                {
+                    if (exported.IsForwarder && exported.Implementation.Kind == System.Reflection.Metadata.HandleKind.AssemblyReference)
+                        forwards[Name(exported.Namespace, exported.Name)] = reader.GetString(reader.GetAssemblyReference((System.Reflection.Metadata.AssemblyReferenceHandle)exported.Implementation).Name);
+                }
+                result.TryAdd(reader.GetString(reader.GetAssemblyDefinition().Name), (types, forwards));
+            }
+            catch (BadImageFormatException) { }
+        }
+        return result;
+    }
 
     // A member .NET has on a base type (DirectoryInfo.FullName: .NET Framework's DirectoryInfo overrode it, .NET's
     // inherits FileSystemInfo's; the call is the same): the member of the same name and parameters on the type or one it

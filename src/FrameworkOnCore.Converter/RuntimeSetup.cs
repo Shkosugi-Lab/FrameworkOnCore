@@ -74,28 +74,42 @@ public static class RuntimeSetup
         using var http = new HttpClient { Timeout = TimeSpan.FromMinutes(10) };
         http.DefaultRequestHeaders.UserAgent.ParseAdd("FrameworkOnCore");
         var response = http.GetAsync(url, HttpCompletionOption.ResponseHeadersRead).GetAwaiter().GetResult();
+        var hint = "";
         if (response.StatusCode == System.Net.HttpStatusCode.NotFound
-            && Regex.Match(url, @"^https://github\.com/([^/]+/[^/]+)/releases/download/([^/]+)/([^/]+)$") is { Success: true } asset
-            && Token() is { } token)
+            && Regex.Match(url, @"^https://github\.com/([^/]+/[^/]+)/releases/download/([^/]+)/([^/]+)$") is { Success: true } asset)
         {
-            response.Dispose();
-            http.DefaultRequestHeaders.Authorization = new("Bearer", token);
-            var release = http.GetStringAsync($"https://api.github.com/repos/{asset.Groups[1].Value}/releases/tags/{asset.Groups[2].Value}").GetAwaiter().GetResult();
-            var id = System.Text.Json.JsonDocument.Parse(release).RootElement.GetProperty("assets").EnumerateArray()
-                .FirstOrDefault(a => a.GetProperty("name").GetString() == asset.Groups[3].Value);
-            if (id.ValueKind != System.Text.Json.JsonValueKind.Undefined)
+            if (Token() is { } token)
             {
-                var request = new HttpRequestMessage(HttpMethod.Get, $"https://api.github.com/repos/{asset.Groups[1].Value}/releases/assets/{id.GetProperty("id").GetInt64()}");
-                request.Headers.Accept.ParseAdd("application/octet-stream");
-                response = http.SendAsync(request, HttpCompletionOption.ResponseHeadersRead).GetAwaiter().GetResult();
+                response.Dispose();
+                response = FromApi(http, token, asset.Groups[1].Value, asset.Groups[2].Value, asset.Groups[3].Value);
+                hint = " The token (GH_TOKEN, GITHUB_TOKEN or gh auth token) cannot read the release: check its account and scopes.";
             }
+            else hint = " The repository may be private: sign in with the GitHub CLI (gh auth login) or set GH_TOKEN to a token that can read it.";
         }
         using (response)
         {
             if (!response.IsSuccessStatusCode)
-                throw new InvalidOperationException($"the fork's packages could not be fetched ({(int)response.StatusCode}): {url}. Set FOC_FORK_FEED to the zip, or build them (experiments/wf4c/pack-fork.ps1)");
+                throw new InvalidOperationException($"the fork's packages could not be fetched ({(int)response.StatusCode}): {url}.{hint} Or set FOC_FORK_FEED to the zip, or build them (experiments/wf4c/pack-fork.ps1)");
             using var file = File.Create(path);
             response.Content.CopyToAsync(file).GetAwaiter().GetResult();
+        }
+    }
+
+    // The asset through the API (a private repository's): the release by its tag, then the asset by its id. The response
+    // that failed when either is not there.
+    static HttpResponseMessage FromApi(HttpClient http, string token, string repository, string tag, string name)
+    {
+        http.DefaultRequestHeaders.Authorization = new("Bearer", token);
+        var release = http.GetAsync($"https://api.github.com/repos/{repository}/releases/tags/{tag}").GetAwaiter().GetResult();
+        if (!release.IsSuccessStatusCode) return release;
+        using (release)
+        {
+            var asset = System.Text.Json.JsonDocument.Parse(release.Content.ReadAsStringAsync().GetAwaiter().GetResult())
+                .RootElement.GetProperty("assets").EnumerateArray().FirstOrDefault(a => a.GetProperty("name").GetString() == name);
+            if (asset.ValueKind == System.Text.Json.JsonValueKind.Undefined) return new HttpResponseMessage(System.Net.HttpStatusCode.NotFound);
+            var request = new HttpRequestMessage(HttpMethod.Get, $"https://api.github.com/repos/{repository}/releases/assets/{asset.GetProperty("id").GetInt64()}");
+            request.Headers.Accept.ParseAdd("application/octet-stream");
+            return http.SendAsync(request, HttpCompletionOption.ResponseHeadersRead).GetAwaiter().GetResult();
         }
     }
 

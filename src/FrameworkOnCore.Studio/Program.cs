@@ -65,7 +65,10 @@ api.MapPost("/analyses", (AnalysisRequest request, AnalysisStore store) =>
 api.MapGet("/analyses/{id}", (string id, AnalysisStore store) =>
     store.Get(id) is { } entry ? Results.Ok(new { entry, log = store.Log(id).TakeLast(200) }) : Results.NotFound());
 
-api.MapDelete("/analyses/{id}", (string id, AnalysisStore store) => store.Delete(id) ? Results.NoContent() : Results.Conflict());
+// Deleting: one waiting or running is cancelled. DELETE /analyses?state=failed: every one in that state.
+api.MapDelete("/analyses/{id}", (string id, AnalysisStore store) => store.Delete(id) ? Results.NoContent() : Results.NotFound());
+api.MapDelete("/analyses", (string state, AnalysisStore store) =>
+    state is "failed" or "done" ? Results.Ok(new { deleted = store.DeleteAll(state) }) : Results.BadRequest(new { error = "state: failed or done" }));
 
 // The result as the analysis wrote it (large: sent as the file is).
 api.MapGet("/analyses/{id}/result", (string id, AnalysisStore store) =>

@@ -49,13 +49,20 @@ function toast(text) {
 // ---------------------------------------------------------------------------------------------------------------------
 // Sidebar
 
+// The list; while one waits or runs, it is read again (its state changes whichever analysis is open).
 async function loadAnalyses() {
   state.analyses = await api('/analyses');
   renderSidebar();
+  clearTimeout(loadAnalyses.timer);
+  if (state.analyses.some(a => a.state === 'queued' || a.state === 'running'))
+    loadAnalyses.timer = setTimeout(() => loadAnalyses().catch(console.error), 2000);
 }
+
+const active = a => a.state === 'queued' || a.state === 'running';
 
 function renderSidebar() {
   const list = $('#analyses');
+  $('#clear-failed').hidden = !state.analyses.some(a => a.state === 'failed');
   if (state.analyses.length === 0) {
     list.innerHTML = '<div class="muted" style="padding:6px 10px;font-size:13px">まだ解析がありません</div>';
     return;
@@ -64,12 +71,19 @@ function renderSidebar() {
     const meta = a.state === 'done' && a.summary
       ? `${fmt(a.summary.apis)} API ・ 部品 ${fmt(a.summary.toDecide)}`
       : a.state === 'failed' ? '失敗' : a.state === 'queued' ? '待機中' : '解析中…';
-    return `<button class="analysis-item ${a.id === state.id ? 'active' : ''}" data-id="${esc(a.id)}">
-      <div class="name"><span class="dot ${esc(a.state)}"></span>${esc(a.name)}</div>
-      <div class="meta">${esc(meta)} ・ ${new Date(a.created).toLocaleDateString('ja-JP')}</div>
-    </button>`;
+    return `<div class="analysis-row">
+      <button class="analysis-item ${a.id === state.id ? 'active' : ''}" data-id="${esc(a.id)}">
+        <div class="name"><span class="dot ${esc(a.state)}"></span>${esc(a.name)}</div>
+        <div class="meta">${esc(meta)} ・ ${new Date(a.created).toLocaleString('ja-JP', { dateStyle: 'short', timeStyle: 'short' })}</div>
+      </button>
+      <button class="row-delete" data-delete="${esc(a.id)}" title="${active(a) ? '中止して削除' : '削除'}" aria-label="${esc(a.name)} を${active(a) ? '中止して' : ''}削除">✕</button>
+    </div>`;
   }).join('');
   list.querySelectorAll('.analysis-item').forEach(b => b.addEventListener('click', () => select(b.dataset.id)));
+  list.querySelectorAll('.row-delete').forEach(b => b.addEventListener('click', ev => {
+    ev.stopPropagation();
+    removeAnalysis(b.dataset.delete).catch(e => toast(e.message));
+  }));
 }
 
 // ---------------------------------------------------------------------------------------------------------------------
@@ -128,7 +142,7 @@ function renderRunning(entry, log) {
         <h1>${esc(entry.name)}</h1>
         <div class="sub"><code>${esc(entry.project)}</code><span>構成 ${esc(entry.configuration)}</span></div>
       </div>
-      <div class="header-actions">${failed ? '<button class="btn ghost danger" id="delete">削除</button>' : ''}</div></div>
+      <div class="header-actions"><button class="btn ghost danger" id="delete">${failed ? '削除' : '中止して削除'}</button></div></div>
       <div class="card card-pad">
         <h2>${failed ? '解析できませんでした' : entry.state === 'queued' ? 'ほかの解析が終わるのを待っています' : 'アプリを読み込んで、API を数えています'}</h2>
         <div class="hint">${failed ? esc(entry.error ?? '') : 'ソースを .NET Framework 4.8 の参照アセンブリでコンパイルし、名前を一つずつ .NET 10 と照らし合わせます。大きなアプリでは数十秒かかります。'}</div>
@@ -136,7 +150,7 @@ function renderRunning(entry, log) {
         <pre class="log">${esc((log ?? []).slice(-60).join('\n')) || '…'}</pre>
       </div>
     </div>`;
-  $('#delete')?.addEventListener('click', removeAnalysis);
+  $('#delete').addEventListener('click', () => removeAnalysis(entry.id).catch(e => toast(e.message)));
   const pre = $('.log');
   pre.scrollTop = pre.scrollHeight;
 }
@@ -200,7 +214,7 @@ function renderResult() {
     </div>
     <div class="components" id="components"></div>`;
 
-  $('#delete').addEventListener('click', removeAnalysis);
+  $('#delete').addEventListener('click', () => removeAnalysis(e.id).catch(err => toast(err.message)));
   $('#reanalyze').addEventListener('click', () => startAnalysis({ project: e.project, root: e.root, configuration: e.configuration, name: e.name }));
   $('#search').addEventListener('input', ev => { state.filter.q = ev.target.value; renderComponents(); });
   renderBreakdown();
@@ -707,12 +721,34 @@ async function startAnalysis(request) {
   return entry;
 }
 
-async function removeAnalysis() {
-  if (!confirm(`「${state.entry.name}」を削除しますか?(解析の結果と選択のファイルが消えます)`)) return;
-  await api(`/analyses/${state.id}`, { method: 'DELETE' });
-  state.saved = state.choices;  // nothing left to save
+async function removeAnalysis(id) {
+  const a = state.analyses.find(x => x.id === id) ?? state.entry;
+  const question = active(a)
+    ? `「${a.name}」の解析を中止して削除しますか?`
+    : `「${a.name}」を削除しますか?(解析の結果と選択のファイルが消えます)`;
+  if (!confirm(question)) return;
+  await api(`/analyses/${id}`, { method: 'DELETE' });
+  await afterDelete([id]);
+  toast(active(a) ? '解析を中止して削除しました' : '削除しました');
+}
+
+async function removeFailed() {
+  const failed = state.analyses.filter(a => a.state === 'failed');
+  if (!failed.length || !confirm(`失敗した解析 ${failed.length} 件をすべて削除しますか?`)) return;
+  const { deleted } = await api('/analyses?state=failed', { method: 'DELETE' });
+  await afterDelete(failed.map(a => a.id));
+  toast(`${deleted} 件削除しました`);
+}
+
+// The list again; the analysis open, if it was deleted, gives way to the next one.
+async function afterDelete(ids) {
+  const current = ids.includes(state.id);
+  if (current) {
+    clearTimeout(state.poll);
+    state.saved = state.choices;  // nothing left to save
+  }
   await loadAnalyses();
-  await select(null);
+  if (current) await select(state.analyses[0]?.id ?? null);
 }
 
 // ---------------------------------------------------------------------------------------------------------------------
@@ -729,6 +765,7 @@ async function init() {
   $('#welcome-new').addEventListener('click', openNew);
   $('#drawer-close').addEventListener('click', closeDrawer);
   wireBrowser();
+  $('#clear-failed').addEventListener('click', () => removeFailed().catch(e => toast(e.message)));
   document.addEventListener('keydown', ev => { if (ev.key === 'Escape') closeDrawer(); });
   $('#save').addEventListener('click', save);
   $('#discard').addEventListener('click', () => { state.choices = clone(state.saved); state.errors = []; renderResult(); });

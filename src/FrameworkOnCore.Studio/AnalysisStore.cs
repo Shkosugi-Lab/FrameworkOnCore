@@ -39,6 +39,8 @@ public sealed class AnalysisStore
     readonly SemaphoreSlim one = new(1, 1);
     readonly ConcurrentDictionary<string, AnalysisEntry> entries = new(StringComparer.Ordinal);
     readonly ConcurrentDictionary<string, ConcurrentQueue<string>> logs = new(StringComparer.Ordinal);
+    // The analyses deleted while waiting or running: their task ends without keeping anything.
+    readonly ConcurrentDictionary<string, bool> cancelled = new(StringComparer.Ordinal);
 
     public Catalog Catalog { get; } = Catalog.Default();
 
@@ -87,33 +89,57 @@ public sealed class AnalysisStore
             await one.WaitAsync();
             try
             {
+                if (cancelled.ContainsKey(id)) return;  // deleted while it waited
                 Save(entry = entry with { State = "running" });
-                var result = AnalyzeCommand.Analyze(entry.Project, entry.Root, entry.Configuration, runtime, line => log.Enqueue(line));
+                // Deleted while it runs: the analysis stops at its next line of progress (it has no other way to stop).
+                var result = AnalyzeCommand.Analyze(entry.Project, entry.Root, entry.Configuration, runtime, line =>
+                {
+                    if (cancelled.ContainsKey(id)) throw new OperationCanceledException();
+                    log.Enqueue(line);
+                });
+                if (cancelled.ContainsKey(id)) return;
                 File.WriteAllText(ResultFile(id), JsonSerializer.Serialize(result, AnalysisResult.Json));
                 FrameworkOnCore.Analysis.Choices.Defaults(result, Catalog).Save(ChoicesFile(id));
                 Save(entry with { State = "done", Summary = Summarize(result) });
             }
-            catch (Exception e)
+            catch (Exception e) when (!cancelled.ContainsKey(id))
             {
                 log.Enqueue(e.ToString());
                 Save(entry with { State = "failed", Error = e.Message });
             }
+            catch (Exception) { }  // deleted: nothing to keep
             finally
             {
-                File.WriteAllLines(Path.Combine(Folder(id), "log.txt"), log);
+                if (cancelled.TryRemove(id, out _)) RemoveFolder(id);
+                else File.WriteAllLines(Path.Combine(Folder(id), "log.txt"), log);
                 one.Release();
             }
         });
         return entry;
     }
 
+    /// <summary>
+    /// Deletes an analysis and its files. One waiting or running is cancelled: it is gone from the list at once, and its
+    /// folder is removed when its task ends.
+    /// </summary>
     public bool Delete(string id)
     {
-        if (!entries.TryGetValue(id, out var entry) || entry.State is "queued" or "running") return false;
-        entries.TryRemove(id, out _);
+        if (!entries.TryRemove(id, out var entry)) return false;
         logs.TryRemove(id, out _);
-        Directory.Delete(Folder(id), recursive: true);
+        if (entry.State is "queued" or "running") cancelled[id] = true;
+        else RemoveFolder(id);
         return true;
+    }
+
+    /// <summary>Deletes every analysis in a state (the failed ones): how many.</summary>
+    public int DeleteAll(string state) =>
+        entries.Values.Where(e => e.State == state).Select(e => e.Id).ToList().Count(Delete);
+
+    void RemoveFolder(string id)
+    {
+        try { if (Directory.Exists(Folder(id))) Directory.Delete(Folder(id), recursive: true); }
+        catch (IOException) { }  // a file still open: left, not listed (entry.json is read only at start)
+        catch (UnauthorizedAccessException) { }
     }
 
     /// <summary>The choices of an analysis: saved, else the defaults of its result.</summary>
@@ -133,6 +159,7 @@ public sealed class AnalysisStore
 
     void Save(AnalysisEntry entry)
     {
+        if (cancelled.ContainsKey(entry.Id)) return;
         entries[entry.Id] = entry;
         Directory.CreateDirectory(Folder(entry.Id));
         File.WriteAllText(Path.Combine(Folder(entry.Id), "entry.json"), JsonSerializer.Serialize(entry, json));

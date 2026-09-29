@@ -22,7 +22,7 @@
 
 | API | 使うコーパス | Linux での挙動 | 案 |
 |---|---|---|---|
-| **System.Drawing** | 8 つ中 7 つ | `DllNotFoundException: gdiplus.dll` | 試す価値あり:libgdiplus と、gdiplus.dll → libgdiplus.so の解決。だめなら API 互換の別実装を探す |
+| **System.Drawing** | 8 つ中 7 つ | `DllNotFoundException: gdiplus.dll` | **試した(`api-probe/drawing`)**:System.Drawing.Common 10 は libgdiplus を見つけても Windows 以外を拒む(PlatformNotSupported)。6.0 の Unix 実装 + `System.Drawing.EnableUnixSupport` + libgdiplus なら、試した 12 項目がすべて動く。フォークなど 10 に対してビルドしたコードからも、10 をアプリのアセンブリの一覧から外し、`AssemblyLoadContext.Resolving` で 6.0 を渡せば動く。サポート切れの部品(6.0、libgdiplus)を使うかどうかは要判断 |
 | EventLog | dnn、imis、yaf | PNSE | 対応済み(Compat:標準エラーへ) |
 | WindowsIdentity | dnn、yaf | PNSE | 対応済み(Compat) |
 | OleDb(Excel 取り込み) | nop、dnn | PNSE | Linux にプロバイダがない。報告のみ |

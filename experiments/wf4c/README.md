@@ -542,6 +542,12 @@ nopCommerce の最後の Web Forms 版(2011、.NET Framework 4.0、56 プロジ�
 確認: テスト 47 件(Windows・Linux)。RuntimeProbe は Windows・Linux とも .NET Framework と同じ(リダイレクトは 302 で、catch の後も動く。Shift_JIS のバイト列。BinaryFormatter の読み書き)。be・wt の変換の差は上の変更の分だけ。Linux の実行は be 5/5、wt は前と同じ 5/8(既知の丸めの差 2 件と error-page)。
 
 残り: ソースのない DLL だけが BinaryFormatter を使う場合(imis の ReportViewer など)は検出しない。`Encoding.GetEncoding(0)` と VB の `FileOpen` 系の既定のエンコーディングは未対応(コーパスでは使われていない)。
+
+System.Drawing を Linux で動かす試み(`api-probe/drawing`、Ubuntu 24.04 の .NET 10 SDK イメージ):
+- System.Drawing.Common 10 は GDI+ を `gdiplus.dll` として読む。libgdiplus を入れて名前を合わせても(シンボリックリンク、DllImport のリゾルバー)、見つかった後で「Windows 以外は非対応」の例外を投げる(.NET 7 からの仕様)。自分のリゾルバーも登録するので、アプリのリゾルバーとぶつかる。
+- System.Drawing.Common 6.0.0(Unix 実装のある最後の版)+ ランタイムの設定 `System.Drawing.EnableUnixSupport=true` + libgdiplus(Ubuntu の 6.1)なら、試した 12 項目がすべて動く。画像の作成・PNG/JPEG/GIF の保存と読み込み、nop の縮小(HighQualityBicubic、JPEG の品質)、文字の描画(CAPTCHA)、フォント、LockBits、グラデーション、サムネイル、EXIF。
+- フォーク(WebFormsForCore.Web、AjaxControlToolkit、WebFormsForCore.Drawing)は 10.0.0 に対してビルドされている。6.0 のファイルを同じ名前で置くと、バージョンが低いので読み込まれない。10 をアプリのアセンブリの一覧(deps.json)から外し、`AssemblyLoadContext.Resolving` で 6.0 を渡すと、10 に対してビルドしたコードもそのまま動く。
+- 使うなら: Linux の配置で libgdiplus とフォントを入れ、6.0 の Unix 実装を別のフォルダーに置き、起動時に Resolving で渡す(Windows は 10 のまま)。ただし 6.0 も libgdiplus もサポートが終わっている(Microsoft は非推奨。利用者がアップロードした画像を扱うなら特に)。
 ## 全コーパスでの検証(2026-09-27)
 
 `verify-corpora.ps1` で 6 本を変換してビルドした(Windows)。正解データがあるのは be と wt だけ。

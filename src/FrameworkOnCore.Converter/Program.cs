@@ -28,6 +28,13 @@ using FrameworkOnCore.Converter;
 // --case-insensitive on|off  file names without regard to case in the deployment, as on Windows (on, the default: the
 //            library casefs/libfoccase.so, which casefs/build.ps1 builds, preloaded by start.sh; off: Linux's).
 
+//
+//   FrameworkOnCore.Converter analyze <project> --out <dir> [--root <dir>] [--configuration <name>] [--runtime <dir>]
+//            the .NET Framework APIs the application uses, their counts, and what .NET 10 has of each (AnalyzeCommand):
+//            api-analysis.json and API-ANALYSIS.md, nothing converted.
+
+if (args.Length > 0 && args[0] == "analyze") return AnalyzeCommand.Run(args[1..], FindRuntime);
+
 string? project = null, outDirectory = null, rootDirectory = null, runtimeDirectory = null, cultureProfile = null, site = null, originalTarget = null, configuration = null;
 var build = true;
 var buildOriginal = false;

@@ -6,7 +6,7 @@ param([string]$Image = 'mcr.microsoft.com/dotnet/sdk:10.0')
 $repo = (Resolve-Path (Join-Path $PSScriptRoot '..\..')).Path
 $script = @'
 set -e
-for d in src/FrameworkOnCore.Analyzers src/FrameworkOnCore.Converter experiments/wf4c/shims/FrameworkOnCore.Compat tests/FrameworkOnCore.Tests; do
+for d in src/FrameworkOnCore.Analyzers src/FrameworkOnCore.Analysis src/FrameworkOnCore.Converter experiments/wf4c/shims/FrameworkOnCore.Compat tests/FrameworkOnCore.Tests; do
   mkdir -p /w/$d
   (cd /repo/$d && find . -type f -not -path './bin/*' -not -path './obj/*' -exec cp --parents {} /w/$d/ \;)
 done

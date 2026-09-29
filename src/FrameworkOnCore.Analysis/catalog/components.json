@@ -1,0 +1,165 @@
+{
+  "$comment": "The components the user chooses for (ApiAnalyzer). An API belongs to the first component whose match holds: assemblies (.NET Framework's), namespaces (and those under them), types (full names, without generic arity), members (Type.Member, any signature, or a documentation id). An API no component matches is its assembly's (\"fw:System.Xml\"). status: what is known that .NET's attributes do not say (Behavior: it works differently; Throws); force: the component's status whatever .NET has (an API that is not an API of .NET: a delegate's BeginInvoke). note: what it is, and what the converter does today.",
+  "version": 1,
+  "$comment_throwingObsoletions": ".NET's obsoletions whose members throw PlatformNotSupportedException (on every platform), not only warn.",
+  "throwingObsoletions": {
+    "SYSLIB0006": "Thread.Abort / ResetAbort: .NET はスレッドを中断できない",
+    "SYSLIB0007": "暗号の既定の実装(引数なしの Create)",
+    "SYSLIB0011": "BinaryFormatter(.NET 9 で削除)",
+    "SYSLIB0017": "厳密名の署名(StrongNameKeyPair)",
+    "SYSLIB0024": "AppDomain の作成・アンロード",
+    "SYSLIB0050": "書式設定子によるシリアル化の一部"
+  },
+  "components": [
+    {
+      "id": "thread-abort", "title": "スレッドの中断(Thread.Abort / ResetAbort)",
+      "match": { "members": [ "System.Threading.Thread.Abort", "System.Threading.Thread.ResetAbort" ] },
+      "note": "変換器: ResetAbort は Platform.ResetAbort に置き換える(フォークの Response.End の中断を取り消す)。Abort は対応なし"
+    },
+    {
+      "id": "async-delegates", "title": "デリゲートの非同期呼び出し(BeginInvoke / EndInvoke)",
+      "match": { "delegateAsync": true }, "status": "Throws", "force": true,
+      "note": "変換器: FrameworkOnCore.AsyncDelegate に置き換える(スレッドプールで実行)"
+    },
+    {
+      "id": "binary-formatter", "title": "BinaryFormatter / SoapFormatter",
+      "match": { "namespaces": [ "System.Runtime.Serialization.Formatters.Binary", "System.Runtime.Serialization.Formatters.Soap" ], "types": [ "System.Runtime.Serialization.NetDataContractSerializer" ] },
+      "note": "変換器: 互換パッケージ System.Runtime.Serialization.Formatters と EnableUnsafeBinaryFormatterSerialization(信頼できないデータの読み込みは危険)"
+    },
+    {
+      "id": "encoding-default", "title": "Encoding.Default(既定の文字コード)",
+      "match": { "members": [ "System.Text.Encoding.Default" ] }, "status": "Behavior",
+      "note": ".NET Framework は ANSI コードページ(日本語の Windows では Shift_JIS)、.NET は UTF-8。変換器: Platform.DefaultEncoding に置き換える"
+    },
+    {
+      "id": "code-pages", "title": "コードページ(Shift_JIS など)",
+      "match": { "members": [ "System.Text.Encoding.GetEncoding", "System.Text.Encoding.GetEncodings" ] }, "status": "Behavior",
+      "note": ".NET はプロバイダーを登録しないと Unicode と ASCII・Latin-1 だけ。変換器: Program で CodePagesEncodingProvider を登録する"
+    },
+    {
+      "id": "system-drawing", "title": "System.Drawing(画像・フォント、GDI+)",
+      "match": { "namespaces": [ "System.Drawing" ] },
+      "note": ".NET の System.Drawing.Common は Windows のみ。Linux は System.Drawing.Common 6.0 + libgdiplus で動く(サポート切れ。api-probe/drawing)"
+    },
+    {
+      "id": "charts", "title": "グラフ(Chart コントロール)",
+      "match": { "assemblies": [ "System.Web.DataVisualization", "System.Windows.Forms.DataVisualization" ] },
+      "note": ".NET に無い。referencesource(MIT)から移植できる。描画は System.Drawing"
+    },
+    {
+      "id": "linq-to-sql", "title": "LINQ to SQL(System.Data.Linq)",
+      "match": { "assemblies": [ "System.Data.Linq" ] },
+      "note": ".NET に無い。referencesource(MIT)から移植できる"
+    },
+    {
+      "id": "entity-framework-4", "title": "Entity Framework 4(System.Data.Entity)",
+      "match": { "assemblies": [ "System.Data.Entity", "System.Data.Entity.Design" ] },
+      "note": "変換器: EF6(パッケージ)に移し、名前空間を書き換える"
+    },
+    {
+      "id": "wcf-data-services", "title": "WCF Data Services(OData のクライアント・サーバー)",
+      "match": { "assemblies": [ "System.Data.Services.Client", "System.Data.Services" ] },
+      "note": ".NET に無い"
+    },
+    {
+      "id": "mobile-controls", "title": "モバイル コントロール(System.Web.Mobile)",
+      "match": { "assemblies": [ "System.Web.Mobile" ], "namespaces": [ "System.Web.UI.MobileControls", "System.Web.Mobile" ] },
+      "note": "ASP.NET 4.0 で廃止。.NET に無い"
+    },
+    {
+      "id": "wcf-server", "title": "WCF のサービス(ServiceHost、.svc)",
+      "match": { "assemblies": [ "System.ServiceModel.Activation" ], "types": [ "System.ServiceModel.ServiceHost", "System.ServiceModel.ServiceHostBase" ], "namespaces": [ "System.ServiceModel.Activation", "System.ServiceModel.Description" ] },
+      "note": ".NET には無い(クライアントのみ)。CoreWCF で置き換えられる"
+    },
+    {
+      "id": "wcf-client", "title": "WCF のクライアント(System.ServiceModel)",
+      "match": { "assemblies": [ "System.ServiceModel", "System.ServiceModel.Web" ] },
+      "note": "変換器: System.ServiceModel.* パッケージ(クライアントの一部のみ)"
+    },
+    {
+      "id": "event-log", "title": "イベントログ(EventLog)",
+      "match": { "types": [ "System.Diagnostics.EventLog", "System.Diagnostics.EventLogEntry", "System.Diagnostics.EventLogEntryType", "System.Diagnostics.EventLogEntryCollection", "System.Diagnostics.EventLogTraceListener", "System.Diagnostics.EventSourceCreationData" ] },
+      "note": "変換器: Windows 以外では標準エラーへ(FrameworkOnCore.EventLogs)"
+    },
+    {
+      "id": "windows-identity", "title": "Windows のアカウント・偽装(WindowsIdentity)",
+      "match": { "types": [ "System.Security.Principal.WindowsIdentity", "System.Security.Principal.WindowsPrincipal", "System.Security.Principal.WindowsImpersonationContext", "System.Security.Principal.PrincipalPolicy" ] },
+      "note": "変換器: Windows 以外では Platform の置き換え(アカウントなし)"
+    },
+    {
+      "id": "file-access-control", "title": "ファイル・フォルダーのアクセス制御(ACL)",
+      "match": { "members": [ "System.IO.Directory.GetAccessControl", "System.IO.Directory.SetAccessControl", "System.IO.File.GetAccessControl", "System.IO.File.SetAccessControl", "System.IO.FileSystemInfo.GetAccessControl" ], "namespaces": [ "System.Security.AccessControl" ] },
+      "note": "Windows のみ。変換器: Directory/File の GetAccessControl などは FrameworkOnCore.DirectoryAcl・FileAcl(Windows 以外では例外)"
+    },
+    {
+      "id": "registry", "title": "レジストリ(Microsoft.Win32.Registry)",
+      "match": { "types": [ "Microsoft.Win32.Registry", "Microsoft.Win32.RegistryKey", "Microsoft.Win32.RegistryHive", "Microsoft.Win32.RegistryValueKind", "Microsoft.Win32.RegistryView" ] },
+      "note": "Windows 以外では Registry.LocalMachine などが null"
+    },
+    {
+      "id": "oledb", "title": "OLE DB(Excel・Access の読み込みなど)",
+      "match": { "namespaces": [ "System.Data.OleDb" ] },
+      "note": "Windows のみ。Linux にプロバイダーが無い"
+    },
+    {
+      "id": "directory-services", "title": "Active Directory(System.DirectoryServices)",
+      "match": { "namespaces": [ "System.DirectoryServices" ] },
+      "note": "Windows のみ。LDAP(System.DirectoryServices.Protocols)への書き換えが要る"
+    },
+    {
+      "id": "windows-management", "title": "WMI・パフォーマンスカウンター・Windows サービス",
+      "match": { "namespaces": [ "System.Management", "System.ServiceProcess" ], "types": [ "System.Diagnostics.PerformanceCounter", "System.Diagnostics.PerformanceCounterCategory", "System.Diagnostics.PerformanceCounterType", "System.Diagnostics.CounterCreationData", "System.Diagnostics.CounterCreationDataCollection" ] },
+      "note": "Windows のみ"
+    },
+    {
+      "id": "code-access-security", "title": "コードアクセスセキュリティ(CAS)",
+      "match": { "namespaces": [ "System.Security.Permissions" ], "types": [ "System.Security.SecurityManager", "System.Security.CodeAccessPermission", "System.Security.PermissionSet", "System.Security.NamedPermissionSet", "System.Security.IPermission", "System.Web.AspNetHostingPermission", "System.Web.AspNetHostingPermissionLevel", "System.Web.AspNetHostingPermissionAttribute" ] },
+      "note": ".NET では何もしない(部分信頼は無い)。Web アプリは完全信頼が普通"
+    },
+    {
+      "id": "app-domains", "title": "AppDomain の作成(AppDomain.CreateDomain)",
+      "match": { "members": [ "System.AppDomain.CreateDomain", "System.AppDomain.Unload", "System.AppDomain.CreateInstanceAndUnwrap", "System.AppDomain.ExecuteAssembly" ], "types": [ "System.AppDomainSetup" ] },
+      "note": ".NET は AppDomain を 1 つしか持てない"
+    },
+    {
+      "id": "remoting", "title": "リモート処理(System.Runtime.Remoting)",
+      "match": { "namespaces": [ "System.Runtime.Remoting" ] },
+      "note": ".NET に無い。一部(CallContext など)はフォーク・互換アセンブリにある"
+    },
+    {
+      "id": "code-dom-compile", "title": "実行時のコンパイル(CodeDom)",
+      "match": { "namespaces": [ "System.CodeDom.Compiler" ], "types": [ "Microsoft.CSharp.CSharpCodeProvider", "Microsoft.VisualBasic.VBCodeProvider" ] },
+      "note": ".NET の CodeDom はコンパイルできない(例外)。コードの生成のみ"
+    },
+    {
+      "id": "web-request", "title": "WebRequest / WebClient",
+      "match": { "types": [ "System.Net.WebRequest", "System.Net.HttpWebRequest", "System.Net.WebClient", "System.Net.ServicePointManager", "System.Net.ServicePoint", "System.Net.FtpWebRequest", "System.Net.FileWebRequest" ] },
+      "note": ".NET では廃止予定だが動く(HttpClient が推奨)"
+    },
+    {
+      "id": "legacy-crypto", "title": "古い暗号クラス(*CryptoServiceProvider、*Managed)",
+      "match": { "types": [ "System.Security.Cryptography.MD5CryptoServiceProvider", "System.Security.Cryptography.SHA1CryptoServiceProvider", "System.Security.Cryptography.SHA256CryptoServiceProvider", "System.Security.Cryptography.SHA384CryptoServiceProvider", "System.Security.Cryptography.SHA512CryptoServiceProvider", "System.Security.Cryptography.DESCryptoServiceProvider", "System.Security.Cryptography.TripleDESCryptoServiceProvider", "System.Security.Cryptography.RC2CryptoServiceProvider", "System.Security.Cryptography.AesCryptoServiceProvider", "System.Security.Cryptography.RNGCryptoServiceProvider", "System.Security.Cryptography.RijndaelManaged", "System.Security.Cryptography.Rijndael", "System.Security.Cryptography.AesManaged", "System.Security.Cryptography.SHA1Managed", "System.Security.Cryptography.SHA256Managed", "System.Security.Cryptography.SHA384Managed", "System.Security.Cryptography.SHA512Managed", "System.Security.Cryptography.RijndaelManagedTransform" ] },
+      "note": ".NET では廃止予定だが動く(Rijndael の BlockSize 256 は例外)"
+    },
+    {
+      "id": "designers", "title": "デザイナー・Windows フォーム",
+      "match": { "assemblies": [ "System.Design", "System.Web.Extensions.Design", "System.Windows.Forms", "System.Drawing.Design" ] },
+      "note": "Visual Studio のデザイナー用。変換器: スタブ・web.config から除く"
+    },
+    {
+      "id": "web-forms", "title": "ASP.NET(System.Web:Web Forms、ASMX など)",
+      "match": { "assemblies": [ "System.Web", "System.Web.Extensions", "System.Web.Services", "System.Web.ApplicationServices", "System.Web.DynamicData", "System.Web.Abstractions", "System.Web.Routing", "System.Web.Entity", "System.Web.RegularExpressions" ] },
+      "note": "WebFormsForCore(フォーク)が .NET 版を持つ"
+    },
+    {
+      "id": "configuration", "title": "構成(System.Configuration)",
+      "match": { "assemblies": [ "System.Configuration" ] },
+      "note": "WebFormsForCore(フォーク)の構成"
+    },
+    {
+      "id": "visual-basic-runtime", "title": "Visual Basic のランタイム(Microsoft.VisualBasic)",
+      "match": { "assemblies": [ "Microsoft.VisualBasic" ] },
+      "note": ".NET の Microsoft.VisualBasic.Core。My の型の一部は互換アセンブリ"
+    }
+  ]
+}

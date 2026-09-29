@@ -548,6 +548,25 @@ System.Drawing を Linux で動かす試み(`api-probe/drawing`、Ubuntu 24.04 �
 - System.Drawing.Common 6.0.0(Unix 実装のある最後の版)+ ランタイムの設定 `System.Drawing.EnableUnixSupport=true` + libgdiplus(Ubuntu の 6.1)なら、試した 12 項目がすべて動く。画像の作成・PNG/JPEG/GIF の保存と読み込み、nop の縮小(HighQualityBicubic、JPEG の品質)、文字の描画(CAPTCHA)、フォント、LockBits、グラデーション、サムネイル、EXIF。
 - フォーク(WebFormsForCore.Web、AjaxControlToolkit、WebFormsForCore.Drawing)は 10.0.0 に対してビルドされている。6.0 のファイルを同じ名前で置くと、バージョンが低いので読み込まれない。10 をアプリのアセンブリの一覧(deps.json)から外し、`AssemblyLoadContext.Resolving` で 6.0 を渡すと、10 に対してビルドしたコードもそのまま動く。
 - 使うなら: Linux の配置で libgdiplus とフォントを入れ、6.0 の Unix 実装を別のフォルダーに置き、起動時に Resolving で渡す(Windows は 10 のまま)。ただし 6.0 も libgdiplus もサポートが終わっている(Microsoft は非推奨。利用者がアップロードした画像を扱うなら特に)。
+### API の使用状況の解析(2026-09-29)
+
+部品ごとに利用者が対応を選ぶ仕組みの第 1 段階。アプリが使う .NET Framework の API を一覧にし、呼び出し回数と .NET 10 での状態を出す(変換はしない)。
+
+    dotnet src\FrameworkOnCore.Converter\bin\Debug\net10.0\FrameworkOnCore.Converter.dll analyze <web project> --out <dir> [--root <dir>] [--configuration <name>]
+    .\experiments\wf4c\analyze-corpora.ps1 [-Only be,wt]     # _analysis\<name>\api-analysis.json、API-ANALYSIS.md
+
+作り(`src/FrameworkOnCore.Analysis`、ライブラリ。将来のローカルの Web 画面・サービスからも使えるように、結果はパスをリポジトリからの相対にした JSON、API は Roslyn のドキュメント ID):
+- プロジェクト: 古い形式は自前で読む(構成の条件、HintPath、ProjectReference、ほかのプロジェクトの出力への HintPath、PackageReference。復元されていない packages\ の DLL は NuGet のキャッシュ・nuget.org から)。SDK 形式は `dotnet msbuild -getProperty -getItem` で MSBuild に評価させる(Directory.Build.props/targets の DefineConstants・Using、パッケージ)。.NET 向けにもビルドされるものは型のためだけにコンパイルする(数えない)。
+- ソース: .NET Framework 4.8 の参照アセンブリに対して C#・VB をコンパイルし、名前が結び付く記号(型、メンバー、コンストラクター、インデクサー、オーバーライドした基底のメンバー、デリゲートの BeginInvoke)を書かれた場所で数える。公開・プロテクトの API だけ。別名の宣言や匿名型のメンバー名は数えない。署名したプロジェクトは公開署名でコンパイルする(InternalsVisibleTo)。SDK 形式の参照は推移的。
+- ソースのない DLL: メタデータの型・メンバーの参照を同じ ID の形で読む(呼び出し回数ではなく参照の有無)。変換で置き換わるパッケージ、.NET 版のあるパッケージは読まない。
+- .NET 10 側: .NET の参照アセンブリ、変換規則が加えるパッケージ、フォークのパッケージとその依存(System.CodeDom など)、互換アセンブリ(拡張メソッドで補うものも)。基底型に移ったメンバー、インデクサーの名前の違いも探す。`SupportedOSPlatform("windows")` と `Obsolete`(例外を投げる SYSLIB はカタログで判別)を読む。
+- 部品: `catalog/components.json`(30 部品。一致しない API はそのアセンブリの部品)。状態は「.NET に無い / 例外(全 OS)/ 例外(Linux)/ 動きが違う / 廃止予定(動く)/ そのまま」。
+
+8 コーパスで確認: 1 本 3〜39 秒。解決できなかった名前は .NET Framework の API の使用に対して 0〜2.9%(be・nop は 0。残りは GAC の ReportViewer、実行時に生成されるソースなど)。変換で分かっていたこと(dnn の ResetAbort 5 か所、n2 の BinaryFormatter、nop の EF4・グラフ、imis の EventLog)が一覧に出る。
+
+誤検出を直したもの: 名前付きタプルの要素(実体は Item1)、内部の型、.NET で基底型に移ったメンバー(DirectoryInfo.FullName)、インデクサー(Roslyn の ID は Item、VB は ItemOf)、Roslyn の ID の戻り値の型(`~System.String`)、フォークの依存パッケージ、互換アセンブリの拡張メソッド。
+
+次: カタログに部品ごとの選択肢を持たせ、選択のファイル(`--choices`)に従って変換する(第 2 段階)。その後に GUI。
 ## 全コーパスでの検証(2026-09-27)
 
 `verify-corpora.ps1` で 6 本を変換してビルドした(Windows)。正解データがあるのは be と wt だけ。

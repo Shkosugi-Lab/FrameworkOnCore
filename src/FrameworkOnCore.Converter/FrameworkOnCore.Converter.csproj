@@ -19,6 +19,8 @@
   <ItemGroup>
     <!-- Run in the converted applications' build (BuildFixer): copied next to the converter. -->
     <ProjectReference Include="..\FrameworkOnCore.Analyzers\FrameworkOnCore.Analyzers.csproj" />
+    <!-- The analysis of what the application uses (analyze). -->
+    <ProjectReference Include="..\FrameworkOnCore.Analysis\FrameworkOnCore.Analysis.csproj" />
   </ItemGroup>
 
   <ItemGroup>

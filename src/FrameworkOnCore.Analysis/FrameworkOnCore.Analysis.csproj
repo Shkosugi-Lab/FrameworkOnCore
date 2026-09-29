@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- What a .NET Framework application uses of .NET Framework, and what of it .NET 10 has (ApiAnalyzer): the list the
+       user chooses from, component by component. A library: the converter's command line runs it, a web UI (local, later
+       a service) will. Its results are data (AnalysisResult, JSON): paths relative to the repository, APIs by their
+       documentation ids. -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>FrameworkOnCore.Analysis</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.*" />
+    <PackageReference Include="Microsoft.CodeAnalysis.VisualBasic" Version="4.*" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- The components and what is known of their APIs on .NET: data, as the converter's rules. -->
+    <EmbeddedResource Include="catalog\components.json" LogicalName="components.json" />
+  </ItemGroup>
+</Project>

@@ -528,6 +528,20 @@ nopCommerce の最後の Web Forms 版(2011、.NET Framework 4.0、56 プロジ�
 - System.Drawing(Linux): 画像の処理。以前に挙げた「Linux で実行時に例外になる API」の最大のもの。
 - グラフ(`System.Web.DataVisualization`): .NET に無い。管理画面のレポート 2 つ。
 - フォークの kernel32 の直接の呼び出し: `Server.MachineName` は直した(0029)。IIS 以外から呼ばれうるものを機械的に拾うと 100 件ほど(多くは呼ばれないか、呼ぶ側で OS を確かめている)。
+
+### .NET Framework にしかない API(2026-09-29)
+
+8 コーパスの変換レポートとソースから洗い出し、.NET 10 / Linux での実際の挙動を確かめた(`FRAMEWORK-ONLY-APIS.md`、`api-probe/`)。例外になる 3 つを変換器で直した。確認用に `samples/RuntimeProbe`(.NET Framework の Web Forms)を作り、変換して Windows と Linux で開く(`probe-requests.ps1 [-Linux]`)。
+
+- コードページ(Shift_JIS など): .NET はプロバイダーを登録しないと Unicode と ASCII・Latin-1 だけ。Program.cs(.vb)のテンプレートの最初で `CodePagesEncodingProvider` を登録する(web.config の `responseEncoding="shift_jis"` を読む前)。
+- `Encoding.Default`: .NET Framework はシステムの ANSI コードページ(日本語の Windows では Shift_JIS)、.NET は UTF-8。互換アセンブリの `Platform.DefaultEncoding` に置き換える(Windows は GetACP、Linux は LANG のカルチャの ANSI コードページ。deploy の start.sh は元のサーバーのカルチャを LANG にする)。be・mojo・n2・nop が使う。
+- `Thread.ResetAbort`: .NET では例外。フォークの `Response.End`(Redirect・Transfer)は ThreadAbortException を投げるので、DNN の `catch (ThreadAbortException) { Thread.ResetAbort(); }`(URL の書き換え、モジュールの読み込みなど 5 か所)は実際に通る。互換アセンブリの `Platform.ResetAbort` に置き換える(フォークの `HttpResponse.ResetThreadAbort` を実行時に探して呼ぶ。互換アセンブリはフォークを参照しない)。直さないと、リダイレクトが 503 になり、catch の後のコードが動かなかった。
+- `BinaryFormatter`: .NET 9 で削除(例外)。ソースが使っていれば、互換パッケージ `System.Runtime.Serialization.Formatters` 10.0.12 を加え、Web プロジェクトに `EnableUnsafeBinaryFormatterSerialization`(`sourcePackages` の `appProperties`: 使うのがライブラリでも、実行されるアプリに付ける)。パッケージのアセンブリ(10.0.0.0)はランタイムのもの(8.1.0.0)より上なので、ランタイムの修正版に関係なくこちらが読み込まれる。.NET Framework 4.8 が書いたデータ(Hashtable、List<string>、DateTime)を読めることを確認した。フォークの `WebFormsForCore.Serialization.Formatters` は別の名前空間で、フォーク自身のためのもの。
+- 置き換えた呼び出しは、.NET の廃止の警告(SYSLIB0006)の「実行時に例外」の報告から外す。
+
+確認: テスト 47 件(Windows・Linux)。RuntimeProbe は Windows・Linux とも .NET Framework と同じ(リダイレクトは 302 で、catch の後も動く。Shift_JIS のバイト列。BinaryFormatter の読み書き)。be・wt の変換の差は上の変更の分だけ。Linux の実行は be 5/5、wt は前と同じ 5/8(既知の丸めの差 2 件と error-page)。
+
+残り: ソースのない DLL だけが BinaryFormatter を使う場合(imis の ReportViewer など)は検出しない。`Encoding.GetEncoding(0)` と VB の `FileOpen` 系の既定のエンコーディングは未対応(コーパスでは使われていない)。
 ## 全コーパスでの検証(2026-09-27)
 
 `verify-corpora.ps1` で 6 本を変換してビルドした(Windows)。正解データがあるのは be と wt だけ。

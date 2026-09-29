@@ -88,6 +88,10 @@ public sealed partial class BuildFixer(Report report, IReadOnlyCollection<Conver
                 var at = d.Line > 0 ? $"{Relative(file)}:{d.Line}" : Relative(file);
                 report.Add(d.ReportKind, at, d.Text);
                 if (d.Kind == "SYSLIB0007" && obsoletions.TryGetValue(at, out var obsoletion) && obsoletion.StartsWith("SYSLIB0007", StringComparison.Ordinal)) obsoletions.Remove(at);
+                // A member replaced where .NET marks it obsolete (Thread.ResetAbort, SYSLIB0006): what threw is not called.
+                // The message names it as the language writes it ('Thread.ResetAbort()', 'Public Shared Sub ResetAbort()').
+                if (d.Kind == "FOC1006" && obsoletions.TryGetValue(at, out var replaced) &&
+                    Regex.IsMatch(replaced, $@"[ .]{Regex.Escape(d.Text.Split(" -> ")[0].Split('.')[^1])}\b")) obsoletions.Remove(at);
             }
             foreach (var p in left.Where(p => p.Code == "FOC1002"))
                 report.Add(Report.Kind.Unsupported, $"{Relative(file)}:{p.Line}", $"FOC1002: {p.Message} (on Linux it needs the platform's separator)");

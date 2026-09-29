@@ -14,3 +14,6 @@ icu/*/obj/
 casefs/out/
 casefs/test/*/bin/
 casefs/test/*/obj/
+!/api-probe/
+api-probe/bin/
+api-probe/obj/

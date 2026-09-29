@@ -41,5 +41,53 @@ namespace FrameworkOnCore
         public static string RelativeSearchPath =>
             System.AppDomain.CurrentDomain.RelativeSearchPath ??
             (System.IO.Directory.Exists(System.IO.Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "bin")) ? "bin" : null);
+
+        /// <summary>
+        /// Encoding.Default: .NET Framework's is the system's ANSI code page (Shift_JIS, 932, on Japanese Windows), .NET's
+        /// UTF-8 on every platform (the files the application wrote, the hashes of the bytes it took, would differ). As
+        /// .NET Framework had it: Windows' ANSI code page; elsewhere the one of the culture the application runs in (LANG,
+        /// which deploy/start.sh sets to the original server's culture).
+        /// </summary>
+        public static System.Text.Encoding DefaultEncoding => defaultEncoding.Value;
+
+        static readonly System.Lazy<System.Text.Encoding> defaultEncoding = new(() =>
+        {
+            System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
+            var codePage = System.OperatingSystem.IsWindows() ? (int)GetACP() : System.Globalization.CultureInfo.InstalledUICulture.TextInfo.ANSICodePage;
+            return System.Text.Encoding.GetEncoding(codePage);
+        });
+
+        [System.Runtime.InteropServices.DllImport("kernel32.dll")]
+        static extern uint GetACP();
+
+        /// <summary>
+        /// Thread.ResetAbort(): .NET has no thread abort (it throws PlatformNotSupportedException). WebFormsForCore's
+        /// Response.End (Redirect, Transfer) throws a ThreadAbortException, and throws it again at the request's next
+        /// steps, as .NET Framework raised the abort again at the end of each catch; the application's catch (DNN's URL
+        /// rewriter: after a redirect) called ResetAbort to go on. Here it cancels that (the fork's
+        /// HttpResponse.ResetThreadAbort, found at run time: this assembly does not reference the fork). Without a request
+        /// or an end pending, nothing.
+        /// </summary>
+        public static void ResetAbort()
+        {
+            if (resetAbort.Value is not { } members) return;
+            var context = members.Current.GetValue(null);
+            if (context == null) return;
+            object response;
+            // HttpContext.Response throws where the request has none (the application's start).
+            try { response = members.Response.GetValue(context); }
+            catch (System.Reflection.TargetInvocationException) { return; }
+            if (response != null) members.Reset.Invoke(response, null);
+        }
+
+        static readonly System.Lazy<(System.Reflection.PropertyInfo Current, System.Reflection.PropertyInfo Response, System.Reflection.MethodInfo Reset)?> resetAbort = new(() =>
+        {
+            const System.Reflection.BindingFlags any = System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.NonPublic;
+            var context = System.Type.GetType("System.Web.HttpContext, System.Web");
+            var current = context?.GetProperty("Current", any | System.Reflection.BindingFlags.Static);
+            var response = context?.GetProperty("Response", any | System.Reflection.BindingFlags.Instance);
+            var reset = response?.PropertyType.GetMethod("ResetThreadAbort", any | System.Reflection.BindingFlags.Instance, System.Type.EmptyTypes);
+            return current != null && response != null && reset != null ? (current, response, reset) : null;
+        });
     }
 }

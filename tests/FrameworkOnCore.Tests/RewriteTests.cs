@@ -54,13 +54,17 @@ public class RewriteTests
             "Uri H(string s) => new Uri(s, UriKind.RelativeOrAbsolute);\n" +
             "string I() => System.Security.Principal.WindowsIdentity.GetCurrent().Name;\n" +
             "object J() => System.Security.Principal.WindowsIdentity.GetCurrent();\n" +
-            "string K() => AppDomain.CurrentDomain.RelativeSearchPath;"));
+            "string K() => AppDomain.CurrentDomain.RelativeSearchPath;\n" +
+            "byte[] L(string s) => System.Text.Encoding.Default.GetBytes(s);\n" +
+            "void M() { try { } catch (System.Threading.ThreadAbortException) { System.Threading.Thread.ResetAbort(); } }"));
         Assert.Contains("SetPrincipalPolicy(global::FrameworkOnCore.Platform.WindowsPrincipalPolicy)", written);
         Assert.Contains("global::FrameworkOnCore.WindowsUri.TryCreate(s, UriKind.Absolute, out _)", written);
         Assert.Contains("global::FrameworkOnCore.WindowsUri.Create(s, UriKind.RelativeOrAbsolute)", written);
         Assert.Contains("string I() => global::FrameworkOnCore.Platform.CurrentIdentityName;", written);
         Assert.Contains("object J() => global::FrameworkOnCore.Platform.CurrentWindowsIdentity;", written);
         Assert.Contains("string K() => global::FrameworkOnCore.Platform.RelativeSearchPath;", written);
+        Assert.Contains("byte[] L(string s) => global::FrameworkOnCore.Platform.DefaultEncoding.GetBytes(s);", written);
+        Assert.Contains("{ global::FrameworkOnCore.Platform.ResetAbort(); }", written);
     }
 
     [Fact] // openIMIS's log (every login): the event log; a call on an EventLog passes it first
@@ -99,10 +103,14 @@ public class RewriteTests
             "Imports System\nPublic Class C\n  Delegate Sub Work(item As Integer)\n  Delegate Function Count() As Integer\n" +
             "  Sub F(work As Work, count As Count)\n    work.BeginInvoke(1, Nothing, Nothing)\n    Dim r = count.BeginInvoke(Nothing, Nothing)\n    Dim n = count.EndInvoke(r)\n  End Sub\n" +
             "  Function G(s As String) As Boolean\n    Dim u As Uri = Nothing\n    Return Uri.TryCreate(s, UriKind.Absolute, u)\n  End Function\n" +
+            "  Function H(s As String) As Byte()\n    Return System.Text.Encoding.Default.GetBytes(s)\n  End Function\n" +
+            "  Sub I()\n    Try\n    Catch ex As System.Threading.ThreadAbortException\n      System.Threading.Thread.ResetAbort()\n    End Try\n  End Sub\n" +
             "End Class");
         Assert.Contains("Global.FrameworkOnCore.AsyncDelegate.BeginInvoke(work, New Object() {1}, Nothing, Nothing)", written);
         Assert.Contains("CType(Global.FrameworkOnCore.AsyncDelegate.EndInvoke(r), Integer)", written);
         Assert.Contains("Global.FrameworkOnCore.WindowsUri.TryCreate(s, UriKind.Absolute, u)", written);
+        Assert.Contains("Return Global.FrameworkOnCore.Platform.DefaultEncoding.GetBytes(s)", written);
+        Assert.Contains("Global.FrameworkOnCore.Platform.ResetAbort()", written);
     }
 
     [Fact] // openIMIS's IMIS_Gen.Log

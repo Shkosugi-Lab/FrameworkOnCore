@@ -327,6 +327,11 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
             Prop("IntermediateOutputPath", "$(BaseIntermediateOutputPath)$(Configuration)\\$(TargetFramework.ToLowerInvariant())\\");
             Prop("StartupObject", "Program");
             Prop("EnableDefaultContentItems", "false");
+            foreach (var (property, value) in appProperties)
+            {
+                Prop(property, value);
+                report.Add(Report.Kind.Project, name, $"{property}={value} (a package the application uses needs it: sourcePackages)");
+            }
         }
         else if (CopyLocalProjects.Contains(projectPath))
         {
@@ -657,6 +662,10 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
         public void Add(Package p) { if (!Items.Any(i => i.Id.Equals(p.Id, StringComparison.OrdinalIgnoreCase))) Items.Add(p); }
     }
 
+    // The web project's properties a used package needs (sourcePackages' appProperties): the projects it references are
+    // converted before it, so it has those of every project.
+    readonly SortedDictionary<string, string> appProperties = new(StringComparer.Ordinal);
+
     // What .NET Framework had in its own assemblies and .NET ships as packages: added when used.
     void AddSourcePackages(string name, IEnumerable<string> files, Action<Package> add)
     {
@@ -666,6 +675,7 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
             if (!rule.Pattern.IsMatch(text)) continue;
             add(rule.Package);
             if (rule.Note != null) report.Add(Report.Kind.Unsupported, name, $"uses {rule.Package.Id}: {rule.Note}");
+            foreach (var (property, value) in rule.AppProperties ?? new Dictionary<string, string>()) appProperties[property] = value;
         }
         foreach (var note in rules.SourceNotes)
         {

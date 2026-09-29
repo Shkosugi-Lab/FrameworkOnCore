@@ -7,7 +7,9 @@ namespace FrameworkOnCore.Converter;
 public sealed record Package(string Id, string Version);
 
 /// <summary>A package added when a project's sources use what it carries.</summary>
-public sealed record SourcePackage(Regex Pattern, Package Package, string? Note);
+/// <summary>A package for what the sources use; AppProperties: set on the web project, the application the runtime runs
+/// (a runtime setting the package needs, wherever it is used).</summary>
+public sealed record SourcePackage(Regex Pattern, Package Package, string? Note, IReadOnlyDictionary<string, string>? AppProperties = null);
 
 /// <summary>A member .NET removed, rewritten where it is used (Type.Member -> Replacement).</summary>
 public sealed record MemberReplacement(string Type, string Member, string Replacement, string Note);
@@ -104,7 +106,8 @@ public sealed class Rules
             SourcePackages = root.GetProperty("sourcePackages").EnumerateArray().Select(e => new SourcePackage(
                 new Regex(e.GetProperty("pattern").GetString()!, RegexOptions.Compiled),
                 new Package(e.GetProperty("id").GetString()!, Version(e.GetProperty("version").GetString()!)),
-                e.TryGetProperty("note", out var note) ? note.GetString() : null)).ToList(),
+                e.TryGetProperty("note", out var note) ? note.GetString() : null,
+                e.TryGetProperty("appProperties", out var properties) ? properties.EnumerateObject().ToDictionary(p => p.Name, p => p.Value.GetString()!) : null)).ToList(),
             FrameworkAssets = root.GetProperty("frameworkAssets").EnumerateObject().ToDictionary(p => p.Name,
                 p => (p.Value.GetProperty("asset").GetString()!, p.Value.GetProperty("note").GetString()!), StringComparer.OrdinalIgnoreCase),
             MemberReplacements = root.GetProperty("memberReplacements").EnumerateArray().Select(e => new MemberReplacement(

@@ -75,6 +75,23 @@ public class CompatTests
         Assert.Null(Platform.RelativeSearchPath);
     }
 
+    [Fact] // nopCommerce's payment hashes, n2's log files, BlogEngine's pingbacks: Encoding.Default
+    public void The_default_encoding_is_the_ansi_code_page_as_on_net_framework()
+    {
+        var encoding = Platform.DefaultEncoding;
+        // Windows': the system's (GetACP); elsewhere the culture's (LANG).
+        if (!OperatingSystem.IsWindows()) Assert.Equal(System.Globalization.CultureInfo.InstalledUICulture.TextInfo.ANSICodePage, encoding.CodePage);
+        // A code page .NET has only from the provider (the one registered with it).
+        Assert.Equal("shift_jis", System.Text.Encoding.GetEncoding(932).WebName);
+    }
+
+    [Fact] // DNN's URL rewriter: catch (ThreadAbortException) { Thread.ResetAbort(); } after a redirect
+    public void Reset_abort_without_a_request_does_nothing()
+    {
+        // No WebFormsForCore here (no System.Web): nothing to cancel, and no PlatformNotSupportedException.
+        Platform.ResetAbort();
+    }
+
     [Fact] // DNN's Scheduler: delegateFunc.BeginInvoke(item, null, null)
     public void Begin_invoke_runs_the_delegate_with_the_call_s_arguments()
     {

@@ -45,11 +45,7 @@ public static class RuntimeSetup
         if (download)
         {
             zip = Path.Combine(Path.GetTempPath(), $"fork-feed-{forkVersion}-{Guid.NewGuid():N}.zip");
-            using var http = new HttpClient { Timeout = TimeSpan.FromMinutes(10) };
-            using var response = http.GetAsync(source, HttpCompletionOption.ResponseHeadersRead).GetAwaiter().GetResult();
-            if (!response.IsSuccessStatusCode)
-                throw new InvalidOperationException($"the fork's packages could not be fetched ({(int)response.StatusCode}): {source}. Set FOC_FORK_FEED to the zip, or build them (experiments/wf4c/pack-fork.ps1)");
-            using (var file = File.Create(zip)) response.Content.CopyToAsync(file).GetAwaiter().GetResult();
+            Download(source, zip);
         }
         // Extracted beside the feed first, then moved in: a download cut short leaves no half a feed.
         var staging = feed + ".download";
@@ -69,6 +65,52 @@ public static class RuntimeSetup
             if (download) File.Delete(zip);
         }
         log?.Invoke($"  -> {feed}");
+    }
+
+    // A release asset of a private repository is not there without a token (404): then through the API, with the token
+    // of GH_TOKEN, GITHUB_TOKEN or the GitHub CLI (gh auth token).
+    static void Download(string url, string path)
+    {
+        using var http = new HttpClient { Timeout = TimeSpan.FromMinutes(10) };
+        http.DefaultRequestHeaders.UserAgent.ParseAdd("FrameworkOnCore");
+        var response = http.GetAsync(url, HttpCompletionOption.ResponseHeadersRead).GetAwaiter().GetResult();
+        if (response.StatusCode == System.Net.HttpStatusCode.NotFound
+            && Regex.Match(url, @"^https://github\.com/([^/]+/[^/]+)/releases/download/([^/]+)/([^/]+)$") is { Success: true } asset
+            && Token() is { } token)
+        {
+            response.Dispose();
+            http.DefaultRequestHeaders.Authorization = new("Bearer", token);
+            var release = http.GetStringAsync($"https://api.github.com/repos/{asset.Groups[1].Value}/releases/tags/{asset.Groups[2].Value}").GetAwaiter().GetResult();
+            var id = System.Text.Json.JsonDocument.Parse(release).RootElement.GetProperty("assets").EnumerateArray()
+                .FirstOrDefault(a => a.GetProperty("name").GetString() == asset.Groups[3].Value);
+            if (id.ValueKind != System.Text.Json.JsonValueKind.Undefined)
+            {
+                var request = new HttpRequestMessage(HttpMethod.Get, $"https://api.github.com/repos/{asset.Groups[1].Value}/releases/assets/{id.GetProperty("id").GetInt64()}");
+                request.Headers.Accept.ParseAdd("application/octet-stream");
+                response = http.SendAsync(request, HttpCompletionOption.ResponseHeadersRead).GetAwaiter().GetResult();
+            }
+        }
+        using (response)
+        {
+            if (!response.IsSuccessStatusCode)
+                throw new InvalidOperationException($"the fork's packages could not be fetched ({(int)response.StatusCode}): {url}. Set FOC_FORK_FEED to the zip, or build them (experiments/wf4c/pack-fork.ps1)");
+            using var file = File.Create(path);
+            response.Content.CopyToAsync(file).GetAwaiter().GetResult();
+        }
+    }
+
+    static string? Token()
+    {
+        foreach (var name in new[] { "GH_TOKEN", "GITHUB_TOKEN" })
+            if (Environment.GetEnvironmentVariable(name) is { Length: > 0 } token) return token;
+        try
+        {
+            using var gh = Process.Start(new ProcessStartInfo("gh", "auth token") { UseShellExecute = false, RedirectStandardOutput = true, RedirectStandardError = true })!;
+            var token = gh.StandardOutput.ReadToEnd().Trim();
+            gh.WaitForExit();
+            return gh.ExitCode == 0 && token.Length > 0 ? token : null;
+        }
+        catch (System.ComponentModel.Win32Exception) { return null; } // no GitHub CLI
     }
 
     /// <summary>The shim projects (&lt;runtime&gt;/shims/**/*.csproj, not their build output).</summary>

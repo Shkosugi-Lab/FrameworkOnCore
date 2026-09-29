@@ -14,7 +14,9 @@ param(
 $ErrorActionPreference = 'Stop'
 $repo = Resolve-Path (Join-Path $PSScriptRoot '..\..')
 if (-not $Version) {
-    $Version = (Get-Content (Join-Path $repo 'src\FrameworkOnCore.Converter\rules\packages.json') -Raw | ConvertFrom-Json).forkVersion
+    # The rules have comments (ConvertFrom-Json of Windows PowerShell does not take them): the one property.
+    $rules = Get-Content (Join-Path $repo 'src\FrameworkOnCore.Converter\rules\packages.json') -Raw
+    $Version = [regex]::Match($rules, '"forkVersion"\s*:\s*"([^"]+)"').Groups[1].Value
 }
 $feed = Join-Path $PSScriptRoot '_feed'
 $packages = @(Get-ChildItem $feed -File | Where-Object { $_.Name -like "*.$Version.nupkg" -or $_.Name -like "*.$Version.snupkg" })

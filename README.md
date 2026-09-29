@@ -46,7 +46,7 @@
 - .NET 10 SDK
 - Windows(変換器は Visual Studio の MSBuild で元のアプリをビルドする)。Linux での検証には Docker Desktop
 
-WebFormsForCore のフォークのパッケージは、初めて解析や変換をしたときに、このリポジトリの GitHub Release から `experiments/wf4c/_feed` に自動で取得されます。互換アセンブリも必要なときに自動でビルドされます。事前の準備は要りません。
+WebFormsForCore のフォークのパッケージは、初めて解析や変換をしたときに、このリポジトリの GitHub Release から `experiments/wf4c/_feed` に自動で取得されます。互換アセンブリも必要なときに自動でビルドされます。事前の準備は要りません(リポジトリが非公開の間は、GitHub CLI にログインしているか、`GH_TOKEN` を設定しておく必要があります)。
 
 ## 使い方
 

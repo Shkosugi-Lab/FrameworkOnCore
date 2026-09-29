@@ -188,7 +188,8 @@ Windows でしか動かないものを検出する。書き換えられるもの
   - ルールベースの書き換え(override、コンストラクター、定数が必要な場所、存在するが例外になるメンバー)
   - 報告のみ(リフレクションや `dynamic` 経由の呼び出し、ソースの無い DLL からの呼び出し)
 
-  ソースの無い DLL が削除されたメンバーを呼ぶ場合は、拡張では補えない(`MissingMethodException`)。変換時に参照先の DLL を検査して報告する。IL の書き換えは別の課題とする。
+  ソースの無い DLL が削除されたメンバーを呼ぶ場合は、拡張では補えない(`MissingMethodException`)。変換時に参照先の DLL を検査して報告する。メンバーの IL の書き換えは別の課題とする。
+- **ソースの無い DLL の型参照の付け替え(`AssemblyRetargeter`、2026-09-30)**: DLL は型を「アセンブリ+型名」で参照する。.NET Framework で mscorlib・System.Security などにあった型が、.NET では別のアセンブリにあるか、フォーク・互換アセンブリだけが持つ場合(`[mscorlib]CallContext` → フォークの System.Web)、その参照は実行時に解決しない(`TypeLoadException`)。変換器はビルドの後、bin のソースの無い DLL(パッケージ・リポジトリ・配置済みサイトのもの)の型参照を実行時と同じ手順(アセンブリ名 → 定義 → 型の転送)で解決し、解決しないものをその型を public で持つアセンブリに付け替える(優先: フォーク・shim・互換アセンブリ → アプリ → .NET)。どのアセンブリへの参照でも同じ。アプリにある版より新しい版への参照は、その版に下げる(.NET Framework の bindingRedirect に当たり、.NET は web.config の bindingRedirect を読まない)。書き換えた DLL は出力の `foc-retargeted` に置き、各プロジェクトのターゲット `FocUseRetargetedAssemblies` がコピーの前に元の DLL と差し替える。どこにも無い型への参照はレポートに出す。
 
 ## 9. 次の作業
 

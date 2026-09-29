@@ -201,7 +201,7 @@ public sealed partial class BuildFixer(Report report, IReadOnlyCollection<Conver
 
     // ------------------------------------------------------------------------------------------
 
-    static (int ExitCode, string Output) Dotnet(string arguments)
+    internal static (int ExitCode, string Output) Dotnet(string arguments)
     {
         var start = new ProcessStartInfo("dotnet", arguments) { RedirectStandardOutput = true, RedirectStandardError = true, UseShellExecute = false };
         start.Environment["DOTNET_CLI_UI_LANGUAGE"] = "en";

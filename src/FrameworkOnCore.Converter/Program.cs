@@ -155,11 +155,32 @@ File.WriteAllText(buildTarget,
 
 var succeeded = true;
 if (build) succeeded = new BuildFixer(report, converter.Converted, outRoot, rules).Run(buildTarget);
+// DLLs without source that refer to types where .NET 10 does not have them: retargeted into foc-retargeted, which
+// the projects' build copies in their place (FocUseRetargetedAssemblies); built again to take them.
+var preferred = AssemblyRetargeter.PreferredAssemblies(runtime.Feed, runtime.ShimProjects);
+var ownAssemblies = converter.Converted.Select(c => c.AssemblyName ?? c.Name).ToHashSet(StringComparer.OrdinalIgnoreCase);
+if (build && succeeded)
+{
+    var retargetedFolder = Path.Combine(outRoot, ProjectConverter.RetargetedFolder);
+    var webBin = Path.Combine(Path.GetDirectoryName(web.TargetPath)!, "bin");
+    if (Directory.Exists(webBin) && AssemblyRetargeter.RetargetFolder(webBin, retargetedFolder, preferred, ownAssemblies, report).Any(r => r.Retargeted.Count > 0))
+    {
+        Console.WriteLine($"retargeted DLLs in {retargetedFolder}: building again");
+        var (exit, output) = BuildFixer.Dotnet($"build \"{buildTarget}\" -nologo -v q");
+        if (exit != 0)
+        {
+            report.Add(Report.Kind.Error, "build", "the build with the retargeted DLLs failed: " + string.Join(" / ", output.Split('\n').Where(l => l.Contains(" error ")).Take(5)));
+            succeeded = false;
+        }
+    }
+}
 if (build && succeeded && site != null)
 {
     // The ones built on their own, as they are after the build (the web project's are in its bin).
     var built = others.Select(o => converter.Converted.First(c => c.SourcePath == o.SourcePath)).ToList();
     SiteAssembler.Assemble(site, Path.Combine(outRoot, "site"), web, built, converter, report, cultureProfile);
+    // The deployed site's .NET Framework DLLs are in it as they are: retargeted there, in place.
+    AssemblyRetargeter.RetargetFolder(Path.Combine(outRoot, "site", "bin"), null, preferred, ownAssemblies, report);
 }
 // How it is deployed on Linux: the assembled site, or the web project's folder (built in place).
 if (build && succeeded)

@@ -167,7 +167,7 @@ Web プロジェクトと、それが参照するライブラリ(BlogEngine.Core
 
 be の 5/5 の見直し(2026-09-30): それまでの 5/5 は、ParityTest が 404 のときに `.aspx` を開き直す仕組み(Blazor 化のときの名残り)に助けられていた。変換後の be は `/archive`・`/post/...`・`/category/...`・`/page/...` が 404 だった(BlogEngine は URL を HttpModule で書き換え、IIS は `runAllManagedModulesForAllRequests` でどの要求もモジュールに渡す)。変換器は、web.config がどの要求もマネージドのモジュールに渡すとき(`runAllManagedModulesForAllRequests="true"`、または `managedHandler` の前提条件の無いモジュール)、すべての要求を Web Forms に渡すようにした。ParityTest の開き直しはやめ、シナリオはその時に開いていたパス(`.aspx`)にした(正解データは同じ)。Linux のコンテナで 5/5(開き直し無し)。同じ判定で mojo・n2・yaf もすべての要求を Web Forms に渡すようになる(未検証)。
 
-be の残り: 管理画面の Web API(`/api/dashboard` など)が 500。SimpleInjector の古い DLL(ExecutionContextScoping)が `System.Runtime.Remoting.Messaging.CallContext`(mscorlib)を使い、.NET に無い。フォークの `CallContext` は別のアセンブリなので、DLL からは見えない(解析はこれを「そのまま」と判定していた)。Windows でも同じ。
+be の管理画面の Web API(`/api/dashboard` など)が 500 だった(Windows でも)。SimpleInjector の古い DLL(ExecutionContextScoping)が `[mscorlib]System.Runtime.Remoting.Messaging.CallContext` を使い、.NET の mscorlib には無い。フォークの `CallContext` は System.Web にあり、ソースはコンパイルし直すので名前で見つかるが、DLL はアセンブリと型の組で結び付くので見つからない。変換器が、ビルドの後に bin のソースの無い DLL の型参照を調べ、実行時に解決しないものを、その型を public で持つアセンブリ(フォーク・shim・互換アセンブリを優先)に付け替えるようにした(`AssemblyRetargeter`。mscorlib に限らずどのアセンブリの参照も同じ。アプリにある版より新しい版への参照は、その版に下げる。bindingRedirect に当たる)。書き換えた DLL は出力の `foc-retargeted` に置き、各プロジェクトのビルドが元の DLL の代わりにコピーする(コンテナの中でビルドし直しても同じ)。配置済みサイトから組み立てたサイトの bin はその場で書き換える。どこにも無い型への参照はレポートに出す。be: ExecutionContextScoping・Integration.WebApi の CallContext → System.Web。wt: Microsoft.Owin.Security の `[System.Security]DataProtector` → System.Web。be はログインして管理画面の API(dashboard・packages・posts)が Windows・Linux とも 200。Linux の比較は be 5/5、wt 5/8(以前と同じ)。
 
 wt の残り:
 - 丸めの差(¥23 / ¥22)は Windows と同じ。

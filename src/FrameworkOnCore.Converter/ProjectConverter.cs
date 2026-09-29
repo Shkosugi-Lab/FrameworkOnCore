@@ -37,6 +37,21 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
           </Target>
     """;
 
+    /// <summary>The folder of the DLLs retargeted after the build (AssemblyRetargeter), under the output.</summary>
+    public const string RetargetedFolder = "foc-retargeted";
+
+    // DLLs without source whose type references were retargeted (AssemblyRetargeter): copied to the output in place of
+    // the package's or the repository's (every build, in any place: a container's too).
+    const string RetargetTarget = """
+          <Target Name="FocUseRetargetedAssemblies" BeforeTargets="_CopyFilesMarkedCopyLocal" Condition="Exists('$(FocRetargetedAssemblies)')">
+            <ItemGroup>
+              <_FocRetargeted Include="@(ReferenceCopyLocalPaths)" Condition="'%(Extension)' == '.dll' AND Exists('$(FocRetargetedAssemblies)%(Filename)%(Extension)')" />
+              <ReferenceCopyLocalPaths Remove="@(_FocRetargeted)" />
+              <ReferenceCopyLocalPaths Include="@(_FocRetargeted->'$(FocRetargetedAssemblies)%(Filename)%(Extension)')" />
+            </ItemGroup>
+          </Target>
+    """;
+
     // The symbols the .NET SDK defines for net10.0 (and the Debug configuration), for reading sources
     // the way the compiler does.
     public static readonly IReadOnlyList<string> SdkSymbols = new[] { "NET", "NETCOREAPP", "NET10_0", "DEBUG", "TRACE" }
@@ -421,6 +436,8 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
                 """);
         }
         if (usesWebFormsForCore) text.Append('\n').Append(AliasTarget).Append('\n');
+        text.Append($"\n  <PropertyGroup>\n    <FocRetargetedAssemblies>{SecurityElement.Escape(Paths.FromProject(target, Path.Combine(outRoot, RetargetedFolder)))}\\</FocRetargetedAssemblies>\n  </PropertyGroup>\n");
+        text.Append(RetargetTarget).Append('\n');
         text.Append("</Project>\n");
         File.WriteAllText(targetPath, text.ToString(), new UTF8Encoding(false));
 
@@ -541,6 +558,8 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
         {
             root.Add(XElement.Parse(AliasTarget.Trim()));
         }
+        root.Add(new XElement(N("PropertyGroup"), new XElement(N("FocRetargetedAssemblies"), Paths.FromProject(target, Path.Combine(outRoot, RetargetedFolder)) + "\\")));
+        root.Add(XElement.Parse(RetargetTarget.Trim()));
         project.Save(targetPath);
 
         var defines = Elements(project, "DefineConstants").SelectMany(d => d.Value.Split(';')).Select(s => s.Trim())

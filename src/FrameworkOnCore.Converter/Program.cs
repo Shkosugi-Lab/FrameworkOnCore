@@ -10,7 +10,8 @@ using FrameworkOnCore.Converter;
 //
 // --root     the repository to copy (default: the topmost folder above the project with a .sln)
 // --runtime  where the WebFormsForCore fork's feed (_feed) and the shims (shims) are
-//            (default: experiments/wf4c above the current folder)
+//            (default: experiments/wf4c above the current folder, or above the converter). The fork's packages are
+//            fetched into _feed from the GitHub Release when they are not there (RuntimeSetup).
 // --culture-profile  the original server's culture data (capture-culture.ps1), placed in App_Data
 // --site     the deployed site (the original build's web folder, or the site's folder on the IIS
 //            server): what the application is made of. Its assemblies built from the repository are
@@ -36,7 +37,7 @@ using FrameworkOnCore.Converter;
 //            the .NET Framework APIs the application uses, their counts, and what .NET 10 has of each (AnalyzeCommand):
 //            api-analysis.json and API-ANALYSIS.md, nothing converted.
 
-if (args.Length > 0 && args[0] == "analyze") return AnalyzeCommand.Run(args[1..], FindRuntime);
+if (args.Length > 0 && args[0] == "analyze") return AnalyzeCommand.Run(args[1..], RuntimeSetup.Find);
 
 string? project = null, outDirectory = null, rootDirectory = null, runtimeDirectory = null, cultureProfile = null, site = null, originalTarget = null, configuration = null;
 var build = true;
@@ -83,16 +84,12 @@ if (project == null || outDirectory == null)
 project = Path.GetFullPath(project);
 var sourceRoot = Path.GetFullPath(rootDirectory ?? Paths.FindRoot(project));
 var outRoot = Path.GetFullPath(outDirectory);
-runtimeDirectory = Path.GetFullPath(runtimeDirectory ?? FindRuntime() ?? throw new InvalidOperationException("--runtime: experiments/wf4c not found"));
-var runtime = new RuntimeLayout(
-    Path.Combine(runtimeDirectory, "_feed"),
-    Directory.Exists(Path.Combine(runtimeDirectory, "shims"))
-        ? Directory.GetFiles(Path.Combine(runtimeDirectory, "shims"), "*.csproj", SearchOption.AllDirectories)
-            .Where(f => !Regex.IsMatch(f, @"[\\/](bin|obj)[\\/]")).ToList()
-        : new List<string>());
+runtimeDirectory = Path.GetFullPath(runtimeDirectory ?? RuntimeSetup.Find() ?? throw new InvalidOperationException("--runtime: experiments/wf4c not found"));
+var runtime = new RuntimeLayout(Path.Combine(runtimeDirectory, "_feed"), RuntimeSetup.ShimProjects(runtimeDirectory));
 
 var report = new Report();
 var rules = Rules.Load(Path.Combine(AppContext.BaseDirectory, "rules", "packages.json"));
+RuntimeSetup.EnsureFeed(runtimeDirectory, rules.ForkVersion, Console.WriteLine);
 // The user's choices: validated against the catalog, the rules narrowed to them; each one not the default reported.
 var catalog = FrameworkOnCore.Analysis.Catalog.Default();
 var choices = choicesFile != null ? FrameworkOnCore.Analysis.Choices.Load(choicesFile) : new FrameworkOnCore.Analysis.Choices();
@@ -212,12 +209,3 @@ void WriteHost(ConvertedProject web)
     }
 }
 
-static string? FindRuntime()
-{
-    for (var directory = new DirectoryInfo(Directory.GetCurrentDirectory()); directory != null; directory = directory.Parent)
-    {
-        var candidate = Path.Combine(directory.FullName, "experiments", "wf4c");
-        if (Directory.Exists(Path.Combine(candidate, "_feed"))) return candidate;
-    }
-    return null;
-}

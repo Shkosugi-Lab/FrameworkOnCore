@@ -45,8 +45,8 @@
 
 - .NET 10 SDK
 - Windows(変換器は Visual Studio の MSBuild で元のアプリをビルドする)。Linux での検証には Docker Desktop
-- WebFormsForCore のフォーク: `experiments/wf4c/_upstream` に上流を clone し、`experiments/wf4c/patches` のパッチを当ててから、`experiments/wf4c/pack-fork.ps1 -Build All` で `experiments/wf4c/_feed` にパッケージを作る
-- 互換アセンブリのビルド: `dotnet build experiments/wf4c/shims/FrameworkOnCore.Compat`
+
+WebFormsForCore のフォークのパッケージは、初めて解析や変換をしたときに、このリポジトリの GitHub Release から `experiments/wf4c/_feed` に自動で取得されます。互換アセンブリも必要なときに自動でビルドされます。事前の準備は要りません。
 
 ## 使い方
 
@@ -81,6 +81,10 @@ dotnet $converter <Web プロジェクト> --out <出力先> --choices foc-choic
 dotnet test tests\FrameworkOnCore.Tests
 .\tests\FrameworkOnCore.Tests\run-tests-linux.ps1    # Linux(Docker)
 ```
+
+### フォークを変えるとき(開発者向け)
+
+`experiments/wf4c/_upstream` に上流を clone して `experiments/wf4c/patches` を当て、`experiments/wf4c/pack-fork.ps1 -Build All` で `_feed` にパッケージを作ります(`_feed` にある版は取得されません)。配るときは版を上げ(`pack-fork.ps1 -Version` と `rules/packages.json` の `forkVersion`)、`experiments/wf4c/publish-fork.ps1` で GitHub Release に置きます。
 
 ## 状態
 

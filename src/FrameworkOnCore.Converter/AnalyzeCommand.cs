@@ -56,6 +56,8 @@ public static class AnalyzeCommand
     public static AnalysisResult Analyze(string project, string root, string configuration, string runtimeDirectory, Action<string>? log = null)
     {
         var rules = Rules.Load(Path.Combine(AppContext.BaseDirectory, "rules", "packages.json"));
+        RuntimeSetup.EnsureFeed(runtimeDirectory, rules.ForkVersion, log);
+        RuntimeSetup.EnsureShims(runtimeDirectory, log);
         var target = new TargetApis(TargetSources(rules, runtimeDirectory));
         // The packages the conversion replaces (replacedPackages, shimPackages) or drops: their DLLs are not run.
         var converted = rules.ReplacedPackages.Keys.Concat(rules.ShimPackages.Keys).Concat(rules.DroppedPackages);
@@ -78,16 +80,8 @@ public static class AnalyzeCommand
                 forkDependencies.AddRange(ReferencePacks.FeedDependencies(feed, id, rules.ForkVersion).Select(d => new Package(d.Id, d.Version)));
             }
         }
-        var shims = Path.Combine(runtimeDirectory, "shims");
-        if (Directory.Exists(shims))
-        {
-            // Each shim project's build output (<shim>/bin/Debug/net10.0/<shim>.dll): the converted projects reference them.
-            var built = Directory.EnumerateFiles(shims, "*.csproj", SearchOption.AllDirectories)
-                .Where(p => !Regex.IsMatch(p, @"[\\/](bin|obj)[\\/]"))
-                .Select(p => Path.Combine(Path.GetDirectoryName(p)!, "bin", "Debug", "net10.0", Path.GetFileNameWithoutExtension(p) + ".dll"))
-                .Where(File.Exists).ToList();
-            yield return ("compat", built);
-        }
+        // Each shim project's build output (<shim>/bin/Debug/net10.0/<shim>.dll): the converted projects reference them.
+        yield return ("compat", RuntimeSetup.ShimProjects(runtimeDirectory).Select(RuntimeSetup.ShimAssembly).Where(File.Exists).ToList());
         var packages = rules.FrameworkReferences.Values
             .Concat(rules.FrameworkCompanions.Values.SelectMany(p => p))
             .Concat(rules.SourcePackages.Select(s => s.Package))

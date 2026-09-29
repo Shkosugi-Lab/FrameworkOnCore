@@ -138,7 +138,7 @@ Windows でしか動かないものを検出する。書き換えられるもの
 | MVC 5 | まず .NET Framework 版の DLL のまま試す。動かなければ AspNetWebStack(Apache 2.0)をポートする | 未着手。be の Web Pages(Razor)が DLL のまま動いたので見込みはある |
 | WCF | CoreWCF(MIT)に載せる。.svc は ServiceHost の登録に、system.serviceModel はコードに変換する。対応しないもの(WSDualHttp、メッセージセキュリティ、トランザクション)は報告する | 未着手 |
 
-- フォークの配布: 現在は `_feed` のローカル NuGet(1.6.5-w2l.x)。上流への還元(PR)を並行して検討する。0005〜0007 は上流の不具合そのものなので還元しやすい。
+- フォークの配布: パッケージ(1.6.5-w2l.x)を GitHub Release(`fork-<版>`、`experiments/wf4c/publish-fork.ps1`)に置き、変換器・解析・Studio が `_feed` に無ければ取得する(`RuntimeSetup`)。上流への還元(PR)を並行して検討する。0005〜0007 は上流の不具合そのものなので還元しやすい。
 - ライセンス: WebFormsForCore と referencesource は MIT、AspNetWebStack は Apache 2.0、CoreWCF は MIT。
 
 ## 5. VB への対応

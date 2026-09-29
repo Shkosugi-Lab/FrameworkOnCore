@@ -8,7 +8,7 @@ using FrameworkOnCore.Studio;
 //   dotnet FrameworkOnCore.Studio.dll [--data <dir>] [--runtime <dir>] [--port 5300]
 //
 // --data     where the analyses are kept (default: %LOCALAPPDATA%/FrameworkOnCore/studio)
-// --runtime  the fork's feed and the shims (default: experiments/wf4c above the current folder), as the converter's
+// --runtime  the fork's feed and the shims (default: experiments/wf4c above the current folder or Studio), as the converter's
 // --port     the port on localhost (default 5300). Studio listens on localhost only: it reads the repositories it is given.
 
 string? data = null, runtime = null;
@@ -23,7 +23,7 @@ for (var i = 0; i < args.Length; i++)
     }
 }
 data = Path.GetFullPath(data ?? Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "FrameworkOnCore", "studio"));
-runtime = Path.GetFullPath(runtime ?? FindRuntime() ?? throw new InvalidOperationException("--runtime: experiments/wf4c not found"));
+runtime = Path.GetFullPath(runtime ?? FrameworkOnCore.Converter.RuntimeSetup.Find() ?? throw new InvalidOperationException("--runtime: experiments/wf4c not found"));
 
 var builder = WebApplication.CreateSlimBuilder(new WebApplicationOptions { Args = [], ContentRootPath = AppContext.BaseDirectory });
 builder.WebHost.UseUrls($"http://127.0.0.1:{port}");
@@ -106,12 +106,3 @@ api.MapGet("/analyses/{id}/command", (string id, AnalysisStore store) =>
 Console.WriteLine($"FrameworkOnCore Studio: http://127.0.0.1:{port}/  (data: {data})");
 app.Run();
 
-static string? FindRuntime()
-{
-    for (var directory = new DirectoryInfo(Directory.GetCurrentDirectory()); directory != null; directory = directory.Parent)
-    {
-        var candidate = Path.Combine(directory.FullName, "experiments", "wf4c");
-        if (Directory.Exists(Path.Combine(candidate, "_feed"))) return candidate;
-    }
-    return null;
-}

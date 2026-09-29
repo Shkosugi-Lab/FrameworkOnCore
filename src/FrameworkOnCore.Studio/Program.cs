@@ -35,9 +35,11 @@ builder.Services.ConfigureHttpJsonOptions(o =>
 });
 var store = new AnalysisStore(data, runtime);
 var conversions = new Conversions(store, runtime);
-store.Deleting = conversions.Forget;
+var containers = new Containers(store, conversions);
+store.Deleting = id => { containers.Forget(id); conversions.Forget(id); };
 builder.Services.AddSingleton(store);
 builder.Services.AddSingleton(conversions);
+builder.Services.AddSingleton(containers);
 var app = builder.Build();
 app.UseDefaultFiles();
 app.UseStaticFiles();
@@ -133,6 +135,23 @@ api.MapGet("/analyses/{id}/conversion/zip", (string id, Conversions conversions)
 
 api.MapGet("/analyses/{id}/conversion/report", (string id, Conversions conversions) =>
     File.Exists(conversions.Report(id)) ? Results.Text(File.ReadAllText(conversions.Report(id)), "text/markdown; charset=utf-8") : Results.NotFound());
+
+// Running the converted application on Linux, in Docker (one container of Studio at a time).
+api.MapGet("/docker", () => Results.Ok(Containers.Status()));
+api.MapPost("/docker/start", () => Containers.StartDockerDesktop() ? Results.NoContent() : Results.NotFound());
+
+api.MapGet("/analyses/{id}/container", (string id, Containers containers) =>
+    Results.Ok(new { container = containers.Get(id), environment = containers.Environment(id), log = containers.Log(id).TakeLast(300) }));
+
+api.MapPost("/analyses/{id}/container", (string id, ContainerRequest? request, Containers containers) =>
+{
+    try { return Results.Ok(containers.Start(id, request?.Environment)); }
+    catch (InvalidOperationException e) { return Results.Conflict(new { error = e.Message }); }
+});
+
+api.MapDelete("/analyses/{id}/container", (string id, Containers containers) => containers.Stop(id) ? Results.NoContent() : Results.NotFound());
+
+api.MapGet("/analyses/{id}/container/log", (string id, Containers containers) => Results.Text(containers.ContainerLog(id), "text/plain; charset=utf-8"));
 
 Console.WriteLine($"FrameworkOnCore Studio: http://127.0.0.1:{port}/  (data: {data})");
 app.Run();

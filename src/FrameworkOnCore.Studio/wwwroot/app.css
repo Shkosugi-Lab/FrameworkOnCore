@@ -195,6 +195,22 @@ body {
 .convert-sections .sec b { color: var(--text-secondary); font-weight: 700; margin-right: 2px; }
 .convert-sections .sec.has { color: var(--text-secondary); border-color: var(--border-strong); }
 .convert-sections .sec.has b { color: var(--text-primary); }
+.convert-actions.left { justify-content: flex-start; margin-top: 12px; }
+.run:empty { display: none; }
+.run { margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--border); }
+.run-head { display: flex; justify-content: space-between; align-items: center; gap: 14px; margin-bottom: 6px; }
+.run-head h3 { margin: 0; font-size: 14.5px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.run .hint { color: var(--text-muted); font-size: 12.5px; }
+.run-url { margin-top: 4px; font-size: 13px; }
+.run-url code { font-family: var(--mono); color: var(--accent-2); }
+.run .env { display: flex; flex-direction: column; gap: 6px; margin-top: 12px; font-size: 13px; font-weight: 600; }
+.run .env code { font-family: var(--mono); font-size: 12px; font-weight: 500; }
+.run .env .muted { font-weight: 400; font-size: 12px; }
+.run textarea {
+  background: var(--surface-2); border: 1px solid var(--border-strong); border-radius: 10px; padding: 10px 12px; color: var(--text-primary);
+  font-family: var(--mono); font-size: 12.5px; line-height: 1.55; resize: vertical;
+}
+.run textarea:focus { outline: 2px solid color-mix(in srgb, var(--accent) 60%, transparent); outline-offset: 1px; }
 .convert-log { margin-top: 14px; }
 .convert-log summary { cursor: pointer; font-size: 12.5px; color: var(--text-muted); user-select: none; }
 .convert-log .log { margin-top: 8px; max-height: 320px; }

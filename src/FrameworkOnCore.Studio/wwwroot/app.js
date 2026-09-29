@@ -93,7 +93,12 @@ async function select(id) {
   if (state.id !== id && isDirty() && !confirm('保存していない選択があります。破棄して移りますか?')) return;
   clearTimeout(state.poll);
   clearTimeout(state.convertPoll);
-  Object.assign(state, { id, entry: null, result: null, choices: null, saved: null, command: null, errors: [], conversion: null });
+  clearTimeout(state.containerPoll);
+  clearTimeout(state.dockerPoll);
+  Object.assign(state, {
+    id, entry: null, result: null, choices: null, saved: null, command: null, errors: [], conversion: null,
+    container: null, runOpen: false, runEnv: null, docker: null, dockerStarting: false,
+  });
   state.expanded.clear();
   state.rows.clear();
   if (!location.hash.startsWith(`#/a/${id}`)) location.hash = id ? `#/a/${id}` : '';
@@ -441,6 +446,10 @@ async function loadConversion() {
   if (c && (c.state === 'queued' || c.state === 'running'))
     state.convertPoll = setTimeout(() => loadConversion().catch(console.error), 2000);
   else if (c) loadAnalyses().catch(console.error);
+  if (c?.state === 'done') {
+    await loadContainer();
+    if (state.runOpen) await loadDocker();
+  }
 }
 
 function duration(from, to) {
@@ -480,18 +489,133 @@ function renderConversion() {
         ${body.stale ? '<div class="stale">⚠ この変換のあとに選択を保存しています。今の選択にするには、もう一度変換してください。</div>' : ''}</div>
         <div class="convert-actions">
           ${done ? `<a class="btn primary" id="convert-zip" href="/api/analyses/${esc(state.id)}/conversion/zip" download>⤓ ZIP をダウンロード <span class="size">${(c.zipSize / 1048576).toFixed(1)} MB</span></a>` : ''}
+          ${done ? '<button class="btn ghost" id="run-open">▶ Linux(Docker)で起動</button>' : ''}
           ${c.sections ? '<button class="btn ghost" id="convert-report">レポートを見る</button>' : ''}
           <button class="btn ghost" id="convert-start">↻ もう一度変換</button>
         </div></div>
-      ${sections}${done ? '' : origin}${logBlock(!done && !c.sections)}`;
+      ${sections}${done ? '' : origin}${logBlock(!done && !c.sections)}
+      ${done ? '<div class="run" id="run"></div>' : ''}`;
   }
   root.innerHTML = html;
   root.style.setProperty('--c', c ? CONVERSION[c.state].color : 'var(--accent)');
   $('#convert-start')?.addEventListener('click', () => startConversion().catch(e => toast(e.message)));
   $('#convert-cancel')?.addEventListener('click', () => cancelConversion().catch(e => toast(e.message)));
   $('#convert-report')?.addEventListener('click', () => showReport().catch(e => toast(e.message)));
+  $('#run-open')?.addEventListener('click', () => { state.runOpen = true; renderContainer(); loadDocker().catch(console.error); });
   const pre = root.querySelector('.log');
   if (pre) pre.scrollTop = pre.scrollHeight;
+  renderContainer();
+}
+
+// ---------------------------------------------------------------------------------------------------------------------
+// Running on Linux in Docker: the conversion's Dockerfile built and run on a port of localhost.
+
+const CONTAINER = {
+  building: { label: 'イメージを作成中', icon: '⟳', color: 'var(--accent-2)' },
+  starting: { label: '起動中', icon: '⟳', color: 'var(--accent-2)' },
+  running: { label: 'Linux で実行中', icon: '●', color: 'var(--status-good)' },
+  stopped: { label: '停止', icon: '■', color: 'var(--status-neutral)' },
+  failed: { label: '失敗', icon: '✕', color: 'var(--status-critical)' },
+};
+
+async function loadContainer() {
+  const id = state.id;
+  clearTimeout(state.containerPoll);
+  const body = await api(`/analyses/${id}/container`);
+  if (id !== state.id) return;
+  state.container = body;
+  const k = body.container?.state;
+  if (k) state.runOpen = true;
+  renderContainer();
+  if (k === 'building' || k === 'starting') state.containerPoll = setTimeout(() => loadContainer().catch(console.error), 2000);
+  else if (k === 'running') state.containerPoll = setTimeout(() => loadContainer().catch(console.error), 10000);
+}
+
+async function loadDocker() {
+  clearTimeout(state.dockerPoll);
+  state.docker = await api('/docker');
+  renderContainer();
+  // Waiting for Docker Desktop to start: asked again until its engine answers.
+  if (!state.docker.available && state.dockerStarting) state.dockerPoll = setTimeout(() => loadDocker().catch(console.error), 3000);
+  if (state.docker.available) state.dockerStarting = false;
+}
+
+function renderContainer() {
+  const root = $('#run');
+  if (!root) return;
+  const c = state.container?.container;
+  if (!state.runOpen && !c) { root.innerHTML = ''; return; }
+  const k = c?.state;
+  const busy = k === 'building' || k === 'starting';
+  const kind = k ? CONTAINER[k] : null;
+  const head = `<div class="run-head"><h3>Linux(Docker)で起動 ${kind ? `<span class="pill" style="--c:${kind.color}"><span class="ic" aria-hidden="true">${kind.icon}</span>${esc(kind.label)}</span>` : ''}</h3>`;
+  const log = state.container?.log ?? [];
+  const logBlock = log.length ? `<details class="convert-log" ${busy || k === 'failed' ? 'open' : ''}><summary>ログ(${fmt(log.length)} 行)</summary><pre class="log">${esc(log.join('\n'))}</pre></details>` : '';
+
+  let html;
+  if (busy) {
+    html = `${head}<button class="btn ghost danger" id="run-stop">中止</button></div>
+      <div class="hint">${k === 'building' ? 'Dockerfile からイメージを作っています(初回はベースイメージの取得で数分かかります)' : `コンテナを起動し、サイトが応答するのを待っています(${esc(c.url)})`}</div>
+      <div class="progress"></div>${logBlock}`;
+  } else if (k === 'running') {
+    const failing = c.firstStatus >= 500;
+    html = `${head}<div class="convert-actions">
+        <a class="btn primary" href="${esc(c.url)}" target="_blank" rel="noopener">↗ 開く</a>
+        <button class="btn ghost" id="run-log">コンテナのログ</button>
+        <button class="btn ghost danger" id="run-stop">停止</button></div></div>
+      <div class="run-url"><code>${esc(c.url)}</code> <span class="muted">(${esc(c.image)} ・ 最初の応答 ${c.firstStatus})</span></div>
+      ${failing ? '<div class="stale">⚠ サイトは動いていますが、エラー(500 番台)を返しています。データベースの接続文字列などを確かめてください(コンテナのログに詳細があります)。</div>' : ''}
+      ${logBlock}`;
+  } else {
+    const d = state.docker;
+    const docker = !d ? '<div class="hint">Docker を確認しています…</div>'
+      : d.available ? `<div class="hint">Docker ${esc(d.version)} ・ 変換の出力の Dockerfile でイメージを作り、コンテナを localhost のポートで起動します(Studio のコンテナは一度に一つ)。</div>`
+      : `<div class="stale">⚠ Docker のエンジンに接続できません。${d.desktop ? 'Docker Desktop を起動してください。' : 'Docker をインストールして起動してください。'}</div>
+         ${d.desktop ? `<button class="btn ghost small" id="docker-start" ${state.dockerStarting ? 'disabled' : ''}>${state.dockerStarting ? '起動を待っています…' : 'Docker Desktop を起動'}</button>` : ''}`;
+    html = `${head}</div>
+      ${c?.error ? `<div class="stale">${esc(c.error)}</div>` : ''}
+      ${docker}
+      <label class="env"><span>環境変数 <span class="muted">(<code>SQLCONNSTR_&lt;名前&gt;</code> で web.config の接続文字列、<code>APPSETTING_&lt;キー&gt;</code> で appSettings を置き換え)</span></span>
+        <textarea id="run-env" rows="6" spellcheck="false">${esc(state.runEnv ?? state.container?.environment ?? '')}</textarea>
+        <span class="muted">コンテナの中から見えるデータベースを指定します(Windows の LocalDB やこのマシンの localhost は見えません。このマシンの SQL Server なら host.docker.internal)。</span>
+      </label>
+      <div class="convert-actions left"><button class="btn primary" id="run-start" ${d?.available ? '' : 'disabled'}>▶ ビルドして起動</button></div>
+      ${logBlock}`;
+  }
+  root.innerHTML = html;
+  $('#run-env')?.addEventListener('input', ev => (state.runEnv = ev.target.value));
+  $('#run-start')?.addEventListener('click', () => startContainer().catch(e => toast(e.message)));
+  $('#run-stop')?.addEventListener('click', () => stopContainer().catch(e => toast(e.message)));
+  $('#run-log')?.addEventListener('click', () => showContainerLog().catch(e => toast(e.message)));
+  $('#docker-start')?.addEventListener('click', async () => {
+    await api('/docker/start', { method: 'POST' });
+    state.dockerStarting = true;
+    await loadDocker();
+  });
+  const pre = root.querySelector('.log');
+  if (pre) pre.scrollTop = pre.scrollHeight;
+}
+
+async function startContainer() {
+  await api(`/analyses/${state.id}/container`, { method: 'POST', body: JSON.stringify({ environment: $('#run-env')?.value ?? null }) });
+  state.runEnv = null;
+  await loadContainer();
+}
+
+async function stopContainer() {
+  if (!confirm('コンテナを止めますか?')) return;
+  await api(`/analyses/${state.id}/container`, { method: 'DELETE' });
+  await loadContainer();
+  await loadDocker();
+}
+
+async function showContainerLog() {
+  const text = await (await fetch(`/api/analyses/${state.id}/container/log`)).text();
+  $('#drawer-title').textContent = 'docker logs';
+  $('#drawer-sub').textContent = `${state.entry.name} のコンテナの出力(最後の 300 行)`;
+  $('#drawer-code').innerHTML = (text || '(出力はありません)').split('\n').map(line => `<span class="ln">${esc(line)}</span>`).join('');
+  $('#drawer').classList.add('open');
+  $('#drawer').setAttribute('aria-hidden', 'false');
 }
 
 async function startConversion() {

@@ -20,7 +20,12 @@ $ErrorActionPreference = 'Stop'
 $repo = Resolve-Path (Join-Path $PSScriptRoot '..\..')
 $sample = Join-Path $repo "samples\$Name"
 $work = Join-Path $PSScriptRoot $Name
-$verifier = Join-Path $repo 'tools\WebForm2Blazor.ParityTest\bin\alt\WebForm2Blazor.ParityTest.dll'
+$verifier = Join-Path $repo 'tools\FrameworkOnCore.ParityTest\bin\alt\FrameworkOnCore.ParityTest.dll'
+# The parity verifier (Playwright), built once into bin\alt (a separate output: a running copy does not lock the build).
+if (-not (Test-Path $verifier)) {
+    dotnet build (Join-Path $repo 'tools\FrameworkOnCore.ParityTest') -o (Split-Path $verifier) --nologo -v q | Out-Null
+    if ($LASTEXITCODE -ne 0) { throw 'FrameworkOnCore.ParityTest build failed' }
+}
 
 if (Test-Path $work) { Remove-Item $work -Recurse -Force }
 Copy-Item $sample $work -Recurse

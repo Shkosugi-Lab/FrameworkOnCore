@@ -67,14 +67,7 @@ $corpora = @(
 )
 
 # nopCommerce 1.90 について:
-#   6 つめのコーパスとして以前計測していましたが(残差 264 / 変換可能 32)、
-#   nopCommerce 1.x は CodePlex 時代のリリースで GitHub の nopSolutions/nopCommerce に
-#   1.x のタグが存在せず、ミラーも見つかりませんでした。よって自動取得できません。
-#   手元にアーカイブがある場合は $Root\nopcommerce-1.90 に展開すれば
-#   convert-all.ps1 の -Only nop で計測できます(既定では対象外)。
-#
-#   注意: リポジトリにあった samples/nopCommerce3.8 は 3.8 = ASP.NET MVC で、
-#   このコーパス(1.90 = WebForms)とは別物です。変換対象にはなりません。
+#   最後の Web Forms 版。GitHub のタグ release-1.90 のアーカイブから取得する(nop)。
 
 if ($Only) {
     $corpora = $corpora | Where-Object { $Only -contains $_.Name }
@@ -154,5 +147,5 @@ if ($failed.Count -gt 0) {
     exit 1
 }
 
-Write-Host "すべて取得できました。次: .\corpora\convert-all.ps1" -ForegroundColor Green
+Write-Host "すべて取得できました。次: .\experiments\wf4c\convert-corpora.ps1 -Only be,wt" -ForegroundColor Green
 exit 0

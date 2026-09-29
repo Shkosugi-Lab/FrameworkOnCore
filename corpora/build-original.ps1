@@ -2,12 +2,10 @@
 #
 # なぜ要るか
 # ----------
-# このプロジェクトの最終ゲートは ParityTest — 変換前アプリの実際の描画と照合する —
-# で、その正解は samples\ の 4 本にしかありません。6 本のコーパスには 1 本も無く、
-# つまり「BlogEngine はビルドエラー 0」は「コンパイルが通る」であって
-# 「元と同じ挙動」ではありません。0 になっても挙動については何も言えません。
+# 変換後のアプリの挙動は、変換前アプリの実際の描画(corpora\parity\*.golden-webforms.json、
+# record-webforms-golden.ps1 が採る)と照合して確かめます。
 #
-# 採取するには旧アプリを動かす必要があり、その前に旧アプリをビルドする必要があります。
+# 正解を採取するには旧アプリを動かす必要があり、その前に旧アプリをビルドする必要があります。
 # 「Visual Studio Build Tools が要る」と思われていましたが、要りません。必要なものは
 # すべて NuGet と Windows 同梱の .NET Framework から揃います。
 #
@@ -41,7 +39,7 @@ $targets = @(
        Solution = 'wingtiptoys-master\WingtipToys\WingtipToys.sln'
        Project = 'wingtiptoys-master\WingtipToys\WingtipToys\WingtipToys.csproj' },
 
-    # YAF はデータベースごとに .csproj を分けています。変換側(convert-all.ps1)が
+    # YAF はデータベースごとに .csproj を分けています。変換側が
     # SqlServer 版を入口にしているので、ここも揃えます。
     # Solution はパッケージ復元先(<dir>\packages)の基準にしか使っていないため、
     # .sln が無いこのコーパスでは yafsrc 直下の任意のパスで足ります。

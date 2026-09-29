@@ -2,19 +2,17 @@
 #
 # なぜ要るか
 # ----------
-# このプロジェクトの最終ゲートは ParityTest — 変換前アプリの実際の描画との照合 — で、
-# その正解は samples\ の 4 本にしかありませんでした。6 本のコーパスには 1 本も無く、
-# つまり「BlogEngine はビルドエラー 0」は「コンパイルが通る」であって「元と同じ挙動」
-# ではありません。残差レポートもコンパイルエラーも「書かれているもの」しか捕捉できず、
-# 既定レンダリングの漏れは旧アプリの実描画と突き合わせる以外に検出手段がありません。
+# 変換後のアプリが元と同じに動くかは、ParityTest で変換前アプリの実際の描画と照合して
+# 確かめる(experiments\wf4c\run-linux.ps1 -Golden)。「ビルドエラー 0」は「コンパイルが
+# 通る」であって「元と同じ挙動」ではなく、描画の違いは旧アプリの実描画と突き合わせる
+# 以外に検出手段がない。その正解(corpora\parity\*.golden-webforms.json)をここで採る。
 #
 # なぜ IIS Express ではないか
 # ---------------------------
 # 単体インストーラは配布が Visual Studio 同梱に寄っていて、この環境にはありません。
 # Windows 同梱の IIS は機能として入っており、同じ System.Web パイプラインを動かします。
-# 手製ホスト(tools\legacy\WebFormsHost)で採る道は採りません —— 手製ホストで採った
-# 正解は「WebForms の描画」ではなく「そのホストの癖」を記録するためで、既存の
-# samples のゴールデンと出自が揃いません。
+# 手製のホストで採る道は採りません —— 手製ホストで採った正解は「WebForms の描画」
+# ではなく「そのホストの癖」を記録するためです。
 #
 # 使い方
 #   .\corpora\record-webforms-golden.ps1 -Only be
@@ -81,11 +79,11 @@ IIS がありません($appcmd)。
     exit 1
 }
 
-$verifier = Join-Path $repo 'tools\WebForm2Blazor.ParityTest\bin\alt\WebForm2Blazor.ParityTest.dll'
+$verifier = Join-Path $repo 'tools\FrameworkOnCore.ParityTest\bin\alt\FrameworkOnCore.ParityTest.dll'
 if (-not (Test-Path $verifier)) {
     Write-Host '=== ParityTest のビルド ==='
-    dotnet build (Join-Path $repo 'tools\WebForm2Blazor.ParityTest') `
-        -o (Join-Path $repo 'tools\WebForm2Blazor.ParityTest\bin\alt') --nologo -v q | Out-Null
+    dotnet build (Join-Path $repo 'tools\FrameworkOnCore.ParityTest') `
+        -o (Join-Path $repo 'tools\FrameworkOnCore.ParityTest\bin\alt') --nologo -v q | Out-Null
 }
 
 New-Item -ItemType Directory -Force $parityDir | Out-Null
@@ -93,8 +91,8 @@ $failures = @()
 
 foreach ($target in $targets) {
     $name = $target.Name
-    $siteName = "webform2blazor-$name"
-    $poolName = "webform2blazor-$name"
+    $siteName = "frameworkoncore-$name"
+    $poolName = "frameworkoncore-$name"
     $physical = Join-Path $PSScriptRoot ("work\" + $target.Path)
     $scenario = Join-Path $PSScriptRoot "regression\$name.scenario.json"
     $golden = Join-Path $parityDir "$name.golden-webforms.json"
@@ -129,7 +127,7 @@ foreach ($target in $targets) {
             'connectionString="' + $target.ConnectionString.Replace('$', '$$') + '"')
         if ($replaced -ne $text) {
             Set-Content $webConfig -Value $replaced -Encoding utf8
-            Write-Host '  接続文字列を LocalDB に向けました'
+            Write-Host '  接続文字列を SQL Server Express に向けました'
         }
     }
 

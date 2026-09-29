@@ -6,7 +6,7 @@
 - System.Web には [WebFormsForCore](https://github.com/webformsforcore/WebFormsForCore) のフォークを使います。ASP.NET Web Forms を ASP.NET Core 上で動かすものです。
 - .NET Framework にしかない API の扱いは、部品ごとに利用者が選べます(対応しない、を含む)。
 
-> 以前の「Web Forms を Blazor に変換する」方針(WebForm2Blazor)から 2026-09-26 に切り替えました。旧方針のコードは `src/WebForm2Blazor.*` などに残っています。
+> 以前の「Web Forms を Blazor に変換する」方針(WebForm2Blazor)から 2026-09-26 に切り替えました。旧方針のコードと資料は 2026-09-30 にリポジトリから消しました(git の履歴にあります)。
 
 ## 全体の流れ
 
@@ -96,4 +96,3 @@ dotnet test tests\FrameworkOnCore.Tests
 | `experiments/wf4c/README.md` | 実験と検証の記録(フォーク、コーパス、Linux、解析、Studio) |
 | `experiments/wf4c/FRAMEWORK-ONLY-APIS.md` | .NET Framework にしかない API の一覧と対応 |
 | `corpora/README.md` | コーパスの取得と記録 |
-| `HANDOVER.md`、`PROPERTY-COVERAGE.md` | 旧方針(WebForm2Blazor)の資料 |

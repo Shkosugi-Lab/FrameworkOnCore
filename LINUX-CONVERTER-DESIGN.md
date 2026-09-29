@@ -52,7 +52,7 @@
 - SDK 形式(Web プロジェクトは Microsoft.NET.Sdk.Web)、net10.0。元の `<Compile Include>` をそのまま使う(`EnableDefaultCompileItems=false`)。EmbeddedResource も同様。
 - `GenerateAssemblyInfo=false`(元の AssemblyInfo と重複するため)。
 - 出力先は `bin`。アプリは `~/bin` から自分のアセンブリを探す(be の拡張機能)。
-- packages.config → PackageReference。規則はコードでなくデータファイル(`package-map.json`)に置く。
+- packages.config → PackageReference。規則はコードでなくデータファイル(`src/FrameworkOnCore.Converter/rules/packages.json`)に置く。
   - 外すもの: .NET に同梱の System.* 4.x、NETStandard.Library など。
   - 置き換えるもの: バンドル / WebGrease / Microsoft.Web.Infrastructure / AjaxControlToolkit → WebFormsForCore.*。EF6 → 6.5.1。
   - 上げるもの: 依存先が要求する版まで(Newtonsoft.Json 13.0.4。下げると NU1605)。
@@ -151,10 +151,10 @@ Windows でしか動かないものを検出する。書き換えられるもの
 - My 名前空間: Microsoft.VisualBasic の .NET 版で使えないもの(My.Computer の一部など)は報告する。
 - 書き換え: C# と同じ規則を VB の構文木で実装する。規則は言語に依存しない形(対象の API とその書き換え先)で定義し、言語ごとに適用部だけを分ける。
 
-## 6. 実装の構成(案)
+## 6. 実装の構成
 
-- `src/NetFx2Linux.Converter`(仮称)を新しく作る。旧変換器(`src/WebForm2Blazor.Converter`)は残し、流用する部分はコピーでなく共有ライブラリに切り出す。
-- 規則はデータで持つ: `package-map.json`、`framework-references.json`、`unportable-namespaces.json`、`api-rewrites.json`。規則を足すことが主な保守作業になるため。
+- 変換器は `src/FrameworkOnCore.Converter`(当初の案の仮称は NetFx2Linux.Converter)。旧方針(Blazor 化)の変換器 `src/WebForm2Blazor.Converter` は 2026-09-30 にリポジトリから消した(git の履歴にある)。
+- 規則はデータで持つ: `src/FrameworkOnCore.Converter/rules/packages.json`(パッケージ、参照、ソースの書き換え)と、解析のカタログ `src/FrameworkOnCore.Analysis/catalog/components.json`(部品と選択肢)。規則を足すことが主な保守作業になるため。
 - CLI: `convert --project <csproj|vbproj|sln> --out <dir> [--exclude <file>...] [--report <md>]`、`verify-build <dir>`。
 - `experiments/wf4c/convert-project.ps1` は規則の試作。新しい変換器はこれと同じ結果を出すことから始める(be・wt で同じ csproj になることを確認する)。
 

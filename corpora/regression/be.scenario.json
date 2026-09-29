@@ -1,5 +1,5 @@
 {
-  "_comment": "BlogEngine.NET regression scenario. NOT a parity scenario: the snapshot beside it is recorded from the CONVERTED app, so it says nothing about matching the original. It catches unintended DOM changes from converter work - see corpora/regression-gate.ps1.",
+  "_comment": "BlogEngine.NET scenario: the pages experiments/wf4c/run-linux.ps1 takes snapshots of in the converted app, compared with corpora/parity/be.golden-webforms.json (recorded from the original app on IIS: corpora/record-webforms-golden.ps1).",
   "ignorePatterns": [
     "\\d{4}-\\d{2}-\\d{2}",
     "\\d{1,2}:\\d{2}(:\\d{2})?",

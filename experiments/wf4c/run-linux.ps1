@@ -39,7 +39,12 @@ $repo = (Resolve-Path (Join-Path $PSScriptRoot '..\..')).Path
 $name = Split-Path $App -Leaf
 if (-not $Scenario) { $Scenario = "samples\$name\parity-scenario.json" }
 if (-not $Golden) { $Golden = "samples\$name\golden-webforms.json" }
-$verifier = Join-Path $repo 'tools\WebForm2Blazor.ParityTest\bin\alt\WebForm2Blazor.ParityTest.dll'
+$verifier = Join-Path $repo 'tools\FrameworkOnCore.ParityTest\bin\alt\FrameworkOnCore.ParityTest.dll'
+# The parity verifier (Playwright), built once into bin\alt (a separate output: a running copy does not lock the build).
+if (-not (Test-Path $verifier)) {
+    dotnet build (Join-Path $repo 'tools\FrameworkOnCore.ParityTest') -o (Split-Path $verifier) --nologo -v q | Out-Null
+    if ($LASTEXITCODE -ne 0) { throw 'FrameworkOnCore.ParityTest build failed' }
+}
 $appPath = $App.Replace('\', '/')
 $container = "w2l-$($name.ToLowerInvariant() -replace '[^a-z0-9]', '-')"
 $logDir = Join-Path $PSScriptRoot "_linux\$name"

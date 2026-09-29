@@ -65,10 +65,16 @@
       <h2>新しい解析</h2>
       <p class="muted">.NET Framework の Web プロジェクトを指定します。参照しているプロジェクトも一緒に解析します(変換はしません)。</p>
       <label>プロジェクト(.csproj / .vbproj)
-        <input name="project" required placeholder="C:\src\MyApp\Web\MyApp.Web.csproj" autocomplete="off">
+        <span class="picker">
+          <input name="project" required placeholder="C:\src\MyApp\Web\MyApp.Web.csproj" autocomplete="off">
+          <button type="button" class="btn ghost" data-browse="project"><span class="folder-ic" aria-hidden="true"></span>参照…</button>
+        </span>
       </label>
       <label>リポジトリのフォルダー <span class="muted">(省略すると .sln のある一番上のフォルダー)</span>
-        <input name="root" placeholder="C:\src\MyApp" autocomplete="off">
+        <span class="picker">
+          <input name="root" placeholder="C:\src\MyApp" autocomplete="off">
+          <button type="button" class="btn ghost" data-browse="root"><span class="folder-ic" aria-hidden="true"></span>参照…</button>
+        </span>
       </label>
       <div class="row2">
         <label>構成
@@ -84,6 +90,37 @@
         <button class="btn primary" value="ok" id="new-submit">解析する</button>
       </div>
     </form>
+  </dialog>
+
+  <dialog class="modal browser" id="browse-dialog" aria-labelledby="browse-title">
+    <div class="browse">
+      <div class="browse-head">
+        <div>
+          <h2 id="browse-title">プロジェクトを選ぶ</h2>
+          <p class="muted" id="browse-sub"></p>
+        </div>
+        <button type="button" class="btn ghost icon" id="browse-close" aria-label="閉じる">✕</button>
+      </div>
+      <div class="browse-bar">
+        <button type="button" class="btn ghost icon" id="browse-up" title="一つ上のフォルダー(Backspace)" aria-label="一つ上のフォルダー">↑</button>
+        <input id="browse-path" placeholder="パスを入力して Enter" autocomplete="off" spellcheck="false">
+      </div>
+      <nav class="crumbs" id="browse-crumbs" aria-label="現在のフォルダー"></nav>
+      <div class="browse-body">
+        <nav class="browse-places" id="browse-places" aria-label="場所"></nav>
+        <div class="browse-main">
+          <input class="browse-filter" id="browse-filter" placeholder="このフォルダーで絞り込む" autocomplete="off" spellcheck="false">
+          <div class="browse-list" id="browse-list" role="listbox" tabindex="0" aria-label="フォルダーとファイル"></div>
+        </div>
+      </div>
+      <div class="browse-foot">
+        <div class="browse-choice" id="browse-choice"></div>
+        <div class="modal-actions">
+          <button type="button" class="btn ghost" id="browse-cancel">キャンセル</button>
+          <button type="button" class="btn primary" id="browse-ok" disabled>選ぶ</button>
+        </div>
+      </div>
+    </div>
   </dialog>
 
   <div class="tooltip" id="tooltip" role="tooltip" hidden></div>

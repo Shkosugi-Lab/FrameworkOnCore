@@ -497,7 +497,207 @@ async function save() {
 
 function openNew() {
   $('#new-error').hidden = true;
+  $('#new-form').elements.root.placeholder = 'C:\\src\\MyApp';
   $('#new-dialog').showModal();
+}
+
+// ---------------------------------------------------------------------------------------------------------------------
+// Choosing a project or a folder: the server lists the folders (a page gets no path from the browser's own dialog).
+
+const KIND = {
+  drive: { badge: '', cls: 'drive' },
+  folder: { badge: '', cls: 'folder' },
+  project: { badge: '', cls: 'project' },
+  solution: { badge: 'SLN', cls: 'solution' },
+};
+const browse = { mode: 'project', listing: null, selected: null, filter: '', resolve: null };
+
+function projectBadge(name) {
+  return name.toLowerCase().endsWith('.vbproj') ? 'VB' : 'C#';
+}
+
+// Opens the chooser; resolves with the path chosen, or null.
+function openBrowser(mode, start) {
+  browse.mode = mode;
+  $('#browse-title').textContent = mode === 'project' ? 'プロジェクトを選ぶ' : 'フォルダーを選ぶ';
+  $('#browse-sub').textContent = mode === 'project'
+    ? '.csproj / .vbproj をダブルクリック、または選んで「選ぶ」。プロジェクトのあるフォルダーには印が付きます。'
+    : 'フォルダーを開いて「このフォルダーを選ぶ」。一覧のフォルダーを選んでから選ぶこともできます。';
+  $('#browse-dialog').showModal();
+  navigate(start || localStorage.getItem('foc-browse') || '');
+  return new Promise(resolve => (browse.resolve = resolve));
+}
+
+function closeBrowser(path) {
+  if ($('#browse-dialog').open) $('#browse-dialog').close();
+  browse.resolve?.(path ?? null);
+  browse.resolve = null;
+}
+
+async function navigate(path) {
+  const list = $('#browse-list');
+  list.classList.add('loading');
+  try {
+    browse.listing = await api('/browse?path=' + encodeURIComponent(path ?? ''));
+  } catch (e) {
+    browse.listing = { path, parent: null, entries: [], places: browse.listing?.places ?? [], error: e.message };
+  }
+  list.classList.remove('loading');
+  browse.filter = '';
+  $('#browse-filter').value = '';
+  // A project file given (the field's value): it is selected in its folder.
+  const given = path && browse.listing.entries.find(e => e.kind === 'project' && e.path.toLowerCase() === String(path).toLowerCase());
+  browse.selected = given ?? null;
+  if (browse.listing.path && !browse.listing.error) localStorage.setItem('foc-browse', browse.listing.path);
+  renderBrowser();
+  list.focus();
+}
+
+function visibleEntries() {
+  const q = browse.filter.trim().toLowerCase();
+  return (browse.listing?.entries ?? []).filter(e => !q || e.name.toLowerCase().includes(q));
+}
+
+function renderBrowser() {
+  const listing = browse.listing;
+  if (listing.path || !listing.error) $('#browse-path').value = listing.path ?? '';  // a path that failed stays to fix
+  $('#browse-up').disabled = !listing.path;
+
+  // Breadcrumbs: every folder up to the drive, each one a link.
+  const crumbs = [];
+  if (listing.path) {
+    const parts = listing.path.split(/[\\/]/).filter(Boolean);
+    const unix = listing.path.startsWith('/');
+    let acc = unix ? '/' : '';
+    parts.forEach((part, i) => {
+      acc = unix ? (acc === '/' ? '/' + part : acc + '/' + part) : (i === 0 ? part + '\\' : acc.replace(/\\?$/, '\\') + part);
+      crumbs.push(`<button type="button" class="crumb" data-path="${esc(acc)}">${esc(part)}</button>`);
+    });
+  }
+  $('#browse-crumbs').innerHTML = `<button type="button" class="crumb" data-path="">PC</button>` + crumbs.map(c => `<span class="sep" aria-hidden="true">›</span>${c}`).join('');
+
+  $('#browse-places').innerHTML = `<div class="places-label">場所</div>` + listing.places.map(p =>
+    `<button type="button" class="place${listing.path?.toLowerCase() === p.path.toLowerCase() ? ' on' : ''}" data-path="${esc(p.path)}" title="${esc(p.path)}">${esc(p.label)}</button>`).join('')
+    + `<button type="button" class="place${!listing.path ? ' on' : ''}" data-path="">ドライブ</button>`;
+
+  const entries = visibleEntries();
+  const list = $('#browse-list');
+  if (listing.error) list.innerHTML = `<div class="browse-empty">${esc(listing.error)}</div>`;
+  else if (entries.length === 0) list.innerHTML = `<div class="browse-empty">${browse.filter ? '一致するものがありません' : 'フォルダーもプロジェクトもありません'}</div>`;
+  else list.innerHTML = entries.map((e, i) => {
+    const kind = KIND[e.kind];
+    const badge = e.kind === 'project' ? projectBadge(e.name) : kind.badge;
+    const selectable = e.kind !== 'solution';
+    return `<div class="entry ${kind.cls}${browse.selected?.path === e.path ? ' selected' : ''}${selectable ? '' : ' dim'}" role="option"
+      aria-selected="${browse.selected?.path === e.path}" data-i="${i}">
+      <span class="entry-ic" aria-hidden="true">${badge ? `<b>${esc(badge)}</b>` : ''}</span>
+      <span class="entry-name">${esc(e.name)}</span>
+      ${e.hasProject ? '<span class="entry-tag">プロジェクトあり</span>' : ''}
+      ${e.kind === 'folder' || e.kind === 'drive' ? '<span class="entry-go" aria-hidden="true">›</span>' : ''}
+    </div>`;
+  }).join('');
+  renderChoice();
+}
+
+// What "選ぶ" takes: the project selected; for a folder, the one selected or else the folder open.
+function choice() {
+  if (browse.mode === 'project') return browse.selected?.kind === 'project' ? browse.selected.path : null;
+  if (browse.selected && (browse.selected.kind === 'folder' || browse.selected.kind === 'drive')) return browse.selected.path;
+  return browse.listing?.path ?? null;
+}
+
+function renderChoice() {
+  const path = choice();
+  $('#browse-ok').disabled = !path;
+  $('#browse-ok').textContent = browse.mode === 'root' && !(browse.selected && browse.selected.kind !== 'project') ? 'このフォルダーを選ぶ' : '選ぶ';
+  $('#browse-choice').innerHTML = path ? `<span class="muted">選択:</span> <code>${esc(path)}</code>` : '<span class="muted">未選択</span>';
+}
+
+function selectEntry(entry) {
+  if (!entry || entry.kind === 'solution') return;
+  browse.selected = entry;
+  $('#browse-list').querySelectorAll('.entry').forEach(el => {
+    const on = visibleEntries()[+el.dataset.i]?.path === entry.path;
+    el.classList.toggle('selected', on);
+    el.setAttribute('aria-selected', on);
+    if (on) el.scrollIntoView({ block: 'nearest' });
+  });
+  renderChoice();
+}
+
+function openEntry(entry) {
+  if (!entry) return;
+  if (entry.kind === 'folder' || entry.kind === 'drive') navigate(entry.path);
+  else if (entry.kind === 'project' && browse.mode === 'project') closeBrowser(entry.path);
+}
+
+function wireBrowser() {
+  const list = $('#browse-list');
+  const entryOf = ev => {
+    const el = ev.target.closest('.entry');
+    return el ? visibleEntries()[+el.dataset.i] : null;
+  };
+  list.addEventListener('click', ev => selectEntry(entryOf(ev)));
+  list.addEventListener('dblclick', ev => openEntry(entryOf(ev)));
+  list.addEventListener('keydown', ev => {
+    const entries = visibleEntries().filter(e => e.kind !== 'solution');
+    const at = entries.findIndex(e => e.path === browse.selected?.path);
+    if (ev.key === 'ArrowDown' || ev.key === 'ArrowUp') {
+      ev.preventDefault();
+      const next = ev.key === 'ArrowDown' ? Math.min(entries.length - 1, at + 1) : Math.max(0, at - 1);
+      selectEntry(entries[next]);
+    } else if (ev.key === 'Enter') {
+      ev.preventDefault();
+      if (browse.selected) openEntry(browse.selected);
+    } else if (ev.key === 'Backspace') {
+      ev.preventDefault();
+      if (browse.listing?.path) navigate(browse.listing.parent ?? '');
+    } else if (ev.key.length === 1 && !ev.ctrlKey && !ev.metaKey && !ev.altKey) {
+      $('#browse-filter').focus();  // typing filters
+    }
+  });
+  const go = ev => { const b = ev.target.closest('[data-path]'); if (b) navigate(b.dataset.path); };
+  $('#browse-crumbs').addEventListener('click', go);
+  $('#browse-places').addEventListener('click', go);
+  $('#browse-up').addEventListener('click', () => navigate(browse.listing?.parent ?? ''));
+  $('#browse-path').addEventListener('keydown', ev => { if (ev.key === 'Enter') { ev.preventDefault(); navigate(ev.target.value); } });
+  $('#browse-filter').addEventListener('input', ev => { browse.filter = ev.target.value; renderBrowser(); });
+  $('#browse-filter').addEventListener('keydown', ev => {
+    if (ev.key === 'ArrowDown' || ev.key === 'Enter') {
+      ev.preventDefault();
+      const first = visibleEntries().find(e => e.kind !== 'solution');
+      if (ev.key === 'Enter' && first && visibleEntries().filter(e => e.kind !== 'solution').length === 1) return openEntry(first);
+      if (first) selectEntry(first);
+      list.focus();
+    }
+  });
+  $('#browse-ok').addEventListener('click', () => { const path = choice(); if (path) closeBrowser(path); });
+  $('#browse-cancel').addEventListener('click', () => closeBrowser(null));
+  $('#browse-close').addEventListener('click', () => closeBrowser(null));
+  $('#browse-dialog').addEventListener('close', () => closeBrowser(null));
+
+  // The pickers of the new analysis.
+  document.querySelectorAll('[data-browse]').forEach(button => button.addEventListener('click', async () => {
+    const form = $('#new-form');
+    const field = form.elements[button.dataset.browse];
+    const start = field.value || (button.dataset.browse === 'root' ? form.elements.project.value : '');
+    const path = await openBrowser(button.dataset.browse, start);
+    if (!path) return;
+    field.value = path;
+    if (button.dataset.browse === 'project') await suggestRoot(path);
+  }));
+  $('#new-form').elements.project.addEventListener('change', ev => suggestRoot(ev.target.value));
+}
+
+// The repository folder the analysis takes when none is given, shown in the empty field.
+async function suggestRoot(project) {
+  const root = $('#new-form').elements.root;
+  try {
+    const { root: found } = await api('/browse/root?project=' + encodeURIComponent(project));
+    root.placeholder = `既定: ${found}`;
+  } catch {
+    root.placeholder = 'C:\\src\\MyApp';
+  }
 }
 
 async function startAnalysis(request) {
@@ -528,6 +728,7 @@ async function init() {
   $('#new-analysis').addEventListener('click', openNew);
   $('#welcome-new').addEventListener('click', openNew);
   $('#drawer-close').addEventListener('click', closeDrawer);
+  wireBrowser();
   document.addEventListener('keydown', ev => { if (ev.key === 'Escape') closeDrawer(); });
   $('#save').addEventListener('click', save);
   $('#discard').addEventListener('click', () => { state.choices = clone(state.saved); state.errors = []; renderResult(); });

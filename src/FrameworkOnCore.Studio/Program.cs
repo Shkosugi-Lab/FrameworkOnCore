@@ -50,6 +50,12 @@ api.MapGet("/catalog", (AnalysisStore store) => new
 
 api.MapGet("/analyses", (AnalysisStore store) => store.List());
 
+// Choosing a project or a folder in the page: a folder's folders and projects (no path: the drives), and the repository
+// folder the analysis takes for a project when none is given.
+api.MapGet("/browse", (string? path, AnalysisStore store) => FileBrowser.List(path, store.List().Select(e => e.Root)));
+api.MapGet("/browse/root", (string project) =>
+    File.Exists(project) ? Results.Ok(new { root = FrameworkOnCore.Converter.Paths.FindRoot(Path.GetFullPath(project)) }) : Results.NotFound());
+
 api.MapPost("/analyses", (AnalysisRequest request, AnalysisStore store) =>
 {
     try { return Results.Ok(store.Start(request)); }

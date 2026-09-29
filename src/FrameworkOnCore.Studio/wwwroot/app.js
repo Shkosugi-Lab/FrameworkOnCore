@@ -111,9 +111,10 @@ async function refresh() {
   if (id !== state.id) return;
   state.entry = entry;
   if (entry.state === 'done') {
-    const [result, choices] = await Promise.all([api(`/analyses/${id}/result`), api(`/analyses/${id}/choices`)]);
+    const [result, choices, command] = await Promise.all([api(`/analyses/${id}/result`), api(`/analyses/${id}/choices`), api(`/analyses/${id}/command`)]);
     if (id !== state.id) return;
     state.result = result;
+    state.command = command.command;
     state.byComponent = new Map();
     for (const a of result.apis) {
       if (!state.byComponent.has(a.component)) state.byComponent.set(a.component, []);
@@ -480,12 +481,13 @@ function renderSavebar() {
   const n = changes();
   const e = effective(state.choices);
   const nonDefault = Object.keys(e.components).length + Object.keys(e.apis).length + Object.keys(e.settings).length;
+  // Saved (the defaults count: saving them as they are is a choice too): the conversion's command, to copy.
   $('#save-state').innerHTML = state.errors.length
     ? `<span class="errors">保存できません: ${esc(state.errors.join(' / '))}</span>`
     : n > 0
       ? `<b>未保存の変更 ${n} 件</b> ・ 既定と違う選択 ${nonDefault} 件`
       : `保存済み ・ 既定と違う選択 ${nonDefault} 件 ${state.command ? '・ <button class="btn ghost small" id="copy-command">変換のコマンドをコピー</button>' : ''}`;
-  $('#save').disabled = n === 0;
+  $('#save').textContent = n > 0 ? '選択を保存' : 'この選択で保存';
   $('#discard').disabled = n === 0;
   $('#copy-command')?.addEventListener('click', async () => {
     await navigator.clipboard.writeText(state.command);

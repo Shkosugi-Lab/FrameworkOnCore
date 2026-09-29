@@ -1,6 +1,6 @@
 namespace FrameworkOnCore.Converter;
 
-static class Paths
+public static class Paths
 {
     // Build output and tooling folders: not part of the application's source.
     static readonly HashSet<string> skipped = new(StringComparer.OrdinalIgnoreCase) { "bin", "obj", ".vs", "node_modules", ".git" };

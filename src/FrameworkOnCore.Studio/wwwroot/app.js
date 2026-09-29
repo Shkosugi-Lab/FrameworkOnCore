@@ -1,0 +1,564 @@
+// FrameworkOnCore Studio: the analyses (sidebar), one analysis (its numbers, its components and their options, the APIs
+// of each), and the user's choices, saved through the API (PUT /api/analyses/{id}/choices). Everything comes from the
+// HTTP API: the page holds no data of its own.
+
+// Statuses: the reserved status colors, always with an icon and a label (never the color alone).
+const STATUS = {
+  Missing: { label: '.NET に無い', icon: '✕', color: 'var(--status-critical)' },
+  Throws: { label: '例外(全 OS)', icon: 'ϟ', color: 'var(--status-critical)', texture: true },
+  WindowsOnly: { label: '例外(Linux)', icon: '⊘', color: 'var(--status-serious)' },
+  Behavior: { label: '動きが違う', icon: '≈', color: 'var(--status-warning)' },
+  Obsolete: { label: '廃止予定(動く)', icon: '◷', color: 'var(--status-neutral)' },
+  Available: { label: 'そのまま', icon: '✓', color: 'var(--status-good)' },
+};
+const ORDER = ['Missing', 'Throws', 'WindowsOnly', 'Behavior', 'Obsolete', 'Available'];
+const ROWS = 60;
+
+const state = {
+  analyses: [], catalog: null, id: null, entry: null, result: null, byComponent: new Map(),
+  choices: null, saved: null, command: null, errors: [],
+  filter: { q: '', statuses: new Set(ORDER.slice(0, 5)) }, expanded: new Set(), rows: new Map(), poll: null,
+};
+
+const $ = (s, root = document) => root.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const fmt = n => Number(n ?? 0).toLocaleString('ja-JP');
+const clone = o => JSON.parse(JSON.stringify(o));
+
+async function api(path, options = {}) {
+  const response = await fetch('/api' + path, { headers: { 'Content-Type': 'application/json' }, ...options });
+  const text = await response.text();
+  const body = text ? JSON.parse(text) : null;
+  if (!response.ok) throw Object.assign(new Error(body?.error ?? response.statusText), { body, status: response.status });
+  return body;
+}
+
+function pill(status) {
+  const s = STATUS[status];
+  return `<span class="pill" style="--c:${s.color}"><span class="ic" aria-hidden="true">${s.icon}</span>${esc(s.label)}</span>`;
+}
+
+function toast(text) {
+  const t = $('#toast');
+  t.textContent = text;
+  t.hidden = false;
+  clearTimeout(toast.timer);
+  toast.timer = setTimeout(() => (t.hidden = true), 2400);
+}
+
+// ---------------------------------------------------------------------------------------------------------------------
+// Sidebar
+
+async function loadAnalyses() {
+  state.analyses = await api('/analyses');
+  renderSidebar();
+}
+
+function renderSidebar() {
+  const list = $('#analyses');
+  if (state.analyses.length === 0) {
+    list.innerHTML = '<div class="muted" style="padding:6px 10px;font-size:13px">まだ解析がありません</div>';
+    return;
+  }
+  list.innerHTML = state.analyses.map(a => {
+    const meta = a.state === 'done' && a.summary
+      ? `${fmt(a.summary.apis)} API ・ 部品 ${fmt(a.summary.toDecide)}`
+      : a.state === 'failed' ? '失敗' : a.state === 'queued' ? '待機中' : '解析中…';
+    return `<button class="analysis-item ${a.id === state.id ? 'active' : ''}" data-id="${esc(a.id)}">
+      <div class="name"><span class="dot ${esc(a.state)}"></span>${esc(a.name)}</div>
+      <div class="meta">${esc(meta)} ・ ${new Date(a.created).toLocaleDateString('ja-JP')}</div>
+    </button>`;
+  }).join('');
+  list.querySelectorAll('.analysis-item').forEach(b => b.addEventListener('click', () => select(b.dataset.id)));
+}
+
+// ---------------------------------------------------------------------------------------------------------------------
+// One analysis
+
+async function select(id) {
+  if (state.id !== id && isDirty() && !confirm('保存していない選択があります。破棄して移りますか?')) return;
+  clearTimeout(state.poll);
+  Object.assign(state, { id, entry: null, result: null, choices: null, saved: null, command: null, errors: [] });
+  state.expanded.clear();
+  state.rows.clear();
+  if (!location.hash.startsWith(`#/a/${id}`)) location.hash = id ? `#/a/${id}` : '';
+  renderSidebar();
+  $('#welcome').hidden = !!id;
+  $('#view').hidden = !id;
+  $('#savebar').hidden = true;
+  if (!id) return;
+  $('#view').innerHTML = '<div class="progress"></div>';
+  await refresh();
+}
+
+async function refresh() {
+  const id = state.id;
+  const { entry, log } = await api(`/analyses/${id}`);
+  if (id !== state.id) return;
+  state.entry = entry;
+  if (entry.state === 'done') {
+    const [result, choices] = await Promise.all([api(`/analyses/${id}/result`), api(`/analyses/${id}/choices`)]);
+    if (id !== state.id) return;
+    state.result = result;
+    state.byComponent = new Map();
+    for (const a of result.apis) {
+      if (!state.byComponent.has(a.component)) state.byComponent.set(a.component, []);
+      state.byComponent.get(a.component).push(a);
+    }
+    state.choices = normalize(choices);
+    state.saved = clone(state.choices);
+    // A link to a component (#/a/<analysis>/c/<component>): opened, in view.
+    const linked = decodeURIComponent(location.hash.match(/\/c\/([^/]+)$/)?.[1] ?? '');
+    if (linked) state.expanded.add(linked);
+    renderResult();
+    if (linked) document.getElementById(`c-${linked}`)?.scrollIntoView({ block: 'start' });
+    await loadAnalyses();
+  } else {
+    renderRunning(entry, log);
+    if (entry.state !== 'failed') state.poll = setTimeout(() => refresh().catch(console.error), 1500);
+    else await loadAnalyses();
+  }
+}
+
+function renderRunning(entry, log) {
+  const failed = entry.state === 'failed';
+  $('#view').innerHTML = `
+    <div class="running">
+      <div class="header"><div>
+        <h1>${esc(entry.name)}</h1>
+        <div class="sub"><code>${esc(entry.project)}</code><span>構成 ${esc(entry.configuration)}</span></div>
+      </div>
+      <div class="header-actions">${failed ? '<button class="btn ghost danger" id="delete">削除</button>' : ''}</div></div>
+      <div class="card card-pad">
+        <h2>${failed ? '解析できませんでした' : entry.state === 'queued' ? 'ほかの解析が終わるのを待っています' : 'アプリを読み込んで、API を数えています'}</h2>
+        <div class="hint">${failed ? esc(entry.error ?? '') : 'ソースを .NET Framework 4.8 の参照アセンブリでコンパイルし、名前を一つずつ .NET 10 と照らし合わせます。大きなアプリでは数十秒かかります。'}</div>
+        ${failed ? '' : '<div class="progress"></div>'}
+        <pre class="log">${esc((log ?? []).slice(-60).join('\n')) || '…'}</pre>
+      </div>
+    </div>`;
+  $('#delete')?.addEventListener('click', removeAnalysis);
+  const pre = $('.log');
+  pre.scrollTop = pre.scrollHeight;
+}
+
+// ---------------------------------------------------------------------------------------------------------------------
+// The result
+
+function renderResult() {
+  const r = state.result;
+  const e = state.entry;
+  const uses = r.apis.reduce((s, a) => s + a.count, 0);
+  const frameworkUses = r.projects.reduce((s, p) => s + p.frameworkCalls, 0);
+  const unresolved = r.projects.reduce((s, p) => s + p.unresolved, 0);
+  const files = new Set(r.apis.flatMap(a => a.files.map(f => f.file))).size;
+  const attention = r.components.filter(c => c.status !== 'Available');
+  const count = status => attention.filter(c => c.status === status).length;
+  const resolvedRate = frameworkUses + unresolved === 0 ? 100 : (100 * frameworkUses / (frameworkUses + unresolved));
+
+  $('#view').innerHTML = `
+    <div class="header">
+      <div>
+        <h1>${esc(e.name)}</h1>
+        <div class="sub">
+          <span>${esc(r.repository)} / <code>${esc(r.entry)}</code></span>
+          <span>構成 ${esc(r.configuration)}</span>
+          <span>${new Date(r.analyzed).toLocaleString('ja-JP')}</span>
+          <span>カタログ v${esc(r.catalogVersion)}</span>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="btn ghost" id="reanalyze" title="同じプロジェクトをもう一度解析する">↻ 再解析</button>
+        <button class="btn ghost danger" id="delete">削除</button>
+      </div>
+    </div>
+
+    <div class="tiles">
+      ${tile('対応を選ぶ部品', attention.length, '件', `.NET に無い ${count('Missing')} ・ 例外 ${count('Throws') + count('WindowsOnly')} ・ 動きの違い ${count('Behavior')}`)}
+      ${tile('.NET Framework の API', fmt(r.apis.length), '種類', `ソースの ${fmt(r.projects.filter(p => !p.skipped).length)} プロジェクト`)}
+      ${tile('使用回数', fmt(uses), '回', `${fmt(files)} ファイル`)}
+      ${tile('名前の解決率', resolvedRate.toFixed(1), '%', `解決できなかった名前 ${fmt(unresolved)}`)}
+    </div>
+
+    <div class="card card-pad breakdown">
+      <h2>そのまま動かない API の使用(状態別)</h2>
+      <div class="hint" id="breakdown-hint"></div>
+      <div class="stack" id="stack" role="img" aria-label="状態別の使用回数"></div>
+      <div class="legend" id="legend"></div>
+    </div>
+
+    <div class="card card-pad settings">
+      <h2>アプリの設定</h2>
+      <div class="hint">API ではなく、アプリ全体に対する選択です。</div>
+      <div id="settings"></div>
+    </div>
+
+    <div class="toolbar">
+      <label class="search"><span aria-hidden="true">⌕</span>
+        <input id="search" placeholder="部品・API を検索(例: Drawing, Encoding.Default)" value="${esc(state.filter.q)}">
+      </label>
+      <div class="chips" id="chips"></div>
+    </div>
+    <div class="components" id="components"></div>`;
+
+  $('#delete').addEventListener('click', removeAnalysis);
+  $('#reanalyze').addEventListener('click', () => startAnalysis({ project: e.project, root: e.root, configuration: e.configuration, name: e.name }));
+  $('#search').addEventListener('input', ev => { state.filter.q = ev.target.value; renderComponents(); });
+  renderBreakdown();
+  renderSettings();
+  renderChips();
+  renderComponents();
+  renderSavebar();
+}
+
+function tile(label, value, unit, foot) {
+  return `<div class="card tile"><div class="label">${esc(label)}</div>
+    <div class="value">${esc(value)}<small>${esc(unit)}</small></div><div class="foot">${esc(foot)}</div></div>`;
+}
+
+// Part-to-whole of the uses that do not work as they were, by status: one bar, a legend with icons, a hover tooltip.
+function renderBreakdown() {
+  const totals = Object.fromEntries(ORDER.map(s => [s, 0]));
+  for (const a of state.result.apis) totals[a.status] += a.count;
+  const all = ORDER.reduce((s, k) => s + totals[k], 0);
+  const shown = ORDER.slice(0, 5).filter(s => totals[s] > 0);
+  const sum = shown.reduce((s, k) => s + totals[k], 0);
+  $('#breakdown-hint').textContent = all === 0 ? '' :
+    `使用回数の ${(100 * totals.Available / all).toFixed(1)}% はそのまま動きます。残りの ${fmt(sum)} 回の内訳:`;
+  const stack = $('#stack');
+  stack.innerHTML = shown.map(s => {
+    const st = STATUS[s];
+    const bg = st.texture
+      ? `repeating-linear-gradient(45deg, ${st.color} 0 5px, color-mix(in srgb, ${st.color} 55%, black) 5px 7px)` : st.color;
+    return `<div class="seg" data-status="${s}" style="flex:${totals[s]};background:${bg}"></div>`;
+  }).join('') || '<div class="muted" style="font-size:13px">対応が必要な API はありません</div>';
+  stack.querySelectorAll('.seg').forEach(seg => {
+    const s = seg.dataset.status;
+    seg.addEventListener('mousemove', ev => showTip(ev, `${STATUS[s].icon} <b>${esc(STATUS[s].label)}</b><br>${fmt(totals[s])} 回 ・ ${(100 * totals[s] / sum).toFixed(1)}%`));
+    seg.addEventListener('mouseleave', hideTip);
+  });
+  $('#legend').innerHTML = shown.map(s => `<div class="legend-item">
+      <span class="swatch" style="background:${STATUS[s].color}"></span>${STATUS[s].icon} ${esc(STATUS[s].label)} <b>${fmt(totals[s])}</b></div>`).join('');
+}
+
+function showTip(ev, html) {
+  const tip = $('#tooltip');
+  tip.innerHTML = html;
+  tip.hidden = false;
+  const x = Math.min(ev.clientX + 14, innerWidth - tip.offsetWidth - 10);
+  tip.style.left = `${x}px`;
+  tip.style.top = `${ev.clientY + 16}px`;
+}
+function hideTip() { $('#tooltip').hidden = true; }
+
+function renderChips() {
+  const counts = Object.fromEntries(ORDER.map(s => [s, state.result.components.filter(c => c.status === s).length]));
+  $('#chips').innerHTML = ORDER.filter(s => counts[s] > 0).map(s => `<button class="chip" data-status="${s}" style="--c:${STATUS[s].color}"
+      aria-pressed="${state.filter.statuses.has(s)}"><span class="ic">${STATUS[s].icon}</span>${esc(STATUS[s].label)} ${counts[s]}</button>`).join('');
+  $('#chips').querySelectorAll('.chip').forEach(chip => chip.addEventListener('click', () => {
+    const s = chip.dataset.status;
+    state.filter.statuses.has(s) ? state.filter.statuses.delete(s) : state.filter.statuses.add(s);
+    chip.setAttribute('aria-pressed', state.filter.statuses.has(s));
+    renderComponents();
+  }));
+}
+
+// ---------------------------------------------------------------------------------------------------------------------
+// Settings and components: the options, chosen or default
+
+function defaultOf(options) { return (options.find(o => o.default) ?? options[0]).id; }
+
+function renderSettings() {
+  $('#settings').innerHTML = state.result.settings.map(s => {
+    const chosen = state.choices.settings[s.id] ?? defaultOf(s.options);
+    return `<div class="setting-row"><div><b>${esc(s.title)}</b> <span class="cid">${esc(s.id)}</span>
+        ${chosen !== defaultOf(s.options) ? '<span class="changed">変更</span>' : ''}</div>
+      <div class="options" style="padding:0">${s.options.map(o => optionCard(`setting:${s.id}`, o, chosen)).join('')}</div></div>`;
+  }).join('');
+  bindOptions($('#settings'));
+}
+
+function optionCard(name, o, chosen) {
+  return `<label class="option ${o.id === chosen ? 'selected' : ''} ${o.planned ? 'planned' : ''}" title="${o.planned ? 'まだありません(予定)' : ''}">
+    <input type="radio" name="${esc(name)}" value="${esc(o.id)}" ${o.id === chosen ? 'checked' : ''} ${o.planned ? 'disabled' : ''}>
+    <span class="radio"></span>
+    <div class="t">${esc(o.title)}${o.default ? '<span class="badge default">既定</span>' : ''}${o.planned ? '<span class="badge planned">予定</span>' : ''}</div>
+    ${o.description ? `<div class="d">${esc(o.description)}</div>` : ''}
+  </label>`;
+}
+
+function bindOptions(root) {
+  root.querySelectorAll('input[type=radio]').forEach(input => input.addEventListener('change', () => {
+    const [kind, id] = input.name.split(/:(.*)/s);
+    if (kind === 'setting') state.choices.settings[id] = input.value;
+    else state.choices.components[id] = input.value;
+    kind === 'setting' ? renderSettings() : renderComponents();
+    renderSavebar();
+  }));
+}
+
+// Those the sources use first (a component only DLLs reference after them), the worst status first, the most used first.
+function visibleComponents() {
+  const q = state.filter.q.trim().toLowerCase();
+  const rank = c => [c.attentionCount > 0 || c.status === 'Available' ? 0 : 1, ORDER.indexOf(c.status), -c.attentionCount, -c.binaryReferences];
+  const compare = (a, b) => { const x = rank(a), y = rank(b); for (let i = 0; i < x.length; i++) if (x[i] !== y[i]) return x[i] - y[i]; return 0; };
+  return state.result.components.slice().sort(compare).filter(c => {
+    if (!state.filter.statuses.has(c.status)) return false;
+    if (!q) return true;
+    if (`${c.title} ${c.id} ${c.note ?? ''}`.toLowerCase().includes(q)) return true;
+    return (state.byComponent.get(c.id) ?? []).some(a => a.name.toLowerCase().includes(q) || a.id.toLowerCase().includes(q));
+  });
+}
+
+function renderComponents() {
+  const list = visibleComponents();
+  const root = $('#components');
+  if (list.length === 0) {
+    root.innerHTML = '<div class="card card-pad muted">条件に合う部品はありません</div>';
+    return;
+  }
+  root.innerHTML = list.map(componentCard).join('');
+  bindOptions(root);
+  root.querySelectorAll('.expander').forEach(b => b.addEventListener('click', () => {
+    const id = b.dataset.id;
+    state.expanded.has(id) ? state.expanded.delete(id) : state.expanded.add(id);
+    renderComponents();
+  }));
+  root.querySelectorAll('.place').forEach(b => b.addEventListener('click', () => openSource(b.dataset.file, +b.dataset.line, b.dataset.api)));
+  root.querySelectorAll('select.override').forEach(sel => sel.addEventListener('change', () => {
+    if (sel.value) state.choices.apis[sel.dataset.api] = sel.value; else delete state.choices.apis[sel.dataset.api];
+    renderComponents();
+    renderSavebar();
+  }));
+  root.querySelectorAll('.show-more').forEach(b => b.addEventListener('click', () => {
+    state.rows.set(b.dataset.id, (state.rows.get(b.dataset.id) ?? ROWS) + ROWS * 3);
+    renderComponents();
+  }));
+}
+
+function componentCard(c) {
+  const s = STATUS[c.status];
+  const options = c.options ?? [];
+  const chosen = state.choices.components[c.id] ?? defaultOf(options);
+  const changed = chosen !== defaultOf(options) || apisOf(c).some(a => state.choices.apis[a.id]);
+  const choosable = options.filter(o => !o.planned).length > 1 || options.some(o => o.planned);
+  const expanded = state.expanded.has(c.id);
+  const attentionApis = apisOf(c);
+  return `<article class="card component" id="c-${esc(c.id)}" style="--c:${s.color}">
+    <div class="component-head">
+      <div>
+        <div class="component-title"><h3>${esc(c.title)}</h3><span class="cid">${esc(c.id)}</span>${pill(c.status)}
+          ${c.attentionCount === 0 && c.binaryReferences > 0 ? '<span class="badge planned" title="ソースでは使われず、ソースのない DLL だけが参照している">DLL だけ</span>' : ''}
+          ${changed ? '<span class="changed">変更</span>' : ''}</div>
+        ${c.note ? `<p class="note">${esc(c.note)}</p>` : ''}
+      </div>
+      <div class="numbers">
+        ${num(c.attentionApis, '要対応 API')}${num(c.attentionCount, '回数')}${num(c.files, 'ファイル')}${c.binaryReferences ? num(c.binaryReferences, 'DLL の参照') : ''}
+      </div>
+    </div>
+    ${choosable
+      ? `<div class="options">${options.map(o => optionCard(`component:${c.id}`, o, chosen)).join('')}</div>`
+      : `<div class="single" title="${esc(options[0]?.description ?? '')}">選べる対応はありません(${esc(options[0]?.title ?? '')})</div>`}
+    <button class="expander" data-id="${esc(c.id)}" aria-expanded="${expanded}"><span class="chev">▸</span>
+      API を見る(${fmt(attentionApis.length)} 件)</button>
+    ${expanded ? apiTable(c, attentionApis, options) : ''}
+  </article>`;
+}
+
+function num(n, label) { return `<div class="num"><div class="n">${fmt(n)}</div><div class="l">${esc(label)}</div></div>`; }
+
+// A component's APIs that do not work as they were (all of them for one that does), the most used first.
+function apisOf(c) {
+  const all = state.byComponent.get(c.id) ?? [];
+  const attention = all.filter(a => a.status !== 'Available');
+  return (attention.length ? attention : all).slice().sort((a, b) => ORDER.indexOf(a.status) - ORDER.indexOf(b.status) || b.count - a.count);
+}
+
+function apiTable(c, apis, options) {
+  const limit = state.rows.get(c.id) ?? ROWS;
+  const overridable = options.filter(o => !o.planned).length > 1;
+  const rows = apis.slice(0, limit).map(a => {
+    const place = a.places?.[0];
+    const override = state.choices.apis[a.id] ?? '';
+    const dlls = (a.binaries ?? []).map(b => b.file.split('/').pop());
+    return `<tr>
+      <td><div class="api-name">${esc(a.name)}</div>${a.obsolete || a.note ? `<div class="api-detail">${esc(a.obsolete ?? a.note)}</div>` : ''}</td>
+      <td>${pill(a.status)}</td>
+      <td class="r">${fmt(a.count)}</td>
+      <td>${place ? `<button class="place" data-file="${esc(place.file)}" data-line="${place.line}" data-api="${esc(a.name)}">${esc(place.file)}:${place.line}</button>
+        ${a.files.length > 1 ? `<div class="api-detail">ほか ${a.files.length - 1} ファイル</div>` : ''}` : '<span class="muted">—</span>'}
+        ${dlls.length ? `<div class="dlls">DLL: ${esc(dlls.slice(0, 3).join(', '))}${dlls.length > 3 ? ` ほか ${dlls.length - 3}` : ''}</div>` : ''}</td>
+      ${overridable ? `<td><select class="override ${override ? 'set' : ''}" data-api="${esc(a.id)}" aria-label="この API の対応">
+          <option value="">部品の選択に従う</option>
+          ${options.filter(o => !o.planned).map(o => `<option value="${esc(o.id)}" ${o.id === override ? 'selected' : ''}>${esc(o.title)}</option>`).join('')}
+        </select></td>` : ''}
+    </tr>`;
+  }).join('');
+  return `<div class="api-wrap"><table class="api-table">
+    <thead><tr><th>API</th><th>状態</th><th class="r">回数</th><th>主な場所</th>${overridable ? '<th>この API だけ</th>' : ''}</tr></thead>
+    <tbody>${rows}</tbody></table>
+    ${apis.length > limit ? `<div class="more"><button class="btn ghost small show-more" data-id="${esc(c.id)}">さらに表示(残り ${fmt(apis.length - limit)} 件)</button></div>` : ''}
+  </div>`;
+}
+
+// ---------------------------------------------------------------------------------------------------------------------
+// Source
+
+async function openSource(file, line, apiName) {
+  const drawer = $('#drawer');
+  $('#drawer-title').textContent = `${file}:${line}`;
+  $('#drawer-sub').textContent = apiName;
+  $('#drawer-code').innerHTML = '<span class="ln muted">読み込み中…</span>';
+  drawer.classList.add('open');
+  drawer.setAttribute('aria-hidden', 'false');
+  try {
+    const src = await api(`/analyses/${state.id}/source?file=${encodeURIComponent(file)}&line=${line}`);
+    $('#drawer-code').innerHTML = src.lines.map((text, i) => {
+      const no = src.start + i;
+      return `<span class="ln ${no === line ? 'hit' : ''}"><span class="no">${no}</span>${esc(text)}</span>`;
+    }).join('');
+    $('.ln.hit')?.scrollIntoView({ block: 'center' });
+  } catch {
+    $('#drawer-code').innerHTML = '<span class="ln muted">ソースを読めませんでした(リポジトリが移動した可能性があります)</span>';
+  }
+}
+
+function closeDrawer() {
+  $('#drawer').classList.remove('open');
+  $('#drawer').setAttribute('aria-hidden', 'true');
+}
+
+// ---------------------------------------------------------------------------------------------------------------------
+// Choices: what changed, saving, the command
+
+function normalize(c) {
+  return { schema: c?.schema ?? 1, components: { ...(c?.components ?? {}) }, apis: { ...(c?.apis ?? {}) }, settings: { ...(c?.settings ?? {}) } };
+}
+
+// The choices as the conversion reads them: an option at its default is the same as none.
+function effective(c) {
+  const out = { components: {}, apis: { ...c.apis }, settings: {} };
+  for (const comp of state.result?.components ?? []) {
+    const option = c.components[comp.id];
+    if (option && option !== defaultOf(comp.options ?? [])) out.components[comp.id] = option;
+  }
+  for (const s of state.result?.settings ?? []) {
+    const option = c.settings[s.id];
+    if (option && option !== defaultOf(s.options)) out.settings[s.id] = option;
+  }
+  return out;
+}
+
+function changes() {
+  if (!state.choices || !state.saved) return 0;
+  const a = effective(state.choices), b = effective(state.saved);
+  let n = 0;
+  for (const part of ['components', 'apis', 'settings']) {
+    for (const k of new Set([...Object.keys(a[part]), ...Object.keys(b[part])])) if (a[part][k] !== b[part][k]) n++;
+  }
+  return n;
+}
+const isDirty = () => changes() > 0;
+
+function renderSavebar() {
+  const bar = $('#savebar');
+  if (!state.result) { bar.hidden = true; return; }
+  bar.hidden = false;
+  const n = changes();
+  const e = effective(state.choices);
+  const nonDefault = Object.keys(e.components).length + Object.keys(e.apis).length + Object.keys(e.settings).length;
+  $('#save-state').innerHTML = state.errors.length
+    ? `<span class="errors">保存できません: ${esc(state.errors.join(' / '))}</span>`
+    : n > 0
+      ? `<b>未保存の変更 ${n} 件</b> ・ 既定と違う選択 ${nonDefault} 件`
+      : `保存済み ・ 既定と違う選択 ${nonDefault} 件 ${state.command ? '・ <button class="btn ghost small" id="copy-command">変換のコマンドをコピー</button>' : ''}`;
+  $('#save').disabled = n === 0;
+  $('#discard').disabled = n === 0;
+  $('#copy-command')?.addEventListener('click', async () => {
+    await navigator.clipboard.writeText(state.command);
+    toast('コマンドをコピーしました(--out の出力先を書き換えて実行)');
+  });
+}
+
+async function save() {
+  try {
+    await api(`/analyses/${state.id}/choices`, { method: 'PUT', body: JSON.stringify(state.choices) });
+    state.saved = clone(state.choices);
+    state.errors = [];
+    state.command = (await api(`/analyses/${state.id}/command`)).command;
+    toast('選択を保存しました');
+  } catch (e) {
+    state.errors = e.body?.errors ?? [e.message];
+  }
+  renderSavebar();
+}
+
+// ---------------------------------------------------------------------------------------------------------------------
+// New analysis, delete
+
+function openNew() {
+  $('#new-error').hidden = true;
+  $('#new-dialog').showModal();
+}
+
+async function startAnalysis(request) {
+  const entry = await api('/analyses', { method: 'POST', body: JSON.stringify(request) });
+  await loadAnalyses();
+  await select(entry.id);
+  return entry;
+}
+
+async function removeAnalysis() {
+  if (!confirm(`「${state.entry.name}」を削除しますか?(解析の結果と選択のファイルが消えます)`)) return;
+  await api(`/analyses/${state.id}`, { method: 'DELETE' });
+  state.saved = state.choices;  // nothing left to save
+  await loadAnalyses();
+  await select(null);
+}
+
+// ---------------------------------------------------------------------------------------------------------------------
+
+function applyTheme(theme) {
+  document.documentElement.dataset.theme = theme;
+  localStorage.setItem('foc-theme', theme);
+}
+
+async function init() {
+  applyTheme(localStorage.getItem('foc-theme') ?? 'dark');
+  $('#theme-toggle').addEventListener('click', () => applyTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'));
+  $('#new-analysis').addEventListener('click', openNew);
+  $('#welcome-new').addEventListener('click', openNew);
+  $('#drawer-close').addEventListener('click', closeDrawer);
+  document.addEventListener('keydown', ev => { if (ev.key === 'Escape') closeDrawer(); });
+  $('#save').addEventListener('click', save);
+  $('#discard').addEventListener('click', () => { state.choices = clone(state.saved); state.errors = []; renderResult(); });
+  $('#reset-defaults').addEventListener('click', () => {
+    state.choices = { schema: 1, components: {}, apis: {}, settings: {} };
+    state.errors = [];
+    renderResult();
+  });
+  $('#new-form').addEventListener('submit', async ev => {
+    if (ev.submitter?.value !== 'ok') return;
+    ev.preventDefault();
+    const data = Object.fromEntries(new FormData(ev.target));
+    try {
+      $('#new-submit').disabled = true;
+      await startAnalysis(data);
+      $('#new-dialog').close();
+      ev.target.reset();
+    } catch (e) {
+      $('#new-error').textContent = e.message;
+      $('#new-error').hidden = false;
+    } finally {
+      $('#new-submit').disabled = false;
+    }
+  });
+  addEventListener('beforeunload', ev => { if (isDirty()) ev.preventDefault(); });
+
+  state.catalog = await api('/catalog');
+  await loadAnalyses();
+  const fromHash = location.hash.match(/^#\/a\/([^/]+)/)?.[1];
+  if (fromHash && state.analyses.some(a => a.id === fromHash)) await select(fromHash);
+  else if (state.analyses.length) await select(state.analyses[0].id);
+}
+
+init().catch(e => { console.error(e); toast('Studio に接続できません'); });

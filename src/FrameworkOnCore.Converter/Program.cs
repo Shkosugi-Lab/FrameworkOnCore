@@ -76,7 +76,7 @@ for (var i = 0; i < args.Length; i++)
 }
 if (project == null || outDirectory == null)
 {
-    Console.Error.WriteLine("usage: FrameworkOnCore.Converter <web project .csproj|.vbproj> --out <dir> [--root <dir>] [--runtime <dir>] [--culture-profile <file>] [--configuration <name>] [--site <dir> | --build-original [target]] [--deploy container|linux|both|none] [--case-insensitive on|off] [--no-build]");
+    Console.Error.WriteLine("usage: FrameworkOnCore.Converter <web project .csproj|.vbproj> --out <dir> [--root <dir>] [--runtime <dir>] [--culture-profile <file>] [--configuration <name>] [--site <dir> | --build-original [target]] [--deploy container|linux|both|none] [--case-insensitive on|off] [--choices <file>] [--no-build]");
     return 2;
 }
 

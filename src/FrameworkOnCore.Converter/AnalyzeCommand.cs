@@ -11,9 +11,9 @@ namespace FrameworkOnCore.Converter;
 /// on .NET 10: .NET's, the packages these rules add, the fork's (the feed), the compatibility assembly (the shims).
 /// Writes api-analysis.json (the data a UI reads), API-ANALYSIS.md, and foc-choices.json (the choices at their defaults).
 /// </summary>
-static class AnalyzeCommand
+public static class AnalyzeCommand
 {
-    public static int Run(string[] args, Func<string?> findRuntime)
+    internal static int Run(string[] args, Func<string?> findRuntime)
     {
         string? project = null, outDirectory = null, rootDirectory = null, runtimeDirectory = null;
         var configuration = "Debug";
@@ -36,12 +36,7 @@ static class AnalyzeCommand
         project = Path.GetFullPath(project);
         var root = Path.GetFullPath(rootDirectory ?? Paths.FindRoot(project));
         runtimeDirectory = Path.GetFullPath(runtimeDirectory ?? findRuntime() ?? throw new InvalidOperationException("--runtime: experiments/wf4c not found"));
-        var rules = Rules.Load(Path.Combine(AppContext.BaseDirectory, "rules", "packages.json"));
-
-        var target = new TargetApis(TargetSources(rules, runtimeDirectory));
-        // The packages the conversion replaces (replacedPackages, shimPackages) or drops: their DLLs are not run.
-        var converted = rules.ReplacedPackages.Keys.Concat(rules.ShimPackages.Keys).Concat(rules.DroppedPackages);
-        var result = new ApiAnalyzer(target, Catalog.Default(), converted).Analyze(project, root, configuration, Console.WriteLine);
+        var result = Analyze(project, root, configuration, runtimeDirectory, Console.WriteLine);
 
         Directory.CreateDirectory(outDirectory);
         File.WriteAllText(Path.Combine(outDirectory, "api-analysis.json"), JsonSerializer.Serialize(result, AnalysisResult.Json), new UTF8Encoding(false));
@@ -52,6 +47,19 @@ static class AnalyzeCommand
         Console.WriteLine($"{result.Apis.Count} APIs, {result.Apis.Sum(a => a.Count)} uses; {attention.Count} components to decide: " +
                           string.Join(", ", attention.Select(c => $"{c.Id} ({AnalysisMarkdown.Label(c.Status)}, {c.AttentionApis} APIs, {c.AttentionCount} uses)")));
         return 0;
+    }
+
+    /// <summary>
+    /// The analysis of a project as a converted application would have it on .NET 10 (this converter's rules, the fork's
+    /// feed and the shims in <paramref name="runtimeDirectory"/>): for the command line, and for Studio.
+    /// </summary>
+    public static AnalysisResult Analyze(string project, string root, string configuration, string runtimeDirectory, Action<string>? log = null)
+    {
+        var rules = Rules.Load(Path.Combine(AppContext.BaseDirectory, "rules", "packages.json"));
+        var target = new TargetApis(TargetSources(rules, runtimeDirectory));
+        // The packages the conversion replaces (replacedPackages, shimPackages) or drops: their DLLs are not run.
+        var converted = rules.ReplacedPackages.Keys.Concat(rules.ShimPackages.Keys).Concat(rules.DroppedPackages);
+        return new ApiAnalyzer(target, Catalog.Default(), converted).Analyze(project, root, configuration, log);
     }
 
     // What a converted application has, the fork's first (its System.Web, its System.Drawing facade), then the

@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <!-- FrameworkOnCore Studio: the analysis of a .NET Framework application in a web UI, and the user's choices per
+       component (foc-choices.json), which the converter takes (its choices option). A local server (localhost only) today; the
+       UI talks to it by its HTTP API alone, so that it can be a service later. -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>FrameworkOnCore.Studio</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- The UI next to the server (it is run from its build output, from any folder). -->
+    <Content Update="wwwroot\**" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- The analysis as the converter runs it (its rules, the fork's feed): AnalyzeCommand.Analyze. -->
+    <ProjectReference Include="..\FrameworkOnCore.Converter\FrameworkOnCore.Converter.csproj" />
+  </ItemGroup>
+</Project>

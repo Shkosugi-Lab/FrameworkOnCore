@@ -574,7 +574,18 @@ System.Drawing を Linux で動かす試み(`api-probe/drawing`、Ubuntu 24.04 �
 - 確認: 選択なしと既定のファイルは同じ変換(be・wt はスナップショットで一致)。RuntimeProbe を「対応しない」で変換すると、差分は選んだ分だけ(4 ファイル、配置に casefs なし)で、実行すると .NET の既定の動き(ResetAbort の後が動かない、Encoding.Default が UTF-8、BinaryFormatter が 500)。テスト 55 件(Windows・Linux)、be は Linux で 5/5。
 - 訂正: コードページはフォークが登録するので、選択肢は「登録する(常に)」だけにした。
 
-次: GUI(ローカルの Web 画面。解析の JSON とカタログを読み、選択のファイルを書く)。
+### Studio(GUI、2026-09-30)
+
+    dotnet build src\FrameworkOnCore.Studio
+    dotnet src\FrameworkOnCore.Studio\bin\Debug\net10.0\FrameworkOnCore.Studio.dll [--data <dir>] [--port 5300]
+    # http://127.0.0.1:5300/ (localhost だけで待ち受ける。解析は既定で %LOCALAPPDATA%\FrameworkOnCore\studio に残る)
+
+- `src/FrameworkOnCore.Studio`: ASP.NET Core の Minimal API と、素の HTML・CSS・JS の画面(ビルドの道具は要らない)。画面は HTTP の API だけを使う(将来サービスにするため): `GET /api/catalog`、`GET|POST /api/analyses`、`GET|DELETE /api/analyses/{id}`、`/result`、`GET|PUT /choices`(カタログで検証、エラーは 400)、`/source`(リポジトリの外のファイルは読まない)、`/command`(選択を渡す変換のコマンド)。
+- 解析は 1 つずつ裏で動き(メモリ)、画面が進み具合とログを見る。変換器の `AnalyzeCommand.Analyze` を使う。
+- 画面: 解析の一覧、数字のタイル(対応を選ぶ部品、API の種類、使用回数、名前の解決率)、状態別の内訳(帯グラフ、凡例、ツールチップ。状態の色は予約された色で、必ず記号と文字を添える)、アプリの設定、部品のカード(選択肢のカード、既定・予定の印、変更の印)、部品の API の一覧(場所をクリックするとソース、API ごとの選択)、保存のバー(未保存の件数、既定に戻す、保存、変換のコマンドのコピー)。ダーク(既定)とライト。部品へのリンク `#/a/<解析>/c/<部品>`。
+- 確認: API から be・wt を解析し、選択の保存(不正な選択は 400)、ソース(リポジトリの外は 404)、コマンドを確認。ヘッドレスの Edge で画面を撮って見た目を確認した。
+
+次: 移植した部品(LINQ to SQL、グラフ)や System.Drawing の libgdiplus を、カタログの選択肢として加える(第 4 段階)。
 ## 全コーパスでの検証(2026-09-27)
 
 `verify-corpora.ps1` で 6 本を変換してビルドした(Windows)。正解データがあるのは be と wt だけ。

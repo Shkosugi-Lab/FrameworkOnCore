@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="ja" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FrameworkOnCore Studio</title>
+  <link rel="stylesheet" href="app.css">
+</head>
+<body>
+  <div class="backdrop" aria-hidden="true"></div>
+  <div class="shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"><span>F</span></div>
+        <div>
+          <div class="brand-name">FrameworkOnCore</div>
+          <div class="brand-sub">Studio</div>
+        </div>
+      </div>
+      <button class="btn primary wide" id="new-analysis">
+        <span class="plus" aria-hidden="true">＋</span> 新しい解析
+      </button>
+      <div class="section-label">解析</div>
+      <nav id="analyses" class="analyses" aria-label="解析の一覧"></nav>
+      <div class="sidebar-foot">
+        <button class="btn ghost small" id="theme-toggle" title="ライト・ダークを切り替える">◐ テーマ</button>
+      </div>
+    </aside>
+
+    <main class="main" id="main">
+      <section class="empty" id="welcome">
+        <div class="hero-glow" aria-hidden="true"></div>
+        <h1>.NET Framework のアプリを、<span class="grad">.NET 10 の Linux へ。</span></h1>
+        <p>アプリが使う .NET Framework の API を一覧にし、部品ごとに対応を選びます。選んだ内容は変換にそのまま使えます。</p>
+        <button class="btn primary big" id="welcome-new">最初の解析を始める</button>
+      </section>
+      <section id="view" hidden></section>
+    </main>
+  </div>
+
+  <div class="savebar" id="savebar" hidden>
+    <div class="savebar-inner">
+      <div class="savebar-state" id="save-state"></div>
+      <div class="savebar-actions">
+        <button class="btn ghost" id="reset-defaults">既定に戻す</button>
+        <button class="btn ghost" id="discard">変更を取り消す</button>
+        <button class="btn primary" id="save">選択を保存</button>
+      </div>
+    </div>
+  </div>
+
+  <aside class="drawer" id="drawer" aria-hidden="true">
+    <div class="drawer-head">
+      <div>
+        <div class="drawer-title" id="drawer-title"></div>
+        <div class="drawer-sub" id="drawer-sub"></div>
+      </div>
+      <button class="btn ghost icon" id="drawer-close" aria-label="閉じる">✕</button>
+    </div>
+    <pre class="code" id="drawer-code"></pre>
+  </aside>
+
+  <dialog class="modal" id="new-dialog">
+    <form method="dialog" id="new-form">
+      <h2>新しい解析</h2>
+      <p class="muted">.NET Framework の Web プロジェクトを指定します。参照しているプロジェクトも一緒に解析します(変換はしません)。</p>
+      <label>プロジェクト(.csproj / .vbproj)
+        <input name="project" required placeholder="C:\src\MyApp\Web\MyApp.Web.csproj" autocomplete="off">
+      </label>
+      <label>リポジトリのフォルダー <span class="muted">(省略すると .sln のある一番上のフォルダー)</span>
+        <input name="root" placeholder="C:\src\MyApp" autocomplete="off">
+      </label>
+      <div class="row2">
+        <label>構成
+          <input name="configuration" value="Debug" autocomplete="off">
+        </label>
+        <label>表示名 <span class="muted">(省略可)</span>
+          <input name="name" autocomplete="off">
+        </label>
+      </div>
+      <div class="form-error" id="new-error" hidden></div>
+      <div class="modal-actions">
+        <button class="btn ghost" value="cancel" formnovalidate>キャンセル</button>
+        <button class="btn primary" value="ok" id="new-submit">解析する</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div class="tooltip" id="tooltip" role="tooltip" hidden></div>
+  <div class="toast" id="toast" hidden></div>
+  <script src="app.js" type="module"></script>
+</body>
+</html>

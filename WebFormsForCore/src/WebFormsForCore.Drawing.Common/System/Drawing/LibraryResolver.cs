@@ -27,8 +27,10 @@ namespace System.Drawing
 
         internal static void EnsureRegistered()
         {
+#if !WebFormsForCore // WebFormsForCore: Unix support without the System.Drawing.EnableUnixSupport switch, which .NET 6 required (and .NET 7 removed the implementation): the port exists for it. The call still runs the static constructor (the resolver).
             if (!LocalAppContextSwitches.EnableUnixSupport)
                 throw new PlatformNotSupportedException(SR.PlatformNotSupported_Unix);
+#endif
         }
     }
 }

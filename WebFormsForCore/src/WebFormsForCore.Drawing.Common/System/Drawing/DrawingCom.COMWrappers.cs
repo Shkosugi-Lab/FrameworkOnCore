@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 
 using System.Collections;
@@ -52,7 +52,11 @@ namespace System.Drawing
             Debug.Assert(flags == CreateObjectFlags.UniqueInstance);
 
             Guid pictureIID = IPicture.IID;
+#if WebFormsForCore
+            int hr = Marshal.QueryInterface(externalComObject, in pictureIID, out IntPtr comObject);   // WebFormsForCore: .NET 10 takes the IID as in
+#else
             int hr = Marshal.QueryInterface(externalComObject, ref pictureIID, out IntPtr comObject);
+#endif
             if (hr == S_OK)
             {
                 return new PictureWrapper(comObject);
@@ -71,7 +75,11 @@ namespace System.Drawing
             IntPtr streamWrapperPtr = Instance.GetOrCreateComInterfaceForObject(stream, CreateComInterfaceFlags.None);
 
             Guid streamIID = IID_IStream;
+#if WebFormsForCore
+            int result = Marshal.QueryInterface(streamWrapperPtr, in streamIID, out IntPtr streamPtr);   // WebFormsForCore: .NET 10 takes the IID as in
+#else
             int result = Marshal.QueryInterface(streamWrapperPtr, ref streamIID, out IntPtr streamPtr);
+#endif
 
             Marshal.Release(streamWrapperPtr);
 
@@ -308,7 +316,11 @@ namespace System.Drawing
             {
                 // Get the IStream implementation, since the ComWrappers runtime returns a pointer to the IUnknown interface implementation
                 Guid streamIID = IID_IStream;
+#if WebFormsForCore
+                ThrowExceptionForHR(Marshal.QueryInterface(pstm, in streamIID, out IntPtr pstmImpl));   // WebFormsForCore: .NET 10 takes the IID as in
+#else
                 ThrowExceptionForHR(Marshal.QueryInterface(pstm, ref streamIID, out IntPtr pstmImpl));
+#endif
 
                 try
                 {

@@ -48,7 +48,8 @@
     </ItemGroup>
 
     <ItemGroup Condition="$(TargetFramework) == 'net10.0'">
-        <PackageReference Include="System.Drawing.Common" Version="10.0.0" />
+        <!-- WebFormsForCore: System.Drawing.Common with its Linux implementation (the port), not Microsoft's (Windows only since .NET 7). -->
+        <ProjectReference Include="..\WebFormsForCore.Drawing.Common\WebFormsForCore.Drawing.Common.csproj" />
         <!--<PackageReference Include="System.Drawing.Primitives" Version="4.3.0" />-->
     </ItemGroup>
 

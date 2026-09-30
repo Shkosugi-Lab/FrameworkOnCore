@@ -18,6 +18,10 @@ namespace System.Drawing.Printing
             // Ignoring not deserializable input
         }
 
+#if WebFormsForCore
+        // As .NET 8's: the legacy serialization it overrides is obsolete (SYSLIB0051).
+        [Obsolete("This API supports obsolete formatter-based serialization. It should not be called or extended by application code.", DiagnosticId = "SYSLIB0051", UrlFormat = "https://aka.ms/dotnet-warnings/{0}")]
+#endif
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             base.GetObjectData(info, context);

@@ -706,9 +706,13 @@ namespace System.Web.Compilation
 
 			try
 			{
-				f.Delete();
-				Debug.Trace("DiskBuildResultCache", "TryDeleteFile removed " + f.Name);
-				return true;
+				// WebFormsForCore: a loaded assembly's file is in use, as on Windows (Util.IsLoadedAssemblyFile).
+				if (!Util.IsLoadedAssemblyFile(f.FullName))
+				{
+					f.Delete();
+					Debug.Trace("DiskBuildResultCache", "TryDeleteFile removed " + f.Name);
+					return true;
+				}
 			}
 			catch { }
 

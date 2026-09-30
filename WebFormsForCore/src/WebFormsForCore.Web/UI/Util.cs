@@ -466,6 +466,37 @@ namespace System.Web.UI
 		 * If the file doesn't exist, do nothing.  If it does try to delete it if possible.
 		 * If that fails, rename it with by appending a .delete extension to it
 		 */
+		/*
+		 * WebFormsForCore: whether the file is an assembly this process has loaded. Windows does not delete such a
+		 * file (it is in use), and ASP.NET counts on it: the codegen directory's cleanup after the pre-application-start
+		 * methods (a changed application hash) leaves the assemblies they copied there and loaded (nopCommerce's plugins,
+		 * shadow-copied into the dynamic directory), which the page compilation then references. Linux deletes them: the
+		 * first start failed to compile (CS0006, the plugins' files not found), and the application restarted.
+		 */
+		internal static bool IsLoadedAssemblyFile(string path)
+		{
+			if (OperatingSystem.IsWindows())
+				return false;
+			string full = Path.GetFullPath(path);
+			foreach (Assembly assembly in AppDomain.CurrentDomain.GetAssemblies())
+			{
+				if (assembly.IsDynamic)
+					continue;
+				string location;
+				try
+				{
+					location = assembly.Location;
+				}
+				catch (NotSupportedException)
+				{
+					continue;
+				}
+				if (location.Length > 0 && string.Equals(location, full, StringComparison.Ordinal))
+					return true;
+			}
+			return false;
+		}
+
 		internal static void RemoveOrRenameFile(string filename)
 		{
 			FileInfo fi = new FileInfo(filename);
@@ -480,6 +511,10 @@ namespace System.Web.UI
 		{
 			try
 			{
+				// WebFormsForCore: a loaded assembly's file is in use, as on Windows (renamed, not deleted).
+				if (IsLoadedAssemblyFile(f.FullName))
+					throw new IOException(f.FullName + " is in use");
+
 				// First, just try to delete the file
 				f.Delete();
 

@@ -98,7 +98,11 @@ namespace System.Drawing
             internal static extern int GdipFillPath(IntPtr graphics, IntPtr brush, IntPtr path);
 
             [DllImport(LibraryName, ExactSpelling = true)]
+#if WebFormsForCore
+            internal static extern int GdipGetNearestColor(IntPtr graphics, ref int argb);   // WebFormsForCore: in and out (the color asked for, the nearest)
+#else
             internal static extern int GdipGetNearestColor(IntPtr graphics, out int argb);
+#endif
 
             [DllImport(LibraryName, ExactSpelling = true, CharSet = CharSet.Unicode)]
             internal static extern int GdipAddPathString(IntPtr path, string s, int lenght, IntPtr family, int style, float emSize, ref RectangleF layoutRect, IntPtr format);
@@ -319,11 +323,22 @@ namespace System.Drawing
             [DllImport(LibraryName, ExactSpelling = true)]
             internal static extern int GdipIsOutlineVisiblePathPointI(IntPtr path, int x, int y, IntPtr pen, IntPtr graphics, out bool result);
 
+#if WebFormsForCore
+            // libgdiplus names them as GDI+ does, with the character set: GdipCreateFontFromLogfontW (the port's LOGFONT
+            // is Unicode) and GdipCreateFontFromHfontA (the only one; FromHfont reads the numbers, laid out alike).
+            // Without the suffix they were not found (EntryPointNotFoundException).
+            [DllImport(LibraryName, ExactSpelling = true, EntryPoint = "GdipCreateFontFromLogfontW")]
+            internal static extern int GdipCreateFontFromLogfont(IntPtr hdc, ref Interop.User32.LOGFONT lf, out IntPtr ptr);
+
+            [DllImport(LibraryName, ExactSpelling = true, EntryPoint = "GdipCreateFontFromHfontA")]
+            internal static extern int GdipCreateFontFromHfont(IntPtr hdc, out IntPtr font, ref Interop.User32.LOGFONT lf);
+#else
             [DllImport(LibraryName, ExactSpelling = true)]
             internal static extern int GdipCreateFontFromLogfont(IntPtr hdc, ref Interop.User32.LOGFONT lf, out IntPtr ptr);
 
             [DllImport(LibraryName, ExactSpelling = true)]
             internal static extern int GdipCreateFontFromHfont(IntPtr hdc, out IntPtr font, ref Interop.User32.LOGFONT lf);
+#endif
 
             [DllImport(LibraryName, ExactSpelling = true, CharSet = CharSet.Unicode)]
             internal static extern int GdipGetMetafileHeaderFromFile(string filename, IntPtr header);

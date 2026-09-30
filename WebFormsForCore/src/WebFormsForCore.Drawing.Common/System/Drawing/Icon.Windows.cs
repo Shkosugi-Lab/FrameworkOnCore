@@ -72,7 +72,12 @@ namespace System.Drawing
             {
                 Debug.Assert(f != null, "File.OpenRead returned null instead of throwing an exception");
                 _iconData = new byte[(int)f.Length];
+#if WebFormsForCore
+                // WebFormsForCore: every byte, however the stream hands them (Read may return fewer); as many as there are.
+                f.ReadAtLeast(_iconData, _iconData.Length, throwOnEndOfStream: false);
+#else
                 f.Read(_iconData, 0, _iconData.Length);
+#endif
             }
 
             Initialize(width, height);
@@ -114,7 +119,12 @@ namespace System.Drawing
             }
 
             _iconData = new byte[(int)stream.Length];
+#if WebFormsForCore
+            // WebFormsForCore: every byte, however the stream hands them (Read may return fewer); as many as there are.
+            stream.ReadAtLeast(_iconData, _iconData.Length, throwOnEndOfStream: false);
+#else
             stream.Read(_iconData, 0, _iconData.Length);
+#endif
             Initialize(0, 0);
         }
 
@@ -134,7 +144,12 @@ namespace System.Drawing
             }
 
             _iconData = new byte[(int)stream.Length];
+#if WebFormsForCore
+            // WebFormsForCore: every byte, however the stream hands them (Read may return fewer); as many as there are.
+            stream.ReadAtLeast(_iconData, _iconData.Length, throwOnEndOfStream: false);
+#else
             stream.Read(_iconData, 0, _iconData.Length);
+#endif
             Initialize(width, height);
         }
 

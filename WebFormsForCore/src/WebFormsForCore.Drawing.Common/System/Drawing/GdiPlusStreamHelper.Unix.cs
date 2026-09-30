@@ -107,9 +107,55 @@ namespace System.Drawing
                 // If we are peeking bytes, then go back to original position before peeking
                 _stream.Seek(originalPosition, SeekOrigin.Begin);
             }
+#if WebFormsForCore
+            else if (read == 0 && !_padded && buf != null)
+            {
+                read = ExifPadding(buf, bufsz);
+            }
+#endif
 
             return read;
         }
+
+#if WebFormsForCore
+        // libgdiplus (6.1) keeps the first 64 KiB of a JPEG for its EXIF data (dstream_load, then libexif) only when its
+        // last read filling them returns bytes: from a stream, a JPEG shorter than that lost its properties
+        // (PropertyItems, the orientation; from a file it has them, and GDI+ both). Such a JPEG's reads end in zeros up
+        // to 64 KiB, once: the decoder reads nothing after the image's end (EOI), and libexif finds the APP1 segment
+        // where it is.
+        private const int ExifChunk = 65536;
+        private bool _padded;
+
+        private unsafe int ExifPadding(byte* buf, int bufsz)
+        {
+            _padded = true;
+            long length, position;
+            try
+            {
+                length = _stream.Length;
+                position = _stream.Position;
+                if (length >= ExifChunk || position != length || !StartsAsJpeg())
+                    return 0;
+            }
+            catch (NotSupportedException)
+            {
+                return 0;
+            }
+            int padding = (int)Math.Min(bufsz, ExifChunk - length);
+            new Span<byte>(buf, padding).Clear();
+            return padding;
+        }
+
+        private bool StartsAsJpeg()
+        {
+            long position = _stream.Position;
+            Span<byte> start = stackalloc byte[3];
+            _stream.Seek(0, SeekOrigin.Begin);
+            int read = _stream.Read(start);
+            _stream.Seek(position, SeekOrigin.Begin);
+            return read == 3 && start[0] == 0xFF && start[1] == 0xD8 && start[2] == 0xFF;
+        }
+#endif
 
         public long StreamSeekImpl(int offset, int whence)
         {
@@ -148,6 +194,11 @@ namespace System.Drawing
             }
         }
 
+#if WebFormsForCore
+        // The stream read (the application's, or its copy when that cannot seek).
+        internal Stream Stream => _stream;
+
+#endif
         public StreamCloseDelegate CloseDelegate { get; }
         public StreamGetBytesDelegate GetBytesDelegate { get; }
         public StreamGetHeaderDelegate GetHeaderDelegate { get; }

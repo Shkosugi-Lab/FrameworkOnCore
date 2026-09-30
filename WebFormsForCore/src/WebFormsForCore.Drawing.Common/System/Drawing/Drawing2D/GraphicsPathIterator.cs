@@ -186,6 +186,9 @@ namespace System.Drawing.Drawing2D
                     throw Gdip.StatusException(status);
                 }
 
+#if WebFormsForCore // WebFormsForCore: .NET Framework's System.Drawing zero-filled what GDI+ did not copy (it copied into new arrays); an application reusing the arrays sees the same.
+                ZeroTail(points, types, resultCount);
+#endif
                 return resultCount;
             }
         }
@@ -211,9 +214,21 @@ namespace System.Drawing.Drawing2D
                     throw Gdip.StatusException(status);
                 }
 
+#if WebFormsForCore // WebFormsForCore: as Enumerate, the tail zero-filled as .NET Framework's.
+                ZeroTail(points, types, resultCount);
+#endif
                 return resultCount;
             }
         }
+
+#if WebFormsForCore
+        private static void ZeroTail(PointF[] points, byte[] types, int count)
+        {
+            if (count < 0) count = 0;
+            if (count < points.Length) Array.Clear(points, count, points.Length - count);
+            if (count < types.Length) Array.Clear(types, count, types.Length - count);
+        }
+#endif
 
         // handle to native path iterator object
         internal IntPtr nativeIter;

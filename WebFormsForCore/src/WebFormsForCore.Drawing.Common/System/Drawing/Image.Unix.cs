@@ -62,11 +62,24 @@ namespace System.Drawing
             if (stream == null)
                 throw new ArgumentNullException(nameof(stream));
 
+#if WebFormsForCore
+            Image img = CreateImageObject(InitializeFromStream(stream, out bool exifSwapped));
+            img.SetExifSwapped(exifSwapped);
+#else
             Image img = CreateImageObject(InitializeFromStream(stream));
+#endif
             return img;
         }
 
+#if WebFormsForCore
+        private protected static IntPtr InitializeFromStream(Stream stream) => InitializeFromStream(stream, out _);
+
+        // And whether the JPEG's EXIF values are in the other byte order than the machine's (Image.ExifByteOrder.cs),
+        // found in the stream as read (a copy, when the application's cannot seek).
+        private protected static IntPtr InitializeFromStream(Stream stream, out bool exifSwapped)
+#else
         private protected static IntPtr InitializeFromStream(Stream stream)
+#endif
         {
             if (stream == null)
                 throw new ArgumentNullException(nameof(stream));
@@ -84,6 +97,9 @@ namespace System.Drawing
             // to avoid the object being collected and therefore the delegates would be collected as well.
             GC.KeepAlive(sh);
             Gdip.CheckStatus(st);
+#if WebFormsForCore
+            exifSwapped = ExifSwapped(sh.Stream);
+#endif
             return imagePtr;
         }
 
@@ -166,6 +182,14 @@ namespace System.Drawing
 
             ThrowIfDirectoryDoesntExist(filename);
 
+#if WebFormsForCore
+            if (this is Metafile)
+            {
+                using (Bitmap drawn = DrawnMetafile())
+                    drawn.Save(filename, encoder, encoderParams);
+                return;
+            }
+#endif
             int st;
             Guid guid = encoder.Clsid;
 
@@ -208,6 +232,14 @@ namespace System.Drawing
 
         public void Save(Stream stream, ImageCodecInfo encoder, EncoderParameters? encoderParams)
         {
+#if WebFormsForCore
+            if (this is Metafile)
+            {
+                using (Bitmap drawn = DrawnMetafile())
+                    drawn.Save(stream, encoder, encoderParams);
+                return;
+            }
+#endif
             int st;
             IntPtr nativeEncoderParams;
             Guid guid = encoder.Clsid;
@@ -236,6 +268,19 @@ namespace System.Drawing
             Gdip.CheckStatus(st);
         }
 
+#if WebFormsForCore
+        // A metafile saved: GDI+ has no encoder for its records (only for pictures: BMP, JPEG, GIF, TIFF, PNG) and saves
+        // it drawn, at its size, with the encoder asked for (an EMF saved as PNG: its picture). libgdiplus refuses
+        // (InvalidParameter): the port draws it.
+        private Bitmap DrawnMetafile()
+        {
+            var drawn = new Bitmap(Math.Max(1, Width), Math.Max(1, Height));
+            using (Graphics graphics = Graphics.FromImage(drawn))
+                graphics.DrawImage(this, 0, 0, drawn.Width, drawn.Height);
+            return drawn;
+        }
+
+#endif
         public void SaveAdd(EncoderParameters encoderParams)
         {
             int st;
@@ -332,10 +377,16 @@ namespace System.Drawing
             int status = Gdip.GdipCloneImage(nativeImage, out newimage);
             Gdip.CheckStatus(status);
 
+#if WebFormsForCore
+            Image clone = this is Bitmap ? new Bitmap(newimage) : new Metafile(newimage);
+            clone.CopyExifOrder(this);
+            return clone;
+#else
             if (this is Bitmap)
                 return new Bitmap(newimage);
             else
                 return new Metafile(newimage);
+#endif
         }
 
         internal static void ValidateImage(IntPtr bitmap)

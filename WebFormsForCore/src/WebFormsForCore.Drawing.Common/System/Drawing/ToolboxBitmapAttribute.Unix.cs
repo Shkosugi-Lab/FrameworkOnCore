@@ -77,7 +77,12 @@ namespace System.Drawing
 
         public override int GetHashCode()
         {
+#if WebFormsForCore
+            // As on Windows (ToolboxBitmapAttribute.cs): an attribute without images (none found) has a hash too.
+            return base.GetHashCode();
+#else
             return (smallImage!.GetHashCode() ^ bigImage!.GetHashCode());
+#endif
         }
 
         public Image? GetImage(object component)

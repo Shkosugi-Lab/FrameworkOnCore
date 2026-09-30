@@ -60,7 +60,12 @@ namespace System.Drawing
         public Bitmap(Stream stream, bool useIcm)
         {
             // false: stream is owned by user code
+#if WebFormsForCore
+            nativeImage = InitializeFromStream(stream, out bool exifSwapped);
+            SetExifSwapped(exifSwapped);
+#else
             nativeImage = InitializeFromStream(stream);
+#endif
         }
     }
 }

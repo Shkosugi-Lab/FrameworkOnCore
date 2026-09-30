@@ -158,6 +158,11 @@ namespace System.Drawing
                 imageData = original.imageData;
                 id = ushort.MaxValue;
 
+#if WebFormsForCore
+                int best = BestEntry(iconDir.idEntries, count, size.Width, size.Height);
+                if (best >= 0)
+                    id = (ushort)best;
+#else
                 for (ushort i = 0; i < count; i++)
                 {
                     IconDirEntry ide = iconDir.idEntries[i];
@@ -192,6 +197,7 @@ namespace System.Drawing
                         }
                     }
                 }
+#endif
 
                 // last one, if nothing better can be found
                 if (id == ushort.MaxValue)
@@ -251,7 +257,11 @@ namespace System.Drawing
             {
                 if (s == null)
                 {
+#if WebFormsForCore
+                    throw new ArgumentException(SR.Format(SR.ResourceNotFound, type, resource));   // as on Windows
+#else
                     throw new ArgumentException(null);
+#endif
                 }
                 InitFromStreamWithSize(s, 32, 32);      // 32x32 is default
             }
@@ -648,7 +658,11 @@ namespace System.Drawing
         public override string ToString()
         {
             //is this correct, this is what returned by .Net
+#if WebFormsForCore
+            return SR.toStringIcon;   // as on Windows: "(Icon)"
+#else
             return "<Icon>";
+#endif
         }
 
         [Browsable(false)]
@@ -716,6 +730,39 @@ namespace System.Drawing
             Dispose();
         }
 
+#if WebFormsForCore
+        // The entry Windows takes for a size (Icon.Windows.cs, Initialize): the closest size (the width's and the height's
+        // differences), then the closest bit depth not over the display's (32 bits); -1 for none. The PNG entries
+        // (256x256) are left out: this implementation draws the bitmap ones. It took an entry of the same width or
+        // height, else the largest under the smaller of both, else the last: a 16x16 and 32x32 icon asked for at 20x12
+        // gave 32x32 where Windows gives 16x16.
+        private static int BestEntry(IconDirEntry[] entries, int count, int width, int height)
+        {
+            const uint DisplayBitDepth = 32;
+            int best = -1;
+            int bestDelta = 0;
+            uint bestBitDepth = 0;
+            for (int i = 0; i < count; i++)
+            {
+                IconDirEntry entry = entries[i];
+                if (entry.png)
+                    continue;
+                uint bitDepth = entry.colorCount != 0 ? (entry.colorCount < 0x10 ? 1u : 4u) : entry.bitCount;
+                if (bitDepth == 0)
+                    bitDepth = 8;
+                int delta = Math.Abs(entry.width - width) + Math.Abs(entry.height - height);
+                if (best < 0 || delta < bestDelta
+                    || (delta == bestDelta && ((bitDepth <= DisplayBitDepth && bitDepth > bestBitDepth) || (bestBitDepth > DisplayBitDepth && bitDepth < bestBitDepth))))
+                {
+                    best = i;
+                    bestDelta = delta;
+                    bestBitDepth = bitDepth;
+                }
+            }
+            return best;
+        }
+
+#endif
         private void InitFromStreamWithSize(Stream stream, int width, int height)
         {
             if (stream == null)
@@ -727,7 +774,12 @@ namespace System.Drawing
             bool sizeObtained = false;
             ushort dirEntryCount;
             // Read the icon header
+#if WebFormsForCore
+            // The application's stream stays open (as on Windows, and with the other pictures): it owns it.
+            using (var reader = new BinaryReader(stream, System.Text.Encoding.UTF8, leaveOpen: true))
+#else
             using (var reader = new BinaryReader(stream))
+#endif
             {
                 iconDir.idReserved = reader.ReadUInt16();
                 if (iconDir.idReserved != 0) //must be 0
@@ -762,6 +814,7 @@ namespace System.Drawing
                     ide.png = (ide.width == 0) && (ide.height == 0);
 
                     iconDir.idEntries[i] = ide;
+#if !WebFormsForCore
 
                     if (!sizeObtained)
                     {
@@ -773,7 +826,19 @@ namespace System.Drawing
                             this.iconSize.Width = ide.width;
                         }
                     }
+#endif
                 }
+#if WebFormsForCore
+
+                int best = BestEntry(iconDir.idEntries, dirEntryCount, width, height);
+                if (best >= 0)
+                {
+                    this.id = (ushort)best;
+                    sizeObtained = true;
+                    this.iconSize.Height = iconDir.idEntries[best].height;
+                    this.iconSize.Width = iconDir.idEntries[best].width;
+                }
+#endif
 
                 // If we havent found the best match, return the one with the largest size.
                 if (!sizeObtained)
@@ -797,7 +862,12 @@ namespace System.Drawing
                 {
                     stream.Seek(iconDir.idEntries[j].imageOffset, SeekOrigin.Begin);
                     byte[] buffer = new byte[iconDir.idEntries[j].bytesInRes];
+#if WebFormsForCore
+                    // WebFormsForCore: every byte, however the stream hands them (Read may return fewer); as many as there are.
+                    stream.ReadAtLeast(buffer, buffer.Length, throwOnEndOfStream: false);
+#else
                     stream.Read(buffer, 0, buffer.Length);
+#endif
                     using (var bihReader = new BinaryReader(new MemoryStream(buffer)))
                     {
                         uint headerSize = bihReader.ReadUInt32();

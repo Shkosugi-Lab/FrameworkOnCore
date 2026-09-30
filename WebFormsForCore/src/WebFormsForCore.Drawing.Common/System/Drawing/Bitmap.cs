@@ -46,6 +46,9 @@ namespace System.Drawing
             ValidateImage(bitmap);
 
             SetNativeImage(bitmap);
+#if WebFormsForCore && TARGET_UNIX
+            SetExifSwapped(ExifSwapped(filename));
+#endif
             EnsureSave(this, filename, null);
         }
 
@@ -97,6 +100,12 @@ namespace System.Drawing
 
         public Bitmap(int width, int height, int stride, PixelFormat format, IntPtr scan0)
         {
+#if WebFormsForCore && TARGET_UNIX
+            // Without the caller's memory the stride is the bitmap's own, as GDI+ allocates it (the one given ignored):
+            // libgdiplus allocated stride x height bytes, and a stride short of the width's read and wrote past them.
+            if (scan0 == IntPtr.Zero)
+                stride = 0;
+#endif
             IntPtr bitmap = IntPtr.Zero;
             int status = Gdip.GdipCreateBitmapFromScan0(width, height, stride, unchecked((int)format), scan0, out bitmap);
             Gdip.CheckStatus(status);
@@ -207,7 +216,13 @@ namespace System.Drawing
             if (status != Gdip.Ok || dstHandle == IntPtr.Zero)
                 throw Gdip.StatusException(status);
 
+#if WebFormsForCore && TARGET_UNIX
+            var clone = new Bitmap(dstHandle);
+            clone.CopyExifOrder(this);
+            return clone;
+#else
             return new Bitmap(dstHandle);
+#endif
         }
 
         public void MakeTransparent()
@@ -350,7 +365,13 @@ namespace System.Drawing
             if (status != Gdip.Ok || dstHandle == IntPtr.Zero)
                 throw Gdip.StatusException(status);
 
+#if WebFormsForCore && TARGET_UNIX
+            var clone = new Bitmap(dstHandle);
+            clone.CopyExifOrder(this);
+            return clone;
+#else
             return new Bitmap(dstHandle);
+#endif
         }
     }
 }

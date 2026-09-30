@@ -258,6 +258,9 @@ namespace System.Drawing.Imaging
             MetafileHeader header = new MetafileHeader();
 
             IntPtr memory = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(MetafileHeaderEmf)));
+#if WebFormsForCore // WebFormsForCore: the managed ENHMETAHEADER (100 bytes) is longer than GDI+'s (88): EmfPlusHeaderSize and LogicalDpiX/Y are read past what GDI+ writes, as on .NET Framework, where they were 0; zeroed, they are 0 here too, not what the memory held.
+            ZeroHeader(memory);
+#endif
 
             try
             {
@@ -299,6 +302,9 @@ namespace System.Drawing.Imaging
             MetafileHeader header;
 
             IntPtr memory = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(MetafileHeaderEmf)));
+#if WebFormsForCore // WebFormsForCore: the managed ENHMETAHEADER (100 bytes) is longer than GDI+'s (88): EmfPlusHeaderSize and LogicalDpiX/Y are read past what GDI+ writes, as on .NET Framework, where they were 0; zeroed, they are 0 here too, not what the memory held.
+            ZeroHeader(memory);
+#endif
 
             try
             {
@@ -338,11 +344,22 @@ namespace System.Drawing.Imaging
         /// <summary>
         /// Returns the <see cref='MetafileHeader'/> associated with this <see cref='Metafile'/>.
         /// </summary>
+#if WebFormsForCore
+        private static void ZeroHeader(IntPtr memory)
+        {
+            int size = Marshal.SizeOf(typeof(MetafileHeaderEmf));
+            for (int i = 0; i < size; i++) Marshal.WriteByte(memory, i, 0);
+        }
+#endif
+
         public MetafileHeader GetMetafileHeader()
         {
             MetafileHeader header;
 
             IntPtr memory = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(MetafileHeaderEmf)));
+#if WebFormsForCore // WebFormsForCore: the managed ENHMETAHEADER (100 bytes) is longer than GDI+'s (88): EmfPlusHeaderSize and LogicalDpiX/Y are read past what GDI+ writes, as on .NET Framework, where they were 0; zeroed, they are 0 here too, not what the memory held.
+            ZeroHeader(memory);
+#endif
 
             try
             {

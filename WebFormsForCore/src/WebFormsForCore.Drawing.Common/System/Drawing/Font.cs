@@ -275,6 +275,13 @@ namespace System.Drawing
 
             Type type = logFont.GetType();
             int nativeSize = sizeof(Interop.User32.LOGFONT);
+#if WebFormsForCore && TARGET_UNIX
+            if (IsAnsiLogFont(type))
+            {
+                ToAnsiLogFont(ToLogFontInternal(graphics), logFont);   // Font.AnsiLogFont.cs
+                return;
+            }
+#endif
             if (Marshal.SizeOf(type) != nativeSize)
             {
                 // If we don't actually have an object that is LOGFONT in size, trying to pass

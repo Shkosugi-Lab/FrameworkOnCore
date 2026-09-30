@@ -196,7 +196,13 @@ namespace System.Drawing
             {
                 Font? dialogFont = null;
 
+#if WebFormsForCore
+                // The LCID's primary language (ja-JP is 0x0411), as .NET Framework: (ushort) keeps the sublanguage, so
+                // Japanese Windows never matched and got Tahoma ("MS Shell Dlg 2") instead of its UI font.
+                if ((Interop.Kernel32.GetSystemDefaultLCID() & 0x3ff) == 0x0011)
+#else
                 if ((ushort)Interop.Kernel32.GetSystemDefaultLCID() == 0x0011)
+#endif
                 {
                     // Always return DefaultFont for Japanese cultures.
                     dialogFont = DefaultFont;

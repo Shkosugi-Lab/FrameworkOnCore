@@ -108,6 +108,9 @@ namespace System.Drawing
             int state;
             int status = Gdip.GdipBeginContainer2(new HandleRef(this, NativeGraphics), out state);
             Gdip.CheckStatus(status);
+#if WebFormsForCore
+            _savedStates.Add(state);
+#endif
 
             return new GraphicsContainer(state);
         }
@@ -118,6 +121,9 @@ namespace System.Drawing
 
             int status = Gdip.GdipBeginContainerI(new HandleRef(this, NativeGraphics), ref dstrect, ref srcrect, unit, out state);
             Gdip.CheckStatus(status);
+#if WebFormsForCore
+            _savedStates.Add(state);
+#endif
 
             return new GraphicsContainer(state);
         }
@@ -128,6 +134,9 @@ namespace System.Drawing
 
             int status = Gdip.GdipBeginContainer(new HandleRef(this, NativeGraphics), ref dstrect, ref srcrect, unit, out state);
             Gdip.CheckStatus(status);
+#if WebFormsForCore
+            _savedStates.Add(state);
+#endif
 
             return new GraphicsContainer(state);
         }
@@ -346,6 +355,10 @@ namespace System.Drawing
         {
             if (container == null)
                 throw new ArgumentNullException(nameof(container));
+#if WebFormsForCore
+            if (!Restoring(container.nativeGraphicsContainer))
+                return;
+#endif
             int status = Gdip.GdipEndContainer(new HandleRef(this, NativeGraphics), container.nativeGraphicsContainer);
             Gdip.CheckStatus(status);
         }
@@ -530,9 +543,16 @@ namespace System.Drawing
 
         public Color GetNearestColor(Color color)
         {
+#if WebFormsForCore
+            // The color asked for goes in (as on Windows): it passed none, and got black (0) back.
+            int argb = color.ToArgb();
+
+            int status = Gdip.GdipGetNearestColor(NativeGraphics, ref argb);
+#else
             int argb;
 
             int status = Gdip.GdipGetNearestColor(NativeGraphics, out argb);
+#endif
             Gdip.CheckStatus(status);
 
             return Color.FromArgb(argb);
@@ -553,6 +573,10 @@ namespace System.Drawing
         public void Restore(GraphicsState gstate)
         {
             // the possible NRE thrown by gstate.nativeState match MS behaviour
+#if WebFormsForCore
+            if (!Restoring(gstate.nativeState))
+                return;
+#endif
             int status = Gdip.GdipRestoreGraphics(NativeGraphics, (uint)gstate.nativeState);
             Gdip.CheckStatus(status);
         }
@@ -561,9 +585,30 @@ namespace System.Drawing
         {
             int status = Gdip.GdipSaveGraphics(new HandleRef(this, NativeGraphics), out int state);
             Gdip.CheckStatus(status);
+#if WebFormsForCore
+            _savedStates.Add(state);
+#endif
 
             return new GraphicsState((int)state);
         }
+
+#if WebFormsForCore
+        // The states this Graphics saved (Save, BeginContainer), in order. libgdiplus restores whatever number it is
+        // given, and faults (SIGSEGV) on one it did not save: a state or container of another Graphics. GDI+ (Windows,
+        // .NET Framework) ignores those: so does the port.
+        private readonly System.Collections.Generic.List<int> _savedStates = new System.Collections.Generic.List<int>();
+
+        // Whether this Graphics saved the state and has not restored it yet; forgets it and the states saved after it
+        // (restoring one ends those, as in GDI+).
+        private bool Restoring(int state)
+        {
+            int index = _savedStates.LastIndexOf(state);
+            if (index < 0)
+                return false;
+            _savedStates.RemoveRange(index, _savedStates.Count - index);
+            return true;
+        }
+#endif
 
         public RectangleF VisibleClipBounds
         {

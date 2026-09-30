@@ -168,8 +168,13 @@ namespace System.Drawing
             // Sanity. Should we throw an exception?
             if (hfont == IntPtr.Zero)
             {
+#if WebFormsForCore
+                // As on Windows: no font, no TrueType font (it gave Arial, 10 points).
+                throw new ArgumentException(SR.GdiplusNotTrueTypeFont_NoName);
+#else
                 Font result = new Font("Arial", (float)10.0, FontStyle.Regular);
                 return (result);
+#endif
             }
 
             // If we're on Unix we use our private gdiplus API to avoid Wine
@@ -206,7 +211,12 @@ namespace System.Drawing
                 newSize = lf.lfHeight;
             }
 
+#if WebFormsForCore
+            // What the native font is (libgdiplus fills in an ANSI LOGFONT: its face name was read as UTF-16).
+            return new Font(newObject, lf.lfCharSet, false);
+#else
             return (new Font(newObject, lf.lfFaceName.ToString(), newStyle, newSize));
+#endif
         }
 
         public IntPtr ToHfont()
@@ -320,13 +330,43 @@ namespace System.Drawing
             throw new NotImplementedException();
         }
 
+#if WebFormsForCore
+        // As on Windows (Font.Windows.cs): the application's own LOGFONT, of the size of the port's, copied in (a cast
+        // took the port's only); an ANSI one too (Font.AnsiLogFont.cs).
+        public static unsafe Font FromLogFont(object lf, IntPtr hdc)
+        {
+            if (lf == null)
+                throw new ArgumentNullException(nameof(lf));
+            Interop.User32.LOGFONT o;
+            if (lf is Interop.User32.LOGFONT boxed)
+            {
+                o = boxed;
+            }
+            else if (IsAnsiLogFont(lf.GetType()))
+            {
+                o = FromAnsiLogFont(lf);
+            }
+            else
+            {
+                if (Marshal.SizeOf(lf.GetType()) != sizeof(Interop.User32.LOGFONT))
+                    throw new ArgumentException(null, nameof(lf));
+                o = default;
+                Marshal.StructureToPtr(lf, new IntPtr(&o), fDeleteOld: false);
+            }
+            IntPtr newObject;
+#else
         public static Font FromLogFont(object lf, IntPtr hdc)
         {
             IntPtr newObject;
             Interop.User32.LOGFONT o = (Interop.User32.LOGFONT)lf;
+#endif
             int status = Gdip.GdipCreateFontFromLogfont(hdc, ref o, out newObject);
             Gdip.CheckStatus(status);
+#if WebFormsForCore
+            return new Font(newObject, o.lfCharSet, o.lfFaceName[0] == '@');   // Font.FromNativeFont.cs
+#else
             return new Font(newObject, "Microsoft Sans Serif", FontStyle.Regular, 10);
+#endif
         }
 
         public float GetHeight()
@@ -336,7 +376,25 @@ namespace System.Drawing
 
         public static Font FromLogFont(object lf)
         {
+#if WebFormsForCore
+            // A device, as Windows takes the screen's: libgdiplus refuses none (InvalidParameter). An image's, as
+            // ToLogFont uses.
+            using (Bitmap img = new Bitmap(1, 1, Imaging.PixelFormat.Format32bppArgb))
+            using (Graphics g = Graphics.FromImage(img))
+            {
+                IntPtr hdc = g.GetHdc();
+                try
+                {
+                    return FromLogFont(lf, hdc);
+                }
+                finally
+                {
+                    g.ReleaseHdc(hdc);
+                }
+            }
+#else
             return FromLogFont(lf, IntPtr.Zero);
+#endif
         }
 
         public void ToLogFont(object logFont)

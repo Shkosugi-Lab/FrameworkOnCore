@@ -123,6 +123,9 @@ namespace System.Drawing
             ValidateImage(image);
 
             Image img = CreateImageObject(image);
+#if WebFormsForCore && TARGET_UNIX
+            img.SetExifSwapped(ExifSwapped(filename));
+#endif
             EnsureSave(img, filename, null);
             return img;
         }
@@ -233,6 +236,9 @@ namespace System.Drawing
 
                 int status = Gdip.GdipGetImageHorizontalResolution(new HandleRef(this, nativeImage), out horzRes);
                 Gdip.CheckStatus(status);
+#if WebFormsForCore && TARGET_UNIX
+                horzRes = WithScreenResolution(horzRes);
+#endif
 
                 return horzRes;
             }
@@ -249,11 +255,20 @@ namespace System.Drawing
 
                 int status = Gdip.GdipGetImageVerticalResolution(new HandleRef(this, nativeImage), out vertRes);
                 Gdip.CheckStatus(status);
+#if WebFormsForCore && TARGET_UNIX
+                vertRes = WithScreenResolution(vertRes);
+#endif
 
                 return vertRes;
             }
         }
 
+#if WebFormsForCore && TARGET_UNIX
+        // libgdiplus leaves the resolution of a bitmap made in memory (new Bitmap(width, height)), and of a file that
+        // has none, at 0; GDI+ gives those the screen's, 96 dpi (what code dividing by the resolution counts on). A
+        // resolution set is never 0 (SetResolution refuses it).
+        private static float WithScreenResolution(float resolution) => resolution == 0 ? 96f : resolution;
+#endif
         /// <summary>
         /// Gets attribute flags for this <see cref='Image'/>.
         /// </summary>
@@ -350,6 +365,9 @@ namespace System.Drawing
                             Type = pPropData[i].type,
                             Value = pPropData[i].Value.ToArray()
                         };
+#if WebFormsForCore && TARGET_UNIX
+                        result[i] = InMachineOrder(result[i]);
+#endif
                     }
                 }
 
@@ -395,6 +413,9 @@ namespace System.Drawing
             }
 
             ArrayPool<byte>.Shared.Return(buffer);
+#if WebFormsForCore && TARGET_UNIX
+            result = InMachineOrder(result);
+#endif
             return result;
         }
 
@@ -424,6 +445,9 @@ namespace System.Drawing
                 };
                 Gdip.CheckStatus(Gdip.GdipSetPropertyItem(new HandleRef(this, nativeImage), &propItemInternal));
             }
+#if WebFormsForCore && TARGET_UNIX
+            PropertySetHere(propitem.Id);
+#endif
         }
 
         public void RotateFlip(RotateFlipType rotateFlipType)
@@ -627,7 +651,12 @@ namespace System.Drawing
                             }
 
                             image._rawData = new byte[(int)dataStream.Length];
+#if WebFormsForCore
+                            // WebFormsForCore: every byte, however the stream hands them (Read may return fewer); as many as there are.
+                            dataStream.ReadAtLeast(image._rawData, image._rawData.Length, throwOnEndOfStream: false);
+#else
                             dataStream.Read(image._rawData, 0, (int)dataStream.Length);
+#endif
                         }
                         finally
                         {

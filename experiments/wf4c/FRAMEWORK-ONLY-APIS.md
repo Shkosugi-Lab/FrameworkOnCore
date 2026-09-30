@@ -22,7 +22,7 @@
 
 | API | 使うコーパス | Linux での挙動 | 案 |
 |---|---|---|---|
-| **System.Drawing** | 8 つ中 7 つ | `DllNotFoundException: gdiplus.dll` | **試した(`api-probe/drawing`)**:System.Drawing.Common 10 は libgdiplus を見つけても Windows 以外を拒む(PlatformNotSupported)。6.0 の Unix 実装 + `System.Drawing.EnableUnixSupport` + libgdiplus なら、試した 12 項目がすべて動く。フォークなど 10 に対してビルドしたコードからも、10 をアプリのアセンブリの一覧から外し、`AssemblyLoadContext.Resolving` で 6.0 を渡せば動く。サポート切れの部品(6.0、libgdiplus)を使うかどうかは要判断 |
+| **System.Drawing** | 8 つ中 7 つ | `DllNotFoundException: gdiplus.dll` | **移植済み**(2026-09-30、フォーク 0034〜0037):dotnet/runtime 6.0 の System.Drawing.Common(MIT)をフォークの WebFormsForCore.Drawing.Common としてビルドし(Windows は GDI+、Linux は libgdiplus。スイッチ不要)、変換器がそれに付け替え、配置が libgdiplus とフォントを入れる。全 API の新旧比較(`tests/DrawingParity`)で見つけた 6.0 の Unix 実装の不具合(EXIF のバイト順、Restore のクラッシュ、アイコンのサイズ選択など)も直した。Linux に残る差(システムの色・アイコン、印刷、パスの幾何、メタファイル、フォント)は `tests/DrawingParity/known-differences.json`。以下は移植前の記録:System.Drawing.Common 10 は libgdiplus を見つけても Windows 以外を拒む(PlatformNotSupported)。6.0 の Unix 実装 + `System.Drawing.EnableUnixSupport` + libgdiplus なら、試した 12 項目がすべて動く。フォークなど 10 に対してビルドしたコードからも、10 をアプリのアセンブリの一覧から外し、`AssemblyLoadContext.Resolving` で 6.0 を渡せば動く。サポート切れの部品(6.0、libgdiplus)を使うかどうかは要判断 |
 | EventLog | dnn、imis、yaf | PNSE | 対応済み(Compat:標準エラーへ) |
 | WindowsIdentity | dnn、yaf | PNSE | 対応済み(Compat) |
 | OleDb(Excel 取り込み) | nop、dnn | PNSE | Linux にプロバイダがない。報告のみ |

@@ -1,0 +1,142 @@
+{
+  "about": "Where the port may differ from .NET Framework's System.Drawing, and why. DrawingParityTests: in a case matching 'case', the lines matching 'line' (the golden's and the port's) are set aside; what remains must be equal. An entry that sets aside no difference (on its platform: 'all', 'windows' or 'linux') fails the test: it is stale; but for 'varies': what .NET Framework gives there changes from run to run, and may happen to equal the port's. None is the port's own doing: each is .NET's System.Drawing.Common (Microsoft's package on Windows does the same), .NET's runtime, or .NET Framework's undefined behaviour.",
+  "differences": [
+    {
+      "case": "^Api\\.(SystemColors|SystemBrushes|SystemPens)\\.",
+      "line": ".",
+      "on": "linux",
+      "reason": "The system colors: Windows reads the user's theme; Linux has none, and .NET's System.Drawing.Primitives (the runtime's, not the port) gives fixed ones (Windows XP's). SystemBrushes and SystemPens are of those colors."
+    },
+    {
+      "case": "^Api\\.(SystemIcons\\.|Icon\\.ExtractAssociatedIcon$)",
+      "line": "^~px ",
+      "on": "linux",
+      "reason": "Windows' icons (SystemIcons, a file's associated icon from the shell): the Unix implementation has none, and gives one placeholder icon for all."
+    },
+    {
+      "case": "^Api\\.Printing\\.",
+      "line": ".",
+      "on": "linux",
+      "reason": "Printing: the Unix implementation (Mono's) asks CUPS, with its own defaults, collections and checks; no printer in the container (Windows has its print-to-PDF ones). Web applications do not print on the server."
+    },
+    {
+      "case": "^Api\\.(Drawing2D\\.(GraphicsPath|PathData)\\.|Region\\.)",
+      "line": "GraphicsPath n=|PathData \\[|PathPoints = |PathTypes = |Points = \"\\[PointF|GetBounds\\(|Region empty=|GetRegionScans|GetRegionData|RegionData",
+      "on": "linux",
+      "reason": "Geometry is libgdiplus': it flattens curves into other points (an ellipse from the other side), bounds a region by its rectangles as given (GDI+ by the pixels it covers), and does not implement GraphicsPath.Widen and Warp (the path is only flattened)."
+    },
+    {
+      "case": "^Api\\.(Imaging\\.(Metafile|MetafileHeader)\\.|Graphics\\.(EnumerateMetafile|AddMetafileComment)$)",
+      "line": ".",
+      "on": "linux",
+      "reason": "Metafiles: libgdiplus reads an EMF's records (not EMF+: GDI+'s dual metafile reads as Emf, its header so), draws them partly, and neither enumerates nor records them (NotImplementedException)."
+    },
+    {
+      "case": "^Api\\.(Image\\.SaveAdd|Imaging\\.ImageAttributes\\.GetAdjustedPalette|Graphics\\.GetHalftonePalette|Bitmap\\.FromResource|BufferedGraphics\\.Render|Font\\.FromHdc|Graphics\\.GetContextInfo)$|^ScenarioCases\\.Tiff_pages$",
+      "line": "^(~px )?(Image\\.SaveAdd|Imaging\\.ImageAttributes\\.GetAdjustedPalette|Graphics\\.GetHalftonePalette|Bitmap\\.FromResource|BufferedGraphics\\.Render|Font\\.FromHdc|Graphics\\.GetContextInfo)\\b|^written pages|^!! escaped: System\\.NotImplementedException",
+      "on": "linux",
+      "reason": "Not in libgdiplus or the Unix implementation (NotImplementedException): writing several frames (SaveAdd: a multipage TIFF, an animated GIF), an adjusted palette, the halftone palette, a Win32 resource, rendering to a device context, a font from a device context."
+    },
+    {
+      "case": "^Api\\.(Graphics\\.(FromHdc|FromHdcInternal|FromHwnd|FromHwndInternal)|Image\\.FromHbitmap|BufferedGraphicsContext\\.Allocate|BufferedGraphics\\.Graphics)$|^ScenarioCases\\.CopyFromScreen_arguments$",
+      "line": ".",
+      "on": "linux",
+      "reason": "Windows' device contexts, windows and bitmap handles (HDC, HWND, HBITMAP) and the screen (X11): none on a Linux server. What GDI+ answers for a null handle, the Unix implementation answers otherwise."
+    },
+    {
+      "case": "^Api\\.(FontFamily\\.(#ctor|Families|GetFamilies)|Text\\.FontCollection\\.Families|FontConverter\\.(ConvertTo|FontNameConverter\\.GetStandardValues))$",
+      "line": "^~font |FontFamily\\.#ctor\\(String,Text\\.FontCollection\\)|FontConverter\\.ConvertTo\\(|GetStandardValues\\(",
+      "on": "linux",
+      "reason": "The fonts installed: Liberation (fonts-liberation2: Arial's metrics as Liberation Sans) and DejaVu, not Windows' (Arial, Bahnschrift...). fontconfig gives Liberation Sans for new Font(\"Arial\"), but a font collection has only its own names."
+    },
+    {
+      "case": "^Api\\.(Bitmap\\.SetResolution|Imaging\\.BitmapData\\.Reserved|Image\\.GetThumbnailImage|TextureBrush\\.|Bitmap\\.Clone|Drawing2D\\.LinearGradientBrush\\.SetSigmaBellShape|Drawing2D\\.CustomLineCap\\.#ctor|Image\\.SetPropertyItem|ToolboxBitmapAttribute\\.GetImage)",
+      "line": ".",
+      "on": "linux",
+      "reason": "libgdiplus' and the Unix implementation's own answers: SetResolution flags the image (HasRealDpi), BitmapData's reserved field, thumbnails and texture images in 32bppArgb (GDI+: premultiplied), Clone's error for a format it cannot convert to (ArgumentException, GDI+: OutOfMemoryException), the sigma bell blend's points, a line cap of both a fill and a stroke path (GDI+ refuses it), properties on a bitmap made in memory (libgdiplus keeps them for files' formats only), a toolbox bitmap found in the component's resources."
+    },
+    {
+      "case": "^ScenarioCases\\.(Chart_drawing|Exif_orientation|Gif_frames|Indexed_palette|Jpeg_quality|Png_transparency|Thumbnail)$",
+      "line": "raw=(Png|Jpeg|Bmp|MemoryBMP) flags=|^property ids|^delays|^GetThumbnailImage = ",
+      "on": "linux",
+      "reason": "What libgdiplus says of a picture it read: no HasRealDpi flag, a PNG's resolution as 96 (GDI+: 95.9866, from pixels per meter), a turned JPEG still Jpeg (GDI+: MemoryBMP), the EXIF tags libexif adds (resolution, versions) without the JPEG tables GDI+ lists, a GIF's first frame delay only (GDI+: every frame's), a thumbnail in 32bppArgb."
+    },    {
+      "case": "^Api\\.(Color|Brushes|Pens)\\.DarkSeaGreen$|^Api\\.ColorConverter\\.GetStandardValues$",
+      "line": "DarkSeaGreen",
+      "on": "all",
+      "reason": "Color.DarkSeaGreen is #8FBC8F on .NET (CSS's value), #8FBC8B on .NET Framework: .NET's System.Drawing.Primitives (the runtime's), not the port."
+    },
+    {
+      "case": "^ScenarioCases\\.CopyFromScreen_arguments$",
+      "line": "^invalid operation -> ",
+      "on": "all",
+      "reason": "An invalid CopyPixelOperation: the same InvalidEnumArgumentException, naming the parameter (\"copyPixelOperation\") where .NET Framework says \"value\"."
+    },    {
+      "case": "^Api\\.Drawing2D\\.(Linear|Path)GradientBrush\\.(SetBlendTriangularShape|SetSigmaBellShape)$",
+      "line": "\\[param scale\\]|Parameter is not valid",
+      "on": "all",
+      "reason": "A scale out of [0, 1]: the same ArgumentException, which .NET gives its ParamName (\"scale\")."
+    },
+    {
+      "case": "^Api\\.Drawing2D\\.GraphicsPath\\.Warp$",
+      "line": "^Drawing2D\\.GraphicsPath\\.Warp\\(PointF\\[\\],RectangleF,Drawing2D\\.Matrix,Drawing2D\\.WarpMode(,Single)?\\) after = ",
+      "on": "all",
+      "varies": true,
+      "reason": "A bilinear warp: gdiplus.dll's own result changes from call to call, even in one .NET Framework process (the points it flattens the curves to; a NaN point at times): memory it reads before writing. The port passes the same arguments to the same GdipWarpPath."
+    },    {
+      "case": "^Api\\.Icon\\.FromHandle$",
+      "line": "^Icon\\.FromHandle\\(IntPtr\\) = ",
+      "on": "all",
+      "reason": "A handle that is no icon: ArgumentException on both, .NET's with the runtime's message and ParamName (\"handle\")."
+    },
+    {
+      "case": "^Api\\.Image\\.RawFormat$|^Api\\.Imaging\\.ImageFormat\\.(#ctor|ToString)$",
+      "line": "ImageFormat [0-9a-f-]{36} ",
+      "on": "all",
+      "reason": "ImageFormat.ToString of a format made from a known GUID: .NET names it (\"Png\"), .NET Framework only for the static instances (\"[ImageFormat: b96b3caf-...]\")."
+    },
+    {
+      "case": "^Api\\.Imaging\\.ImageCodecInfo\\.DllName$",
+      "line": "^Imaging\\.ImageCodecInfo\\.DllName( set)? = ",
+      "on": "all",
+      "reason": "Setting DllName to a relative path: .NET Framework demands a FileIOPermission for it (Code Access Security, which .NET does not have) and fails; .NET sets it."
+    },
+    {
+      "case": "^Api\\.Imaging\\.MetafileHeader\\.(EmfPlusHeaderSize|LogicalDpiX|LogicalDpiY)$",
+      "line": "MetafileHeader\\.(EmfPlusHeaderSize|LogicalDpiX|LogicalDpiY) = ",
+      "on": "all",
+      "varies": true,
+      "reason": "For an EMF, .NET Framework reads these past what GdipGetMetafileHeaderFromMetafile writes (its ENHMETAHEADER is 100 bytes, GDI+'s 88): memory never written, another value every run. The port zeroes the buffer first (Metafile.Windows.cs): 0."
+    },
+    {
+      "case": "^Api\\.Pen\\.DashPattern$",
+      "line": "^Pen\\.DashPattern( set)? = ",
+      "on": "all",
+      "reason": "A pen with no pattern, and an empty pattern set: the same exceptions (OutOfMemoryException, ArgumentException) with .NET's messages."
+    },
+    {
+      "case": "^Api\\.Printing\\.(Preview)?PrintController\\.(OnEndPage|OnEndPrint)$",
+      "line": "\\.(OnEndPage|OnEndPrint)\\(",
+      "on": "all",
+      "reason": "Ending a page or a job never started: .NET Framework throws NullReferenceException (a null DC), .NET checks and does nothing."
+    },
+    {
+      "case": "^Api\\.Printing\\.PrinterSettings\\.(PaperSize|PaperSource|PrinterResolution)Collection\\.CopyTo$",
+      "line": "CopyTo\\(",
+      "on": "all",
+      "reason": "Copying into too short an array: the ArgumentException of the runtime's Array.Copy, whose message and ParamName .NET changed."
+    },
+    {
+      "case": "^Api\\.Printing\\.PrinterSettings\\.SupportsColor$",
+      "line": "^Printing\\.PrinterSettings\\.SupportsColor = ",
+      "on": "windows",
+      "reason": "SupportsColor: .NET Framework asks the bits per pixel of an information context for the printer (GetDeviceCaps(BITSPIXEL) > 1: InvalidPrinterException for a printer that does not exist, true for many monochrome ones), .NET asks the driver (DeviceCapabilities(DC_COLORDEVICE); its default, false, for no printer)."
+    },
+    {
+      "case": "^Api\\.ToolboxBitmapAttribute\\.GetImage$",
+      "line": "ToolboxBitmapAttribute\\.GetImage\\((Object,Boolean|Type,Boolean|Type,String,Boolean)\\) = ",
+      "on": "all",
+      "reason": "The large (32x32) image: .NET Framework fails (Parameter is not valid) for a resource without one, .NET scales the small one."
+    }
+  ]
+}

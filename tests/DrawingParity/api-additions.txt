@@ -1,0 +1,43 @@
+# The port's API that .NET Framework's System.Drawing has not: what .NET added (System.Numerics conversions, IEquatable,
+# Size's operators, RebeccaPurple, Encoder's new parameters...). Additions: old code binds as before.
+# DrawingParityTests checks the port's API is .NET Framework's, less what ApiCases.Excluded says .NET lacks, plus these.
+F:System.Drawing.Imaging.Encoder.ColorSpace
+F:System.Drawing.Imaging.Encoder.ImageItems
+F:System.Drawing.Imaging.Encoder.SaveAsCmyk
+F:System.Drawing.Imaging.EncoderParameterValueType.ValueTypePointer
+F:System.Drawing.KnownColor.RebeccaPurple
+M:System.Drawing.Color.Equals(System.Drawing.Color)
+M:System.Drawing.Drawing2D.Matrix.#ctor(System.Numerics.Matrix3x2)
+M:System.Drawing.Graphics.GetContextInfo(System.Drawing.PointF@)
+M:System.Drawing.Graphics.GetContextInfo(System.Drawing.PointF@,System.Drawing.Region@)
+M:System.Drawing.Point.Equals(System.Drawing.Point)
+M:System.Drawing.PointF.#ctor(System.Numerics.Vector2)
+M:System.Drawing.PointF.Equals(System.Drawing.PointF)
+M:System.Drawing.PointF.ToVector2
+M:System.Drawing.PointF.op_Explicit(System.Drawing.PointF)~System.Numerics.Vector2
+M:System.Drawing.PointF.op_Explicit(System.Numerics.Vector2)~System.Drawing.PointF
+M:System.Drawing.Rectangle.Equals(System.Drawing.Rectangle)
+M:System.Drawing.RectangleF.#ctor(System.Numerics.Vector4)
+M:System.Drawing.RectangleF.Equals(System.Drawing.RectangleF)
+M:System.Drawing.RectangleF.ToVector4
+M:System.Drawing.RectangleF.op_Explicit(System.Drawing.RectangleF)~System.Numerics.Vector4
+M:System.Drawing.RectangleF.op_Explicit(System.Numerics.Vector4)~System.Drawing.RectangleF
+M:System.Drawing.Size.Equals(System.Drawing.Size)
+M:System.Drawing.Size.op_Division(System.Drawing.Size,System.Int32)
+M:System.Drawing.Size.op_Division(System.Drawing.Size,System.Single)
+M:System.Drawing.Size.op_Multiply(System.Drawing.Size,System.Int32)
+M:System.Drawing.Size.op_Multiply(System.Drawing.Size,System.Single)
+M:System.Drawing.Size.op_Multiply(System.Int32,System.Drawing.Size)
+M:System.Drawing.Size.op_Multiply(System.Single,System.Drawing.Size)
+M:System.Drawing.SizeF.#ctor(System.Numerics.Vector2)
+M:System.Drawing.SizeF.Equals(System.Drawing.SizeF)
+M:System.Drawing.SizeF.ToVector2
+M:System.Drawing.SizeF.op_Division(System.Drawing.SizeF,System.Single)
+M:System.Drawing.SizeF.op_Explicit(System.Drawing.SizeF)~System.Numerics.Vector2
+M:System.Drawing.SizeF.op_Explicit(System.Numerics.Vector2)~System.Drawing.SizeF
+M:System.Drawing.SizeF.op_Multiply(System.Drawing.SizeF,System.Single)
+M:System.Drawing.SizeF.op_Multiply(System.Single,System.Drawing.SizeF)
+P:System.Drawing.Color.RebeccaPurple
+P:System.Drawing.Drawing2D.Matrix.MatrixElements
+P:System.Drawing.Graphics.TransformElements
+P:System.Drawing.SystemColors.UseAlternativeColorSet

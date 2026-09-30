@@ -13,6 +13,8 @@
     "Microsoft.Web.Infrastructure": [ "WebFormsForCore.Web.Infrastructure", "$fork" ],
     "AjaxControlToolkit": [ "WebFormsForCore.AjaxControlToolkit", "$fork" ],
     "EntityFramework": [ "EntityFramework", "6.5.1" ],
+    // System.Drawing.Common from NuGet (Windows only since .NET 7): the fork's, which has the Linux implementation.
+    "System.Drawing.Common": [ "WebFormsForCore.Drawing.Common", "$fork" ],
     "Newtonsoft.Json": [ "Newtonsoft.Json", "13.0.4" ],
     // Before 1.0.116 the native SQLite.Interop.dll is Windows only (x86/x64 folders). 1.0.119 has .NET's
     // runtimes (win, linux-x64, osx-x64); 2.x ships no native library.
@@ -45,7 +47,7 @@
     "System.Web.Abstractions": [ "WebFormsForCore.Web", "$fork" ],
     "System.Web.Routing": [ "WebFormsForCore.Web", "$fork" ],
     "System.Configuration": [ "WebFormsForCore.Configuration", "$fork" ],
-    "System.Drawing": [ "System.Drawing.Common", "10.0.0" ],
+    "System.Drawing": [ "WebFormsForCore.Drawing.Common", "$fork" ],
     "System.Runtime.Caching": [ "System.Runtime.Caching", "10.0.0" ],
     "System.DirectoryServices": [ "System.DirectoryServices", "10.0.0" ],
     "System.DirectoryServices.AccountManagement": [ "System.DirectoryServices.AccountManagement", "10.0.0" ],
@@ -80,7 +82,7 @@
     { "pattern": "\\bSystem\\.Runtime\\.Caching\\b", "id": "System.Runtime.Caching", "version": "10.0.0" },
     { "pattern": "\\bSystem\\.DirectoryServices\\b", "id": "System.DirectoryServices", "version": "10.0.0", "note": "Active Directory (Windows; LDAP via System.DirectoryServices.Protocols)" },
     { "pattern": "\\bSystem\\.Management\\b", "id": "System.Management", "version": "10.0.0", "note": "WMI is Windows only" },
-    { "pattern": "\\bSystem\\.Drawing\\b", "id": "System.Drawing.Common", "version": "10.0.0", "note": "System.Drawing is Windows only" },
+    { "pattern": "\\bSystem\\.Drawing\\b", "id": "WebFormsForCore.Drawing.Common", "version": "$fork", "note": "System.Drawing: the fork's System.Drawing.Common (dotnet/runtime 6.0's, with its Linux implementation over libgdiplus, which the deployment installs)" },
     { "pattern": "\\bSystem\\.ServiceModel\\.Syndication\\b", "id": "System.ServiceModel.Syndication", "version": "10.0.0" },
     { "pattern": "\\bConfigurationManager\\b", "id": "WebFormsForCore.Configuration", "version": "$fork" },
     // .NET 9 removed BinaryFormatter (it throws); its unsupported compatibility package has it back, with the switch

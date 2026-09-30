@@ -46,21 +46,65 @@ public sealed class DeployWriter(Report report, string outRoot, string runtimeDi
         var lang = culture != null ? culture.Replace('-', '_') + ".UTF-8" : "C.UTF-8";
 
         if (caseInsensitive) caseInsensitive = WriteCaseLibraries(Path.Combine(deploy, "casefs"));
+        var drawing = DrawingUsers(site);
+        if (drawing.Count > 0)
+            report.Add(Report.Kind.Project, "deploy", $"System.Drawing on Linux: libgdiplus and fonts (fonts-liberation2: Arial, Times New Roman, Courier New's metrics) installed by the deployment, for {string.Join(", ", drawing.Take(6))}{(drawing.Count > 6 ? ", ..." : "")}");
         WriteText(Path.Combine(deploy, "start.sh"), StartScript.Replace("__DLL__", assembly));
         if (container)
         {
-            WriteText(Path.Combine(outRoot, "Dockerfile"), Dockerfile(siteRelative, lang, cultureProfile != null, caseInsensitive));
+            WriteText(Path.Combine(outRoot, "Dockerfile"), Dockerfile(siteRelative, lang, cultureProfile != null, caseInsensitive, drawing.Count > 0));
             WriteText(Path.Combine(outRoot, ".dockerignore"), $"# The build context is the conversion's output: only the site and deploy.\n*\n!{siteRelative}\n!deploy\n**/obj\n");
         }
         if (linux)
         {
             WriteText(Path.Combine(deploy, "linux", "install.sh"), InstallScript
                 .Replace("__APP__", app).Replace("__SITE__", siteRelative).Replace("__LANG__", lang)
-                .Replace("__ICU__", cultureProfile != null ? "1" : ""));
+                .Replace("__ICU__", cultureProfile != null ? "1" : "").Replace("__GDIPLUS__", drawing.Count > 0 ? "1" : ""));
         }
-        WriteText(Path.Combine(deploy, "README.md"), Readme(app, assembly, siteRelative, lang, container, linux, cultureProfile != null, caseInsensitive));
+        WriteText(Path.Combine(deploy, "README.md"), Readme(app, assembly, siteRelative, lang, container, linux, cultureProfile != null, caseInsensitive, drawing.Count > 0));
         report.Add(Report.Kind.Project, "deploy", $"{(container ? "Dockerfile" : "")}{(container && linux ? " and " : "")}{(linux ? "deploy/linux/install.sh (systemd)" : "")}: {app}, site {siteRelative}, culture {lang}, " +
             $"file names {(caseInsensitive ? "without regard to case (deploy/casefs; FOC_CASE_INSENSITIVE=0 turns it off)" : "case-sensitive")} (deploy/README.md)");
+    }
+
+    /// <summary>
+    /// What in the site draws with System.Drawing (GDI+, libgdiplus on Linux): its assemblies that reference System.Drawing
+    /// or System.Drawing.Common, not the fork's own (System.Web's references are its types', Color and the like, not
+    /// drawing) nor .NET's System.Windows.Extensions (in every site, a dependency of the configuration's packages: its
+    /// System.Drawing members are Windows' certificate dialogs and sounds), and pages whose markup or App_Code names
+    /// System.Drawing (compiled on the server).
+    /// </summary>
+    public static List<string> DrawingUsers(string site)
+    {
+        var users = new List<string>();
+        var own = new HashSet<string>(StringComparer.OrdinalIgnoreCase) { "System.Drawing", "System.Drawing.Common", "System.Web", "System.Web.Extensions", "System.Web.DynamicData", "System.Web.Services", "System.Windows.Forms", "System.Windows.Extensions" };
+        var bin = Path.Combine(site, "bin");
+        if (Directory.Exists(bin))
+        {
+            foreach (var dll in Directory.EnumerateFiles(bin, "*.dll"))
+            {
+                if (own.Contains(Path.GetFileNameWithoutExtension(dll))) continue;
+                try
+                {
+                    using var stream = File.OpenRead(dll);
+                    using var pe = new System.Reflection.PortableExecutable.PEReader(stream);
+                    if (!pe.HasMetadata) continue;
+                    var metadata = System.Reflection.Metadata.PEReaderExtensions.GetMetadataReader(pe);
+                    if (metadata.AssemblyReferences.Select(h => metadata.GetString(metadata.GetAssemblyReference(h).Name)).Any(n => n is "System.Drawing" or "System.Drawing.Common"))
+                        users.Add(Path.GetFileName(dll));
+                }
+                catch (BadImageFormatException) { }
+            }
+        }
+        foreach (var pattern in new[] { "*.aspx", "*.ascx", "*.master", "*.ashx", "*.asmx", "*.cshtml", "*.vbhtml", "*.cs", "*.vb" })
+            foreach (var file in Directory.EnumerateFiles(site, pattern, SearchOption.AllDirectories))
+            {
+                var relative = Path.GetRelativePath(site, file);
+                if (relative.StartsWith("bin" + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase) || relative.StartsWith("obj" + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase)) continue;
+                // Code files count only where the server compiles them.
+                if ((pattern is "*.cs" or "*.vb") && !relative.StartsWith("App_Code" + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase)) continue;
+                if (File.ReadAllText(file).Contains("System.Drawing", StringComparison.Ordinal)) users.Add(relative.Replace('\\', '/'));
+            }
+        return users;
     }
 
     // The library of file names without regard to case (casefs/libfoccase.so, built by casefs/build.ps1) for each
@@ -173,7 +217,7 @@ public sealed class DeployWriter(Report report, string outRoot, string runtimeDi
 
         """;
 
-    static string Dockerfile(string site, string lang, bool icu, bool caseInsensitive)
+    static string Dockerfile(string site, string lang, bool icu, bool caseInsensitive, bool gdiplus)
     {
         var text = new StringBuilder("""
             # Generated by FrameworkOnCore. Built from the conversion's output folder:
@@ -194,8 +238,18 @@ public sealed class DeployWriter(Report report, string outRoot, string runtimeDi
 
                 """);
         }
-        text.Append($"""
+        text.Append("""
             FROM mcr.microsoft.com/dotnet/aspnet:10.0
+
+            """);
+        if (gdiplus)
+            text.Append("""
+                # System.Drawing's Linux implementation (the fork's System.Drawing.Common) draws with libgdiplus; the fonts
+                # have the metrics of Windows' Arial, Times New Roman and Courier New (fontconfig maps those names to them).
+                RUN apt-get update && apt-get install -y --no-install-recommends libgdiplus fonts-liberation2 && rm -rf /var/lib/apt/lists/*
+
+                """);
+        text.Append($"""
             # The site, writable by the application (it writes to App_Data, and some to more: installers).
             COPY --chown=app:app {site} /app
             COPY deploy/start.sh /opt/foc/start.sh
@@ -246,6 +300,18 @@ public sealed class DeployWriter(Report report, string outRoot, string runtimeDi
             curl -sSL https://dot.net/v1/dotnet-install.sh -o /tmp/dotnet-install.sh
             bash /tmp/dotnet-install.sh --channel 10.0 --runtime aspnetcore --install-dir /usr/share/dotnet >/dev/null
             ln -sf /usr/share/dotnet/dotnet /usr/bin/dotnet
+        fi
+
+        # System.Drawing's Linux implementation draws with libgdiplus; fonts with Windows' Arial, Times New Roman and Courier
+        # New's metrics.
+        if [ -n "__GDIPLUS__" ]; then
+            if command -v apt-get >/dev/null; then
+                apt-get update -qq && apt-get install -y -qq --no-install-recommends libgdiplus fonts-liberation2 >/dev/null
+            elif command -v dnf >/dev/null; then
+                dnf install -y -q libgdiplus liberation-sans-fonts liberation-serif-fonts liberation-mono-fonts || echo "libgdiplus is in EPEL on RHEL: dnf install epel-release first" >&2
+            else
+                echo "install libgdiplus and the Liberation fonts (System.Drawing needs them)" >&2
+            fi
         fi
 
         id "$user" >/dev/null 2>&1 || useradd --system --home-dir "$prefix" --shell /usr/sbin/nologin "$user"
@@ -320,7 +386,7 @@ public sealed class DeployWriter(Report report, string outRoot, string runtimeDi
 
         """;
 
-    static string Readme(string app, string assembly, string site, string lang, bool container, bool linux, bool icu, bool caseInsensitive)
+    static string Readme(string app, string assembly, string site, string lang, bool container, bool linux, bool icu, bool caseInsensitive, bool gdiplus)
     {
         var text = new StringBuilder($"""
             # {app} の配置(FrameworkOnCore が生成)
@@ -338,6 +404,7 @@ public sealed class DeployWriter(Report report, string outRoot, string runtimeDi
             - URL(`Request.Url`、絶対 URL へのリダイレクト)は、クライアントが送った Host ヘッダーのホスト名とポートから作る。HTTPS を終端するリバースプロキシの後ろでは `ASPNETCORE_FORWARDEDHEADERS_ENABLED=true` を設定し、プロキシが `X-Forwarded-Proto` と元の `Host` を渡すようにする。
             - アプリが書き込む場所: `App_Data`。ほかにも書き込むアプリがある(インストーラーがモジュールを置くなど)ので、サイト全体をアプリのユーザーが書けるようにしてある。
             - ファイル名の大文字小文字: {(caseInsensitive ? "Windows と同じく区別しない(`deploy/casefs` の `libfoccase.so` を `start.sh` がプロセスに読み込む。x64・arm64 の glibc の Linux。読み込めないマシン(Alpine の musl など)では警告を出し、区別するまま動く)。`FOC_CASE_INSENSITIVE=0` で止める。対象はサイトのフォルダー(`FOC_CASE_ROOTS` に `:` 区切りでフォルダーを加えられる)。`FOC_CASE_LOG=1` で、大文字小文字違いで見つけたファイル名を標準エラーに出す(アプリの食い違いの一覧になる)。" : "区別する(変換の `--case-insensitive off`)。アプリが大文字小文字の違う名前でファイルを参照していると、Linux では見つからない。")}
+            - System.Drawing(画像・フォント): {(gdiplus ? "Linux ではフォークの System.Drawing.Common が libgdiplus で描く。配置が libgdiplus と Liberation のフォント(Arial、Times New Roman、Courier New と同じ文字幅)を入れる。描画の結果(アンチエイリアス、文字の形)は Windows と少し違う。ほかの Windows のフォント(MS ゴシックなど)を使うなら、そのフォントか代わりのフォントを入れる。" : "アプリは System.Drawing を使っていない(libgdiplus は入れない)。")}
 
 
             """);

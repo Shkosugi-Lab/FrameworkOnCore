@@ -1,0 +1,25 @@
+From 6c45b1ea3545d3eb4e35dc107fecb3716dcf8997 Mon Sep 17 00:00:00 2001
+From: shkosugi <sin.kosugi@gmail.com>
+Date: Wed, 30 Sep 2026 23:16:34 +0900
+Subject: [PATCH 37/37] Ajax Control Toolkit: on the System.Drawing.Common port
+
+The submodule at its commit that references WebFormsForCore.Drawing.Common instead of
+Microsoft's package (net10.0). That commit is not upstream's: FrameworkOnCore keeps it as
+experiments/wf4c/patches/AjaxControlToolkit/0001-*.patch, applied in the submodule (git am) on
+c9952ac6.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+---
+ src/WebFormsForCore.AjaxControlToolkit | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/WebFormsForCore.AjaxControlToolkit b/src/WebFormsForCore.AjaxControlToolkit
+index c9952ac..4d6cb53 160000
+--- a/src/WebFormsForCore.AjaxControlToolkit
++++ b/src/WebFormsForCore.AjaxControlToolkit
+@@ -1 +1 @@
+-Subproject commit c9952ac699ea2d12b5252b7bd9863231238dda22
++Subproject commit 4d6cb5399438a6acb141085d866097e1ad42c67e
+-- 
+2.55.0.windows.3
+

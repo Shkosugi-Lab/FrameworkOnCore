@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
+using FrameworkOnCore.Parity;
 
 namespace FrameworkOnCore.DataLinqParity
 {
@@ -88,36 +89,9 @@ namespace FrameworkOnCore.DataLinqParity
         }
     }
 
-    /// <summary>Runs the cases: every [Case] method of this assembly, by name, one after another.</summary>
-    public static class Runner
+    /// <summary>This suite's cases, the database reset before each that needs it.</summary>
+    public static class DataLinqCases
     {
-        public static IEnumerable<MethodInfo> Cases() =>
-            typeof(Runner).Assembly.GetTypes()
-                .SelectMany(t => t.GetMethods(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static))
-                .Where(m => m.GetCustomAttribute<CaseAttribute>() != null)
-                .OrderBy(Name, StringComparer.Ordinal);
-
-        public static string Name(MethodInfo method) => method.DeclaringType.Name + "." + method.Name;
-
-        public static bool NeedsDatabase(MethodInfo method) => method.GetCustomAttribute<CaseAttribute>().Database;
-
-        /// <summary>One case's lines (the database already created by Fixture.Create when it needs one).</summary>
-        public static IReadOnlyList<string> Run(MethodInfo method)
-        {
-            var probe = new Probe();
-            var culture = CultureInfo.CurrentCulture;
-            var uiCulture = CultureInfo.CurrentUICulture;
-            try
-            {
-                // One culture for both runs: messages and formatting the runtime words by culture.
-                CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
-                CultureInfo.CurrentUICulture = CultureInfo.InvariantCulture;
-                if (NeedsDatabase(method)) Fixture.Reset();
-                method.Invoke(null, new object[] { probe });
-            }
-            catch (Exception e) { probe.Escaped(e); }
-            finally { CultureInfo.CurrentCulture = culture; CultureInfo.CurrentUICulture = uiCulture; }
-            return probe.Lines;
-        }
+        public static readonly Runner Runner = new Runner(typeof(DataLinqCases).Assembly, Fixture.Reset);
     }
 }

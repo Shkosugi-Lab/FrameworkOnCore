@@ -5,6 +5,7 @@ using System.Data.Linq.Mapping;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
+using FrameworkOnCore.Parity;
 
 namespace FrameworkOnCore.DataLinqParity.Cases
 {

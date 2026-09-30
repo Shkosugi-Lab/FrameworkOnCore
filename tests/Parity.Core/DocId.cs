@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 
-namespace FrameworkOnCore.DataLinqParity
+namespace FrameworkOnCore.Parity
 {
     /// <summary>
     /// An assembly's API as documentation ids (the C# compiler's format: "M:System.Data.Linq.Table`1.Attach(`0)"): what
@@ -16,10 +16,14 @@ namespace FrameworkOnCore.DataLinqParity
     {
         const BindingFlags Declared = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static | BindingFlags.DeclaredOnly;
 
-        public static List<string> Api(Assembly assembly)
+        public static List<string> Api(Assembly assembly) => Api(assembly, t => true);
+
+        /// <summary>The API of an assembly's types that <paramref name="include"/> takes (a namespace of an assembly
+        /// with many: System.ComponentModel.TypeConverter has System.Drawing's converters on .NET).</summary>
+        public static List<string> Api(Assembly assembly, Func<Type, bool> include)
         {
             var ids = new List<string>();
-            foreach (var type in assembly.GetExportedTypes())
+            foreach (var type in assembly.GetExportedTypes().Where(include))
             {
                 ids.Add("T:" + TypeName(type));
                 var derivable = !type.IsSealed && !type.IsInterface;

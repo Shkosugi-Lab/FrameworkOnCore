@@ -3,6 +3,7 @@ using System.Data.Linq;
 using System.Data.Linq.SqlClient;
 using System.Linq;
 using System.Xml.Linq;
+using FrameworkOnCore.Parity;
 
 namespace FrameworkOnCore.DataLinqParity.Cases
 {

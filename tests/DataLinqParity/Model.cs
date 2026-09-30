@@ -6,6 +6,7 @@ using System.Data.Linq.Mapping;
 using System.Data.Linq.SqlClient;
 using System.Linq;
 using System.Reflection;
+using FrameworkOnCore.Parity;
 
 namespace FrameworkOnCore.DataLinqParity
 {

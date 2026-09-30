@@ -25,6 +25,9 @@ $projects = @(
     'WebFormsForCore.Compilers\WebFormsForCore.Compilers.csproj'
     'WebFormsForCore.Configuration\WebFormsForCore.Configuration.csproj'
     'WebFormsForCore.Drawing\WebFormsForCore.Drawing.csproj'
+    # System.Drawing.Common with its Linux implementation (dotnet/runtime release/6.0, libgdiplus): the Windows build and,
+    # built apart below, the Unix one, in one package (runtimes/win, runtimes/unix).
+    'WebFormsForCore.Drawing.Common\WebFormsForCore.Drawing.Common.csproj'
     'WebFormsForCore.Serialization.Formatters\WebFormsForCore.Serialization.Formatters.csproj'
     # LINQ to SQL (System.Data.Linq), ported from referencesource (generate-dlinq-resources.ps1 for its resources).
     'WebFormsForCore.Data.Linq\WebFormsForCore.Data.Linq.csproj'
@@ -51,6 +54,9 @@ if ($Build -eq 'All') {
     dotnet build (Join-Path $PSScriptRoot 'fork.slnx') -c $Configuration -v q -nologo
     foreach ($retry in 1..3) { if ($LASTEXITCODE -eq 0) { break }; dotnet build (Join-Path $PSScriptRoot 'fork.slnx') -c $Configuration -v q -nologo }
     if ($LASTEXITCODE -ne 0) { throw "build failed: fork.slnx" }
+    # The System.Drawing.Common port's Unix build (the solution builds its Windows one; the package takes both).
+    dotnet build (Join-Path $src 'WebFormsForCore.Drawing.Common\WebFormsForCore.Drawing.Common.csproj') -c $Configuration -p:FocTargetOS=unix -v q -nologo
+    if ($LASTEXITCODE -ne 0) { throw "build failed: WebFormsForCore.Drawing.Common (unix)" }
     foreach ($project in $net10Only) {
         # -f, not the TargetFrameworks property: a global property would restore the projects it references for net10.0 only.
         dotnet build (Join-Path $src $project) -c $Configuration -f net10.0 --no-dependencies -v q -nologo

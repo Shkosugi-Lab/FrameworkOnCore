@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data.Linq;
 using System.Linq;
+using FrameworkOnCore.Parity;
 
 namespace FrameworkOnCore.DataLinqParity.Cases
 {

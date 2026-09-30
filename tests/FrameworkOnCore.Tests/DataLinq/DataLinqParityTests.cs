@@ -1,6 +1,7 @@
 using System.Reflection;
 using System.Text.Json;
 using FrameworkOnCore.DataLinqParity;
+using FrameworkOnCore.Parity;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -37,19 +38,21 @@ public class DataLinqParityTests : IClassFixture<DataLinqParityTests.ParityDatab
     static Dictionary<string, List<string>> Goldens() =>
         JsonSerializer.Deserialize<Dictionary<string, List<string>>>(File.ReadAllText(Path.Combine(Golden, "cases.golden.json")))!;
 
-    public static IEnumerable<object[]> Cases() => Runner.Cases().Select(m => new object[] { Runner.Name(m) });
+    static Runner Runner => DataLinqCases.Runner;
+
+    public static IEnumerable<object[]> Cases() => Runner.Cases().Select(c => new object[] { c.Name });
 
     [SkippableTheory]
     [MemberData(nameof(Cases))]
     public void Behaves_as_on_NET_Framework(string name)
     {
-        var method = Runner.Cases().Single(m => Runner.Name(m) == name);
-        Skip.If(Runner.NeedsDatabase(method) && !database.Available, "no SQL Server (FOC_TEST_SQLSERVER)");
+        var parityCase = Runner.Case(name);
+        Skip.If(parityCase.Database && !database.Available, "no SQL Server (FOC_TEST_SQLSERVER)");
         var goldens = Goldens();
         Assert.True(goldens.ContainsKey(name), $"{name}: no golden (record.ps1 records the cases on .NET Framework)");
 
         var expected = goldens[name];
-        var actual = Runner.Run(method).ToList();
+        var actual = Runner.Run(parityCase).ToList();
         if (expected.SequenceEqual(actual)) return;
 
         // The lines that differ, with where they are: enough to see what the port does differently.
@@ -66,7 +69,7 @@ public class DataLinqParityTests : IClassFixture<DataLinqParityTests.ParityDatab
     [Fact]
     public void Every_case_has_a_golden_and_every_golden_a_case()
     {
-        var cases = Runner.Cases().Select(Runner.Name).ToHashSet();
+        var cases = Runner.Cases().Select(c => c.Name).ToHashSet();
         var goldens = Goldens().Keys.ToHashSet();
         Assert.Empty(cases.Except(goldens));
         Assert.Empty(goldens.Except(cases));

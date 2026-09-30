@@ -8,10 +8,13 @@
 対象と推奨順:
 
 1. ~~System.Data.Linq(LINQ to SQL)~~ … **移植済み**(2026-09-30、パッチ 0032。experiments/wf4c/README.md の記録)
-2. **System.Web.DataVisualization(グラフ)** … 使うコーパスは nop のみ。System.Drawing(Linux は libgdiplus)への依存の判断が先に要る
+2. **System.Web.DataVisualization(グラフ)** … 使うコーパスは nop のみ。描画の System.Drawing は移植済み(下)なので Linux でも動かせる
 3. System.Data.Services.Client … 優先度低。着手前に要否をユーザーに確認
+4. ~~System.Drawing(System.Drawing.Common の Linux 実装)~~ … **移植済み**(2026-09-30、パッチ 0034〜0037。dotnet/runtime 6.0 のソース。新旧比較は `tests/DrawingParity`。experiments/wf4c/README.md の記録)
 
-System.ServiceModel(CoreWCF)と System.Drawing の Linux 対応は「移植」ではなく別の作業なので、このプロンプトの対象外。
+System.ServiceModel(CoreWCF)は「移植」ではなく別の作業なので、このプロンプトの対象外。
+
+新旧比較のケースを作るときは `tests/Parity.Core`(観測値の書き方 Probe、ケースの実行 Runner、ゴールデンの書き出し)を使う。API が多い部品は、System.Drawing の `tests/DrawingParity/ApiCases.cs` のように、ゴールデンの API 一覧から「型とメンバー名ごとに 1 ケース」を作り、呼べない・呼ばないメンバーは理由つきで除外する。環境による差(Linux の描画など)は `known-differences.json` のように理由つきで持ち、使われなくなった項目はテストで失敗させる。
 
 ---
 
@@ -107,7 +110,7 @@ System.ServiceModel(CoreWCF)と System.Drawing の Linux 対応は「移植」�
 ### System.Web.DataVisualization(グラフ)
 
 - `_upstream` に WebFormsForCore.Web.DataVisualization(約 115 ファイル)が既にあるがビルド対象外。DynamicData のパッチ 0001 と同じ方法で、ビルドできるようにするパッチを書き、pack-fork.ps1 に足す。
-- 描画は System.Drawing。Linux は System.Drawing.Common 10 が PlatformNotSupported(FRAMEWORK-ONLY-APIS.md の B 表: 6.0 + `EnableUnixSupport` + libgdiplus なら動くことを検証済み)。**まず Windows で動かし、Linux 対応は別の判断としてユーザーに確認する。**
+- 描画は System.Drawing。フォークの WebFormsForCore.Drawing.Common(移植済み。Windows は GDI+、Linux は libgdiplus)を参照する。Linux の描画は Windows と少し違う(アンチエイリアス、フォント)ので、判定は安定した性質で行う。
 - 使うコーパスは nop(管理画面のレポート 2 つ)のみ → 実地検証の前にユーザーに確認する。
 - テスト領域の例: コーパスが使うグラフの種類の描画(画像はピクセル一致ではなく、サイズ・形式・空でないことなど安定した性質で判定)、ChartImg.axd ハンドラー、ImageStorageMode、web.config の登録が変換で残ること。
 

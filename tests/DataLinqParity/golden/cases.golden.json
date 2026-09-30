@@ -1471,7 +1471,7 @@
     "  | FROM [dbo].[Products] AS [t0]",
     "  | WHERE [t0].[Weight] > @p0",
     "double parameters = [\"@p0=Double 1 Double\", \"@p1=Double 3 Double\"]",
-    "double rows = [Double 0.5, Double 0.66666666666666663]",
+    "double rows = [Double 0.5, Double 0.66666666666666662]",
     "computed column sql:",
     "  | SELECT [t0].[DoubleWeight]",
     "  | FROM [dbo].[Products] AS [t0]",

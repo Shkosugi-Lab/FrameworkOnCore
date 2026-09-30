@@ -1,0 +1,1222 @@
+From 0c81cb02e53ec56162ace459d96f4ff6c1cc812e Mon Sep 17 00:00:00 2001
+From: shkosugi <sin.kosugi@gmail.com>
+Date: Wed, 30 Sep 2026 23:16:07 +0900
+Subject: [PATCH 36/37] System.Drawing.Common: what comparing every API with
+ .NET Framework's found
+
+FrameworkOnCore's parity cases (tests/DrawingParity: every member of .NET Framework's
+System.Drawing called on .NET Framework and on the port, the results compared) found these,
+each fixed under #if WebFormsForCore or in Core\:
+
+Both:
+- Stream.Read may return fewer bytes than asked: icons and animated GIFs read to the end
+  (ReadAtLeast), as many bytes as there are.
+
+Windows:
+- SystemFonts.DialogFont: the LCID's primary language (ja-JP is 0x0411), as .NET Framework;
+  Japanese Windows got Tahoma instead of its UI font.
+- Metafile headers: the buffer zeroed before GDI+ fills it (the managed ENHMETAHEADER is larger
+  than GDI+'s: EmfPlusHeaderSize and LogicalDpiX/Y were read from memory never written).
+- GraphicsPathIterator.Enumerate/CopyData: the arrays' tails zeroed, as .NET Framework.
+
+Linux (libgdiplus, Mono's implementation):
+- Graphics.Restore/EndContainer of a state or container not saved by this Graphics: ignored as
+  GDI+ does (libgdiplus faulted, SIGSEGV).
+- JPEG EXIF: a stream's JPEG under 64 KiB kept its properties (libgdiplus dropped them), and
+  values in Motorola order ("MM", most cameras) are given in the machine's, as GDI+ gives them
+  (the orientation 6 read as 1536: photos left unturned). Core\Image.ExifByteOrder.cs.
+- The resolution of a bitmap made in memory: 96 dpi, as GDI+ (libgdiplus: 0).
+- new Bitmap(w, h, stride, format, IntPtr.Zero): the stride is the bitmap's own, as GDI+
+  (libgdiplus allocated stride x height bytes: read and written past them).
+- Icon for a size: the entry Windows picks (the closest size, then bit depth); it took 32x32
+  where Windows takes 16x16. new Icon(stream) leaves the application's stream open.
+- Font.FromLogFont/ToLogFont: an application's LOGFONT (its own class, and CharSet.Auto's ANSI
+  layout on Unix); the native functions' names (GdipCreateFontFromLogfontW, ...HfontA: not
+  found before); the Font is the native one's family, size, style and unit (it was named
+  Microsoft Sans Serif, 10); a device context for FromLogFont(lf), which libgdiplus requires.
+  Font.FromHfont(IntPtr.Zero) throws as on Windows.
+- Graphics.GetNearestColor passes the color in (it answered black).
+- A metafile saved (PNG...): drawn, as GDI+ saves it (libgdiplus refused).
+- Icon(Type, resource)'s message and Icon.ToString as on Windows; ToolboxBitmapAttribute's
+  hash code without images.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+---
+ .../Core/Font.AnsiLogFont.cs                  |  67 +++++++++
+ .../Core/Font.FromNativeFont.cs               |  28 ++++
+ .../Core/Image.ExifByteOrder.cs               | 133 ++++++++++++++++++
+ .../System/Drawing/Bitmap.Unix.cs             |   5 +
+ .../System/Drawing/Bitmap.cs                  |  21 +++
+ .../Drawing/Drawing2D/GraphicsPathIterator.cs |  15 ++
+ .../System/Drawing/Font.Unix.cs               |  58 ++++++++
+ .../System/Drawing/Font.cs                    |   7 +
+ .../Drawing/GdiPlusStreamHelper.Unix.cs       |  51 +++++++
+ .../System/Drawing/GdiplusNative.Unix.cs      |  15 ++
+ .../System/Drawing/Graphics.Unix.cs           |  45 ++++++
+ .../System/Drawing/Icon.Unix.cs               |  70 +++++++++
+ .../System/Drawing/Icon.Windows.cs            |  15 ++
+ .../System/Drawing/Image.Unix.cs              |  51 +++++++
+ .../System/Drawing/Image.cs                   |  29 ++++
+ .../Drawing/Imaging/Metafile.Windows.cs       |  17 +++
+ .../System/Drawing/SystemFonts.Windows.cs     |   6 +
+ .../Drawing/ToolboxBitmapAttribute.Unix.cs    |   5 +
+ 18 files changed, 638 insertions(+)
+ create mode 100644 src/WebFormsForCore.Drawing.Common/Core/Font.AnsiLogFont.cs
+ create mode 100644 src/WebFormsForCore.Drawing.Common/Core/Font.FromNativeFont.cs
+ create mode 100644 src/WebFormsForCore.Drawing.Common/Core/Image.ExifByteOrder.cs
+
+diff --git a/src/WebFormsForCore.Drawing.Common/Core/Font.AnsiLogFont.cs b/src/WebFormsForCore.Drawing.Common/Core/Font.AnsiLogFont.cs
+new file mode 100644
+index 0000000..fb0e71b
+--- /dev/null
++++ b/src/WebFormsForCore.Drawing.Common/Core/Font.AnsiLogFont.cs
+@@ -0,0 +1,67 @@
++// Licensed to the .NET Foundation under one or more agreements.
++// The .NET Foundation licenses this file to you under the MIT license.
++
++#if TARGET_UNIX
++using System.Runtime.InteropServices;
++using System.Text;
++
++namespace System.Drawing
++{
++    // WebFormsForCore: the LOGFONT an application declares itself, as Windows code does
++    // ([StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)] class LOGFONT { ... ByValTStr 32 ... }), passed to
++    // Font.FromLogFont / ToLogFont. CharSet.Auto is Unicode on Windows (the 92 bytes of the LOGFONT the port has), ANSI on
++    // Unix: 60 bytes, the face name in UTF-8. Those were refused (a LOGFONT of another size) or failed a cast: they are
++    // taken in both layouts.
++    public sealed partial class Font
++    {
++        // The numbers (five ints, eight bytes), then the face name: 32 chars (Unicode) or 32 bytes (ANSI).
++        private const int LogFontNumbersSize = 28;
++        private const int LogFontFaceSize = 32;
++        private const int AnsiLogFontSize = LogFontNumbersSize + LogFontFaceSize;
++
++        private static bool IsAnsiLogFont(Type type) => Marshal.SizeOf(type) == AnsiLogFontSize;
++
++        // The application's LOGFONT (an ANSI one) as the port's.
++        private static unsafe Interop.User32.LOGFONT FromAnsiLogFont(object lf)
++        {
++            byte* ansi = stackalloc byte[AnsiLogFontSize];
++            Marshal.StructureToPtr(lf, new IntPtr(ansi), fDeleteOld: false);
++            Interop.User32.LOGFONT logFont = default;
++            Buffer.MemoryCopy(ansi, &logFont, LogFontNumbersSize, LogFontNumbersSize);
++            var face = new ReadOnlySpan<byte>(ansi + LogFontNumbersSize, LogFontFaceSize);
++            int end = face.IndexOf((byte)0);
++            string name = Encoding.UTF8.GetString(end < 0 ? face : face.Slice(0, end));
++            Span<char> faceName = logFont.lfFaceName;
++            name.AsSpan(0, Math.Min(name.Length, LogFontFaceSize - 1)).CopyTo(faceName);
++            return logFont;
++        }
++
++        // The port's LOGFONT into the application's (an ANSI one).
++        private static unsafe void ToAnsiLogFont(Interop.User32.LOGFONT logFont, object target)
++        {
++            byte* ansi = stackalloc byte[AnsiLogFontSize];
++            new Span<byte>(ansi, AnsiLogFontSize).Clear();
++            Buffer.MemoryCopy(&logFont, ansi, LogFontNumbersSize, LogFontNumbersSize);
++            ReadOnlySpan<char> faceName = logFont.lfFaceName;
++            int end = faceName.IndexOf('\0');
++            if (end >= 0)
++                faceName = faceName.Slice(0, end);
++            var face = new Span<byte>(ansi + LogFontNumbersSize, LogFontFaceSize - 1);
++            // Whole characters only: as many as fit before the terminating zero.
++            while (Encoding.UTF8.GetByteCount(faceName) > face.Length)
++                faceName = faceName.Slice(0, faceName.Length - 1);
++            Encoding.UTF8.GetBytes(faceName, face);
++            if (!target.GetType().IsValueType)
++            {
++                Marshal.PtrToStructure(new IntPtr(ansi), target);
++            }
++            else
++            {
++                GCHandle handle = GCHandle.Alloc(target, GCHandleType.Pinned);
++                Buffer.MemoryCopy(ansi, (byte*)handle.AddrOfPinnedObject(), AnsiLogFontSize, AnsiLogFontSize);
++                handle.Free();
++            }
++        }
++    }
++}
++#endif
+diff --git a/src/WebFormsForCore.Drawing.Common/Core/Font.FromNativeFont.cs b/src/WebFormsForCore.Drawing.Common/Core/Font.FromNativeFont.cs
+new file mode 100644
+index 0000000..88e4d18
+--- /dev/null
++++ b/src/WebFormsForCore.Drawing.Common/Core/Font.FromNativeFont.cs
+@@ -0,0 +1,28 @@
++// Licensed to the .NET Foundation under one or more agreements.
++// The .NET Foundation licenses this file to you under the MIT license.
++
++#if TARGET_UNIX
++using System.Runtime.InteropServices;
++using Gdip = System.Drawing.SafeNativeMethods.Gdip;
++
++namespace System.Drawing
++{
++    // WebFormsForCore: a Font made from a native one (FromLogFont) is what the native one is, read from it, as on Windows
++    // (Font.Windows.cs). The Unix implementation named every such font "Microsoft Sans Serif", 10, whatever the LOGFONT
++    // asked for (its Name, Size, Style, Unit: what the application reads and what Clone and serialization keep).
++    public sealed partial class Font
++    {
++        private Font(IntPtr nativeFont, byte gdiCharSet, bool gdiVerticalFont)
++        {
++            _nativeFont = nativeFont;
++
++            Gdip.CheckStatus(Gdip.GdipGetFontUnit(new HandleRef(this, nativeFont), out GraphicsUnit unit));
++            Gdip.CheckStatus(Gdip.GdipGetFontSize(new HandleRef(this, nativeFont), out float size));
++            Gdip.CheckStatus(Gdip.GdipGetFontStyle(new HandleRef(this, nativeFont), out FontStyle style));
++            Gdip.CheckStatus(Gdip.GdipGetFamily(new HandleRef(this, nativeFont), out IntPtr nativeFamily));
++
++            Initialize(new FontFamily(nativeFamily), size, style, unit, gdiCharSet, gdiVerticalFont);
++        }
++    }
++}
++#endif
+diff --git a/src/WebFormsForCore.Drawing.Common/Core/Image.ExifByteOrder.cs b/src/WebFormsForCore.Drawing.Common/Core/Image.ExifByteOrder.cs
+new file mode 100644
+index 0000000..74ca9ee
+--- /dev/null
++++ b/src/WebFormsForCore.Drawing.Common/Core/Image.ExifByteOrder.cs
+@@ -0,0 +1,133 @@
++// Licensed to the .NET Foundation under one or more agreements.
++// The .NET Foundation licenses this file to you under the MIT license.
++
++#if TARGET_UNIX
++using System.Collections.Generic;
++using System.Drawing.Imaging;
++using System.IO;
++
++namespace System.Drawing
++{
++    // WebFormsForCore: a JPEG's EXIF values in the machine's byte order, as GDI+ gives them. libgdiplus passes them on as
++    // the file has them (libexif's entries): a camera's JPEG in Motorola order ("MM", big-endian: most cameras, and GDI+
++    // itself) gave its Orientation 6 as 00-06, which BitConverter reads as 1536 (the picture left unturned). The order is
++    // the file's, found when it is read (a stream, a file); the values the application sets itself are its own.
++    public abstract partial class Image
++    {
++        // The loaded EXIF values are in the other byte order than the machine's.
++        private bool _exifSwapped;
++
++        // The properties the application set (SetPropertyItem): in the machine's order already.
++        private HashSet<int>? _propertiesSet;
++
++        /// <summary>Whether the JPEG in <paramref name="stream"/> has its EXIF data in the other byte order than the machine's.</summary>
++        internal static bool ExifSwapped(Stream stream)
++        {
++            if (!stream.CanSeek)
++                return false;
++            long position = stream.Position;
++            try
++            {
++                // libgdiplus reads EXIF data from the first 64 KiB.
++                byte[] start = new byte[65536];
++                stream.Seek(0, SeekOrigin.Begin);
++                int length = 0, read;
++                while (length < start.Length && (read = stream.Read(start, length, start.Length - length)) > 0)
++                    length += read;
++                return ExifSwapped(start, length);
++            }
++            catch (IOException)
++            {
++                return false;
++            }
++            finally
++            {
++                stream.Seek(position, SeekOrigin.Begin);
++            }
++        }
++
++        internal static bool ExifSwapped(string filename)
++        {
++            try
++            {
++                using (var stream = new FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.ReadWrite | FileShare.Delete))
++                    return ExifSwapped(stream);
++            }
++            catch (IOException)
++            {
++                return false;
++            }
++            catch (UnauthorizedAccessException)
++            {
++                return false;
++            }
++        }
++
++        // The JPEG's segments up to its APP1 "Exif" one: its TIFF header's byte order ("MM" or "II").
++        private static bool ExifSwapped(byte[] data, int length)
++        {
++            if (length < 4 || data[0] != 0xFF || data[1] != 0xD8)
++                return false;
++            int i = 2;
++            while (i + 4 <= length)
++            {
++                if (data[i] != 0xFF)
++                    return false;
++                byte marker = data[i + 1];
++                if (marker == 0xFF)
++                {
++                    i++;   // fill byte
++                    continue;
++                }
++                if (marker == 0x01 || (marker >= 0xD0 && marker <= 0xD7))
++                {
++                    i += 2;   // no length
++                    continue;
++                }
++                if (marker == 0xDA || marker == 0xD9)
++                    return false;   // the image data: no EXIF before it
++                int segment = (data[i + 2] << 8) | data[i + 3];
++                if (marker == 0xE1 && segment >= 8 && i + 12 <= length
++                    && data[i + 4] == (byte)'E' && data[i + 5] == (byte)'x' && data[i + 6] == (byte)'i' && data[i + 7] == (byte)'f' && data[i + 8] == 0 && data[i + 9] == 0)
++                {
++                    bool bigEndian = data[i + 10] == (byte)'M' && data[i + 11] == (byte)'M';
++                    bool littleEndian = data[i + 10] == (byte)'I' && data[i + 11] == (byte)'I';
++                    return BitConverter.IsLittleEndian ? bigEndian : littleEndian;
++                }
++                i += 2 + segment;
++            }
++            return false;
++        }
++
++        internal void SetExifSwapped(bool swapped) => _exifSwapped = swapped;
++
++        // A copy (Clone) has the properties of its original, in the same order.
++        internal void CopyExifOrder(Image original)
++        {
++            _exifSwapped = original._exifSwapped;
++            _propertiesSet = original._propertiesSet == null ? null : new HashSet<int>(original._propertiesSet);
++        }
++
++        private void PropertySetHere(int id) => (_propertiesSet ??= new HashSet<int>()).Add(id);
++
++        // The item's value in the machine's order: its numbers (SHORT, LONG, RATIONAL, SLONG, SRATIONAL) turned.
++        private PropertyItem InMachineOrder(PropertyItem item)
++        {
++            if (!_exifSwapped || item.Value == null || (_propertiesSet != null && _propertiesSet.Contains(item.Id)))
++                return item;
++            int unit = item.Type switch
++            {
++                3 => 2,
++                4 or 5 or 9 or 10 => 4,
++                _ => 0,
++            };
++            if (unit == 0)
++                return item;
++            byte[] value = item.Value;
++            for (int i = 0; i + unit <= value.Length; i += unit)
++                Array.Reverse(value, i, unit);
++            return item;
++        }
++    }
++}
++#endif
+diff --git a/src/WebFormsForCore.Drawing.Common/System/Drawing/Bitmap.Unix.cs b/src/WebFormsForCore.Drawing.Common/System/Drawing/Bitmap.Unix.cs
+index 6d9d13d..3d788d9 100644
+--- a/src/WebFormsForCore.Drawing.Common/System/Drawing/Bitmap.Unix.cs
++++ b/src/WebFormsForCore.Drawing.Common/System/Drawing/Bitmap.Unix.cs
+@@ -60,7 +60,12 @@ namespace System.Drawing
+         public Bitmap(Stream stream, bool useIcm)
+         {
+             // false: stream is owned by user code
++#if WebFormsForCore
++            nativeImage = InitializeFromStream(stream, out bool exifSwapped);
++            SetExifSwapped(exifSwapped);
++#else
+             nativeImage = InitializeFromStream(stream);
++#endif
+         }
+     }
+ }
+diff --git a/src/WebFormsForCore.Drawing.Common/System/Drawing/Bitmap.cs b/src/WebFormsForCore.Drawing.Common/System/Drawing/Bitmap.cs
+index 7cacab6..e55f196 100644
+--- a/src/WebFormsForCore.Drawing.Common/System/Drawing/Bitmap.cs
++++ b/src/WebFormsForCore.Drawing.Common/System/Drawing/Bitmap.cs
+@@ -46,6 +46,9 @@ namespace System.Drawing
+             ValidateImage(bitmap);
+ 
+             SetNativeImage(bitmap);
++#if WebFormsForCore && TARGET_UNIX
++            SetExifSwapped(ExifSwapped(filename));
++#endif
+             EnsureSave(this, filename, null);
+         }
+ 
+@@ -97,6 +100,12 @@ namespace System.Drawing
+ 
+         public Bitmap(int width, int height, int stride, PixelFormat format, IntPtr scan0)
+         {
++#if WebFormsForCore && TARGET_UNIX
++            // Without the caller's memory the stride is the bitmap's own, as GDI+ allocates it (the one given ignored):
++            // libgdiplus allocated stride x height bytes, and a stride short of the width's read and wrote past them.
++            if (scan0 == IntPtr.Zero)
++                stride = 0;
++#endif
+             IntPtr bitmap = IntPtr.Zero;
+             int status = Gdip.GdipCreateBitmapFromScan0(width, height, stride, unchecked((int)format), scan0, out bitmap);
+             Gdip.CheckStatus(status);
+@@ -207,7 +216,13 @@ namespace System.Drawing
+             if (status != Gdip.Ok || dstHandle == IntPtr.Zero)
+                 throw Gdip.StatusException(status);
+ 
++#if WebFormsForCore && TARGET_UNIX
++            var clone = new Bitmap(dstHandle);
++            clone.CopyExifOrder(this);
++            return clone;
++#else
+             return new Bitmap(dstHandle);
++#endif
+         }
+ 
+         public void MakeTransparent()
+@@ -350,7 +365,13 @@ namespace System.Drawing
+             if (status != Gdip.Ok || dstHandle == IntPtr.Zero)
+                 throw Gdip.StatusException(status);
+ 
++#if WebFormsForCore && TARGET_UNIX
++            var clone = new Bitmap(dstHandle);
++            clone.CopyExifOrder(this);
++            return clone;
++#else
+             return new Bitmap(dstHandle);
++#endif
+         }
+     }
+ }
+diff --git a/src/WebFormsForCore.Drawing.Common/System/Drawing/Drawing2D/GraphicsPathIterator.cs b/src/WebFormsForCore.Drawing.Common/System/Drawing/Drawing2D/GraphicsPathIterator.cs
+index 8e83841..0697225 100644
+--- a/src/WebFormsForCore.Drawing.Common/System/Drawing/Drawing2D/GraphicsPathIterator.cs
++++ b/src/WebFormsForCore.Drawing.Common/System/Drawing/Drawing2D/GraphicsPathIterator.cs
+@@ -186,6 +186,9 @@ namespace System.Drawing.Drawing2D
+                     throw Gdip.StatusException(status);
+                 }
+ 
++#if WebFormsForCore // WebFormsForCore: .NET Framework's System.Drawing zero-filled what GDI+ did not copy (it copied into new arrays); an application reusing the arrays sees the same.
++                ZeroTail(points, types, resultCount);
++#endif
+                 return resultCount;
+             }
+         }
+@@ -211,10 +214,22 @@ namespace System.Drawing.Drawing2D
+                     throw Gdip.StatusException(status);
+                 }
+ 
++#if WebFormsForCore // WebFormsForCore: as Enumerate, the tail zero-filled as .NET Framework's.
++                ZeroTail(points, types, resultCount);
++#endif
+                 return resultCount;
+             }
+         }
+ 
++#if WebFormsForCore
++        private static void ZeroTail(PointF[] points, byte[] types, int count)
++        {
++            if (count < 0) count = 0;
++            if (count < points.Length) Array.Clear(points, count, points.Length - count);
++            if (count < types.Length) Array.Clear(types, count, types.Length - count);
++        }
++#endif
++
+         // handle to native path iterator object
+         internal IntPtr nativeIter;
+     }
+diff --git a/src/WebFormsForCore.Drawing.Common/System/Drawing/Font.Unix.cs b/src/WebFormsForCore.Drawing.Common/System/Drawing/Font.Unix.cs
+index 8163d0e..9d82d44 100644
+--- a/src/WebFormsForCore.Drawing.Common/System/Drawing/Font.Unix.cs
++++ b/src/WebFormsForCore.Drawing.Common/System/Drawing/Font.Unix.cs
+@@ -168,8 +168,13 @@ namespace System.Drawing
+             // Sanity. Should we throw an exception?
+             if (hfont == IntPtr.Zero)
+             {
++#if WebFormsForCore
++                // As on Windows: no font, no TrueType font (it gave Arial, 10 points).
++                throw new ArgumentException(SR.GdiplusNotTrueTypeFont_NoName);
++#else
+                 Font result = new Font("Arial", (float)10.0, FontStyle.Regular);
+                 return (result);
++#endif
+             }
+ 
+             // If we're on Unix we use our private gdiplus API to avoid Wine
+@@ -206,7 +211,12 @@ namespace System.Drawing
+                 newSize = lf.lfHeight;
+             }
+ 
++#if WebFormsForCore
++            // What the native font is (libgdiplus fills in an ANSI LOGFONT: its face name was read as UTF-16).
++            return new Font(newObject, lf.lfCharSet, false);
++#else
+             return (new Font(newObject, lf.lfFaceName.ToString(), newStyle, newSize));
++#endif
+         }
+ 
+         public IntPtr ToHfont()
+@@ -320,13 +330,43 @@ namespace System.Drawing
+             throw new NotImplementedException();
+         }
+ 
++#if WebFormsForCore
++        // As on Windows (Font.Windows.cs): the application's own LOGFONT, of the size of the port's, copied in (a cast
++        // took the port's only); an ANSI one too (Font.AnsiLogFont.cs).
++        public static unsafe Font FromLogFont(object lf, IntPtr hdc)
++        {
++            if (lf == null)
++                throw new ArgumentNullException(nameof(lf));
++            Interop.User32.LOGFONT o;
++            if (lf is Interop.User32.LOGFONT boxed)
++            {
++                o = boxed;
++            }
++            else if (IsAnsiLogFont(lf.GetType()))
++            {
++                o = FromAnsiLogFont(lf);
++            }
++            else
++            {
++                if (Marshal.SizeOf(lf.GetType()) != sizeof(Interop.User32.LOGFONT))
++                    throw new ArgumentException(null, nameof(lf));
++                o = default;
++                Marshal.StructureToPtr(lf, new IntPtr(&o), fDeleteOld: false);
++            }
++            IntPtr newObject;
++#else
+         public static Font FromLogFont(object lf, IntPtr hdc)
+         {
+             IntPtr newObject;
+             Interop.User32.LOGFONT o = (Interop.User32.LOGFONT)lf;
++#endif
+             int status = Gdip.GdipCreateFontFromLogfont(hdc, ref o, out newObject);
+             Gdip.CheckStatus(status);
++#if WebFormsForCore
++            return new Font(newObject, o.lfCharSet, o.lfFaceName[0] == '@');   // Font.FromNativeFont.cs
++#else
+             return new Font(newObject, "Microsoft Sans Serif", FontStyle.Regular, 10);
++#endif
+         }
+ 
+         public float GetHeight()
+@@ -336,7 +376,25 @@ namespace System.Drawing
+ 
+         public static Font FromLogFont(object lf)
+         {
++#if WebFormsForCore
++            // A device, as Windows takes the screen's: libgdiplus refuses none (InvalidParameter). An image's, as
++            // ToLogFont uses.
++            using (Bitmap img = new Bitmap(1, 1, Imaging.PixelFormat.Format32bppArgb))
++            using (Graphics g = Graphics.FromImage(img))
++            {
++                IntPtr hdc = g.GetHdc();
++                try
++                {
++                    return FromLogFont(lf, hdc);
++                }
++                finally
++                {
++                    g.ReleaseHdc(hdc);
++                }
++            }
++#else
+             return FromLogFont(lf, IntPtr.Zero);
++#endif
+         }
+ 
+         public void ToLogFont(object logFont)
+diff --git a/src/WebFormsForCore.Drawing.Common/System/Drawing/Font.cs b/src/WebFormsForCore.Drawing.Common/System/Drawing/Font.cs
+index 0a738e0..097c6c5 100644
+--- a/src/WebFormsForCore.Drawing.Common/System/Drawing/Font.cs
++++ b/src/WebFormsForCore.Drawing.Common/System/Drawing/Font.cs
+@@ -275,6 +275,13 @@ namespace System.Drawing
+ 
+             Type type = logFont.GetType();
+             int nativeSize = sizeof(Interop.User32.LOGFONT);
++#if WebFormsForCore && TARGET_UNIX
++            if (IsAnsiLogFont(type))
++            {
++                ToAnsiLogFont(ToLogFontInternal(graphics), logFont);   // Font.AnsiLogFont.cs
++                return;
++            }
++#endif
+             if (Marshal.SizeOf(type) != nativeSize)
+             {
+                 // If we don't actually have an object that is LOGFONT in size, trying to pass
+diff --git a/src/WebFormsForCore.Drawing.Common/System/Drawing/GdiPlusStreamHelper.Unix.cs b/src/WebFormsForCore.Drawing.Common/System/Drawing/GdiPlusStreamHelper.Unix.cs
+index fb55982..77173e7 100644
+--- a/src/WebFormsForCore.Drawing.Common/System/Drawing/GdiPlusStreamHelper.Unix.cs
++++ b/src/WebFormsForCore.Drawing.Common/System/Drawing/GdiPlusStreamHelper.Unix.cs
+@@ -107,10 +107,56 @@ namespace System.Drawing
+                 // If we are peeking bytes, then go back to original position before peeking
+                 _stream.Seek(originalPosition, SeekOrigin.Begin);
+             }
++#if WebFormsForCore
++            else if (read == 0 && !_padded && buf != null)
++            {
++                read = ExifPadding(buf, bufsz);
++            }
++#endif
+ 
+             return read;
+         }
+ 
++#if WebFormsForCore
++        // libgdiplus (6.1) keeps the first 64 KiB of a JPEG for its EXIF data (dstream_load, then libexif) only when its
++        // last read filling them returns bytes: from a stream, a JPEG shorter than that lost its properties
++        // (PropertyItems, the orientation; from a file it has them, and GDI+ both). Such a JPEG's reads end in zeros up
++        // to 64 KiB, once: the decoder reads nothing after the image's end (EOI), and libexif finds the APP1 segment
++        // where it is.
++        private const int ExifChunk = 65536;
++        private bool _padded;
++
++        private unsafe int ExifPadding(byte* buf, int bufsz)
++        {
++            _padded = true;
++            long length, position;
++            try
++            {
++                length = _stream.Length;
++                position = _stream.Position;
++                if (length >= ExifChunk || position != length || !StartsAsJpeg())
++                    return 0;
++            }
++            catch (NotSupportedException)
++            {
++                return 0;
++            }
++            int padding = (int)Math.Min(bufsz, ExifChunk - length);
++            new Span<byte>(buf, padding).Clear();
++            return padding;
++        }
++
++        private bool StartsAsJpeg()
++        {
++            long position = _stream.Position;
++            Span<byte> start = stackalloc byte[3];
++            _stream.Seek(0, SeekOrigin.Begin);
++            int read = _stream.Read(start);
++            _stream.Seek(position, SeekOrigin.Begin);
++            return read == 3 && start[0] == 0xFF && start[1] == 0xD8 && start[2] == 0xFF;
++        }
++#endif
++
+         public long StreamSeekImpl(int offset, int whence)
+         {
+             // Make sure we have a valid 'whence'.
+@@ -148,6 +194,11 @@ namespace System.Drawing
+             }
+         }
+ 
++#if WebFormsForCore
++        // The stream read (the application's, or its copy when that cannot seek).
++        internal Stream Stream => _stream;
++
++#endif
+         public StreamCloseDelegate CloseDelegate { get; }
+         public StreamGetBytesDelegate GetBytesDelegate { get; }
+         public StreamGetHeaderDelegate GetHeaderDelegate { get; }
+diff --git a/src/WebFormsForCore.Drawing.Common/System/Drawing/GdiplusNative.Unix.cs b/src/WebFormsForCore.Drawing.Common/System/Drawing/GdiplusNative.Unix.cs
+index f2f0594..d79028e 100644
+--- a/src/WebFormsForCore.Drawing.Common/System/Drawing/GdiplusNative.Unix.cs
++++ b/src/WebFormsForCore.Drawing.Common/System/Drawing/GdiplusNative.Unix.cs
+@@ -98,7 +98,11 @@ namespace System.Drawing
+             internal static extern int GdipFillPath(IntPtr graphics, IntPtr brush, IntPtr path);
+ 
+             [DllImport(LibraryName, ExactSpelling = true)]
++#if WebFormsForCore
++            internal static extern int GdipGetNearestColor(IntPtr graphics, ref int argb);   // WebFormsForCore: in and out (the color asked for, the nearest)
++#else
+             internal static extern int GdipGetNearestColor(IntPtr graphics, out int argb);
++#endif
+ 
+             [DllImport(LibraryName, ExactSpelling = true, CharSet = CharSet.Unicode)]
+             internal static extern int GdipAddPathString(IntPtr path, string s, int lenght, IntPtr family, int style, float emSize, ref RectangleF layoutRect, IntPtr format);
+@@ -319,11 +323,22 @@ namespace System.Drawing
+             [DllImport(LibraryName, ExactSpelling = true)]
+             internal static extern int GdipIsOutlineVisiblePathPointI(IntPtr path, int x, int y, IntPtr pen, IntPtr graphics, out bool result);
+ 
++#if WebFormsForCore
++            // libgdiplus names them as GDI+ does, with the character set: GdipCreateFontFromLogfontW (the port's LOGFONT
++            // is Unicode) and GdipCreateFontFromHfontA (the only one; FromHfont reads the numbers, laid out alike).
++            // Without the suffix they were not found (EntryPointNotFoundException).
++            [DllImport(LibraryName, ExactSpelling = true, EntryPoint = "GdipCreateFontFromLogfontW")]
++            internal static extern int GdipCreateFontFromLogfont(IntPtr hdc, ref Interop.User32.LOGFONT lf, out IntPtr ptr);
++
++            [DllImport(LibraryName, ExactSpelling = true, EntryPoint = "GdipCreateFontFromHfontA")]
++            internal static extern int GdipCreateFontFromHfont(IntPtr hdc, out IntPtr font, ref Interop.User32.LOGFONT lf);
++#else
+             [DllImport(LibraryName, ExactSpelling = true)]
+             internal static extern int GdipCreateFontFromLogfont(IntPtr hdc, ref Interop.User32.LOGFONT lf, out IntPtr ptr);
+ 
+             [DllImport(LibraryName, ExactSpelling = true)]
+             internal static extern int GdipCreateFontFromHfont(IntPtr hdc, out IntPtr font, ref Interop.User32.LOGFONT lf);
++#endif
+ 
+             [DllImport(LibraryName, ExactSpelling = true, CharSet = CharSet.Unicode)]
+             internal static extern int GdipGetMetafileHeaderFromFile(string filename, IntPtr header);
+diff --git a/src/WebFormsForCore.Drawing.Common/System/Drawing/Graphics.Unix.cs b/src/WebFormsForCore.Drawing.Common/System/Drawing/Graphics.Unix.cs
+index 4baa41d..d42cad2 100644
+--- a/src/WebFormsForCore.Drawing.Common/System/Drawing/Graphics.Unix.cs
++++ b/src/WebFormsForCore.Drawing.Common/System/Drawing/Graphics.Unix.cs
+@@ -108,6 +108,9 @@ namespace System.Drawing
+             int state;
+             int status = Gdip.GdipBeginContainer2(new HandleRef(this, NativeGraphics), out state);
+             Gdip.CheckStatus(status);
++#if WebFormsForCore
++            _savedStates.Add(state);
++#endif
+ 
+             return new GraphicsContainer(state);
+         }
+@@ -118,6 +121,9 @@ namespace System.Drawing
+ 
+             int status = Gdip.GdipBeginContainerI(new HandleRef(this, NativeGraphics), ref dstrect, ref srcrect, unit, out state);
+             Gdip.CheckStatus(status);
++#if WebFormsForCore
++            _savedStates.Add(state);
++#endif
+ 
+             return new GraphicsContainer(state);
+         }
+@@ -128,6 +134,9 @@ namespace System.Drawing
+ 
+             int status = Gdip.GdipBeginContainer(new HandleRef(this, NativeGraphics), ref dstrect, ref srcrect, unit, out state);
+             Gdip.CheckStatus(status);
++#if WebFormsForCore
++            _savedStates.Add(state);
++#endif
+ 
+             return new GraphicsContainer(state);
+         }
+@@ -346,6 +355,10 @@ namespace System.Drawing
+         {
+             if (container == null)
+                 throw new ArgumentNullException(nameof(container));
++#if WebFormsForCore
++            if (!Restoring(container.nativeGraphicsContainer))
++                return;
++#endif
+             int status = Gdip.GdipEndContainer(new HandleRef(this, NativeGraphics), container.nativeGraphicsContainer);
+             Gdip.CheckStatus(status);
+         }
+@@ -530,9 +543,16 @@ namespace System.Drawing
+ 
+         public Color GetNearestColor(Color color)
+         {
++#if WebFormsForCore
++            // The color asked for goes in (as on Windows): it passed none, and got black (0) back.
++            int argb = color.ToArgb();
++
++            int status = Gdip.GdipGetNearestColor(NativeGraphics, ref argb);
++#else
+             int argb;
+ 
+             int status = Gdip.GdipGetNearestColor(NativeGraphics, out argb);
++#endif
+             Gdip.CheckStatus(status);
+ 
+             return Color.FromArgb(argb);
+@@ -553,6 +573,10 @@ namespace System.Drawing
+         public void Restore(GraphicsState gstate)
+         {
+             // the possible NRE thrown by gstate.nativeState match MS behaviour
++#if WebFormsForCore
++            if (!Restoring(gstate.nativeState))
++                return;
++#endif
+             int status = Gdip.GdipRestoreGraphics(NativeGraphics, (uint)gstate.nativeState);
+             Gdip.CheckStatus(status);
+         }
+@@ -561,10 +585,31 @@ namespace System.Drawing
+         {
+             int status = Gdip.GdipSaveGraphics(new HandleRef(this, NativeGraphics), out int state);
+             Gdip.CheckStatus(status);
++#if WebFormsForCore
++            _savedStates.Add(state);
++#endif
+ 
+             return new GraphicsState((int)state);
+         }
+ 
++#if WebFormsForCore
++        // The states this Graphics saved (Save, BeginContainer), in order. libgdiplus restores whatever number it is
++        // given, and faults (SIGSEGV) on one it did not save: a state or container of another Graphics. GDI+ (Windows,
++        // .NET Framework) ignores those: so does the port.
++        private readonly System.Collections.Generic.List<int> _savedStates = new System.Collections.Generic.List<int>();
++
++        // Whether this Graphics saved the state and has not restored it yet; forgets it and the states saved after it
++        // (restoring one ends those, as in GDI+).
++        private bool Restoring(int state)
++        {
++            int index = _savedStates.LastIndexOf(state);
++            if (index < 0)
++                return false;
++            _savedStates.RemoveRange(index, _savedStates.Count - index);
++            return true;
++        }
++#endif
++
+         public RectangleF VisibleClipBounds
+         {
+             get
+diff --git a/src/WebFormsForCore.Drawing.Common/System/Drawing/Icon.Unix.cs b/src/WebFormsForCore.Drawing.Common/System/Drawing/Icon.Unix.cs
+index bd14e2d..7bfbe08 100644
+--- a/src/WebFormsForCore.Drawing.Common/System/Drawing/Icon.Unix.cs
++++ b/src/WebFormsForCore.Drawing.Common/System/Drawing/Icon.Unix.cs
+@@ -158,6 +158,11 @@ namespace System.Drawing
+                 imageData = original.imageData;
+                 id = ushort.MaxValue;
+ 
++#if WebFormsForCore
++                int best = BestEntry(iconDir.idEntries, count, size.Width, size.Height);
++                if (best >= 0)
++                    id = (ushort)best;
++#else
+                 for (ushort i = 0; i < count; i++)
+                 {
+                     IconDirEntry ide = iconDir.idEntries[i];
+@@ -192,6 +197,7 @@ namespace System.Drawing
+                         }
+                     }
+                 }
++#endif
+ 
+                 // last one, if nothing better can be found
+                 if (id == ushort.MaxValue)
+@@ -251,7 +257,11 @@ namespace System.Drawing
+             {
+                 if (s == null)
+                 {
++#if WebFormsForCore
++                    throw new ArgumentException(SR.Format(SR.ResourceNotFound, type, resource));   // as on Windows
++#else
+                     throw new ArgumentException(null);
++#endif
+                 }
+                 InitFromStreamWithSize(s, 32, 32);      // 32x32 is default
+             }
+@@ -648,7 +658,11 @@ namespace System.Drawing
+         public override string ToString()
+         {
+             //is this correct, this is what returned by .Net
++#if WebFormsForCore
++            return SR.toStringIcon;   // as on Windows: "(Icon)"
++#else
+             return "<Icon>";
++#endif
+         }
+ 
+         [Browsable(false)]
+@@ -716,6 +730,39 @@ namespace System.Drawing
+             Dispose();
+         }
+ 
++#if WebFormsForCore
++        // The entry Windows takes for a size (Icon.Windows.cs, Initialize): the closest size (the width's and the height's
++        // differences), then the closest bit depth not over the display's (32 bits); -1 for none. The PNG entries
++        // (256x256) are left out: this implementation draws the bitmap ones. It took an entry of the same width or
++        // height, else the largest under the smaller of both, else the last: a 16x16 and 32x32 icon asked for at 20x12
++        // gave 32x32 where Windows gives 16x16.
++        private static int BestEntry(IconDirEntry[] entries, int count, int width, int height)
++        {
++            const uint DisplayBitDepth = 32;
++            int best = -1;
++            int bestDelta = 0;
++            uint bestBitDepth = 0;
++            for (int i = 0; i < count; i++)
++            {
++                IconDirEntry entry = entries[i];
++                if (entry.png)
++                    continue;
++                uint bitDepth = entry.colorCount != 0 ? (entry.colorCount < 0x10 ? 1u : 4u) : entry.bitCount;
++                if (bitDepth == 0)
++                    bitDepth = 8;
++                int delta = Math.Abs(entry.width - width) + Math.Abs(entry.height - height);
++                if (best < 0 || delta < bestDelta
++                    || (delta == bestDelta && ((bitDepth <= DisplayBitDepth && bitDepth > bestBitDepth) || (bestBitDepth > DisplayBitDepth && bitDepth < bestBitDepth))))
++                {
++                    best = i;
++                    bestDelta = delta;
++                    bestBitDepth = bitDepth;
++                }
++            }
++            return best;
++        }
++
++#endif
+         private void InitFromStreamWithSize(Stream stream, int width, int height)
+         {
+             if (stream == null)
+@@ -727,7 +774,12 @@ namespace System.Drawing
+             bool sizeObtained = false;
+             ushort dirEntryCount;
+             // Read the icon header
++#if WebFormsForCore
++            // The application's stream stays open (as on Windows, and with the other pictures): it owns it.
++            using (var reader = new BinaryReader(stream, System.Text.Encoding.UTF8, leaveOpen: true))
++#else
+             using (var reader = new BinaryReader(stream))
++#endif
+             {
+                 iconDir.idReserved = reader.ReadUInt16();
+                 if (iconDir.idReserved != 0) //must be 0
+@@ -762,6 +814,7 @@ namespace System.Drawing
+                     ide.png = (ide.width == 0) && (ide.height == 0);
+ 
+                     iconDir.idEntries[i] = ide;
++#if !WebFormsForCore
+ 
+                     if (!sizeObtained)
+                     {
+@@ -773,7 +826,19 @@ namespace System.Drawing
+                             this.iconSize.Width = ide.width;
+                         }
+                     }
++#endif
++                }
++#if WebFormsForCore
++
++                int best = BestEntry(iconDir.idEntries, dirEntryCount, width, height);
++                if (best >= 0)
++                {
++                    this.id = (ushort)best;
++                    sizeObtained = true;
++                    this.iconSize.Height = iconDir.idEntries[best].height;
++                    this.iconSize.Width = iconDir.idEntries[best].width;
+                 }
++#endif
+ 
+                 // If we havent found the best match, return the one with the largest size.
+                 if (!sizeObtained)
+@@ -797,7 +862,12 @@ namespace System.Drawing
+                 {
+                     stream.Seek(iconDir.idEntries[j].imageOffset, SeekOrigin.Begin);
+                     byte[] buffer = new byte[iconDir.idEntries[j].bytesInRes];
++#if WebFormsForCore
++                    // WebFormsForCore: every byte, however the stream hands them (Read may return fewer); as many as there are.
++                    stream.ReadAtLeast(buffer, buffer.Length, throwOnEndOfStream: false);
++#else
+                     stream.Read(buffer, 0, buffer.Length);
++#endif
+                     using (var bihReader = new BinaryReader(new MemoryStream(buffer)))
+                     {
+                         uint headerSize = bihReader.ReadUInt32();
+diff --git a/src/WebFormsForCore.Drawing.Common/System/Drawing/Icon.Windows.cs b/src/WebFormsForCore.Drawing.Common/System/Drawing/Icon.Windows.cs
+index 73e65b3..cffa141 100644
+--- a/src/WebFormsForCore.Drawing.Common/System/Drawing/Icon.Windows.cs
++++ b/src/WebFormsForCore.Drawing.Common/System/Drawing/Icon.Windows.cs
+@@ -72,7 +72,12 @@ namespace System.Drawing
+             {
+                 Debug.Assert(f != null, "File.OpenRead returned null instead of throwing an exception");
+                 _iconData = new byte[(int)f.Length];
++#if WebFormsForCore
++                // WebFormsForCore: every byte, however the stream hands them (Read may return fewer); as many as there are.
++                f.ReadAtLeast(_iconData, _iconData.Length, throwOnEndOfStream: false);
++#else
+                 f.Read(_iconData, 0, _iconData.Length);
++#endif
+             }
+ 
+             Initialize(width, height);
+@@ -114,7 +119,12 @@ namespace System.Drawing
+             }
+ 
+             _iconData = new byte[(int)stream.Length];
++#if WebFormsForCore
++            // WebFormsForCore: every byte, however the stream hands them (Read may return fewer); as many as there are.
++            stream.ReadAtLeast(_iconData, _iconData.Length, throwOnEndOfStream: false);
++#else
+             stream.Read(_iconData, 0, _iconData.Length);
++#endif
+             Initialize(0, 0);
+         }
+ 
+@@ -134,7 +144,12 @@ namespace System.Drawing
+             }
+ 
+             _iconData = new byte[(int)stream.Length];
++#if WebFormsForCore
++            // WebFormsForCore: every byte, however the stream hands them (Read may return fewer); as many as there are.
++            stream.ReadAtLeast(_iconData, _iconData.Length, throwOnEndOfStream: false);
++#else
+             stream.Read(_iconData, 0, _iconData.Length);
++#endif
+             Initialize(width, height);
+         }
+ 
+diff --git a/src/WebFormsForCore.Drawing.Common/System/Drawing/Image.Unix.cs b/src/WebFormsForCore.Drawing.Common/System/Drawing/Image.Unix.cs
+index 45504c0..2b9b4a6 100644
+--- a/src/WebFormsForCore.Drawing.Common/System/Drawing/Image.Unix.cs
++++ b/src/WebFormsForCore.Drawing.Common/System/Drawing/Image.Unix.cs
+@@ -62,11 +62,24 @@ namespace System.Drawing
+             if (stream == null)
+                 throw new ArgumentNullException(nameof(stream));
+ 
++#if WebFormsForCore
++            Image img = CreateImageObject(InitializeFromStream(stream, out bool exifSwapped));
++            img.SetExifSwapped(exifSwapped);
++#else
+             Image img = CreateImageObject(InitializeFromStream(stream));
++#endif
+             return img;
+         }
+ 
++#if WebFormsForCore
++        private protected static IntPtr InitializeFromStream(Stream stream) => InitializeFromStream(stream, out _);
++
++        // And whether the JPEG's EXIF values are in the other byte order than the machine's (Image.ExifByteOrder.cs),
++        // found in the stream as read (a copy, when the application's cannot seek).
++        private protected static IntPtr InitializeFromStream(Stream stream, out bool exifSwapped)
++#else
+         private protected static IntPtr InitializeFromStream(Stream stream)
++#endif
+         {
+             if (stream == null)
+                 throw new ArgumentNullException(nameof(stream));
+@@ -84,6 +97,9 @@ namespace System.Drawing
+             // to avoid the object being collected and therefore the delegates would be collected as well.
+             GC.KeepAlive(sh);
+             Gdip.CheckStatus(st);
++#if WebFormsForCore
++            exifSwapped = ExifSwapped(sh.Stream);
++#endif
+             return imagePtr;
+         }
+ 
+@@ -166,6 +182,14 @@ namespace System.Drawing
+ 
+             ThrowIfDirectoryDoesntExist(filename);
+ 
++#if WebFormsForCore
++            if (this is Metafile)
++            {
++                using (Bitmap drawn = DrawnMetafile())
++                    drawn.Save(filename, encoder, encoderParams);
++                return;
++            }
++#endif
+             int st;
+             Guid guid = encoder.Clsid;
+ 
+@@ -208,6 +232,14 @@ namespace System.Drawing
+ 
+         public void Save(Stream stream, ImageCodecInfo encoder, EncoderParameters? encoderParams)
+         {
++#if WebFormsForCore
++            if (this is Metafile)
++            {
++                using (Bitmap drawn = DrawnMetafile())
++                    drawn.Save(stream, encoder, encoderParams);
++                return;
++            }
++#endif
+             int st;
+             IntPtr nativeEncoderParams;
+             Guid guid = encoder.Clsid;
+@@ -236,6 +268,19 @@ namespace System.Drawing
+             Gdip.CheckStatus(st);
+         }
+ 
++#if WebFormsForCore
++        // A metafile saved: GDI+ has no encoder for its records (only for pictures: BMP, JPEG, GIF, TIFF, PNG) and saves
++        // it drawn, at its size, with the encoder asked for (an EMF saved as PNG: its picture). libgdiplus refuses
++        // (InvalidParameter): the port draws it.
++        private Bitmap DrawnMetafile()
++        {
++            var drawn = new Bitmap(Math.Max(1, Width), Math.Max(1, Height));
++            using (Graphics graphics = Graphics.FromImage(drawn))
++                graphics.DrawImage(this, 0, 0, drawn.Width, drawn.Height);
++            return drawn;
++        }
++
++#endif
+         public void SaveAdd(EncoderParameters encoderParams)
+         {
+             int st;
+@@ -332,10 +377,16 @@ namespace System.Drawing
+             int status = Gdip.GdipCloneImage(nativeImage, out newimage);
+             Gdip.CheckStatus(status);
+ 
++#if WebFormsForCore
++            Image clone = this is Bitmap ? new Bitmap(newimage) : new Metafile(newimage);
++            clone.CopyExifOrder(this);
++            return clone;
++#else
+             if (this is Bitmap)
+                 return new Bitmap(newimage);
+             else
+                 return new Metafile(newimage);
++#endif
+         }
+ 
+         internal static void ValidateImage(IntPtr bitmap)
+diff --git a/src/WebFormsForCore.Drawing.Common/System/Drawing/Image.cs b/src/WebFormsForCore.Drawing.Common/System/Drawing/Image.cs
+index 24977ec..b2a9c2b 100644
+--- a/src/WebFormsForCore.Drawing.Common/System/Drawing/Image.cs
++++ b/src/WebFormsForCore.Drawing.Common/System/Drawing/Image.cs
+@@ -123,6 +123,9 @@ namespace System.Drawing
+             ValidateImage(image);
+ 
+             Image img = CreateImageObject(image);
++#if WebFormsForCore && TARGET_UNIX
++            img.SetExifSwapped(ExifSwapped(filename));
++#endif
+             EnsureSave(img, filename, null);
+             return img;
+         }
+@@ -233,6 +236,9 @@ namespace System.Drawing
+ 
+                 int status = Gdip.GdipGetImageHorizontalResolution(new HandleRef(this, nativeImage), out horzRes);
+                 Gdip.CheckStatus(status);
++#if WebFormsForCore && TARGET_UNIX
++                horzRes = WithScreenResolution(horzRes);
++#endif
+ 
+                 return horzRes;
+             }
+@@ -249,11 +255,20 @@ namespace System.Drawing
+ 
+                 int status = Gdip.GdipGetImageVerticalResolution(new HandleRef(this, nativeImage), out vertRes);
+                 Gdip.CheckStatus(status);
++#if WebFormsForCore && TARGET_UNIX
++                vertRes = WithScreenResolution(vertRes);
++#endif
+ 
+                 return vertRes;
+             }
+         }
+ 
++#if WebFormsForCore && TARGET_UNIX
++        // libgdiplus leaves the resolution of a bitmap made in memory (new Bitmap(width, height)), and of a file that
++        // has none, at 0; GDI+ gives those the screen's, 96 dpi (what code dividing by the resolution counts on). A
++        // resolution set is never 0 (SetResolution refuses it).
++        private static float WithScreenResolution(float resolution) => resolution == 0 ? 96f : resolution;
++#endif
+         /// <summary>
+         /// Gets attribute flags for this <see cref='Image'/>.
+         /// </summary>
+@@ -350,6 +365,9 @@ namespace System.Drawing
+                             Type = pPropData[i].type,
+                             Value = pPropData[i].Value.ToArray()
+                         };
++#if WebFormsForCore && TARGET_UNIX
++                        result[i] = InMachineOrder(result[i]);
++#endif
+                     }
+                 }
+ 
+@@ -395,6 +413,9 @@ namespace System.Drawing
+             }
+ 
+             ArrayPool<byte>.Shared.Return(buffer);
++#if WebFormsForCore && TARGET_UNIX
++            result = InMachineOrder(result);
++#endif
+             return result;
+         }
+ 
+@@ -424,6 +445,9 @@ namespace System.Drawing
+                 };
+                 Gdip.CheckStatus(Gdip.GdipSetPropertyItem(new HandleRef(this, nativeImage), &propItemInternal));
+             }
++#if WebFormsForCore && TARGET_UNIX
++            PropertySetHere(propitem.Id);
++#endif
+         }
+ 
+         public void RotateFlip(RotateFlipType rotateFlipType)
+@@ -627,7 +651,12 @@ namespace System.Drawing
+                             }
+ 
+                             image._rawData = new byte[(int)dataStream.Length];
++#if WebFormsForCore
++                            // WebFormsForCore: every byte, however the stream hands them (Read may return fewer); as many as there are.
++                            dataStream.ReadAtLeast(image._rawData, image._rawData.Length, throwOnEndOfStream: false);
++#else
+                             dataStream.Read(image._rawData, 0, (int)dataStream.Length);
++#endif
+                         }
+                         finally
+                         {
+diff --git a/src/WebFormsForCore.Drawing.Common/System/Drawing/Imaging/Metafile.Windows.cs b/src/WebFormsForCore.Drawing.Common/System/Drawing/Imaging/Metafile.Windows.cs
+index 4d8dccb..b2dd4fd 100644
+--- a/src/WebFormsForCore.Drawing.Common/System/Drawing/Imaging/Metafile.Windows.cs
++++ b/src/WebFormsForCore.Drawing.Common/System/Drawing/Imaging/Metafile.Windows.cs
+@@ -258,6 +258,9 @@ namespace System.Drawing.Imaging
+             MetafileHeader header = new MetafileHeader();
+ 
+             IntPtr memory = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(MetafileHeaderEmf)));
++#if WebFormsForCore // WebFormsForCore: the managed ENHMETAHEADER (100 bytes) is longer than GDI+'s (88): EmfPlusHeaderSize and LogicalDpiX/Y are read past what GDI+ writes, as on .NET Framework, where they were 0; zeroed, they are 0 here too, not what the memory held.
++            ZeroHeader(memory);
++#endif
+ 
+             try
+             {
+@@ -299,6 +302,9 @@ namespace System.Drawing.Imaging
+             MetafileHeader header;
+ 
+             IntPtr memory = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(MetafileHeaderEmf)));
++#if WebFormsForCore // WebFormsForCore: the managed ENHMETAHEADER (100 bytes) is longer than GDI+'s (88): EmfPlusHeaderSize and LogicalDpiX/Y are read past what GDI+ writes, as on .NET Framework, where they were 0; zeroed, they are 0 here too, not what the memory held.
++            ZeroHeader(memory);
++#endif
+ 
+             try
+             {
+@@ -338,11 +344,22 @@ namespace System.Drawing.Imaging
+         /// <summary>
+         /// Returns the <see cref='MetafileHeader'/> associated with this <see cref='Metafile'/>.
+         /// </summary>
++#if WebFormsForCore
++        private static void ZeroHeader(IntPtr memory)
++        {
++            int size = Marshal.SizeOf(typeof(MetafileHeaderEmf));
++            for (int i = 0; i < size; i++) Marshal.WriteByte(memory, i, 0);
++        }
++#endif
++
+         public MetafileHeader GetMetafileHeader()
+         {
+             MetafileHeader header;
+ 
+             IntPtr memory = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(MetafileHeaderEmf)));
++#if WebFormsForCore // WebFormsForCore: the managed ENHMETAHEADER (100 bytes) is longer than GDI+'s (88): EmfPlusHeaderSize and LogicalDpiX/Y are read past what GDI+ writes, as on .NET Framework, where they were 0; zeroed, they are 0 here too, not what the memory held.
++            ZeroHeader(memory);
++#endif
+ 
+             try
+             {
+diff --git a/src/WebFormsForCore.Drawing.Common/System/Drawing/SystemFonts.Windows.cs b/src/WebFormsForCore.Drawing.Common/System/Drawing/SystemFonts.Windows.cs
+index 67ec943..93a820b 100644
+--- a/src/WebFormsForCore.Drawing.Common/System/Drawing/SystemFonts.Windows.cs
++++ b/src/WebFormsForCore.Drawing.Common/System/Drawing/SystemFonts.Windows.cs
+@@ -196,7 +196,13 @@ namespace System.Drawing
+             {
+                 Font? dialogFont = null;
+ 
++#if WebFormsForCore
++                // The LCID's primary language (ja-JP is 0x0411), as .NET Framework: (ushort) keeps the sublanguage, so
++                // Japanese Windows never matched and got Tahoma ("MS Shell Dlg 2") instead of its UI font.
++                if ((Interop.Kernel32.GetSystemDefaultLCID() & 0x3ff) == 0x0011)
++#else
+                 if ((ushort)Interop.Kernel32.GetSystemDefaultLCID() == 0x0011)
++#endif
+                 {
+                     // Always return DefaultFont for Japanese cultures.
+                     dialogFont = DefaultFont;
+diff --git a/src/WebFormsForCore.Drawing.Common/System/Drawing/ToolboxBitmapAttribute.Unix.cs b/src/WebFormsForCore.Drawing.Common/System/Drawing/ToolboxBitmapAttribute.Unix.cs
+index 5bb7a2f..665223c 100644
+--- a/src/WebFormsForCore.Drawing.Common/System/Drawing/ToolboxBitmapAttribute.Unix.cs
++++ b/src/WebFormsForCore.Drawing.Common/System/Drawing/ToolboxBitmapAttribute.Unix.cs
+@@ -77,7 +77,12 @@ namespace System.Drawing
+ 
+         public override int GetHashCode()
+         {
++#if WebFormsForCore
++            // As on Windows (ToolboxBitmapAttribute.cs): an attribute without images (none found) has a hash too.
++            return base.GetHashCode();
++#else
+             return (smallImage!.GetHashCode() ^ bigImage!.GetHashCode());
++#endif
+         }
+ 
+         public Image? GetImage(object component)
+-- 
+2.55.0.windows.3
+

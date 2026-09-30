@@ -34,6 +34,8 @@ $replacedPackages = @{
     'WebGrease'                                  = @('WebFormsForCore.WebGrease', $ForkVersion)
     'Microsoft.Web.Infrastructure'               = @('WebFormsForCore.Web.Infrastructure', $ForkVersion)
     'AjaxControlToolkit'                         = @('WebFormsForCore.AjaxControlToolkit', $ForkVersion)
+    # System.Drawing.Common from NuGet is Windows only since .NET 7: the fork's has the Linux implementation.
+    'System.Drawing.Common'                      = @('WebFormsForCore.Drawing.Common', $ForkVersion)
     # First version that runs on .NET (Core).
     'EntityFramework'                            = @('EntityFramework', '6.5.1')
     # Raised to what WebFormsForCore depends on (a downgrade is NU1605); backward compatible.
@@ -54,7 +56,8 @@ $frameworkReferences = @{
     'System.Web.Abstractions'        = @('WebFormsForCore.Web', $ForkVersion)
     'System.Web.Routing'             = @('WebFormsForCore.Web', $ForkVersion)
     'System.Configuration'           = @('WebFormsForCore.Configuration', $ForkVersion)
-    'System.Drawing'                 = @('System.Drawing.Common', '10.0.0')
+    'System.Drawing'                 = @('WebFormsForCore.Drawing.Common', $ForkVersion)
+    'System.Data.Linq'               = @('WebFormsForCore.Data.Linq', $ForkVersion)
     'System.Runtime.Caching'         = @('System.Runtime.Caching', '10.0.0')
     'System.DirectoryServices'       = @('System.DirectoryServices', '10.0.0')
     'System.DirectoryServices.AccountManagement' = @('System.DirectoryServices.AccountManagement', '10.0.0')
@@ -62,7 +65,7 @@ $frameworkReferences = @{
     'System.ServiceModel'            = @('System.ServiceModel.Http', '10.0.652802')
     'System.ServiceModel.Web'        = @('System.ServiceModel.Http', '10.0.652802')
 }
-$noAnswer = @('System.Data.Linq', 'System.Data.Services.Client', 'System.Design', 'System.Web.Mobile')
+$noAnswer = @('System.Data.Services.Client', 'System.Design', 'System.Web.Mobile')
 
 # What .NET Framework had in its own assemblies (System.Data, System, System.Security, ...) and .NET
 # ships as packages: added when the project's sources use it (a namespace or a type name).
@@ -81,7 +84,7 @@ $sourcePackages = @(
     @{ Pattern = '\bSystem\.Runtime\.Caching\b'; Id = 'System.Runtime.Caching'; Version = '10.0.0' }
     @{ Pattern = '\bSystem\.DirectoryServices\b'; Id = 'System.DirectoryServices'; Version = '10.0.0'; Note = 'Active Directory (Windows; LDAP via System.DirectoryServices.Protocols)' }
     @{ Pattern = '\bSystem\.Management\b'; Id = 'System.Management'; Version = '10.0.0'; Note = 'WMI is Windows only' }
-    @{ Pattern = '\bSystem\.Drawing\b'; Id = 'System.Drawing.Common'; Version = '10.0.0'; Note = 'System.Drawing is Windows only' }
+    @{ Pattern = '\bSystem\.Drawing\b'; Id = 'WebFormsForCore.Drawing.Common'; Version = $ForkVersion; Note = 'System.Drawing: the fork''s System.Drawing.Common (with its Linux implementation over libgdiplus)' }
     @{ Pattern = '\bSystem\.ServiceModel\.Syndication\b'; Id = 'System.ServiceModel.Syndication'; Version = '10.0.0' }
     @{ Pattern = '\bSystem\.Configuration\.ConfigurationManager\b|\bConfigurationManager\b'; Id = 'WebFormsForCore.Configuration'; Version = $ForkVersion }
 )

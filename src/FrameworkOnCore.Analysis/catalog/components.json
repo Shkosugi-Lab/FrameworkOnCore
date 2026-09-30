@@ -49,8 +49,7 @@
       { "id": "none", "title": "対応しない", "description": "スタブ" }
     ],
     "system-drawing": [
-      { "id": "windows-only", "title": "Windows のみ", "description": "System.Drawing.Common 10。Linux では例外", "default": true },
-      { "id": "libgdiplus", "title": "Linux でも動かす(libgdiplus)", "description": "Linux では System.Drawing.Common 6.0 と libgdiplus(サポート切れ)", "planned": true }
+      { "id": "port", "title": "移植版(Windows と Linux)", "description": "フォークの System.Drawing.Common(dotnet/runtime 6.0 のソース。Windows は GDI+、Linux は libgdiplus。配置で libgdiplus とフォントを入れる)。フォークの System.Web が依存するので、どのアプリもこれになる", "default": true }
     ],
     "linq-to-sql": [
       { "id": "port", "title": "移植版を使う", "description": "referencesource(MIT)から移植した System.Data.Linq(フォークの WebFormsForCore.Data.Linq)", "default": true },
@@ -104,7 +103,7 @@
     {
       "id": "system-drawing", "title": "System.Drawing(画像・フォント、GDI+)",
       "match": { "namespaces": [ "System.Drawing" ] },
-      "note": ".NET の System.Drawing.Common は Windows のみ。Linux は System.Drawing.Common 6.0 + libgdiplus で動く(サポート切れ。api-probe/drawing)"
+      "note": ".NET の System.Drawing.Common は .NET 7 から Windows のみ。変換器: フォークの System.Drawing.Common(dotnet/runtime 6.0 の Linux 実装を持つ移植版、libgdiplus)。描画の結果(アンチエイリアス、文字)は Windows と Linux で少し違う。Windows のフォントは Linux に無い(Arial などは互換のフォントに置き換わる)"
     },
     {
       "id": "charts", "title": "グラフ(Chart コントロール)",

@@ -1,0 +1,39 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- The unit cases of every System.Drawing API, compiled twice: net48 against .NET Framework's System.Drawing (the old:
+       record.ps1 writes the goldens from it) and net10.0 against the port, the fork's System.Drawing.Common (the new:
+       FrameworkOnCore.Tests runs the cases in process and compares them with the goldens, DrawingParityTests). On Linux
+       the port's Unix build (libgdiplus). -->
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFrameworks>net48;net10.0</TargetFrameworks>
+    <LangVersion>9</LangVersion>
+    <!-- 64-bit on .NET Framework too (an AnyCPU exe prefers 32-bit there): as .NET runs the port, as IIS runs sites. -->
+    <Prefer32Bit>false</Prefer32Bit>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <RootNamespace>FrameworkOnCore.DrawingParity</RootNamespace>
+    <IsPackable>false</IsPackable>
+    <!-- CA1416: the port is the point of running these on Linux. SYSLIB0014: WebClient-free. -->
+    <NoWarn>$(NoWarn);CA1416;CS0618;SYSLIB0011;SYSLIB0051</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Parity.Core\Parity.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net48'">
+    <Reference Include="System.Drawing" />
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="all" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net10.0'">
+    <ProjectReference Include="..\..\experiments\wf4c\_upstream\src\WebFormsForCore.Drawing.Common\WebFormsForCore.Drawing.Common.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Sample files the cases read (an icon, a metafile, pictures with EXIF data): made once on Windows, committed. -->
+    <EmbeddedResource Include="Samples\*" LogicalName="%(Filename)%(Extension)" />
+    <None Remove="golden\**" />
+    <None Include="golden\api.golden.txt" CopyToOutputDirectory="PreserveNewest" Link="golden\api.golden.txt" Condition="Exists('golden\api.golden.txt')" />
+  </ItemGroup>
+</Project>

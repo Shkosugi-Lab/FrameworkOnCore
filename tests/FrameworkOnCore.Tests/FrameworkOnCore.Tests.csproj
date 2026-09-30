@@ -41,6 +41,13 @@
          port), their goldens from .NET Framework, and their sources (which APIs they use: Every_API_has_a_case). -->
     <ProjectReference Include="..\DataLinqParity\DataLinqParity.csproj" />
     <None Include="../DataLinqParity/golden/*" LinkBase="DataLinqParityData" CopyToOutputDirectory="PreserveNewest" />
-    <None Include="../DataLinqParity/**/*.cs" Exclude="../DataLinqParity/bin/**;../DataLinqParity/obj/**" LinkBase="DataLinqParityData/sources" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="../DataLinqParity/**/*.cs;../Parity.Core/*.cs" Exclude="../DataLinqParity/bin/**;../DataLinqParity/obj/**" LinkBase="DataLinqParityData/sources" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- Every System.Drawing API against .NET Framework (Drawing\DrawingParityTests.cs): the cases (run here on the port,
+         the fork's System.Drawing.Common: its Windows build on Windows, its libgdiplus one on Linux), their goldens, the
+         differences known with their reasons, what .NET added to the API. -->
+    <ProjectReference Include="..\DrawingParity\DrawingParity.csproj" />
+    <None Include="../DrawingParity/golden/*;../DrawingParity/known-differences.json;../DrawingParity/api-additions.txt" LinkBase="DrawingParityData" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 </Project>

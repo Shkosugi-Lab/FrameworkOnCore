@@ -8,6 +8,8 @@
     <TargetFrameworks>net48;net10.0</TargetFrameworks>
     <!-- 9: what both targets compile the one source with (net48's default is 7.3). -->
     <LangVersion>9</LangVersion>
+    <!-- 64-bit on .NET Framework too (an AnyCPU exe prefers 32-bit there): as .NET runs the port, as IIS runs sites. -->
+    <Prefer32Bit>false</Prefer32Bit>
     <Nullable>disable</Nullable>
     <ImplicitUsings>disable</ImplicitUsings>
     <RootNamespace>FrameworkOnCore.DataLinqParity</RootNamespace>
@@ -27,6 +29,10 @@
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net10.0'">
     <ProjectReference Include="..\..\experiments\wf4c\_upstream\src\WebFormsForCore.Data.Linq\WebFormsForCore.Data.Linq.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Parity.Core\Parity.Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>

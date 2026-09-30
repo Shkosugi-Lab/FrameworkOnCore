@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- What every parity suite (tests/DataLinqParity, tests/DrawingParity) shares: the probe that writes what a case
+       observes, the runner, the API as documentation ids. net48 and net10.0: each suite runs on .NET Framework (its
+       goldens) and on .NET (the port). -->
+  <PropertyGroup>
+    <TargetFrameworks>net48;net10.0</TargetFrameworks>
+    <LangVersion>9</LangVersion>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <RootNamespace>FrameworkOnCore.Parity</RootNamespace>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'net48'">
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="all" />
+    <Reference Include="System.Numerics" />
+  </ItemGroup>
+</Project>

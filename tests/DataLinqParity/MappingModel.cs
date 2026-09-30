@@ -3,6 +3,7 @@ using System.Data.Linq;
 using System.Data.Linq.Mapping;
 using System.Linq;
 using System.Reflection;
+using FrameworkOnCore.Parity;
 
 namespace FrameworkOnCore.DataLinqParity
 {

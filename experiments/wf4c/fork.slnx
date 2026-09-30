@@ -5,6 +5,7 @@
        collides with the MSBuild nodes that have it loaded. -->
   <Project Path="_upstream/src/WebFormsForCore.Compilers/WebFormsForCore.Compilers.csproj" />
   <Project Path="_upstream/src/WebFormsForCore.Configuration/WebFormsForCore.Configuration.csproj" />
+  <Project Path="_upstream/src/WebFormsForCore.Drawing.Common/WebFormsForCore.Drawing.Common.csproj" />
   <Project Path="_upstream/src/WebFormsForCore.Drawing/WebFormsForCore.Drawing.csproj" />
   <Project Path="_upstream/src/WebFormsForCore.Serialization.Formatters/WebFormsForCore.Serialization.Formatters.csproj" />
   <Project Path="_upstream/src/WebFormsForCore.Data.Linq/WebFormsForCore.Data.Linq.csproj" />

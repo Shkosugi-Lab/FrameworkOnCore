@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using FrameworkOnCore.Parity;
 
 namespace FrameworkOnCore.DataLinqParity
 {
@@ -33,47 +34,10 @@ namespace FrameworkOnCore.DataLinqParity
             File.WriteAllLines(Path.Combine(output, "api.txt"), DocId.Api(assembly), new UTF8Encoding(false));
 
             if (connection != null) Fixture.Create(connection);
-            var results = new List<KeyValuePair<string, IReadOnlyList<string>>>();
-            var skipped = 0;
-            foreach (var method in Runner.Cases())
-            {
-                if (Runner.NeedsDatabase(method) && connection == null) { skipped++; continue; }
-                var lines = Runner.Run(method);
-                results.Add(new KeyValuePair<string, IReadOnlyList<string>>(Runner.Name(method), lines));
-                Console.WriteLine($"{Runner.Name(method)}: {lines.Count} lines" + (lines.Any(l => l.StartsWith("!!", StringComparison.Ordinal)) ? " (escaped)" : ""));
-            }
-            File.WriteAllText(Path.Combine(output, "cases.json"), Json(results), new UTF8Encoding(false));
-            Console.WriteLine($"{results.Count} cases, {results.Sum(r => r.Value.Count)} lines -> {Path.GetFullPath(output)}" + (skipped > 0 ? $"; {skipped} database cases left out (no --connection)" : ""));
+            var results = Goldens.RunAll(DataLinqCases.Runner, connection != null, Console.Out);
+            Goldens.Write(Path.Combine(output, "cases.json"), results);
+            Console.WriteLine("-> " + Path.GetFullPath(output));
             return 0;
-        }
-
-        static string Json(List<KeyValuePair<string, IReadOnlyList<string>>> results)
-        {
-            var json = new StringBuilder("{\n");
-            for (var i = 0; i < results.Count; i++)
-            {
-                json.Append("  ").Append(Quote(results[i].Key)).Append(": [\n");
-                var lines = results[i].Value;
-                for (var j = 0; j < lines.Count; j++) json.Append("    ").Append(Quote(lines[j])).Append(j < lines.Count - 1 ? ",\n" : "\n");
-                json.Append("  ]").Append(i < results.Count - 1 ? ",\n" : "\n");
-            }
-            return json.Append("}\n").ToString();
-        }
-
-        static string Quote(string s)
-        {
-            var sb = new StringBuilder("\"");
-            foreach (var c in s)
-            {
-                if (c == '"') sb.Append("\\\"");
-                else if (c == '\\') sb.Append("\\\\");
-                else if (c == '\n') sb.Append("\\n");
-                else if (c == '\r') sb.Append("\\r");
-                else if (c == '\t') sb.Append("\\t");
-                else if (c < ' ' || c > '~') sb.Append("\\u").Append(((int)c).ToString("x4"));
-                else sb.Append(c);
-            }
-            return sb.Append('"').ToString();
         }
     }
 }

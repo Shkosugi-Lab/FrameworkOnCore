@@ -1,0 +1,32 @@
+From 4d6cb5399438a6acb141085d866097e1ad42c67e Mon Sep 17 00:00:00 2001
+From: shkosugi <sin.kosugi@gmail.com>
+Date: Wed, 30 Sep 2026 23:16:16 +0900
+Subject: [PATCH] System.Drawing.Common (net10.0): WebFormsForCore's, with its
+ Linux implementation
+
+Microsoft's package is Windows only since .NET 7: the fork's WebFormsForCore.Drawing.Common
+(dotnet/runtime 6.0's source, GDI+ on Windows, libgdiplus on Linux), by project reference, with
+the same alias.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+---
+ AjaxControlToolkit/AjaxControlToolkit.csproj | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/AjaxControlToolkit/AjaxControlToolkit.csproj b/AjaxControlToolkit/AjaxControlToolkit.csproj
+index 2e58fee6..1037a1de 100644
+--- a/AjaxControlToolkit/AjaxControlToolkit.csproj
++++ b/AjaxControlToolkit/AjaxControlToolkit.csproj
+@@ -79,7 +79,8 @@
+         <PackageReference Include="System.Drawing.Common" Version="8.0.20" Aliases="Legacy" />
+     </ItemGroup>
+     <ItemGroup Condition="$(TargetFramework) == 'net10.0'">
+-        <PackageReference Include="System.Drawing.Common" Version="10.0.0" Aliases="Legacy" />
++        <!-- WebFormsForCore: System.Drawing.Common with its Linux implementation (the port), not Microsoft's (Windows only since .NET 7). -->
++        <ProjectReference Include="..\..\WebFormsForCore.Drawing.Common\WebFormsForCore.Drawing.Common.csproj" Aliases="Legacy" />
+     </ItemGroup>
+     <PropertyGroup Condition="$(TargetFramework) != 'net48'">
+         <OutputPath>..\bin\$(Configuration)\$(TargetFramework)</OutputPath>
+-- 
+2.55.0.windows.3
+

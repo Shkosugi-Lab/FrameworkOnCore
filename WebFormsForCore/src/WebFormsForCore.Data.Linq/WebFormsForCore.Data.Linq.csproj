@@ -67,6 +67,16 @@
 
     <Import Project="..\..\lib\WebFormsForCore.Build\netstandard2.0\FakeStrongName.targets" />
 
+    <!-- Without DEBUG in every configuration, as .NET Framework's System.Data.Linq was built: the sources' 150
+         Debug.Assert (and #if DEBUG code) are checks of the original's development, some of them not true for what
+         the shipped assembly does (SingleResult asserts an execute result, which Translate(DbDataReader) does not
+         have), and on .NET a failed Debug.Assert ends the process. Found by the parity cases (tests/DataLinqParity). -->
+    <Target Name="FocWithoutDebugConstant" BeforeTargets="CoreCompile">
+        <PropertyGroup>
+            <DefineConstants>$([System.Text.RegularExpressions.Regex]::Replace(';$(DefineConstants);', ';DEBUG;', ';').Trim(';'))</DefineConstants>
+        </PropertyGroup>
+    </Target>
+
     <PropertyGroup>
         <!-- The ECMA key, System.Data.Linq's original identity (b77a5c561934e089). -->
         <StrongNamePublicKey>00000000000000000400000000000000</StrongNamePublicKey>

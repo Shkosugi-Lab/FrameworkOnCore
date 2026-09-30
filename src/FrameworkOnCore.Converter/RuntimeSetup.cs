@@ -127,6 +127,13 @@ public static class RuntimeSetup
         catch (System.ComponentModel.Win32Exception) { return null; } // no GitHub CLI
     }
 
+    /// <summary>
+    /// A shim only DLLs without source refer to (FrameworkOnCore.Compat.ForDlls): the sources must not see its types
+    /// (EF 1-4's System.Data.EntityState would be ambiguous with EF 6's), so the projects do not compile against it.
+    /// </summary>
+    public static bool ForDllsOnly(string shimProject) =>
+        Path.GetFileNameWithoutExtension(shimProject).EndsWith(".ForDlls", StringComparison.OrdinalIgnoreCase);
+
     /// <summary>The shim projects (&lt;runtime&gt;/shims/**/*.csproj, not their build output).</summary>
     public static List<string> ShimProjects(string runtimeDirectory)
     {

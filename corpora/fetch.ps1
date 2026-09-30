@@ -63,7 +63,19 @@ $corpora = @(
     # with an EDMX model: System.Data.Objects). Later versions are MVC (2.x-3.x) and ASP.NET Core (4.x).
     @{ Name = 'nop'; Title = 'nopCommerce 1.90 (Web Forms)'
        Url = 'https://github.com/nopSolutions/nopCommerce/archive/refs/tags/release-1.90.zip'
-       ExtractedAs = 'nopCommerce-release-1.90' }
+       ExtractedAs = 'nopCommerce-release-1.90' },
+
+    # ASP.NET MVC 5. MvcMovie: the official MVC 5 tutorial's application (EF6 Code First with migrations, ASP.NET
+    # Identity over OWIN, LocalDB), a folder of dotnet/AspNetDocs (a large repository: only that folder, at a commit).
+    @{ Name = 'mvcmovie'; Title = 'MvcMovie (ASP.NET MVC 5 tutorial, AspNetDocs)'
+       Git = 'https://github.com/dotnet/AspNetDocs.git'; Commit = '552c58dd8a809ef8cea02e66c9463ce9c7dcdfe5'
+       Path = 'aspnet/mvc/overview/getting-started/introduction/sample/MvcMovie'
+       ExtractedAs = 'MvcMovie' },
+
+    # nopCommerce 3.90 (2017), the last MVC 5 version (.NET Framework 4.5.1, Entity Framework 6, Autofac); 4.x is ASP.NET Core.
+    @{ Name = 'nop390'; Title = 'nopCommerce 3.90 (ASP.NET MVC 5)'
+       Url = 'https://github.com/nopSolutions/nopCommerce/archive/refs/tags/release-3.90.zip'
+       ExtractedAs = 'nopCommerce-release-3.90' }
 )
 
 # nopCommerce 1.90 について:
@@ -72,7 +84,7 @@ $corpora = @(
 if ($Only) {
     $corpora = $corpora | Where-Object { $Only -contains $_.Name }
     if (-not $corpora) {
-        Write-Error "-Only に一致するコーパスがありません。指定可能: be, mojo, yaf, dnn, n2, wt, imis, imisdb"
+        Write-Error "-Only に一致するコーパスがありません。指定可能: be, mojo, yaf, dnn, n2, wt, imis, imisdb, nop, mvcmovie, nop390"
     }
 }
 
@@ -97,6 +109,36 @@ foreach ($c in $corpora) {
     if ((Test-Path $target) -and $Force) {
         Write-Host "  既存を削除中..."
         Remove-Item $target -Recurse -Force
+    }
+
+    # A folder of a large repository: a partial clone (no file contents until checked out) with only that folder,
+    # at the commit given, moved to ExtractedAs.
+    if ($c.Git) {
+        $clone = Join-Path $Root ("{0}.git-tmp" -f $c.Name)
+        try {
+            if (Test-Path $clone) { Remove-Item $clone -Recurse -Force }
+            Write-Host "  取得中: $($c.Git) @ $($c.Commit.Substring(0, 8)) : $($c.Path)"
+            $previousEap = $ErrorActionPreference
+            $ErrorActionPreference = 'Continue'
+            try {
+                git clone --quiet --filter=blob:none --no-checkout --sparse $c.Git $clone 2>&1 | Out-Null
+                if ($LASTEXITCODE -ne 0) { throw "git clone が終了コード $LASTEXITCODE を返しました" }
+                git -C $clone sparse-checkout set $c.Path 2>&1 | Out-Null
+                git -C $clone checkout --quiet $c.Commit 2>&1 | Out-Null
+                if ($LASTEXITCODE -ne 0) { throw "git checkout が終了コード $LASTEXITCODE を返しました" }
+            }
+            finally { $ErrorActionPreference = $previousEap }
+            Move-Item (Join-Path $clone ($c.Path -replace '/', '\')) $target
+            Write-Host "  OK: $target"
+        }
+        catch {
+            Write-Warning "  失敗: $($c.Name) - $($_.Exception.Message)"
+            $failed += $c.Name
+        }
+        finally {
+            if (Test-Path $clone) { Remove-Item $clone -Recurse -Force }
+        }
+        continue
     }
 
     $zip = Join-Path $Root ("{0}.zip" -f $c.Name)

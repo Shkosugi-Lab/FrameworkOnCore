@@ -1,7 +1,7 @@
 ﻿# Analyzes the corpora (corpora\work) with the converter's analyze: the .NET Framework APIs each uses, their counts, what
 # .NET 10 has of them. Writes _analysis\<name>\api-analysis.json and API-ANALYSIS.md; prints each one's summary.
 #   .\experiments\wf4c\analyze-corpora.ps1 [-Only be,wt]
-param([string[]]$Only = @('be', 'wt', 'mojo', 'yaf', 'dnn', 'n2', 'imis', 'nop'))
+param([string[]]$Only = @('be', 'wt', 'mojo', 'yaf', 'dnn', 'n2', 'imis', 'nop', 'mvcmovie', 'nop390'))
 
 $repo = Resolve-Path (Join-Path $PSScriptRoot '..\..')
 Set-Location $repo
@@ -15,6 +15,8 @@ $corpora = [ordered]@{
     n2   = @('n2cms-master', 'src\WebForms\WebFormsTemplates\N2.Templates.csproj', 'Debug')
     imis = @('web_app_vb-main', 'IMIS\IMIS.vbproj', 'DemoRelease')
     nop  = @('nopCommerce-release-1.90', 'NopCommerceStore\NopCommerceStore.csproj', 'Debug')
+    mvcmovie = @('MvcMovie', 'MvcMovie\MvcMovie.csproj', 'Debug')
+    nop390 = @('nopCommerce-release-3.90', 'src\Presentation\Nop.Web\Nop.Web.csproj', 'Debug')
 }
 dotnet build src\FrameworkOnCore.Converter\FrameworkOnCore.Converter.csproj -v q -nologo | Out-Null
 if ($LASTEXITCODE -ne 0) { throw 'converter build failed' }

@@ -81,6 +81,14 @@ public sealed class ScenarioRunner(IPage page, string baseUrl, List<Regex> ignor
                     await WaitUntilSettledAsync(page);
                     break;
 
+                case "clicksubmit":
+                    // A form's button without an ID (MVC views: <input type="submit" value="Create" />) by its text.
+                    await page.Locator($"input[type=submit][value='{step.Value}'], button:text-is('{step.Value}')").First.ClickAsync();
+                    await page.WaitForLoadStateAsync(LoadState.NetworkIdle);
+                    await page.WaitForTimeoutAsync(1200);
+                    await WaitUntilSettledAsync(page);
+                    break;
+
                 case "select":
                     await (await ResolveAsync(step.Target!)).SelectOptionAsync(step.Value ?? "");
                     await page.WaitForLoadStateAsync(LoadState.NetworkIdle);

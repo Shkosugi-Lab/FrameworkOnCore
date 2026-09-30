@@ -37,6 +37,9 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
           </Target>
     """;
 
+    // A shim only DLLs refer to (FrameworkOnCore.Compat.ForDlls): not compiled against, its assembly copied to the output.
+    const string CopyOnly = " ReferenceOutputAssembly=\"false\" OutputItemType=\"Content\" CopyToOutputDirectory=\"PreserveNewest\"";
+
     /// <summary>The folder of the DLLs retargeted after the build (AssemblyRetargeter), under the output.</summary>
     public const string RetargetedFolder = "foc-retargeted";
 
@@ -191,7 +194,19 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
         // Resource1.designer.vb; the Visual Basic compiler would define its types twice).
         var visualBasic = IsVisualBasic(projectPath);
         var compile = old.Descendants(msbuild + "Compile").Where(e => ItemHolds(e, name)).Select(e => (string)e.Attribute("Include")!).Distinct(StringComparer.OrdinalIgnoreCase).ToList();
+        // A file the project lists that the repository does not have (the original does not build either: CS2001): left
+        // out and reported (MvcMovie of AspNetDocs has no Properties\AssemblyInfo.cs).
+        foreach (var missing in compile.Where(c => !c.Contains('*') && !c.Contains("$(") && !File.Exists(Path.Combine(source, c))).ToList())
+        {
+            compile.Remove(missing);
+            report.Add(Report.Kind.Project, name, $"{missing}: listed by the project, not in the repository (the original build fails on it: CS2001); left out");
+        }
         var embedded = old.Descendants(msbuild + "EmbeddedResource").Where(e => ItemHolds(e, name)).Select(e => (string)e.Attribute("Include")!).ToList();
+        foreach (var missing in embedded.Where(c => !c.Contains('*') && !c.Contains("$(") && !File.Exists(Path.Combine(source, c))).ToList())
+        {
+            embedded.Remove(missing);
+            report.Add(Report.Kind.Project, name, $"{missing}: an embedded resource the project lists, not in the repository (the original build fails on it); left out");
+        }
         var assemblyName = Property("AssemblyName") ?? name;
         // Visual Basic's puts every type in it: as written, empty too (DNN's DotNetNuke.WebUtility; the SDK would make it
         // the project's name).
@@ -421,7 +436,8 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
         // reference (System.Web.Abstractions: a library using WebFormsMvp needs it to compile), types and
         // members the sources use (FrameworkOnCore.Compat).
         text.Append("\n  <!-- Assemblies, types and members .NET Framework had and .NET does not (shims). -->\n  <ItemGroup>\n");
-        foreach (var shim in runtime.ShimProjects) text.Append($"    <ProjectReference Include=\"{SecurityElement.Escape(Paths.FromProject(target, shim))}\" />\n");
+        foreach (var shim in runtime.ShimProjects)
+            text.Append($"    <ProjectReference Include=\"{SecurityElement.Escape(Paths.FromProject(target, shim))}\"{(RuntimeSetup.ForDllsOnly(shim) ? CopyOnly : "")} />\n");
         text.Append("  </ItemGroup>\n");
         if (isWeb)
         {
@@ -545,7 +561,10 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
         var itemGroup = new XElement(N("ItemGroup"), added.Items.Select(PackageElement));
         if (itemGroup.HasElements) root.Add(itemGroup);
         // As the old-style projects: the shims (types and members .NET Framework had).
-        root.Add(new XElement(N("ItemGroup"), runtime.ShimProjects.Select(s => new XElement(N("ProjectReference"), new XAttribute("Include", Paths.FromProject(target, s))))));
+        root.Add(new XElement(N("ItemGroup"), runtime.ShimProjects.Select(s => new XElement(N("ProjectReference"), new XAttribute("Include", Paths.FromProject(target, s)),
+            RuntimeSetup.ForDllsOnly(s)
+                ? new object[] { new XAttribute("ReferenceOutputAssembly", "false"), new XAttribute("OutputItemType", "Content"), new XAttribute("CopyToOutputDirectory", "PreserveNewest") }
+                : Array.Empty<object>()))));
         if (preserialized) root.Add(new XElement(N("PropertyGroup"), new XElement(N("GenerateResourceUsePreserializedResources"), "true")));
         root.Add(new XElement(N("PropertyGroup"),
             new XElement(N("NoWarn"), NoWarn),

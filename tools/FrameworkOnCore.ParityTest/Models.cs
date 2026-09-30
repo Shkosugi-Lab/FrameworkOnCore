@@ -21,7 +21,7 @@ public sealed record ParityScenario(
 
 /// <summary>
 /// One scenario step.
-/// action: goto(path) / fill(target, value) / click(target) / select(target, value)
+/// action: goto(path) / fill(target, value) / click(target) / clicktext(value) / clicksubmit(value) / select(target, value)
 ///         / check(target) / uncheck(target) / waitMs(ms) / snapshot(name)
 /// </summary>
 public sealed record ParityStep(

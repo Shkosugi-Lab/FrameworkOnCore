@@ -47,7 +47,15 @@ $targets = @(
        Solution = 'YAFNET-3.2.15\yafsrc\YAF.sln'
        Project = 'YAFNET-3.2.15\yafsrc\YetAnotherForum.NET\YAF-SqlServer.csproj'
        UseDotnetMsbuild = $true
-       ReferenceAssemblies = 'net481' }
+       ReferenceAssemblies = 'net481' },
+
+    # ASP.NET MVC 5。.sln は無い(packages の場所の基準にだけ使う)。AspNetDocs のサンプルには
+    # Properties\AssemblyInfo.cs が無く、そのままでは CS2001 で止まるので、空のものを置く
+    # (アセンブリの属性だけのファイルで、アプリの動きには関わらない)。
+    @{ Name = 'mvcmovie'
+       Solution = 'MvcMovie\MvcMovie.sln'
+       Project = 'MvcMovie\MvcMovie\MvcMovie.csproj'
+       EmptyFiles = @('MvcMovie\MvcMovie\Properties\AssemblyInfo.cs') }
 )
 
 if ($Only) {
@@ -110,6 +118,15 @@ foreach ($target in $targets) {
         continue
     }
 
+    foreach ($empty in @($target.EmptyFiles | Where-Object { $_ })) {
+        $path = Join-Path $PSScriptRoot ("work\" + $empty)
+        if (-not (Test-Path $path)) {
+            New-Item -ItemType Directory -Force (Split-Path $path -Parent) | Out-Null
+            Set-Content -Path $path -Value '' -Encoding utf8
+            Write-Host "  空のファイルを置いた: $empty"
+        }
+    }
+
     # packages.config を 1 つずつ。ソリューションを渡すと、PackageReference 形式の
     # プロジェクト(BlogEngine なら Tests)を同梱 MSBuild 4.0 が読めず、復元自体は
     # 成功しているのに MSB4066 を吐きます。読む人には失敗に見えるので、そこは通さない。
@@ -118,6 +135,19 @@ foreach ($target in $targets) {
     $packagesDirectory = Join-Path $solutionDirectory 'packages'
     foreach ($config in Get-ChildItem $solutionDirectory -Recurse -Filter packages.config -File) {
         & $nuget restore $config.FullName -PackagesDirectory $packagesDirectory -NonInteractive | Out-Null
+    }
+
+    # プロジェクトの HintPath が指すパッケージの版が packages.config と違うもの(MvcMovie: 依存の更新で
+    # packages.config だけが上がり、HintPath は古い版のまま)は、HintPath の版を入れる。元のビルドが
+    # 実際に参照していたのはそちら。
+    $projectText = Get-Content $project -Raw
+    foreach ($hint in [regex]::Matches($projectText, '<HintPath>[^<]*?packages\\(?<dir>[^\\<]+)\\')) {
+        $dir = $hint.Groups['dir'].Value
+        if (Test-Path (Join-Path $packagesDirectory $dir)) { continue }
+        $split = [regex]::Match($dir, '^(?<id>.+?)\.(?<version>\d+(\.\d+)+(-[^\\]+)?)$')
+        if (-not $split.Success) { continue }
+        Write-Host ("  HintPath の版を取得: {0} {1}" -f $split.Groups['id'].Value, $split.Groups['version'].Value)
+        & $nuget install $split.Groups['id'].Value -Version $split.Groups['version'].Value -OutputDirectory $packagesDirectory -NonInteractive | Out-Null
     }
 
     # 復元したパッケージが持ち込む .props / .targets のうち、SDK 形式の XML 名前空間で

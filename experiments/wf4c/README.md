@@ -40,7 +40,7 @@
 ## フォーク(2026-09-26、`_upstream` のローカルブランチ `w2l/dynamicdata`)
 
 上流 WebFormsForCore の main(1.6.4 相当)に対する修正。`patches/` に `git format-patch` の形で置く。
-`pack-fork.ps1` で `1.6.5-w2l.2` として `_feed/` にパッケージ化し、テンプレートはそれを参照する。
+`pack-fork.ps1` で `1.6.5-w2l.3` として `_feed/` にパッケージ化し、テンプレートはそれを参照する。
 
 | パッチ | 内容 | 必要になった場面 |
 |---|---|---|
@@ -168,6 +168,21 @@ Web プロジェクトと、それが参照するライブラリ(BlogEngine.Core
 be の 5/5 の見直し(2026-09-30): それまでの 5/5 は、ParityTest が 404 のときに `.aspx` を開き直す仕組み(Blazor 化のときの名残り)に助けられていた。変換後の be は `/archive`・`/post/...`・`/category/...`・`/page/...` が 404 だった(BlogEngine は URL を HttpModule で書き換え、IIS は `runAllManagedModulesForAllRequests` でどの要求もモジュールに渡す)。変換器は、web.config がどの要求もマネージドのモジュールに渡すとき(`runAllManagedModulesForAllRequests="true"`、または `managedHandler` の前提条件の無いモジュール)、すべての要求を Web Forms に渡すようにした。ParityTest の開き直しはやめ、シナリオはその時に開いていたパス(`.aspx`)にした(正解データは同じ)。Linux のコンテナで 5/5(開き直し無し)。同じ判定で mojo・n2・yaf もすべての要求を Web Forms に渡すようになる(未検証)。
 
 be の管理画面の Web API(`/api/dashboard` など)が 500 だった(Windows でも)。SimpleInjector の古い DLL(ExecutionContextScoping)が `[mscorlib]System.Runtime.Remoting.Messaging.CallContext` を使い、.NET の mscorlib には無い。フォークの `CallContext` は System.Web にあり、ソースはコンパイルし直すので名前で見つかるが、DLL はアセンブリと型の組で結び付くので見つからない。変換器が、ビルドの後に bin のソースの無い DLL の型参照を調べ、実行時に解決しないものを、その型を public で持つアセンブリ(フォーク・shim・互換アセンブリを優先)に付け替えるようにした(`AssemblyRetargeter`。mscorlib に限らずどのアセンブリの参照も同じ。アプリにある版より新しい版への参照は、その版に下げる。bindingRedirect に当たる)。書き換えた DLL は出力の `foc-retargeted` に置き、各プロジェクトのビルドが元の DLL の代わりにコピーする(コンテナの中でビルドし直しても同じ)。配置済みサイトから組み立てたサイトの bin はその場で書き換える。どこにも無い型への参照はレポートに出す。be: ExecutionContextScoping・Integration.WebApi の CallContext → System.Web。wt: Microsoft.Owin.Security の `[System.Security]DataProtector` → System.Web。be はログインして管理画面の API(dashboard・packages・posts)が Windows・Linux とも 200。Linux の比較は be 5/5、wt 5/8(以前と同じ)。解析も、DLL の参照が「アセンブリ+型」のまま .NET 10 で解決するかを調べ、解決しないが .NET 10 にある型を「付け替える(→ 付け替え先)」と示す(`ApiUsage.RetargetedTo`、API-ANALYSIS.md の「DLL の参照の付け替え」、Studio のカードと部品のバッジ)。be・wt とも、解析の結果は変換器が実際に付け替えたものと同じ。型は .NET にあるがメンバーが無いもの(DLL からの呼び出しは `MissingMethodException`)は、変換器が DLL の呼び出しを互換アセンブリの拡張メンバーに置き換える(C# 14 の拡張メンバーが静的メソッドになるのを使う。`callvirt T::M` → `call Members::M(T, ...)`)。wt: OWIN(Microsoft.Owin.Host.SystemWeb)の起動時の探索が使う `AppDomainSetup.PrivateBinPath`・`PrivateBinPathProbe`(互換アセンブリに足した。ASP.NET と同じ `bin` と `*`)。be: SimpleInjector・Dynamic.dll の `AppDomain.DefineDynamicAssembly`(ソース向けに互換アセンブリにあったもの)。解析もこれを「呼び出しを置き換え」と示す(C# 14 の拡張プロパティ・静的メンバーもメタデータから読む)。残り(レポートに出る): `AppDomain.CreateDomain`・`Evidence`(.NET に無い仕組み)、`LambdaExpression.CompileToMethod`、Elmah の `SqlConnectionStringBuilder.AsynchronousProcessing`、デザイナーの API。あわせて、解析が DLL のジェネリック型の入れ子の型(`List<T>.Enumerator`)を `List`1.Enumerator{`0}` と書いていたため、`List<T>.GetEnumerator` などを「.NET に無い」と誤っていたのを直した(`List{`0}.Enumerator`)。Linux の比較は be 5/5、wt 5/8(以前と同じ)。wt は OWIN が起動するようになった(`GetOwinContext()` が動く)。
+
+### ASP.NET MVC 5(2026-09-30、フォーク 0031、`1.6.5-w2l.3`)
+
+コーパス `mvcmovie`(MvcMovie: MVC 5 の公式チュートリアルのアプリ。EF 6 Code First、ASP.NET Identity + OWIN、LocalDB。dotnet/AspNetDocs のフォルダーを commit 固定で取得)。MVC の DLL(System.Web.Mvc 5.2.3、Razor 3、WebPages 3)は移植せず、.NET 10 の上でフォークの System.Web を使ってそのまま動かす。IIS で採った正解(12 画面: ホーム、ルーティングとクエリのモデルバインド、一覧、作成の検証エラー、EF 6 での保存と一覧・詳細・検索、編集、ログイン、登録)と比べて **Windows・Linux とも 11/12**。残りの 1 つは検証メッセージの言語(下)。手で確かめたこと(Windows): 作成・編集・削除、検索とジャンルの絞り込み、Identity の登録・ログイン・ログオフ・パスワード違い、偽の偽造防止トークンが 500(IIS と同じ)。
+
+直したこと:
+- MVC が参照する .NET に無い型: `System.Data.Linq.Binary`(既定のモデルバインダーが登録する。無いと引数のあるアクションがすべて System.Data.Linq の読み込みで失敗)、`System.Data.EntityState`(EF 1-4。表示・編集テンプレートが typeof で使う)を、DLL からだけ見える互換アセンブリ `FrameworkOnCore.Compat.ForDlls` に置いた。ソースからは見えない(EF 6 の `System.Data.Entity.EntityState` と曖昧になるため)。変換後のプロジェクトはコンパイルに使わず、出力にコピーだけする(`ReferenceOutputAssembly=false`)。DLL の参照は付け替えで向く。`SHA256Cng`(偽造防止トークン、子アクションの出力キャッシュ)は互換アセンブリに置いた(ソースからも使える)。
+- Razor のビューのコンパイル: MVC の HtmlHelper の拡張の型(`Expression<>`)が System.Core にあり CS0012。ページ・ビューのコンパイルに、ランタイムの型の転送だけのアセンブリ(System、System.Core、System.Data、System.Xml など)をすべて参照に入れる(フォーク 0031。アプリが自分で持つもの、System.Web は除く)。
+- プロジェクトが挙げているのにリポジトリに無いソース・埋め込みリソース(MvcMovie の Properties\AssemblyInfo.cs)は外して報告する(元のビルドも CS2001 で止まる)。
+- 正解の採取: `build-original.ps1` は HintPath が指す版のパッケージを入れる(MvcMovie は packages.config だけが依存の更新で上がり、HintPath は古い版のまま)。`record-webforms-golden.ps1` に接続文字列の名前ごとの置き換えと、採取前のデータベースの削除を足した。ParityTest に ID の無いボタンを文言で押す `clicksubmit` を足した。
+- be・wt の Windows での比較は be 5/5、wt 6/8(以前と同じ)。
+
+残り(未対応): **.NET Framework の言語パックの訳**。日本語の Windows の .NET Framework は、DataAnnotations などのメッセージを日本語で出す(「フィールド Price は 1 から 100 までの範囲で指定してください。」)。.NET 10 には各国語の訳が無く英語になる。元のサーバーから訳を採って、.NET の同じメッセージの訳として置く方法が考えられる(カルチャのデータと同じ考え方)。
+
+nopCommerce 3.90(`nop390`、MVC 5 の最後の版)は取得と表への追加まで。
 
 認可(フォーク 0030、`1.6.5-w2l.2`): wt の `/Account/Manage`(FriendlyUrls のルート)が、ログインしていなくても動いていた(`Account/Web.config` の `<location path="Manage.aspx">` の `<deny users="?"/>`。`/Account/Manage.aspx` は守られていた)。ルートは物理ページへのアクセスを `UrlAuthorizationModule.CheckUrlAccessForPrincipal` で確かめるが、これが「UrlAuthorizationModule が登録されているか」を型名で調べる。machine.config はアセンブリ名の無い型名で登録していて、フォークの `Type.GetType` の型リゾルバーはアセンブリ名が無いと null を返していた(.NET Framework の `Type.GetType` は呼び出し元のアセンブリと mscorlib を探す)。そのため常に「許可」だった。ルートのページ(FriendlyUrls、`PageRouteHandler`)と、サイトマップのセキュリティトリミング(be が有効にしている)に効く。同じ書き方のリゾルバー 62 か所(34 ファイル)を、アセンブリ名が無ければ `Type.GetType` に任せるように直した。確認: wt(Windows)の `/Account/Manage`・`/Checkout/...`・`/Admin/...` がログイン画面へ(302)、公開のページは 200。be(Windows)の `setup/`・`admin/` もログイン画面へ、ログインすると管理画面と API が 200(Linux でも)。Linux の比較は be 5/5、wt 5/8(以前と同じ)。コーパスの認可の規則: wt(Account/Manage.aspx、Admin、Checkout)、be(setup、サイトマップのトリミング)、n2(管理画面 N2/ とプラグイン)、dnn(CKEditor のモジュールがインストール時に web.config に足すもの)、nop(allow のみ)。mojo・yaf・imis はコードで認可していて規則は無い。
 

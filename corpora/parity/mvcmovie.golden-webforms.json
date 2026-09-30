@@ -1,0 +1,714 @@
+{
+  "SourceUrl": "http://localhost:8093/",
+  "Snapshots": [
+    {
+      "Name": "home",
+      "Path": "/",
+      "Title": "Home Page - Movie App",
+      "Text": [
+        "MVC Movie",
+        "Home",
+        "About",
+        "Contact",
+        "Register",
+        "Log in",
+        "ASP.NET",
+        "ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.",
+        "Learn more »",
+        "Getting started",
+        "ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that enables a clean separation of concerns and gives you full control over markup for enjoyable, agile development.",
+        "Learn more »",
+        "Get more libraries",
+        "NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.",
+        "Learn more »",
+        "Web Hosting",
+        "You can easily find a web hosting company that offers the right mix of features and price for your applications.",
+        "Learn more »"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "registerLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "loginLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "about",
+      "Path": "/home/about",
+      "Title": "About - Movie App",
+      "Text": [
+        "MVC Movie",
+        "Home",
+        "About",
+        "Contact",
+        "Register",
+        "Log in",
+        "About.",
+        "Your application description page.",
+        "Use this area to provide additional information."
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "registerLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "loginLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "welcome",
+      "Path": "/helloworld/welcome",
+      "Title": "Welcome - Movie App",
+      "Text": [
+        "MVC Movie",
+        "Home",
+        "About",
+        "Contact",
+        "Register",
+        "Log in",
+        "Welcome",
+        "Hello Scott",
+        "Hello Scott",
+        "Hello Scott",
+        "Hello Scott"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "registerLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "loginLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "movies-empty",
+      "Path": "/movies",
+      "Title": "Index - Movie App",
+      "Text": [
+        "MVC Movie",
+        "Home",
+        "About",
+        "Contact",
+        "Register",
+        "Log in",
+        "Index",
+        "Create New",
+        "Genre:",
+        "All",
+        "Title:",
+        "Title Release Date Genre Price Rating"
+      ],
+      "Tables": [
+        [
+          [
+            "Title",
+            "Release Date",
+            "Genre",
+            "Price",
+            "Rating",
+            ""
+          ]
+        ]
+      ],
+      "Inputs": {
+        "MovieGenre": "",
+        "SearchString": ""
+      },
+      "Elements": {
+        "registerLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "loginLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MovieGenre": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "SearchString": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "create-form",
+      "Path": "/movies/create",
+      "Title": "Create - Movie App",
+      "Text": [
+        "MVC Movie",
+        "Home",
+        "About",
+        "Contact",
+        "Register",
+        "Log in",
+        "Create",
+        "Movie",
+        "Title",
+        "Release Date",
+        "Genre",
+        "Price",
+        "Rating",
+        "Back to List"
+      ],
+      "Tables": [],
+      "Inputs": {
+        "Title": "",
+        "ReleaseDate": "",
+        "Genre": "",
+        "Price": "",
+        "Rating": ""
+      },
+      "Elements": {
+        "registerLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "loginLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "Title": {
+          "Tag": "input",
+          "Attributes": {
+            "class": "form-control text-box single-line",
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "ReleaseDate": {
+          "Tag": "input",
+          "Attributes": {
+            "class": "form-control text-box single-line",
+            "type": "date"
+          },
+          "Style": {}
+        },
+        "Genre": {
+          "Tag": "input",
+          "Attributes": {
+            "class": "form-control text-box single-line",
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "Price": {
+          "Tag": "input",
+          "Attributes": {
+            "class": "form-control text-box single-line",
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "Rating": {
+          "Tag": "input",
+          "Attributes": {
+            "class": "form-control text-box single-line",
+            "type": "text"
+          },
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "create-invalid",
+      "Path": "/movies/create",
+      "Title": "Create - Movie App",
+      "Text": [
+        "MVC Movie",
+        "Home",
+        "About",
+        "Contact",
+        "Register",
+        "Log in",
+        "Create",
+        "Movie",
+        "Title",
+        "Release Date",
+        "Genre",
+        "Price",
+        "フィールド Price は 1 から 100 までの範囲で指定してください。",
+        "Rating",
+        "Back to List"
+      ],
+      "Tables": [],
+      "Inputs": {
+        "Title": "Ghostbusters",
+        "ReleaseDate": "1984-03-13",
+        "Genre": "Comedy",
+        "Price": "1000",
+        "Rating": "PG"
+      },
+      "Elements": {
+        "registerLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "loginLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "Title": {
+          "Tag": "input",
+          "Attributes": {
+            "class": "form-control text-box single-line valid",
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "ReleaseDate": {
+          "Tag": "input",
+          "Attributes": {
+            "class": "form-control text-box single-line valid",
+            "type": "date"
+          },
+          "Style": {}
+        },
+        "Genre": {
+          "Tag": "input",
+          "Attributes": {
+            "class": "form-control text-box single-line valid",
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "Price": {
+          "Tag": "input",
+          "Attributes": {
+            "class": "form-control text-box single-line input-validation-error",
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "Price-error": {
+          "Tag": "span",
+          "Attributes": {
+            "class": ""
+          },
+          "Style": {}
+        },
+        "Rating": {
+          "Tag": "input",
+          "Attributes": {
+            "class": "form-control text-box single-line valid",
+            "type": "text"
+          },
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "movies-one",
+      "Path": "/movies",
+      "Title": "Index - Movie App",
+      "Text": [
+        "MVC Movie",
+        "Home",
+        "About",
+        "Contact",
+        "Register",
+        "Log in",
+        "Index",
+        "Create New",
+        "Genre:",
+        "All",
+        "Comedy",
+        "Title:",
+        "Title Release Date Genre Price Rating",
+        "Ghostbusters 1984-03-13 Comedy $8.99 PG Edit | Details | Delete"
+      ],
+      "Tables": [
+        [
+          [
+            "Title",
+            "Release Date",
+            "Genre",
+            "Price",
+            "Rating",
+            ""
+          ],
+          [
+            "Ghostbusters",
+            "1984-03-13",
+            "Comedy",
+            "$8.99",
+            "PG",
+            "Edit | Details | Delete"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "MovieGenre": "",
+        "SearchString": ""
+      },
+      "Elements": {
+        "registerLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "loginLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MovieGenre": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "SearchString": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "details",
+      "Path": "/movies/details/1",
+      "Title": "Details - Movie App",
+      "Text": [
+        "MVC Movie",
+        "Home",
+        "About",
+        "Contact",
+        "Register",
+        "Log in",
+        "Details",
+        "Movie",
+        "Title",
+        "Ghostbusters",
+        "Release Date",
+        "1984-03-13",
+        "Genre",
+        "Comedy",
+        "Price",
+        "$8.99",
+        "Edit | Back to List"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "registerLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "loginLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "search",
+      "Path": "/movies",
+      "Title": "Index - Movie App",
+      "Text": [
+        "MVC Movie",
+        "Home",
+        "About",
+        "Contact",
+        "Register",
+        "Log in",
+        "Index",
+        "Create New",
+        "Genre:",
+        "All",
+        "Comedy",
+        "Title:",
+        "Title Release Date Genre Price Rating",
+        "Ghostbusters 1984-03-13 Comedy $8.99 PG Edit | Details | Delete"
+      ],
+      "Tables": [
+        [
+          [
+            "Title",
+            "Release Date",
+            "Genre",
+            "Price",
+            "Rating",
+            ""
+          ],
+          [
+            "Ghostbusters",
+            "1984-03-13",
+            "Comedy",
+            "$8.99",
+            "PG",
+            "Edit | Details | Delete"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "MovieGenre": "Comedy",
+        "SearchString": "Ghost"
+      },
+      "Elements": {
+        "registerLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "loginLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "MovieGenre": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "SearchString": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "edit-form",
+      "Path": "/movies/edit/1",
+      "Title": "Edit - Movie App",
+      "Text": [
+        "MVC Movie",
+        "Home",
+        "About",
+        "Contact",
+        "Register",
+        "Log in",
+        "Edit",
+        "Movie",
+        "Title",
+        "Release Date",
+        "Genre",
+        "Price",
+        "Back to List"
+      ],
+      "Tables": [],
+      "Inputs": {
+        "Title": "Ghostbusters",
+        "ReleaseDate": "1984-03-13",
+        "Genre": "Comedy",
+        "Price": "8.99"
+      },
+      "Elements": {
+        "registerLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "loginLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "Title": {
+          "Tag": "input",
+          "Attributes": {
+            "class": "form-control text-box single-line",
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "ReleaseDate": {
+          "Tag": "input",
+          "Attributes": {
+            "class": "form-control text-box single-line",
+            "type": "date"
+          },
+          "Style": {}
+        },
+        "Genre": {
+          "Tag": "input",
+          "Attributes": {
+            "class": "form-control text-box single-line",
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "Price": {
+          "Tag": "input",
+          "Attributes": {
+            "class": "form-control text-box single-line",
+            "type": "text"
+          },
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "login",
+      "Path": "/account/login",
+      "Title": "Log in - Movie App",
+      "Text": [
+        "MVC Movie",
+        "Home",
+        "About",
+        "Contact",
+        "Register",
+        "Log in",
+        "Log in.",
+        "Use a local account to log in.",
+        "Email",
+        "Password",
+        "Remember me?",
+        "Register as a new user",
+        "Use another service to log in.",
+        "There are no external authentication services configured. See this article for details on setting up this ASP.NET application to support logging in via external services."
+      ],
+      "Tables": [],
+      "Inputs": {
+        "Email": "",
+        "Password": "",
+        "RememberMe": "false"
+      },
+      "Elements": {
+        "registerLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "loginLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "loginForm": {
+          "Tag": "section",
+          "Attributes": {},
+          "Style": {}
+        },
+        "Email": {
+          "Tag": "input",
+          "Attributes": {
+            "class": "form-control",
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "Password": {
+          "Tag": "input",
+          "Attributes": {
+            "class": "form-control",
+            "type": "password"
+          },
+          "Style": {}
+        },
+        "RememberMe": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "socialLoginForm": {
+          "Tag": "section",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "register",
+      "Path": "/account/register",
+      "Title": "Register - Movie App",
+      "Text": [
+        "MVC Movie",
+        "Home",
+        "About",
+        "Contact",
+        "Register",
+        "Log in",
+        "Register.",
+        "Create a new account.",
+        "Email",
+        "Password",
+        "Confirm password"
+      ],
+      "Tables": [],
+      "Inputs": {
+        "Email": "",
+        "Password": "",
+        "ConfirmPassword": ""
+      },
+      "Elements": {
+        "registerLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "loginLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "Email": {
+          "Tag": "input",
+          "Attributes": {
+            "class": "form-control",
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "Password": {
+          "Tag": "input",
+          "Attributes": {
+            "class": "form-control",
+            "type": "password"
+          },
+          "Style": {}
+        },
+        "ConfirmPassword": {
+          "Tag": "input",
+          "Attributes": {
+            "class": "form-control",
+            "type": "password"
+          },
+          "Style": {}
+        }
+      }
+    }
+  ]
+}

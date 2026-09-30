@@ -1,6 +1,6 @@
 {
   "$comment": "Package and reference rules. \"$fork\" stands for the WebFormsForCore fork's version (forkVersion).",
-  "forkVersion": "1.6.5-w2l.2",
+  "forkVersion": "1.6.5-w2l.3",
 
   "$comment_webPackages": "The web project always gets these (Program.cs uses them; pages reference them at run time).",
   "webPackages": [ "WebFormsForCore.Web", "WebFormsForCore.Web.Extensions", "WebFormsForCore.Configuration", "WebFormsForCore.Web.DynamicData" ],

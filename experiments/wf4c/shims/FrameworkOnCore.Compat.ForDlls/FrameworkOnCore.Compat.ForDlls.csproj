@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Types .NET Framework had that DLLs without source refer to and the sources must not see: a converted project does
+       not compile against this assembly, its build copies it to the output (the converter's ProjectReference:
+       ReferenceOutputAssembly false), and the DLLs' references to its types are retargeted to it (AssemblyRetargeter).
+       System.Data.EntityState (EF 1-4): in the sources, EF 6's System.Data.Entity.EntityState would be ambiguous with it
+       (using System.Data; using System.Data.Entity;). System.Data.Linq.Binary: the LINQ to SQL port will have it. -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <AssemblyName>FrameworkOnCore.Compat.ForDlls</AssemblyName>
+    <Nullable>disable</Nullable>
+    <LangVersion>14</LangVersion>
+  </PropertyGroup>
+</Project>

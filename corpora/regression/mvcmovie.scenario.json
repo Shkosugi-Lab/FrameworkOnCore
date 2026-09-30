@@ -1,0 +1,60 @@
+{
+  "_comment": "MvcMovie (ASP.NET MVC 5) scenario: the pages experiments/wf4c/run-linux.ps1 takes snapshots of in the converted app, compared with corpora/parity/mvcmovie.golden-webforms.json (recorded from the original app on IIS: corpora/record-webforms-golden.ps1). Both start from an empty database (EF 6 creates it): the movie made here has ID 1.",
+  "ignorePatterns": [
+    "\\d{1,2}:\\d{2}(:\\d{2})?",
+    "©\\s*\\d{4}"
+  ],
+  "_ignoreSelectorsComment": "The antiforgery token differs every time.",
+  "ignoreSelectors": [],
+  "steps": [
+    { "action": "goto", "path": "/" },
+    { "action": "snapshot", "name": "home" },
+
+    { "action": "goto", "path": "/Home/About" },
+    { "action": "snapshot", "name": "about" },
+
+    { "_why": "A controller without a view (Content) and one with a view and ViewBag: routing, action parameters (model binding of the query string).",
+      "action": "goto", "path": "/HelloWorld/Welcome?name=Scott&numtimes=4" },
+    { "action": "snapshot", "name": "welcome" },
+
+    { "action": "goto", "path": "/Movies" },
+    { "action": "snapshot", "name": "movies-empty" },
+
+    { "action": "goto", "path": "/Movies/Create" },
+    { "action": "snapshot", "name": "create-form" },
+
+    { "_why": "Validation: a price out of the [Range(1, 100)] (the browser's unobtrusive validation shows the message, as the original's does).",
+      "action": "fill", "target": "Title", "value": "Ghostbusters" },
+    { "action": "fill", "target": "ReleaseDate", "value": "1984-03-13" },
+    { "action": "fill", "target": "Genre", "value": "Comedy" },
+    { "action": "fill", "target": "Price", "value": "1000" },
+    { "action": "fill", "target": "Rating", "value": "PG" },
+    { "action": "clicksubmit", "value": "Create" },
+    { "action": "snapshot", "name": "create-invalid" },
+
+    { "_why": "Saved (EF 6), back to the list: the price and the date as the server's culture writes them. From a new form: the invalid one's second submit did not go through the recorder (the unobtrusive validation kept it), by hand it does.",
+      "action": "goto", "path": "/Movies/Create" },
+    { "action": "fill", "target": "Title", "value": "Ghostbusters" },
+    { "action": "fill", "target": "ReleaseDate", "value": "1984-03-13" },
+    { "action": "fill", "target": "Genre", "value": "Comedy" },
+    { "action": "fill", "target": "Price", "value": "8.99" },
+    { "action": "fill", "target": "Rating", "value": "PG" },
+    { "action": "clicksubmit", "value": "Create" },
+    { "action": "snapshot", "name": "movies-one" },
+
+    { "action": "goto", "path": "/Movies/Details/1" },
+    { "action": "snapshot", "name": "details" },
+
+    { "action": "goto", "path": "/Movies?movieGenre=Comedy&searchString=Ghost" },
+    { "action": "snapshot", "name": "search" },
+
+    { "action": "goto", "path": "/Movies/Edit/1" },
+    { "action": "snapshot", "name": "edit-form" },
+
+    { "action": "goto", "path": "/Account/Login" },
+    { "action": "snapshot", "name": "login" },
+
+    { "action": "goto", "path": "/Account/Register" },
+    { "action": "snapshot", "name": "register" }
+  ]
+}

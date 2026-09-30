@@ -60,12 +60,24 @@ $targets = @(
        Path = 'wingtiptoys-master\WingtipToys\WingtipToys'
        Port = 8092
        ConnectionString = 'Data Source=.\SQLEXPRESS;Initial Catalog=WingtipToys;Integrated Security=True;MultipleActiveResultSets=True;Connect Timeout=30'
+       SqlLogin = $true },
+
+    # ASP.NET MVC 5. Its connection strings are LocalDB with AttachDBFilename (a user instance: the app pool's, see
+    # above): the same databases on SQL Server Express, by name. EF 6 Code First creates them; they are dropped first,
+    # so the recording starts from an empty database as the converted app's run does (the movie made is ID 1).
+    @{ Name = 'mvcmovie'
+       Path = 'MvcMovie\MvcMovie'
+       Port = 8093
+       ConnectionStrings = @{
+           MovieDBContext = 'Data Source=.\SQLEXPRESS;Initial Catalog=MvcMovie;Integrated Security=True'
+           DefaultConnection = 'Data Source=.\SQLEXPRESS;Initial Catalog=MvcMovieIdentity;Integrated Security=True' }
+       FreshDatabases = @('MvcMovie', 'MvcMovieIdentity')
        SqlLogin = $true }
 )
 
 if ($Only) {
     $targets = $targets | Where-Object { $Only -contains $_.Name }
-    if (-not $targets) { Write-Error "-Only に一致する対象がありません。指定可能: be, wt"; exit 1 }
+    if (-not $targets) { Write-Error "-Only に一致する対象がありません。指定可能: be, wt, mvcmovie"; exit 1 }
 }
 
 $appcmd = Join-Path $env:SystemRoot 'System32\inetsrv\appcmd.exe'
@@ -129,6 +141,32 @@ foreach ($target in $targets) {
             Set-Content $webConfig -Value $replaced -Encoding utf8
             Write-Host '  接続文字列を SQL Server Express に向けました'
         }
+    }
+    # 名前ごとの接続文字列(元の web.config の同じ名前の connectionString を置き換える)。
+    if ($target.ConnectionStrings) {
+        $webConfig = Join-Path $physical 'Web.config'
+        $text = Get-Content $webConfig -Raw
+        foreach ($entry in $target.ConnectionStrings.GetEnumerator()) {
+            $text = [regex]::Replace($text,
+                '(<add\s+name="' + [regex]::Escape($entry.Key) + '"\s+connectionString=")[^"]*(")',
+                { param($m) $m.Groups[1].Value + $entry.Value + $m.Groups[2].Value })
+        }
+        Set-Content $webConfig -Value $text -Encoding utf8
+        Write-Host ('  接続文字列を置き換えました: ' + (($target.ConnectionStrings.Keys | Sort-Object) -join ', '))
+    }
+    # 空のデータベースから採る(前回の採取が作ったものを消す)。
+    foreach ($database in @($target.FreshDatabases | Where-Object { $_ })) {
+        $drop = "IF DB_ID(N'$database') IS NOT NULL BEGIN ALTER DATABASE [$database] SET SINGLE_USER WITH ROLLBACK IMMEDIATE; DROP DATABASE [$database]; END"
+        try {
+            $connection = New-Object System.Data.SqlClient.SqlConnection 'Server=.\SQLEXPRESS;Integrated Security=true;Connect Timeout=30'
+            $connection.Open()
+            $command = $connection.CreateCommand()
+            $command.CommandText = $drop
+            $command.ExecuteNonQuery() | Out-Null
+            $connection.Close()
+            Write-Host "  データベースを消しました(空から採る): $database"
+        }
+        catch { Write-Warning "  データベースを消せません: $database - $($_.Exception.Message)" }
     }
 
     Write-Host '  IIS サイトを作成'

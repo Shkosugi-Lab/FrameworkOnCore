@@ -23,5 +23,14 @@
     <!-- The rewrites (SourceEdits, SourceLanguage) and the rules they read (rules\packages.json, copied here). -->
     <ProjectReference Include="..\..\src\FrameworkOnCore.Converter\FrameworkOnCore.Converter.csproj" />
     <ProjectReference Include="..\..\experiments\wf4c\shims\FrameworkOnCore.Compat\FrameworkOnCore.Compat.csproj" />
+    <!-- The LINQ to SQL port (the fork's System.Data.Linq): DataLinq\*Tests.cs. -->
+    <ProjectReference Include="..\..\experiments\wf4c\_upstream\src\WebFormsForCore.Data.Linq\WebFormsForCore.Data.Linq.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- golden\ is its own net48 project (record.csproj, run by record.ps1), not part of the tests. -->
+    <Compile Remove="DataLinq\golden\**\*.cs" />
+    <!-- Forward slashes: on Linux a backslash Link becomes part of the file's name. -->
+    <None Include="DataLinq/golden/dlinq-sql.golden.json" Link="DataLinq/dlinq-sql.golden.json" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 </Project>

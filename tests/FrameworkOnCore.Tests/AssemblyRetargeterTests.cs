@@ -179,4 +179,18 @@ public sealed class AssemblyRetargeterTests : IDisposable
 
         Assert.DoesNotContain(results, r => r.File.EndsWith("MyApp.dll"));
     }
+
+    [Fact] // System.Web.Mvc.dll references System.Data.Linq while no project does: its package is to be added
+    public void A_framework_reference_only_a_dll_makes_is_found()
+    {
+        Consumer("System.Web.Mvc", ("System.Data.Linq", new Version(4, 0, 0, 0), "System.Data.Linq.Binary"));
+        Provider("Present", new Version(1, 0), "Present.SomeType");
+        Consumer("Uses.Present", ("Present", new Version(1, 0), "Present.SomeType"));
+
+        var missing = AssemblyRetargeter.ReferencedMissing(Bin, new[] { "System.Data.Linq", "Present" });
+
+        // Present is in bin: only what is referenced and absent is reported, with who references it.
+        Assert.Equal("System.Data.Linq", Assert.Single(missing).Key);
+        Assert.Equal(["System.Web.Mvc.dll"], missing["System.Data.Linq"]);
+    }
 }

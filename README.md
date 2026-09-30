@@ -35,7 +35,7 @@
 | `src/FrameworkOnCore.Studio` | GUI(ローカルの Web 画面)。解析、部品ごとの選択、ソースの表示、変換のコマンド |
 | `src/FrameworkOnCore.Analyzers` | 変換のビルドで使う Roslyn アナライザー(Windows のパス、非同期デリゲート、プラットフォームの置き換え) |
 | `experiments/wf4c/shims/FrameworkOnCore.Compat` | 互換アセンブリ。.NET にない、または Windows 専用のものを .NET Framework と同じ動きで補う(EventLog、Encoding.Default、Thread.ResetAbort、VB の My など) |
-| `experiments/wf4c/patches` | WebFormsForCore のフォークへのパッチ(31 本) |
+| `experiments/wf4c/patches` | WebFormsForCore のフォークへのパッチ(32 本。0032 は LINQ to SQL の移植) |
 | `experiments/wf4c/casefs` | Linux でファイル名の大文字小文字を区別しない LD_PRELOAD ライブラリ(libfoccase.so) |
 | `tests/FrameworkOnCore.Tests` | テスト(Windows と Linux) |
 | `samples/` | 検証用の小さな Web Forms アプリ(RuntimeProbe など) |
@@ -90,7 +90,8 @@ dotnet test tests\FrameworkOnCore.Tests
 
 - コーパス(Web Forms: BlogEngine.NET、WingtipToys、mojoPortal、YAF.NET、DNN、N2CMS、openIMIS(VB)、nopCommerce 1.90。MVC 5: MvcMovie、nopCommerce 3.90)を変換し、Windows と Linux で動作を確かめています(nopCommerce 3.90 は Windows のみ)。結果と既知の課題は `experiments/wf4c/README.md` にあります。
 - .NET Framework にしかない API の洗い出しと対応の状況は `experiments/wf4c/FRAMEWORK-ONLY-APIS.md` にあります。
-- 予定の選択肢: System.Drawing を Linux で動かす(libgdiplus)、LINQ to SQL とグラフ(DataVisualization)の移植、WCF のサービスを CoreWCF で動かす。
+- LINQ to SQL(System.Data.Linq)は referencesource(MIT)からフォークに移植済みで、既定で使われる(`experiments/wf4c/README.md` の記録)。
+- 予定の選択肢: System.Drawing を Linux で動かす(libgdiplus)、グラフ(DataVisualization)の移植、WCF のサービスを CoreWCF で動かす。
 
 ## ドキュメント
 

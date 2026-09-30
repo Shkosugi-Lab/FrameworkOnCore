@@ -93,6 +93,20 @@ public sealed class ChoicesTests
         Assert.Contains("global::FrameworkOnCore.Platform.RelativeSearchPath", written);
     }
 
+    [Fact] // the LINQ to SQL port is a framework reference by choice: not chosen, the assembly has no answer
+    public void A_framework_reference_by_choice_moves_to_no_answer_when_not_chosen()
+    {
+        Assert.True(RewriteHarness.Rules.FrameworkReferences.ContainsKey("System.Data.Linq"));
+
+        var port = RewriteHarness.Rules.Choose(new Choices(), catalog);
+        Assert.Equal("WebFormsForCore.Data.Linq", port.FrameworkReferences["System.Data.Linq"].Id);
+        Assert.DoesNotContain("System.Data.Linq", port.NoAnswer);
+
+        var none = RewriteHarness.Rules.Choose(Of("""{ "components": { "linq-to-sql": "none" } }"""), catalog);
+        Assert.False(none.FrameworkReferences.ContainsKey("System.Data.Linq"));
+        Assert.Contains("System.Data.Linq", none.NoAnswer);
+    }
+
     [Fact] // what analyze writes: the components to decide on at their defaults, the settings
     public void The_defaults_of_an_analysis_are_the_choices_to_make()
     {

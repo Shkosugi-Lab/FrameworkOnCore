@@ -7,6 +7,7 @@
   <Project Path="_upstream/src/WebFormsForCore.Configuration/WebFormsForCore.Configuration.csproj" />
   <Project Path="_upstream/src/WebFormsForCore.Drawing/WebFormsForCore.Drawing.csproj" />
   <Project Path="_upstream/src/WebFormsForCore.Serialization.Formatters/WebFormsForCore.Serialization.Formatters.csproj" />
+  <Project Path="_upstream/src/WebFormsForCore.Data.Linq/WebFormsForCore.Data.Linq.csproj" />
   <Project Path="_upstream/src/WebFormsForCore.Web/WebFormsForCore.Web.csproj" />
   <Project Path="_upstream/src/WebFormsForCore.Web.ApplicationServices/WebFormsForCore.Web.ApplicationServices.csproj" />
   <Project Path="_upstream/src/WebFormsForCore.Web.RegularExpressions/WebFormsForCore.Web.RegularExpressions.csproj" />

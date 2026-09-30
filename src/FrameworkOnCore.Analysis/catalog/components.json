@@ -53,8 +53,8 @@
       { "id": "libgdiplus", "title": "Linux でも動かす(libgdiplus)", "description": "Linux では System.Drawing.Common 6.0 と libgdiplus(サポート切れ)", "planned": true }
     ],
     "linq-to-sql": [
-      { "id": "none", "title": "対応しない", "description": "スタブ", "default": true },
-      { "id": "port", "title": "移植版を使う", "description": "referencesource(MIT)から移植した System.Data.Linq", "planned": true }
+      { "id": "port", "title": "移植版を使う", "description": "referencesource(MIT)から移植した System.Data.Linq(フォークの WebFormsForCore.Data.Linq)", "default": true },
+      { "id": "none", "title": "対応しない", "description": "スタブ。DLL が参照する場合(System.Web.Mvc のモデルバインドなど)も例外になる" }
     ],
     "charts": [
       { "id": "none", "title": "対応しない", "description": "スタブ(グラフの画面は例外)", "default": true },
@@ -114,7 +114,7 @@
     {
       "id": "linq-to-sql", "title": "LINQ to SQL(System.Data.Linq)",
       "match": { "assemblies": [ "System.Data.Linq" ] },
-      "note": ".NET に無い。referencesource(MIT)から移植できる"
+      "note": "referencesource(MIT)から移植済み: フォークの WebFormsForCore.Data.Linq(SQL Server 用)"
     },
     {
       "id": "entity-framework-4", "title": "Entity Framework 4(System.Data.Entity)",

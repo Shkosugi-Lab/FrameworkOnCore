@@ -48,6 +48,9 @@ public sealed record Rules
     public required IReadOnlyDictionary<string, Package> FrameworkReferences { get; init; }
     public required IReadOnlyDictionary<string, IReadOnlyList<Package>> FrameworkCompanions { get; init; }
     public required IReadOnlySet<string> NoAnswer { get; init; }
+    /// <summary>Framework references that are the user's choice (System.Data.Linq: the LINQ to SQL port): assembly ->
+    /// the option that turns its frameworkReferences entry on. Not chosen, the assembly has no answer (Choose).</summary>
+    public IReadOnlyDictionary<string, string> FrameworkReferenceOptions { get; init; } = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
     public required IReadOnlyList<SourcePackage> SourcePackages { get; init; }
     public required IReadOnlyList<SourceNote> SourceNotes { get; init; }
     public required IReadOnlyList<MemberReplacement> MemberReplacements { get; init; }
@@ -98,8 +101,24 @@ public sealed record Rules
         foreach (var component in catalog.Components.Select(c => c.Id)) chosen.Add($"{component}:{choices.OptionOf(catalog, component)}");
         foreach (var setting in catalog.Settings) chosen.Add($"{setting.Id}:{choices.SettingOf(catalog, setting.Id)}");
         var moves = Holds(NamespaceMovesOption);
+        var frameworkReferences = FrameworkReferences;
+        var noAnswer = NoAnswer;
+        if (FrameworkReferenceOptions.Any(o => !Holds(o.Value)))
+        {
+            var references = new Dictionary<string, Package>(FrameworkReferences, StringComparer.OrdinalIgnoreCase);
+            var without = new HashSet<string>(NoAnswer, StringComparer.OrdinalIgnoreCase);
+            foreach (var (assembly, option) in FrameworkReferenceOptions.Where(o => !Holds(o.Value)))
+            {
+                references.Remove(assembly);
+                without.Add(assembly);
+            }
+            frameworkReferences = references;
+            noAnswer = without;
+        }
         return this with
         {
+            FrameworkReferences = frameworkReferences,
+            NoAnswer = noAnswer,
             SourcePackages = SourcePackages.Where(p => Holds(p.Option)).ToList(),
             MemberReplacements = MemberReplacements.Where(r => Holds(r.Option)).ToList(),
             PlatformReplacements = PlatformReplacements.Where(r => HoldsFor(r.Option, r.Member)).ToList(),
@@ -160,6 +179,9 @@ public sealed record Rules
             FrameworkCompanions = root.GetProperty("frameworkCompanions").EnumerateObject().ToDictionary(
                 p => p.Name, p => (IReadOnlyList<Package>)p.Value.EnumerateArray().Select(PackageOf).ToList(), StringComparer.OrdinalIgnoreCase),
             NoAnswer = Set("noAnswer"),
+            FrameworkReferenceOptions = root.TryGetProperty("frameworkReferenceOptions", out var referenceOptions)
+                ? referenceOptions.EnumerateObject().ToDictionary(p => p.Name, p => p.Value.GetString()!, StringComparer.OrdinalIgnoreCase)
+                : new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase),
             SourcePackages = root.GetProperty("sourcePackages").EnumerateArray().Select(e => new SourcePackage(
                 new Regex(e.GetProperty("pattern").GetString()!, RegexOptions.Compiled),
                 new Package(e.GetProperty("id").GetString()!, Version(e.GetProperty("version").GetString()!)),

@@ -11,7 +11,7 @@
 | API | 使うコーパス | 今の扱い | 案 |
 |---|---|---|---|
 | System.Web.DataVisualization(グラフ) | nop | スタブ | referencesource(MIT)にソースがあるので、フォークと同じ方法で移植する。描画は System.Drawing なので B の System.Drawing に依存する |
-| System.Data.Linq(LINQ to SQL) | be(DB ファイルシステム)、yaf、n2 | スタブ | referencesource(MIT)から移植する |
+| System.Data.Linq(LINQ to SQL) | be(DB ファイルシステム)、yaf、n2、System.Web.Mvc の DLL | **移植済み**(2026-09-30) | referencesource(MIT)から移植した、フォークの WebFormsForCore.Data.Linq(パッチ 0032。SQL Server 用)。既定の選択は「移植版を使う」。DLL だけが参照する場合(MVC のモデルバインド)もパッケージが付く |
 | System.Data.Services.Client(WCF Data Services) | be(ギャラリー)、mojo | スタブ | 優先度は低い(使う機能が限られる) |
 | System.Web.Mobile / MobileControls | nop(11 件)、mojo、dnn、n2 | スタブ | ASP.NET 4.0 で廃止済みなので、スタブのままにする |
 | System.ServiceModel のサーバー側(ServiceHost、.svc) | mojo | スタブ | CoreWCF |

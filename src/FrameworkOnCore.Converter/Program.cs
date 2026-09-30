@@ -163,7 +163,33 @@ if (build && succeeded)
 {
     var retargetedFolder = Path.Combine(outRoot, ProjectConverter.RetargetedFolder);
     var webBin = Path.Combine(Path.GetDirectoryName(web.TargetPath)!, "bin");
-    if (Directory.Exists(webBin) && AssemblyRetargeter.RetargetFolder(webBin, retargetedFolder, preferred, ownAssemblies, report, rules.DllCallReplacements).Any(r => r.Retargeted.Count > 0 || r.Replaced.Count > 0))
+    // Framework references only DLLs make (System.Web.Mvc.dll references System.Data.Linq for its Binary model
+    // binder; MVC applications rarely do): their packages are added to the web project and it is built again,
+    // so the references bind (a rule the application's own references would get, ConvertSdk / ConvertOld).
+    if (Directory.Exists(webBin) && AssemblyRetargeter.ReferencedMissing(webBin, rules.FrameworkReferences.Keys) is { Count: > 0 } missing)
+    {
+        var packages = new List<Package>();
+        foreach (var (assembly, by) in missing)
+        {
+            var package = rules.FrameworkReferences[assembly];
+            packages.Add(package);
+            if (rules.FrameworkCompanions.TryGetValue(assembly, out var companions)) packages.AddRange(companions);
+            report.Add(Report.Kind.Project, "bin", $"{assembly} referenced by {string.Join(", ", by.Distinct())} (no project references it): its package {package.Id} added");
+        }
+        var webProject = System.Xml.Linq.XDocument.Load(web.TargetPath, System.Xml.Linq.LoadOptions.PreserveWhitespace);
+        webProject.Root!.Add(new System.Xml.Linq.XElement(webProject.Root.Name.Namespace + "ItemGroup",
+            packages.DistinctBy(p => p.Id).Select(p => new System.Xml.Linq.XElement(webProject.Root.Name.Namespace + "PackageReference",
+                new System.Xml.Linq.XAttribute("Include", p.Id), new System.Xml.Linq.XAttribute("Version", p.Version)))));
+        webProject.Save(web.TargetPath);
+        Console.WriteLine("packages for the DLLs' framework references added: building again");
+        var (missingExit, missingOutput) = BuildFixer.Dotnet($"build \"{buildTarget}\" -nologo -v q");
+        if (missingExit != 0)
+        {
+            report.Add(Report.Kind.Error, "build", "the build with the DLLs' framework references failed: " + string.Join(" / ", missingOutput.Split('\n').Where(l => l.Contains(" error ")).Take(5)));
+            succeeded = false;
+        }
+    }
+    if (build && succeeded && Directory.Exists(webBin) && AssemblyRetargeter.RetargetFolder(webBin, retargetedFolder, preferred, ownAssemblies, report, rules.DllCallReplacements).Any(r => r.Retargeted.Count > 0 || r.Replaced.Count > 0))
     {
         Console.WriteLine($"retargeted DLLs in {retargetedFolder}: building again");
         var (exit, output) = BuildFixer.Dotnet($"build \"{buildTarget}\" -nologo -v q");

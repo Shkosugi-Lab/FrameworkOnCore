@@ -16,7 +16,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="WebFormsForCore.Web" Version="1.6.5-w2l.3" />
+    <PackageReference Include="WebFormsForCore.Web" Version="1.6.5-w2l.4" />
   </ItemGroup>
 
   <Target Name="ChangeAliasesOfNugetRefs" BeforeTargets="FindReferenceAssembliesForReferences;ResolveReferences">

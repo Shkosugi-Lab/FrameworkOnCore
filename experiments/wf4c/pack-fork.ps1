@@ -9,7 +9,7 @@
 # All builds in dependency order. Assumes src/WebFormsForCore.Build was built once (it emits the
 # FakeStrongName targets every project imports).
 param(
-    [string]$Version = '1.6.5-w2l.3',
+    [string]$Version = '1.6.5-w2l.4',
     [ValidateSet('Web', 'All', 'None')][string]$Build = 'Web'
 )
 
@@ -22,6 +22,8 @@ $projects = @(
     'WebFormsForCore.Configuration\WebFormsForCore.Configuration.csproj'
     'WebFormsForCore.Drawing\WebFormsForCore.Drawing.csproj'
     'WebFormsForCore.Serialization.Formatters\WebFormsForCore.Serialization.Formatters.csproj'
+    # LINQ to SQL (System.Data.Linq), ported from referencesource (generate-dlinq-resources.ps1 for its resources).
+    'WebFormsForCore.Data.Linq\WebFormsForCore.Data.Linq.csproj'
     'WebFormsForCore.Web\WebFormsForCore.Web.csproj'
     'WebFormsForCore.Web.ApplicationServices\WebFormsForCore.Web.ApplicationServices.csproj'
     'WebFormsForCore.Web.RegularExpressions\WebFormsForCore.Web.RegularExpressions.csproj'

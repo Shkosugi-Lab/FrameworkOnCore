@@ -1,0 +1,38 @@
+{
+  "where-equals-guid": {
+    "sql": "SELECT [t0].[Id], [t0].[ParentId], [t0].[FullPath], [t0].[CreateDate]\r\nFROM [dbo].[foc_Directory] AS [t0]\r\nWHERE [t0].[Id] = @p0",
+    "parameters": [{ "name": "@p0", "value": "7c9e6679-7425-40de-944b-e07fc1f90ae7" }]
+  },
+  "where-tolower-and": {
+    "sql": "SELECT [t0].[Id], [t0].[ParentId], [t0].[FullPath], [t0].[CreateDate]\r\nFROM [dbo].[foc_Directory] AS [t0]\r\nWHERE (LOWER([t0].[FullPath]) = @p0) AND ([t0].[Id] = @p1)",
+    "parameters": [{ "name": "@p0", "value": "/docs" }, { "name": "@p1", "value": "7c9e6679-7425-40de-944b-e07fc1f90ae7" }]
+  },
+  "where-nullable-null": {
+    "sql": "SELECT [t0].[Id], [t0].[ParentId], [t0].[FullPath], [t0].[CreateDate]\r\nFROM [dbo].[foc_Directory] AS [t0]\r\nWHERE [t0].[ParentId] IS NULL",
+    "parameters": []
+  },
+  "where-nullable-value": {
+    "sql": "SELECT [t0].[Id], [t0].[ParentId], [t0].[FullPath], [t0].[CreateDate]\r\nFROM [dbo].[foc_Directory] AS [t0]\r\nWHERE [t0].[ParentId] = @p0",
+    "parameters": [{ "name": "@p0", "value": "7c9e6679-7425-40de-944b-e07fc1f90ae7" }]
+  },
+  "where-association": {
+    "sql": "SELECT [t0].[FileId], [t0].[DirectoryId], [t0].[FullPath], [t0].[Contents]\r\nFROM [dbo].[foc_File] AS [t0]\r\nINNER JOIN [dbo].[foc_Directory] AS [t1] ON [t1].[Id] = [t0].[DirectoryId]\r\nWHERE [t1].[Id] = @p0",
+    "parameters": [{ "name": "@p0", "value": "7c9e6679-7425-40de-944b-e07fc1f90ae7" }]
+  },
+  "first-or-default-shape": {
+    "sql": "SELECT TOP (1) [t0].[Id], [t0].[ParentId], [t0].[FullPath], [t0].[CreateDate]\r\nFROM [dbo].[foc_Directory] AS [t0]\r\nWHERE [t0].[ParentId] IS NULL",
+    "parameters": []
+  },
+  "contains-local-list": {
+    "sql": "SELECT [t0].[Id], [t0].[ParentId], [t0].[FullPath], [t0].[CreateDate]\r\nFROM [dbo].[foc_Directory] AS [t0]\r\nWHERE [t0].[Id] IN (@p0, @p1)",
+    "parameters": [{ "name": "@p0", "value": "7c9e6679-7425-40de-944b-e07fc1f90ae7" }, { "name": "@p1", "value": "11111111-2222-3333-4444-555555555555" }]
+  },
+  "projection": {
+    "sql": "SELECT [t0].[FileId], [t0].[FullPath]\r\nFROM [dbo].[foc_File] AS [t0]",
+    "parameters": []
+  },
+  "orderby-date": {
+    "sql": "SELECT [t0].[Id], [t0].[ParentId], [t0].[FullPath], [t0].[CreateDate]\r\nFROM [dbo].[foc_Directory] AS [t0]\r\nORDER BY [t0].[CreateDate] DESC, [t0].[FullPath]",
+    "parameters": []
+  }
+}

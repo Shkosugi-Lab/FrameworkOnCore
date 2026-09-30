@@ -207,6 +207,30 @@ Linux で見つかって直したこと:
 - **カルチャ**: IIS はサーバーの OS のカルチャをアプリに渡す。コンテナには無い(インバリアントで通貨が `¤`)ので、`LANG` で渡す(既定は正解データを採ったこのマシンのカルチャ)。
 - **ポート**: ホストとコンテナで同じ番号にそろえる(IIS の SERVER_PORT はローカルのポート)。リバースプロキシの後ろに置く場合は、`aspnet:UseHostHeaderForRequestUrl` でポートも Host ヘッダーから取る。
 
+### LINQ to SQL(System.Data.Linq)の移植(2026-09-30、フォーク 0032、`1.6.5-w2l.4`)
+
+referencesource(MIT)の System.Data.Linq を、フォークの新プロジェクト `WebFormsForCore.Data.Linq`(アセンブリ名 System.Data.Linq、元と同じ ECMA の公開キー)として移植した(PORT-PROMPT.md の手順)。スタブをやめ、既定の選択は「移植版を使う」(`linq-to-sql:port`)。SQL Server 用(System.Data.SqlClient 4.9.0、変換後アプリと同じパッケージ)。
+
+- **ソース**: 元のコードは変えないのが原則。変更は `Core\` の追加ファイルと `#if`(ObjectReaderCompiler のデバッグ用キャプチャ = Reflection.Emit の Save は .NET Framework のみ)だけ。
+- **リソース**: referencesource にはリソーステキストの一部(System.Data.Linq.txt)しか無く、Strings/Error(3 名前空間 × 各 50〜160 メンバー)が生成できない。`generate-dlinq-resources.ps1` が .NET Framework 4.8 の実アセンブリから再生成する(書式文字列はリソースから、例外の型は各 Error メソッドを実行して採取)。メッセージと例外の型は .NET Framework と同一。
+- **変換器**: `frameworkReferenceOptions`(選択で有効になる frameworkReferences。選ばなければ noAnswer に落ちる)を追加。bin の DLL だけが参照するアセンブリ(System.Web.Mvc.dll・System.Web.WebPages.dll → System.Data.Linq)は、ビルド後に検出してパッケージを足し、もう一度ビルドする(`AssemblyRetargeter.ReferencedMissing`)。ForDlls の `System.Data.Linq.Binary` スタブは削除(型の二重定義になるため)。
+- **テスト**(`tests/FrameworkOnCore.Tests/DataLinq`、97 件全体が Windows / Linux とも緑):
+
+| 領域 | 正常系 | 境界・異常系 | 場所 |
+|---|---|---|---|
+| 属性マッピング(dbml 生成コードの形) | 表・列・キー・関連の両側・IsDbGenerated/IsVersion | — | DataLinqMappingTests |
+| Binary(MVC のモデルバインドも使う) | 変換・等価・ToString(`"Base64"`) | null は空(net48 実機で確認)、不変性 | DataLinqTypesTests |
+| EntitySet / EntityRef | Add/Remove/付け替えの両側同期 | 外部キーの変更拒否(ForeignKeyReferenceAlreadyHasValueException) | DataLinqTypesTests |
+| 変更追跡 | Insert/Attach/更新/削除が GetChangeSet に載る | 未 Attach の削除・追跡無効・Dispose 後(メッセージが .NET Framework と同一) | DataLinqContextTests |
+| SQL 変換 | be の 9 形(Guid 等価、ToLower、null 許容、関連の JOIN、Take(1)、Contains、射影、OrderBy) | net48 のゴールデン(golden/record.ps1)と完全一致(改行は Environment.NewLine 依存で正規化) | DataLinqSqlGoldenTests |
+| DB 実行(SQL Server 必須、無ければスキップ) | CreateDatabase/CRUD/関連グラフ/遅延読み込み | IDENTITY・rowversion の書き戻し、競合(ChangeConflictException→Resolve)、TransactionScope のロールバック | DataLinqDatabaseTests |
+| 変換器の組み込み | 選択で参照⇄noAnswer が切り替わる、DLL 参照の検出 | — | ChoicesTests・AssemblyRetargeterTests |
+
+  テストしない領域と理由: 継承マッピング・ストアドプロシージャ・XML マッピング(MappedMetaModel)・DataBindingList — コーパス(be/yaf/n2/MVC)が使わない。SqlCE — 対象外。
+- **検証**: be Windows 5/5・Linux 5/5。be の DB ファイルシステム(DbFileSystemProvider)を Windows で e2e(be_w2l を Setup.sql で作成、管理者ログイン → `/api/upload` → 一覧 → `/file.axd` で読み出し → 削除、すべて DB の be_FileStore* を経由)。wt Windows 6/8(既知の丸めの差)。mvcmovie Windows 11/12(既知の言語パックの差。ForDlls の Binary 削除後もモデルバインドが動く = DLL 参照が移植版に結び付く)。Linux のテストは `run-tests-linux.ps1 -SqlServer`(SQL Server 2022 のコンテナ)で DB のテストまで緑。
+- **見つけたこと**: (1) `DataContext.GetCommand` は SQL 生成モードをサーバーの版で決めるため接続を開く(.NET Framework も同じ)。SQL のテストに実サーバーが要るのはこのため。 (2) SQL 文の改行は Environment.NewLine(Linux では `\n`)。SQL としては等価。 (3) be の `DbFileSystemProvider.GetDirectory` は、正規化後のパスが `/` になる入力で無限再帰する(be 自身の潜在バグ。.NET Framework でも同じ。管理画面の実際の呼び方では起きない)。
+- **残り**: be の DB ファイルシステムの Linux e2e は未実施(ポートの SQL 経路自体は Linux の DB テストで検証済み)。nop390・yaf・n2 の再検証は未実施(yaf・n2 は System.Data.Linq を型参照するだけ)。System.Web.Extensions の LinqDataSource はフォークで外れたまま(コーパスに利用が無い。戻すならフォークの Web.Extensions に WebFormsForCore.Data.Linq への参照を足す)。
+
 ## カルチャのデータ(2026-09-26)
 
 .NET Framework は Windows のカルチャデータ(NLS)を使う。.NET は ICU のデータを使い、両者は異なる。

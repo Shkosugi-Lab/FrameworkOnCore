@@ -380,6 +380,30 @@ public sealed class AssemblyRetargeter
         return added;
     }
 
+    /// <summary>
+    /// Assemblies of <paramref name="candidates"/> (the rules' framework references) that a DLL of the bin folder
+    /// references while no assembly of that name is there: assembly -> the DLLs referencing it. An application does
+    /// not always reference them itself (System.Web.Mvc.dll references System.Data.Linq for its Binary model binder,
+    /// MVC applications rarely do): their packages are added and the application built again, so the references bind.
+    /// </summary>
+    public static Dictionary<string, List<string>> ReferencedMissing(string bin, IEnumerable<string> candidates)
+    {
+        var wanted = new HashSet<string>(candidates, StringComparer.OrdinalIgnoreCase);
+        var present = new HashSet<string>(Directory.EnumerateFiles(bin, "*.dll").Select(Path.GetFileNameWithoutExtension)!, StringComparer.OrdinalIgnoreCase);
+        var missing = new Dictionary<string, List<string>>(StringComparer.OrdinalIgnoreCase);
+        foreach (var file in Directory.EnumerateFiles(bin, "*.dll"))
+        {
+            ModuleDefinition module;
+            try { module = ModuleDefinition.ReadModule(file); }
+            catch (BadImageFormatException) { continue; }
+            using (module)
+                foreach (var reference in module.AssemblyReferences)
+                    if (wanted.Contains(reference.Name) && !present.Contains(reference.Name))
+                        (missing.TryGetValue(reference.Name, out var by) ? by : missing[reference.Name] = []).Add(Path.GetFileName(file));
+        }
+        return missing;
+    }
+
     /// <summary>The assemblies of the fork's packages (the feed's nupkgs) and of the shim projects: they give .NET Framework's types.</summary>
     public static HashSet<string> PreferredAssemblies(string feed, IEnumerable<string> shimProjects)
     {

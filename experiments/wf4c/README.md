@@ -254,7 +254,10 @@ System.Drawing.Common は .NET 7 から Windows 専用。Linux 実装を持つ�
   - 両方: `Stream.Read` が要求より少なく返す場合を考えていない読み込み(CA2022)。
 - **類似の問題の調査**: Unix 版の P/Invoke 556 本を libgdiplus 6.1 のエクスポートと照合し、名前のずれ 2 本(上の LOGFONT・HFONT)を直した(残る 1 本は macOS 専用)。アプリのストリームを閉じる箇所、不正確な読み取り(ビルド警告)を全体で確認した。配置の「描画を使うか」の判定が、どのサイトにも入る System.Windows.Extensions のために常に真になっていたのを直した。
 - **検証**: テスト Windows 1,775 件・Linux 1,756 件(SQL Server の要る 19 件はスキップ)がすべて緑。be Windows 5/5・Linux 5/5、wt Windows 6/8・Linux 5/8(以前と同じ既知の差のみ)。be/wt の変換結果の差はプロジェクトファイルのパッケージ参照だけ。
-- **残り**: nop390 の Linux(以前は System.Drawing の GDI+ の例外でインストーラーが失敗していた)は、移植版で動くはずだが未検証(CLAUDE.md によりコーパスの検証は be/wt のみ)。libgdiplus に無い機能(GraphicsPath.Widen/Warp、SaveAdd による複数ページ・アニメーションの書き込み、EMF+ の描画)は Linux では使えない。
+- **nop390 を Linux で(2026-09-30、ユーザーの指示で検証)**: 変換し直したサイト(フォークの System.Drawing.Common。Dockerfile が libgdiplus とフォントを入れる)を、変換器が書いた Dockerfile のイメージと SQL Server 2022 のコンテナで動かした。以前 GDI+ の例外で失敗していた**インストーラーがサンプルデータ付きで完了**(商品 45、画像 78。既定の画像の処理が System.Drawing)。店頭 18 画面・カートへの追加(AJAX)とカート・ログイン・管理画面(ダッシュボード、商品一覧の JSON、編集、注文、設定)がすべて 200。ページのサムネイル 31 枚はすべて画像で、Linux で生成された(68 枚、目視でも正しく縮小)。管理画面からの画像のアップロード(縮小して保存)も成功。nopCommerce のエラーログは空。
+  - **見つけて直したこと(フォーク 0038)**: 新しい配置の**初回の起動**でコンパイルが失敗し(CS0006: プラグインの DLL が見つからない)、アプリが再起動していた(InitializationError。2 回目から動く)。ASP.NET は PreApplicationStart の後、アプリのハッシュが変われば生成物のフォルダーを掃除する(referencesource と同じ順序)。nopCommerce は PreApplicationStart でプラグインを動的ディレクトリへ写して読み込む。Windows では読み込み済みの DLL は使用中で消えない(ASP.NET はそれを前提に `.delete` を残す)が、Linux は消せてしまい、続くページのコンパイルが参照できなかった。読み込み済みのアセンブリのファイルを、Windows と同じく使用中として扱う(`Util.IsLoadedAssemblyFile`、削除の 2 経路)。直した後は初回から 200 で再起動なし。Windows は変わらない(判定はファイルシステムに任せる)。
+  - **検証の手順の注意**: `run-linux.ps1` はビルドサーバー(MSBuild、コンパイラー。約 1 GB)を残したままアプリを起動していて、SQL Server のコンテナと同時だと Docker の VM(3.8 GB)のメモリが尽き、be が最初の要求で OOM で落ちた。アプリの起動前にビルドサーバーを止めるようにした。be Linux 5/5(SQL Server のコンテナありでも)、wt Linux 5/8(以前と同じ)。
+- **残り**: libgdiplus に無い機能(GraphicsPath.Widen/Warp、SaveAdd による複数ページ・アニメーションの書き込み、EMF+ の描画)は Linux では使えない。
 ## カルチャのデータ(2026-09-26)
 
 .NET Framework は Windows のカルチャデータ(NLS)を使う。.NET は ICU のデータを使い、両者は異なる。

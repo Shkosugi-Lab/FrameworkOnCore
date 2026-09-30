@@ -109,6 +109,9 @@ if [ -f App_Data/culture-profile.json ]; then
     export ICU_DATA=/icu-data
 fi
 dotnet build -v q -nologo
+# The build servers (MSBuild, the compiler: about 1 GB) are not needed by the app: with SQL Server in the same
+# Docker VM, they left the app too little memory (killed on its first request).
+dotnet build-server shutdown >/dev/null 2>&1 || true
 $(if ($CaseInsensitive) { "export LD_PRELOAD=/foccase/linux-`$(uname -m | sed s/x86_64/x64/\;s/aarch64/arm64/)/libfoccase.so FOC_CASE_ROOTS=/work/$appPath FOC_CASE_LOG=1" })
 exec dotnet bin/$name.dll --urls http://0.0.0.0:$Port
 "@ -replace "`r", ''

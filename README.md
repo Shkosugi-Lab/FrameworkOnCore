@@ -35,7 +35,7 @@
 | `src/FrameworkOnCore.Studio` | GUI(ローカルの Web 画面)。解析、部品ごとの選択、ソースの表示、変換のコマンド |
 | `src/FrameworkOnCore.Analyzers` | 変換のビルドで使う Roslyn アナライザー(Windows のパス、非同期デリゲート、プラットフォームの置き換え) |
 | `experiments/wf4c/shims/FrameworkOnCore.Compat` | 互換アセンブリ。.NET にない、または Windows 専用のものを .NET Framework と同じ動きで補う(EventLog、Encoding.Default、Thread.ResetAbort、VB の My など) |
-| `experiments/wf4c/patches` | WebFormsForCore のフォークへのパッチ(37 本。0032・0033 は LINQ to SQL、0034〜0037 は System.Drawing の移植。`AjaxControlToolkit/` はそのサブモジュールへのパッチ) |
+| `experiments/wf4c/patches` | WebFormsForCore のフォークへのパッチ(38 本。0032・0033 は LINQ to SQL、0034〜0037 は System.Drawing の移植、0038 は Linux での生成物のフォルダーの掃除。`AjaxControlToolkit/` はそのサブモジュールへのパッチ) |
 | `experiments/wf4c/casefs` | Linux でファイル名の大文字小文字を区別しない LD_PRELOAD ライブラリ(libfoccase.so) |
 | `tests/FrameworkOnCore.Tests` | テスト(Windows と Linux) |
 | `tests/DataLinqParity` | 移植した System.Data.Linq の全 API の新旧比較のケース(net48 で .NET Framework のゴールデンを採り、テストが移植版と比べる) |

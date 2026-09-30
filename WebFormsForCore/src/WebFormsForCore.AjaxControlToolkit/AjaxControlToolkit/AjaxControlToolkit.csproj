@@ -79,7 +79,8 @@
         <PackageReference Include="System.Drawing.Common" Version="8.0.20" Aliases="Legacy" />
     </ItemGroup>
     <ItemGroup Condition="$(TargetFramework) == 'net10.0'">
-        <PackageReference Include="System.Drawing.Common" Version="10.0.0" Aliases="Legacy" />
+        <!-- WebFormsForCore: System.Drawing.Common with its Linux implementation (the port), not Microsoft's (Windows only since .NET 7). -->
+        <ProjectReference Include="..\..\WebFormsForCore.Drawing.Common\WebFormsForCore.Drawing.Common.csproj" Aliases="Legacy" />
     </ItemGroup>
     <PropertyGroup Condition="$(TargetFramework) != 'net48'">
         <OutputPath>..\bin\$(Configuration)\$(TargetFramework)</OutputPath>

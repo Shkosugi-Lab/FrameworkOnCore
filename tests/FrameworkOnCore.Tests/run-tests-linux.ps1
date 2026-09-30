@@ -24,7 +24,7 @@ if ($SqlServer) {
 }
 $script = @'
 set -e
-for d in src/FrameworkOnCore.Analyzers src/FrameworkOnCore.Analysis src/FrameworkOnCore.Converter experiments/wf4c/shims/FrameworkOnCore.Compat tests/FrameworkOnCore.Tests \
+for d in src/FrameworkOnCore.Analyzers src/FrameworkOnCore.Analysis src/FrameworkOnCore.Converter experiments/wf4c/shims/FrameworkOnCore.Compat tests/FrameworkOnCore.Tests tests/DataLinqParity \
          experiments/wf4c/_upstream/src/WebFormsForCore.Data.Linq experiments/wf4c/_upstream/src/SigningKey experiments/wf4c/_upstream/lib/WebFormsForCore.Build; do
   mkdir -p /w/$d
   (cd /repo/$d && find . -type f -not -path './bin/*' -not -path './obj/*' -exec cp --parents {} /w/$d/ \;)

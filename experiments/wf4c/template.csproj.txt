@@ -16,7 +16,7 @@
     <StartupObject>Program</StartupObject>
     <EnableDefaultContentItems>false</EnableDefaultContentItems>
     <!-- The fork (experiments/wf4c/_upstream, branch w2l/*), packed into ../_feed. -->
-    <WebFormsForCoreVersion>1.6.5-w2l.4</WebFormsForCoreVersion>
+    <WebFormsForCoreVersion>1.6.5-w2l.5</WebFormsForCoreVersion>
     <RestoreAdditionalProjectSources>$(MSBuildThisFileDirectory)..\_feed</RestoreAdditionalProjectSources>
   </PropertyGroup>
 

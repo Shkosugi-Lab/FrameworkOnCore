@@ -58,7 +58,8 @@ System.ServiceModel(CoreWCF)と System.Drawing の Linux 対応は「移植」�
 
 1. **テストマトリクスを実装より先に書く**。行 = 機能領域、列 = 正常系 / 境界(null・空・大きい値・文化依存) / 異常系(例外の型と動きが .NET Framework と同じか)。§1 の必須カバー一覧の行は全部埋める。テストしない行には理由を書く(例: コーパス未使用でスタブのまま)。マトリクスはテストのフォルダーか experiments/wf4c/README.md の記録に残す。
 2. **.NET Framework との動作互換が要点になる箇所は、期待値を .NET Framework 側で記録して比較する**(net48 の小さなハーネスで実行した結果をゴールデンとして保存。corpora/record-webforms-golden.ps1 と同じ考え方)。
-3. **Windows と Linux の両方で実行する**: `dotnet test tests\FrameworkOnCore.Tests` と `tests\FrameworkOnCore.Tests\run-tests-linux.ps1`。DB が要るテストは、Windows は SQL Server Express(終わったら閉じる)、Linux はコンテナ(1 つずつ)。
+3. **全 API の新旧比較を作る**(System.Data.Linq の `tests/DataLinqParity` が手本): 同じケースのソースを net48(.NET Framework の本物)と net10.0(移植版)でビルドし、旧でゴールデンを採って新と比べる。API 一覧の一致・全 API にケースがあること(Roslyn で機械的に照合)・移植版に Debug.Assert が無いことも検査する。正規化はランタイム・SQL クライアント・サーバーの差に限り、理由を書く。
+4. **Windows と Linux の両方で実行する**: `dotnet test tests\FrameworkOnCore.Tests` と `tests\FrameworkOnCore.Tests\run-tests-linux.ps1`。DB が要るテストは、Windows は SQL Server Express(終わったら閉じる)、Linux はコンテナ(1 つずつ)。
 4. 既存の 69 件のテストも含めて全部通す。
 
 ### 4. 変換器への組み込み

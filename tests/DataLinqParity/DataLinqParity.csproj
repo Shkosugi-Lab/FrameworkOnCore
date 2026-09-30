@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- The unit cases of every System.Data.Linq API, compiled twice: net48 against .NET Framework's own assembly (the
+       old: record.ps1 writes the goldens from it) and net10.0 against the port (the new: FrameworkOnCore.Tests runs the
+       cases in process and compares them with the goldens, DataLinqParityTests). One source, so the two runs ask the
+       same questions. -->
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFrameworks>net48;net10.0</TargetFrameworks>
+    <!-- 9: what both targets compile the one source with (net48's default is 7.3). -->
+    <LangVersion>9</LangVersion>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <RootNamespace>FrameworkOnCore.DataLinqParity</RootNamespace>
+    <IsPackable>false</IsPackable>
+    <!-- CS0618: System.Data.SqlClient on net10.0 (the port's provider, on purpose). CS0169/CS0649: mapped fields only
+         LINQ to SQL writes. -->
+    <NoWarn>$(NoWarn);CS0618;CS0169;CS0649;CS0414</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net48'">
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data" />
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="all" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net10.0'">
+    <ProjectReference Include="..\..\experiments\wf4c\_upstream\src\WebFormsForCore.Data.Linq\WebFormsForCore.Data.Linq.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="golden\**" />
+  </ItemGroup>
+</Project>

@@ -16,6 +16,8 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.*" />
     <PackageReference Include="xunit" Version="2.9.*" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.8.*" />
+    <!-- Skip.If: the parity cases that need a SQL Server are reported skipped, not passed, without one. -->
+    <PackageReference Include="Xunit.SkippableFact" Version="1.5.23" />
   </ItemGroup>
 
   <ItemGroup>
@@ -32,5 +34,13 @@
     <Compile Remove="DataLinq\golden\**\*.cs" />
     <!-- Forward slashes: on Linux a backslash Link becomes part of the file's name. -->
     <None Include="DataLinq/golden/dlinq-sql.golden.json" Link="DataLinq/dlinq-sql.golden.json" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- (DataLinqParityData: on Linux the project's apphost is a file named DataLinqParity.) Every System.Data.Linq API against .NET Framework (DataLinq\DataLinqParityTests.cs): the cases (run here on the
+         port), their goldens from .NET Framework, and their sources (which APIs they use: Every_API_has_a_case). -->
+    <ProjectReference Include="..\DataLinqParity\DataLinqParity.csproj" />
+    <None Include="../DataLinqParity/golden/*" LinkBase="DataLinqParityData" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="../DataLinqParity/**/*.cs" Exclude="../DataLinqParity/bin/**;../DataLinqParity/obj/**" LinkBase="DataLinqParityData/sources" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 </Project>

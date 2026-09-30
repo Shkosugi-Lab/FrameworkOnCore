@@ -35,7 +35,7 @@
 | `src/FrameworkOnCore.Studio` | GUI(ローカルの Web 画面)。解析、部品ごとの選択、ソースの表示、変換のコマンド |
 | `src/FrameworkOnCore.Analyzers` | 変換のビルドで使う Roslyn アナライザー(Windows のパス、非同期デリゲート、プラットフォームの置き換え) |
 | `experiments/wf4c/shims/FrameworkOnCore.Compat` | 互換アセンブリ。.NET にない、または Windows 専用のものを .NET Framework と同じ動きで補う(EventLog、Encoding.Default、Thread.ResetAbort、VB の My など) |
-| `experiments/wf4c/patches` | WebFormsForCore のフォークへのパッチ(29 本) |
+| `experiments/wf4c/patches` | WebFormsForCore のフォークへのパッチ(30 本) |
 | `experiments/wf4c/casefs` | Linux でファイル名の大文字小文字を区別しない LD_PRELOAD ライブラリ(libfoccase.so) |
 | `tests/FrameworkOnCore.Tests` | テスト(Windows と Linux) |
 | `samples/` | 検証用の小さな Web Forms アプリ(RuntimeProbe など) |

@@ -26,6 +26,10 @@ public sealed record PlatformReplacement(string Member, string? Then, int? Argum
 /// <summary>What a project's sources do that behaves differently on .NET: reported.</summary>
 public sealed record SourceNote(Regex Pattern, string Note);
 
+/// <summary>A call inside a library's DLL replaced with the compatibility assembly's static method (dllCallReplacements): in the DLL of the
+/// assembly, in the method In (Type::Method), the call of Call (Type::Method) becomes Replacement (Type::Method).</summary>
+public sealed record DllCallReplacement(string Assembly, string In, string Call, string Replacement, string Note);
+
 /// <summary>
 /// The package and reference rules (rules/packages.json). A rule of a user's choice names it ("option":
 /// "binary-formatter:compat-package", a component of FrameworkOnCore.Analysis' catalog and one of its options): it works
@@ -37,6 +41,8 @@ public sealed record Rules
     public required IReadOnlyList<string> WebPackages { get; init; }
     public required IReadOnlyDictionary<string, Package> ReplacedPackages { get; init; }
     public required IReadOnlySet<string> DroppedPackages { get; init; }
+    /// <summary>.NET Framework build tooling kept referenced with nothing of it used (ExcludeAssets all): another package depends on it (Microsoft.Bcl.Build).</summary>
+    public IReadOnlySet<string> InertPackages { get; init; } = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
     /// <summary>Packages whose API a shim gives (shims/), where the package works on Windows only: id -> why.</summary>
     public required IReadOnlyDictionary<string, string> ShimPackages { get; init; }
     public required IReadOnlyDictionary<string, Package> FrameworkReferences { get; init; }
@@ -48,6 +54,7 @@ public sealed record Rules
     public required IReadOnlyList<PlatformReplacement> PlatformReplacements { get; init; }
     /// <summary>Packages used by their .NET Framework asset (package id -> the DLL in the package, and why).</summary>
     public required IReadOnlyDictionary<string, (string Asset, string Note)> FrameworkAssets { get; init; }
+    public IReadOnlyList<DllCallReplacement> DllCallReplacements { get; init; } = [];
     /// <summary>Namespaces a package moved (Entity Framework 4's System.Data.Objects, EF6's System.Data.Entity.Core.Objects): old -> new.</summary>
     public required IReadOnlyDictionary<string, string> NamespaceMoves { get; init; }
     /// <summary>Types a package moved out of a namespace the sources import (System.Data.EntityState): name -> its full name now.</summary>
@@ -147,6 +154,7 @@ public sealed record Rules
             WebPackages = root.GetProperty("webPackages").EnumerateArray().Select(e => e.GetString()!).ToList(),
             ReplacedPackages = Map("replacedPackages"),
             DroppedPackages = Set("droppedPackages"),
+            InertPackages = root.TryGetProperty("inertPackages", out _) ? Set("inertPackages") : new HashSet<string>(StringComparer.OrdinalIgnoreCase),
             ShimPackages = root.GetProperty("shimPackages").EnumerateObject().ToDictionary(p => p.Name, p => p.Value.GetString()!, StringComparer.OrdinalIgnoreCase),
             FrameworkReferences = Map("frameworkReferences"),
             FrameworkCompanions = root.GetProperty("frameworkCompanions").EnumerateObject().ToDictionary(
@@ -158,6 +166,10 @@ public sealed record Rules
                 e.TryGetProperty("note", out var note) ? note.GetString() : null,
                 e.TryGetProperty("appProperties", out var properties) ? properties.EnumerateObject().ToDictionary(p => p.Name, p => p.Value.GetString()!) : null,
                 Optional(e, "option"))).ToList(),
+            DllCallReplacements = root.TryGetProperty("dllCallReplacements", out var dllCalls)
+                ? dllCalls.EnumerateArray().Select(e => new DllCallReplacement(e.GetProperty("assembly").GetString()!, e.GetProperty("in").GetString()!,
+                    e.GetProperty("call").GetString()!, e.GetProperty("replacement").GetString()!, e.GetProperty("note").GetString()!)).ToList()
+                : [],
             FrameworkAssets = root.GetProperty("frameworkAssets").EnumerateObject().ToDictionary(p => p.Name,
                 p => (p.Value.GetProperty("asset").GetString()!, p.Value.GetProperty("note").GetString()!), StringComparer.OrdinalIgnoreCase),
             MemberReplacements = root.GetProperty("memberReplacements").EnumerateArray().Select(e => new MemberReplacement(

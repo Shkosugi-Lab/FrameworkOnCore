@@ -31,6 +31,8 @@
     "Antlr", "Microsoft.CodeDom.Providers.DotNetCompilerPlatform", "Microsoft.Net.Compilers",
     "Microsoft.Net.Compilers.Toolset", "Microsoft.NETFramework.ReferenceAssemblies"
   ],
+  "$comment_inertPackages": ".NET Framework build tooling another package depends on (Microsoft.Bcl, Microsoft.Bcl.Async -> Microsoft.Bcl.Build, whose targets run a .NET Framework task: MSB4062): kept referenced with ExcludeAssets all, so that the dependency brings nothing either.",
+  "inertPackages": [ "Microsoft.Bcl.Build" ],
 
   "$comment_frameworkReferences": ".NET Framework assembly references (no HintPath) with a .NET 10 answer. Others are in the box or have none.",
   "frameworkReferences": {
@@ -113,9 +115,15 @@
     "InvalidCommandTreeException": "System.Data.Entity.Core.InvalidCommandTreeException"
   },
 
+  "$comment_dllCallReplacements": "Calls inside a library's DLL (no source) where .NET differs from .NET Framework in a way the library did not expect: in the DLL named (assembly), in the method given (in: Type::Method), the call of the member (call: Type::Method) becomes a call of the compatibility assembly's static method of the same parameters and return (replacement). AssemblyRetargeter.",
+  "dllCallReplacements": [
+    { "assembly": "AutoMapper", "in": "AutoMapper.Profile::IncludeSourceExtensionMethods", "call": "AutoMapper.TypeExtensions::GetDeclaredMethods", "replacement": "FrameworkOnCore.DllFixes::PublicDeclaredMethods", "note": "AutoMapper before 12 takes Enumerable's private extension methods too; .NET's (MaxInteger<T>) break the constraints of its MakeGenericMethod and every MapperConfiguration fails: public ones only, as .NET Framework's Enumerable had" }
+  ],
+
   "$comment_frameworkAssets": "Packages whose .NET asset has another API than the .NET Framework one the site ran: that one is referenced (restored, not compiled against). The DLL in the package, and why.",
   "frameworkAssets": {
-    "PetaPoco.Compiled": { "asset": "lib/net45/PetaPoco.dll", "note": "net45 has Database(string connectionStringName), which reads the configuration; netstandard2.0 does not" }
+    "PetaPoco.Compiled": { "asset": "lib/net45/PetaPoco.dll", "note": "net45 has Database(string connectionStringName), which reads the configuration; netstandard2.0 does not" },
+    "WindowsAzure.Storage": { "asset": "lib/net45/Microsoft.WindowsAzure.Storage.dll", "note": "net45 has the synchronous API (CloudBlockBlob.Exists, UploadFromByteArray, CloudBlobContainer.CreateIfNotExists, ListBlobs); netstandard1.x has only the asynchronous one (nopCommerce 3.90's AzurePictureService)" }
   },
 
   "$comment_memberReplacements": "Members .NET removed that an extension member cannot give back (enum members, static members found before extensions, static members of static classes): the use is rewritten where the compiler says (CS0117, CS1929), to the given expression.",
@@ -134,6 +142,7 @@
     { "member": "System.Security.Principal.WindowsIdentity.GetCurrent", "option": "windows-identity:compat", "arguments": 0, "then": "Name", "replace": "expression", "replacement": "FrameworkOnCore.Platform.CurrentIdentityName", "note": "the account the application runs as: the user elsewhere" },
     { "member": "System.Security.Principal.WindowsIdentity.GetCurrent", "option": "windows-identity:compat", "arguments": 0, "replace": "expression", "replacement": "FrameworkOnCore.Platform.CurrentWindowsIdentity", "note": "no Windows account elsewhere: null (.NET throws); code that impersonates it checks for null (YAF)" },
     { "member": "System.AppDomain.RelativeSearchPath", "replace": "expression", "replacement": "FrameworkOnCore.Platform.RelativeSearchPath", "note": "ASP.NET searched bin under the application's folder (its BaseDirectory, as WebFormsForCore gives it); .NET's RelativeSearchPath is always null: bin, on every platform" },
+    { "member": "System.AppDomain.DynamicDirectory", "replace": "expression", "replacement": "FrameworkOnCore.Platform.DynamicDirectory", "note": "ASP.NET's folder for what it compiles and loads (in its probing path); .NET's is always null: WebFormsForCore's codegen folder, which its assembly resolution probes (nopCommerce copies its plugins there)" },
     { "member": "System.Text.Encoding.Default", "option": "encoding-default:framework", "replace": "expression", "replacement": "FrameworkOnCore.Platform.DefaultEncoding", "note": ".NET Framework's is the system's ANSI code page (Shift_JIS on Japanese Windows), .NET's UTF-8: as .NET Framework had it (Windows' ANSI code page; elsewhere the culture's, LANG)" },
     { "member": "System.Threading.Thread.ResetAbort", "option": "thread-abort:compat", "replace": "call", "replacement": "FrameworkOnCore.Platform.ResetAbort", "note": ".NET has no thread abort (it throws): WebFormsForCore's Response.End throws a ThreadAbortException and again at the request's next steps; ResetAbort in the application's catch cancels that, as it cancelled the abort" },
     { "member": "System.Uri.TryCreate", "parameterType": "System.UriKind", "replace": "call", "replacement": "FrameworkOnCore.WindowsUri.TryCreate", "note": "a path from the root (/Portals/0/home.css) is an absolute file URI on Unix, relative on Windows: as on Windows" },

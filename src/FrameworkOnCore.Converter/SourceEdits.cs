@@ -32,6 +32,7 @@ public sealed record Pointed(string Code, int Line, int Column, int? Length, str
 /// - FOC1004: WindowsPath.Native(argument).
 /// - FOC1005: AsyncDelegate.BeginInvoke(d, new object[] { args }, callback, state); (T)AsyncDelegate.EndInvoke(result).
 /// - FOC1006: rules/packages.json platformReplacements (by the rule's number).
+/// - FOC1007: Enumerable.Contains(array, x) for array.Contains(x) in an expression tree (C# 14 bound it to a span method).
 /// - CS9258 (C#): field -> @field. SYSLIB0007 (C#): the .NET Framework default algorithm.
 /// </summary>
 public sealed class SourceEdits(SourceLanguage language, Rules rules)
@@ -142,6 +143,20 @@ public sealed class SourceEdits(SourceLanguage language, Rules rules)
                             return null;
                         });
                         done.Add(new Done(LineOf(node), p.Code, $"{p.Message.Split(' ').FirstOrDefault(w => w.Contains("Invoke"))}(...) -> FrameworkOnCore.AsyncDelegate (FOC1005: .NET has no asynchronous delegate call; the thread pool runs it)", Report.Kind.Platform));
+                        break;
+                    case "FOC1007":
+                        // C# 14 bound an array's Contains in an expression tree to MemoryExtensions' (a span): Enumerable's, as the
+                        // C# of .NET Framework's time bound it, which the query provider translates.
+                        if (p.Tag is not ("Contains" or "SequenceEqual") || !language.TrySplitCall(node, out var spanReceiver, out _, out _) || spanReceiver == null)
+                        {
+                            done.Add(new Done(LineOf(node), p.Code, $"FOC1007: {p.Message} (not rewritten: Enumerable has no {p.Tag} of the same shape)", Report.Kind.Unsupported));
+                            break;
+                        }
+                        var enumerable = p.Tag;
+                        Add(node, inner => language.TrySplitCall(inner, out var receiver, out _, out var arguments) && receiver != null
+                            ? language.Call(language.Global("System.Linq.Enumerable." + enumerable), new[] { receiver }.Concat(arguments))
+                            : null);
+                        done.Add(new Done(LineOf(node), p.Code, $"{node.WithoutTrivia()} -> Enumerable.{enumerable}(...) (FOC1007: in an expression tree C# 14 binds an array's {enumerable} to MemoryExtensions' span method, which a query provider such as Entity Framework does not translate)", Report.Kind.Platform));
                         break;
                     case "FOC1006":
                         var instanceCall = p.Tag?.EndsWith("_instance", StringComparison.Ordinal) == true;

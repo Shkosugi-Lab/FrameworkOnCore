@@ -401,6 +401,9 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
                 text.Append($"    <Reference Include=\"{Path.GetFileNameWithoutExtension(asset.Asset)}\" HintPath=\"{FrameworkAssetPath(id, asset.Asset)}\" />\n");
                 report.Add(Report.Kind.Project, name, $"{id}: its .NET Framework asset ({asset.Asset}), as the site ran it: {asset.Note}");
             }
+            // .NET Framework build tooling another package depends on (Microsoft.Bcl.Build: Microsoft.Bcl's): referenced
+            // with nothing of it used, so that neither this reference nor the dependency imports its targets.
+            else if (rules.InertPackages.Contains(id)) text.Append($"    <PackageReference Include=\"{id}\" Version=\"{version}\" ExcludeAssets=\"all\" PrivateAssets=\"all\" />\n");
             else text.Append($"    <PackageReference Include=\"{id}\" Version=\"{version}\" />\n");
         }
         foreach (var (assembly, hint, referenceAliases) in binaryReferences)
@@ -522,6 +525,7 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
         {
             var id = (string?)reference.Attribute("Include") ?? "";
             if (rules.DroppedPackages.Contains(id)) { reference.Remove(); continue; }
+            if (rules.InertPackages.Contains(id)) { reference.SetAttributeValue("ExcludeAssets", "all"); reference.SetAttributeValue("PrivateAssets", "all"); continue; }
             if (rules.ShimPackages.TryGetValue(id, out var shim))
             {
                 report.Add(Report.Kind.Project, name, $"{id}: replaced by its shim ({shim})");

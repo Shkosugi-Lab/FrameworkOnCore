@@ -28,6 +28,8 @@ $originals = @{
     n2   = @{ Site = 'src\WebForms\WebFormsTemplates'; Steps = @('build\n2.proj;Templates-PrepareDependencies') }
     imis = @{ Site = 'IMIS'; Configuration = 'DemoRelease' }
     nop  = @{ Site = 'NopCommerceStore' }
+    # The solution's build puts the plugins in the web project's Plugins folder: the site is that folder.
+    nop390 = @{ Site = 'src\Presentation\Nop.Web' }
 }
 dotnet build src\FrameworkOnCore.Converter\FrameworkOnCore.Converter.csproj -v q -nologo | Out-Null
 if ($LASTEXITCODE -ne 0) { throw 'converter build failed' }

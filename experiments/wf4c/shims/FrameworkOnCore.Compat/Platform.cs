@@ -43,6 +43,29 @@ namespace FrameworkOnCore
             (System.IO.Directory.Exists(System.IO.Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "bin")) ? "bin" : null);
 
         /// <summary>
+        /// AppDomain.CurrentDomain.DynamicDirectory: ASP.NET's folder for what it compiles and loads (Temporary ASP.NET
+        /// Files\...), in the application domain's probing path. .NET's is always null. The same folder in WebFormsForCore,
+        /// HttpRuntime.CodegenDir, which its assembly resolution probes: an assembly copied there is loaded by name as it
+        /// was on ASP.NET (nopCommerce's PluginManager copies its plugins there in full trust). Without WebFormsForCore
+        /// (a library run elsewhere), a folder of the application in the temporary folder.
+        /// </summary>
+        public static string DynamicDirectory
+        {
+            get
+            {
+                if (System.AppDomain.CurrentDomain.DynamicDirectory is { } own) return own;
+                var codegen = System.Type.GetType("System.Web.HttpRuntime, System.Web")?.GetProperty("CodegenDir")?.GetValue(null) as string;
+                if (string.IsNullOrEmpty(codegen))
+                {
+                    var hash = System.Convert.ToHexString(System.Security.Cryptography.SHA256.HashData(System.Text.Encoding.UTF8.GetBytes(System.AppDomain.CurrentDomain.BaseDirectory)))[..16];
+                    codegen = System.IO.Path.Combine(System.IO.Path.GetTempPath(), "foc-dynamic", hash);
+                }
+                System.IO.Directory.CreateDirectory(codegen);
+                return codegen;
+            }
+        }
+
+        /// <summary>
         /// Encoding.Default: .NET Framework's is the system's ANSI code page (Shift_JIS, 932, on Japanese Windows), .NET's
         /// UTF-8 on every platform (the files the application wrote, the hashes of the bytes it took, would differ). As
         /// .NET Framework had it: Windows' ANSI code page; elsewhere the one of the culture the application runs in (LANG,

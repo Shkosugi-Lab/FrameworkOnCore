@@ -163,7 +163,7 @@ if (build && succeeded)
 {
     var retargetedFolder = Path.Combine(outRoot, ProjectConverter.RetargetedFolder);
     var webBin = Path.Combine(Path.GetDirectoryName(web.TargetPath)!, "bin");
-    if (Directory.Exists(webBin) && AssemblyRetargeter.RetargetFolder(webBin, retargetedFolder, preferred, ownAssemblies, report).Any(r => r.Retargeted.Count > 0))
+    if (Directory.Exists(webBin) && AssemblyRetargeter.RetargetFolder(webBin, retargetedFolder, preferred, ownAssemblies, report, rules.DllCallReplacements).Any(r => r.Retargeted.Count > 0 || r.Replaced.Count > 0))
     {
         Console.WriteLine($"retargeted DLLs in {retargetedFolder}: building again");
         var (exit, output) = BuildFixer.Dotnet($"build \"{buildTarget}\" -nologo -v q");
@@ -180,7 +180,7 @@ if (build && succeeded && site != null)
     var built = others.Select(o => converter.Converted.First(c => c.SourcePath == o.SourcePath)).ToList();
     SiteAssembler.Assemble(site, Path.Combine(outRoot, "site"), web, built, converter, report, cultureProfile);
     // The deployed site's .NET Framework DLLs are in it as they are: retargeted there, in place.
-    AssemblyRetargeter.RetargetFolder(Path.Combine(outRoot, "site", "bin"), null, preferred, ownAssemblies, report);
+    AssemblyRetargeter.RetargetFolder(Path.Combine(outRoot, "site", "bin"), null, preferred, ownAssemblies, report, rules.DllCallReplacements);
 }
 // How it is deployed on Linux: the assembled site, or the web project's folder (built in place).
 if (build && succeeded)

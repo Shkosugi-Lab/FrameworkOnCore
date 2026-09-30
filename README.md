@@ -88,7 +88,7 @@ dotnet test tests\FrameworkOnCore.Tests
 
 ## 状態
 
-- コーパス(Web Forms: BlogEngine.NET、WingtipToys、mojoPortal、YAF.NET、DNN、N2CMS、openIMIS(VB)、nopCommerce 1.90。MVC 5: MvcMovie)を変換し、Windows と Linux で動作を確かめています(MVC 5 の nopCommerce 3.90 は取得のみ)。結果と既知の課題は `experiments/wf4c/README.md` にあります。
+- コーパス(Web Forms: BlogEngine.NET、WingtipToys、mojoPortal、YAF.NET、DNN、N2CMS、openIMIS(VB)、nopCommerce 1.90。MVC 5: MvcMovie、nopCommerce 3.90)を変換し、Windows と Linux で動作を確かめています(nopCommerce 3.90 は Windows のみ)。結果と既知の課題は `experiments/wf4c/README.md` にあります。
 - .NET Framework にしかない API の洗い出しと対応の状況は `experiments/wf4c/FRAMEWORK-ONLY-APIS.md` にあります。
 - 予定の選択肢: System.Drawing を Linux で動かす(libgdiplus)、LINQ to SQL とグラフ(DataVisualization)の移植、WCF のサービスを CoreWCF で動かす。
 

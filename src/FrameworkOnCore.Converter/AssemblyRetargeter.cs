@@ -139,6 +139,46 @@ public sealed class AssemblyRetargeter
         return null;
     }
 
+    /// <summary>The calls in DLLs replaced by rule (dllCallReplacements).</summary>
+    public IReadOnlyList<DllCallReplacement> CallReplacements { get; init; } = [];
+
+    // The rules' calls in this DLL: in the method named, the call of the member named becomes a call of the preferred
+    // assemblies' static method of the same parameters (the receiver first for an instance member) and return.
+    List<(string, string)> ReplaceCalls(ModuleDefinition module)
+    {
+        var replaced = new List<(string, string)>();
+        foreach (var rule in CallReplacements.Where(r => r.Assembly.Equals(module.Assembly.Name.Name, StringComparison.OrdinalIgnoreCase)))
+        {
+            var (inType, inMethod) = Split(rule.In);
+            var (replacementType, replacementMethod) = Split(rule.Replacement);
+            foreach (var method in module.GetTypes().Where(t => t.FullName == inType).SelectMany(t => t.Methods).Where(m => m.Name == inMethod && m.HasBody))
+            {
+                foreach (var instruction in method.Body.Instructions)
+                {
+                    if (instruction.Operand is not MethodReference call || $"{call.DeclaringType.FullName}::{call.Name}" != rule.Call) continue;
+                    if (instruction.OpCode.Code is not (Mono.Cecil.Cil.Code.Call or Mono.Cecil.Cil.Code.Callvirt)) continue;
+                    var parameters = call.Parameters.Select(p => p.ParameterType).ToList();
+                    var signature = Signature(call.HasThis ? parameters.Prepend(call.DeclaringType) : parameters, call.ReturnType);
+                    var replacement = assemblies.Values.Where(a => a.Rank == Preferred).Select(a =>
+                        {
+                            try { return resolver.Resolve(new AssemblyNameReference(a.Name, a.Version)).MainModule.GetType(replacementType); }
+                            catch (AssemblyResolutionException) { return null; }
+                        })
+                        .Where(t => t != null)
+                        .SelectMany(t => t!.Methods)
+                        .FirstOrDefault(m => m.IsStatic && m.IsPublic && m.Name == replacementMethod && Signature(m.Parameters.Select(p => p.ParameterType), m.ReturnType) == signature);
+                    if (replacement == null) continue;
+                    instruction.OpCode = Mono.Cecil.Cil.OpCodes.Call;
+                    instruction.Operand = module.ImportReference(replacement);
+                    replaced.Add(($"{rule.In}: {rule.Call}", $"{rule.Replacement} ({replacement.Module.Assembly.Name.Name})"));
+                }
+            }
+        }
+        return replaced;
+
+        static (string Type, string Member) Split(string name) => (name[..name.IndexOf("::", StringComparison.Ordinal)], name[(name.IndexOf("::", StringComparison.Ordinal) + 2)..]);
+    }
+
     // The calls of members .NET does not have (the type is there, the member is not: MissingMethodException when it
     // runs) that an extension member of the compatibility assembly gives: `callvirt T::M(args)` becomes
     // `call Members::M(T, args)` (the receiver is already first on the stack), a static call the static method.
@@ -312,7 +352,11 @@ public sealed class AssemblyRetargeter
             // With the types where they are: the members the types do not have.
             List<(string, string)> replaced;
             List<string> missingMembers;
-            try { (replaced, missingMembers) = ReplaceMembers(module); }
+            try
+            {
+                (replaced, missingMembers) = ReplaceMembers(module);
+                replaced.AddRange(ReplaceCalls(module));
+            }
             catch (Exception e) when (e is AssemblyResolutionException or BadImageFormatException or InvalidOperationException or NotSupportedException)
             {
                 (replaced, missingMembers) = ([], [$"(members not examined: {e.Message})"]);
@@ -358,9 +402,9 @@ public sealed class AssemblyRetargeter
     /// projects' build takes them from there, FocRetargetedAssemblies) or, without one, in place (an assembled site).
     /// The application's own assemblies (<paramref name="skip"/>, built from source for .NET 10) are not looked at.
     /// </summary>
-    public static List<Result> RetargetFolder(string bin, string? into, ISet<string> preferred, ISet<string> skip, Report report)
+    public static List<Result> RetargetFolder(string bin, string? into, ISet<string> preferred, ISet<string> skip, Report report, IReadOnlyList<DllCallReplacement>? calls = null)
     {
-        var retargeter = new AssemblyRetargeter(bin, preferred);
+        var retargeter = new AssemblyRetargeter(bin, preferred) { CallReplacements = calls ?? [] };
         using var _ = retargeter.resolver;
         var results = new List<Result>();
         foreach (var file in Directory.EnumerateFiles(bin, "*.dll").OrderBy(f => f, StringComparer.OrdinalIgnoreCase))

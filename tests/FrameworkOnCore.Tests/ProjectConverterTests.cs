@@ -57,7 +57,7 @@ public sealed class ProjectConverterTests : IDisposable
     }
 
     // As the converter runs: the repository copied to the output first, the projects rewritten there.
-    (ProjectConverter Converter, Report Report) Converter()
+    (ProjectConverter Converter, Report Report) Converter(Rules? rules = null)
     {
         foreach (var file in Directory.EnumerateFiles(Source, "*", SearchOption.AllDirectories))
         {
@@ -66,7 +66,7 @@ public sealed class ProjectConverterTests : IDisposable
             File.Copy(file, target, overwrite: true);
         }
         var report = new Report();
-        var converter = new ProjectConverter(RewriteHarness.Rules, report, new Conditions("Debug", "AnyCPU", report), Source, Output,
+        var converter = new ProjectConverter(rules ?? RewriteHarness.Rules, report, new Conditions("Debug", "AnyCPU", report), Source, Output,
             new RuntimeLayout(Path.Combine(root, "feed"), Array.Empty<string>()));
         return (converter, report);
     }
@@ -129,15 +129,16 @@ public sealed class ProjectConverterTests : IDisposable
         Assert.DoesNotContain("AjaxControlToolkit.dll", project);
     }
 
-    [Fact] // nopCommerce: System.Web.DataVisualization in <assemblies>, its handlers, and asp: controls registered from it in a folder's web.config
-    public void Web_config_registrations_of_an_assembly_net_does_not_have_are_left_out()
+    // nopCommerce's: System.Web.DataVisualization in <assemblies>, its handlers, asp: controls registered from it in a
+    // folder's web.config, the handler's image files in a folder on C:.
+    void WriteChartSite()
     {
-        if (!OperatingSystem.IsWindows()) return;
         Write(@"Web\Class1.cs", "public class Class1 { }");
         Write(@"Web\Web.csproj", OldProject("Web", "", web: true));
         const string chart = "System.Web.DataVisualization, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35";
         Write(@"Web\web.config", $"""
             <configuration>
+              <appSettings><add key="ChartImageHandler" value="storage=file;timeout=20;dir=c:\TempImageFiles\;" /></appSettings>
               <system.web>
                 <compilation><assemblies><add assembly="{chart}" /><add assembly="System.Web.Extensions" /></assemblies></compilation>
                 <httpHandlers><add path="ChartImg.axd" verb="GET" type="System.Web.UI.DataVisualization.Charting.ChartHttpHandler, {chart}" /></httpHandlers>
@@ -151,7 +152,31 @@ public sealed class ProjectConverterTests : IDisposable
               <add tagPrefix="asp" namespace="System.Web.UI.DataVisualization.Charting" assembly="{chart}" />
             </controls></pages></system.web></configuration>
             """);
-        var (converter, _) = Converter();
+    }
+
+    [Fact] // the charts' port (the default choice): the registrations stay, the fork's package comes in
+    public void Web_config_registrations_of_the_chart_port_stay_and_bring_its_package()
+    {
+        if (!OperatingSystem.IsWindows()) return;
+        WriteChartSite();
+        var (converter, report) = Converter(RewriteHarness.Rules.Choose(new FrameworkOnCore.Analysis.Choices(), FrameworkOnCore.Analysis.Catalog.Default()));
+        converter.Convert(Path.Combine(Source, Local(@"Web\Web.csproj")), isWeb: true);
+
+        Assert.Contains("ChartImg.axd", Target(Output, @"Web\web.config"));
+        Assert.Contains("System.Web.UI.DataVisualization.Charting", Target(Output, @"Web\Administration\Web.config"));
+        Assert.Contains("<PackageReference Include=\"WebFormsForCore.Web.DataVisualization\"", Target(Output, @"Web\Web.csproj"));
+        // The images' folder on C: is Windows': reported, for the deployment on Linux to set.
+        Assert.Contains(report.Entries, e => e.Kind == Report.Kind.Platform && e.Text.Contains(@"c:\TempImageFiles\") && e.Text.Contains("APPSETTING_ChartImageHandler"));
+    }
+
+    [Fact] // the charts not ported (chosen so): an assembly .NET does not have, its registrations left out
+    public void Web_config_registrations_of_an_assembly_net_does_not_have_are_left_out()
+    {
+        if (!OperatingSystem.IsWindows()) return;
+        WriteChartSite();
+        var none = RewriteHarness.Rules.Choose(System.Text.Json.JsonSerializer.Deserialize<FrameworkOnCore.Analysis.Choices>(
+            """{ "components": { "charts": "none" } }""", FrameworkOnCore.Analysis.Choices.Json)!, FrameworkOnCore.Analysis.Catalog.Default());
+        var (converter, _) = Converter(none);
         converter.Convert(Path.Combine(Source, Local(@"Web\Web.csproj")), isWeb: true);
 
         var config = Target(Output, @"Web\web.config");

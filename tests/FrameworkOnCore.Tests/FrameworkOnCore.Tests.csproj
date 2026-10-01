@@ -50,4 +50,18 @@
     <ProjectReference Include="..\DrawingParity\DrawingParity.csproj" />
     <None Include="../DrawingParity/golden/*;../DrawingParity/known-differences.json;../DrawingParity/api-additions.txt" LinkBase="DrawingParityData" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
+  <ItemGroup>
+    <!-- The Chart control's port against .NET Framework (DataVisualization\DataVisualizationParityTests.cs): the cases'
+         program, built for net10.0 against the fork's packages and run in its own process (it needs the fork's System.Web
+         over .NET's facade of the same name), copied under DataVisualizationParityData\program; its goldens and known
+         differences. -->
+    <ProjectReference Include="..\DataVisualizationParity\DataVisualizationParity.csproj" ReferenceOutputAssembly="false" SetTargetFramework="TargetFramework=net10.0" SkipGetTargetFrameworkProperties="true" />
+    <None Include="../DataVisualizationParity/golden/*;../DataVisualizationParity/known-differences.json" LinkBase="DataVisualizationParityData" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+  <Target Name="CopyDataVisualizationParityProgram" AfterTargets="Build">
+    <ItemGroup>
+      <FocDataVisualizationParity Include="$(MSBuildThisFileDirectory)../DataVisualizationParity/bin/$(Configuration)/net10.0/**/*" />
+    </ItemGroup>
+    <Copy SourceFiles="@(FocDataVisualizationParity)" DestinationFiles="@(FocDataVisualizationParity->'$(OutDir)DataVisualizationParityData/program/%(RecursiveDir)%(Filename)%(Extension)')" SkipUnchangedFiles="true" />
+  </Target>
 </Project>

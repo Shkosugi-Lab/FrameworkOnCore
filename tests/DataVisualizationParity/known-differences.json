@@ -1,0 +1,47 @@
+{
+  "about": "Where the port may differ from .NET Framework's System.Web.DataVisualization, and why. DataVisualizationParityTests: in a case matching 'case', the lines matching 'line' (the golden's and the port's) are set aside; what remains must be equal. An entry that sets aside no difference (on its platform: 'all', 'windows' or 'linux') fails the test: it is stale.",
+  "differences": [
+    {
+      "case": "^Api\\.Chart\\.BuildNumber$",
+      "line": "^Chart\\.BuildNumber = ",
+      "on": "all",
+      "reason": "The chart's assembly version, which BuildNumber reads: the port's is the fork's (10.0.29.0, as every assembly of the fork), .NET Framework's 4.0.0.0. Only the property shows it (not the saved settings, not the page)."
+    },
+    {
+      "case": "^ScenarioCases\\.(Keywords|Number_formats)$",
+      "line": "^((en-US|ja-JP|de-DE) #PERCENT|ja-JP (#VALY\\{C\\}|FormatNumber|tooltips)) = ",
+      "on": "linux",
+      "reason": "Culture data: on Linux .NET has ICU's (percents with 3 decimals, ja-JP's currency sign the full-width U+FFE5), not Windows' (NLS: 2 decimals, U+00A5), which this program asks for on Windows (UseNls). Converted applications on Linux get the original server's instead (the culture profile made into ICU data by the deployment); the chart formats with whatever the culture says."
+    },
+    {
+      "case": "^ScenarioCases\\.Report_pie$",
+      "line": "^image map = ",
+      "on": "linux",
+      "reason": "The layout follows the text's measure: Liberation Sans (Arial's widths, not its hinting) through libgdiplus moves the pie a few pixels, and libgdiplus flattens the slices' arcs into other points. samples/ChartProbe (experiments/wf4c/chart-probe.ps1 -Linux) compares a page's image map with IIS's: within 5 pixels."
+    },
+    {
+      "case": "^Api\\.Annotation\\.ResizeToContent$",
+      "line": "^Annotation\\.ResizeToContent after = ",
+      "on": "linux",
+      "reason": "The annotation is sized to its text as measured: Liberation Sans through libgdiplus, not Arial through GDI+ (the height 9.81 for 9.32)."
+    },
+    {
+      "case": "^ScenarioCases\\.Image_formats$",
+      "line": "^(Jpeg|Png|Bmp|Tiff|Gif|Emf|EmfPlus|EmfDual) = ",
+      "on": "linux",
+      "reason": "What libgdiplus says of a picture it read (as in the System.Drawing suite): no HasRealDpi flag, a PNG's and a BMP's resolution as 96 (GDI+ from pixels per meter: 95.9866, 96.0120); and it records no metafile (the chart's EMF, EMF+ and dual formats write nothing)."
+    },
+    {
+      "case": "^Api\\.ChartHttpHandler\\.Settings$",
+      "line": "^ChartHttpHandler\\.Settings = ",
+      "on": "linux",
+      "reason": "Without a web application the handler's folder is the temporary folder (Path.GetTempPath): /tmp/ on Linux, the user's Temp on Windows. The rest of the settings are the same."
+    },
+    {
+      "case": "^ScenarioCases\\.Serialization$",
+      "line": "^\\s*\\|\\s+<NamedImage |^saved again equal = |^!! escaped: System\\.ArgumentNullException: Value cannot be null\\. \\[param encoder\\]$|^binary = ",
+      "on": "linux",
+      "reason": "The chart's images as libgdiplus writes them: other PNG chunks (gAMA, cHRM) in the saved XML, the same bytes again once read back (GDI+ writes a read PNG otherwise), and a bitmap made in memory written as PNG where GDI+ has no encoder for it (the binary format's save: ArgumentNullException on .NET Framework and on the port on Windows)."
+    }
+  ]
+}

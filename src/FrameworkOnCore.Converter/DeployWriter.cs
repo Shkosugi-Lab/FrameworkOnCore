@@ -53,7 +53,10 @@ public sealed class DeployWriter(Report report, string outRoot, string runtimeDi
         if (container)
         {
             WriteText(Path.Combine(outRoot, "Dockerfile"), Dockerfile(siteRelative, lang, cultureProfile != null, caseInsensitive, drawing.Count > 0));
-            WriteText(Path.Combine(outRoot, ".dockerignore"), $"# The build context is the conversion's output: only the site and deploy.\n*\n!{siteRelative}\n!deploy\n**/obj\n");
+            // The site the output itself (the web project built in place): all of it ("!." takes nothing back from "*").
+            WriteText(Path.Combine(outRoot, ".dockerignore"), siteRelative == "."
+                ? "# The build context is the conversion's output, the site itself (the web project built in place).\n**/obj\n"
+                : $"# The build context is the conversion's output: only the site and deploy.\n*\n!{siteRelative}\n!deploy\n**/obj\n");
         }
         if (linux)
         {
@@ -252,6 +255,9 @@ public sealed class DeployWriter(Report report, string outRoot, string runtimeDi
         text.Append($"""
             # The site, writable by the application (it writes to App_Data, and some to more: installers).
             COPY --chown=app:app {site} /app
+            # App_Data the application's too where the site has none (the volume's folder is made as root otherwise: the
+            # runtime's App_Data/machine.config not written, the site not started).
+            RUN mkdir -p /app/App_Data && chown app:app /app/App_Data
             COPY deploy/start.sh /opt/foc/start.sh
 
             """);

@@ -8,7 +8,7 @@
 対象と推奨順:
 
 1. ~~System.Data.Linq(LINQ to SQL)~~ … **移植済み**(2026-09-30、パッチ 0032。experiments/wf4c/README.md の記録)
-2. **System.Web.DataVisualization(グラフ)** … 使うコーパスは nop のみ。描画の System.Drawing は移植済み(下)なので Linux でも動かせる
+2. ~~System.Web.DataVisualization(グラフ)~~ … **移植済み**(2026-10-01、パッチ 0039・0040。新旧比較は `tests/DataVisualizationParity`、Web Forms のサイトでの確認は `samples/ChartProbe`。experiments/wf4c/README.md の記録。nop での実地検証は未実施)
 3. System.Data.Services.Client … 優先度低。着手前に要否をユーザーに確認
 4. ~~System.Drawing(System.Drawing.Common の Linux 実装)~~ … **移植済み**(2026-09-30、パッチ 0034〜0037。dotnet/runtime 6.0 のソース。新旧比較は `tests/DrawingParity`。experiments/wf4c/README.md の記録)
 

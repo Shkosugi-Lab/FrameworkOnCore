@@ -9,7 +9,7 @@
 # All builds in dependency order. Assumes src/WebFormsForCore.Build was built once (it emits the
 # FakeStrongName targets every project imports).
 param(
-    [string]$Version = '1.6.5-w2l.5',
+    [string]$Version = '1.6.5-w2l.6',
     [ValidateSet('Web', 'All', 'None')][string]$Build = 'Web'
 )
 
@@ -41,6 +41,9 @@ $projects = @(
     'WebFormsForCore.Web.Optimization.WebForms\WebFormsForCore.Web.Optimization.WebForms.csproj'
     'WebFormsForCore.WebGrease\WebFormsForCore.WebGrease.csproj'
     'WebFormsForCore.Web.DynamicData\WebFormsForCore.Web.DynamicData.csproj'
+    # The Chart control (System.Web.DataVisualization), ported from referencesource (generate-dataviz-resources.ps1 for its
+    # resources); net10.0 only, as the System.Drawing.Common port it draws with.
+    'WebFormsForCore.Web.DataVisualization\WebFormsForCore.Web.DataVisualization.csproj'
     # A submodule (git submodule update --init src/WebFormsForCore.AjaxControlToolkit): openIMIS uses it. Built and packed
     # for net10.0 only (the converted applications'), after the solution: its net8.0 build fails there (CS7069).
     'WebFormsForCore.AjaxControlToolkit\AjaxControlToolkit\AjaxControlToolkit.csproj'

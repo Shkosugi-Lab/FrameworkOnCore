@@ -155,6 +155,12 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
                 removed = true;
                 report.Add(Report.Kind.Unsupported, subject, $"web.config <{parent}>: {(string?)add.Attribute("tagPrefix") ?? (string?)add.Attribute("name") ?? (string?)add.Attribute("path")} of {assemblyName} left out (no .NET counterpart)");
             }
+            // The Chart control's image files (ChartImg.axd, storage=file): a folder on a Windows drive is not on Linux,
+            // where the handler fails every chart. Left as it is (right on Windows); the deployment's setting replaces it.
+            foreach (var add in configDocument.Descendants().Where(e => e.Name.LocalName == "add" && e.Parent?.Name.LocalName == "appSettings" &&
+                         (string?)e.Attribute("key") == "ChartImageHandler"))
+                if (System.Text.RegularExpressions.Regex.Match((string?)add.Attribute("value") ?? "", @"(?i)(^|;)\s*dir\s*=\s*(?<dir>[a-z]:[^;]*)") is { Success: true } dir)
+                    report.Add(Report.Kind.Platform, subject, $"web.config <appSettings> ChartImageHandler: the chart images' folder {dir.Groups["dir"].Value.Trim()} is a Windows path; on Linux set APPSETTING_ChartImageHandler (dir=a Linux folder the application may write, or storage=memory)");
             if (removed) configDocument.Save(target, SaveOptions.DisableFormatting);
         }
         catch (System.Xml.XmlException e) { report.Add(Report.Kind.Error, subject, $"web.config not read: {e.Message}"); }

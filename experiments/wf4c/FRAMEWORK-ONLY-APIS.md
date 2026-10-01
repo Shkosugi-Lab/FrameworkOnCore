@@ -10,7 +10,7 @@
 
 | API | 使うコーパス | 今の扱い | 案 |
 |---|---|---|---|
-| System.Web.DataVisualization(グラフ) | nop | スタブ | referencesource(MIT)にソースがあるので、フォークと同じ方法で移植する。描画は System.Drawing なので B の System.Drawing に依存する |
+| System.Web.DataVisualization(グラフ) | nop | **移植済み**(2026-10-01) | referencesource(MIT)から移植した、フォークの WebFormsForCore.Web.DataVisualization(パッチ 0039・0040。Chart コントロール、ChartImg.axd)。描画は B の System.Drawing の移植版(Linux は libgdiplus)。既定の選択は「移植版を使う」。全 API の新旧比較は `tests/DataVisualizationParity`、サイトでの確認は `samples/ChartProbe` |
 | System.Data.Linq(LINQ to SQL) | be(DB ファイルシステム)、yaf、n2、System.Web.Mvc の DLL | **移植済み**(2026-09-30) | referencesource(MIT)から移植した、フォークの WebFormsForCore.Data.Linq(パッチ 0032。SQL Server 用)。既定の選択は「移植版を使う」。DLL だけが参照する場合(MVC のモデルバインド)もパッケージが付く |
 | System.Data.Services.Client(WCF Data Services) | be(ギャラリー)、mojo | スタブ | 優先度は低い(使う機能が限られる) |
 | System.Web.Mobile / MobileControls | nop(11 件)、mojo、dnn、n2 | スタブ | ASP.NET 4.0 で廃止済みなので、スタブのままにする |

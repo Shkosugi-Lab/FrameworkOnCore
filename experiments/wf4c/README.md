@@ -258,6 +258,27 @@ System.Drawing.Common は .NET 7 から Windows 専用。Linux 実装を持つ�
   - **見つけて直したこと(フォーク 0038)**: 新しい配置の**初回の起動**でコンパイルが失敗し(CS0006: プラグインの DLL が見つからない)、アプリが再起動していた(InitializationError。2 回目から動く)。ASP.NET は PreApplicationStart の後、アプリのハッシュが変われば生成物のフォルダーを掃除する(referencesource と同じ順序)。nopCommerce は PreApplicationStart でプラグインを動的ディレクトリへ写して読み込む。Windows では読み込み済みの DLL は使用中で消えない(ASP.NET はそれを前提に `.delete` を残す)が、Linux は消せてしまい、続くページのコンパイルが参照できなかった。読み込み済みのアセンブリのファイルを、Windows と同じく使用中として扱う(`Util.IsLoadedAssemblyFile`、削除の 2 経路)。直した後は初回から 200 で再起動なし。Windows は変わらない(判定はファイルシステムに任せる)。
   - **検証の手順の注意**: `run-linux.ps1` はビルドサーバー(MSBuild、コンパイラー。約 1 GB)を残したままアプリを起動していて、SQL Server のコンテナと同時だと Docker の VM(3.8 GB)のメモリが尽き、be が最初の要求で OOM で落ちた。アプリの起動前にビルドサーバーを止めるようにした。be Linux 5/5(SQL Server のコンテナありでも)、wt Linux 5/8(以前と同じ)。
 - **残り**: libgdiplus に無い機能(GraphicsPath.Widen/Warp、SaveAdd による複数ページ・アニメーションの書き込み、EMF+ の描画)は Linux では使えない。
+
+### System.Web.DataVisualization(グラフ)の移植(2026-10-01、フォーク 0039・0040、`1.6.5-w2l.6`)
+
+Chart コントロール(referencesource の System.Web.DataVisualization、MIT)。フォークにはソース(115 ファイル、元と同一)があってビルドされていなかったので、PORT-PROMPT.md の手順でビルドできるようにした。アセンブリは System.Web.DataVisualization 10.0.29.0(フォークの版)、公開キーは .NET Framework と同じ System.Web.Extensions のもの(31bf3856ad364e35)、net10.0。パッケージ WebFormsForCore.Web.DataVisualization。描画は System.Drawing の移植版(上)。
+
+- **コミットの分け方**: 0039 はフォークでのビルド(csproj、`Core\AssemblyRef.cs`、.NET Framework のアセンブリから `generate-dataviz-resources.ps1` で作った `Core\SR.resx` 1,290 文字列。デザイナーのビットマップは取らない)、0040 は新旧比較と Linux で見つけた修正。元のコードの変更は `#if WebFormsForCore` か `Core\` の追加ファイルだけ。
+  - `SQLRS_CONTROL` を定義する(.NET Framework の出荷版と同じ)。無いと空の点のコードが存在しないフィールドを参照し、.NET Framework の空の点の色(Empty)とも合わない。
+- **変換器**: System.Web.DataVisualization をフォークのパッケージに付け替える(`rules/packages.json` の `frameworkReferences`。部品 `charts` の選択肢 `port`(既定)のとき。`none` を選ぶと従来どおり `noAnswer` で、web.config の登録も外す)。web.config の `<assemblies>`・`<pages><controls>`・ChartImg.axd のハンドラーはそのまま残る。appSettings の `ChartImageHandler` の `dir=` が Windows のドライブ(nop の `c:\TempImageFiles\` など)なら、Linux では配置の設定(`APPSETTING_ChartImageHandler`)で替えるよう Platform としてレポートする(.NET Framework もフォルダーが無ければ例外なので、値は書き換えない)。解析は、フィードのパッケージを読むので移植版の API を自動的に「ある」とする。
+- **全 API の新旧比較**(`tests/DataVisualizationParity`): .NET Framework の全 API(1,661 のドキュメント ID)から型とメンバー名ごとに 1 ケース。System.Drawing の仕組みを `tests/Parity.Core/ApiParity.cs` に共通化して使う(ジェネリック型の定義のメンバーは見本のインスタンスの閉じた型で呼ぶ)。見本は、系列 2 つ・グラフ領域・凡例・タイトル・注釈・ストリップライン・カスタムラベル・画像を持つグラフ(`Samples.SampleChart`)。インスタンスはその中から型で探し、無ければコンストラクターで作る。グラフの要素は DV が宣言するプロパティを 1 行に書く(`ChartDescribe`)。シナリオ 12(全グラフの種類の描画、nop のレポートの円グラフと画像マップ、3 つのカルチャのキーワード 17 種、FormatNumber イベント、データバインド、全財務式、統計、並べ替え・絞り込み・グループ化、XML とバイナリの保存、画像マップ、3D と注釈、画像形式)。計 1,039 ケース・2,689 行。呼ばないのは IChartStorageHandler・IDataPointFilter のメンバーだけ(インターフェイス。実装はシナリオと `samples/ChartProbe` で通す)。移植版の API は .NET Framework と完全に一致(欠け・余分 0)。
+  - 実行は別プロセス: テストのプロセスには .NET の System.Web(4.0.0.0 のファサード)があるので、変換後のアプリと同じくフィードのフォークのパッケージを参照する net10.0 の exe を `DataVisualizationParityData/program` に置いて走らせる。比較の仕方(画素・フォント・数値の許容、既知の差)は System.Drawing と共通(`tests/FrameworkOnCore.Tests/Parity/ParityComparison.cs`)。
+  - **既知の差**: Windows は 1 項目(`Chart.BuildNumber` がアセンブリの版を返す)。Linux は加えて 6 項目: カルチャのデータ(ICU: パーセントが小数 3 桁、ja-JP の通貨記号が全角。変換後のアプリは元のサーバーのカルチャのデータを使う)、円グラフの画像マップの座標(フォントの寸法と libgdiplus の弧の折れ線)、注釈の文字に合わせた大きさ、読んだ画像の情報とメタファイル(System.Drawing と同じ)、ハンドラーの既定の一時フォルダー、保存した XML の中の PNG のバイト。
+- **見つけて直したこと**(フォーク 0040):
+  - 数値の書き方: .NET Core 3.0 から double の書き方が変わり、グラフに出る。負のゼロが "-0"(-0 から始まる軸のラベル。幅が変わり描画もずれた)、書式なし・"G" が往復できる最短の表記(0.1 刻みの軸で 0.30000000000000004)、中間の値の丸めが 2 進の正確な値で偶数へ(0.125 の "C2" が $0.12、.NET Framework は $0.13)。.NET Framework と同じ「15 桁 → 書式の桁で四捨五入」を decimal で行う(`Core\FrameworkNumberFormat.cs`、軸のラベル・キーワード・ツールチップが通る `ValueConverter.FormatValue`)。全シナリオの画素と文字が Windows で一致。
+  - ChartHttpHandler(ChartImg.axd)が Linux で動かない: キーとフォルダーを `\` でつないでいて、Linux では区切りにならない(storage=file の画像が "/app\charts_0\..." という名前のファイルになり、次の要求で見つからない)。プラットフォームの区切りにした。画像ファイルを 1 回の Read で読んでいた(CA2022)のを ReadAtLeast に。
+- **サイトでの確認**(`samples/ChartProbe`、`chart-probe.ps1`): nop と同じ登録の Web Forms のサイト(appSettings の ChartImageHandler `storage=file`、ハンドラー、`asp:` の Chart)。ChartImg.axd 経由の画像と画像マップ、ImageLocation でアプリのフォルダーに書く画像、コードで作って応答に書く PNG、無い画像の 404 を、IIS(.NET Framework 4.8)で採った 27 行と比べる。変換は新しい変換器(既定の選択)、Linux は変換器が書いた Dockerfile のイメージ。**Windows: 一致**(画像はサイズと 8×8 のグリッド。GDI+ は凡例のマーカーの 1 画素を実行ごとに違えて描く。.NET Framework でも 2 つのダイジェストが交互に出る)。**Linux: 一致**(許容の範囲。画像マップの座標の差は最大 5 画素、グリッドの差は平均 1.3 以下)。ハンドラーの画像は 1 回目 200、2 回目 404(配信後に消える)まで同じ。
+- **類似の問題の調査**:
+  - 変換器: 配置の `.dockerignore` が、サイトが出力そのもの(`--site` なしで Web プロジェクトをその場でビルド)のとき `*` と `!.` になり、イメージにサイトが入らなかった(`!.` は何も戻さない)。サイトに App_Data が無いと `VOLUME /app/App_Data` が root の持ち物で作られ、ランタイムが machine.config を書けず起動しなかった。どちらも直した(`DeployWriterTests`)。install.sh は該当しない(App_Data は実行時にアプリが作る)。
+  - 新旧比較のケース: `Chart.SaveXml("Abc 123")` が作業フォルダーにファイルを残し、`LoadTemplate("Abc 123")` が前回の実行のそれを読んでいた(ゴールデンも)。テンプレートは事前に作った一時ファイルにし、ゴールデンを採り直した。
+- **検証**: テスト Windows 2,823 件・Linux 2,804 件(SQL Server の要る 19 件はスキップ)がすべて緑。be Windows 5/5・Linux 5/5、wt Windows 6/8・Linux 5/8(以前と同じ既知の差のみ)。
+- **残り**: nop(管理画面のレポート 2 つ)での実地検証は未実施(CLAUDE.md によりコーパスの検証は be/wt のみ。代わりに `samples/ChartProbe` で同じ登録と使い方を確かめた)。System.Windows.Forms.DataVisualization(Windows フォーム版)は移植していない。デザイナー用のリソース(Design.resources)は持たない。Linux では EMF 形式で保存できない(libgdiplus)。
+
 ## カルチャのデータ(2026-09-26)
 
 .NET Framework は Windows のカルチャデータ(NLS)を使う。.NET は ICU のデータを使い、両者は異なる。

@@ -1,0 +1,56 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- The unit cases of every System.Web.DataVisualization API (the Chart control), compiled twice: net48 against .NET
+       Framework's assembly (the old: record.ps1 writes the goldens from it) and net10.0 against the port, the fork's
+       WebFormsForCore.Web.DataVisualization package (the new: DataVisualizationParityTests runs this program and compares
+       what it writes with the goldens). The port as converted applications get it: the package from the fork's feed,
+       with the fork's System.Web over .NET's facade of the same name. -->
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFrameworks>net48;net10.0</TargetFrameworks>
+    <LangVersion>9</LangVersion>
+    <!-- 64-bit on .NET Framework too (an AnyCPU exe prefers 32-bit there): as .NET runs the port, as IIS runs sites. -->
+    <Prefer32Bit>false</Prefer32Bit>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <RootNamespace>FrameworkOnCore.DataVisualizationParity</RootNamespace>
+    <IsPackable>false</IsPackable>
+    <!-- CA1416: System.Drawing on Linux is the point. CS0618, SYSLIB0011: the API's own obsolete members, called as they are. -->
+    <NoWarn>$(NoWarn);CA1416;CS0618;SYSLIB0011;SYSLIB0051</NoWarn>
+    <!-- The fork's version the tests run the port of (rules/packages.json forkVersion). -->
+    <FocForkVersion Condition="'$(FocForkVersion)' == ''">1.6.5-w2l.6</FocForkVersion>
+    <RestoreAdditionalProjectSources>$(MSBuildThisFileDirectory)..\..\experiments\wf4c\_feed</RestoreAdditionalProjectSources>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Parity.Core\Parity.Core.csproj" />
+    <!-- How System.Drawing's values are written: the System.Drawing parity cases'. -->
+    <Compile Include="..\DrawingParity\Describe.cs" Link="Drawing\Describe.cs" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net48'">
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.DataVisualization" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Data" />
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="all" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net10.0'">
+    <PackageReference Include="WebFormsForCore.Web.DataVisualization" Version="$(FocForkVersion)" />
+    <!-- Windows' culture data (NLS), as converted applications have it (their runtimeconfig; on Linux the deployment's
+         ICU data made from the original server's): ICU's differs (en-US percents with 3 decimals). -->
+    <RuntimeHostConfigurationOption Include="System.Globalization.UseNls" Value="true" />
+  </ItemGroup>
+
+  <!-- As the converter writes it into converted projects: the fork's System.Web, not .NET's facade of the same name. -->
+  <Target Name="WithoutNetSystemWeb" BeforeTargets="FindReferenceAssembliesForReferences;ResolveReferences" Condition="'$(TargetFramework)' == 'net10.0'">
+    <ItemGroup>
+      <ReferencePath Remove="%(Identity)" Condition="'%(FileName)' == 'System.Web' AND $([System.Text.RegularExpressions.Regex]::IsMatch(%(Identity),'[/\x5C]dotnet[/\x5C]'))" />
+    </ItemGroup>
+  </Target>
+
+  <ItemGroup>
+    <None Remove="golden\**" />
+    <None Include="golden\api.golden.txt" CopyToOutputDirectory="PreserveNewest" Link="golden\api.golden.txt" Condition="Exists('golden\api.golden.txt')" />
+  </ItemGroup>
+</Project>

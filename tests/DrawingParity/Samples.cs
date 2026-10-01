@@ -10,6 +10,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using FrameworkOnCore.Parity;
 
 namespace FrameworkOnCore.DrawingParity
 {
@@ -19,12 +20,12 @@ namespace FrameworkOnCore.DrawingParity
     /// values on .NET Framework and on the port, so what differs is the implementation. Everything made here is disposed
     /// by the scope that made it (Samples.Scope).
     /// </summary>
-    public sealed class Samples : IDisposable
+    public sealed class Samples : ApiSamples
     {
         readonly List<IDisposable> made = new List<IDisposable>();
         readonly List<string> files = new List<string>();
 
-        public void Dispose()
+        public override void Dispose()
         {
             for (var i = made.Count - 1; i >= 0; i--) { try { made[i].Dispose(); } catch { } }
             foreach (var file in files) { try { System.IO.File.Delete(file); } catch { } }
@@ -110,7 +111,7 @@ namespace FrameworkOnCore.DrawingParity
         public static readonly Color Color2 = Color.FromArgb(200, 220, 60, 20);
 
         /// <summary>A sample argument for a parameter of <paramref name="member"/> (its declaring type decides some).</summary>
-        public object Argument(ParameterInfo parameter, MemberInfo member)
+        public override object Argument(ParameterInfo parameter, MemberInfo member)
         {
             var type = parameter.ParameterType.IsByRef ? parameter.ParameterType.GetElementType() : parameter.ParameterType;
             var name = (parameter.Name ?? "").ToLowerInvariant();
@@ -303,7 +304,9 @@ namespace FrameworkOnCore.DrawingParity
         }
 
         /// <summary>A fresh instance of a type of the API (its abstract types by a concrete one), for a member to be called on.</summary>
-        public object Instance(Type type, string name = "")
+        public override object Instance(Type type) => Instance(type, "");
+
+        public object Instance(Type type, string name)
         {
             if (type == typeof(Color)) return name.Contains("new") || name.Contains("end") || name.Contains("back") || name.Contains("second") ? Color2 : Color1;
             if (type == typeof(Point)) return new Point(4, 5);

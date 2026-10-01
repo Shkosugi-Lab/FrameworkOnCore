@@ -18,7 +18,7 @@ public sealed class ChoicesTests
     {
         var choices = Of("""
             {
-              "components": { "binary-formatter": "none", "no-such-part": "none", "charts": "port", "thread-abort": "maybe" },
+              "components": { "binary-formatter": "none", "no-such-part": "none", "wcf-server": "corewcf", "thread-abort": "maybe" },
               "apis": { "P:System.Text.Encoding.Default": "none", "Encoding.Default": "none" },
               "settings": { "file-name-case": "sensitive", "colour": "blue" }
             }
@@ -28,7 +28,7 @@ public sealed class ChoicesTests
 
         Assert.Equal(5, errors.Count);
         Assert.Contains(errors, e => e.StartsWith("component no-such-part: not in the catalog"));
-        Assert.Contains(errors, e => e.StartsWith("component charts: option port is not there yet"));
+        Assert.Contains(errors, e => e.StartsWith("component wcf-server: option corewcf is not there yet"));
         Assert.Contains(errors, e => e.StartsWith("component thread-abort: no option maybe (compat, none)"));
         Assert.Contains(errors, e => e.StartsWith("api Encoding.Default: not a documentation id"));
         Assert.Contains(errors, e => e.StartsWith("setting colour: not in the catalog"));

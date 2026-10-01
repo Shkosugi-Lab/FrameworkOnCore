@@ -77,7 +77,8 @@ namespace FrameworkOnCore.DrawingParity
         public static List<string> Golden()
         {
             if (OnFramework) return Live();
-            foreach (var path in new[] { Path.Combine(AppContext.BaseDirectory, "golden", "api.golden.txt"), Path.Combine(AppContext.BaseDirectory, "DrawingParityData", "api.golden.txt") })
+            // DrawingParityData first: in the tests' output, golden\ is also where the other suites' lists go.
+            foreach (var path in new[] { Path.Combine(AppContext.BaseDirectory, "DrawingParityData", "api.golden.txt"), Path.Combine(AppContext.BaseDirectory, "golden", "api.golden.txt") })
                 if (File.Exists(path)) return File.ReadAllLines(path).ToList();
             throw new FileNotFoundException("api.golden.txt (record.ps1 records it on .NET Framework)");
         }

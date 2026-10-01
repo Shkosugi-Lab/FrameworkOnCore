@@ -19,4 +19,5 @@
   <Project Path="_upstream/src/WebFormsForCore.Web.Optimization.WebForms/WebFormsForCore.Web.Optimization.WebForms.csproj" />
   <Project Path="_upstream/src/WebFormsForCore.WebGrease/WebFormsForCore.WebGrease.csproj" />
   <Project Path="_upstream/src/WebFormsForCore.Web.DynamicData/WebFormsForCore.Web.DynamicData.csproj" />
+  <Project Path="_upstream/src/WebFormsForCore.Web.DataVisualization/WebFormsForCore.Web.DataVisualization.csproj" />
 </Solution>

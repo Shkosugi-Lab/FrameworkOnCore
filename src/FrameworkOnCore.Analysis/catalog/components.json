@@ -56,8 +56,8 @@
       { "id": "none", "title": "対応しない", "description": "スタブ。DLL が参照する場合(System.Web.Mvc のモデルバインドなど)も例外になる" }
     ],
     "charts": [
-      { "id": "none", "title": "対応しない", "description": "スタブ(グラフの画面は例外)", "default": true },
-      { "id": "port", "title": "移植版を使う", "description": "referencesource(MIT)から移植した System.Web.DataVisualization", "planned": true }
+      { "id": "port", "title": "移植版を使う", "description": "referencesource(MIT)から移植した System.Web.DataVisualization(フォークの WebFormsForCore.Web.DataVisualization。描画は移植版の System.Drawing で、Linux でも動く)", "default": true },
+      { "id": "none", "title": "対応しない", "description": "スタブ(グラフの画面は例外)" }
     ],
     "wcf-server": [
       { "id": "none", "title": "対応しない", "description": "スタブ", "default": true },
@@ -108,7 +108,7 @@
     {
       "id": "charts", "title": "グラフ(Chart コントロール)",
       "match": { "assemblies": [ "System.Web.DataVisualization", "System.Windows.Forms.DataVisualization" ] },
-      "note": ".NET に無い。referencesource(MIT)から移植できる。描画は System.Drawing"
+      "note": "referencesource(MIT)から移植済み: フォークの WebFormsForCore.Web.DataVisualization(Chart コントロール、ChartImg.axd)。描画は移植版の System.Drawing(Linux は libgdiplus)。ChartImg.axd の画像ファイルの置き場(appSettings ChartImageHandler の dir)が C: などのときは、Linux では配置の設定(APPSETTING_ChartImageHandler)で替える。Windows フォームの System.Windows.Forms.DataVisualization は移植していない"
     },
     {
       "id": "linq-to-sql", "title": "LINQ to SQL(System.Data.Linq)",

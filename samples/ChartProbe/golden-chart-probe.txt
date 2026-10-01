@@ -1,0 +1,27 @@
+﻿Default.aspx -> 200 text/html
+img /ChartImg.axd?i=charts_#/chart_#_#.png&g=# map=#SalesImageMap
+  fetched -> 200 image/png ~px 480x300 sha:82693b2416fe2f20 grid:fcfcfcfffffffffffff4f4f4f5f5f5fffffffffffffdfdfdf4f4f4f4f4f4f4f4f4f4f4f4e6e8eaf4f4f4f4f4f4f6f6f6f3f3f3f4f4f4f4f4f4b7cce676aaef96bae9f4f4f4f5f5f5f2f3f29cc0efb2c8e371a7ee74aaf278aaecf3f3f3f4f5f5f4f4f493bcf35f9ef16ba5f174aaf274a9eef4f3f1f6f6f6fafafa96bff6609ff26da6f376acf476acf4fbf8f4fafafafbfbfbe9ecf1e4e9efe4e8efe6eaf0e4e8eef2f1f2fafafaeaf1faf9f7f4f5f5f5ffffffffffffffffffffffffffffff
+  fetched again -> 404
+img /ChartImages/saved_#.png?# map=
+  fetched -> 200 image/png ~px 240x200 sha:e142386d35b1c715 grid:fffffffffffffef7ebfddba4fddba4fef6eafffffffffffffffffffef4e3fcb94ffcb441fcb441f08939fae3dbfffffffffffffbcc82fab240e1a23af6a43ae1440cea7f5bffffffffffff5d98e5909da6d9ad62e2621bcd3b09e24f1dffffffffffff5095f1418cf0418cf0418cf0418cf04f94f1ffffffffffff7fb2f4418cf03a7ed83f88ea418cf07eb1f4ffffffffffffe2edfc4e94f1418cf0418cf04e94f1e1edfcffffffffffffffffffe9f2fda2c6f7a2c6f7e9f1fdffffffffffff
+  fetched again -> 200 image/png
+area circle coords=376,209,4 title=Jun: 2 orders
+area circle coords=322,78,4 title=May: 16 orders
+area circle coords=269,69,4 title=Apr: 17 orders
+area circle coords=215,88,4 title=Mar: 15 orders
+area circle coords=162,144,4 title=Feb: 9 orders
+area circle coords=108,116,4 title=Jan: 12 orders
+area poly coords=345,144,372,209,380,209,353,144 title=Jun: 2 orders
+area poly coords=296,70,322,74,322,82,296,78,318,78,345,144,353,144,326,78 title=May: 16 orders
+area poly coords=242,74,269,65,269,73,242,82,269,65,296,70,296,78,269,73 title=Apr: 17 orders
+area poly coords=184,116,211,88,219,88,192,116,215,84,242,74,242,82,215,92 title=Mar: 15 orders
+area poly coords=135,126,162,140,162,148,135,134,158,144,184,116,192,116,166,144 title=Feb: 9 orders
+area poly coords=108,112,135,126,135,134,108,120 title=Jan: 12 orders
+area rect coords=354,228,397,229 title=Jun: $0.00
+area rect coords=301,83,344,228 title=May: $155.00
+area rect coords=247,69,290,228 title=Apr: $170.13
+area rect coords=194,94,237,228 title=Mar: $143.00
+area rect coords=140,136,183,228 title=Feb: $98.25
+area rect coords=87,115,130,228 title=Jan: $120.50
+Stream.aspx -> 200 image/png ~px 320x200 sha:e7e5f9a278ab4bd5 grid:f9f9f9f2f2f2f4f4f4f2f2f2f2f2f2f2f2f2f2f2f2f6f6f6f8f8f8f8f8f8ffffffa2c5f4a0c4f4d2e1f5f7f7f8f8f8f8f1f1f1eeeeeef4f4f477acf274aaf2b8cfedececedf2f2f2efeeeea2c0e8418cf0eaeceeeeeeeeeeeeeeeeeeeef2f2f2f8f8f8eaf0f8d9e8fca1c5f4a0c4f4a0c4f49fc2f0f8f8f8f0efefeeeeeef4f4f477acf274aaf274aaf271a5e9f2f2f2f7f7f7f0f0f0f4f4f4f0f0f0f0f0f0f0f0f0f0f0f0f4f4f4f8f8f8fafbfbfcfcfcfbfbfbfbfbfcf9f9f9f9f9f9fafaf9
+ChartImg.axd (no such image) -> 404

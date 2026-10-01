@@ -1,0 +1,1 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Stream.aspx.cs" Inherits="ChartProbe.Stream" %>

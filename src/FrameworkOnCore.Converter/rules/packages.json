@@ -1,6 +1,6 @@
 {
   "$comment": "Package and reference rules. \"$fork\" stands for the WebFormsForCore fork's version (forkVersion).",
-  "forkVersion": "1.6.5-w2l.5",
+  "forkVersion": "1.6.5-w2l.6",
 
   "$comment_webPackages": "The web project always gets these (Program.cs uses them; pages reference them at run time).",
   "webPackages": [ "WebFormsForCore.Web", "WebFormsForCore.Web.Extensions", "WebFormsForCore.Configuration", "WebFormsForCore.Web.DynamicData" ],
@@ -44,6 +44,7 @@
     "System.Web.Services": [ "WebFormsForCore.Web.Services", "$fork" ],
     "System.Web.DynamicData": [ "WebFormsForCore.Web.DynamicData", "$fork" ],
     "System.Data.Linq": [ "WebFormsForCore.Data.Linq", "$fork" ],
+    "System.Web.DataVisualization": [ "WebFormsForCore.Web.DataVisualization", "$fork" ],
     "System.Web.Abstractions": [ "WebFormsForCore.Web", "$fork" ],
     "System.Web.Routing": [ "WebFormsForCore.Web", "$fork" ],
     "System.Configuration": [ "WebFormsForCore.Configuration", "$fork" ],
@@ -61,10 +62,10 @@
     "System.ServiceModel.Web": [ [ "System.ServiceModel.Syndication", "10.0.0" ] ]
   },
 
-  "$comment_noAnswer": "Assemblies .NET has no counterpart for (reported; the code using them is stubbed; left out of web.config's page compilation, where loading them fails every page). Designers' (System.Design, System.Web.Extensions.Design: Visual Studio's) the desktop's (System.Windows.Forms: Windows desktop applications', not a web application's), and ASP.NET's chart controls (System.Web.DataVisualization).",
-  "noAnswer": [ "System.Data.Services.Client", "System.Design", "System.Web.DataVisualization", "System.Web.Extensions.Design", "System.Web.Mobile", "System.Windows.Forms" ],
+  "$comment_noAnswer": "Assemblies .NET has no counterpart for (reported; the code using them is stubbed; left out of web.config's page compilation, where loading them fails every page). Designers' (System.Design, System.Web.Extensions.Design: Visual Studio's) the desktop's (System.Windows.Forms: Windows desktop applications', not a web application's). Also the ported framework assemblies the user chose not to use (frameworkReferenceOptions).",
+  "noAnswer": [ "System.Data.Services.Client", "System.Design", "System.Web.Extensions.Design", "System.Web.Mobile", "System.Windows.Forms" ],
   "$comment_frameworkReferenceOptions": "Framework references that are the user's choice: assembly -> the option that turns its frameworkReferences entry on. Not chosen, the assembly has no answer (noAnswer).",
-  "frameworkReferenceOptions": { "System.Data.Linq": "linq-to-sql:port" },
+  "frameworkReferenceOptions": { "System.Data.Linq": "linq-to-sql:port", "System.Web.DataVisualization": "charts:port" },
 
   "$comment_sourcePackages": "What .NET Framework had in its own assemblies and .NET ships as packages: added when the sources use it.",
   "sourcePackages": [

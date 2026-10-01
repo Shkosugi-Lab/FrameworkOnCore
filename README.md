@@ -35,13 +35,14 @@
 | `src/FrameworkOnCore.Studio` | GUI(ローカルの Web 画面)。解析、部品ごとの選択、ソースの表示、変換のコマンド |
 | `src/FrameworkOnCore.Analyzers` | 変換のビルドで使う Roslyn アナライザー(Windows のパス、非同期デリゲート、プラットフォームの置き換え) |
 | `experiments/wf4c/shims/FrameworkOnCore.Compat` | 互換アセンブリ。.NET にない、または Windows 専用のものを .NET Framework と同じ動きで補う(EventLog、Encoding.Default、Thread.ResetAbort、VB の My など) |
-| `experiments/wf4c/patches` | WebFormsForCore のフォークへのパッチ(38 本。0032・0033 は LINQ to SQL、0034〜0037 は System.Drawing の移植、0038 は Linux での生成物のフォルダーの掃除。`AjaxControlToolkit/` はそのサブモジュールへのパッチ) |
+| `experiments/wf4c/patches` | WebFormsForCore のフォークへのパッチ(40 本。0032・0033 は LINQ to SQL、0034〜0037 は System.Drawing の移植、0038 は Linux での生成物のフォルダーの掃除、0039・0040 は System.Web.DataVisualization(グラフ)の移植。`AjaxControlToolkit/` はそのサブモジュールへのパッチ) |
 | `experiments/wf4c/casefs` | Linux でファイル名の大文字小文字を区別しない LD_PRELOAD ライブラリ(libfoccase.so) |
 | `tests/FrameworkOnCore.Tests` | テスト(Windows と Linux) |
 | `tests/DataLinqParity` | 移植した System.Data.Linq の全 API の新旧比較のケース(net48 で .NET Framework のゴールデンを採り、テストが移植版と比べる) |
 | `tests/DrawingParity` | 移植した System.Drawing の全 API の新旧比較のケース(同じ方法。Windows は完全一致、Linux は既知の差分を理由つきで `known-differences.json` に持つ) |
-| `tests/Parity.Core` | 新旧比較の共通部分(観測値の書き方、ケースの実行、ゴールデンの書き出し) |
-| `samples/` | 検証用の小さな Web Forms アプリ(RuntimeProbe など) |
+| `tests/DataVisualizationParity` | 移植した System.Web.DataVisualization(グラフ)の全 API の新旧比較のケース(同じ方法。グラフを描くシナリオも含む) |
+| `tests/Parity.Core` | 新旧比較の共通部分(観測値の書き方、ケースの実行、ゴールデンの書き出し、API の一覧から型とメンバーごとにケースを作る仕組み) |
+| `samples/` | 検証用の小さな Web Forms アプリ(RuntimeProbe、グラフの ChartProbe など) |
 | `corpora/` | 実在の OSS アプリ(コーパス)の取得スクリプトと記録。本体は取得して使う(リポジトリには含めない) |
 
 ## 準備
@@ -91,11 +92,12 @@ dotnet test tests\FrameworkOnCore.Tests
 
 ## 状態
 
-- コーパス(Web Forms: BlogEngine.NET、WingtipToys、mojoPortal、YAF.NET、DNN、N2CMS、openIMIS(VB)、nopCommerce 1.90。MVC 5: MvcMovie、nopCommerce 3.90)を変換し、Windows と Linux で動作を確かめています(nopCommerce 3.90 は Windows のみ)。結果と既知の課題は `experiments/wf4c/README.md` にあります。
+- コーパス(Web Forms: BlogEngine.NET、WingtipToys、mojoPortal、YAF.NET、DNN、N2CMS、openIMIS(VB)、nopCommerce 1.90。MVC 5: MvcMovie、nopCommerce 3.90)を変換し、Windows と Linux で動作を確かめています。結果と既知の課題は `experiments/wf4c/README.md` にあります。
 - .NET Framework にしかない API の洗い出しと対応の状況は `experiments/wf4c/FRAMEWORK-ONLY-APIS.md` にあります。
 - LINQ to SQL(System.Data.Linq)は referencesource(MIT)からフォークに移植済みで、既定で使われる。全 API(486)を .NET Framework と新旧比較して一致を確認している(`experiments/wf4c/README.md` の記録)。
 - System.Drawing は dotnet/runtime 6.0 の System.Drawing.Common(Linux 実装を持つ最後の版、MIT)をフォークに移植済みで、Windows は GDI+、Linux は libgdiplus で動く。全 API(3,354 のうち .NET にある 3,185 と、.NET が足した 40)を .NET Framework と新旧比較している(`experiments/wf4c/README.md` の記録)。
-- 予定の選択肢: グラフ(DataVisualization)の移植、WCF のサービスを CoreWCF で動かす。
+- グラフ(System.Web.DataVisualization の Chart コントロール)は referencesource(MIT)からフォークに移植済みで、既定で使われる。全 API(1,661)を .NET Framework と新旧比較し、ChartImg.axd を使うサイト(`samples/ChartProbe`)を IIS と Windows・Linux で比べている(`experiments/wf4c/README.md` の記録)。
+- 予定の選択肢: WCF のサービスを CoreWCF で動かす。
 
 ## ドキュメント
 

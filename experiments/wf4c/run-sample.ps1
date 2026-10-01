@@ -57,7 +57,7 @@ try {
             --scenario (Join-Path $sample 'parity-scenario.json') --golden (Join-Path $sample 'golden-webforms.json')
     }
     finally {
-        Stop-Process -Id $process.Id -Force -ErrorAction SilentlyContinue
+        taskkill /PID $process.Id /T /F 2>&1 | Out-Null  # the tree: the application runs in a worker process
     }
 }
 finally {

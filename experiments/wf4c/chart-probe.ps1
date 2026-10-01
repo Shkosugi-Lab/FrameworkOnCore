@@ -243,7 +243,8 @@ if ($Windows) {
         Set-Pictures 'windows'
         $lines = Probe "http://localhost:$Port"
     }
-    finally { Stop-Process -Id $process.Id -Force -ErrorAction SilentlyContinue }
+    # The tree: the application runs in a worker process its process starts (FrameworkOnCore's System.Web).
+    finally { taskkill /PID $process.Id /T /F 2>&1 | Out-Null }
     Check $lines $false 'windows'
 }
 

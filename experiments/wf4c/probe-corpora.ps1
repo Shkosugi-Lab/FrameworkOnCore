@@ -38,7 +38,7 @@ foreach ($name in $Only) {
         "=== ${name}: $out title='$title' $detail"
     }
     finally {
-        Stop-Process -Id $process.Id -Force -ErrorAction SilentlyContinue
+        taskkill /PID $process.Id /T /F 2>&1 | Out-Null  # the tree: the application runs in a worker process
         Get-NetTCPConnection -LocalPort $Port -State Listen -ErrorAction SilentlyContinue | ForEach-Object { Stop-Process -Id $_.OwningProcess -Force -ErrorAction SilentlyContinue }
     }
 }

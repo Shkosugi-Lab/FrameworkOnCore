@@ -43,5 +43,5 @@ try {
 }
 finally {
     if ($Linux) { docker stop $container | Out-Null }
-    else { Stop-Process -Id $process.Id -Force -ErrorAction SilentlyContinue }
+    else { taskkill /PID $process.Id /T /F 2>&1 | Out-Null }  # the tree: the application runs in a worker process
 }

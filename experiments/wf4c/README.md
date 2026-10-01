@@ -359,7 +359,18 @@ ASP.NET 1.1 のモバイル コントロール(referencesource の System.Web.Mo
 - nopCommerce 3.90 は curl の User-Agent を検索エンジンとみなし、カートとログインを断る。ブラウザーの User-Agent で要求する。
 - mvcmovie の Windows の比較は、EF の初期データのある状態から始める(`verify-windows.ps1` が DB を消してから起動する)。
 
-残り(以前からのもの): nop の `ToolkitScriptManager`(新しい Ajax Control Toolkit に無い。マークアップの書き換えが要る。管理画面のマスター、商品のテンプレート、アカウントなど)。yaf の Web API 2(AspNetWebStack の移植)と ServiceStack のスタブ。wt・mvcmovie の既知の差。
+### Ajax Control Toolkit の ToolkitScriptManager(2026-10-02、`1.6.5-w2l.8`)
+
+nopCommerce 1.90 は Ajax Control Toolkit 4.1 の `<ajaxToolkit:ToolkitScriptManager>` を管理画面のマスター 2 つ、商品のテンプレート 2 つ、アカウントなど 10 か所で使う。Toolkit 15.1 がこれを削除した(コントロールは ScriptManager で動く)ので、FrameworkOnCore の Toolkit(15.1 以降)ではページが Parser Error になり、変換器は designer.cs の宣言 8 つをスタブとして外していた。
+
+- **方針**: マークアップやソースを書き換えず、FrameworkOnCore の Toolkit に `ToolkitScriptManager`(`Compat/ToolkitScriptManager`、ScriptManager の派生)を戻した。アプリのマークアップ・型の宣言・DLL・tagMapping(mojo の MyPage は ScriptManager を ToolkitScriptManager に写す)がそのまま通る。公開 API は 4.1(nop が使う 4.1.40412 の DLL をリフレクションで確かめた)と同じ: `CombineScripts`(既定 true)、`CombineScriptsHandlerUrl`([UrlProperty])、`OutputCombinedScriptFile(HttpContext)`(静的)、protected の `QuoteString`・`AppendCharAsUnicode`・`WebResourceRegex`・`HiddenFieldName`(ClientID + "_HiddenField")、[Themeable(true)]。`QuoteString`・`AppendCharAsUnicode` は 4.1 の実物と同じ結果(8 種の文字列(null、制御文字、< > '、非 ASCII、サロゲートを含む)と 3 文字で比べた。引用符を付けない、null は空、< > ' と制御文字は \uXXXX)。`OutputCombinedScriptFile` は、結合を要求しない要求に 4.1 と同じく false(null は NullReferenceException)。
+- **しないこと**: スクリプトの結合(`CombineScripts`)。4.1 は Toolkit のスクリプトを 1 つの要求にまとめた。ここでは ScriptManager どおり 1 つずつ参照する(スクリプトは同じで、要求の数だけが違う)。結合されたスクリプトを求める要求(`_TSM_CombinedScripts_`)にも答えない(このページはそれを出さない)。
+- **サイトでの確認**(`samples/ToolkitProbe`、`sample-parity.ps1`): nop と同じ宣言の ToolkitScriptManager、その型のフィールド、UpdatePanel の非同期ポストバック(`IsInAsyncPostBack`)、CollapsiblePanelExtender。NuGet の AjaxControlToolkit 4.1.60919 で IIS(.NET Framework 4.8)の 4 スナップショットを採った(`sample-parity.ps1 -Record` が packages.config のパッケージを nuget.org から取るようにした)。直す前は変換がスタブを作り、ページが Parser Error。直した後は変換のビルドが 1 回で通り、**Windows・Linux とも 4/4 一致**。
+- **nop**(Windows・Linux、空の DB からインストール): 変換のスタブ 20 → 12。商品の詳細・アカウント・管理画面(ダッシュボード、商品・注文・顧客の一覧、全体設定、売上・顧客のレポート、商品の編集)が 200。管理画面のタブ(TabContainer、9・13 枚)が描かれ、ページのスクリプト(ScriptResource・WebResource)はすべて 200、顧客のレポートのグラフ(System.Web.DataVisualization の移植)3 枚が PNG で返る。商品のページから「カートに入れる」ポストバックでカートに入り、管理画面で商品名を保存すると DB が更新される。
+- **類似の問題の調査**: コーパスが使う Toolkit の型(nop・imis・mojo のマークアップとコード: CalendarExtender、CollapsiblePanelExtender、ConfirmButtonExtender、FilteredTextBoxExtender、MaskedEditExtender、ModalPopupExtender、Rating、TabContainer・TabPanel、ValidatorCalloutExtender、BarChart・LineChart)はすべて今の Toolkit にある。変換のレポートに残る Toolkit の型は mojo の `SanitizerProviders.dll` の `[AjaxControlToolkit]AjaxControlToolkit.Sanitizer.SanitizerProvider`(15.1 で HtmlEditor.Sanitizer に変わった)だけで、mojo の構成では使われていない(Toolkit のエディターの設定はコメントアウト、ソースからの参照も無い)。
+- **検証**: テスト Windows 4,327 件・Linux 4,308 件(SQL Server の要る 19 件はスキップ)がすべて緑。ToolkitProbe は protected の 2 つを足した後に Windows でもう一度 4/4(Linux はその前の版で 4/4。足したのは振る舞いの無いメンバー)。be Windows 5/5・Linux 5/5、wt Windows 6/8・Linux 5/8、imis(Toolkit を使う)Windows・Linux ともログインと主な画面 7 つが 200、mojo Windows トップ 200(いずれも以前と同じ)。
+
+残り(以前からのもの): nop の `ToolkitScriptManager`(新しい Ajax Control Toolkit に無い。管理画面のマスター、商品のテンプレート、アカウントなど。**2026-10-02 に対応、下**)。yaf の Web API 2(AspNetWebStack の移植)と ServiceStack のスタブ。wt・mvcmovie の既知の差。
 
 ## カルチャのデータ(2026-09-26)
 

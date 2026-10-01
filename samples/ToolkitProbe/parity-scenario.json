@@ -1,0 +1,17 @@
+{
+  "ignorePatterns": [],
+  "steps": [
+    { "action": "goto", "path": "/Default.aspx" },
+    { "action": "snapshot", "name": "toolkit-first page" },
+
+    { "action": "fill", "target": "txtName", "value": "Taro" },
+    { "action": "click", "target": "btnGreet" },
+    { "action": "snapshot", "name": "toolkit-greeted (asynchronous postback)" },
+
+    { "action": "click", "target": "btnGreet" },
+    { "action": "snapshot", "name": "toolkit-greeted again" },
+
+    { "action": "click", "target": "pnlHeader" },
+    { "action": "snapshot", "name": "toolkit-panel opened" }
+  ]
+}

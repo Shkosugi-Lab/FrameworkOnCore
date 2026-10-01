@@ -3,7 +3,8 @@
 # parity-scenario.json, into samples\<Name>\golden-webforms.json); -Windows and -Linux convert the sample with the
 # converter (its default choices), run it (on Windows from its bin, on Linux from the Dockerfile the converter writes)
 # and compare (ParityTest verify). As corpora\record-webforms-golden.ps1 and run-linux.ps1 do for the corpora, for a
-# sample whose packages run-sample.ps1's template does not have (System.Web.Mobile's, the charts').
+# sample whose packages run-sample.ps1's template does not have (System.Web.Mobile's, the charts', the Ajax Control
+# Toolkit's).
 #
 #   .\experiments\wf4c\sample-parity.ps1 -Name MobileProbe -Record      # IIS (an administrator's shell)
 #   .\experiments\wf4c\sample-parity.ps1 -Name MobileProbe -Windows
@@ -50,6 +51,20 @@ if ($Record) {
     $site = Join-Path $work 'iis'
     Remove-Folder $site
     Copy-Item $sample $site -Recurse
+    # The packages of packages.config, from nuget.org into the packages folder next to the site (the HintPaths'
+    # ..\packages\<id>.<version>): .NET Framework's MSBuild does not restore them.
+    $packagesConfig = Join-Path $sample 'packages.config'
+    if (Test-Path $packagesConfig) {
+        Add-Type -AssemblyName System.IO.Compression.FileSystem
+        foreach ($package in ([xml](Get-Content $packagesConfig -Raw)).packages.package) {
+            $folder = Join-Path $work "packages\$($package.id).$($package.version)"
+            if (Test-Path $folder) { continue }
+            $nupkg = Join-Path $work "$($package.id).$($package.version).nupkg"
+            $lower = $package.id.ToLowerInvariant()
+            Invoke-WebRequest "https://api.nuget.org/v3-flatcontainer/$lower/$($package.version)/$lower.$($package.version).nupkg" -OutFile $nupkg -UseBasicParsing
+            [IO.Compression.ZipFile]::ExtractToDirectory($nupkg, $folder)
+        }
+    }
     & 'C:\Windows\Microsoft.NET\Framework64\v4.0.30319\MSBuild.exe' (Join-Path $site "$Name.csproj") /nologo /v:q /p:Configuration=Debug
     if ($LASTEXITCODE -ne 0) { throw 'the sample did not build for .NET Framework' }
     $pool = "frameworkoncore-$($Name.ToLowerInvariant())"

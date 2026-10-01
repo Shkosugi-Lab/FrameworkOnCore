@@ -49,7 +49,7 @@
 ## D. パッケージの版上げで変わった API(Framework ではないが、同じ仕組みで対応できる)
 
 - dnn:System.IdentityModel.Tokens.Jwt 4 → 8 で `JwtSecurityToken` の名前空間が変わり、JWT 認証がスタブになっている → namespaceMoves に追加する
-- nop:AjaxControlToolkit 4.1 の `ToolkitScriptManager` → マークアップの書き換え
+- nop:AjaxControlToolkit 4.1 の `ToolkitScriptManager` → **対応済み**(2026-10-02):マークアップは書き換えず、FrameworkOnCore の Ajax Control Toolkit に 4.1 の公開 API の `ToolkitScriptManager`(ScriptManager の派生)を戻した。スクリプトの結合(CombineScripts)はしない。`samples/ToolkitProbe` を IIS と比べて Windows・Linux とも一致
 
 ## E. 警告だけで、実際には動くもの(対応不要)
 

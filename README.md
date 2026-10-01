@@ -43,7 +43,7 @@
 | `tests/DataVisualizationParity` | 移植した System.Web.DataVisualization(グラフ)の全 API の新旧比較のケース(同じ方法。グラフを描くシナリオも含む) |
 | `tests/MobileParity` | 移植した System.Web.Mobile(モバイル コントロール)の全 API の新旧比較のケース(同じ方法) |
 | `tests/Parity.Core` | 新旧比較の共通部分(観測値の書き方、ケースの実行、ゴールデンの書き出し、API の一覧から型とメンバーごとにケースを作る仕組み) |
-| `samples/` | 検証用の小さな Web Forms アプリ(RuntimeProbe、グラフの ChartProbe、モバイル コントロールの MobileProbe など) |
+| `samples/` | 検証用の小さな Web Forms アプリ(RuntimeProbe、グラフの ChartProbe、モバイル コントロールの MobileProbe、Ajax Control Toolkit の ToolkitScriptManager の ToolkitProbe など) |
 | `corpora/` | 実在の OSS アプリ(コーパス)の取得スクリプトと記録。本体は取得して使う(リポジトリには含めない) |
 
 ## 準備

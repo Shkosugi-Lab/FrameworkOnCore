@@ -1,0 +1,237 @@
+{
+  "SourceUrl": "http://localhost:5096",
+  "Snapshots": [
+    {
+      "Name": "toolkit-first page",
+      "Path": "/",
+      "Title": "Toolkit probe",
+      "Text": [
+        "Toolkit probe",
+        "Script manager: ToolkitScriptManager; the field's: True; CombineScripts: True; partial rendering: True",
+        "Details"
+      ],
+      "Tables": [],
+      "Inputs": {
+        "txtName": ""
+      },
+      "Elements": {
+        "lblManager": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "upGreeting": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtName": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnGreet": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "lblGreeting": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pnlHeader": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pnlBody": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "height": "auto"
+          }
+        }
+      }
+    },
+    {
+      "Name": "toolkit-greeted (asynchronous postback)",
+      "Path": "/",
+      "Title": "Toolkit probe",
+      "Text": [
+        "Toolkit probe",
+        "Script manager: ToolkitScriptManager; the field's: True; CombineScripts: True; partial rendering: True",
+        "Hello, Taro (asynchronous: True, 1)",
+        "Details"
+      ],
+      "Tables": [],
+      "Inputs": {
+        "txtName": "Taro"
+      },
+      "Elements": {
+        "lblManager": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "upGreeting": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtName": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnGreet": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "lblGreeting": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pnlHeader": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pnlBody": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "height": "auto"
+          }
+        }
+      }
+    },
+    {
+      "Name": "toolkit-greeted again",
+      "Path": "/",
+      "Title": "Toolkit probe",
+      "Text": [
+        "Toolkit probe",
+        "Script manager: ToolkitScriptManager; the field's: True; CombineScripts: True; partial rendering: True",
+        "Hello, Taro (asynchronous: True, 2)",
+        "Details"
+      ],
+      "Tables": [],
+      "Inputs": {
+        "txtName": "Taro"
+      },
+      "Elements": {
+        "lblManager": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "upGreeting": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtName": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnGreet": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "lblGreeting": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pnlHeader": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pnlBody": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "height": "auto"
+          }
+        }
+      }
+    },
+    {
+      "Name": "toolkit-panel opened",
+      "Path": "/",
+      "Title": "Toolkit probe",
+      "Text": [
+        "Toolkit probe",
+        "Script manager: ToolkitScriptManager; the field's: True; CombineScripts: True; partial rendering: True",
+        "Hello, Taro (asynchronous: True, 2)",
+        "Details",
+        "The panel the header opens."
+      ],
+      "Tables": [],
+      "Inputs": {
+        "txtName": "Taro"
+      },
+      "Elements": {
+        "lblManager": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "upGreeting": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtName": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnGreet": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "lblGreeting": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pnlHeader": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pnlBody": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "height": "auto"
+          }
+        }
+      }
+    }
+  ]
+}

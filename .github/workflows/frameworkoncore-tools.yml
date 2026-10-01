@@ -1,0 +1,84 @@
+# Studio and the converter (src/), built here so that a user does not build them: published (dotnet publish of Studio,
+# which carries the converter, its rules and analyzers, and the analysis) as an asset of the GitHub Release
+# frameworkoncore-tools, named by the last commit that changed src/ (frameworkoncore-tools-<12 characters of it>.zip).
+# studio.ps1 and converter.ps1 at the repository's root take the build of their checkout's src/ from there, and build
+# it themselves when there is none (src/ changed and not pushed, or this has not run yet).
+#
+# Framework-dependent (the .NET 10 SDK is needed anyway: the converter builds the application). Smoke-tested before it
+# is published: the converter's analysis of a sample, Studio's page and API.
+name: FrameworkOnCore tools
+
+on:
+  push:
+    branches: [main, 'pivot/**']
+    paths:
+      - 'src/**'
+      - '.github/workflows/frameworkoncore-tools.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: frameworkoncore-tools
+  cancel-in-progress: false
+
+jobs:
+  tools:
+    runs-on: windows-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      # The whole history: the build is named by the last commit that changed src/, which may be before the pushed one.
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+      - id: name
+        name: The build's name
+        shell: pwsh
+        run: |
+          $commit = git log -1 --format=%H -- src
+          "commit=$commit" >> $env:GITHUB_OUTPUT
+          "asset=frameworkoncore-tools-$($commit.Substring(0, 12)).zip" >> $env:GITHUB_OUTPUT
+      - name: Publish Studio (with the converter)
+        shell: pwsh
+        run: dotnet publish src/FrameworkOnCore.Studio -c Release -o tools-out -nologo
+      - name: Smoke test
+        shell: pwsh
+        run: |
+          $runtime = Resolve-Path experiments/wf4c
+          New-Item -ItemType Directory smoke | Out-Null
+          dotnet tools-out/FrameworkOnCore.Converter.dll analyze samples/RuntimeProbe/RuntimeProbe.csproj --out smoke/analysis --runtime $runtime
+          if ($LASTEXITCODE -ne 0 -or -not (Test-Path smoke/analysis/api-analysis.json)) { throw 'the analysis failed' }
+          $studio = Start-Process dotnet -ArgumentList 'tools-out/FrameworkOnCore.Studio.dll', '--runtime', "$runtime", '--port', '5300', '--data', 'smoke/studio' -PassThru
+          try {
+            foreach ($i in 1..30) { try { Invoke-WebRequest http://127.0.0.1:5300/api/catalog -UseBasicParsing | Out-Null; break } catch { Start-Sleep 2 } }
+            foreach ($path in '/', '/app.js', '/api/catalog') {
+              $response = Invoke-WebRequest "http://127.0.0.1:5300$path" -UseBasicParsing
+              if ($response.StatusCode -ne 200) { throw "Studio: $path $($response.StatusCode)" }
+            }
+          }
+          finally { Stop-Process -Id $studio.Id -Force }
+      - name: Publish ${{ steps.name.outputs.asset }}
+        shell: pwsh
+        env:
+          ASSET: ${{ steps.name.outputs.asset }}
+          COMMIT: ${{ steps.name.outputs.commit }}
+        run: |
+          Compress-Archive -Path tools-out/* -DestinationPath $env:ASSET
+          $tag = 'frameworkoncore-tools'
+          gh release view $tag --repo $env:GITHUB_REPOSITORY *> $null
+          if ($LASTEXITCODE -ne 0) {
+            gh release create $tag --repo $env:GITHUB_REPOSITORY --prerelease --title 'FrameworkOnCore tools (Studio, the converter)' `
+              --notes 'Studio and the converter built from src/, one asset per commit that changed it (frameworkoncore-tools-<commit>.zip). studio.ps1 and converter.ps1 at the repository root fetch the build of their checkout.'
+            if ($LASTEXITCODE -ne 0) { throw 'could not create the release' }
+          }
+          gh release upload $tag $env:ASSET --repo $env:GITHUB_REPOSITORY --clobber
+          if ($LASTEXITCODE -ne 0) { throw 'could not upload the build' }
+          # The 30 latest builds are kept (a checkout of an older src/ builds it itself).
+          $assets = gh api "repos/$env:GITHUB_REPOSITORY/releases/tags/$tag" --jq '.assets | sort_by(.created_at) | reverse | .[30:] | .[].id'
+          foreach ($id in $assets) { gh api -X DELETE "repos/$env:GITHUB_REPOSITORY/releases/assets/$id" | Out-Null }
+          "published $env:ASSET (src/ at $env:COMMIT)"

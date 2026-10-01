@@ -114,7 +114,8 @@ api.MapGet("/analyses/{id}/command", (string id, AnalysisStore store) =>
     var converter = Path.Combine(AppContext.BaseDirectory, "FrameworkOnCore.Converter.dll");
     return Results.Ok(new
     {
-        command = $"dotnet \"{converter}\" \"{entry.Project}\" --root \"{entry.Root}\" --configuration {entry.Configuration} --choices \"{store.ChoicesFile(id)}\" --out <出力先>",
+        // With the runtime Studio uses: run from any folder (Studio itself may be a build outside the repository, studio.ps1's).
+        command = $"dotnet \"{converter}\" \"{entry.Project}\" --root \"{entry.Root}\" --configuration {entry.Configuration} --choices \"{store.ChoicesFile(id)}\" --runtime \"{runtime}\" --out <出力先>",
     });
 });
 

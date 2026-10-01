@@ -51,32 +51,32 @@
 - .NET 10 SDK
 - Windows(変換器は Visual Studio の MSBuild で元のアプリをビルドする)。Linux での検証には Docker Desktop
 
-FrameworkOnCore のパッケージ(`FrameworkOnCore.*`)は、初めて解析や変換をしたときに、このリポジトリの GitHub Release から `experiments/wf4c/_feed` に自動で取得されます。互換アセンブリも必要なときに自動でビルドされます。事前の準備は要りません(リポジトリが非公開の間は、GitHub CLI にログインしているか、`GH_TOKEN` を設定しておく必要があります)。
+FrameworkOnCore のパッケージ(`FrameworkOnCore.*`)は、初めて解析や変換をしたときに、このリポジトリの GitHub Release から `experiments/wf4c/_feed` に自動で取得されます。互換アセンブリも必要なときに自動でビルドされます。事前の準備は要りません(リポジトリが非公開のときは、GitHub CLI にログインしているか、`GH_TOKEN` を設定しておく必要があります。Studio と変換器のビルドの取得も同じ)。
 
 ## 使い方
 
 ### Studio(GUI)
 
 ```powershell
-dotnet build src\FrameworkOnCore.Studio
-dotnet src\FrameworkOnCore.Studio\bin\Debug\net10.0\FrameworkOnCore.Studio.dll
+.\studio.ps1
 # http://127.0.0.1:5300/ を開く(localhost だけで待ち受ける)
 ```
+
+ビルドは要りません。GitHub Actions(`.github/workflows/frameworkoncore-tools.yml`)が `src/` の変わるたびに Studio と変換器をビルドしてリリース `frameworkoncore-tools` に置き、`studio.ps1` は手元の `src/` と同じコミットのものを一度だけ取得して(`%LOCALAPPDATA%\FrameworkOnCore\tools`)起動します。`src/` にコミットしていない変更があるとき、そのコミットのビルドがまだ無いとき(push 前、Actions の実行中)、`-Build` を付けたときは、手元でビルドして起動します。
 
 「新しい解析」で .NET Framework の Web プロジェクト(.csproj / .vbproj)を指定すると、解析結果が出ます。部品ごとに対応を選んで保存し、「変換してビルド」を押すと、その選択で変換とビルドを行います。ビルドできたら、Linux に配置できる形(Dockerfile と systemd 用のスクリプト付き、`obj` を除く)を ZIP でダウンロードできます。「Linux(Docker)で起動」で、その Dockerfile からイメージを作り、コンテナを localhost のポートで起動して確かめることもできます(Docker Desktop が要ります。接続文字列などは環境変数で渡します。Studio のコンテナは一度に一つ)。コマンドラインで変換するためのコマンドもコピーできます。
 
 ### コマンドライン
 
 ```powershell
-$converter = 'src\FrameworkOnCore.Converter\bin\Debug\net10.0\FrameworkOnCore.Converter.dll'
-dotnet build src\FrameworkOnCore.Converter
-
 # 解析だけ(api-analysis.json、API-ANALYSIS.md、既定の選択の foc-choices.json)
-dotnet $converter analyze <Web プロジェクト> --out <出力先>
+.\converter.ps1 analyze <Web プロジェクト> --out <出力先>
 
 # 変換(選択は省略可。省略すると既定)
-dotnet $converter <Web プロジェクト> --out <出力先> --choices foc-choices.json [--build-original] [--culture-profile <file>]
+.\converter.ps1 <Web プロジェクト> --out <出力先> --choices foc-choices.json [--build-original] [--culture-profile <file>]
 ```
+
+`converter.ps1` も `studio.ps1` と同じく、Actions のビルドを取得して使います(無ければ手元でビルド)。
 
 変換の結果は `<出力先>\CONVERSION-REPORT.md` にまとまります。Linux への配置は `<出力先>\Dockerfile` と `deploy/`(`deploy/README.md`)を使います。
 

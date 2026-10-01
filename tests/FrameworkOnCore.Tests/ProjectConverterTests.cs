@@ -125,7 +125,7 @@ public sealed class ProjectConverterTests : IDisposable
         converter.Convert(Path.Combine(Source, Local(@"Web\Web.csproj")), isWeb: false);
 
         var project = Target(Output, @"Web\Web.csproj");
-        Assert.Contains("<PackageReference Include=\"WebFormsForCore.AjaxControlToolkit\"", project);
+        Assert.Contains("<PackageReference Include=\"FrameworkOnCore.AjaxControlToolkit\"", project);
         Assert.DoesNotContain("AjaxControlToolkit.dll", project);
     }
 
@@ -164,7 +164,7 @@ public sealed class ProjectConverterTests : IDisposable
 
         Assert.Contains("ChartImg.axd", Target(Output, @"Web\web.config"));
         Assert.Contains("System.Web.UI.DataVisualization.Charting", Target(Output, @"Web\Administration\Web.config"));
-        Assert.Contains("<PackageReference Include=\"WebFormsForCore.Web.DataVisualization\"", Target(Output, @"Web\Web.csproj"));
+        Assert.Contains("<PackageReference Include=\"FrameworkOnCore.Web.DataVisualization\"", Target(Output, @"Web\Web.csproj"));
         // The images' folder on C: is Windows': reported, for the deployment on Linux to set.
         Assert.Contains(report.Entries, e => e.Kind == Report.Kind.Platform && e.Text.Contains(@"c:\TempImageFiles\") && e.Text.Contains("APPSETTING_ChartImageHandler"));
     }

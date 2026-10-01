@@ -92,7 +92,7 @@ public sealed record ApiUsage
     public required string Namespace { get; init; }
     public required string Component { get; init; }
     public required ApiStatus Status { get; init; }
-    /// <summary>Where .NET has it: "in-box", a package ("package:System.Drawing.Common"), FrameworkOnCore's WebFormsForCore ("frameworkoncore:WebFormsForCore.Web"), "compat".</summary>
+    /// <summary>Where .NET has it: "in-box", a package ("package:System.Drawing.Common"), FrameworkOnCore's WebFormsForCore ("frameworkoncore:FrameworkOnCore.Web"), "compat".</summary>
     public string? Target { get; init; }
     /// <summary>.NET's obsoletion (SYSLIB0011: its message).</summary>
     public string? Obsolete { get; init; }

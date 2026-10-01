@@ -26,12 +26,12 @@ public sealed class RuntimeSetupTests : IDisposable
     public void A_feed_without_the_version_gets_the_release()
     {
         var runtime = Path.Combine(directory, "wf4c");
-        var zip = Zip("WebFormsForCore.Web.1.0.0-t.nupkg", "WebFormsForCore.Compilers.1.0.0-t.nupkg", "LICENSE-WebFormsForCore.txt");
+        var zip = Zip("FrameworkOnCore.Web.1.0.0-t.nupkg", "FrameworkOnCore.Compilers.1.0.0-t.nupkg", "LICENSE-WebFormsForCore.txt");
 
         RuntimeSetup.EnsureFeed(runtime, "1.0.0-t", source: zip);
 
         var feed = Path.Combine(runtime, "_feed");
-        Assert.Equal(["LICENSE-WebFormsForCore.txt", "WebFormsForCore.Compilers.1.0.0-t.nupkg", "WebFormsForCore.Web.1.0.0-t.nupkg"],
+        Assert.Equal(["FrameworkOnCore.Compilers.1.0.0-t.nupkg", "FrameworkOnCore.Web.1.0.0-t.nupkg", "LICENSE-WebFormsForCore.txt"],
             Directory.GetFiles(feed).Select(Path.GetFileName).Order());
         Assert.False(Directory.Exists(feed + ".download"));
         Assert.True(File.Exists(zip));
@@ -41,22 +41,22 @@ public sealed class RuntimeSetupTests : IDisposable
     public void A_feed_with_the_version_is_left_as_it_is()
     {
         var feed = Directory.CreateDirectory(Path.Combine(directory, "wf4c", "_feed")).FullName;
-        File.WriteAllText(Path.Combine(feed, "WebFormsForCore.Web.1.0.0-t.nupkg"), "local");
+        File.WriteAllText(Path.Combine(feed, "FrameworkOnCore.Web.1.0.0-t.nupkg"), "local");
 
         RuntimeSetup.EnsureFeed(Path.GetDirectoryName(feed)!, "1.0.0-t", source: Path.Combine(directory, "no-such.zip"));
 
-        Assert.Equal("local", File.ReadAllText(Path.Combine(feed, "WebFormsForCore.Web.1.0.0-t.nupkg")));
+        Assert.Equal("local", File.ReadAllText(Path.Combine(feed, "FrameworkOnCore.Web.1.0.0-t.nupkg")));
     }
 
     [Fact]
     public void A_release_without_the_version_is_an_error_and_leaves_no_feed()
     {
         var runtime = Path.Combine(directory, "wf4c");
-        var zip = Zip("WebFormsForCore.Web.0.9.0.nupkg");
+        var zip = Zip("FrameworkOnCore.Web.0.9.0.nupkg");
 
         var error = Assert.Throws<InvalidOperationException>(() => RuntimeSetup.EnsureFeed(runtime, "1.0.0-t", source: zip));
 
-        Assert.Contains("WebFormsForCore.Web.1.0.0-t.nupkg is not in it", error.Message);
+        Assert.Contains("FrameworkOnCore.Web.1.0.0-t.nupkg is not in it", error.Message);
         Assert.False(Directory.Exists(Path.Combine(runtime, "_feed")));
         Assert.False(Directory.Exists(Path.Combine(runtime, "_feed.download")));
     }

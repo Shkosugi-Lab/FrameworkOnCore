@@ -23,7 +23,7 @@ public sealed class DllBindingTests : IDisposable
         module.Types.Add(type);
         var web = Path.Combine(directory, "System.Web.dll");
         assembly.Write(web);
-        return new TargetApis([("frameworkoncore:WebFormsForCore.Web", [web]), ("in-box", ReferencePacks.NetCoreApp())]);
+        return new TargetApis([("frameworkoncore:FrameworkOnCore.Web", [web]), ("in-box", ReferencePacks.NetCoreApp())]);
     }
 
     [Fact]

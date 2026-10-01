@@ -1,4 +1,4 @@
-# Packs FrameworkOnCore's WebFormsForCore (WebFormsForCore/ of this repository: upstream taken in by git subtree, maintained here) into
+# Packs FrameworkOnCore's WebFormsForCore (FrameworkOnCore.Runtime/ of this repository: upstream taken in by git subtree, maintained here) into
 # experiments/wf4c/_feed as version $Version, and drops that version from the NuGet cache so the
 # next restore picks the new build up (a package version is cached once and never re-read).
 #
@@ -18,7 +18,7 @@ $ErrorActionPreference = 'Stop'
 # Debug.Assert (about 630 in the packed assemblies), and on .NET a failed Debug.Assert ends the process (found by the
 # System.Data.Linq parity cases: SingleResult's assert, not true for Translate(DbDataReader)).
 $Configuration = 'Release'
-$webFormsForCore = Join-Path $PSScriptRoot '..\..\WebFormsForCore'
+$webFormsForCore = Join-Path $PSScriptRoot '..\..\FrameworkOnCore.Runtime'
 $src = Join-Path $webFormsForCore 'src'
 $feed = Join-Path $PSScriptRoot '_feed'
 
@@ -71,7 +71,7 @@ if ($Build -eq 'All') {
     if ($LASTEXITCODE -ne 0) { throw "build failed: frameworkoncore.slnx" }
     # The System.Drawing.Common port's Unix build (the solution builds its Windows one; the package takes both).
     dotnet build (Join-Path $src 'WebFormsForCore.Drawing.Common\WebFormsForCore.Drawing.Common.csproj') -c $Configuration -p:FocTargetOS=unix -v q -nologo
-    if ($LASTEXITCODE -ne 0) { throw "build failed: WebFormsForCore.Drawing.Common (unix)" }
+    if ($LASTEXITCODE -ne 0) { throw "build failed: FrameworkOnCore.Drawing.Common (unix)" }
     foreach ($project in $net10Only) {
         # -f, not the TargetFrameworks property: a global property would restore the projects it references for net10.0 only.
         dotnet build (Join-Path $src $project) -c $Configuration -f net10.0 --no-dependencies -v q -nologo
@@ -80,7 +80,7 @@ if ($Build -eq 'All') {
 }
 elseif ($Build -eq 'Web') {
     dotnet build (Join-Path $src 'WebFormsForCore.Web\WebFormsForCore.Web.csproj') -c $Configuration -v q -nologo
-    if ($LASTEXITCODE -ne 0) { throw "build failed: WebFormsForCore.Web" }
+    if ($LASTEXITCODE -ne 0) { throw "build failed: FrameworkOnCore.Web" }
 }
 
 New-Item -ItemType Directory $feed -Force | Out-Null
@@ -91,6 +91,6 @@ foreach ($project in $projects) {
     if ($LASTEXITCODE -ne 0) { throw "pack failed: $project" }
 }
 
-Get-ChildItem (Join-Path $env:USERPROFILE '.nuget\packages') -Directory -Filter 'webformsforcore.*' |
+Get-ChildItem (Join-Path $env:USERPROFILE '.nuget\packages') -Directory -Filter 'frameworkoncore.*' |
     ForEach-Object { Remove-Item (Join-Path $_.FullName $Version) -Recurse -Force -ErrorAction SilentlyContinue }
 "packed $($projects.Count) packages ($Version) -> $feed"

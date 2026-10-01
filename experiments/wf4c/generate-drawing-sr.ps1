@@ -1,10 +1,10 @@
-# Generates Core\SR.generated.cs of the System.Drawing.Common port (WebFormsForCore\src\WebFormsForCore.Drawing.Common):
+# Generates Core\SR.generated.cs of the System.Drawing.Common port (FrameworkOnCore.Runtime\src\WebFormsForCore.Drawing.Common):
 # the SR class's resource properties, which dotnet/runtime's build (Arcade's GenerateResourcesSource) made from
 # Resources\Strings.resx. One property per string (its value read from the embedded resources, as the original's),
 # the ResourceManager over the resources the project embeds (System.Drawing.Common.Strings.resources).
 # Rerun when Strings.resx changes; the output is committed with the port.
 $ErrorActionPreference = 'Stop'
-$root = Join-Path $PSScriptRoot '..\..\WebFormsForCore\src\WebFormsForCore.Drawing.Common'
+$root = Join-Path $PSScriptRoot '..\..\FrameworkOnCore.Runtime\src\WebFormsForCore.Drawing.Common'
 [xml]$resx = Get-Content (Join-Path $root 'Resources\Strings.resx') -Raw -Encoding UTF8
 $names = $resx.root.data | Where-Object { -not $_.type } | ForEach-Object { $_.name } | Sort-Object -Unique
 $sb = New-Object Text.StringBuilder

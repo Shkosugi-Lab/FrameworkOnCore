@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <!-- The unit cases of every System.Web.DataVisualization API (the Chart control), compiled twice: net48 against .NET
        Framework's assembly (the old: record.ps1 writes the goldens from it) and net10.0 against the port, FrameworkOnCore's
-       WebFormsForCore.Web.DataVisualization package (the new: DataVisualizationParityTests runs this program and compares
+       FrameworkOnCore.Web.DataVisualization package (the new: DataVisualizationParityTests runs this program and compares
        what it writes with the goldens). The port as converted applications get it: the package from FrameworkOnCore's feed,
        with FrameworkOnCore's System.Web over .NET's facade of the same name. -->
   <PropertyGroup>
@@ -36,7 +36,7 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net10.0'">
-    <PackageReference Include="WebFormsForCore.Web.DataVisualization" Version="$(FrameworkOnCoreVersion)" />
+    <PackageReference Include="FrameworkOnCore.Web.DataVisualization" Version="$(FrameworkOnCoreVersion)" />
     <!-- Windows' culture data (NLS), as converted applications have it (their runtimeconfig; on Linux the deployment's
          ICU data made from the original server's): ICU's differs (en-US percents with 3 decimals). -->
     <RuntimeHostConfigurationOption Include="System.Globalization.UseNls" Value="true" />

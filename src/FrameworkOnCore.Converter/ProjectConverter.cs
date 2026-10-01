@@ -26,7 +26,7 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
     const string WarningsNotAsErrors = "$(WarningsNotAsErrors);NU1901;NU1902;NU1903;NU1904";
 
     // WebFormsForCore's packages carry System.Web; the one in .NET's own reference set is removed.
-    // CoreWCF (under WebFormsForCore.Web.Extensions) brings System.Web.Services.Description, whose WSDL
+    // CoreWCF (under FrameworkOnCore.Web.Extensions) brings System.Web.Services.Description, whose WSDL
     // types (WsiProfiles, ServiceDescription, ...) System.Web.Services has too (CS0433).
     const string AliasTarget = """
           <Target Name="ChangeAliasesOfNugetRefs" BeforeTargets="FindReferenceAssembliesForReferences;ResolveReferences">
@@ -319,7 +319,7 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
         AddSourcePackages(name, compile.Select(c => Path.Combine(source, c)), AddPackage);
         var preserialized = HasNonStringResources(embedded.Select(e => Path.Combine(source, e)));
         if (preserialized) AddPackage(ResourcesExtensions);
-        var usesWebFormsForCore = isWeb || packages.Keys.Any(k => k.StartsWith("WebFormsForCore.", StringComparison.OrdinalIgnoreCase));
+        var usesWebFormsForCore = isWeb || packages.Keys.Any(k => k.StartsWith("FrameworkOnCore.", StringComparison.OrdinalIgnoreCase));
 
         // The project file.
         var text = new StringBuilder();
@@ -583,7 +583,7 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
             // warnings (the SYSLIB ones are reported).
             new XElement(N("TreatWarningsAsErrors"), "false"),
             new XElement(N("RestoreAdditionalProjectSources"), Paths.FromProject(target, runtime.Feed))));
-        if (Elements(project, "PackageReference").Any(p => ((string?)p.Attribute("Include") ?? "").StartsWith("WebFormsForCore.", StringComparison.OrdinalIgnoreCase)))
+        if (Elements(project, "PackageReference").Any(p => ((string?)p.Attribute("Include") ?? "").StartsWith("FrameworkOnCore.", StringComparison.OrdinalIgnoreCase)))
         {
             root.Add(XElement.Parse(AliasTarget.Trim()));
         }

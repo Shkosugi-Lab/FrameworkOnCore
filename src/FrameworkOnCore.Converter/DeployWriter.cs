@@ -410,7 +410,7 @@ public sealed class DeployWriter(Report report, string outRoot, string runtimeDi
             - URL(`Request.Url`、絶対 URL へのリダイレクト)は、クライアントが送った Host ヘッダーのホスト名とポートから作る。HTTPS を終端するリバースプロキシの後ろでは `ASPNETCORE_FORWARDEDHEADERS_ENABLED=true` を設定し、プロキシが `X-Forwarded-Proto` と元の `Host` を渡すようにする。
             - アプリが書き込む場所: `App_Data`。ほかにも書き込むアプリがある(インストーラーがモジュールを置くなど)ので、サイト全体をアプリのユーザーが書けるようにしてある。
             - ファイル名の大文字小文字: {(caseInsensitive ? "Windows と同じく区別しない(`deploy/casefs` の `libfoccase.so` を `start.sh` がプロセスに読み込む。x64・arm64 の glibc の Linux。読み込めないマシン(Alpine の musl など)では警告を出し、区別するまま動く)。`FOC_CASE_INSENSITIVE=0` で止める。対象はサイトのフォルダー(`FOC_CASE_ROOTS` に `:` 区切りでフォルダーを加えられる)。`FOC_CASE_LOG=1` で、大文字小文字違いで見つけたファイル名を標準エラーに出す(アプリの食い違いの一覧になる)。" : "区別する(変換の `--case-insensitive off`)。アプリが大文字小文字の違う名前でファイルを参照していると、Linux では見つからない。")}
-            - System.Drawing(画像・フォント): {(gdiplus ? "Linux ではフォークの System.Drawing.Common が libgdiplus で描く。配置が libgdiplus と Liberation のフォント(Arial、Times New Roman、Courier New と同じ文字幅)を入れる。描画の結果(アンチエイリアス、文字の形)は Windows と少し違う。ほかの Windows のフォント(MS ゴシックなど)を使うなら、そのフォントか代わりのフォントを入れる。" : "アプリは System.Drawing を使っていない(libgdiplus は入れない)。")}
+            - System.Drawing(画像・フォント): {(gdiplus ? "Linux では FrameworkOnCore の System.Drawing.Common が libgdiplus で描く。配置が libgdiplus と Liberation のフォント(Arial、Times New Roman、Courier New と同じ文字幅)を入れる。描画の結果(アンチエイリアス、文字の形)は Windows と少し違う。ほかの Windows のフォント(MS ゴシックなど)を使うなら、そのフォントか代わりのフォントを入れる。" : "アプリは System.Drawing を使っていない(libgdiplus は入れない)。")}
 
 
             """);

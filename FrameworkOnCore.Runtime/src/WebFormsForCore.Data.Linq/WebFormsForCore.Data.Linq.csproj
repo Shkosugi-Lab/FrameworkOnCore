@@ -1,0 +1,93 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+        <TargetFrameworks>net8.0;net10.0</TargetFrameworks>
+        <ImplicitUsings>disable</ImplicitUsings>
+		<Nullable>disable</Nullable>
+		<LangVersion>11</LangVersion>
+		<GenerateAssemblyInfo>False</GenerateAssemblyInfo>
+		<!-- ILGEN: the materializer built with Reflection.Emit (ObjectReaderCompiler), the way the original
+		     assembly was built (the alternative, ObjectReaderBuilder, is not in referencesource). -->
+		<DefineConstants>$(DefineConstants);TRACE;ILGEN</DefineConstants>
+		<DefineConstants>$(DefineConstants);WebFormsForCore</DefineConstants>
+		<SignAssembly>True</SignAssembly>
+        <AssemblyName>System.Data.Linq</AssemblyName>
+        <AssemblyOriginatorKeyFile>..\SigningKey\WebFormsForCore.snk</AssemblyOriginatorKeyFile>
+        <!-- SYSLIB0011: DbConvert's BinaryFormatter (columns holding a serialized object). It works when the
+             application chooses the BinaryFormatter compatibility package, and throws when it does not, as the
+             sources say. -->
+        <!-- CS0618: System.Data.SqlClient is obsolete in favor of Microsoft.Data.SqlClient; the port stays on
+             it deliberately, the package the converter gives converted applications. -->
+        <NoWarn>$(NoWarn);SYSLIB0011;CS0618</NoWarn>
+
+        <PackageId>FrameworkOnCore.Data.Linq</PackageId>
+        <Title>FrameworkOnCore.Data.Linq</Title>
+        <Authors>simonegli8</Authors>
+        <Company>Estrellas de Esperanza</Company>
+        <Product>WebFormsForCore.Data.Linq</Product>
+        <Description>A port of LINQ to SQL (System.Data.Linq) to .NET 10</Description>
+        <Copyright>Estrellas de Esperanza</Copyright>
+        <PackageProjectUrl>https://github.com/webformsforcore/WebFormsForCore</PackageProjectUrl>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <RepositoryUrl>https://github.com/webformsforcore/WebFormsForCore</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <PackageTags>LINQ to SQL;System.Data.Linq;NET Core;NET 10</PackageTags>
+        <AssemblyVersion>10.0.29.0</AssemblyVersion>
+        <FileVersion>10.0.29.0</FileVersion>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <IncludeSymbols>true</IncludeSymbols>
+        <PublishRepositoryUrl>true</PublishRepositoryUrl>
+        <EmbedUntrackedSources>false</EmbedUntrackedSources>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+        <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+        <DebugType>portable</DebugType>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+        <DebugType>portable</DebugType>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <!-- The original AssemblyInfo (CAS attributes) and SecurityUtils (CAS demands around reflection):
+             Core\SecurityUtils.cs gives the one member the sources use, without the demands. -->
+        <Compile Remove="Properties\AssemblyInfo.cs" />
+        <None Include="Properties\AssemblyInfo.cs" />
+        <Compile Remove="misc\SecurityUtils.cs" />
+        <None Include="misc\SecurityUtils.cs" />
+        <Compile Include="..\VersionInfo.cs" Link="Properties\VersionInfo.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <!-- The same package the converter gives converted applications for their own System.Data.SqlClient use. -->
+        <PackageReference Include="System.Data.SqlClient" Version="4.9.0" />
+    </ItemGroup>
+
+    <Import Project="..\..\lib\WebFormsForCore.Build\netstandard2.0\FakeStrongName.targets" />
+
+    <!-- Without DEBUG in every configuration, as .NET Framework's System.Data.Linq was built: the sources' 150
+         Debug.Assert (and #if DEBUG code) are checks of the original's development, some of them not true for what
+         the shipped assembly does (SingleResult asserts an execute result, which Translate(DbDataReader) does not
+         have), and on .NET a failed Debug.Assert ends the process. Found by the parity cases (tests/DataLinqParity). -->
+    <Target Name="FocWithoutDebugConstant" BeforeTargets="CoreCompile">
+        <PropertyGroup>
+            <DefineConstants>$([System.Text.RegularExpressions.Regex]::Replace(';$(DefineConstants);', ';DEBUG;', ';').Trim(';'))</DefineConstants>
+        </PropertyGroup>
+    </Target>
+
+    <PropertyGroup>
+        <!-- The ECMA key, System.Data.Linq's original identity (b77a5c561934e089). -->
+        <StrongNamePublicKey>00000000000000000400000000000000</StrongNamePublicKey>
+        <StrongNamePublicKeyToken>b77a5c561934e089</StrongNamePublicKeyToken>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <None Include="..\..\README.md">
+            <Pack>True</Pack>
+            <PackagePath>\</PackagePath>
+        </None>
+    </ItemGroup>
+
+</Project>

@@ -87,7 +87,7 @@ public static class AnalyzeCommand
             .Concat(rules.SourcePackages.Select(s => s.Package))
             .Concat(rules.ReplacedPackages.Values)
             .Concat(frameworkOnCoreDependencies)
-            .Where(p => !p.Id.StartsWith("WebFormsForCore.", StringComparison.OrdinalIgnoreCase))
+            .Where(p => !p.Id.StartsWith("FrameworkOnCore.", StringComparison.OrdinalIgnoreCase))
             .DistinctBy(p => p.Id, StringComparer.OrdinalIgnoreCase);
         foreach (var package in packages)
         {

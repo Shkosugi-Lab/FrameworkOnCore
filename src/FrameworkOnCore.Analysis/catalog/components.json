@@ -30,7 +30,7 @@
       { "id": "none", "title": ".NET のまま(UTF-8)", "description": "ファイルやハッシュのバイト列が .NET Framework と変わりうる" }
     ],
     "code-pages": [
-      { "id": "register", "title": "登録する(常に)", "description": "フォーク(WebFormsForCore の UseWebForms)が起動時に CodePagesEncodingProvider を登録する。Shift_JIS、EUC-JP などが使える", "default": true }
+      { "id": "register", "title": "登録する(常に)", "description": "FrameworkOnCore の System.Web(UseWebForms)が起動時に CodePagesEncodingProvider を登録する。Shift_JIS、EUC-JP などが使える", "default": true }
     ],
     "event-log": [
       { "id": "stderr", "title": "Linux では標準エラーへ", "description": "Windows ではイベントログ、Linux ではサービスのジャーナル・コンテナのログに出る(FrameworkOnCore.EventLogs)", "default": true },
@@ -49,14 +49,14 @@
       { "id": "none", "title": "対応しない", "description": "スタブ" }
     ],
     "system-drawing": [
-      { "id": "port", "title": "移植版(Windows と Linux)", "description": "フォークの System.Drawing.Common(dotnet/runtime 6.0 のソース。Windows は GDI+、Linux は libgdiplus。配置で libgdiplus とフォントを入れる)。フォークの System.Web が依存するので、どのアプリもこれになる", "default": true }
+      { "id": "port", "title": "移植版(Windows と Linux)", "description": "FrameworkOnCore の System.Drawing.Common(パッケージ FrameworkOnCore.Drawing.Common。dotnet/runtime 6.0 のソース。Windows は GDI+、Linux は libgdiplus。配置で libgdiplus とフォントを入れる)。FrameworkOnCore の System.Web が依存するので、どのアプリもこれになる", "default": true }
     ],
     "linq-to-sql": [
-      { "id": "port", "title": "移植版を使う", "description": "referencesource(MIT)から移植した System.Data.Linq(フォークの WebFormsForCore.Data.Linq)", "default": true },
+      { "id": "port", "title": "移植版を使う", "description": "referencesource(MIT)から移植した System.Data.Linq(パッケージ FrameworkOnCore.Data.Linq)", "default": true },
       { "id": "none", "title": "対応しない", "description": "スタブ。DLL が参照する場合(System.Web.Mvc のモデルバインドなど)も例外になる" }
     ],
     "charts": [
-      { "id": "port", "title": "移植版を使う", "description": "referencesource(MIT)から移植した System.Web.DataVisualization(フォークの WebFormsForCore.Web.DataVisualization。描画は移植版の System.Drawing で、Linux でも動く)", "default": true },
+      { "id": "port", "title": "移植版を使う", "description": "referencesource(MIT)から移植した System.Web.DataVisualization(パッケージ FrameworkOnCore.Web.DataVisualization。描画は移植版の System.Drawing で、Linux でも動く)", "default": true },
       { "id": "none", "title": "対応しない", "description": "スタブ(グラフの画面は例外)" }
     ],
     "wcf-server": [
@@ -78,7 +78,7 @@
     {
       "id": "thread-abort", "title": "スレッドの中断(Thread.Abort / ResetAbort)",
       "match": { "members": [ "System.Threading.Thread.Abort", "System.Threading.Thread.ResetAbort" ] },
-      "note": "変換器: ResetAbort は Platform.ResetAbort に置き換える(フォークの Response.End の中断を取り消す)。Abort は対応なし"
+      "note": "変換器: ResetAbort は Platform.ResetAbort に置き換える(FrameworkOnCore の System.Web の Response.End の中断を取り消す)。Abort は対応なし"
     },
     {
       "id": "async-delegates", "title": "デリゲートの非同期呼び出し(BeginInvoke / EndInvoke)",
@@ -98,22 +98,22 @@
     {
       "id": "code-pages", "title": "コードページ(Shift_JIS など)",
       "match": { "members": [ "System.Text.Encoding.GetEncoding", "System.Text.Encoding.GetEncodings" ] },
-      "note": ".NET はプロバイダーを登録しないと Unicode と ASCII・Latin-1 だけ。フォーク(UseWebForms)が起動時に登録する"
+      "note": ".NET はプロバイダーを登録しないと Unicode と ASCII・Latin-1 だけ。FrameworkOnCore の System.Web(UseWebForms)が起動時に登録する"
     },
     {
       "id": "system-drawing", "title": "System.Drawing(画像・フォント、GDI+)",
       "match": { "namespaces": [ "System.Drawing" ] },
-      "note": ".NET の System.Drawing.Common は .NET 7 から Windows のみ。変換器: フォークの System.Drawing.Common(dotnet/runtime 6.0 の Linux 実装を持つ移植版、libgdiplus)。描画の結果(アンチエイリアス、文字)は Windows と Linux で少し違う。Windows のフォントは Linux に無い(Arial などは互換のフォントに置き換わる)"
+      "note": ".NET の System.Drawing.Common は .NET 7 から Windows のみ。変換器: FrameworkOnCore の System.Drawing.Common(dotnet/runtime 6.0 の Linux 実装を持つ移植版、libgdiplus)。描画の結果(アンチエイリアス、文字)は Windows と Linux で少し違う。Windows のフォントは Linux に無い(Arial などは互換のフォントに置き換わる)"
     },
     {
       "id": "charts", "title": "グラフ(Chart コントロール)",
       "match": { "assemblies": [ "System.Web.DataVisualization", "System.Windows.Forms.DataVisualization" ] },
-      "note": "referencesource(MIT)から移植済み: フォークの WebFormsForCore.Web.DataVisualization(Chart コントロール、ChartImg.axd)。描画は移植版の System.Drawing(Linux は libgdiplus)。ChartImg.axd の画像ファイルの置き場(appSettings ChartImageHandler の dir)が C: などのときは、Linux では配置の設定(APPSETTING_ChartImageHandler)で替える。Windows フォームの System.Windows.Forms.DataVisualization は移植していない"
+      "note": "referencesource(MIT)から移植済み: パッケージ FrameworkOnCore.Web.DataVisualization(Chart コントロール、ChartImg.axd)。描画は移植版の System.Drawing(Linux は libgdiplus)。ChartImg.axd の画像ファイルの置き場(appSettings ChartImageHandler の dir)が C: などのときは、Linux では配置の設定(APPSETTING_ChartImageHandler)で替える。Windows フォームの System.Windows.Forms.DataVisualization は移植していない"
     },
     {
       "id": "linq-to-sql", "title": "LINQ to SQL(System.Data.Linq)",
       "match": { "assemblies": [ "System.Data.Linq" ] },
-      "note": "referencesource(MIT)から移植済み: フォークの WebFormsForCore.Data.Linq(SQL Server 用)"
+      "note": "referencesource(MIT)から移植済み: パッケージ FrameworkOnCore.Data.Linq(SQL Server 用)"
     },
     {
       "id": "entity-framework-4", "title": "Entity Framework 4(System.Data.Entity)",
@@ -188,7 +188,7 @@
     {
       "id": "remoting", "title": "リモート処理(System.Runtime.Remoting)",
       "match": { "namespaces": [ "System.Runtime.Remoting" ] },
-      "note": ".NET に無い。一部(CallContext など)はフォーク・互換アセンブリにある"
+      "note": ".NET に無い。一部(CallContext など)は FrameworkOnCore の System.Web・互換アセンブリにある"
     },
     {
       "id": "code-dom-compile", "title": "実行時のコンパイル(CodeDom)",
@@ -213,12 +213,12 @@
     {
       "id": "web-forms", "title": "ASP.NET(System.Web:Web Forms、ASMX など)",
       "match": { "assemblies": [ "System.Web", "System.Web.Extensions", "System.Web.Services", "System.Web.ApplicationServices", "System.Web.DynamicData", "System.Web.Abstractions", "System.Web.Routing", "System.Web.Entity", "System.Web.RegularExpressions" ] },
-      "note": "WebFormsForCore(フォーク)が .NET 版を持つ"
+      "note": "FrameworkOnCore(WebFormsForCore を元にした System.Web など)が .NET 版を持つ"
     },
     {
       "id": "configuration", "title": "構成(System.Configuration)",
       "match": { "assemblies": [ "System.Configuration" ] },
-      "note": "WebFormsForCore(フォーク)の構成"
+      "note": "FrameworkOnCore(WebFormsForCore を元にしたもの)の構成"
     },
     {
       "id": "visual-basic-runtime", "title": "Visual Basic のランタイム(Microsoft.VisualBasic)",

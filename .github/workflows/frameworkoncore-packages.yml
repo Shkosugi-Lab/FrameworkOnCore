@@ -1,9 +1,9 @@
-# FrameworkOnCore's packages, built here instead of on a developer's machine: WebFormsForCore/ (upstream taken
+# FrameworkOnCore's packages, built here instead of on a developer's machine: FrameworkOnCore.Runtime/ (upstream taken
 # in by git subtree, maintained in this repository) built and packed (pack-frameworkoncore.ps1, Release), tested on Linux against
 # them (the test suite in the .NET SDK's container, as run-tests-linux.ps1 runs it), and published as the GitHub Release
 # frameworkoncore-<frameworkOnCoreVersion> (publish-frameworkoncore.ps1) that the converter, the analysis and Studio fetch.
 #
-# A version is published once. A push that changes FrameworkOnCore's WebFormsForCore (WebFormsForCore/, pack-frameworkoncore.ps1, the rules' frameworkOnCoreVersion)
+# A version is published once. A push that changes FrameworkOnCore's WebFormsForCore (FrameworkOnCore.Runtime/, pack-frameworkoncore.ps1, the rules' frameworkOnCoreVersion)
 # publishes its version when there is no release of it yet; with one, the run warns (changed packages is a new version:
 # raise frameworkOnCoreVersion in src/FrameworkOnCore.Converter/rules/packages.json, and pack-frameworkoncore.ps1's default). Run by hand
 # (workflow_dispatch) it builds and tests, and publishes only when asked.
@@ -16,7 +16,7 @@ on:
   push:
     branches: [main, 'pivot/**']
     paths:
-      - 'WebFormsForCore/**'
+      - 'FrameworkOnCore.Runtime/**'
       - 'experiments/wf4c/pack-frameworkoncore.ps1'
       - 'experiments/wf4c/frameworkoncore.slnx'
       - 'src/FrameworkOnCore.Converter/rules/packages.json'
@@ -65,7 +65,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: frameworkoncore-build-tasks
-          path: WebFormsForCore/lib/WebFormsForCore.Build/
+          path: FrameworkOnCore.Runtime/lib/WebFormsForCore.Build/
           if-no-files-found: error
 
   test-linux:
@@ -85,7 +85,7 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           name: frameworkoncore-build-tasks
-          path: WebFormsForCore/lib/WebFormsForCore.Build
+          path: FrameworkOnCore.Runtime/lib/WebFormsForCore.Build
       - name: Tests (Linux)
         run: dotnet test tests/FrameworkOnCore.Tests/FrameworkOnCore.Tests.csproj -nologo -v q
 
@@ -97,7 +97,7 @@ jobs:
       GH_TOKEN: ${{ github.token }}
       VERSION: ${{ needs.build.outputs.version }}
     steps:
-      # The whole history: the release names the upstream commit WebFormsForCore/ was taken from (git subtree's record).
+      # The whole history: the release names the upstream commit FrameworkOnCore.Runtime/ was taken from (git subtree's record).
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
@@ -109,7 +109,7 @@ jobs:
           if ($LASTEXITCODE -eq 0) {
             "exists=true" >> $env:GITHUB_OUTPUT
             # Not published again. If the push changed FrameworkOnCore's WebFormsForCore, its packages are not the published ones.
-            "::warning::frameworkoncore-$env:VERSION is published already: not published again. If FrameworkOnCore's WebFormsForCore changed (WebFormsForCore/), raise frameworkOnCoreVersion (src/FrameworkOnCore.Converter/rules/packages.json and pack-frameworkoncore.ps1)"
+            "::warning::frameworkoncore-$env:VERSION is published already: not published again. If FrameworkOnCore's WebFormsForCore changed (FrameworkOnCore.Runtime/), raise frameworkOnCoreVersion (src/FrameworkOnCore.Converter/rules/packages.json and pack-frameworkoncore.ps1)"
           } else { "exists=false" >> $env:GITHUB_OUTPUT }
           exit 0
       - uses: actions/download-artifact@v4

@@ -99,7 +99,7 @@ public sealed class ChoicesTests
         Assert.True(RewriteHarness.Rules.FrameworkReferences.ContainsKey("System.Data.Linq"));
 
         var port = RewriteHarness.Rules.Choose(new Choices(), catalog);
-        Assert.Equal("WebFormsForCore.Data.Linq", port.FrameworkReferences["System.Data.Linq"].Id);
+        Assert.Equal("FrameworkOnCore.Data.Linq", port.FrameworkReferences["System.Data.Linq"].Id);
         Assert.DoesNotContain("System.Data.Linq", port.NoAnswer);
 
         var none = RewriteHarness.Rules.Choose(Of("""{ "components": { "linq-to-sql": "none" } }"""), catalog);

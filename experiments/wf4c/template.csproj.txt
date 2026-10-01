@@ -15,7 +15,7 @@
     <OutputPath>bin</OutputPath>
     <StartupObject>Program</StartupObject>
     <EnableDefaultContentItems>false</EnableDefaultContentItems>
-    <!-- FrameworkOnCore's WebFormsForCore (WebFormsForCore/ of this repository), packed into ../_feed. -->
+    <!-- FrameworkOnCore's WebFormsForCore (FrameworkOnCore.Runtime/ of this repository), packed into ../_feed. -->
     <WebFormsForCoreVersion>1.6.5-w2l.6</WebFormsForCoreVersion>
     <RestoreAdditionalProjectSources>$(MSBuildThisFileDirectory)..\_feed</RestoreAdditionalProjectSources>
   </PropertyGroup>
@@ -29,10 +29,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="WebFormsForCore.Web" Version="$(WebFormsForCoreVersion)" />
-    <PackageReference Include="WebFormsForCore.Web.Extensions" Version="$(WebFormsForCoreVersion)" />
-    <PackageReference Include="WebFormsForCore.Configuration" Version="$(WebFormsForCoreVersion)" />
-    <PackageReference Include="WebFormsForCore.Web.DynamicData" Version="$(WebFormsForCoreVersion)" />
+    <PackageReference Include="FrameworkOnCore.Web" Version="$(WebFormsForCoreVersion)" />
+    <PackageReference Include="FrameworkOnCore.Web.Extensions" Version="$(WebFormsForCoreVersion)" />
+    <PackageReference Include="FrameworkOnCore.Configuration" Version="$(WebFormsForCoreVersion)" />
+    <PackageReference Include="FrameworkOnCore.Web.DynamicData" Version="$(WebFormsForCoreVersion)" />
   </ItemGroup>
 
 
@@ -53,7 +53,7 @@
   <Target Name="ChangeAliasesOfNugetRefs" BeforeTargets="FindReferenceAssembliesForReferences;ResolveReferences">
     <ItemGroup>
       <ReferencePath Remove="%(Identity)" Condition="'%(FileName)' == 'System.Web' AND $([System.Text.RegularExpressions.Regex]::IsMatch(%(Identity),'[/\x5C]dotnet[/\x5C]'))" />
-      <!-- CoreWCF (under WebFormsForCore.Web.Extensions) brings System.Web.Services.Description, whose
+      <!-- CoreWCF (under FrameworkOnCore.Web.Extensions) brings System.Web.Services.Description, whose
            WSDL types (WsiProfiles, ServiceDescription, ...) System.Web.Services has too (CS0433). -->
       <ReferencePath Remove="%(Identity)" Condition="'%(FileName)' == 'System.Web.Services.Description'" />
     </ItemGroup>

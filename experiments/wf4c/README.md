@@ -35,7 +35,7 @@
 - **上流のソースからのビルド**は `src/WebFormsForCore.Build` を先にビルドする必要がある
   (`lib/WebFormsForCore.Build/.../FakeStrongName.targets` を出力する)。
 
-フォークは、リポジトリのトップレベルの `WebFormsForCore/` にある(2026-10-01 から。下の「フォークをリポジトリに取り込む」)。それまでは `_upstream/`(上流の浅いクローン、Git 管理外)に `patches/` を当てていた。以下の記録の「フォーク」は今の `WebFormsForCore/`(FrameworkOnCore で保守している WebFormsForCore)、「パッチ」の番号はその時の番号(今は `WebFormsForCore/` の同じ件名のコミット)。スクリプトなどの名前は 2026-10-01 に「fork」から「frameworkoncore」に改めた(`pack-frameworkoncore.ps1`、`publish-frameworkoncore.ps1`、`frameworkoncore.slnx`、`frameworkOnCoreVersion`、Release のタグ `frameworkoncore-<版>`)。
+フォークは、リポジトリのトップレベルの `FrameworkOnCore.Runtime/` にある(2026-10-01 から。下の「フォークをリポジトリに取り込む」)。それまでは `_upstream/`(上流の浅いクローン、Git 管理外)に `patches/` を当てていた。以下の記録の「フォーク」は今の `FrameworkOnCore.Runtime/`(FrameworkOnCore で保守している WebFormsForCore)、「パッチ」の番号はその時の番号(今は `FrameworkOnCore.Runtime/` の同じ件名のコミット)。2026-10-01 に、取り込んだフォルダーを `WebFormsForCore/` から `FrameworkOnCore.Runtime/` に、パッケージ名を `WebFormsForCore.*` から `FrameworkOnCore.*` に改めた(記録の中のパッケージ名は当時のもの。中のプロジェクトとアセンブリの名前は変えていない)。スクリプトなどの名前は 2026-10-01 に「fork」から「frameworkoncore」に改めた(`pack-frameworkoncore.ps1`、`publish-frameworkoncore.ps1`、`frameworkoncore.slnx`、`frameworkOnCoreVersion`、Release のタグ `frameworkoncore-<版>`)。
 
 ## フォーク(2026-09-26、`_upstream` のローカルブランチ `w2l/dynamicdata`)
 
@@ -67,7 +67,7 @@
 | 0021 | 構成: `configSource` と appSettings の `file` の `\` を、Linux でもディレクトリの区切りとして扱う(.NET Framework では `configSource` に `/` は書けない) | n2 の `configSource="App_Data\n2_host.config"`(Linux で構成エラー) |
 | 0022 | 構成: 配置先の設定を環境変数から(Azure App Service が .NET Framework のアプリに渡すのと同じ名前)。`APPSETTING_<キー>` は appSettings、`SQLCONNSTR_<名前>` などは connectionStrings を置き換える | コンテナや systemd で、web.config を書き換えずに DB などを渡す |
 | 0023 | ASP.NET Core ホスト: SERVER_PORT を Host ヘッダーのポート(無ければスキームの既定)から、HTTPS をリクエストのスキームから(`IsSecure` が常に false だった) | コンテナのポートを別の番号で公開すると、リダイレクト先がコンテナ内のポートになった。HTTPS を終端するプロキシの後ろで http の URL になる |
-| 0024 | マシンキー: 自動生成の検証・暗号化キーを、再起動の後も同じものにする(.NET Framework はレジストリに保存する。ここでは `LocalApplicationData/WebFormsForCore/AutogenKeys`、Unix ではモード 600) | dnn のインストール後の再起動で、ViewState の MAC の検証に失敗した |
+| 0024 | マシンキー: 自動生成の検証・暗号化キーを、再起動の後も同じものにする(.NET Framework はレジストリに保存する。ここでは `LocalApplicationData/FrameworkOnCore.Runtime/AutogenKeys`、Unix ではモード 600) | dnn のインストール後の再起動で、ViewState の MAC の検証に失敗した |
 | 0025 | VB のページコンパイラー: C# と同じく、ランタイムのライブラリを使う(`/nostdlib` と `/sdkpath` にランタイムのフォルダー、VB のランタイムは `Microsoft.VisualBasic.Core`、フレームワークのファサードも参照)。0003 の VB 版 | n2 の VB のページが BC2017(`Microsoft.VisualBasic.dll` が見つからない)でコンパイルできなかった |
 | 0026 | ファイル変更通知(Linux): ファイルの監視をファイル名で引けるようにする(Linux ではフルパスを名前にしていて、変更の通知がどの監視とも一致しなかった)。bin・App_Code などの特別なフォルダーは全 OS で監視する(ツリー全体の名前変更の監視は Windows だけ。inotify ではフォルダーごとに 1 つ要る) | Linux で web.config を変えてもアプリが再起動せず、DNN のインストーラーが自分へのリダイレクトを繰り返した |
 | 0027 | 構成(Linux): フォルダーの web.config を、小文字の構成パス(`machine/webroot/1/n2`)からも見つける。`UserMapPath` が物理パスを大文字小文字の違う実在のフォルダー(`N2`)に解決する(0008 の `PhysicalPathCasing`) | Linux で大文字を含むフォルダー(n2 の `N2`、wt の `Admin`、DNN の `Portals` など)の web.config が読まれず、その承認の規則が効いていなかった。n2 の管理画面(`/N2/`)に、ログインせずに入れた |
@@ -281,14 +281,14 @@ Chart コントロール(referencesource の System.Web.DataVisualization、MIT)
 
 ### フォークをリポジトリに取り込む(2026-10-01)
 
-それまでのフォークは、リポジトリの外の `_upstream`(上流の浅いクローン)に `patches/` の 40 本を当てたものだった。パッケージはそれを持つ開発機でしか作れず、修正のたびにパッチの書き出しとコミットが二度手間だった。上流 WebFormsForCore(MIT)を git subtree でトップレベルの `WebFormsForCore/` に履歴ごと取り込み、このリポジトリで保守する。
+それまでのフォークは、リポジトリの外の `_upstream`(上流の浅いクローン)に `patches/` の 40 本を当てたものだった。パッケージはそれを持つ開発機でしか作れず、修正のたびにパッチの書き出しとコミットが二度手間だった。上流 WebFormsForCore(MIT)を git subtree でトップレベルの `FrameworkOnCore.Runtime/` に履歴ごと取り込み、このリポジトリで保守する。
 
-- 取り込み: 上流 22c7d354(当時の main の先頭)を `git subtree add --prefix=WebFormsForCore`(上流の履歴 441 コミット)。上流のサブモジュールの参照(`src/WebFormsForCore.AjaxControlToolkit`、`www`)は外し、Ajax Control Toolkit は上流が指していた c9952ac6 を `WebFormsForCore/src/WebFormsForCore.AjaxControlToolkit` に同じく subtree で取り込んだ(2,396 コミット)。`www`(上流の Web サイト)は取り込まない。
-- パッチ 0001〜0036・0038〜0040 を `git am --directory=WebFormsForCore` でコミットとして積み、0037(サブモジュールの参照の更新)の代わりに Ajax Control Toolkit のパッチを `--directory=WebFormsForCore/src/WebFormsForCore.AjaxControlToolkit` で当てた。作者・日付・件名は元のまま。結果は `_upstream` の木と、サブモジュールの 2 か所を除いて同一(Ajax Control Toolkit の木も同一)。
-- `patches/` と、パッチから作る `setup-fork.ps1` は消した。`frameworkoncore.slnx`、`pack-frameworkoncore.ps1`、`publish-frameworkoncore.ps1`(リリースの説明に、上流のどのコミットから取り込んだかを subtree の記録から書く)、テストのプロジェクト参照、`run-tests-linux.ps1`、リソースの生成スクリプトは `WebFormsForCore/` を指す。`pack-frameworkoncore.ps1 -Build All` は、`lib/WebFormsForCore.Build`(ビルドの出力で Git 管理外)が無ければ先にビルドする。
-- 上流の更新の取り込み: `git subtree pull --prefix=WebFormsForCore https://github.com/webformsforcore/WebFormsForCore.git main`(Ajax Control Toolkit は `--prefix=WebFormsForCore/src/WebFormsForCore.AjaxControlToolkit` とそのリポジトリ)。上流に返すときは、`WebFormsForCore/` の変更のコミットだけを `git subtree split` で取り出せる(フォークの変更と変換器の変更はコミットを分ける)。
-- GitHub Actions(`.github/workflows/frameworkoncore-packages.yml`): `WebFormsForCore/` などを変える push で、Windows でパッケージを作り、.NET SDK のコンテナで Linux のテストを走らせ、版の Release がまだ無ければ置く。Windows のテストはゴールデンがこの開発機のもの(日本語の Windows、GDI+ とフォント、IIS、SQL Server Express)なので Actions では走らせない。
-- 確認: `WebFormsForCore/` から作ったパッケージ 18 個は、それまでの `_feed` のものと DLL の一覧が同じで、大きさの差は 1 KiB 未満(ビルドのパスの長さ)。テスト Windows 2,823 件・Linux 2,804 件(SQL Server の要る 19 件はスキップ)がすべて緑。開発機の `_upstream/` はもう使わない(Git 管理外のまま残っている。消してよい)。
+- 取り込み: 上流 22c7d354(当時の main の先頭)を `git subtree add --prefix=FrameworkOnCore.Runtime`(上流の履歴 441 コミット)。上流のサブモジュールの参照(`src/WebFormsForCore.AjaxControlToolkit`、`www`)は外し、Ajax Control Toolkit は上流が指していた c9952ac6 を `FrameworkOnCore.Runtime/src/WebFormsForCore.AjaxControlToolkit` に同じく subtree で取り込んだ(2,396 コミット)。`www`(上流の Web サイト)は取り込まない。
+- パッチ 0001〜0036・0038〜0040 を `git am --directory=WebFormsForCore` でコミットとして積み、0037(サブモジュールの参照の更新)の代わりに Ajax Control Toolkit のパッチを `--directory=FrameworkOnCore.Runtime/src/WebFormsForCore.AjaxControlToolkit` で当てた。作者・日付・件名は元のまま。結果は `_upstream` の木と、サブモジュールの 2 か所を除いて同一(Ajax Control Toolkit の木も同一)。
+- `patches/` と、パッチから作る `setup-fork.ps1` は消した。`frameworkoncore.slnx`、`pack-frameworkoncore.ps1`、`publish-frameworkoncore.ps1`(リリースの説明に、上流のどのコミットから取り込んだかを subtree の記録から書く)、テストのプロジェクト参照、`run-tests-linux.ps1`、リソースの生成スクリプトは `FrameworkOnCore.Runtime/` を指す。`pack-frameworkoncore.ps1 -Build All` は、`lib/WebFormsForCore.Build`(ビルドの出力で Git 管理外)が無ければ先にビルドする。
+- 上流の更新の取り込み: `git subtree pull --prefix=FrameworkOnCore.Runtime https://github.com/webformsforcore/WebFormsForCore.git main`(Ajax Control Toolkit は `--prefix=FrameworkOnCore.Runtime/src/WebFormsForCore.AjaxControlToolkit` とそのリポジトリ)。上流に返すときは、`FrameworkOnCore.Runtime/` の変更のコミットだけを `git subtree split` で取り出せる(フォークの変更と変換器の変更はコミットを分ける)。
+- GitHub Actions(`.github/workflows/frameworkoncore-packages.yml`): `FrameworkOnCore.Runtime/` などを変える push で、Windows でパッケージを作り、.NET SDK のコンテナで Linux のテストを走らせ、版の Release がまだ無ければ置く。Windows のテストはゴールデンがこの開発機のもの(日本語の Windows、GDI+ とフォント、IIS、SQL Server Express)なので Actions では走らせない。
+- 確認: `FrameworkOnCore.Runtime/` から作ったパッケージ 18 個は、それまでの `_feed` のものと DLL の一覧が同じで、大きさの差は 1 KiB 未満(ビルドのパスの長さ)。テスト Windows 2,823 件・Linux 2,804 件(SQL Server の要る 19 件はスキップ)がすべて緑。開発機の `_upstream/` はもう使わない(Git 管理外のまま残っている。消してよい)。
 
 ## カルチャのデータ(2026-09-26)
 

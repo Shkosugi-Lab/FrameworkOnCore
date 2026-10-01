@@ -10,8 +10,8 @@
 
 | API | 使うコーパス | 今の扱い | 案 |
 |---|---|---|---|
-| System.Web.DataVisualization(グラフ) | nop | **移植済み**(2026-10-01) | referencesource(MIT)から移植した、WebFormsForCore.Web.DataVisualization(パッチ 0039・0040。Chart コントロール、ChartImg.axd)。描画は B の System.Drawing の移植版(Linux は libgdiplus)。既定の選択は「移植版を使う」。全 API の新旧比較は `tests/DataVisualizationParity`、サイトでの確認は `samples/ChartProbe` |
-| System.Data.Linq(LINQ to SQL) | be(DB ファイルシステム)、yaf、n2、System.Web.Mvc の DLL | **移植済み**(2026-09-30) | referencesource(MIT)から移植した、WebFormsForCore.Data.Linq(パッチ 0032。SQL Server 用)。既定の選択は「移植版を使う」。DLL だけが参照する場合(MVC のモデルバインド)もパッケージが付く |
+| System.Web.DataVisualization(グラフ) | nop | **移植済み**(2026-10-01) | referencesource(MIT)から移植した、FrameworkOnCore.Web.DataVisualization(パッチ 0039・0040。Chart コントロール、ChartImg.axd)。描画は B の System.Drawing の移植版(Linux は libgdiplus)。既定の選択は「移植版を使う」。全 API の新旧比較は `tests/DataVisualizationParity`、サイトでの確認は `samples/ChartProbe` |
+| System.Data.Linq(LINQ to SQL) | be(DB ファイルシステム)、yaf、n2、System.Web.Mvc の DLL | **移植済み**(2026-09-30) | referencesource(MIT)から移植した、FrameworkOnCore.Data.Linq(パッチ 0032。SQL Server 用)。既定の選択は「移植版を使う」。DLL だけが参照する場合(MVC のモデルバインド)もパッケージが付く |
 | System.Data.Services.Client(WCF Data Services) | be(ギャラリー)、mojo | スタブ | 優先度は低い(使う機能が限られる) |
 | System.Web.Mobile / MobileControls | nop(11 件)、mojo、dnn、n2 | スタブ | ASP.NET 4.0 で廃止済みなので、スタブのままにする |
 | System.ServiceModel のサーバー側(ServiceHost、.svc) | mojo | スタブ | CoreWCF |
@@ -22,7 +22,7 @@
 
 | API | 使うコーパス | Linux での挙動 | 案 |
 |---|---|---|---|
-| **System.Drawing** | 8 つ中 7 つ | `DllNotFoundException: gdiplus.dll` | **移植済み**(2026-09-30、旧パッチ 0034〜0037):dotnet/runtime 6.0 の System.Drawing.Common(MIT)を WebFormsForCore.Drawing.Common としてビルドし(Windows は GDI+、Linux は libgdiplus。スイッチ不要)、変換器がそれに付け替え、配置が libgdiplus とフォントを入れる。全 API の新旧比較(`tests/DrawingParity`)で見つけた 6.0 の Unix 実装の不具合(EXIF のバイト順、Restore のクラッシュ、アイコンのサイズ選択など)も直した。Linux に残る差(システムの色・アイコン、印刷、パスの幾何、メタファイル、フォント)は `tests/DrawingParity/known-differences.json`。以下は移植前の記録:System.Drawing.Common 10 は libgdiplus を見つけても Windows 以外を拒む(PlatformNotSupported)。6.0 の Unix 実装 + `System.Drawing.EnableUnixSupport` + libgdiplus なら、試した 12 項目がすべて動く。FrameworkOnCore など 10 に対してビルドしたコードからも、10 をアプリのアセンブリの一覧から外し、`AssemblyLoadContext.Resolving` で 6.0 を渡せば動く。サポート切れの部品(6.0、libgdiplus)を使うかどうかは要判断 |
+| **System.Drawing** | 8 つ中 7 つ | `DllNotFoundException: gdiplus.dll` | **移植済み**(2026-09-30、旧パッチ 0034〜0037):dotnet/runtime 6.0 の System.Drawing.Common(MIT)を FrameworkOnCore.Drawing.Common としてビルドし(Windows は GDI+、Linux は libgdiplus。スイッチ不要)、変換器がそれに付け替え、配置が libgdiplus とフォントを入れる。全 API の新旧比較(`tests/DrawingParity`)で見つけた 6.0 の Unix 実装の不具合(EXIF のバイト順、Restore のクラッシュ、アイコンのサイズ選択など)も直した。Linux に残る差(システムの色・アイコン、印刷、パスの幾何、メタファイル、フォント)は `tests/DrawingParity/known-differences.json`。以下は移植前の記録:System.Drawing.Common 10 は libgdiplus を見つけても Windows 以外を拒む(PlatformNotSupported)。6.0 の Unix 実装 + `System.Drawing.EnableUnixSupport` + libgdiplus なら、試した 12 項目がすべて動く。FrameworkOnCore など 10 に対してビルドしたコードからも、10 をアプリのアセンブリの一覧から外し、`AssemblyLoadContext.Resolving` で 6.0 を渡せば動く。サポート切れの部品(6.0、libgdiplus)を使うかどうかは要判断 |
 | EventLog | dnn、imis、yaf | PNSE | 対応済み(Compat:標準エラーへ) |
 | WindowsIdentity | dnn、yaf | PNSE | 対応済み(Compat) |
 | OleDb(Excel 取り込み) | nop、dnn | PNSE | Linux にプロバイダがない。報告のみ |

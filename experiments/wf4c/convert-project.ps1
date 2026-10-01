@@ -29,13 +29,13 @@ $msbuildUri = 'http://schemas.microsoft.com/developer/msbuild/2003'
 # packages.config ids with a .NET 10 answer: a replacement package, or nothing (dropped).
 $replacedPackages = @{
     # WebFormsForCore ships its own port of these (same assembly names, .NET 10).
-    'Microsoft.AspNet.Web.Optimization'          = @('WebFormsForCore.Web.Optimization', $FrameworkOnCoreVersion)
-    'Microsoft.AspNet.Web.Optimization.WebForms' = @('WebFormsForCore.Web.Optimization.WebForms', $FrameworkOnCoreVersion)
-    'WebGrease'                                  = @('WebFormsForCore.WebGrease', $FrameworkOnCoreVersion)
-    'Microsoft.Web.Infrastructure'               = @('WebFormsForCore.Web.Infrastructure', $FrameworkOnCoreVersion)
-    'AjaxControlToolkit'                         = @('WebFormsForCore.AjaxControlToolkit', $FrameworkOnCoreVersion)
+    'Microsoft.AspNet.Web.Optimization'          = @('FrameworkOnCore.Web.Optimization', $FrameworkOnCoreVersion)
+    'Microsoft.AspNet.Web.Optimization.WebForms' = @('FrameworkOnCore.Web.Optimization.WebForms', $FrameworkOnCoreVersion)
+    'WebGrease'                                  = @('FrameworkOnCore.WebGrease', $FrameworkOnCoreVersion)
+    'Microsoft.Web.Infrastructure'               = @('FrameworkOnCore.Web.Infrastructure', $FrameworkOnCoreVersion)
+    'AjaxControlToolkit'                         = @('FrameworkOnCore.AjaxControlToolkit', $FrameworkOnCoreVersion)
     # System.Drawing.Common from NuGet is Windows only since .NET 7: FrameworkOnCore's has the Linux implementation.
-    'System.Drawing.Common'                      = @('WebFormsForCore.Drawing.Common', $FrameworkOnCoreVersion)
+    'System.Drawing.Common'                      = @('FrameworkOnCore.Drawing.Common', $FrameworkOnCoreVersion)
     # First version that runs on .NET (Core).
     'EntityFramework'                            = @('EntityFramework', '6.5.1')
     # Raised to what WebFormsForCore depends on (a downgrade is NU1605); backward compatible.
@@ -48,16 +48,16 @@ $droppedPackages = @('NETStandard.Library', 'Microsoft.NETCore.Platforms', 'Micr
 # .NET Framework assembly references (no HintPath) with a .NET 10 answer. Anything not listed is
 # in the box on .NET (System.Core, System.Xml, ...) or has no answer (reported).
 $frameworkReferences = @{
-    'System.Web'                     = @('WebFormsForCore.Web', $FrameworkOnCoreVersion)
-    'System.Web.Extensions'          = @('WebFormsForCore.Web.Extensions', $FrameworkOnCoreVersion)
-    'System.Web.ApplicationServices' = @('WebFormsForCore.Web.ApplicationServices', $FrameworkOnCoreVersion)
-    'System.Web.Services'            = @('WebFormsForCore.Web.Services', $FrameworkOnCoreVersion)
-    'System.Web.DynamicData'         = @('WebFormsForCore.Web.DynamicData', $FrameworkOnCoreVersion)
-    'System.Web.Abstractions'        = @('WebFormsForCore.Web', $FrameworkOnCoreVersion)
-    'System.Web.Routing'             = @('WebFormsForCore.Web', $FrameworkOnCoreVersion)
-    'System.Configuration'           = @('WebFormsForCore.Configuration', $FrameworkOnCoreVersion)
-    'System.Drawing'                 = @('WebFormsForCore.Drawing.Common', $FrameworkOnCoreVersion)
-    'System.Data.Linq'               = @('WebFormsForCore.Data.Linq', $FrameworkOnCoreVersion)
+    'System.Web'                     = @('FrameworkOnCore.Web', $FrameworkOnCoreVersion)
+    'System.Web.Extensions'          = @('FrameworkOnCore.Web.Extensions', $FrameworkOnCoreVersion)
+    'System.Web.ApplicationServices' = @('FrameworkOnCore.Web.ApplicationServices', $FrameworkOnCoreVersion)
+    'System.Web.Services'            = @('FrameworkOnCore.Web.Services', $FrameworkOnCoreVersion)
+    'System.Web.DynamicData'         = @('FrameworkOnCore.Web.DynamicData', $FrameworkOnCoreVersion)
+    'System.Web.Abstractions'        = @('FrameworkOnCore.Web', $FrameworkOnCoreVersion)
+    'System.Web.Routing'             = @('FrameworkOnCore.Web', $FrameworkOnCoreVersion)
+    'System.Configuration'           = @('FrameworkOnCore.Configuration', $FrameworkOnCoreVersion)
+    'System.Drawing'                 = @('FrameworkOnCore.Drawing.Common', $FrameworkOnCoreVersion)
+    'System.Data.Linq'               = @('FrameworkOnCore.Data.Linq', $FrameworkOnCoreVersion)
     'System.Runtime.Caching'         = @('System.Runtime.Caching', '10.0.0')
     'System.DirectoryServices'       = @('System.DirectoryServices', '10.0.0')
     'System.DirectoryServices.AccountManagement' = @('System.DirectoryServices.AccountManagement', '10.0.0')
@@ -84,9 +84,9 @@ $sourcePackages = @(
     @{ Pattern = '\bSystem\.Runtime\.Caching\b'; Id = 'System.Runtime.Caching'; Version = '10.0.0' }
     @{ Pattern = '\bSystem\.DirectoryServices\b'; Id = 'System.DirectoryServices'; Version = '10.0.0'; Note = 'Active Directory (Windows; LDAP via System.DirectoryServices.Protocols)' }
     @{ Pattern = '\bSystem\.Management\b'; Id = 'System.Management'; Version = '10.0.0'; Note = 'WMI is Windows only' }
-    @{ Pattern = '\bSystem\.Drawing\b'; Id = 'WebFormsForCore.Drawing.Common'; Version = $FrameworkOnCoreVersion; Note = 'System.Drawing: FrameworkOnCore''s System.Drawing.Common (with its Linux implementation over libgdiplus)' }
+    @{ Pattern = '\bSystem\.Drawing\b'; Id = 'FrameworkOnCore.Drawing.Common'; Version = $FrameworkOnCoreVersion; Note = 'System.Drawing: FrameworkOnCore''s System.Drawing.Common (with its Linux implementation over libgdiplus)' }
     @{ Pattern = '\bSystem\.ServiceModel\.Syndication\b'; Id = 'System.ServiceModel.Syndication'; Version = '10.0.0' }
-    @{ Pattern = '\bSystem\.Configuration\.ConfigurationManager\b|\bConfigurationManager\b'; Id = 'WebFormsForCore.Configuration'; Version = $FrameworkOnCoreVersion }
+    @{ Pattern = '\bSystem\.Configuration\.ConfigurationManager\b|\bConfigurationManager\b'; Id = 'FrameworkOnCore.Configuration'; Version = $FrameworkOnCoreVersion }
 )
 $notesSeen = @{}
 function Add-SourcePackages($packages, [string[]]$files, [string]$name) {
@@ -106,7 +106,7 @@ function Add-SourcePackages($packages, [string[]]$files, [string]$name) {
 # the errors TreatWarningsAsErrors would make them (the original built before they were published).
 $commonProperties = '<NoWarn>$(NoWarn);NU1701;NU1603;NU1608;SYSLIB0011</NoWarn><WarningsNotAsErrors>$(WarningsNotAsErrors);NU1901;NU1902;NU1903;NU1904</WarningsNotAsErrors>'
 # The web project always gets these (Program.cs uses them; pages reference them at run time).
-$webPackages = @('WebFormsForCore.Web', 'WebFormsForCore.Web.Extensions', 'WebFormsForCore.Configuration', 'WebFormsForCore.Web.DynamicData')
+$webPackages = @('FrameworkOnCore.Web', 'FrameworkOnCore.Web.Extensions', 'FrameworkOnCore.Configuration', 'FrameworkOnCore.Web.DynamicData')
 
 # A path relative to a directory (Windows PowerShell 5.1 has no Path.GetRelativePath). The output
 # is built elsewhere too (a Linux container), so no absolute path goes into a project file.
@@ -297,7 +297,7 @@ function Convert-SdkProject([string]$projectPath, [string]$targetPath, [string]$
     $properties.InnerXml = $commonProperties +
         "<RestoreAdditionalProjectSources>`$(MSBuildThisFileDirectory)$(Get-RelativePath (Split-Path $targetPath -Parent) ($PSScriptRoot + '\'))_feed</RestoreAdditionalProjectSources>"
     [void]$project.Project.AppendChild($properties)
-    if ($project.SelectSingleNode("//PackageReference[starts-with(@Include, 'WebFormsForCore.')]")) { Add-AliasTarget $project }
+    if ($project.SelectSingleNode("//PackageReference[starts-with(@Include, 'FrameworkOnCore.')]")) { Add-AliasTarget $project }
     $project.Save($targetPath)
     Write-Host "converted: $name (SDK; $($frameworks -join ';') -> net10.0, $($packages.Count) package(s) added)"
 }
@@ -396,7 +396,7 @@ function Convert-OldProject([string]$projectPath, [string]$targetPath, [string]$
     }
 
     Add-SourcePackages $packages ($compile | ForEach-Object { Join-Path $source $_ }) $name
-    $usesWebFormsForCore = $isWeb -or ($packages.Keys | Where-Object { $_ -like 'WebFormsForCore.*' })
+    $usesWebFormsForCore = $isWeb -or ($packages.Keys | Where-Object { $_ -like 'FrameworkOnCore.*' })
     $toScripts = '$(MSBuildThisFileDirectory)' + (Get-RelativePath $target ($PSScriptRoot + '\'))
 
     # The project file.
@@ -404,7 +404,7 @@ function Convert-OldProject([string]$projectPath, [string]$targetPath, [string]$
         $text = (Get-Content (Join-Path $PSScriptRoot 'template.csproj.txt') -Raw -Encoding UTF8).Replace('__NAME__', $assemblyName)
         if ($rootNamespace) { $text = $text.Replace("<RootNamespace>$assemblyName</RootNamespace>", "<RootNamespace>$rootNamespace</RootNamespace>") }
         # The template's own four package references are covered by the list below.
-        $text = [regex]::Replace($text, '(?s)  <ItemGroup>\s*<PackageReference Include="WebFormsForCore\.Web".*?</ItemGroup>\s*', '')
+        $text = [regex]::Replace($text, '(?s)  <ItemGroup>\s*<PackageReference Include="FrameworkOnCore.Runtime\.Web".*?</ItemGroup>\s*', '')
         $text = $text.Replace('<EnableDefaultContentItems>false</EnableDefaultContentItems>',
             "<EnableDefaultContentItems>false</EnableDefaultContentItems>`r`n    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>`r`n    <EnableDefaultEmbeddedResourceItems>false</EnableDefaultEmbeddedResourceItems>`r`n    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>`r`n    $commonProperties$defineProperty")
     }

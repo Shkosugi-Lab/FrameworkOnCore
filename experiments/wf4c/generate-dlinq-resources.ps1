@@ -1,5 +1,5 @@
 # Generates Core\Strings.generated.cs and Core\Error.generated.cs of the System.Data.Linq port
-# (WebFormsForCore\src\WebFormsForCore.Data.Linq) from .NET Framework 4.8's own System.Data.Linq.dll, so that
+# (FrameworkOnCore.Runtime\src\WebFormsForCore.Data.Linq) from .NET Framework 4.8's own System.Data.Linq.dll, so that
 # the port's messages and exception types are exactly .NET Framework's.
 #
 # referencesource has only part of the resource text (System.Data.Linq.txt covers the root namespace, and
@@ -13,7 +13,7 @@ $ErrorActionPreference = 'Stop'
 if ($PSVersionTable.PSEdition -eq 'Core') { throw 'Run under Windows PowerShell 5.1 (needs .NET Framework to load the GAC assembly).' }
 
 $assembly = [Reflection.Assembly]::Load('System.Data.Linq, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089')
-$out = Join-Path $PSScriptRoot '..\..\WebFormsForCore\src\WebFormsForCore.Data.Linq\Core'
+$out = Join-Path $PSScriptRoot '..\..\FrameworkOnCore.Runtime\src\WebFormsForCore.Data.Linq\Core'
 New-Item -ItemType Directory $out -Force | Out-Null
 
 function Escape([string]$s) {

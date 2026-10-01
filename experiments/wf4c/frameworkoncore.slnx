@@ -3,21 +3,21 @@
        library: pack-frameworkoncore.ps1 builds it after them, for net10.0 only (its net8.0 build fails in the solution, CS7069). Built as a solution: built one by one, Web.Extensions fails.
        Not WebFormsForCore.Build: build it once beforehand. Rebuilt here, copying its task DLL
        collides with the MSBuild nodes that have it loaded. -->
-  <Project Path="../../WebFormsForCore/src/WebFormsForCore.Compilers/WebFormsForCore.Compilers.csproj" />
-  <Project Path="../../WebFormsForCore/src/WebFormsForCore.Configuration/WebFormsForCore.Configuration.csproj" />
-  <Project Path="../../WebFormsForCore/src/WebFormsForCore.Drawing.Common/WebFormsForCore.Drawing.Common.csproj" />
-  <Project Path="../../WebFormsForCore/src/WebFormsForCore.Drawing/WebFormsForCore.Drawing.csproj" />
-  <Project Path="../../WebFormsForCore/src/WebFormsForCore.Serialization.Formatters/WebFormsForCore.Serialization.Formatters.csproj" />
-  <Project Path="../../WebFormsForCore/src/WebFormsForCore.Data.Linq/WebFormsForCore.Data.Linq.csproj" />
-  <Project Path="../../WebFormsForCore/src/WebFormsForCore.Web/WebFormsForCore.Web.csproj" />
-  <Project Path="../../WebFormsForCore/src/WebFormsForCore.Web.ApplicationServices/WebFormsForCore.Web.ApplicationServices.csproj" />
-  <Project Path="../../WebFormsForCore/src/WebFormsForCore.Web.RegularExpressions/WebFormsForCore.Web.RegularExpressions.csproj" />
-  <Project Path="../../WebFormsForCore/src/WebFormsForCore.Web.Services/WebFormsForCore.Web.Services.csproj" />
-  <Project Path="../../WebFormsForCore/src/WebFormsForCore.Web.Extensions/WebFormsForCore.Web.Extensions.csproj" />
-  <Project Path="../../WebFormsForCore/src/WebFormsForCore.Web.Infrastructure/WebFormsForCore.Web.Infrastructure.csproj" />
-  <Project Path="../../WebFormsForCore/src/WebFormsForCore.Web.Optimization/WebFormsForCore.Web.Optimization.csproj" />
-  <Project Path="../../WebFormsForCore/src/WebFormsForCore.Web.Optimization.WebForms/WebFormsForCore.Web.Optimization.WebForms.csproj" />
-  <Project Path="../../WebFormsForCore/src/WebFormsForCore.WebGrease/WebFormsForCore.WebGrease.csproj" />
-  <Project Path="../../WebFormsForCore/src/WebFormsForCore.Web.DynamicData/WebFormsForCore.Web.DynamicData.csproj" />
-  <Project Path="../../WebFormsForCore/src/WebFormsForCore.Web.DataVisualization/WebFormsForCore.Web.DataVisualization.csproj" />
+  <Project Path="../../FrameworkOnCore.Runtime/src/WebFormsForCore.Compilers/WebFormsForCore.Compilers.csproj" />
+  <Project Path="../../FrameworkOnCore.Runtime/src/WebFormsForCore.Configuration/WebFormsForCore.Configuration.csproj" />
+  <Project Path="../../FrameworkOnCore.Runtime/src/WebFormsForCore.Drawing.Common/WebFormsForCore.Drawing.Common.csproj" />
+  <Project Path="../../FrameworkOnCore.Runtime/src/WebFormsForCore.Drawing/WebFormsForCore.Drawing.csproj" />
+  <Project Path="../../FrameworkOnCore.Runtime/src/WebFormsForCore.Serialization.Formatters/WebFormsForCore.Serialization.Formatters.csproj" />
+  <Project Path="../../FrameworkOnCore.Runtime/src/WebFormsForCore.Data.Linq/WebFormsForCore.Data.Linq.csproj" />
+  <Project Path="../../FrameworkOnCore.Runtime/src/WebFormsForCore.Web/WebFormsForCore.Web.csproj" />
+  <Project Path="../../FrameworkOnCore.Runtime/src/WebFormsForCore.Web.ApplicationServices/WebFormsForCore.Web.ApplicationServices.csproj" />
+  <Project Path="../../FrameworkOnCore.Runtime/src/WebFormsForCore.Web.RegularExpressions/WebFormsForCore.Web.RegularExpressions.csproj" />
+  <Project Path="../../FrameworkOnCore.Runtime/src/WebFormsForCore.Web.Services/WebFormsForCore.Web.Services.csproj" />
+  <Project Path="../../FrameworkOnCore.Runtime/src/WebFormsForCore.Web.Extensions/WebFormsForCore.Web.Extensions.csproj" />
+  <Project Path="../../FrameworkOnCore.Runtime/src/WebFormsForCore.Web.Infrastructure/WebFormsForCore.Web.Infrastructure.csproj" />
+  <Project Path="../../FrameworkOnCore.Runtime/src/WebFormsForCore.Web.Optimization/WebFormsForCore.Web.Optimization.csproj" />
+  <Project Path="../../FrameworkOnCore.Runtime/src/WebFormsForCore.Web.Optimization.WebForms/WebFormsForCore.Web.Optimization.WebForms.csproj" />
+  <Project Path="../../FrameworkOnCore.Runtime/src/WebFormsForCore.WebGrease/WebFormsForCore.WebGrease.csproj" />
+  <Project Path="../../FrameworkOnCore.Runtime/src/WebFormsForCore.Web.DynamicData/WebFormsForCore.Web.DynamicData.csproj" />
+  <Project Path="../../FrameworkOnCore.Runtime/src/WebFormsForCore.Web.DataVisualization/WebFormsForCore.Web.DataVisualization.csproj" />
 </Solution>

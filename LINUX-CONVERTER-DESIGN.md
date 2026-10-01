@@ -54,7 +54,7 @@
 - 出力先は `bin`。アプリは `~/bin` から自分のアセンブリを探す(be の拡張機能)。
 - packages.config → PackageReference。規則はコードでなくデータファイル(`src/FrameworkOnCore.Converter/rules/packages.json`)に置く。
   - 外すもの: .NET に同梱の System.* 4.x、NETStandard.Library など。
-  - 置き換えるもの: バンドル / WebGrease / Microsoft.Web.Infrastructure / AjaxControlToolkit → WebFormsForCore.*。EF6 → 6.5.1。
+  - 置き換えるもの: バンドル / WebGrease / Microsoft.Web.Infrastructure / AjaxControlToolkit → FrameworkOnCore.*。EF6 → 6.5.1。
   - 上げるもの: 依存先が要求する版まで(Newtonsoft.Json 13.0.4。下げると NU1605)。
   - 残すもの: .NET Framework 向けのまま動くもの(Identity 2、OWIN / Katana、Web API 2、SimpleInjector、Elmah、FriendlyUrls)。NU1701 は抑止する。
 - Framework の参照(`<Reference Include="System.Web">` など)→ WebFormsForCore のパッケージ、または .NET のパッケージ(System.Drawing.Common、System.ServiceModel.*、System.Management、System.Runtime.Caching、System.DirectoryServices)。代わりが無いもの(System.Data.Linq、System.Data.Services.Client、System.Design、System.Web.Mobile)は報告する。
@@ -133,7 +133,7 @@ Windows でしか動かないものを検出する。書き換えられるもの
 
 | 対象 | ランタイム | 状態 |
 |---|---|---|
-| Web Forms | WebFormsForCore(`WebFormsForCore/`。当時のパッチ 0001–0007)と互換アセンブリ(`shims/`) | Windows で wt・be・サンプルが動作 |
+| Web Forms | WebFormsForCore(`FrameworkOnCore.Runtime/`。当時のパッチ 0001–0007)と互換アセンブリ(`shims/`) | Windows で wt・be・サンプルが動作 |
 | Web API 2 | .NET Framework 版の DLL のまま、ポートした System.Web の上で動かす | be でビルドと起動を確認。API の動作は未検証 |
 | MVC 5 | まず .NET Framework 版の DLL のまま試す。動かなければ AspNetWebStack(Apache 2.0)をポートする | 未着手。be の Web Pages(Razor)が DLL のまま動いたので見込みはある |
 | WCF | CoreWCF(MIT)に載せる。.svc は ServiceHost の登録に、system.serviceModel はコードに変換する。対応しないもの(WSDualHttp、メッセージセキュリティ、トランザクション)は報告する | 未着手 |
@@ -161,7 +161,7 @@ Windows でしか動かないものを検出する。書き換えられるもの
 ## 7. 検証
 
 - コーパスは be と wt だけ(CLAUDE.md)。加えてリポジトリ内のサンプル 4 つ(ProductAdmin、OrderAdmin、MasterProbe、DefaultsProbe)。
-- 変換器や `WebFormsForCore/` を直したら、類似の問題がほかの場所で起きないか調べる(CLAUDE.md)。実験では次のように機械的に照合した。
+- 変換器や `FrameworkOnCore.Runtime/` を直したら、類似の問題がほかの場所で起きないか調べる(CLAUDE.md)。実験では次のように機械的に照合した。
   - 0005: .NET Framework のファサードの型転送先を列挙した。
   - 0007: .NET Framework 4.8 の参照アセンブリと FrameworkOnCore の System.Web の公開型を比較した。
 - Linux: Docker(mcr.microsoft.com/dotnet/sdk:10.0)でビルドと実行を行い、ホストの ParityTest から比較する。
@@ -171,7 +171,7 @@ Windows でしか動かないものを検出する。書き換えられるもの
 - 浮動小数の書式: `double` の 22.5 を通貨書式にすると .NET Framework は ¥23、.NET は ¥22(wt)。ランタイムでは直せないので、該当する書式呼び出しを報告する。
 - AssemblyResolve に渡る名前(.NET は完全名): 0006 で BuildManager を直した。アプリ自身の AssemblyResolve ハンドラーにも同じ差がありうるので、検出して報告する規則を入れる。
 - BinaryFormatter: .NET 9 以降は既定で例外になる。be はビルドの警告を抑止しただけで、実行時の使われ方は未確認。
-- `WebFormsForCore/` のビルド: 変更後の最初のビルドで Web.Extensions が CS7069 になることがあり、2 回目で通る(pack-frameworkoncore.ps1 で 1 回だけ再試行)。原因は未調査。
+- `FrameworkOnCore.Runtime/` のビルド: 変更後の最初のビルドで Web.Extensions が CS7069 になることがあり、2 回目で通る(pack-frameworkoncore.ps1 で 1 回だけ再試行)。原因は未調査。
 - **互換アセンブリの網羅(残課題、2026-09-27 決定)**: .NET で型ごと無くなったものは、基本的にすべて互換アセンブリで用意する。進め方:
   1. 一覧を機械的に作る。.NET Framework 4.8 の参照アセンブリの公開型から、次のものを除く。
      - .NET 10 の標準ライブラリにあるもの(型転送を含む)

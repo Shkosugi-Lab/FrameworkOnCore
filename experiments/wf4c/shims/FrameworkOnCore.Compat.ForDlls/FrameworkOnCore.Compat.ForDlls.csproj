@@ -4,7 +4,7 @@
        ReferenceOutputAssembly false), and the DLLs' references to its types are retargeted to it (AssemblyRetargeter).
        System.Data.EntityState (EF 1-4): in the sources, EF 6's System.Data.Entity.EntityState would be ambiguous with it
        (using System.Data; using System.Data.Entity;). System.Data.Linq.Binary was here until the LINQ to SQL port
-       (WebFormsForCore.Data.Linq) brought the whole assembly; a DLL's reference now binds to it (ReferencedMissing). -->
+       (FrameworkOnCore.Data.Linq) brought the whole assembly; a DLL's reference now binds to it (ReferencedMissing). -->
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
     <AssemblyName>FrameworkOnCore.Compat.ForDlls</AssemblyName>

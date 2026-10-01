@@ -32,11 +32,11 @@ public static class RuntimeSetup
         return null;
     }
 
-    /// <summary>FrameworkOnCore's packages in &lt;runtime&gt;/_feed: fetched (<see cref="FeedSource"/>) when WebFormsForCore.Web of the version is not there.</summary>
+    /// <summary>FrameworkOnCore's packages in &lt;runtime&gt;/_feed: fetched (<see cref="FeedSource"/>) when FrameworkOnCore.Web of the version is not there.</summary>
     public static void EnsureFeed(string runtimeDirectory, string frameworkOnCoreVersion, Action<string>? log = null, string? source = null)
     {
         var feed = Path.Combine(runtimeDirectory, "_feed");
-        if (File.Exists(Path.Combine(feed, $"WebFormsForCore.Web.{frameworkOnCoreVersion}.nupkg"))) return;
+        if (File.Exists(Path.Combine(feed, $"FrameworkOnCore.Web.{frameworkOnCoreVersion}.nupkg"))) return;
         source ??= FeedSource(frameworkOnCoreVersion);
         log?.Invoke($"fetching FrameworkOnCore's packages ({frameworkOnCoreVersion}): {source}");
 
@@ -53,8 +53,8 @@ public static class RuntimeSetup
         {
             if (Directory.Exists(staging)) Directory.Delete(staging, recursive: true);
             ZipFile.ExtractToDirectory(zip, staging);
-            if (!File.Exists(Path.Combine(staging, $"WebFormsForCore.Web.{frameworkOnCoreVersion}.nupkg")))
-                throw new InvalidOperationException($"{source}: WebFormsForCore.Web.{frameworkOnCoreVersion}.nupkg is not in it");
+            if (!File.Exists(Path.Combine(staging, $"FrameworkOnCore.Web.{frameworkOnCoreVersion}.nupkg")))
+                throw new InvalidOperationException($"{source}: FrameworkOnCore.Web.{frameworkOnCoreVersion}.nupkg is not in it");
             Directory.CreateDirectory(feed);
             foreach (var package in Directory.GetFiles(staging))
                 File.Move(package, Path.Combine(feed, Path.GetFileName(package)), overwrite: true);

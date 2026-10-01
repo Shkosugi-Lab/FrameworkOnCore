@@ -1,0 +1,16 @@
+// WebFormsForCore: the constants .NET Framework's build generated for System.Web.DataVisualization (referencesource's
+// sources name them; System.Web has its own, internal). Their values are the original assembly's, as its attributes
+// show them (EditorAttribute's designer type names, InternalsVisibleTo): the designers they name are .NET Framework's
+// and Visual Studio's, not the port's.
+
+internal static class ThisAssembly
+{
+    internal const string Version = "4.0.0.0";
+}
+
+internal static class AssemblyRef
+{
+    internal const string MicrosoftPublicKeyToken = "b03f5f7f11d50a3a";
+    internal const string SharedLibPublicKeyToken = "31bf3856ad364e35";
+    internal const string SharedLibPublicKeyFull = "0024000004800000940000000602000000240000525341310004000001000100B5FC90E7027F67871E773A8FDE8938C81DD402BA65B9201D60593E96C492651E889CC13F1415EBB53FAC1131AE0BD333C5EE6021672D9718EA31A8AEBD0DA0072F25D87DBA6FC90FFD598ED4DA35E44C398C454307E8E33B8426143DAEC9F596836F97C8F74750E5975C64E2189F45DEF46B2A2B1247ADC3652BF5C308055DA9";
+}

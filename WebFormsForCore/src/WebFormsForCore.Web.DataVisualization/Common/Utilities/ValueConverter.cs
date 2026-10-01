@@ -1,6 +1,6 @@
 //-------------------------------------------------------------
-// <copyright company=’Microsoft Corporation’>
-//   Copyright © Microsoft Corporation. All Rights Reserved.
+// <copyright company=ï¿½Microsoft Corporationï¿½>
+//   Copyright ï¿½ Microsoft Corporation. All Rights Reserved.
 // </copyright>
 //-------------------------------------------------------------
 // @owner=alexgor, deliant
@@ -143,7 +143,12 @@ using System.Globalization;
 				try
 				{
 					// Numeric value formatting
+#if WebFormsForCore
+                    // WebFormsForCore: as .NET Framework writes it (Core\FrameworkNumberFormat.cs: no "-0", 15 digits).
+                    result = FrameworkNumberFormat.Format(CultureInfo.CurrentCulture, convertionFormat, value);
+#else
                     result = String.Format(CultureInfo.CurrentCulture,convertionFormat, value);
+#endif
 				}
 				catch(FormatException)
 				{

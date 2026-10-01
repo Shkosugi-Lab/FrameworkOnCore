@@ -1,7 +1,7 @@
 
 //--------------------------------------------------------------------------------------------------------------------------
-// <copyright company=’Microsoft Corporation’>
-//   Copyright © Microsoft Corporation. All Rights Reserved.
+// <copyright company=ï¿½Microsoft Corporationï¿½>
+//   Copyright ï¿½ Microsoft Corporation. All Rights Reserved.
 // </copyright>
 //--------------------------------------------------------------------------------------------------------------------------
 // @owner=alexgor, deliant
@@ -414,7 +414,12 @@ namespace System.Web.UI.DataVisualization.Charting
             RingTimeTracker rt = RingTimeTrackerFactory.GetRingTracker(fmtKey);
 			if (!String.IsNullOrEmpty(_controllerDirectory) && String.IsNullOrEmpty(Settings.FolderName))
 			{
+#if WebFormsForCore
+				// WebFormsForCore: the file system's separator ('\' on Windows, as it was; '/' on Linux).
+				return _controllerDirectory + Path.DirectorySeparatorChar + rt.GetNextKey();
+#else
 				return _controllerDirectory + @"\" + rt.GetNextKey();
+#endif
 			}
             return Settings.FolderName + rt.GetNextKey();
         }
@@ -423,7 +428,12 @@ namespace System.Web.UI.DataVisualization.Charting
 		{
 			if (!String.IsNullOrEmpty(key))
 			{
+#if WebFormsForCore
+				// WebFormsForCore: a key's '/' as the file system's separator (on Linux: itself).
+				return key.Replace('/', Path.DirectorySeparatorChar);
+#else
 				return key.Replace("/", @"\");
+#endif
 			}
 			return key;
 		}
@@ -905,7 +915,11 @@ namespace System.Web.UI.DataVisualization.Charting
                 {
                     if (!(value.EndsWith("/", StringComparison.Ordinal) || value.EndsWith("\\", StringComparison.Ordinal)))
                     {
+#if WebFormsForCore
+                        value += Path.DirectorySeparatorChar;   // WebFormsForCore: the file system's separator
+#else
                         value += "\\";
+#endif
                     }
                     this.ValidateUri(value);
                 }
@@ -1222,11 +1236,21 @@ namespace System.Web.UI.DataVisualization.Charting
                             throw new InvalidOperationException(SR.ExceptionHttpHandlerUrlInvalid, exception);
                         }
                     }
+#if WebFormsForCore
+                    // WebFormsForCore: the file system's separator. On Linux '\' is no separator: the directory was
+                    // "/app\" (MapPath's, with a '\' appended), where no file could be written.
+                    fileDirectory = fileDirectory.Replace(Path.AltDirectorySeparatorChar, Path.DirectorySeparatorChar);
+                    if (!fileDirectory.EndsWith(Path.DirectorySeparatorChar.ToString(), StringComparison.Ordinal))
+                    {
+                        fileDirectory += Path.DirectorySeparatorChar;
+                    }
+#else
                     fileDirectory = fileDirectory.Replace("/", "\\");
                     if (!fileDirectory.EndsWith("\\", StringComparison.Ordinal))
                     {
                         fileDirectory += "\\";
                     }
+#endif
 
                     if (!System.IO.Directory.Exists(fileDirectory))
                     {
@@ -1603,7 +1627,12 @@ namespace System.Web.UI.DataVisualization.Charting
                     using (FileStream fileStream = File.OpenRead(settings.Directory + key))
                     {
                         byte[] fileData = new byte[fileStream.Length];
+#if WebFormsForCore
+                        // WebFormsForCore: every byte, however the stream hands them (Read may return fewer); as many as there are.
+                        fileStream.ReadAtLeast(fileData, fileData.Length, throwOnEndOfStream: false);
+#else
                         fileStream.Read(fileData, 0, fileData.Length);
+#endif
                         using (MemoryStream stream = new MemoryStream(fileData))
                         {
                             int streamCut = 0;

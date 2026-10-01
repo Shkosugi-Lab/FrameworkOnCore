@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <TargetFrameworks>net8.0;net10.0</TargetFrameworks>
         <ImplicitUsings>disable</ImplicitUsings>
@@ -11,9 +11,14 @@
         <SignAssembly>True</SignAssembly>
         <AssemblyOriginatorKeyFile>..\SigningKey\WebFormsForCore.snk</AssemblyOriginatorKeyFile>
         <AssemblyName>System.Web.Mobile</AssemblyName>
+        <!-- FrameworkOnCore: the sources as they are, where .NET warns of what works:
+             SYSLIB0003: Code Access Security attributes (.NET ignores them).
+             CS0219: a variable assigned and not read (DataFieldConverter, the designer's).
+             CA1416: SystemEvents.InstalledFontsChanged, Windows only (FontNameConverter, the font names a designer lists). -->
+        <NoWarn>$(NoWarn);SYSLIB0003;CS0219;CA1416</NoWarn>
 
-        <PackageId>WebFormsForCore.Web.Mobile</PackageId>
-        <Title>WebFormsForCore.Web.Mobile</Title>
+        <PackageId>FrameworkOnCore.Web.Mobile</PackageId>
+        <Title>FrameworkOnCore.Web.Mobile</Title>
         <Authors>simonegli8</Authors>
         <Company>Estrellas de Esperanza</Company>
         <Product>WebFormsForCore.Web.Mobile</Product>
@@ -43,11 +48,11 @@
     </PropertyGroup>
 
     <ItemGroup Condition="$(TargetFramework) == 'net8.0'">
-        <PackageReference Include="System.Configuration.ConfigurationManager" Version="8.0.1" Alias="NET"/>
+        <PackageReference Include="System.Configuration.ConfigurationManager" Version="8.0.1" Aliases="NET" />
     </ItemGroup>
 
     <ItemGroup Condition="$(TargetFramework) == 'net10.0'">
-        <PackageReference Include="System.Configuration.ConfigurationManager" Version="10.0.0" Alias="NET" />
+        <PackageReference Include="System.Configuration.ConfigurationManager" Version="10.0.0" Aliases="NET" />
     </ItemGroup>
 
     <Import Project="..\..\lib\WebFormsForCore.Build\netstandard2.0\FakeStrongName.targets" />
@@ -66,6 +71,14 @@
         <Compile Remove="UI\MobileControls\Design\Adapters\**\*.cs" />
         <Compile Remove="UI\MobileControls\Design\Util\**\*.cs" />
         <Compile Remove="UI\MobileControls\Design\*.cs" />
+        <!-- FrameworkOnCore: the device of design mode (outside a request), MobilePage.Device's there: a list of capabilities. -->
+        <Compile Include="UI\MobileControls\Design\DesignerCapabilities.cs" />
+        <!-- FrameworkOnCore: the designer's public API that needs no designer (.NET Framework's assembly has it): two
+             interfaces a designer implements, and its strings (MobileResource, through SR: System.Web.Mobile's). -->
+        <Compile Include="UI\MobileControls\Design\IMobileDesigner.cs" />
+        <Compile Include="UI\MobileControls\Design\IMobileWebFormServices.cs" />
+        <Compile Include="UI\MobileControls\Design\MobileResource.cs" />
+        <Compile Include="UI\MobileControls\Design\SR.cs" />
         <None Include="UI\MobileControls\Design\**\*.cs" Exclude="UI\MobileControls\Design\Converters\**\*.cs" />
         <EmbeddedResource Remove="**\*.resx" />
         <EmbeddedResource Include="System.Web.Mobile.resx">
@@ -88,6 +101,14 @@
             <PackagePath>\</PackagePath>
         </None>
     </ItemGroup>
+
+    <!-- FrameworkOnCore: built without DEBUG (a Release build may still define it): on .NET a failed Debug.Assert ends the
+         process. -->
+    <Target Name="FocWithoutDebugConstant" BeforeTargets="CoreCompile">
+        <PropertyGroup>
+            <DefineConstants>$([System.Text.RegularExpressions.Regex]::Replace(';$(DefineConstants);', ';DEBUG;', ';').Trim(';'))</DefineConstants>
+        </PropertyGroup>
+    </Target>
 
     <Target Name="ChangeAliasesOfNugetRefs" BeforeTargets="FindReferenceAssembliesForReferences;ResolveReferences">
         <ItemGroup>

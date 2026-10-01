@@ -99,9 +99,10 @@ namespace System.Web.UI.MobileControls
             {
                 if (DesignMode)
                 {
-                    throw new NotImplementedException();
-                    //return new
-                    //    System.Web.UI.Design.MobileControls.DesignerCapabilities();
+                    // FrameworkOnCore: as .NET Framework, a fixed HTML 3.2 device (DesignerCapabilities: its own list, no
+                    // designer type), not NotImplementedException.
+                    return new
+                        System.Web.UI.Design.MobileControls.DesignerCapabilities();
                 }
                 return (MobileCapabilities)Request.Browser;
             }

@@ -101,9 +101,10 @@ namespace System.Web.UI.MobileControls
         {
             // Don't need to synchronize, as this is only being called
             // from one thread -- the configuration section handler. 
-#if NETFRAMEWORK
+            // FrameworkOnCore: on .NET too (upstream had it for .NET Framework only: no control had an adapter, every
+            // mobile page failed, "Control 'System.Web.UI.Control' is not registered with device ..."). The factories
+            // are generated as the page adapter's are (FactoryGenerator: AssemblyBuilder on .NET).
             _controlAdapterTypes[controlType] = FactoryGenerator.StaticFactoryGenerator.GetFactory(adapterType);
-#endif
         }
 
         private Type PageAdapterType

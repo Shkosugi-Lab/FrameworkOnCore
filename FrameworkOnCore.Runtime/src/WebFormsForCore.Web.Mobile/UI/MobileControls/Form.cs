@@ -19,7 +19,8 @@ namespace System.Web.UI.MobileControls
         ControlBuilderAttribute(typeof(FormControlBuilder)),
         DefaultEvent("Activate"),
         //Designer(typeof(System.Web.UI.Design.MobileControls.FormDesigner)),
-        //DesignerAdapter(typeof(System.Web.UI.MobileControls.Adapters.HtmlFormAdapter)),
+        // FrameworkOnCore: the adapter the page uses in design mode (outside a request), a runtime one: as .NET Framework's.
+        DesignerAdapter(typeof(System.Web.UI.MobileControls.Adapters.HtmlFormAdapter)),
         PersistChildren(true),
         //ToolboxData("<{0}:Form runat=\"server\"></{0}:Form>"),
         //ToolboxItem("System.Web.UI.Design.WebControlToolboxItem, " + AssemblyRef.SystemDesign)

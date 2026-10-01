@@ -16,7 +16,8 @@ namespace System.Web.UI.MobileControls
     [
         ControlBuilderAttribute(typeof(PanelControlBuilder)),
         //Designer(typeof(System.Web.UI.Design.MobileControls.PanelDesigner)),
-        //DesignerAdapter(typeof(System.Web.UI.MobileControls.Adapters.HtmlPanelAdapter)),
+        // FrameworkOnCore: the adapter the page uses in design mode (outside a request), a runtime one: as .NET Framework's.
+        DesignerAdapter(typeof(System.Web.UI.MobileControls.Adapters.HtmlPanelAdapter)),
         PersistChildren(true),
         //ToolboxData("<{0}:Panel runat=\"server\"></{0}:Panel>"),
         //ToolboxItem("System.Web.UI.Design.WebControlToolboxItem, " + AssemblyRef.SystemDesign)

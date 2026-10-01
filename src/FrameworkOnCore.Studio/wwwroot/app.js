@@ -570,11 +570,15 @@ async function loadContainer() {
 
 async function loadDocker() {
   clearTimeout(state.dockerPoll);
+  const before = state.docker;
   state.docker = await api('/docker');
-  renderContainer();
-  // Waiting for Docker Desktop to start: asked again until its engine answers.
-  if (!state.docker.available && state.dockerStarting) state.dockerPoll = setTimeout(() => loadDocker().catch(console.error), 3000);
   if (state.docker.available) state.dockerStarting = false;
+  // Drawn again only when it changed (the environment being typed in is not disturbed while Docker is asked again).
+  const d = state.docker;
+  if (!before || before.available !== d.available || before.reason !== d.reason || before.desktop !== d.desktop || state.dockerStarting) renderContainer();
+  // While the panel is open and the engine does not answer (Docker Desktop starting, or started outside Studio): asked
+  // again until it does.
+  if (!d.available && (state.runOpen || state.dockerStarting)) state.dockerPoll = setTimeout(() => loadDocker().catch(console.error), 3000);
 }
 
 function renderContainer() {
@@ -607,7 +611,7 @@ function renderContainer() {
     const d = state.docker;
     const docker = !d ? '<div class="hint">Docker を確認しています…</div>'
       : d.available ? `<div class="hint">Docker ${esc(d.version)} ・ 変換の出力の Dockerfile でイメージを作り、コンテナを localhost のポートで起動します(Studio のコンテナは一度に一つ)。</div>`
-      : `<div class="stale">⚠ Docker のエンジンに接続できません。${d.desktop ? 'Docker Desktop を起動してください。' : 'Docker をインストールして起動してください。'}</div>
+      : `<div class="stale">⚠ Docker のエンジンに接続できません。${d.desktop ? 'Docker Desktop を起動してください(起動すると自動で切り替わります)。' : 'Docker をインストールして起動してください。'}${d.reason ? `<br><span class="muted">${esc(d.reason)}</span>` : ''}</div>
          ${d.desktop ? `<button class="btn ghost small" id="docker-start" ${state.dockerStarting ? 'disabled' : ''}>${state.dockerStarting ? '起動を待っています…' : 'Docker Desktop を起動'}</button>` : ''}`;
     html = `${head}</div>
       ${c?.error ? `<div class="stale">${esc(c.error)}</div>` : ''}

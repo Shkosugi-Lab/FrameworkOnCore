@@ -97,18 +97,57 @@ public sealed class Containers(AnalysisStore store, Conversions conversions)
         return match.Success ? Path.Combine(conversions.Output(id), match.Groups[1].Value.Replace('/', Path.DirectorySeparatorChar)) : null;
     }
 
-    /// <summary>Docker's state: its engine answers; else whether Docker Desktop is there to start.</summary>
+    /// <summary>
+    /// Docker's state: its engine answers; else why not (docker's message, or that the command is not there) and whether
+    /// Docker Desktop is there to start.
+    /// </summary>
     public static object Status()
     {
         var version = Docker("version --format {{.Server.Version}}");
-        return new { available = version.Exit == 0, version = version.Exit == 0 ? version.Output.Trim() : null, desktop = DockerDesktop() != null };
+        var reason = version.Exit == 0 ? null : version.Output.Split('\n').Select(l => l.Trim()).FirstOrDefault(l => l.Length > 0);
+        return new { available = version.Exit == 0, version = version.Exit == 0 ? version.Output.Trim() : null, reason, desktop = DockerDesktop() != null };
     }
 
+    // Docker Desktop, installed for all users (Program Files) or for this one (its per-user installation).
     static string? DockerDesktop()
     {
         if (!OperatingSystem.IsWindows()) return null;
-        var path = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.ProgramFiles), "Docker", "Docker", "Docker Desktop.exe");
-        return File.Exists(path) ? path : null;
+        return new[]
+            {
+                Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.ProgramFiles), "Docker", "Docker", "Docker Desktop.exe"),
+                Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.LocalApplicationData), "Programs", "Docker", "Docker", "Docker Desktop.exe"),
+            }
+            .FirstOrDefault(File.Exists);
+    }
+
+    /// <summary>
+    /// The docker command: from this process's PATH, or else from the PATH Windows has now (Docker installed after Studio,
+    /// or the terminal that started it, was started: the process's PATH is the one it was given), or beside Docker Desktop.
+    /// </summary>
+    static string DockerCommand()
+    {
+        if (!OperatingSystem.IsWindows()) return "docker";
+        var directories = new[] { EnvironmentVariableTarget.Process, EnvironmentVariableTarget.User, EnvironmentVariableTarget.Machine }
+            .SelectMany(target => (System.Environment.GetEnvironmentVariable("PATH", target) ?? "").Split(Path.PathSeparator))
+            .Select(directory => System.Environment.ExpandEnvironmentVariables(directory.Trim()))
+            .Where(directory => directory.Length > 0);
+        if (DockerDesktop() is { } desktop) directories = directories.Append(Path.Combine(Path.GetDirectoryName(desktop)!, "resources", "bin"));
+        foreach (var directory in directories)
+        {
+            var candidate = Path.Combine(directory, "docker.exe");
+            if (File.Exists(candidate)) return candidate;
+        }
+        return "docker";
+    }
+
+    // docker, with its folder first on the PATH it is given: the helpers beside it (docker-credential-desktop) are found too.
+    static ProcessStartInfo DockerStart()
+    {
+        var command = DockerCommand();
+        var start = new ProcessStartInfo(command) { UseShellExecute = false, RedirectStandardOutput = true, RedirectStandardError = true };
+        if (Path.IsPathRooted(command))
+            start.Environment["PATH"] = Path.GetDirectoryName(command) + Path.PathSeparator + System.Environment.GetEnvironmentVariable("PATH");
+        return start;
     }
 
     public static bool StartDockerDesktop()
@@ -254,7 +293,7 @@ public sealed class Containers(AnalysisStore store, Conversions conversions)
 
     async Task<int> Run(IEnumerable<string> arguments, ConcurrentQueue<string> log, CancellationToken cancel)
     {
-        var start = new ProcessStartInfo("docker") { UseShellExecute = false, RedirectStandardOutput = true, RedirectStandardError = true };
+        var start = DockerStart();
         foreach (var argument in arguments) start.ArgumentList.Add(argument);
         using var process = new Process { StartInfo = start };
         process.OutputDataReceived += (_, e) => { if (e.Data != null) Append(log, e.Data); };
@@ -281,7 +320,9 @@ public sealed class Containers(AnalysisStore store, Conversions conversions)
     {
         try
         {
-            using var process = Process.Start(new ProcessStartInfo("docker", arguments) { UseShellExecute = false, RedirectStandardOutput = true, RedirectStandardError = true })!;
+            var start = DockerStart();
+            start.Arguments = arguments;
+            using var process = Process.Start(start)!;
             var error = process.StandardError.ReadToEndAsync();
             var output = process.StandardOutput.ReadToEnd();
             process.WaitForExit();

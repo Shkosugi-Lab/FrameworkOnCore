@@ -263,7 +263,7 @@ public sealed class Originals(AnalysisStore store) : Runs
         var reason = host != null ? null
             : !OperatingSystem.IsWindows() ? "元のアプリ(.NET Framework)は Windows で動かします"
             : File.Exists(AppCmd) ? "IIS Express をインストールするか、Studio を管理者として起動してください(IIS で動かします)"
-            : "IIS Express をインストールしてください(winget install Microsoft.IISExpress)";
+            : "IIS Express をインストールしてください(Visual Studio の「ASP.NET と Web 開発」に含まれます。単体は https://www.microsoft.com/download/details.aspx?id=48264)";
         return (host, reason);
     }
 

@@ -667,7 +667,9 @@ namespace System.Web.Configuration
                 int hr = UnsafeNativeMethods.GetSHA1Hash(hash, hash.Length, newHash, newHash.Length);
                 Marshal.ThrowExceptionForHR(hr);
 #else
-                byte[] newHash = SHA1.HashData(hash);
+                // The native function's hash of the size asked for (WebEngineHash), not SHA1 whatever the validation algorithm:
+                // with HMACSHA256's 32 bytes the copy below read past SHA1's 20.
+                byte[] newHash = WebEngineHash(hash, _HashSize);
 #endif
                 hash = newHash;
 
@@ -694,9 +696,13 @@ namespace System.Web.Configuration
             byte[] key = null;
             if (validationKey.Length > _AutoGenValidationKeySize)
             {
+#if NETFRAMEWORK
                 key = new byte[_HashSize];
                 int hr = UnsafeNativeMethods.GetSHA1Hash(validationKey, validationKey.Length, key, key.Length);
                 Marshal.ThrowExceptionForHR(hr);
+#else
+                key = WebEngineHash(validationKey, _HashSize);
+#endif
             }
 
             if (inner == null)
@@ -720,6 +726,7 @@ namespace System.Web.Configuration
                 throw new ArgumentException(SR.GetString(SR.InvalidArgumentValue, "start"));
             if (length < 0 || buf == null || (start + length) > buf.Length)
                 throw new ArgumentException(SR.GetString(SR.InvalidArgumentValue, "length"));
+#if NETFRAMEWORK
             byte[] hash = new byte[_HashSize];
             int hr = UnsafeNativeMethods.GetHMACSHA1Hash(buf, start, length,
                                                          modifier, (modifier == null) ? 0 : modifier.Length,
@@ -729,7 +736,54 @@ namespace System.Web.Configuration
                 return hash;
             _UseHMACSHA = false;
             return null;
+#else
+            // webengine4.dll's GetHMACSHA1Hash (IIS', not on .NET: the legacy view state MAC, LosFormatter(true, key),
+            // as the mobile controls' MobilePage signs its state, failed with DllNotFoundException): an HMAC with the keys
+            // already padded, H(outer + H(inner + data + modifier)), H by the size asked for (WebEngineAlgorithm: the
+            // validation algorithm's, HMACSHA256 by default). The same bytes as the native function (measured against
+            // .NET Framework 4.8's for each size).
+            HashAlgorithmName? algorithm = WebEngineAlgorithm(_HashSize);
+            if (algorithm == null) {
+                _UseHMACSHA = false;
+                return null;
+            }
+            using (var hash = IncrementalHash.CreateHash(algorithm.Value))
+            {
+                hash.AppendData(s_inner);
+                hash.AppendData(buf, start, length);
+                if (modifier != null) hash.AppendData(modifier);
+                byte[] innerHash = hash.GetHashAndReset();
+                hash.AppendData(s_outer);
+                hash.AppendData(innerHash);
+                return hash.GetHashAndReset();
+            }
+#endif
         }
+
+#if !NETFRAMEWORK
+        // The hash webengine4.dll's GetSHA1Hash and GetHMACSHA1Hash compute: by the size they are asked for, whatever
+        // their names say (measured against .NET Framework 4.8's); another size is E_INVALIDARG.
+        private static HashAlgorithmName? WebEngineAlgorithm(int hashSize) => hashSize switch {
+            16 => HashAlgorithmName.MD5,
+            20 => HashAlgorithmName.SHA1,
+            32 => HashAlgorithmName.SHA256,
+            48 => HashAlgorithmName.SHA384,
+            64 => HashAlgorithmName.SHA512,
+            _ => null,
+        };
+
+        // webengine4.dll's GetSHA1Hash, managed (WebEngineAlgorithm); for another size the native E_INVALIDARG, as
+        // Marshal.ThrowExceptionForHR throws it.
+        private static byte[] WebEngineHash(byte[] data, int hashSize)
+        {
+            HashAlgorithmName algorithm = WebEngineAlgorithm(hashSize) ?? throw new ArgumentException(null, nameof(hashSize));
+            using (var hash = IncrementalHash.CreateHash(algorithm))
+            {
+                hash.AppendData(data);
+                return hash.GetHashAndReset();
+            }
+        }
+#endif
 
         [Obsolete(OBSOLETE_CRYPTO_API_MESSAGE)]
         internal static string HashAndBase64EncodeString(string s)
@@ -1226,10 +1280,14 @@ namespace System.Web.Configuration
             if (hashAlgo != null) {
                 return hashAlgo.ComputeHash(bAll);
             } else {
+#if NETFRAMEWORK
                 byte[] newHash = new byte[MD5_HASH_SIZE];
                 int hr = UnsafeNativeMethods.GetSHA1Hash(bAll, bAll.Length, newHash, newHash.Length);
                 Marshal.ThrowExceptionForHR(hr);
                 return newHash;
+#else
+                return WebEngineHash(bAll, MD5_HASH_SIZE);
+#endif
             }
         }
 

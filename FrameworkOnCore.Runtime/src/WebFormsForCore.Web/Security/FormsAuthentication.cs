@@ -203,11 +203,16 @@ namespace System.Web.Security {
             byte []           pBin = new byte[4];
             long []           pDates = new long[2];
 
+#if NETFRAMEWORK
             int iRet = UnsafeNativeMethods.CookieAuthParseTicket(bBlob, ticketLength,
                                                                    name, iSize,
                                                                    data, iSize,
                                                                    path, iSize,
                                                                    pBin, pDates);
+#else
+            // FrameworkOnCore: webengine4.dll's, in managed code (IIS' DLL is not on .NET).
+            int iRet = LegacyFormsAuthenticationTicket.Parse(bBlob, ticketLength, name, iSize, data, iSize, path, iSize, pBin, pDates);
+#endif
 
             if (iRet != 0)
                 return null;
@@ -848,10 +853,15 @@ namespace System.Web.Security {
             pDates[0] = ticket.IssueDate.ToFileTime();
             pDates[1] = ticket.Expiration.ToFileTime();
 
+#if NETFRAMEWORK
             int iRet = UnsafeNativeMethods.CookieAuthConstructTicket(
                         bData, bData.Length,
                         ticket.Name, ticket.UserData, ticket.CookiePath,
                         pBin, pDates);
+#else
+            // FrameworkOnCore: webengine4.dll's, in managed code (IIS' DLL is not on .NET).
+            int iRet = LegacyFormsAuthenticationTicket.Construct(bData, bData.Length, ticket.Name, ticket.UserData, ticket.CookiePath, pBin, pDates);
+#endif
 
             if (iRet < 0)
                 return null;

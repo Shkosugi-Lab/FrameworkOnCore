@@ -88,7 +88,7 @@ dotnet test tests\FrameworkOnCore.Tests
 
 ### フォークを変えるとき(開発者向け)
 
-`experiments/wf4c/_upstream` に上流を clone して `experiments/wf4c/patches` を当て、`experiments/wf4c/pack-fork.ps1 -Build All` で `_feed` にパッケージを作ります(`_feed` にある版は取得されません)。配るときは版を上げ(`pack-fork.ps1 -Version` と `rules/packages.json` の `forkVersion`)、`experiments/wf4c/publish-fork.ps1` で GitHub Release に置きます。
+`experiments/wf4c/setup-fork.ps1` で上流を clone して `experiments/wf4c/patches` を当て(`experiments/wf4c/_upstream`)、`experiments/wf4c/pack-fork.ps1 -Build All` で `_feed` にパッケージを作ります(`_feed` にある版は取得されません)。配るときは版を上げ(`pack-fork.ps1 -Version` の既定と `rules/packages.json` の `forkVersion`)、パッチと一緒に push します。GitHub Actions(`.github/workflows/fork.yml`)が同じ手順でビルドし、Linux でテストして、まだ無い版なら GitHub Release に置きます(手で動かすときは Actions の「fork packages」の Run workflow。publish にチェックを入れたときだけ公開)。手元から置くときは `experiments/wf4c/publish-fork.ps1`。
 
 ## 状態
 

@@ -6,8 +6,8 @@
 #   .\experiments\wf4c\pack-fork.ps1 -Build All       # rebuild every packed project first
 #
 # Build order matters upstream (Web.Extensions fails when built before its references), so -Build
-# All builds in dependency order. Assumes src/WebFormsForCore.Build was built once (it emits the
-# FakeStrongName targets every project imports).
+# All builds in dependency order, after src/WebFormsForCore.Build when it was not built yet (it emits the
+# FakeStrongName targets every project imports). The fork: setup-fork.ps1.
 param(
     [string]$Version = '1.6.5-w2l.6',
     [ValidateSet('Web', 'All', 'None')][string]$Build = 'Web'
@@ -51,6 +51,17 @@ $projects = @(
 $net10Only = @('WebFormsForCore.AjaxControlToolkit\AjaxControlToolkit\AjaxControlToolkit.csproj')
 
 if ($Build -eq 'All') {
+    # The build tasks every project imports (lib/WebFormsForCore.Build: FakeStrongName and the rest), once: a fork made
+    # by setup-fork.ps1 has none yet. Not in fork.slnx (built there, its loaded task DLL is copied over: the build fails).
+    # A framework at a time, each with its intermediate folder of its own: the project has none per framework (net8.0
+    # and net10.0 write the same obj\...\WebFormsForCore.Build.NetCore.dll: together, CS2012; one after the other, the
+    # second one's compilation is skipped as up to date).
+    if (-not (Test-Path (Join-Path $PSScriptRoot '_upstream\lib\WebFormsForCore.Build\net10.0\FakeStrongName.targets'))) {
+        foreach ($framework in 'net48', 'net8.0', 'net10.0', 'netstandard2.0') {
+            dotnet build (Join-Path $src 'WebFormsForCore.Build\WebFormsForCore.Build.csproj') -c $Configuration -f $framework "-p:IntermediateOutputPath=obj\$Configuration\$framework\" -v q -nologo
+            if ($LASTEXITCODE -ne 0) { throw "build failed: WebFormsForCore.Build ($framework)" }
+        }
+    }
     # As a solution (fork.slnx), the way upstream builds: one project at a time, Web.Extensions
     # fails to see IHttpHandlerFactory through Web.Services. After a change in System.Web the first
     # build still fails that way now and then (CS7069) and a later one succeeds; hence up to three retries.

@@ -5,6 +5,9 @@
 #   .\experiments\wf4c\pack-fork.ps1 -Build All
 #   .\experiments\wf4c\publish-fork.ps1                 # the version of rules/packages.json (forkVersion)
 #
+# GitHub Actions does this on a push that changes the fork (.github/workflows/fork.yml): built from setup-fork.ps1's
+# fork, tested on Linux, published when the version has no release yet.
+#
 # A version is published once: a changed fork is a new version (pack-fork.ps1 -Version, rules/packages.json forkVersion).
 param(
     [string]$Version,

@@ -112,6 +112,13 @@ namespace System.Configuration {
                     }
 
                     if (isFile) {
+#if NETCOREAPP
+                        // FrameworkOnCore: on Linux a local file's URI is its rooted path ("file:///app/App.dll":
+                        // "/app/App.dll"), '/' its separator.
+                        if (!OSInfo.IsWindows && StringUtil.StartsWithIgnoreCase(exeAssembly.CodeBase, FILE_URI_LOCAL))
+                            applicationUri = "/" + applicationUri;
+                        else
+#endif
                         applicationUri = applicationUri.Replace('/', '\\');
                         applicationFilename = applicationUri;
                     }

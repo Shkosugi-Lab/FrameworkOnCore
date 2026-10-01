@@ -303,7 +303,11 @@ namespace System.Web.Configuration {
 #if NETFRAMEWORK
                     s_MachineConfigurationDirectory = Path.Combine(MsCorLibDirectory, MachineConfigSubdirectory);
 #else
-					s_MachineConfigurationDirectory = Path.Combine(HttpRuntime.AppDomainAppPath, MachineConfigSubdirectory);
+					// FrameworkOnCore: outside a web application (no application path: a library's tests, a console using
+					// System.Web's cache...), the client configuration's machine.config, as .NET Framework reads its own there.
+					s_MachineConfigurationDirectory = HttpRuntime.AppDomainAppPath != null ?
+						Path.Combine(HttpRuntime.AppDomainAppPath, MachineConfigSubdirectory) :
+						Path.GetDirectoryName(ClientConfigurationHost.MachineConfigFilePath);
 #endif
 #else // !FEATURE_PAL
                     System.UInt32 length = 0;

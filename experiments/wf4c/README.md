@@ -325,6 +325,42 @@ ASP.NET 1.1 のモバイル コントロール(referencesource の System.Web.Mo
 - **検証**: テスト Windows 4,324 件・Linux 4,305 件(SQL Server の要る 19 件はスキップ)がすべて緑。be/wt は Windows で変換・ビルドしてトップが 200、Linux で be 5/5・wt 5/8(以前と同じ既知の差のみ)。
 - **残り**: コントロールを使うコーパスが無いので、コーパスでの実地検証はしていない(nop・mojo・dnn・n2 は参照だけ。CLAUDE.md によりコーパスの検証は be/wt のみ)。WML・cHTML・XHTML の端末向けの表示はサイトで確かめていない(API のケースだけ)。デザイン時のアダプターは無い。
 
+### 全コーパスの試験(2026-10-01、System.Web.Mobile の移植の後、ユーザーの指示)
+
+10 本(Web Forms 8、MVC 2)をすべて変換し直し、Windows(`.\SQLEXPRESS`)と Linux(Linux は配置の既定どおり大文字小文字のライブラリあり。nop・nop390 は変換器が書いた Dockerfile のイメージ、ほかは `run-linux-site.ps1`/`run-linux.ps1`。SQL Server はコンテナ)で動かした。DB は空から作り直し、アプリのインストーラーを通した。
+
+| コーパス | Windows | Linux |
+|---|---|---|
+| be | 5/5(IIS の正解と比較。`verify-windows.ps1`) | 5/5 |
+| wt | 6/8(既知の丸めの差 2) | 5/8(同じ 2 と error-page。以前と同じ) |
+| mvcmovie | 11/12(既知の言語パックの差) | 11/12 |
+| mojo | トップ 200 | 空の DB からセットアップ → トップ・ログイン(`/secure/LOGIN.aspx` も)・サイトマップ 200、管理画面はログインへ |
+| yaf | `/` は Web API 2 の FieldAccessException、インストーラーは ServiceStack のスタブ(`PclExport`) | インストーラー・`/` とも ServiceStack のスタブ(以前と同じ) |
+| dnn | 空の DB からインストール完了、トップ・`/Login`・`/Terms`・`/Privacy` 200 | 同じ。ページの資源 21 件すべて 200 |
+| n2 | インストーラー完了(管理者 → テーブル → サンプル)、トップがコンテンツ付き、`/N2/` はログインへ 302 | 同じ |
+| imis | ログインし、主な画面 7 つが 200 | 同じ(コンテナのログにログインの記録) |
+| nop(1.90) | インストーラー(サンプルデータ)完了、店頭 14 画面 200、商品のサムネイルを生成して配信、ログインが通る。商品の詳細・アカウント・管理画面は 500(下) | 同じ。**サムネイルは libgdiplus で生成**(以前の記録ではトップが System.Drawing で 500) |
+| nop390 | インストーラー(サンプルデータ)完了、店頭 19 画面・商品画像・カートへの追加(AJAX)・管理画面 7 画面と一覧の JSON が 200 | 同じ |
+
+サンプル: MobileProbe 7/7、ChartProbe 27 行一致、RuntimeProbe(下の `Paths.aspx`)1/1。いずれも Windows・Linux。テスト Windows 4,327 件・Linux 4,308 件(SQL Server の要る 19 件はスキップ)がすべて緑。System.Web.Mobile を参照するコーパス(nop の `using System.Web.UI.MobileControls;` 11 ファイル、mojo・dnn・n2 の参照)は移植版のパッケージを参照してそのままビルドできる(以前はスタブで using を外していた)。
+
+見つけて直したこと:
+- **変換器が 3 本で異常終了していた**(AssemblyRetargeter。DLL の参照の付け替え。`AssemblyRetargeterTests` に再現テスト 3 件、直す前はどれも失敗):
+  - mojo: スタックオーバーフロー。配置済みサイトの bin にある .NET Framework 用のパッケージのファサード(System.Security.AccessControl 6.0.0.1 など)は型を mscorlib へ転送し、.NET の mscorlib はそれを System.Security.AccessControl へ転送し返す。アプリの同名のアセンブリを版によらず .NET のものより優先していたため、Cecil の型の解決が往復し続けた。.NET のホストと同じく、.NET にもあるアセンブリは版の高いほうを使う。
+  - dnn: 「別のプロセスが使用中」。解決のために読んだ DLL のファイルを開いたままにしていて、その DLL をその場で書き換えられなかった(読むのはメモリーに)。
+  - imis: 書き出しで AssemblyResolutionException。定数の列挙型(ReportViewer の `[WindowsBase]System.IO.Packaging.*`。.NET の WindowsBase は .NET に無い System.IO.Packaging へ転送する)を解決できない。書き出しはメモリーに行ってから置き換える(その場の書き換えで失敗すると元の DLL が空になる作りだった)。書けない DLL はそのまま残し、レポートに「not rewritten」と出す。
+  - 解析(TargetApis)の同様の判定は .NET の参照アセンブリとパッケージだけを見ていて、深さの上限もあり、該当しない。
+- **アプリの物理パスの末尾に区切りが無かった**(`FrameworkOnCore.Runtime/`、AspNetCoreHost): .NET Framework の `Request.PhysicalApplicationPath`・`HttpRuntime.AppDomainAppPath`・`APPL_PHYSICAL_PATH` は区切りで終わる(`C:\inetpub\app\`)。nop は `PhysicalApplicationPath + "images\\thumbs"` でサムネイルの場所を作り、Windows ではサイトの外の `...\siteimages\thumbs` に書いて画像が 404、Linux では `/appimages` に書けず、商品の画像のある画面(トップ・カテゴリーなど 6 画面)が 500 だった。`samples/RuntimeProbe/Paths.aspx` を IIS で記録し(7 項目すべて区切りで終わる)、直す前は Windows で不一致、直した後は Windows・Linux とも一致。同じ書き方はコーパスに 11 か所(nop のファビコン・テーマの一覧・PDF のロゴ、dnn のプロバイダーのパス、be の web.config)。`HostingEnvironment.ApplicationPhysicalPath`(SimpleApplicationHost)は前から区切り付きだった。
+- テスト: `CompatTests` の BeginInvoke のテストが全件の実行中に 1 回失敗した(単独では 5 回とも成功)。スレッドプールの完了を 5 秒待っていた。30 秒にした。
+
+検証の手順で気をつけること:
+- DNN のインストーラーは `Install\*.aspx` を消し、n2 は SQLite の DB、nop は `ConnectionStrings.config`、nop390 は `App_Data` を書き換える。Windows と Linux の両方で入れるときは、変換直後のサイトを写しておいて戻す。
+- 設定を書き換えた直後(セットアップ・インストーラー)はアプリが再起動し、その間の要求は応答が無い(000・503)。続けて要求すれば答える。
+- nopCommerce 3.90 は curl の User-Agent を検索エンジンとみなし、カートとログインを断る。ブラウザーの User-Agent で要求する。
+- mvcmovie の Windows の比較は、EF の初期データのある状態から始める(`verify-windows.ps1` が DB を消してから起動する)。
+
+残り(以前からのもの): nop の `ToolkitScriptManager`(新しい Ajax Control Toolkit に無い。マークアップの書き換えが要る。管理画面のマスター、商品のテンプレート、アカウントなど)。yaf の Web API 2(AspNetWebStack の移植)と ServiceStack のスタブ。wt・mvcmovie の既知の差。
+
 ## カルチャのデータ(2026-09-26)
 
 .NET Framework は Windows のカルチャデータ(NLS)を使う。.NET は ICU のデータを使い、両者は異なる。

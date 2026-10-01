@@ -1,0 +1,22 @@
+{
+  "SourceUrl": "http://localhost:5096",
+  "Snapshots": [
+    {
+      "Name": "runtime-application paths",
+      "Path": "/paths",
+      "Title": "",
+      "Text": [
+        "Request.PhysicalApplicationPath ends with a separator: True",
+        "HttpRuntime.AppDomainAppPath ends with a separator: True",
+        "HostingEnvironment.ApplicationPhysicalPath ends with a separator: True",
+        "APPL_PHYSICAL_PATH ends with a separator: True",
+        "Server.MapPath(~/) ends with a separator: True",
+        "PhysicalApplicationPath + \"Web.config\" exists: True",
+        "AppDomainAppPath + \"bin\" exists: True"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {}
+    }
+  ]
+}

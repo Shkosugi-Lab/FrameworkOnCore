@@ -10,6 +10,7 @@
     <RootNamespace>RuntimeProbe</RootNamespace>
     <AssemblyName>RuntimeProbe</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <OutputPath>bin\</OutputPath>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
     <IISExpressSSLPort />
@@ -25,6 +26,7 @@
   <ItemGroup>
     <Content Include="Default.aspx" />
     <Content Include="Redirect.aspx" />
+    <Content Include="Paths.aspx" />
     <Content Include="Target.aspx" />
     <Content Include="Encodings.aspx" />
     <Content Include="ShiftJis.aspx" />
@@ -38,6 +40,10 @@
     </Compile>
     <Compile Include="Redirect.aspx.cs">
       <DependentUpon>Redirect.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Paths.aspx.cs">
+      <DependentUpon>Paths.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Target.aspx.cs">

@@ -1,0 +1,7 @@
+{
+  "ignorePatterns": [],
+  "steps": [
+    { "action": "goto", "path": "/Paths.aspx" },
+    { "action": "snapshot", "name": "runtime-application paths" }
+  ]
+}

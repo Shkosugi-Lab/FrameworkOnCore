@@ -99,7 +99,7 @@ public class CompatTests
         Func<int, int> twice = x => x * 2;
         object? state = null;
         var result = AsyncDelegate.BeginInvoke(twice, new object[] { 21 }, r => { state = r.AsyncState; done.Set(); }, "s");
-        Assert.True(done.Wait(5000));
+        Assert.True(done.Wait(30000));   // the thread pool's, busy while the other tests run
         Assert.Equal(42, (int)AsyncDelegate.EndInvoke(result));
         Assert.Equal("s", state);
 

@@ -25,6 +25,17 @@ for (var i = 0; i < args.Length; i++)
 data = Path.GetFullPath(data ?? Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "FrameworkOnCore", "studio"));
 runtime = Path.GetFullPath(runtime ?? FrameworkOnCore.Converter.RuntimeSetup.Find() ?? throw new InvalidOperationException("--runtime: experiments/wf4c not found"));
 
+// The port taken: by a Studio (started before, in another window: its page is the one to open), or by another program
+// (another port to give); said as that, not as the host's failure to start.
+if (PortTaken(port))
+{
+    Console.Error.WriteLine(await AnswersAsStudio(port)
+        ? $"Studio はすでに起動しています(ポート {port})。http://127.0.0.1:{port}/ を開いてください。\n" +
+          "新しい版で起動し直すには、その Studio を止めてから(起動したウィンドウで Ctrl+C)、もう一度起動してください。"
+        : $"ポート {port} は別のプログラムが使っています。別のポートで起動してください(例: .\\studio.ps1 --port 5310)。");
+    return 1;
+}
+
 var builder = WebApplication.CreateSlimBuilder(new WebApplicationOptions { Args = [], ContentRootPath = AppContext.BaseDirectory });
 builder.WebHost.UseUrls($"http://127.0.0.1:{port}");
 builder.Logging.SetMinimumLevel(LogLevel.Warning);
@@ -190,5 +201,36 @@ api.MapPost("/analyses/{id}/native", (string id, Natives natives) =>
 api.MapDelete("/analyses/{id}/native", (string id, Natives natives) => natives.Stop(id) ? Results.NoContent() : Results.NotFound());
 
 Console.WriteLine($"FrameworkOnCore Studio: http://127.0.0.1:{port}/  (data: {data})");
-app.Run();
+try { app.Run(); }
+catch (IOException e) when (e.InnerException is Microsoft.AspNetCore.Connections.AddressInUseException)
+{
+    // Taken between the check and the start.
+    Console.Error.WriteLine($"ポート {port} は別のプログラムが使っています。別のポートで起動してください(例: .\\studio.ps1 --port 5310)。");
+    return 1;
+}
+return 0;
+
+static bool PortTaken(int port)
+{
+    try
+    {
+        var listener = new System.Net.Sockets.TcpListener(System.Net.IPAddress.Loopback, port);
+        listener.Start();
+        listener.Stop();
+        return false;
+    }
+    catch (System.Net.Sockets.SocketException) { return true; }
+}
+
+// Studio's API answers there (its catalog).
+static async Task<bool> AnswersAsStudio(int port)
+{
+    try
+    {
+        using var http = new HttpClient { Timeout = TimeSpan.FromSeconds(5) };
+        var body = await http.GetStringAsync($"http://127.0.0.1:{port}/api/catalog");
+        return body.Contains("\"components\"", StringComparison.Ordinal);
+    }
+    catch (Exception e) when (e is HttpRequestException or TaskCanceledException) { return false; }
+}
 

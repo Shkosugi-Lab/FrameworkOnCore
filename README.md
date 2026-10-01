@@ -62,7 +62,7 @@ FrameworkOnCore のパッケージ(`FrameworkOnCore.*`)は、初めて解析や�
 # http://127.0.0.1:5300/ を開く(localhost だけで待ち受ける)
 ```
 
-ビルドは要りません。GitHub Actions(`.github/workflows/frameworkoncore-tools.yml`)が `src/` の変わるたびに Studio と変換器をビルドしてリリース `frameworkoncore-tools` に置き、`studio.ps1` は手元の `src/` と同じコミットのものを一度だけ取得して(`%LOCALAPPDATA%\FrameworkOnCore\tools`)起動します。`src/` にコミットしていない変更があるとき、そのコミットのビルドがまだ無いとき(push 前、Actions の実行中)、`-Build` を付けたときは、手元でビルドして起動します。
+ビルドは要りません。GitHub Actions(`.github/workflows/frameworkoncore-tools.yml`)が `src/` の変わるたびに Studio と変換器をビルドしてリリース `frameworkoncore-tools` に置き、`studio.ps1` は手元の `src/` と同じコミットのものを一度だけ取得して(`%LOCALAPPDATA%\FrameworkOnCore\builds`)起動します。`src/` にコミットしていない変更があるとき、そのコミットのビルドがまだ無いとき(push 前、Actions の実行中)、`-Build` を付けたときは、手元でビルドして起動します。
 
 「新しい解析」で .NET Framework の Web プロジェクト(.csproj / .vbproj)を指定すると、解析結果が出ます。部品ごとに対応を選んで保存し、「変換してビルド」を押すと、その選択で変換とビルドを行います。ビルドできたら、Linux に配置できる形(Dockerfile と systemd 用のスクリプト付き、`obj` を除く)を ZIP でダウンロードできます。「Linux(Docker)で起動」で、その Dockerfile からイメージを作り、コンテナを localhost のポートで起動して確かめることもできます(Docker Desktop が要ります。接続文字列などは環境変数で渡します。Studio のコンテナは一度に一つ)。コマンドラインで変換するためのコマンドもコピーできます。
 

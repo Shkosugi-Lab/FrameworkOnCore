@@ -1,8 +1,9 @@
 # The folder of Studio and the converter for this checkout (dot-sourced by studio.ps1 and converter.ps1): the build of
 # its src/ that GitHub Actions published (frameworkoncore-tools.yml: the release frameworkoncore-tools, the asset of the last
-# commit that changed src/), fetched once into %LOCALAPPDATA%\FrameworkOnCore\tools\<commit>. Built here instead
-# (dotnet build, as before) when src/ has changes not committed, when the commit has no published build (not pushed, or
-# the workflow has not finished), or with -Build.
+# commit that changed src/), fetched once into %LOCALAPPDATA%\FrameworkOnCore\builds\<commit> (FrameworkOnCore\tools is
+# the converter's own: reference assemblies, packages, original builds' tools). Built here instead (dotnet build, as
+# before) when src/ has changes not committed, when the commit has no published build (not pushed, or the workflow has
+# not finished), or with -Build.
 #
 # The repository is public: the asset is fetched as it is. A private one's through the API, with the token of GH_TOKEN,
 # GITHUB_TOKEN or the GitHub CLI (gh auth token), as the converter fetches FrameworkOnCore's packages.
@@ -20,7 +21,7 @@ function Get-FocTools([switch]$Build) {
     }
 
     if (-not $reason) {
-        $tools = Join-Path $env:LOCALAPPDATA "FrameworkOnCore\tools\$($commit.Substring(0, 12))"
+        $tools = Join-Path $env:LOCALAPPDATA "FrameworkOnCore\builds\$($commit.Substring(0, 12))"
         if (Test-Path (Join-Path $tools 'FrameworkOnCore.Studio.dll')) { return $tools }
         $asset = "frameworkoncore-tools-$($commit.Substring(0, 12)).zip"
         $slug = 'Shkosugi-Lab/FrameworkOnCore'
@@ -35,8 +36,8 @@ function Get-FocTools([switch]$Build) {
             Add-Type -AssemblyName System.IO.Compression.FileSystem
             [IO.Compression.ZipFile]::ExtractToDirectory($zip, $staging)
             [IO.Directory]::Move($staging, $tools)
-            # The older builds go (the five latest are kept).
-            Get-ChildItem (Split-Path $tools -Parent) -Directory | Where-Object { $_.Name -notlike '*.download' } |
+            # The older builds go (the five latest are kept): the folders named by a commit, nothing else.
+            Get-ChildItem (Split-Path $tools -Parent) -Directory | Where-Object { $_.Name -match '^[0-9a-f]{12}$' } |
                 Sort-Object LastWriteTime -Descending | Select-Object -Skip 5 | ForEach-Object { [IO.Directory]::Delete($_.FullName, $true) }
             return $tools
         }

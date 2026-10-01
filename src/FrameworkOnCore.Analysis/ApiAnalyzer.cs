@@ -10,7 +10,7 @@ namespace FrameworkOnCore.Analysis;
 /// of each (TargetApis); the components they make up (Catalog). The sources are compiled as their projects did, against
 /// .NET Framework 4.8's reference assemblies and the DLLs they reference; the DLLs without source are read too.
 /// </summary>
-/// <param name="convertedPackages">Packages the conversion replaces or drops (the fork's Ajax Control Toolkit for the old
+/// <param name="convertedPackages">Packages the conversion replaces or drops (FrameworkOnCore's Ajax Control Toolkit for the old
 /// one): their DLLs are not what the converted application runs.</param>
 public sealed class ApiAnalyzer(TargetApis target, Catalog catalog, IEnumerable<string>? convertedPackages = null)
 {
@@ -173,7 +173,7 @@ public sealed class ApiAnalyzer(TargetApis target, Catalog catalog, IEnumerable<
             Files = api.Files.Select(f => new FileCount(f.Key, f.Value)).OrderByDescending(f => f.Count).ThenBy(f => f.File, StringComparer.Ordinal).ToList(),
             Places = api.Places.OrderBy(p => p.File, StringComparer.Ordinal).ThenBy(p => p.Line).Take(20).ToList(),
             Binaries = api.Binaries.IsEmpty ? null : api.Binaries.Select(b => new FileCount(b.Key, b.Value)).OrderBy(b => b.File, StringComparer.Ordinal).ToList(),
-            // DLLs bind [assembly]type: .NET has the type, but not where the DLLs look (the fork's CallContext is in its
+            // DLLs bind [assembly]type: .NET has the type, but not where the DLLs look (FrameworkOnCore's CallContext is in its
             // System.Web, not in mscorlib) - the converter retargets those references.
             RetargetedTo = replacedCall ? "FrameworkOnCore.Compat"
                 : !api.Binaries.IsEmpty && info is { Assembly: { } where, Type: { } type } && !target.Binds(api.Key.Assembly, type) ? where : null,

@@ -5,18 +5,18 @@ using System.Text.RegularExpressions;
 namespace FrameworkOnCore.Converter;
 
 /// <summary>
-/// The runtime pieces a converted application refers to (experiments/wf4c): the WebFormsForCore fork's packages (_feed)
-/// and the shims (shims). The fork's packages are not built here: they are fetched from the repository's GitHub
-/// Release (fork-&lt;version&gt;, made by publish-fork.ps1) when the feed does not have them. A feed built locally
-/// (pack-fork.ps1) is left as it is.
+/// The runtime pieces a converted application refers to (experiments/wf4c): FrameworkOnCore's packages (_feed)
+/// and the shims (shims). FrameworkOnCore's packages are not built here: they are fetched from the repository's GitHub
+/// Release (frameworkoncore-&lt;version&gt;, made by publish-frameworkoncore.ps1) when the feed does not have them. A feed built locally
+/// (pack-frameworkoncore.ps1) is left as it is.
 /// </summary>
 public static class RuntimeSetup
 {
-    /// <summary>Where the release asset is (a URL, or a zip on disk); FOC_FORK_FEED overrides it (a mirror, an offline copy).</summary>
-    public static string FeedSource(string forkVersion) =>
-        Environment.GetEnvironmentVariable("FOC_FORK_FEED") is { Length: > 0 } source
+    /// <summary>Where the release asset is (a URL, or a zip on disk); FOC_FEED overrides it (a mirror, an offline copy).</summary>
+    public static string FeedSource(string frameworkOnCoreVersion) =>
+        Environment.GetEnvironmentVariable("FOC_FEED") is { Length: > 0 } source
             ? source
-            : $"https://github.com/Shkosugi-Lab/FrameworkOnCore/releases/download/fork-{forkVersion}/fork-feed-{forkVersion}.zip";
+            : $"https://github.com/Shkosugi-Lab/FrameworkOnCore/releases/download/frameworkoncore-{frameworkOnCoreVersion}/frameworkoncore-feed-{frameworkOnCoreVersion}.zip";
 
     /// <summary>experiments/wf4c above the current folder, or else above this program (a build in the repository).</summary>
     public static string? Find()
@@ -32,19 +32,19 @@ public static class RuntimeSetup
         return null;
     }
 
-    /// <summary>The fork's packages in &lt;runtime&gt;/_feed: fetched (<see cref="FeedSource"/>) when WebFormsForCore.Web of the version is not there.</summary>
-    public static void EnsureFeed(string runtimeDirectory, string forkVersion, Action<string>? log = null, string? source = null)
+    /// <summary>FrameworkOnCore's packages in &lt;runtime&gt;/_feed: fetched (<see cref="FeedSource"/>) when WebFormsForCore.Web of the version is not there.</summary>
+    public static void EnsureFeed(string runtimeDirectory, string frameworkOnCoreVersion, Action<string>? log = null, string? source = null)
     {
         var feed = Path.Combine(runtimeDirectory, "_feed");
-        if (File.Exists(Path.Combine(feed, $"WebFormsForCore.Web.{forkVersion}.nupkg"))) return;
-        source ??= FeedSource(forkVersion);
-        log?.Invoke($"fetching the WebFormsForCore fork's packages ({forkVersion}): {source}");
+        if (File.Exists(Path.Combine(feed, $"WebFormsForCore.Web.{frameworkOnCoreVersion}.nupkg"))) return;
+        source ??= FeedSource(frameworkOnCoreVersion);
+        log?.Invoke($"fetching FrameworkOnCore's packages ({frameworkOnCoreVersion}): {source}");
 
         var zip = source;
         var download = !File.Exists(source);
         if (download)
         {
-            zip = Path.Combine(Path.GetTempPath(), $"fork-feed-{forkVersion}-{Guid.NewGuid():N}.zip");
+            zip = Path.Combine(Path.GetTempPath(), $"frameworkoncore-feed-{frameworkOnCoreVersion}-{Guid.NewGuid():N}.zip");
             Download(source, zip);
         }
         // Extracted beside the feed first, then moved in: a download cut short leaves no half a feed.
@@ -53,8 +53,8 @@ public static class RuntimeSetup
         {
             if (Directory.Exists(staging)) Directory.Delete(staging, recursive: true);
             ZipFile.ExtractToDirectory(zip, staging);
-            if (!File.Exists(Path.Combine(staging, $"WebFormsForCore.Web.{forkVersion}.nupkg")))
-                throw new InvalidOperationException($"{source}: WebFormsForCore.Web.{forkVersion}.nupkg is not in it");
+            if (!File.Exists(Path.Combine(staging, $"WebFormsForCore.Web.{frameworkOnCoreVersion}.nupkg")))
+                throw new InvalidOperationException($"{source}: WebFormsForCore.Web.{frameworkOnCoreVersion}.nupkg is not in it");
             Directory.CreateDirectory(feed);
             foreach (var package in Directory.GetFiles(staging))
                 File.Move(package, Path.Combine(feed, Path.GetFileName(package)), overwrite: true);
@@ -89,7 +89,7 @@ public static class RuntimeSetup
         using (response)
         {
             if (!response.IsSuccessStatusCode)
-                throw new InvalidOperationException($"the fork's packages could not be fetched ({(int)response.StatusCode}): {url}.{hint} Or set FOC_FORK_FEED to the zip, or build them (experiments/wf4c/pack-fork.ps1)");
+                throw new InvalidOperationException($"FrameworkOnCore's packages could not be fetched ({(int)response.StatusCode}): {url}.{hint} Or set FOC_FEED to the zip, or build them (experiments/wf4c/pack-frameworkoncore.ps1)");
             using var file = File.Create(path);
             response.Content.CopyToAsync(file).GetAwaiter().GetResult();
         }

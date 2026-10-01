@@ -1,5 +1,5 @@
 # Captures the culture data of the server a Web Forms application runs on (number and date
-# formats), for WebFormsForCore.CultureProfile to lay over .NET's ICU data (see the fork's
+# formats), for WebFormsForCore.CultureProfile to lay over .NET's ICU data (see FrameworkOnCore's
 # CultureProfile.cs). Run it ON THE ORIGINAL SERVER with Windows PowerShell (powershell.exe, which
 # runs on .NET Framework and so sees the culture data the application sees).
 #

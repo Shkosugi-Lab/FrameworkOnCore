@@ -9,8 +9,8 @@ using FrameworkOnCore.Converter;
 //                             [--culture-profile <file>] [--no-build]
 //
 // --root     the repository to copy (default: the topmost folder above the project with a .sln)
-// --runtime  where the WebFormsForCore fork's feed (_feed) and the shims (shims) are
-//            (default: experiments/wf4c above the current folder, or above the converter). The fork's packages are
+// --runtime  where FrameworkOnCore's feed (_feed) and the shims (shims) are
+//            (default: experiments/wf4c above the current folder, or above the converter). FrameworkOnCore's packages are
 //            fetched into _feed from the GitHub Release when they are not there (RuntimeSetup).
 // --culture-profile  the original server's culture data (capture-culture.ps1), placed in App_Data
 // --site     the deployed site (the original build's web folder, or the site's folder on the IIS
@@ -89,7 +89,7 @@ var runtime = new RuntimeLayout(Path.Combine(runtimeDirectory, "_feed"), Runtime
 
 var report = new Report();
 var rules = Rules.Load(Path.Combine(AppContext.BaseDirectory, "rules", "packages.json"));
-RuntimeSetup.EnsureFeed(runtimeDirectory, rules.ForkVersion, Console.WriteLine);
+RuntimeSetup.EnsureFeed(runtimeDirectory, rules.FrameworkOnCoreVersion, Console.WriteLine);
 // The user's choices: validated against the catalog, the rules narrowed to them; each one not the default reported.
 var catalog = FrameworkOnCore.Analysis.Catalog.Default();
 var choices = choicesFile != null ? FrameworkOnCore.Analysis.Choices.Load(choicesFile) : new FrameworkOnCore.Analysis.Choices();

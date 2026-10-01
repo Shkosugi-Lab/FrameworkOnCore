@@ -391,7 +391,7 @@ function componentCard(c) {
   </article>`;
 }
 
-// The DLLs' references the converter retargets: .NET has the type, not in the assembly the DLL names (the fork's
+// The DLLs' references the converter retargets: .NET has the type, not in the assembly the DLL names (FrameworkOnCore's
 // CallContext is in its System.Web, the DLL looks in mscorlib). Grouped by from -> to.
 function retargetCard(r) {
   const apis = r.apis.filter(a => a.retargetedTo);

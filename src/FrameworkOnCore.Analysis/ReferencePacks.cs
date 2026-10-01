@@ -111,7 +111,7 @@ public static class ReferencePacks
         return Directory.Exists(root) ? Directory.GetFiles(root, "*.dll") : [];
     }
 
-    /// <summary>A package in a local feed (the fork's: _feed/&lt;id&gt;.&lt;version&gt;.nupkg), extracted into the cache.</summary>
+    /// <summary>A package in a local feed (FrameworkOnCore's: _feed/&lt;id&gt;.&lt;version&gt;.nupkg), extracted into the cache.</summary>
     public static IReadOnlyList<string> FeedPackage(string feed, string id, string version)
     {
         var nupkg = Path.Combine(feed, $"{id}.{version}.nupkg");
@@ -119,7 +119,7 @@ public static class ReferencePacks
         var folder = Path.Combine(toolsCache, "feed", id.ToLowerInvariant(), version.ToLowerInvariant());
         var stamp = Path.Combine(folder, ".stamp");
         var written = File.GetLastWriteTimeUtc(nupkg).Ticks.ToString();
-        // The fork's packages are rebuilt with the same version: extracted again when the file changed.
+        // FrameworkOnCore's packages are rebuilt with the same version: extracted again when the file changed.
         if (!File.Exists(stamp) || File.ReadAllText(stamp) != written)
         {
             if (Directory.Exists(folder)) Directory.Delete(folder, recursive: true);
@@ -131,7 +131,7 @@ public static class ReferencePacks
 
     /// <summary>
     /// The packages a feed's package depends on for .NET 10 (its nuspec's group for net10.0, else the nearest): what an
-    /// application referencing it has too (the fork's System.Web brings System.CodeDom).
+    /// application referencing it has too (FrameworkOnCore's System.Web brings System.CodeDom).
     /// </summary>
     public static IReadOnlyList<(string Id, string Version)> FeedDependencies(string feed, string id, string version)
     {

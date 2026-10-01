@@ -25,7 +25,7 @@
     <!-- The rewrites (SourceEdits, SourceLanguage) and the rules they read (rules\packages.json, copied here). -->
     <ProjectReference Include="..\..\src\FrameworkOnCore.Converter\FrameworkOnCore.Converter.csproj" />
     <ProjectReference Include="..\..\experiments\wf4c\shims\FrameworkOnCore.Compat\FrameworkOnCore.Compat.csproj" />
-    <!-- The LINQ to SQL port (the fork's System.Data.Linq): DataLinq\*Tests.cs. -->
+    <!-- The LINQ to SQL port (FrameworkOnCore's System.Data.Linq): DataLinq\*Tests.cs. -->
     <ProjectReference Include="..\..\WebFormsForCore\src\WebFormsForCore.Data.Linq\WebFormsForCore.Data.Linq.csproj" />
   </ItemGroup>
 
@@ -45,14 +45,14 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Every System.Drawing API against .NET Framework (Drawing\DrawingParityTests.cs): the cases (run here on the port,
-         the fork's System.Drawing.Common: its Windows build on Windows, its libgdiplus one on Linux), their goldens, the
+         FrameworkOnCore's System.Drawing.Common: its Windows build on Windows, its libgdiplus one on Linux), their goldens, the
          differences known with their reasons, what .NET added to the API. -->
     <ProjectReference Include="..\DrawingParity\DrawingParity.csproj" />
     <None Include="../DrawingParity/golden/*;../DrawingParity/known-differences.json;../DrawingParity/api-additions.txt" LinkBase="DrawingParityData" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
   <ItemGroup>
     <!-- The Chart control's port against .NET Framework (DataVisualization\DataVisualizationParityTests.cs): the cases'
-         program, built for net10.0 against the fork's packages and run in its own process (it needs the fork's System.Web
+         program, built for net10.0 against FrameworkOnCore's packages and run in its own process (it needs FrameworkOnCore's System.Web
          over .NET's facade of the same name), copied under DataVisualizationParityData\program; its goldens and known
          differences. -->
     <ProjectReference Include="..\DataVisualizationParity\DataVisualizationParity.csproj" ReferenceOutputAssembly="false" SetTargetFramework="TargetFramework=net10.0" SkipGetTargetFrameworkProperties="true" />

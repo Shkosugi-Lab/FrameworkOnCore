@@ -8,7 +8,7 @@ namespace FrameworkOnCore.Converter;
 /// <summary>
 /// FrameworkOnCore.Converter analyze &lt;project&gt; --out &lt;dir&gt; [--root &lt;dir&gt;] [--configuration &lt;name&gt;] [--runtime &lt;dir&gt;]:
 /// the APIs of .NET Framework the application uses, with their counts, and what a converted application has of each
-/// on .NET 10: .NET's, the packages these rules add, the fork's (the feed), the compatibility assembly (the shims).
+/// on .NET 10: .NET's, the packages these rules add, FrameworkOnCore's (the feed), the compatibility assembly (the shims).
 /// Writes api-analysis.json (the data a UI reads), API-ANALYSIS.md, and foc-choices.json (the choices at their defaults).
 /// </summary>
 public static class AnalyzeCommand
@@ -50,13 +50,13 @@ public static class AnalyzeCommand
     }
 
     /// <summary>
-    /// The analysis of a project as a converted application would have it on .NET 10 (this converter's rules, the fork's
+    /// The analysis of a project as a converted application would have it on .NET 10 (this converter's rules, FrameworkOnCore's
     /// feed and the shims in <paramref name="runtimeDirectory"/>): for the command line, and for Studio.
     /// </summary>
     public static AnalysisResult Analyze(string project, string root, string configuration, string runtimeDirectory, Action<string>? log = null)
     {
         var rules = Rules.Load(Path.Combine(AppContext.BaseDirectory, "rules", "packages.json"));
-        RuntimeSetup.EnsureFeed(runtimeDirectory, rules.ForkVersion, log);
+        RuntimeSetup.EnsureFeed(runtimeDirectory, rules.FrameworkOnCoreVersion, log);
         RuntimeSetup.EnsureShims(runtimeDirectory, log);
         var target = new TargetApis(TargetSources(rules, runtimeDirectory));
         // The packages the conversion replaces (replacedPackages, shimPackages) or drops: their DLLs are not run.
@@ -64,20 +64,20 @@ public static class AnalyzeCommand
         return new ApiAnalyzer(target, Catalog.Default(), converted).Analyze(project, root, configuration, log);
     }
 
-    // What a converted application has, the fork's first (its System.Web, its System.Drawing facade), then the
+    // What a converted application has, FrameworkOnCore's first (its System.Web, its System.Drawing facade), then the
     // compatibility assembly, the packages the rules add, .NET's own.
     static IEnumerable<(string Where, IEnumerable<string> Files)> TargetSources(Rules rules, string runtimeDirectory)
     {
         var feed = Path.Combine(runtimeDirectory, "_feed");
-        // The packages the fork's depend on (System.CodeDom, System.Configuration.ConfigurationManager): the application has them.
-        var forkDependencies = new List<Package>();
+        // The packages FrameworkOnCore's depend on (System.CodeDom, System.Configuration.ConfigurationManager): the application has them.
+        var frameworkOnCoreDependencies = new List<Package>();
         if (Directory.Exists(feed))
         {
-            foreach (var nupkg in Directory.EnumerateFiles(feed, $"*.{rules.ForkVersion}.nupkg"))
+            foreach (var nupkg in Directory.EnumerateFiles(feed, $"*.{rules.FrameworkOnCoreVersion}.nupkg"))
             {
-                var id = Path.GetFileName(nupkg)[..^($".{rules.ForkVersion}.nupkg".Length)];
-                yield return ($"fork:{id}", ReferencePacks.FeedPackage(feed, id, rules.ForkVersion));
-                forkDependencies.AddRange(ReferencePacks.FeedDependencies(feed, id, rules.ForkVersion).Select(d => new Package(d.Id, d.Version)));
+                var id = Path.GetFileName(nupkg)[..^($".{rules.FrameworkOnCoreVersion}.nupkg".Length)];
+                yield return ($"frameworkoncore:{id}", ReferencePacks.FeedPackage(feed, id, rules.FrameworkOnCoreVersion));
+                frameworkOnCoreDependencies.AddRange(ReferencePacks.FeedDependencies(feed, id, rules.FrameworkOnCoreVersion).Select(d => new Package(d.Id, d.Version)));
             }
         }
         // Each shim project's build output (<shim>/bin/Debug/net10.0/<shim>.dll): the converted projects reference them.
@@ -86,7 +86,7 @@ public static class AnalyzeCommand
             .Concat(rules.FrameworkCompanions.Values.SelectMany(p => p))
             .Concat(rules.SourcePackages.Select(s => s.Package))
             .Concat(rules.ReplacedPackages.Values)
-            .Concat(forkDependencies)
+            .Concat(frameworkOnCoreDependencies)
             .Where(p => !p.Id.StartsWith("WebFormsForCore.", StringComparison.OrdinalIgnoreCase))
             .DistinctBy(p => p.Id, StringComparer.OrdinalIgnoreCase);
         foreach (var package in packages)

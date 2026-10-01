@@ -71,7 +71,7 @@ public sealed class DeployWriter(Report report, string outRoot, string runtimeDi
 
     /// <summary>
     /// What in the site draws with System.Drawing (GDI+, libgdiplus on Linux): its assemblies that reference System.Drawing
-    /// or System.Drawing.Common, not the fork's own (System.Web's references are its types', Color and the like, not
+    /// or System.Drawing.Common, not FrameworkOnCore's own (System.Web's references are its types', Color and the like, not
     /// drawing) nor .NET's System.Windows.Extensions (in every site, a dependency of the configuration's packages: its
     /// System.Drawing members are Windows' certificate dialogs and sounds), and pages whose markup or App_Code names
     /// System.Drawing (compiled on the server).
@@ -247,7 +247,7 @@ public sealed class DeployWriter(Report report, string outRoot, string runtimeDi
             """);
         if (gdiplus)
             text.Append("""
-                # System.Drawing's Linux implementation (the fork's System.Drawing.Common) draws with libgdiplus; the fonts
+                # System.Drawing's Linux implementation (FrameworkOnCore's System.Drawing.Common) draws with libgdiplus; the fonts
                 # have the metrics of Windows' Arial, Times New Roman and Courier New (fontconfig maps those names to them).
                 RUN apt-get update && apt-get install -y --no-install-recommends libgdiplus fonts-liberation2 && rm -rf /var/lib/apt/lists/*
 

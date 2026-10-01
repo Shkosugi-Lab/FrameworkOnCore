@@ -37,7 +37,7 @@ public sealed record DllCallReplacement(string Assembly, string In, string Call,
 /// </summary>
 public sealed record Rules
 {
-    public required string ForkVersion { get; init; }
+    public required string FrameworkOnCoreVersion { get; init; }
     public required IReadOnlyList<string> WebPackages { get; init; }
     public required IReadOnlyDictionary<string, Package> ReplacedPackages { get; init; }
     public required IReadOnlySet<string> DroppedPackages { get; init; }
@@ -158,8 +158,8 @@ public sealed record Rules
     {
         using var document = JsonDocument.Parse(File.ReadAllText(path), new JsonDocumentOptions { CommentHandling = JsonCommentHandling.Skip });
         var root = document.RootElement;
-        var fork = root.GetProperty("forkVersion").GetString()!;
-        string Version(string v) => v == "$fork" ? fork : v;
+        var packagesVersion = root.GetProperty("frameworkOnCoreVersion").GetString()!;
+        string Version(string v) => v == "$frameworkoncore" ? packagesVersion : v;
         Package PackageOf(JsonElement pair) => new(pair[0].GetString()!, Version(pair[1].GetString()!));
         Dictionary<string, Package> Map(string name) =>
             root.GetProperty(name).EnumerateObject().ToDictionary(p => p.Name, p => PackageOf(p.Value), StringComparer.OrdinalIgnoreCase);
@@ -169,7 +169,7 @@ public sealed record Rules
 
         return new Rules
         {
-            ForkVersion = fork,
+            FrameworkOnCoreVersion = packagesVersion,
             WebPackages = root.GetProperty("webPackages").EnumerateArray().Select(e => e.GetString()!).ToList(),
             ReplacedPackages = Map("replacedPackages"),
             DroppedPackages = Set("droppedPackages"),

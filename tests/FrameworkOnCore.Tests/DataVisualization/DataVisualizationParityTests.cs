@@ -5,12 +5,12 @@ using FrameworkOnCore.Tests.Parity;
 namespace FrameworkOnCore.Tests.DataVisualization;
 
 /// <summary>
-/// The Chart control's port (the fork's System.Web.DataVisualization) against .NET Framework's, API by API: the cases of
+/// The Chart control's port (FrameworkOnCore's System.Web.DataVisualization) against .NET Framework's, API by API: the cases of
 /// tests/DataVisualizationParity, run on the port, must observe what they observed on .NET Framework 4.8
 /// (tests/DataVisualizationParity/golden, record.ps1), but for the differences known and explained
 /// (known-differences.json); pictures and fonts as the System.Drawing suite compares them (ParityComparison). The cases
-/// run in their own process (the program, built for net10.0 against the fork's packages, as converted applications
-/// reference them: the fork's System.Web over .NET's facade of the same name, which this process keeps), once, for
+/// run in their own process (the program, built for net10.0 against FrameworkOnCore's packages, as converted applications
+/// reference them: FrameworkOnCore's System.Web over .NET's facade of the same name, which this process keeps), once, for
 /// every test here. Also: the port has exactly .NET Framework's API, every exclusion excludes something, and the port
 /// has no Debug.Assert.
 /// </summary>

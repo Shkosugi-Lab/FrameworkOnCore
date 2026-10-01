@@ -16,12 +16,12 @@ namespace FrameworkOnCore.Converter;
 /// not have it on .NET 10, where another assembly of the application or of .NET does: the reference is retargeted to
 /// that assembly. A DLL built for .NET Framework names the assembly a type was in there
 /// ([mscorlib]System.Runtime.Remoting.Messaging.CallContext); .NET has many of those types elsewhere, or not at all
-/// and the fork or the compatibility assembly gives them (CallContext: the fork's System.Web). Source is compiled
+/// and FrameworkOnCore's WebFormsForCore or the compatibility assembly gives them (CallContext: FrameworkOnCore's System.Web). Source is compiled
 /// again and finds them by name; a DLL is bound by assembly and type, and fails with TypeLoadException when used.
 ///
 /// Any assembly, not only mscorlib: a reference is resolved as the runtime does (the assembly by name, then the type
 /// in it or where it forwards it); one that does not resolve goes to the one assembly with a public type of that
-/// name (the fork's, the shims' and the compatibility assembly's first, then the application's, then .NET's). One
+/// name (FrameworkOnCore's, the shims' and the compatibility assembly's first, then the application's, then .NET's). One
 /// that none has is reported: it throws when that code runs. An assembly reference to a later version than the
 /// application has is lowered to it (what web.config's bindingRedirect did on .NET Framework).
 /// </summary>
@@ -49,7 +49,7 @@ public sealed class AssemblyRetargeter
     readonly Resolver resolver;
 
     /// <param name="application">The application's assemblies (a bin folder).</param>
-    /// <param name="preferred">The names of the assemblies that exist to give .NET Framework's types (the fork's, the shims').</param>
+    /// <param name="preferred">The names of the assemblies that exist to give .NET Framework's types (FrameworkOnCore's, the shims').</param>
     public AssemblyRetargeter(string application, ISet<string> preferred)
     {
         foreach (var directory in FrameworkDirectories())
@@ -404,7 +404,7 @@ public sealed class AssemblyRetargeter
         return missing;
     }
 
-    /// <summary>The assemblies of the fork's packages (the feed's nupkgs) and of the shim projects: they give .NET Framework's types.</summary>
+    /// <summary>The assemblies of FrameworkOnCore's packages (the feed's nupkgs) and of the shim projects: they give .NET Framework's types.</summary>
     public static HashSet<string> PreferredAssemblies(string feed, IEnumerable<string> shimProjects)
     {
         var names = new HashSet<string>(StringComparer.OrdinalIgnoreCase) { "FrameworkOnCore.Compat" };

@@ -1,7 +1,7 @@
 # 新しい変換器の設計: .NET Framework の Web アプリを Linux で動かす(2026-09-26)
 
 方針転換(Blazor 化 → 「.NET Framework アプリを Windows Server でなく Linux で動かす」)後の変換器の設計。
-根拠は `experiments/wf4c/`(WebFormsForCore のフォークで、サンプル 4 つ・wt・be をソースを変えずに動かした実験)。
+根拠は `experiments/wf4c/`(WebFormsForCore に手を入れて、サンプル 4 つ・wt・be をソースを変えずに動かした実験)。
 
 ## 1. 目的と範囲
 
@@ -16,7 +16,7 @@
 
 | 差の種類 | 吸収する場所 | 実験での例 |
 |---|---|---|
-| System.Web の振る舞いの差(ポートの不具合・未実装、IIS との差) | ランタイム(WebFormsForCore のフォーク) | Response.Headers(0002)、既定参照(0005)、App_GlobalResources(0006)、IHtmlString(0007) |
+| System.Web の振る舞いの差(ポートの不具合・未実装、IIS との差) | ランタイム(FrameworkOnCore で保守している WebFormsForCore) | Response.Headers(0002)、既定参照(0005)、App_GlobalResources(0006)、IHtmlString(0007) |
 | .NET で型ごと無くなったもの(アセンブリ・型) | 互換アセンブリ(`shims/`)。同じ名前で実装し、変換器は参照を足すだけ。ソースの無い .NET Framework 向け DLL にも効く | System.Net.Http.WebRequest。候補: Remoting の `CallContext` など |
 | プロジェクト・パッケージ・ホストの差 | 変換器(生成物) | SDK 形式、パッケージの置き換え、`bin` 出力、既定のドキュメント |
 | .NET で既存の型のメンバーが無くなったもの | 互換アセンブリ内の C# 14 の拡張メンバー(メソッド、プロパティ、静的メンバー)+ 変換器が `global using` を足す(呼び出し箇所は書き換えない) | `AppDomain.DefineDynamicAssembly`(DefaultsProbe、n2) |
@@ -111,7 +111,7 @@
 
 Windows でしか動かないものを検出する。書き換えられるものは書き換え、残りは報告する。
 
-- パスの大文字小文字: 変換器ではなくランタイムが扱う(フォーク 0008)。
+- パスの大文字小文字: 変換器ではなくランタイムが扱う(旧パッチ 0008)。
   - IIS と同じく、仮想パスから物理パスへの変換と設定ファイルの読み込みで、大文字小文字を区別せずに実在の名前を探す。
   - 外部から来る URL にも効く。
   - 変換器が扱うのは、アプリが物理パスを自分で組み立てる箇所(`Path.Combine(AppDomainAppPath, "app_data")` など)と、`\` の区切りの報告。
@@ -133,12 +133,12 @@ Windows でしか動かないものを検出する。書き換えられるもの
 
 | 対象 | ランタイム | 状態 |
 |---|---|---|
-| Web Forms | WebFormsForCore のフォーク(`WebFormsForCore/`。当時のパッチ 0001–0007)と互換アセンブリ(`shims/`) | Windows で wt・be・サンプルが動作 |
+| Web Forms | WebFormsForCore(`WebFormsForCore/`。当時のパッチ 0001–0007)と互換アセンブリ(`shims/`) | Windows で wt・be・サンプルが動作 |
 | Web API 2 | .NET Framework 版の DLL のまま、ポートした System.Web の上で動かす | be でビルドと起動を確認。API の動作は未検証 |
 | MVC 5 | まず .NET Framework 版の DLL のまま試す。動かなければ AspNetWebStack(Apache 2.0)をポートする | 未着手。be の Web Pages(Razor)が DLL のまま動いたので見込みはある |
 | WCF | CoreWCF(MIT)に載せる。.svc は ServiceHost の登録に、system.serviceModel はコードに変換する。対応しないもの(WSDualHttp、メッセージセキュリティ、トランザクション)は報告する | 未着手 |
 
-- フォークの配布: パッケージ(1.6.5-w2l.x)を GitHub Release(`fork-<版>`、`experiments/wf4c/publish-fork.ps1`)に置き、変換器・解析・Studio が `_feed` に無ければ取得する(`RuntimeSetup`)。上流への還元(PR)を並行して検討する。0005〜0007 は上流の不具合そのものなので還元しやすい。
+- FrameworkOnCore のパッケージの配布: パッケージ(1.6.5-w2l.x)を GitHub Release(`frameworkoncore-<版>`、`experiments/wf4c/publish-frameworkoncore.ps1`)に置き、変換器・解析・Studio が `_feed` に無ければ取得する(`RuntimeSetup`)。上流への還元(PR)を並行して検討する。0005〜0007 は上流の不具合そのものなので還元しやすい。
 - ライセンス: WebFormsForCore と referencesource は MIT、AspNetWebStack は Apache 2.0、CoreWCF は MIT。
 
 ## 5. VB への対応
@@ -161,9 +161,9 @@ Windows でしか動かないものを検出する。書き換えられるもの
 ## 7. 検証
 
 - コーパスは be と wt だけ(CLAUDE.md)。加えてリポジトリ内のサンプル 4 つ(ProductAdmin、OrderAdmin、MasterProbe、DefaultsProbe)。
-- 変換器やフォークを直したら、類似の問題がほかの場所で起きないか調べる(CLAUDE.md)。実験では次のように機械的に照合した。
+- 変換器や `WebFormsForCore/` を直したら、類似の問題がほかの場所で起きないか調べる(CLAUDE.md)。実験では次のように機械的に照合した。
   - 0005: .NET Framework のファサードの型転送先を列挙した。
-  - 0007: .NET Framework 4.8 の参照アセンブリとフォークの公開型を比較した。
+  - 0007: .NET Framework 4.8 の参照アセンブリと FrameworkOnCore の System.Web の公開型を比較した。
 - Linux: Docker(mcr.microsoft.com/dotnet/sdk:10.0)でビルドと実行を行い、ホストの ParityTest から比較する。
 
 ## 8. 既知の差と未解決の点
@@ -171,7 +171,7 @@ Windows でしか動かないものを検出する。書き換えられるもの
 - 浮動小数の書式: `double` の 22.5 を通貨書式にすると .NET Framework は ¥23、.NET は ¥22(wt)。ランタイムでは直せないので、該当する書式呼び出しを報告する。
 - AssemblyResolve に渡る名前(.NET は完全名): 0006 で BuildManager を直した。アプリ自身の AssemblyResolve ハンドラーにも同じ差がありうるので、検出して報告する規則を入れる。
 - BinaryFormatter: .NET 9 以降は既定で例外になる。be はビルドの警告を抑止しただけで、実行時の使われ方は未確認。
-- フォークのビルド: 変更後の最初のビルドで Web.Extensions が CS7069 になることがあり、2 回目で通る(pack-fork.ps1 で 1 回だけ再試行)。原因は未調査。
+- `WebFormsForCore/` のビルド: 変更後の最初のビルドで Web.Extensions が CS7069 になることがあり、2 回目で通る(pack-frameworkoncore.ps1 で 1 回だけ再試行)。原因は未調査。
 - **互換アセンブリの網羅(残課題、2026-09-27 決定)**: .NET で型ごと無くなったものは、基本的にすべて互換アセンブリで用意する。進め方:
   1. 一覧を機械的に作る。.NET Framework 4.8 の参照アセンブリの公開型から、次のものを除く。
      - .NET 10 の標準ライブラリにあるもの(型転送を含む)
@@ -189,7 +189,7 @@ Windows でしか動かないものを検出する。書き換えられるもの
   - 報告のみ(リフレクションや `dynamic` 経由の呼び出し、ソースの無い DLL からの呼び出し)
 
   ソースの無い DLL が .NET に無いメンバーを呼ぶ場合(型はある: `MissingMethodException`)は、変換器がその呼び出しを互換アセンブリの拡張メンバーに置き換える(`AssemblyRetargeter.ReplaceMembers`、2026-09-30)。C# 14 の拡張メンバーは静的メソッド(インスタンスのメンバーは受け手が最初の引数)にコンパイルされるので、`callvirt T::M(args)` を `call Members::M(T, args)` に、静的なものは静的なものに変える(スタックの並びは同じ)。拡張される型は、拡張ブロックのマーカー型の `<Extension>$(receiver)` から読む。基底の型の拡張メンバーでもよい。置き換えられないもの(コンストラクター、ジェネリックなメンバー、`constrained.` 付きの呼び出し、デリゲートの作成)と、互換アセンブリにも無いものはレポートに出す。ソースと DLL の両方に効くので、.NET に無いメンバーは互換アセンブリに拡張メンバーとして足せばよい。
-- **ソースの無い DLL の型参照の付け替え(`AssemblyRetargeter`、2026-09-30)**: DLL は型を「アセンブリ+型名」で参照する。.NET Framework で mscorlib・System.Security などにあった型が、.NET では別のアセンブリにあるか、フォーク・互換アセンブリだけが持つ場合(`[mscorlib]CallContext` → フォークの System.Web)、その参照は実行時に解決しない(`TypeLoadException`)。変換器はビルドの後、bin のソースの無い DLL(パッケージ・リポジトリ・配置済みサイトのもの)の型参照を実行時と同じ手順(アセンブリ名 → 定義 → 型の転送)で解決し、解決しないものをその型を public で持つアセンブリに付け替える(優先: フォーク・shim・互換アセンブリ → アプリ → .NET)。どのアセンブリへの参照でも同じ。アプリにある版より新しい版への参照は、その版に下げる(.NET Framework の bindingRedirect に当たり、.NET は web.config の bindingRedirect を読まない)。書き換えた DLL は出力の `foc-retargeted` に置き、各プロジェクトのターゲット `FocUseRetargetedAssemblies` がコピーの前に元の DLL と差し替える。どこにも無い型への参照はレポートに出す。
+- **ソースの無い DLL の型参照の付け替え(`AssemblyRetargeter`、2026-09-30)**: DLL は型を「アセンブリ+型名」で参照する。.NET Framework で mscorlib・System.Security などにあった型が、.NET では別のアセンブリにあるか、FrameworkOnCore・互換アセンブリだけが持つ場合(`[mscorlib]CallContext` → FrameworkOnCore の System.Web)、その参照は実行時に解決しない(`TypeLoadException`)。変換器はビルドの後、bin のソースの無い DLL(パッケージ・リポジトリ・配置済みサイトのもの)の型参照を実行時と同じ手順(アセンブリ名 → 定義 → 型の転送)で解決し、解決しないものをその型を public で持つアセンブリに付け替える(優先: FrameworkOnCore・shim・互換アセンブリ → アプリ → .NET)。どのアセンブリへの参照でも同じ。アプリにある版より新しい版への参照は、その版に下げる(.NET Framework の bindingRedirect に当たり、.NET は web.config の bindingRedirect を読まない)。書き換えた DLL は出力の `foc-retargeted` に置き、各プロジェクトのターゲット `FocUseRetargetedAssemblies` がコピーの前に元の DLL と差し替える。どこにも無い型への参照はレポートに出す。
 
 ## 9. 次の作業
 
@@ -199,10 +199,10 @@ Windows でしか動かないものを検出する。書き換えられるもの
    - 6 本のコーパスすべてでビルドが通る。
    - 実行時の課題は experiments/wf4c/README.md に記録した: mojo の web.config の assemblies、yaf の Web API 2(AspNetWebStack の移植が要る)、dnn のプロバイダーの配置と DB、n2 の管理画面の配置。
    - (済)アプリの構成は、元のビルドが配置したサイトから取る(`--site`)。元のビルドは、リポジトリのビルドスクリプトをそのまま動かす。Cake(Frosting、スクリプト)は変換器が汎用に実行する(`--build-original`)。dnn はこれでインストールウィザードまで表示できた。
-   - (済)アプリの再起動(web.config の変更など)は、プロセスを終了コード 75 で終え、スーパーバイザーが起動し直す(フォーク 0016)。生成する Dockerfile には再起動の方針(`--restart`)を含める。
-   - (済)アプリは作業プロセスの中で bin のコピーから動き、再起動では新しいコピーから起動し直す(フォーク 0018。ASP.NET のシャドウコピーと w3wp に当たる)。
+   - (済)アプリの再起動(web.config の変更など)は、プロセスを終了コード 75 で終え、スーパーバイザーが起動し直す(旧パッチ 0016)。生成する Dockerfile には再起動の方針(`--restart`)を含める。
+   - (済)アプリは作業プロセスの中で bin のコピーから動き、再起動では新しいコピーから起動し直す(旧パッチ 0018。ASP.NET のシャドウコピーと w3wp に当たる)。
    - (済)ビルドスクリプトの無いリポジトリは、ソリューションを Visual Studio と同じ方法でビルドする(変換器に移した)。dnn は Windows でインストールが完了し、トップページが表示される。
-   - (済)配置: 変換器がコンテナ(Dockerfile)と Linux のマシン(systemd の install.sh)の両方を出力する(`--deploy`)。設定は環境変数(Azure App Service と同じ名前、フォーク 0022)。mojo はどちらの方法でも動いた。
+   - (済)配置: 変換器がコンテナ(Dockerfile)と Linux のマシン(systemd の install.sh)の両方を出力する(`--deploy`)。設定は環境変数(Azure App Service と同じ名前、旧パッチ 0022)。mojo はどちらの方法でも動いた。
    - 次: Windows のパスを前提にしたコード(バックスラッシュの区切り)の書き換え。dnn は Linux で起動するが、パスが `\app\web.config` になる。Roslyn の意味モデルで、ファイルシステムの API に流れる文字列と、区切りを置き換える式(`Replace("/", "\\")`)を特定して書き換える。正規表現やエスケープの文字列には触れない。
 3. VB 対応(VBCompiler のファサード、vbproj)。
 4. MVC 5(DLL のまま動くかの確認から)、Web API の動作確認、WCF(CoreWCF)。

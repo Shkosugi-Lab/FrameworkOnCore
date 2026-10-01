@@ -4,7 +4,7 @@ using FrameworkOnCore.Converter;
 namespace FrameworkOnCore.Tests;
 
 /// <summary>
-/// The fork's packages come from the release asset (a zip) when the feed does not have the version; a feed that has it
+/// FrameworkOnCore's packages come from the release asset (a zip) when the feed does not have the version; a feed that has it
 /// (built locally) is left as it is.
 /// </summary>
 public sealed class RuntimeSetupTests : IDisposable
@@ -15,7 +15,7 @@ public sealed class RuntimeSetupTests : IDisposable
 
     string Zip(params string[] names)
     {
-        var zip = Path.Combine(directory, "fork-feed.zip");
+        var zip = Path.Combine(directory, "frameworkoncore-feed.zip");
         using var archive = ZipFile.Open(zip, ZipArchiveMode.Create);
         foreach (var name in names)
             using (var writer = new StreamWriter(archive.CreateEntry(name).Open())) writer.Write("released");

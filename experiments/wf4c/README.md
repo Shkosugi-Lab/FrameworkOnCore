@@ -35,12 +35,12 @@
 - **上流のソースからのビルド**は `src/WebFormsForCore.Build` を先にビルドする必要がある
   (`lib/WebFormsForCore.Build/.../FakeStrongName.targets` を出力する)。
 
-フォークは、リポジトリのトップレベルの `WebFormsForCore/` にある(2026-10-01 から。下の「フォークをリポジトリに取り込む」)。それまでは `_upstream/`(上流の浅いクローン、Git 管理外)に `patches/` を当てていた。以下の記録の「パッチ」の番号は、その時の番号(今は `WebFormsForCore/` の同じ件名のコミット)。
+フォークは、リポジトリのトップレベルの `WebFormsForCore/` にある(2026-10-01 から。下の「フォークをリポジトリに取り込む」)。それまでは `_upstream/`(上流の浅いクローン、Git 管理外)に `patches/` を当てていた。以下の記録の「フォーク」は今の `WebFormsForCore/`(FrameworkOnCore で保守している WebFormsForCore)、「パッチ」の番号はその時の番号(今は `WebFormsForCore/` の同じ件名のコミット)。スクリプトなどの名前は 2026-10-01 に「fork」から「frameworkoncore」に改めた(`pack-frameworkoncore.ps1`、`publish-frameworkoncore.ps1`、`frameworkoncore.slnx`、`frameworkOnCoreVersion`、Release のタグ `frameworkoncore-<版>`)。
 
 ## フォーク(2026-09-26、`_upstream` のローカルブランチ `w2l/dynamicdata`)
 
 上流 WebFormsForCore の main(1.6.4 相当)に対する修正。当時は `patches/` に `git format-patch` の形で置いていた。
-`pack-fork.ps1` で `1.6.5-w2l.3` として `_feed/` にパッケージ化し、テンプレートはそれを参照する。
+`pack-frameworkoncore.ps1` で `1.6.5-w2l.3` として `_feed/` にパッケージ化し、テンプレートはそれを参照する。
 
 | パッチ | 内容 | 必要になった場面 |
 |---|---|---|
@@ -80,8 +80,8 @@
 - System.Web.RegularExpressions では事前コンパイルされた正規表現クラスが無い。
 - System.Drawing では System.Drawing.Design(デザイナー用)が無い。
 
-フォークのビルドは `pack-fork.ps1 -Build All`(`fork.slnx`)で行う。WebFormsForCore.Build は先に一度だけビルドしておく。
-fork.slnx に含めると、読み込み済みのタスク DLL とコピーがぶつかって失敗する。
+フォークのビルドは `pack-frameworkoncore.ps1 -Build All`(`frameworkoncore.slnx`)で行う。WebFormsForCore.Build は先に一度だけビルドしておく。
+frameworkoncore.slnx に含めると、読み込み済みのタスク DLL とコピーがぶつかって失敗する。
 
 ## 互換アセンブリ(`shims/`)
 
@@ -232,7 +232,7 @@ referencesource(MIT)の System.Data.Linq を、フォークの新プロジェク
 - **全 API の新旧比較**(2026-09-30、`tests/DataLinqParity`): System.Data.Linq の公開・protected の全 API(486 のドキュメント ID)を対象に、53 ケース・約 1,900 の観測値(戻り値、例外の型とメッセージ、生成 SQL とパラメーター、DB の状態、Log)。同じソースを net48(旧 = .NET Framework の本物)と net10.0(新 = 移植版)でビルドし、旧で採ったゴールデン(`record.ps1`)と新を xUnit で 1 ケースずつ比べる(`DataLinqParityTests`)。あわせて (1) 移植版の API 一覧が .NET Framework と完全一致、(2) 全 API にケースがある(ケースのソースを Roslyn で束縛して機械的に照合。漏れがあれば失敗)、(3) 移植版に Debug.Assert が無い、を検査する。Windows(SQL Server Express)・Linux(SQL Server 2022 のコンテナ)とも全件一致。
   - 正規化は、LINQ to SQL ではなくランタイム・SQL クライアント・サーバーの差に限る: 改行、引数例外の定型文(パラメーター名は別に記録)、double の表記(正確な 10 進展開を 17 桁で切り捨て。G17 は両ランタイムで末尾の丸めが違う)、FormatException の文言、SQL Server のエラー(番号で記録)と情報メッセージ(サーバーの言語)、Log の Build 番号。日付を文字列にする CONVERT の結果はサーバーの言語で変わるので SQL だけを比べる。
 - **見つけたこと(新旧比較)**: 移植版は `DEBUG` 付きでビルドされていて、referencesource の Debug.Assert 150 か所が生きていた。`DataContext.Translate(DbDataReader)` の結果の GetResult で SingleResult の Assert(実行結果がある前提)が失敗し、**.NET ではプロセスが終了する**(.NET Framework の出荷版では Assert はコンパイルされていない)。移植版は構成によらず `DEBUG` を外す(フォーク 0033)。
-  - **類似の問題の調査**: フォーク全体が Debug 構成でパッケージされていて、出荷 DLL に Debug.Assert/Fail の呼び出しが約 630 か所あった(System.Web 79、System.Web.Extensions 111、Serialization.Formatters 141、WebGrease 70、DynamicData 51 など。Mono.Cecil で IL を数えた)。どれも失敗すれば本番でプロセスが落ちる。`pack-fork.ps1` を Release 構成に変えた(元の .NET Framework・上流の配布と同じ)。`1.6.5-w2l.5` で全パッケージ 0 か所。be Windows 5/5・Linux 5/5、wt Windows 6/8・Linux 5/8(いずれも以前と同じ既知の差のみ)、テスト 154 件が Windows・Linux とも緑。
+  - **類似の問題の調査**: フォーク全体が Debug 構成でパッケージされていて、出荷 DLL に Debug.Assert/Fail の呼び出しが約 630 か所あった(System.Web 79、System.Web.Extensions 111、Serialization.Formatters 141、WebGrease 70、DynamicData 51 など。Mono.Cecil で IL を数えた)。どれも失敗すれば本番でプロセスが落ちる。`pack-frameworkoncore.ps1` を Release 構成に変えた(元の .NET Framework・上流の配布と同じ)。`1.6.5-w2l.5` で全パッケージ 0 か所。be Windows 5/5・Linux 5/5、wt Windows 6/8・Linux 5/8(いずれも以前と同じ既知の差のみ)、テスト 154 件が Windows・Linux とも緑。
   - MVC(Release のフォーク、2026-09-30): mvcmovie Windows 11/12・Linux 11/12(以前と同じ。差は .NET Framework の日本語の言語パックの検証メッセージのみ)。nop390 Windows: インストーラー、店頭 12 画面、カート、管理画面(一覧の JSON、編集、注文、設定)がすべて 200。
   - **nop390 を初めて Linux で(変換器が書いた Dockerfile のイメージ)**: インストーラーが `The type initializer for 'Windows.Win32.PInvokeGdiPlus' threw an exception` で失敗する(サンプルデータなしでも。既定の画像を System.Drawing で処理する)。Windows でインストールした DB を移して(SQL Server Express 2025 のバックアップは 2022 に戻せないので 2025 のコンテナ)起動すると、店頭 12 画面・カート・管理画面は Windows と同じくすべて 200。Windows で作られたサムネイルは配信されるが、新しいサイズのサムネイルの生成は同じ GDI+ の例外で失敗する。**nop390 の Linux の残りは System.Drawing(libgdiplus の選択肢、カタログの `system-drawing:libgdiplus` が planned)だけ**。
   - 検証の手順の注意: Windows で起動したアプリを親プロセスの Stop-Process で止めても、再起動後のワーカー(フォーク 0016・0018)が残って同じポートで待ち受ける。後の検証の要求がそちらに届いたので、止めるときはポートの待ち受けプロセスを止める。
@@ -285,9 +285,9 @@ Chart コントロール(referencesource の System.Web.DataVisualization、MIT)
 
 - 取り込み: 上流 22c7d354(当時の main の先頭)を `git subtree add --prefix=WebFormsForCore`(上流の履歴 441 コミット)。上流のサブモジュールの参照(`src/WebFormsForCore.AjaxControlToolkit`、`www`)は外し、Ajax Control Toolkit は上流が指していた c9952ac6 を `WebFormsForCore/src/WebFormsForCore.AjaxControlToolkit` に同じく subtree で取り込んだ(2,396 コミット)。`www`(上流の Web サイト)は取り込まない。
 - パッチ 0001〜0036・0038〜0040 を `git am --directory=WebFormsForCore` でコミットとして積み、0037(サブモジュールの参照の更新)の代わりに Ajax Control Toolkit のパッチを `--directory=WebFormsForCore/src/WebFormsForCore.AjaxControlToolkit` で当てた。作者・日付・件名は元のまま。結果は `_upstream` の木と、サブモジュールの 2 か所を除いて同一(Ajax Control Toolkit の木も同一)。
-- `patches/` と、パッチから作る `setup-fork.ps1` は消した。`fork.slnx`、`pack-fork.ps1`、`publish-fork.ps1`(リリースの説明に、上流のどのコミットから取り込んだかを subtree の記録から書く)、テストのプロジェクト参照、`run-tests-linux.ps1`、リソースの生成スクリプトは `WebFormsForCore/` を指す。`pack-fork.ps1 -Build All` は、`lib/WebFormsForCore.Build`(ビルドの出力で Git 管理外)が無ければ先にビルドする。
+- `patches/` と、パッチから作る `setup-fork.ps1` は消した。`frameworkoncore.slnx`、`pack-frameworkoncore.ps1`、`publish-frameworkoncore.ps1`(リリースの説明に、上流のどのコミットから取り込んだかを subtree の記録から書く)、テストのプロジェクト参照、`run-tests-linux.ps1`、リソースの生成スクリプトは `WebFormsForCore/` を指す。`pack-frameworkoncore.ps1 -Build All` は、`lib/WebFormsForCore.Build`(ビルドの出力で Git 管理外)が無ければ先にビルドする。
 - 上流の更新の取り込み: `git subtree pull --prefix=WebFormsForCore https://github.com/webformsforcore/WebFormsForCore.git main`(Ajax Control Toolkit は `--prefix=WebFormsForCore/src/WebFormsForCore.AjaxControlToolkit` とそのリポジトリ)。上流に返すときは、`WebFormsForCore/` の変更のコミットだけを `git subtree split` で取り出せる(フォークの変更と変換器の変更はコミットを分ける)。
-- GitHub Actions(`.github/workflows/fork.yml`): `WebFormsForCore/` などを変える push で、Windows でパッケージを作り、.NET SDK のコンテナで Linux のテストを走らせ、版の Release がまだ無ければ置く。Windows のテストはゴールデンがこの開発機のもの(日本語の Windows、GDI+ とフォント、IIS、SQL Server Express)なので Actions では走らせない。
+- GitHub Actions(`.github/workflows/frameworkoncore-packages.yml`): `WebFormsForCore/` などを変える push で、Windows でパッケージを作り、.NET SDK のコンテナで Linux のテストを走らせ、版の Release がまだ無ければ置く。Windows のテストはゴールデンがこの開発機のもの(日本語の Windows、GDI+ とフォント、IIS、SQL Server Express)なので Actions では走らせない。
 - 確認: `WebFormsForCore/` から作ったパッケージ 18 個は、それまでの `_feed` のものと DLL の一覧が同じで、大きさの差は 1 KiB 未満(ビルドのパスの長さ)。テスト Windows 2,823 件・Linux 2,804 件(SQL Server の要る 19 件はスキップ)がすべて緑。開発機の `_upstream/` はもう使わない(Git 管理外のまま残っている。消してよい)。
 
 ## カルチャのデータ(2026-09-26)
@@ -527,7 +527,7 @@ Windows 専用の API の置き換え(`platformReplacements`、FOC1006)に加え
 
 `rules/packages.json` の `noAnswer` に加えたもの: `System.Web.Extensions.Design`(Visual Studio のデザイナー)と `System.Windows.Forms`(デスクトップ)。web.config のページのコンパイルの `<assemblies>` にあると、読み込みに失敗して全ページが構成エラーになる(openIMIS)。ほかのコーパスではプロジェクトの参照にあるだけで、以前から黙って外していた(レポートに 1 行ずつ増える)。
 
-フォーク: Ajax Control Toolkit(サブモジュール `src/WebFormsForCore.AjaxControlToolkit`)もパッケージにする(`pack-fork.ps1`、`fork.slnx`)。openIMIS が使う。初回は `git submodule update --init src/WebFormsForCore.AjaxControlToolkit`。
+フォーク: Ajax Control Toolkit(サブモジュール `src/WebFormsForCore.AjaxControlToolkit`)もパッケージにする(`pack-frameworkoncore.ps1`、`frameworkoncore.slnx`)。openIMIS が使う。初回は `git submodule update --init src/WebFormsForCore.AjaxControlToolkit`。
 
 確認した結果:
 - 元のビルド: 5 本とも成功。
@@ -596,7 +596,7 @@ Windows はファイル名の大文字小文字を区別しない。アプリは
 - ライブラリだけで、既定と同じ結果になる(wt の 3 件の差は以前からの既知のもの)。照合をすべて外すと be は動かず、wt の `Admin` の承認が効かなくなる(大文字小文字の照合がそれを担っていた)。
 - 配置の `start.sh` で、ライブラリを読み込んだときに `WEBFORMSFORCORE_PATH_CASING=0` にした後も、be のコンテナは 5/5。
 
-フォークのパッケージ: Ajax Control Toolkit は net10.0 だけでビルド・パッケージにする(`pack-fork.ps1`)。ソリューションの中で net8.0 のビルドが CS7069 で失敗するようになった。`-f net10.0` でビルドし、`--no-restore` でパッケージにする(`TargetFrameworks` をグローバルプロパティで渡すと、参照先のプロジェクトまで net10.0 だけで復元され、そのパッケージが作れなくなる)。ソリューションのビルドの再試行は 3 回まで。
+フォークのパッケージ: Ajax Control Toolkit は net10.0 だけでビルド・パッケージにする(`pack-frameworkoncore.ps1`)。ソリューションの中で net8.0 のビルドが CS7069 で失敗するようになった。`-f net10.0` でビルドし、`--no-restore` でパッケージにする(`TargetFrameworks` をグローバルプロパティで渡すと、参照先のプロジェクトまで net10.0 だけで復元され、そのパッケージが作れなくなる)。ソリューションのビルドの再試行は 3 回まで。
 - arm64: CaseProbe(22 項目)が、エミュレーション(Docker Desktop)の arm64 の ASP.NET のイメージで、無しでは Linux、有りでは Windows の動き。be のコンテナを arm64 でビルドして 5/5(`start.sh` が linux-arm64 のライブラリを選ぶ)。見つけた問題: ライブラリの中で呼ぶ古い stat 関数(`__xstat64`)に構造体の版を `1` と書いていた。x86_64 の値で、aarch64 は `0`。arm64 ではすべての呼び出しが失敗し、何も探せていなかった。ビルドする CPU のヘッダーの `_STAT_VER` を使う。- 見つけた問題: glibc 2.35 でライブラリを読み込むと .NET のホストが起動しなかった(`Failed to resolve full path of the current executable`)。glibc の `realpath` には 2 つの版(GLIBC_2.2.5 と 2.3)があり、名前だけで探す `dlsym` が古い版を返した。古い版は結果の置き場所に NULL を受け付けない(.NET のホストは NULL で呼ぶ)。複数の版があるもの(`realpath`、`dlopen`)は版を指定して探す(`dlvsym`)。ほかの包む関数は版が 1 つだけ(Ubuntu 22.04・24.04、Debian 12 で確認)。
 - `install.sh` が systemd の無いマシン向けに示す起動のコマンドは、`/etc/<app>/environment`(root だけが読める)を別のユーザーで読もうとして失敗していた。root で読んでから `setpriv` でユーザーを切り替える形にした。
 全コーパスの変換し直しと確認(2026-09-29、フォーク 0027・0028、大文字小文字のライブラリの後):

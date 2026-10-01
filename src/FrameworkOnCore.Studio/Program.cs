@@ -8,7 +8,7 @@ using FrameworkOnCore.Studio;
 //   dotnet FrameworkOnCore.Studio.dll [--data <dir>] [--runtime <dir>] [--port 5300]
 //
 // --data     where the analyses are kept (default: %LOCALAPPDATA%/FrameworkOnCore/studio)
-// --runtime  the fork's feed and the shims (default: experiments/wf4c above the current folder or Studio), as the converter's
+// --runtime  FrameworkOnCore's feed and the shims (default: experiments/wf4c above the current folder or Studio), as the converter's
 // --port     the port on localhost (default 5300). Studio listens on localhost only: it reads the repositories it is given.
 
 string? data = null, runtime = null;

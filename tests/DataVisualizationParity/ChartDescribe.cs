@@ -13,7 +13,7 @@ namespace FrameworkOnCore.DataVisualizationParity
     /// properties of simple types (numbers, text, enums, colors, points and sizes), in name order, one line; an element it
     /// holds by its type and name, a collection by its count. Only the properties the chart's types declare: the ones
     /// they inherit from System.Web's controls (ClientID, Page...) are System.Web's, which its own tests cover, and
-    /// outside a web application (as here) the fork's System.Web has no configuration to answer them from; nor the Chart's
+    /// outside a web application (as here) FrameworkOnCore's System.Web has no configuration to answer them from; nor the Chart's
     /// BuildNumber, its assembly's version (Api.Chart.BuildNumber shows it). Fonts are
     /// left out of that line: the fonts installed decide
     /// them (Linux has other ones); a member returning a font is written by Describe, marked font dependent. Other values

@@ -22,20 +22,20 @@ param(
 )
 
 $ErrorActionPreference = 'Stop'
-$ForkVersion = '1.6.5-w2l.6'
+$FrameworkOnCoreVersion = '1.6.5-w2l.6'
 $msbuildNs = @{ m = 'http://schemas.microsoft.com/developer/msbuild/2003' }
 $msbuildUri = 'http://schemas.microsoft.com/developer/msbuild/2003'
 
 # packages.config ids with a .NET 10 answer: a replacement package, or nothing (dropped).
 $replacedPackages = @{
     # WebFormsForCore ships its own port of these (same assembly names, .NET 10).
-    'Microsoft.AspNet.Web.Optimization'          = @('WebFormsForCore.Web.Optimization', $ForkVersion)
-    'Microsoft.AspNet.Web.Optimization.WebForms' = @('WebFormsForCore.Web.Optimization.WebForms', $ForkVersion)
-    'WebGrease'                                  = @('WebFormsForCore.WebGrease', $ForkVersion)
-    'Microsoft.Web.Infrastructure'               = @('WebFormsForCore.Web.Infrastructure', $ForkVersion)
-    'AjaxControlToolkit'                         = @('WebFormsForCore.AjaxControlToolkit', $ForkVersion)
-    # System.Drawing.Common from NuGet is Windows only since .NET 7: the fork's has the Linux implementation.
-    'System.Drawing.Common'                      = @('WebFormsForCore.Drawing.Common', $ForkVersion)
+    'Microsoft.AspNet.Web.Optimization'          = @('WebFormsForCore.Web.Optimization', $FrameworkOnCoreVersion)
+    'Microsoft.AspNet.Web.Optimization.WebForms' = @('WebFormsForCore.Web.Optimization.WebForms', $FrameworkOnCoreVersion)
+    'WebGrease'                                  = @('WebFormsForCore.WebGrease', $FrameworkOnCoreVersion)
+    'Microsoft.Web.Infrastructure'               = @('WebFormsForCore.Web.Infrastructure', $FrameworkOnCoreVersion)
+    'AjaxControlToolkit'                         = @('WebFormsForCore.AjaxControlToolkit', $FrameworkOnCoreVersion)
+    # System.Drawing.Common from NuGet is Windows only since .NET 7: FrameworkOnCore's has the Linux implementation.
+    'System.Drawing.Common'                      = @('WebFormsForCore.Drawing.Common', $FrameworkOnCoreVersion)
     # First version that runs on .NET (Core).
     'EntityFramework'                            = @('EntityFramework', '6.5.1')
     # Raised to what WebFormsForCore depends on (a downgrade is NU1605); backward compatible.
@@ -48,16 +48,16 @@ $droppedPackages = @('NETStandard.Library', 'Microsoft.NETCore.Platforms', 'Micr
 # .NET Framework assembly references (no HintPath) with a .NET 10 answer. Anything not listed is
 # in the box on .NET (System.Core, System.Xml, ...) or has no answer (reported).
 $frameworkReferences = @{
-    'System.Web'                     = @('WebFormsForCore.Web', $ForkVersion)
-    'System.Web.Extensions'          = @('WebFormsForCore.Web.Extensions', $ForkVersion)
-    'System.Web.ApplicationServices' = @('WebFormsForCore.Web.ApplicationServices', $ForkVersion)
-    'System.Web.Services'            = @('WebFormsForCore.Web.Services', $ForkVersion)
-    'System.Web.DynamicData'         = @('WebFormsForCore.Web.DynamicData', $ForkVersion)
-    'System.Web.Abstractions'        = @('WebFormsForCore.Web', $ForkVersion)
-    'System.Web.Routing'             = @('WebFormsForCore.Web', $ForkVersion)
-    'System.Configuration'           = @('WebFormsForCore.Configuration', $ForkVersion)
-    'System.Drawing'                 = @('WebFormsForCore.Drawing.Common', $ForkVersion)
-    'System.Data.Linq'               = @('WebFormsForCore.Data.Linq', $ForkVersion)
+    'System.Web'                     = @('WebFormsForCore.Web', $FrameworkOnCoreVersion)
+    'System.Web.Extensions'          = @('WebFormsForCore.Web.Extensions', $FrameworkOnCoreVersion)
+    'System.Web.ApplicationServices' = @('WebFormsForCore.Web.ApplicationServices', $FrameworkOnCoreVersion)
+    'System.Web.Services'            = @('WebFormsForCore.Web.Services', $FrameworkOnCoreVersion)
+    'System.Web.DynamicData'         = @('WebFormsForCore.Web.DynamicData', $FrameworkOnCoreVersion)
+    'System.Web.Abstractions'        = @('WebFormsForCore.Web', $FrameworkOnCoreVersion)
+    'System.Web.Routing'             = @('WebFormsForCore.Web', $FrameworkOnCoreVersion)
+    'System.Configuration'           = @('WebFormsForCore.Configuration', $FrameworkOnCoreVersion)
+    'System.Drawing'                 = @('WebFormsForCore.Drawing.Common', $FrameworkOnCoreVersion)
+    'System.Data.Linq'               = @('WebFormsForCore.Data.Linq', $FrameworkOnCoreVersion)
     'System.Runtime.Caching'         = @('System.Runtime.Caching', '10.0.0')
     'System.DirectoryServices'       = @('System.DirectoryServices', '10.0.0')
     'System.DirectoryServices.AccountManagement' = @('System.DirectoryServices.AccountManagement', '10.0.0')
@@ -84,9 +84,9 @@ $sourcePackages = @(
     @{ Pattern = '\bSystem\.Runtime\.Caching\b'; Id = 'System.Runtime.Caching'; Version = '10.0.0' }
     @{ Pattern = '\bSystem\.DirectoryServices\b'; Id = 'System.DirectoryServices'; Version = '10.0.0'; Note = 'Active Directory (Windows; LDAP via System.DirectoryServices.Protocols)' }
     @{ Pattern = '\bSystem\.Management\b'; Id = 'System.Management'; Version = '10.0.0'; Note = 'WMI is Windows only' }
-    @{ Pattern = '\bSystem\.Drawing\b'; Id = 'WebFormsForCore.Drawing.Common'; Version = $ForkVersion; Note = 'System.Drawing: the fork''s System.Drawing.Common (with its Linux implementation over libgdiplus)' }
+    @{ Pattern = '\bSystem\.Drawing\b'; Id = 'WebFormsForCore.Drawing.Common'; Version = $FrameworkOnCoreVersion; Note = 'System.Drawing: FrameworkOnCore''s System.Drawing.Common (with its Linux implementation over libgdiplus)' }
     @{ Pattern = '\bSystem\.ServiceModel\.Syndication\b'; Id = 'System.ServiceModel.Syndication'; Version = '10.0.0' }
-    @{ Pattern = '\bSystem\.Configuration\.ConfigurationManager\b|\bConfigurationManager\b'; Id = 'WebFormsForCore.Configuration'; Version = $ForkVersion }
+    @{ Pattern = '\bSystem\.Configuration\.ConfigurationManager\b|\bConfigurationManager\b'; Id = 'WebFormsForCore.Configuration'; Version = $FrameworkOnCoreVersion }
 )
 $notesSeen = @{}
 function Add-SourcePackages($packages, [string[]]$files, [string]$name) {
@@ -348,7 +348,7 @@ function Convert-OldProject([string]$projectPath, [string]$targetPath, [string]$
         if ($replacedPackages.ContainsKey($id)) { $id, $version = $replacedPackages[$id] }
         $packages[$id] = $version
     }
-    if ($isWeb) { foreach ($id in $webPackages) { Add-Package $packages $id $ForkVersion } }
+    if ($isWeb) { foreach ($id in $webPackages) { Add-Package $packages $id $FrameworkOnCoreVersion } }
 
     $binaryReferences = @()
     $builtReferences = @()

@@ -91,11 +91,11 @@ if ($SqlServer) {
     $webConfig.Save((Join-Path $overlay $webConfigFile.Name))
 }
 
-# The fork's packages keep one version (1.6.5-w2l.x) across rebuilds; the container's package cache
+# FrameworkOnCore's packages keep one version (1.6.5-w2l.x) across rebuilds; the container's package cache
 # (a volume, kept between runs) must not serve an older build of it.
 $script = @"
 set -e
-# System.Drawing's Linux implementation (the fork's System.Drawing.Common) draws with libgdiplus, as the deployment installs it.
+# System.Drawing's Linux implementation (FrameworkOnCore's System.Drawing.Common) draws with libgdiplus, as the deployment installs it.
 apt-get update -qq >/dev/null 2>&1 && apt-get install -y -qq --no-install-recommends libgdiplus fonts-liberation2 >/dev/null 2>&1 || true
 rm -rf /root/.nuget/packages/webformsforcore.*
 mkdir -p /work

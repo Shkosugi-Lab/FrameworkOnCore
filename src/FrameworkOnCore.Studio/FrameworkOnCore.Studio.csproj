@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <!-- The analysis as the converter runs it (its rules, the fork's feed): AnalyzeCommand.Analyze. -->
+    <!-- The analysis as the converter runs it (its rules, FrameworkOnCore's feed): AnalyzeCommand.Analyze. -->
     <ProjectReference Include="..\FrameworkOnCore.Converter\FrameworkOnCore.Converter.csproj" />
   </ItemGroup>
 </Project>

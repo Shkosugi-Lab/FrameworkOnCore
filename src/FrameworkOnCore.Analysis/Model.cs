@@ -9,7 +9,7 @@ namespace FrameworkOnCore.Analysis;
 [JsonConverter(typeof(JsonStringEnumConverter<ApiStatus>))]
 public enum ApiStatus
 {
-    /// <summary>Not in .NET (nor in a package or the fork): the code does not compile.</summary>
+    /// <summary>Not in .NET (nor in a package or FrameworkOnCore's WebFormsForCore): the code does not compile.</summary>
     Missing,
     /// <summary>There, and throws on every platform (Thread.ResetAbort, BinaryFormatter).</summary>
     Throws,
@@ -92,7 +92,7 @@ public sealed record ApiUsage
     public required string Namespace { get; init; }
     public required string Component { get; init; }
     public required ApiStatus Status { get; init; }
-    /// <summary>Where .NET has it: "in-box", a package ("package:System.Drawing.Common"), the fork ("fork:WebFormsForCore.Web"), "compat".</summary>
+    /// <summary>Where .NET has it: "in-box", a package ("package:System.Drawing.Common"), FrameworkOnCore's WebFormsForCore ("frameworkoncore:WebFormsForCore.Web"), "compat".</summary>
     public string? Target { get; init; }
     /// <summary>.NET's obsoletion (SYSLIB0011: its message).</summary>
     public string? Obsolete { get; init; }

@@ -29,13 +29,13 @@ System.ServiceModel(CoreWCF)は「移植」ではなく別の作業なので、�
 ### 1. 調査(実装より先に。結果を最初に報告する)
 
 1. **必須カバー一覧を作る**: コーパスが実際に呼ぶ <部品> の API を列挙する。材料は各コーパスの CONVERSION-REPORT.md・api-analysis.json(スタブ・削除の一覧)と、コーパスのソースの検索。「型・メンバー・使うコーパス・呼ばれ方」の表にする。これがテストの網羅性の物差しになる。
-2. **ソースの確認**: microsoft/referencesource の該当ソースの場所と、MIT ライセンスであることを確認する。`WebFormsForCore/`(フォーク。リポジトリのトップレベル)に同名のプロジェクトが既にあるなら(例: WebFormsForCore.Web.DataVisualization)、それを生かす。
+2. **ソースの確認**: microsoft/referencesource の該当ソースの場所と、MIT ライセンスであることを確認する。`WebFormsForCore/`(リポジトリのトップレベル)に同名のプロジェクトが既にあるなら(例: WebFormsForCore.Web.DataVisualization)、それを生かす。
 3. **既存スタブとの衝突を洗い出す**: 移植版が入ると重複する型を全部挙げる。見る場所:
    - `src/FrameworkOnCore.Converter/rules/packages.json` の `noAnswer`
    - `experiments/wf4c/shims/FrameworkOnCore.Compat.ForDlls`(例: LinqBinary.cs の System.Data.Linq.Binary)と `FrameworkOnCore.Compat` の RemovedTypes/RemovedMembers
    - `src/FrameworkOnCore.Analysis/catalog/components.json` の該当部品(`port` の選択肢が `planned: true` である)
    - AssemblyRetargeter の優先アセンブリ(付け替え先が変わる)
-4. **先例を読む**: フォークの既存の移植のやり方を踏襲する。DynamicData をビルドできるようにした変更(旧パッチ 0001。`git log -- WebFormsForCore/src/WebFormsForCore.Web.DynamicData`)と、既存プロジェクトの csproj(例: WebFormsForCore.Web.Services)がひな形。
+4. **先例を読む**: `WebFormsForCore/` の既存の移植のやり方を踏襲する。DynamicData をビルドできるようにした変更(旧パッチ 0001。`git log -- WebFormsForCore/src/WebFormsForCore.Web.DynamicData`)と、既存プロジェクトの csproj(例: WebFormsForCore.Web.Services)がひな形。
 
 調査の結果(必須カバー一覧・衝突一覧・方針)を報告してから実装に入ること。
 
@@ -45,7 +45,7 @@ System.ServiceModel(CoreWCF)は「移植」ではなく別の作業なので、�
 
 - 元のソースを変えないのが原則。整形・改名・「現代風への書き換え」をしない。Microsoft のライセンスヘッダーとコメントは残す。
 - 変更してよいのは「.NET でビルド・動作させるため」だけ。upstream と同じ流儀(`#if NETFRAMEWORK` / `#if NETCOREAPP` の分岐)で囲み、変更点には理由を一行コメントで書く。
-- フォーク(`WebFormsForCore/`)への変更は、このリポジトリのコミットにする。1 コミット = 1 目的で、件名に目的を書く。フォークの変更と変換器・テストの変更は別のコミットに分ける(上流に返すとき、フォークの分だけを取り出せるように)。
+- `WebFormsForCore/` への変更は、このリポジトリのコミットにする。1 コミット = 1 目的で、件名に目的を書く。`WebFormsForCore/` の変更と変換器・テストの変更は別のコミットに分ける(上流に返すとき、その分だけを取り出せるように)。
 
 **新しく書くコード(テスト、接続部):**
 
@@ -55,7 +55,7 @@ System.ServiceModel(CoreWCF)は「移植」ではなく別の作業なので、�
 
 **プロジェクト:**
 
-- csproj は既存のフォークのプロジェクトをひな形にし、TFM・署名・版・パッケージの体裁を揃える。
+- csproj は`WebFormsForCore/` の既存のプロジェクトをひな形にし、TFM・署名・版・パッケージの体裁を揃える。
 
 ### 3. テスト(網羅性の基準)
 
@@ -67,7 +67,7 @@ System.ServiceModel(CoreWCF)は「移植」ではなく別の作業なので、�
 
 ### 4. 変換器への組み込み
 
-- `rules/packages.json`: `noAnswer` から外し、`frameworkReferences` に `"<アセンブリ名>": [ "<フォークのパッケージ名>", "$fork" ]` を足す。
+- `rules/packages.json`: `noAnswer` から外し、`frameworkReferences` に `"<アセンブリ名>": [ "<FrameworkOnCore のパッケージ名>", "$frameworkoncore" ]` を足す。
 - `catalog/components.json`: 該当部品の `port` の選択肢から `planned` を外し、既定の選択を見直す。
 - 重複する型のスタブ(ForDlls・Compat)を削除し、参照の付け替え先を移植版にする。
 - 解析(TargetApis)が移植版の API を「ある」と判定することを確認する。
@@ -80,7 +80,7 @@ System.ServiceModel(CoreWCF)は「移植」ではなく別の作業なので、�
 
 ### 6. 配布と記録
 
-- フォークの版を上げる: `pack-fork.ps1 -Build All -Version`。更新箇所は rules/packages.json の `forkVersion`、shims の csproj、template.csproj.txt、convert-project.ps1、pack-fork.ps1 の既定。配るときは版を上げて push する(GitHub Actions の `fork.yml` がビルド・Linux のテストの後に GitHub Release に置く。手元からは `publish-fork.ps1`)。新プロジェクトは pack-fork.ps1 の `$projects` にも足す。
+- FrameworkOnCore のパッケージの版を上げる: `pack-frameworkoncore.ps1 -Build All -Version`。更新箇所は rules/packages.json の `frameworkOnCoreVersion`、shims の csproj、template.csproj.txt、convert-project.ps1、pack-frameworkoncore.ps1 の既定。配るときは版を上げて push する(GitHub Actions の `frameworkoncore-packages.yml` がビルド・Linux のテストの後に GitHub Release に置く。手元からは `publish-frameworkoncore.ps1`)。新プロジェクトは pack-frameworkoncore.ps1 の `$projects` にも足す。
 - ドキュメント: FRAMEWORK-ONLY-APIS.md(スタブ → 移植済み)、experiments/wf4c/README.md に記録(日付・やったこと・テストマトリクス・既知の課題)、ルート README.md の「状態」。
 - コミット: メッセージは UTF-8(BOM 無し)のファイル(`.git/MSG.txt` に printf)で `git -c user.name=shkosugi -c user.email=sin.kosugi@gmail.com commit -q -F`。`git add -A -- . ':!CLAUDE.md'`(CLAUDE.md は含めない)。末尾はその時の環境の指示の Co-Authored-By 行。push は指示があってから。
 
@@ -91,7 +91,7 @@ System.ServiceModel(CoreWCF)は「移植」ではなく別の作業なので、�
 - [ ] テストが Windows / Linux とも全緑(既存テスト含む)
 - [ ] be/wt(または指定されたコーパス)で該当機能が動く
 - [ ] スタブ・カタログ・規則の矛盾が無い(重複型なし、planned 解除、noAnswer から除去)
-- [ ] フォークの版上げと配布、ドキュメント更新、コミットが済んでいる
+- [ ] パッケージの版上げと配布、ドキュメント更新、コミットが済んでいる
 - [ ] Docker Desktop 終了、wsl --shutdown、SQL Server Express 停止
 
 ---
@@ -109,8 +109,8 @@ System.ServiceModel(CoreWCF)は「移植」ではなく別の作業なので、�
 
 ### System.Web.DataVisualization(グラフ)
 
-- `WebFormsForCore/` に WebFormsForCore.Web.DataVisualization(約 115 ファイル)が既にあるがビルド対象外。DynamicData と同じ方法でビルドできるようにし、pack-fork.ps1 に足す。
-- 描画は System.Drawing。フォークの WebFormsForCore.Drawing.Common(移植済み。Windows は GDI+、Linux は libgdiplus)を参照する。Linux の描画は Windows と少し違う(アンチエイリアス、フォント)ので、判定は安定した性質で行う。
+- `WebFormsForCore/` に WebFormsForCore.Web.DataVisualization(約 115 ファイル)が既にあるがビルド対象外。DynamicData と同じ方法でビルドできるようにし、pack-frameworkoncore.ps1 に足す。
+- 描画は System.Drawing。WebFormsForCore.Drawing.Common(移植済み。Windows は GDI+、Linux は libgdiplus)を参照する。Linux の描画は Windows と少し違う(アンチエイリアス、フォント)ので、判定は安定した性質で行う。
 - 使うコーパスは nop(管理画面のレポート 2 つ)のみ → 実地検証の前にユーザーに確認する。
 - テスト領域の例: コーパスが使うグラフの種類の描画(画像はピクセル一致ではなく、サイズ・形式・空でないことなど安定した性質で判定)、ChartImg.axd ハンドラー、ImageStorageMode、web.config の登録が変換で残ること。
 

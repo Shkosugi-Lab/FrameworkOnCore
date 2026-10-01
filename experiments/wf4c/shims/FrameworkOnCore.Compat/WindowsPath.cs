@@ -20,7 +20,7 @@ namespace FrameworkOnCore
             return matchCase ? MatchCase(native) : native;
         }
 
-        // WEBFORMSFORCORE_PATH_CASING=0 (the WebFormsForCore fork's switch): names as written, the process finding them
+        // WEBFORMSFORCORE_PATH_CASING=0 (FrameworkOnCore's switch): names as written, the process finding them
         // without regard to case itself (the deployment's casefs/libfoccase.so).
         static readonly bool matchCase = System.Environment.GetEnvironmentVariable("WEBFORMSFORCORE_PATH_CASING") != "0";
 

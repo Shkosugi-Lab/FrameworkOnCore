@@ -5,7 +5,7 @@
       "case": "^Api\\.Chart\\.BuildNumber$",
       "line": "^Chart\\.BuildNumber = ",
       "on": "all",
-      "reason": "The chart's assembly version, which BuildNumber reads: the port's is the fork's (10.0.29.0, as every assembly of the fork), .NET Framework's 4.0.0.0. Only the property shows it (not the saved settings, not the page)."
+      "reason": "The chart's assembly version, which BuildNumber reads: the port's is FrameworkOnCore's (10.0.29.0, as every assembly of FrameworkOnCore's WebFormsForCore), .NET Framework's 4.0.0.0. Only the property shows it (not the saved settings, not the page)."
     },
     {
       "case": "^ScenarioCases\\.(Keywords|Number_formats)$",

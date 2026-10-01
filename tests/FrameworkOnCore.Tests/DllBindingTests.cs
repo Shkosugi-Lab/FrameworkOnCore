@@ -5,7 +5,7 @@ namespace FrameworkOnCore.Tests;
 
 /// <summary>
 /// The analysis tells a DLL's reference that binds on .NET 10 as it is ([mscorlib]ArrayList: mscorlib forwards it) from
-/// one the converter retargets ([mscorlib]CallContext: .NET has it only in the fork's System.Web): the page and
+/// one the converter retargets ([mscorlib]CallContext: .NET has it only in FrameworkOnCore's System.Web): the page and
 /// API-ANALYSIS.md say "付け替える" for those (ApiUsage.RetargetedTo).
 /// </summary>
 public sealed class DllBindingTests : IDisposable
@@ -16,18 +16,18 @@ public sealed class DllBindingTests : IDisposable
 
     TargetApis Target()
     {
-        // The fork's System.Web, with the one type this test needs.
+        // FrameworkOnCore's System.Web, with the one type this test needs.
         using var assembly = AssemblyDefinition.CreateAssembly(new AssemblyNameDefinition("System.Web", new Version(4, 0, 0, 0)), "System.Web", ModuleKind.Dll);
         var module = assembly.MainModule;
         var type = new TypeDefinition("System.Runtime.Remoting.Messaging", "CallContext", TypeAttributes.Public | TypeAttributes.Class | TypeAttributes.Sealed, module.TypeSystem.Object);
         module.Types.Add(type);
         var web = Path.Combine(directory, "System.Web.dll");
         assembly.Write(web);
-        return new TargetApis([("fork:WebFormsForCore.Web", [web]), ("in-box", ReferencePacks.NetCoreApp())]);
+        return new TargetApis([("frameworkoncore:WebFormsForCore.Web", [web]), ("in-box", ReferencePacks.NetCoreApp())]);
     }
 
     [Fact]
-    public void A_reference_mscorlib_forwards_binds_one_only_the_fork_has_is_retargeted()
+    public void A_reference_mscorlib_forwards_binds_one_only_FrameworkOnCore_has_is_retargeted()
     {
         var target = Target();
 

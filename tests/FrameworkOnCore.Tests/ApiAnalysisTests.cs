@@ -95,7 +95,7 @@ public sealed class ApiAnalysisTests : IDisposable
         // On a base type on .NET (FileSystemInfo.FullName); an indexer (String's, Chars in metadata): there.
         Assert.Equal(ApiStatus.Available, Api(result, "P:System.IO.DirectoryInfo.FullName").Status);
         Assert.Equal(ApiStatus.Available, Api(result, "P:System.String.Item(System.Int32)").Status);
-        // System.Web: not in .NET, nor in these targets (the fork's feed is not in the test): missing.
+        // System.Web: not in .NET, nor in these targets (FrameworkOnCore's feed is not in the test): missing.
         var write = Api(result, "M:System.Web.HttpResponse.Write(System.String)");
         Assert.Equal(ApiStatus.Missing, write.Status);
         Assert.Equal("web-forms", write.Component);

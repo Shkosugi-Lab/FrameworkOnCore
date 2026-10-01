@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <!-- The unit cases of every System.Drawing API, compiled twice: net48 against .NET Framework's System.Drawing (the old:
-       record.ps1 writes the goldens from it) and net10.0 against the port, the fork's System.Drawing.Common (the new:
+       record.ps1 writes the goldens from it) and net10.0 against the port, FrameworkOnCore's System.Drawing.Common (the new:
        FrameworkOnCore.Tests runs the cases in process and compares them with the goldens, DrawingParityTests). On Linux
        the port's Unix build (libgdiplus). -->
   <PropertyGroup>

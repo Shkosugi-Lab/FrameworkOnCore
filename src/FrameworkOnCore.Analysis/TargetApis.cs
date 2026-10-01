@@ -11,7 +11,7 @@ namespace FrameworkOnCore.Analysis;
 public sealed record TargetInfo(string Where, bool WindowsOnly, string? ObsoleteId, string? ObsoleteMessage, string? Assembly = null, string? Type = null);
 
 /// <summary>
-/// What a converted application has on .NET 10: .NET's own assemblies, the packages the converter adds, the fork's
+/// What a converted application has on .NET 10: .NET's own assemblies, the packages the converter adds, FrameworkOnCore's
 /// packages, the compatibility assembly. An API of .NET Framework is looked up by its documentation id; what .NET's
 /// attributes say of it (SupportedOSPlatform("windows"), Obsolete) is read from it, its types, its assembly.
 /// </summary>
@@ -24,8 +24,8 @@ public sealed class TargetApis
     // WindowsIdentity.Impersonate): a call written as the member .NET removed compiles against them -> where they are.
     readonly Dictionary<string, string> extensions = new(StringComparer.Ordinal);
 
-    /// <param name="sources">The assemblies with where they come from ("in-box", "package:Id", "fork:Id", "compat"), in
-    /// priority order for an assembly name two of them have (the fork's System.Web over none, its System.Drawing over .NET's).</param>
+    /// <param name="sources">The assemblies with where they come from ("in-box", "package:Id", "frameworkoncore:Id", "compat"), in
+    /// priority order for an assembly name two of them have (FrameworkOnCore's System.Web over none, its System.Drawing over .NET's).</param>
     public TargetApis(IEnumerable<(string Where, IEnumerable<string> Files)> sources)
     {
         var byName = new Dictionary<string, (string Where, string File)>(StringComparer.OrdinalIgnoreCase);
@@ -108,7 +108,7 @@ public sealed class TargetApis
         (type.ContainingType != null ? FullName(type.ContainingType) : type.ContainingNamespace.IsGlobalNamespace ? "" : type.ContainingNamespace.ToDisplayString()) +
         (type.ContainingType != null || !type.ContainingNamespace.IsGlobalNamespace ? "." : "") + type.Name;
 
-    /// <summary>The API on .NET, or null when .NET (with the packages, the fork, the compatibility assembly) does not have it.</summary>
+    /// <summary>The API on .NET, or null when .NET (with the packages, FrameworkOnCore's WebFormsForCore, the compatibility assembly) does not have it.</summary>
     public TargetInfo? Find(string documentationId) => found.GetOrAdd(documentationId, id =>
     {
         ISymbol? symbol;
@@ -134,7 +134,7 @@ public sealed class TargetApis
 
     /// <summary>
     /// A DLL's reference [assembly]type resolves on .NET 10 as it is: the assembly of that name has the type, or forwards
-    /// it to one that does. When it does not while .NET has the type elsewhere (a .NET Framework type the fork has in its
+    /// it to one that does. When it does not while .NET has the type elsewhere (a .NET Framework type FrameworkOnCore's WebFormsForCore has in its
     /// System.Web), the converter retargets the DLL's reference (AssemblyRetargeter).
     /// </summary>
     public bool Binds(string assembly, string type)

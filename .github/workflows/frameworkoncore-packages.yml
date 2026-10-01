@@ -1,30 +1,30 @@
-# The WebFormsForCore fork's packages, built here instead of on a developer's machine: WebFormsForCore/ (upstream taken
-# in by git subtree, maintained in this repository) built and packed (pack-fork.ps1, Release), tested on Linux against
+# FrameworkOnCore's packages, built here instead of on a developer's machine: WebFormsForCore/ (upstream taken
+# in by git subtree, maintained in this repository) built and packed (pack-frameworkoncore.ps1, Release), tested on Linux against
 # them (the test suite in the .NET SDK's container, as run-tests-linux.ps1 runs it), and published as the GitHub Release
-# fork-<forkVersion> (publish-fork.ps1) that the converter, the analysis and Studio fetch.
+# frameworkoncore-<frameworkOnCoreVersion> (publish-frameworkoncore.ps1) that the converter, the analysis and Studio fetch.
 #
-# A version is published once. A push that changes the fork (WebFormsForCore/, pack-fork.ps1, the rules' forkVersion)
-# publishes its version when there is no release of it yet; with one, the run warns (a changed fork is a new version:
-# raise forkVersion in src/FrameworkOnCore.Converter/rules/packages.json, and pack-fork.ps1's default). Run by hand
+# A version is published once. A push that changes FrameworkOnCore's WebFormsForCore (WebFormsForCore/, pack-frameworkoncore.ps1, the rules' frameworkOnCoreVersion)
+# publishes its version when there is no release of it yet; with one, the run warns (changed packages is a new version:
+# raise frameworkOnCoreVersion in src/FrameworkOnCore.Converter/rules/packages.json, and pack-frameworkoncore.ps1's default). Run by hand
 # (workflow_dispatch) it builds and tests, and publishes only when asked.
 #
 # The Windows tests are not run here: their goldens are this project's Windows machine's (GDI+ drawing with its fonts,
 # a Japanese Windows' system font, IIS, SQL Server Express); run them there (dotnet test tests/FrameworkOnCore.Tests).
-name: fork packages
+name: FrameworkOnCore packages
 
 on:
   push:
     branches: [main, 'pivot/**']
     paths:
       - 'WebFormsForCore/**'
-      - 'experiments/wf4c/pack-fork.ps1'
-      - 'experiments/wf4c/fork.slnx'
+      - 'experiments/wf4c/pack-frameworkoncore.ps1'
+      - 'experiments/wf4c/frameworkoncore.slnx'
       - 'src/FrameworkOnCore.Converter/rules/packages.json'
-      - '.github/workflows/fork.yml'
+      - '.github/workflows/frameworkoncore-packages.yml'
   workflow_dispatch:
     inputs:
       publish:
-        description: 'Publish the release fork-<forkVersion> (when there is none yet)'
+        description: 'Publish the release frameworkoncore-<frameworkOnCoreVersion> (when there is none yet)'
         type: boolean
         default: false
 
@@ -32,7 +32,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: fork-${{ github.ref }}
+  group: frameworkoncore-packages-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
@@ -46,25 +46,25 @@ jobs:
         with:
           dotnet-version: '10.0.x'
       - id: version
-        name: forkVersion of the rules
+        name: frameworkOnCoreVersion of the rules
         shell: pwsh
         run: |
           $rules = Get-Content src/FrameworkOnCore.Converter/rules/packages.json -Raw
-          $version = [regex]::Match($rules, '"forkVersion"\s*:\s*"([^"]+)"').Groups[1].Value
-          if (-not $version) { throw 'no forkVersion in rules/packages.json' }
+          $version = [regex]::Match($rules, '"frameworkOnCoreVersion"\s*:\s*"([^"]+)"').Groups[1].Value
+          if (-not $version) { throw 'no frameworkOnCoreVersion in rules/packages.json' }
           "version=$version" >> $env:GITHUB_OUTPUT
       - name: Build and pack
         shell: powershell
-        run: .\experiments\wf4c\pack-fork.ps1 -Build All -Version ${{ steps.version.outputs.version }}
+        run: .\experiments\wf4c\pack-frameworkoncore.ps1 -Build All -Version ${{ steps.version.outputs.version }}
       - uses: actions/upload-artifact@v4
         with:
-          name: fork-feed-${{ steps.version.outputs.version }}
+          name: frameworkoncore-feed-${{ steps.version.outputs.version }}
           path: experiments/wf4c/_feed/*
           if-no-files-found: error
-      # The build tasks the fork's projects import (FakeStrongName): the Linux tests build two of them from source.
+      # The build tasks FrameworkOnCore's projects import (FakeStrongName): the Linux tests build two of them from source.
       - uses: actions/upload-artifact@v4
         with:
-          name: fork-build-tasks
+          name: frameworkoncore-build-tasks
           path: WebFormsForCore/lib/WebFormsForCore.Build/
           if-no-files-found: error
 
@@ -80,11 +80,11 @@ jobs:
         run: apt-get update -qq && apt-get install -y -qq --no-install-recommends libgdiplus fonts-liberation2
       - uses: actions/download-artifact@v4
         with:
-          name: fork-feed-${{ needs.build.outputs.version }}
+          name: frameworkoncore-feed-${{ needs.build.outputs.version }}
           path: experiments/wf4c/_feed
       - uses: actions/download-artifact@v4
         with:
-          name: fork-build-tasks
+          name: frameworkoncore-build-tasks
           path: WebFormsForCore/lib/WebFormsForCore.Build
       - name: Tests (Linux)
         run: dotnet test tests/FrameworkOnCore.Tests/FrameworkOnCore.Tests.csproj -nologo -v q
@@ -105,19 +105,19 @@ jobs:
         name: Is the version published?
         shell: pwsh
         run: |
-          gh release view "fork-$env:VERSION" --repo $env:GITHUB_REPOSITORY *> $null
+          gh release view "frameworkoncore-$env:VERSION" --repo $env:GITHUB_REPOSITORY *> $null
           if ($LASTEXITCODE -eq 0) {
             "exists=true" >> $env:GITHUB_OUTPUT
-            # Not published again. If the push changed the fork, its packages are not the published ones.
-            "::warning::fork-$env:VERSION is published already: not published again. If the fork changed (WebFormsForCore/), raise forkVersion (src/FrameworkOnCore.Converter/rules/packages.json and pack-fork.ps1)"
+            # Not published again. If the push changed FrameworkOnCore's WebFormsForCore, its packages are not the published ones.
+            "::warning::frameworkoncore-$env:VERSION is published already: not published again. If FrameworkOnCore's WebFormsForCore changed (WebFormsForCore/), raise frameworkOnCoreVersion (src/FrameworkOnCore.Converter/rules/packages.json and pack-frameworkoncore.ps1)"
           } else { "exists=false" >> $env:GITHUB_OUTPUT }
           exit 0
       - uses: actions/download-artifact@v4
         if: steps.release.outputs.exists == 'false'
         with:
-          name: fork-feed-${{ needs.build.outputs.version }}
+          name: frameworkoncore-feed-${{ needs.build.outputs.version }}
           path: experiments/wf4c/_feed
-      - name: Publish fork-${{ needs.build.outputs.version }}
+      - name: Publish frameworkoncore-${{ needs.build.outputs.version }}
         if: steps.release.outputs.exists == 'false'
         shell: powershell
-        run: .\experiments\wf4c\publish-fork.ps1 -Version $env:VERSION -Repository $env:GITHUB_REPOSITORY
+        run: .\experiments\wf4c\publish-frameworkoncore.ps1 -Version $env:VERSION -Repository $env:GITHUB_REPOSITORY

@@ -5,7 +5,7 @@ namespace FrameworkOnCore.Tests;
 
 /// <summary>
 /// DLLs without source bound to where .NET Framework had a type: retargeted to the assembly of the application that has
-/// it (the fork's System.Web has CallContext; mscorlib on .NET does not), whatever assembly the reference named; the
+/// it (FrameworkOnCore's System.Web has CallContext; mscorlib on .NET does not), whatever assembly the reference named; the
 /// references nothing has are reported; a reference to a later version than the application has is lowered.
 /// </summary>
 public sealed class AssemblyRetargeterTests : IDisposable

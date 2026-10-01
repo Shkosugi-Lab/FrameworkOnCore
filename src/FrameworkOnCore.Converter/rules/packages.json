@@ -1,20 +1,20 @@
 {
-  "$comment": "Package and reference rules. \"$fork\" stands for the WebFormsForCore fork's version (forkVersion).",
-  "forkVersion": "1.6.5-w2l.6",
+  "$comment": "Package and reference rules. \"$frameworkoncore\" stands for the version of FrameworkOnCore's packages (frameworkOnCoreVersion).",
+  "frameworkOnCoreVersion": "1.6.5-w2l.6",
 
   "$comment_webPackages": "The web project always gets these (Program.cs uses them; pages reference them at run time).",
   "webPackages": [ "WebFormsForCore.Web", "WebFormsForCore.Web.Extensions", "WebFormsForCore.Configuration", "WebFormsForCore.Web.DynamicData" ],
 
   "$comment_replacedPackages": "packages.config / PackageReference ids with a .NET 10 answer: [id, version].",
   "replacedPackages": {
-    "Microsoft.AspNet.Web.Optimization": [ "WebFormsForCore.Web.Optimization", "$fork" ],
-    "Microsoft.AspNet.Web.Optimization.WebForms": [ "WebFormsForCore.Web.Optimization.WebForms", "$fork" ],
-    "WebGrease": [ "WebFormsForCore.WebGrease", "$fork" ],
-    "Microsoft.Web.Infrastructure": [ "WebFormsForCore.Web.Infrastructure", "$fork" ],
-    "AjaxControlToolkit": [ "WebFormsForCore.AjaxControlToolkit", "$fork" ],
+    "Microsoft.AspNet.Web.Optimization": [ "WebFormsForCore.Web.Optimization", "$frameworkoncore" ],
+    "Microsoft.AspNet.Web.Optimization.WebForms": [ "WebFormsForCore.Web.Optimization.WebForms", "$frameworkoncore" ],
+    "WebGrease": [ "WebFormsForCore.WebGrease", "$frameworkoncore" ],
+    "Microsoft.Web.Infrastructure": [ "WebFormsForCore.Web.Infrastructure", "$frameworkoncore" ],
+    "AjaxControlToolkit": [ "WebFormsForCore.AjaxControlToolkit", "$frameworkoncore" ],
     "EntityFramework": [ "EntityFramework", "6.5.1" ],
-    // System.Drawing.Common from NuGet (Windows only since .NET 7): the fork's, which has the Linux implementation.
-    "System.Drawing.Common": [ "WebFormsForCore.Drawing.Common", "$fork" ],
+    // System.Drawing.Common from NuGet (Windows only since .NET 7): FrameworkOnCore's, which has the Linux implementation.
+    "System.Drawing.Common": [ "WebFormsForCore.Drawing.Common", "$frameworkoncore" ],
     "Newtonsoft.Json": [ "Newtonsoft.Json", "13.0.4" ],
     // Before 1.0.116 the native SQLite.Interop.dll is Windows only (x86/x64 folders). 1.0.119 has .NET's
     // runtimes (win, linux-x64, osx-x64); 2.x ships no native library.
@@ -38,17 +38,17 @@
 
   "$comment_frameworkReferences": ".NET Framework assembly references (no HintPath) with a .NET 10 answer. Others are in the box or have none.",
   "frameworkReferences": {
-    "System.Web": [ "WebFormsForCore.Web", "$fork" ],
-    "System.Web.Extensions": [ "WebFormsForCore.Web.Extensions", "$fork" ],
-    "System.Web.ApplicationServices": [ "WebFormsForCore.Web.ApplicationServices", "$fork" ],
-    "System.Web.Services": [ "WebFormsForCore.Web.Services", "$fork" ],
-    "System.Web.DynamicData": [ "WebFormsForCore.Web.DynamicData", "$fork" ],
-    "System.Data.Linq": [ "WebFormsForCore.Data.Linq", "$fork" ],
-    "System.Web.DataVisualization": [ "WebFormsForCore.Web.DataVisualization", "$fork" ],
-    "System.Web.Abstractions": [ "WebFormsForCore.Web", "$fork" ],
-    "System.Web.Routing": [ "WebFormsForCore.Web", "$fork" ],
-    "System.Configuration": [ "WebFormsForCore.Configuration", "$fork" ],
-    "System.Drawing": [ "WebFormsForCore.Drawing.Common", "$fork" ],
+    "System.Web": [ "WebFormsForCore.Web", "$frameworkoncore" ],
+    "System.Web.Extensions": [ "WebFormsForCore.Web.Extensions", "$frameworkoncore" ],
+    "System.Web.ApplicationServices": [ "WebFormsForCore.Web.ApplicationServices", "$frameworkoncore" ],
+    "System.Web.Services": [ "WebFormsForCore.Web.Services", "$frameworkoncore" ],
+    "System.Web.DynamicData": [ "WebFormsForCore.Web.DynamicData", "$frameworkoncore" ],
+    "System.Data.Linq": [ "WebFormsForCore.Data.Linq", "$frameworkoncore" ],
+    "System.Web.DataVisualization": [ "WebFormsForCore.Web.DataVisualization", "$frameworkoncore" ],
+    "System.Web.Abstractions": [ "WebFormsForCore.Web", "$frameworkoncore" ],
+    "System.Web.Routing": [ "WebFormsForCore.Web", "$frameworkoncore" ],
+    "System.Configuration": [ "WebFormsForCore.Configuration", "$frameworkoncore" ],
+    "System.Drawing": [ "WebFormsForCore.Drawing.Common", "$frameworkoncore" ],
     "System.Runtime.Caching": [ "System.Runtime.Caching", "10.0.0" ],
     "System.DirectoryServices": [ "System.DirectoryServices", "10.0.0" ],
     "System.DirectoryServices.AccountManagement": [ "System.DirectoryServices.AccountManagement", "10.0.0" ],
@@ -83,9 +83,9 @@
     { "pattern": "\\bSystem\\.Runtime\\.Caching\\b", "id": "System.Runtime.Caching", "version": "10.0.0" },
     { "pattern": "\\bSystem\\.DirectoryServices\\b", "id": "System.DirectoryServices", "version": "10.0.0", "note": "Active Directory (Windows; LDAP via System.DirectoryServices.Protocols)" },
     { "pattern": "\\bSystem\\.Management\\b", "id": "System.Management", "version": "10.0.0", "note": "WMI is Windows only" },
-    { "pattern": "\\bSystem\\.Drawing\\b", "id": "WebFormsForCore.Drawing.Common", "version": "$fork", "note": "System.Drawing: the fork's System.Drawing.Common (dotnet/runtime 6.0's, with its Linux implementation over libgdiplus, which the deployment installs)" },
+    { "pattern": "\\bSystem\\.Drawing\\b", "id": "WebFormsForCore.Drawing.Common", "version": "$frameworkoncore", "note": "System.Drawing: FrameworkOnCore's System.Drawing.Common (dotnet/runtime 6.0's, with its Linux implementation over libgdiplus, which the deployment installs)" },
     { "pattern": "\\bSystem\\.ServiceModel\\.Syndication\\b", "id": "System.ServiceModel.Syndication", "version": "10.0.0" },
-    { "pattern": "\\bConfigurationManager\\b", "id": "WebFormsForCore.Configuration", "version": "$fork" },
+    { "pattern": "\\bConfigurationManager\\b", "id": "WebFormsForCore.Configuration", "version": "$frameworkoncore" },
     // .NET 9 removed BinaryFormatter (it throws); its unsupported compatibility package has it back, with the switch
     // that allows it. What .NET Framework wrote (n2's content details in the database) is read as it was. The package's
     // assembly (10.0.0.0) is above the runtime's, which throws (8.1.0.0): the package's is loaded, whatever the patch.

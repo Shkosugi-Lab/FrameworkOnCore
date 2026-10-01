@@ -1,4 +1,4 @@
-// System.Drawing on Linux (.NET 10): what an application built against System.Drawing.Common 10 (as the fork is) does
+// System.Drawing on Linux (.NET 10): what an application built against System.Drawing.Common 10 (as FrameworkOnCore's WebFormsForCore is) does
 // with GDI+ calls (10.0 alone throws: DllNotFound gdiplus.dll; with libgdiplus found, PlatformNotSupported). run.sh: 10.0 left out of the application's assemblies and the 6.0 Unix
 // implementation (libgdiplus, System.Drawing.EnableUnixSupport) given by AssemblyLoadContext.Resolving (`resolve`).
 // `map` (DllImport resolvers on the GDI+ assemblies) was tried: System.Drawing.Common 10 sets its own, and refuses non-Windows.

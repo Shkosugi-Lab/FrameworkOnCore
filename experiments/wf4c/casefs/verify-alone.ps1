@@ -1,12 +1,12 @@
 ﻿# Whether libfoccase.so alone finds the application's names without regard to case: be and wt on Linux (run-linux.ps1,
-# compared with their golden data), with the fork's and the compatibility assembly's own case matching turned off
+# compared with their golden data), with FrameworkOnCore's and the compatibility assembly's own case matching turned off
 # (WEBFORMSFORCORE_PATH_CASING=0), with and without the library, and as they run by default. wt's protected folders
 # are requested under other cases too (their web.config: authorization).
 #   .\experiments\wf4c\casefs\verify-alone.ps1 [-Only be,wt]
 param([string[]]$Only = @('be', 'wt'))
 $wf4c = Split-Path $PSScriptRoot
 $configurations = [ordered]@{
-    'default (the fork matches case, no library)' = @{ Case = $false; Environment = @{} }
+    'default (FrameworkOnCore's System.Web matches case, no library)' = @{ Case = $false; Environment = @{} }
     'no case matching at all'                     = @{ Case = $false; Environment = @{ WEBFORMSFORCORE_PATH_CASING = '0' } }
     'the library alone'                           = @{ Case = $true; Environment = @{ WEBFORMSFORCORE_PATH_CASING = '0' } }
 }

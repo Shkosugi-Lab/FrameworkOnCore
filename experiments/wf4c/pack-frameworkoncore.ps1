@@ -1,9 +1,9 @@
-# Packs the WebFormsForCore fork (WebFormsForCore/ of this repository: upstream taken in by git subtree, maintained here) into
+# Packs FrameworkOnCore's WebFormsForCore (WebFormsForCore/ of this repository: upstream taken in by git subtree, maintained here) into
 # experiments/wf4c/_feed as version $Version, and drops that version from the NuGet cache so the
 # next restore picks the new build up (a package version is cached once and never re-read).
 #
-#   .\experiments\wf4c\pack-fork.ps1                  # rebuild System.Web only, pack everything
-#   .\experiments\wf4c\pack-fork.ps1 -Build All       # rebuild every packed project first
+#   .\experiments\wf4c\pack-frameworkoncore.ps1                  # rebuild System.Web only, pack everything
+#   .\experiments\wf4c\pack-frameworkoncore.ps1 -Build All       # rebuild every packed project first
 #
 # Build order matters upstream (Web.Extensions fails when built before its references), so -Build
 # All builds in dependency order, after src/WebFormsForCore.Build when it was not built yet (it emits the
@@ -18,8 +18,8 @@ $ErrorActionPreference = 'Stop'
 # Debug.Assert (about 630 in the packed assemblies), and on .NET a failed Debug.Assert ends the process (found by the
 # System.Data.Linq parity cases: SingleResult's assert, not true for Translate(DbDataReader)).
 $Configuration = 'Release'
-$fork = Join-Path $PSScriptRoot '..\..\WebFormsForCore'
-$src = Join-Path $fork 'src'
+$webFormsForCore = Join-Path $PSScriptRoot '..\..\WebFormsForCore'
+$src = Join-Path $webFormsForCore 'src'
 $feed = Join-Path $PSScriptRoot '_feed'
 
 $projects = @(
@@ -53,22 +53,22 @@ $net10Only = @('WebFormsForCore.AjaxControlToolkit\AjaxControlToolkit\AjaxContro
 
 if ($Build -eq 'All') {
     # The build tasks every project imports (lib/WebFormsForCore.Build: FakeStrongName and the rest), once: a fresh
-    # checkout has none (build output, not in Git). Not in fork.slnx (built there, its loaded task DLL is copied over: the build fails).
+    # checkout has none (build output, not in Git). Not in frameworkoncore.slnx (built there, its loaded task DLL is copied over: the build fails).
     # A framework at a time, each with its intermediate folder of its own: the project has none per framework (net8.0
     # and net10.0 write the same obj\...\WebFormsForCore.Build.NetCore.dll: together, CS2012; one after the other, the
     # second one's compilation is skipped as up to date).
-    if (-not (Test-Path (Join-Path $fork 'lib\WebFormsForCore.Build\net10.0\FakeStrongName.targets'))) {
+    if (-not (Test-Path (Join-Path $webFormsForCore 'lib\WebFormsForCore.Build\net10.0\FakeStrongName.targets'))) {
         foreach ($framework in 'net48', 'net8.0', 'net10.0', 'netstandard2.0') {
             dotnet build (Join-Path $src 'WebFormsForCore.Build\WebFormsForCore.Build.csproj') -c $Configuration -f $framework "-p:IntermediateOutputPath=obj\$Configuration\$framework\" -v q -nologo
             if ($LASTEXITCODE -ne 0) { throw "build failed: WebFormsForCore.Build ($framework)" }
         }
     }
-    # As a solution (fork.slnx), the way upstream builds: one project at a time, Web.Extensions
+    # As a solution (frameworkoncore.slnx), the way upstream builds: one project at a time, Web.Extensions
     # fails to see IHttpHandlerFactory through Web.Services. After a change in System.Web the first
     # build still fails that way now and then (CS7069) and a later one succeeds; hence up to three retries.
-    dotnet build (Join-Path $PSScriptRoot 'fork.slnx') -c $Configuration -v q -nologo
-    foreach ($retry in 1..3) { if ($LASTEXITCODE -eq 0) { break }; dotnet build (Join-Path $PSScriptRoot 'fork.slnx') -c $Configuration -v q -nologo }
-    if ($LASTEXITCODE -ne 0) { throw "build failed: fork.slnx" }
+    dotnet build (Join-Path $PSScriptRoot 'frameworkoncore.slnx') -c $Configuration -v q -nologo
+    foreach ($retry in 1..3) { if ($LASTEXITCODE -eq 0) { break }; dotnet build (Join-Path $PSScriptRoot 'frameworkoncore.slnx') -c $Configuration -v q -nologo }
+    if ($LASTEXITCODE -ne 0) { throw "build failed: frameworkoncore.slnx" }
     # The System.Drawing.Common port's Unix build (the solution builds its Windows one; the package takes both).
     dotnet build (Join-Path $src 'WebFormsForCore.Drawing.Common\WebFormsForCore.Drawing.Common.csproj') -c $Configuration -p:FocTargetOS=unix -v q -nologo
     if ($LASTEXITCODE -ne 0) { throw "build failed: WebFormsForCore.Drawing.Common (unix)" }

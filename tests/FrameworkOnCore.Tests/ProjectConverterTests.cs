@@ -112,7 +112,7 @@ public sealed class ProjectConverterTests : IDisposable
         Assert.DoesNotContain(report.Entries, e => e.Kind == Report.Kind.Error);
     }
 
-    [Fact] // nopCommerce's Dependencies\AjaxControlToolkit.dll (4.1): the fork's package
+    [Fact] // nopCommerce's Dependencies\AjaxControlToolkit.dll (4.1): FrameworkOnCore's package
     public void A_dll_in_the_repository_of_a_replaced_package_is_that_package()
     {
         if (!OperatingSystem.IsWindows()) return;
@@ -154,7 +154,7 @@ public sealed class ProjectConverterTests : IDisposable
             """);
     }
 
-    [Fact] // the charts' port (the default choice): the registrations stay, the fork's package comes in
+    [Fact] // the charts' port (the default choice): the registrations stay, FrameworkOnCore's package comes in
     public void Web_config_registrations_of_the_chart_port_stay_and_bring_its_package()
     {
         if (!OperatingSystem.IsWindows()) return;

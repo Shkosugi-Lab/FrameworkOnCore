@@ -15,7 +15,7 @@
     <OutputPath>bin</OutputPath>
     <StartupObject>Program</StartupObject>
     <EnableDefaultContentItems>false</EnableDefaultContentItems>
-    <!-- The fork (WebFormsForCore/ of this repository), packed into ../_feed. -->
+    <!-- FrameworkOnCore's WebFormsForCore (WebFormsForCore/ of this repository), packed into ../_feed. -->
     <WebFormsForCoreVersion>1.6.5-w2l.6</WebFormsForCoreVersion>
     <RestoreAdditionalProjectSources>$(MSBuildThisFileDirectory)..\_feed</RestoreAdditionalProjectSources>
   </PropertyGroup>

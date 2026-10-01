@@ -87,8 +87,8 @@ namespace FrameworkOnCore
         /// Thread.ResetAbort(): .NET has no thread abort (it throws PlatformNotSupportedException). WebFormsForCore's
         /// Response.End (Redirect, Transfer) throws a ThreadAbortException, and throws it again at the request's next
         /// steps, as .NET Framework raised the abort again at the end of each catch; the application's catch (DNN's URL
-        /// rewriter: after a redirect) called ResetAbort to go on. Here it cancels that (the fork's
-        /// HttpResponse.ResetThreadAbort, found at run time: this assembly does not reference the fork). Without a request
+        /// rewriter: after a redirect) called ResetAbort to go on. Here it cancels that (FrameworkOnCore's
+        /// HttpResponse.ResetThreadAbort, found at run time: this assembly does not reference FrameworkOnCore's System.Web). Without a request
         /// or an end pending, nothing.
         /// </summary>
         public static void ResetAbort()

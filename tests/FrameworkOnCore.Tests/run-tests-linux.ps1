@@ -32,9 +32,9 @@ for d in src/FrameworkOnCore.Analyzers src/FrameworkOnCore.Analysis src/Framewor
   mkdir -p /w/$d
   (cd /repo/$d && find . -type f -not -path './bin/*' -not -path './obj/*' -exec cp --parents {} /w/$d/ \;)
 done
-# The fork's packages: the Chart control's parity program references the port as converted applications do.
+# FrameworkOnCore's packages: the Chart control's parity program references the port as converted applications do.
 mkdir -p /w/experiments/wf4c/_feed && cp /repo/experiments/wf4c/_feed/*.nupkg /w/experiments/wf4c/_feed/
-# What the LINQ to SQL port's csproj links from its parent (the fork's version attributes).
+# What the LINQ to SQL port's csproj links from its parent (FrameworkOnCore's version attributes).
 cp /repo/WebFormsForCore/src/VersionInfo.cs /w/WebFormsForCore/src/
 cd /w
 dotnet test tests/FrameworkOnCore.Tests/FrameworkOnCore.Tests.csproj -nologo -v q __FILTER__

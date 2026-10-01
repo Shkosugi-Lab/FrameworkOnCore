@@ -8,7 +8,7 @@ namespace FrameworkOnCore.Converter;
 /// <summary>A project as converted: its file in the output tree and its conditional compilation symbols.</summary>
 public sealed record ConvertedProject(string Name, string SourcePath, string TargetPath, bool IsWeb, IReadOnlyList<string> Defines, string? AssemblyName = null, bool CrossPlatform = false);
 
-/// <summary>Where the runtime pieces the converted projects refer to are (the fork's feed, the shims).</summary>
+/// <summary>Where the runtime pieces the converted projects refer to are (FrameworkOnCore's feed, the shims).</summary>
 public sealed record RuntimeLayout(string Feed, IReadOnlyList<string> ShimProjects);
 
 /// <summary>
@@ -249,7 +249,7 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
         {
             AddListed((string)p.Attribute("Include")!, (string?)p.Attribute("Version") ?? p.Element(msbuild + "Version")?.Value ?? "*");
         }
-        if (isWeb) foreach (var id in rules.WebPackages) AddPackage(new Package(id, rules.ForkVersion));
+        if (isWeb) foreach (var id in rules.WebPackages) AddPackage(new Package(id, rules.FrameworkOnCoreVersion));
 
         var binaryReferences = deployed.Select(d => (d.Assembly, HintPath: Paths.FromProject(target, d.Dll), Aliases: (string?)null)).ToList();
         var builtReferences = new List<string>();

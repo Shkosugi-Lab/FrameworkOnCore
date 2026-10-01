@@ -28,6 +28,7 @@ namespace System.Web.Hosting
 	{
 		internal const string WorkerVariable = "WEBFORMSFORCORE_WORKER";
 		internal const string AppPathVariable = "WEBFORMSFORCORE_APP_PATH";
+		internal const string SupervisorVariable = "WEBFORMSFORCORE_SUPERVISOR";
 
 		/// <summary>The application's root, when this is the worker (its bin is a copy); otherwise null.</summary>
 		internal static string AppPath => Environment.GetEnvironmentVariable(WorkerVariable) == "1" ? Environment.GetEnvironmentVariable(AppPathVariable) : null;
@@ -41,7 +42,11 @@ namespace System.Web.Hosting
 		public static bool RunInWorker(string[] args, out int exitCode)
 		{
 			exitCode = 0;
-			if (Environment.GetEnvironmentVariable(WorkerVariable) == "1") return false;
+			if (Environment.GetEnvironmentVariable(WorkerVariable) == "1")
+			{
+				WatchSupervisor();
+				return false;
+			}
 			if (Environment.GetEnvironmentVariable("WEBFORMSFORCORE_SHADOWCOPY") == "0") return false;
 
 			var bin = AppContext.BaseDirectory.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
@@ -77,6 +82,7 @@ namespace System.Web.Hosting
 				foreach (var arg in args) start.ArgumentList.Add(arg);
 				start.Environment[WorkerVariable] = "1";
 				start.Environment[AppPathVariable] = appPath;
+				start.Environment[SupervisorVariable] = Environment.ProcessId.ToString(System.Globalization.CultureInfo.InvariantCulture);
 				worker = Process.Start(start);
 				worker.WaitForExit();
 				exitCode = worker.ExitCode;
@@ -89,6 +95,39 @@ namespace System.Web.Hosting
 			}
 		}
 
+		/// <summary>
+		/// The worker ends when its supervisor has ended. A signal or Ctrl+C reaches both, but a supervisor ended otherwise
+		/// (killed: Stop-Process or a service manager on Windows, SIGKILL) left the worker running, alone, on the
+		/// application's port: the next start could not listen there and its requests went to the old application.
+		/// On Windows the supervisor's process is waited for; elsewhere its pid is the worker's parent's until it ends (the
+		/// worker is then another process's child).
+		/// </summary>
+		static void WatchSupervisor()
+		{
+			if (!int.TryParse(Environment.GetEnvironmentVariable(SupervisorVariable), out var supervisor)) return;
+			var watch = new Thread(() =>
+			{
+				try
+				{
+					if (OperatingSystem.IsWindows())
+					{
+						using var process = Process.GetProcessById(supervisor);
+						process.WaitForExit();
+					}
+					else
+					{
+						while (getppid() == supervisor) Thread.Sleep(1000);
+					}
+				}
+				catch (ArgumentException) { } // ended already
+				catch (InvalidOperationException) { }
+				Console.Error.WriteLine("WebFormsForCore: the supervisor process ended; the worker ends.");
+				Environment.Exit(1);
+			})
+			{ IsBackground = true, Name = "WebFormsForCore supervisor watch" };
+			watch.Start();
+		}
+
 		static void CopyDirectory(string from, string to)
 		{
 			Directory.CreateDirectory(to);
@@ -98,6 +137,9 @@ namespace System.Web.Hosting
 
 		[DllImport("libc", SetLastError = true)]
 		static extern int kill(int pid, int sig);
+
+		[DllImport("libc")]
+		static extern int getppid();
 	}
 }
 

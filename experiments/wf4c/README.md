@@ -35,11 +35,11 @@
 - **上流のソースからのビルド**は `src/WebFormsForCore.Build` を先にビルドする必要がある
   (`lib/WebFormsForCore.Build/.../FakeStrongName.targets` を出力する)。
 
-`_upstream/` は上流の浅いクローン(Git 管理外)。
+フォークは、リポジトリのトップレベルの `WebFormsForCore/` にある(2026-10-01 から。下の「フォークをリポジトリに取り込む」)。それまでは `_upstream/`(上流の浅いクローン、Git 管理外)に `patches/` を当てていた。以下の記録の「パッチ」の番号は、その時の番号(今は `WebFormsForCore/` の同じ件名のコミット)。
 
 ## フォーク(2026-09-26、`_upstream` のローカルブランチ `w2l/dynamicdata`)
 
-上流 WebFormsForCore の main(1.6.4 相当)に対する修正。`patches/` に `git format-patch` の形で置く。
+上流 WebFormsForCore の main(1.6.4 相当)に対する修正。当時は `patches/` に `git format-patch` の形で置いていた。
 `pack-fork.ps1` で `1.6.5-w2l.3` として `_feed/` にパッケージ化し、テンプレートはそれを参照する。
 
 | パッチ | 内容 | 必要になった場面 |
@@ -278,6 +278,17 @@ Chart コントロール(referencesource の System.Web.DataVisualization、MIT)
   - 新旧比較のケース: `Chart.SaveXml("Abc 123")` が作業フォルダーにファイルを残し、`LoadTemplate("Abc 123")` が前回の実行のそれを読んでいた(ゴールデンも)。テンプレートは事前に作った一時ファイルにし、ゴールデンを採り直した。
 - **検証**: テスト Windows 2,823 件・Linux 2,804 件(SQL Server の要る 19 件はスキップ)がすべて緑。be Windows 5/5・Linux 5/5、wt Windows 6/8・Linux 5/8(以前と同じ既知の差のみ)。
 - **残り**: nop(管理画面のレポート 2 つ)での実地検証は未実施(CLAUDE.md によりコーパスの検証は be/wt のみ。代わりに `samples/ChartProbe` で同じ登録と使い方を確かめた)。System.Windows.Forms.DataVisualization(Windows フォーム版)は移植していない。デザイナー用のリソース(Design.resources)は持たない。Linux では EMF 形式で保存できない(libgdiplus)。
+
+### フォークをリポジトリに取り込む(2026-10-01)
+
+それまでのフォークは、リポジトリの外の `_upstream`(上流の浅いクローン)に `patches/` の 40 本を当てたものだった。パッケージはそれを持つ開発機でしか作れず、修正のたびにパッチの書き出しとコミットが二度手間だった。上流 WebFormsForCore(MIT)を git subtree でトップレベルの `WebFormsForCore/` に履歴ごと取り込み、このリポジトリで保守する。
+
+- 取り込み: 上流 22c7d354(当時の main の先頭)を `git subtree add --prefix=WebFormsForCore`(上流の履歴 441 コミット)。上流のサブモジュールの参照(`src/WebFormsForCore.AjaxControlToolkit`、`www`)は外し、Ajax Control Toolkit は上流が指していた c9952ac6 を `WebFormsForCore/src/WebFormsForCore.AjaxControlToolkit` に同じく subtree で取り込んだ(2,396 コミット)。`www`(上流の Web サイト)は取り込まない。
+- パッチ 0001〜0036・0038〜0040 を `git am --directory=WebFormsForCore` でコミットとして積み、0037(サブモジュールの参照の更新)の代わりに Ajax Control Toolkit のパッチを `--directory=WebFormsForCore/src/WebFormsForCore.AjaxControlToolkit` で当てた。作者・日付・件名は元のまま。結果は `_upstream` の木と、サブモジュールの 2 か所を除いて同一(Ajax Control Toolkit の木も同一)。
+- `patches/` と、パッチから作る `setup-fork.ps1` は消した。`fork.slnx`、`pack-fork.ps1`、`publish-fork.ps1`(リリースの説明に、上流のどのコミットから取り込んだかを subtree の記録から書く)、テストのプロジェクト参照、`run-tests-linux.ps1`、リソースの生成スクリプトは `WebFormsForCore/` を指す。`pack-fork.ps1 -Build All` は、`lib/WebFormsForCore.Build`(ビルドの出力で Git 管理外)が無ければ先にビルドする。
+- 上流の更新の取り込み: `git subtree pull --prefix=WebFormsForCore https://github.com/webformsforcore/WebFormsForCore.git main`(Ajax Control Toolkit は `--prefix=WebFormsForCore/src/WebFormsForCore.AjaxControlToolkit` とそのリポジトリ)。上流に返すときは、`WebFormsForCore/` の変更のコミットだけを `git subtree split` で取り出せる(フォークの変更と変換器の変更はコミットを分ける)。
+- GitHub Actions(`.github/workflows/fork.yml`): `WebFormsForCore/` などを変える push で、Windows でパッケージを作り、.NET SDK のコンテナで Linux のテストを走らせ、版の Release がまだ無ければ置く。Windows のテストはゴールデンがこの開発機のもの(日本語の Windows、GDI+ とフォント、IIS、SQL Server Express)なので Actions では走らせない。
+- 確認: `WebFormsForCore/` から作ったパッケージ 18 個は、それまでの `_feed` のものと DLL の一覧が同じで、大きさの差は 1 KiB 未満(ビルドのパスの長さ)。テスト Windows 2,823 件・Linux 2,804 件(SQL Server の要る 19 件はスキップ)がすべて緑。開発機の `_upstream/` はもう使わない(Git 管理外のまま残っている。消してよい)。
 
 ## カルチャのデータ(2026-09-26)
 

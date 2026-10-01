@@ -1,4 +1,4 @@
-# Generates Core\SR.resx of the System.Web.DataVisualization port (_upstream\src\WebFormsForCore.Web.DataVisualization)
+# Generates Core\SR.resx of the System.Web.DataVisualization port (WebFormsForCore\src\WebFormsForCore.Web.DataVisualization)
 # from .NET Framework 4.8's own System.Web.DataVisualization.dll, so that the port's messages and property descriptions
 # are exactly .NET Framework's.
 #
@@ -15,7 +15,7 @@ if ($PSVersionTable.PSEdition -eq 'Core') { throw 'Run under Windows PowerShell 
 Add-Type -AssemblyName System.Windows.Forms   # ResXResourceWriter
 
 $assembly = [Reflection.Assembly]::Load('System.Web.DataVisualization, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35')
-$out = Join-Path $PSScriptRoot '_upstream\src\WebFormsForCore.Web.DataVisualization\Core'
+$out = Join-Path $PSScriptRoot '..\..\WebFormsForCore\src\WebFormsForCore.Web.DataVisualization\Core'
 New-Item -ItemType Directory $out -Force | Out-Null
 
 $reader = New-Object Resources.ResourceReader($assembly.GetManifestResourceStream('System.Web.UI.DataVisualization.Charting.SR.resources'))

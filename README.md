@@ -35,7 +35,7 @@
 | `src/FrameworkOnCore.Studio` | GUI(ローカルの Web 画面)。解析、部品ごとの選択、ソースの表示、変換のコマンド |
 | `src/FrameworkOnCore.Analyzers` | 変換のビルドで使う Roslyn アナライザー(Windows のパス、非同期デリゲート、プラットフォームの置き換え) |
 | `experiments/wf4c/shims/FrameworkOnCore.Compat` | 互換アセンブリ。.NET にない、または Windows 専用のものを .NET Framework と同じ動きで補う(EventLog、Encoding.Default、Thread.ResetAbort、VB の My など) |
-| `experiments/wf4c/patches` | WebFormsForCore のフォークへのパッチ(40 本。0032・0033 は LINQ to SQL、0034〜0037 は System.Drawing の移植、0038 は Linux での生成物のフォルダーの掃除、0039・0040 は System.Web.DataVisualization(グラフ)の移植。`AjaxControlToolkit/` はそのサブモジュールへのパッチ) |
+| `WebFormsForCore` | WebFormsForCore のフォーク(上流を git subtree で取り込み、このリポジトリで保守する。Ajax Control Toolkit も `src/WebFormsForCore.AjaxControlToolkit` に同じく取り込み済み)。上流への変更は取り込みの後のコミット(以前のパッチ 0001〜0040 に当たる。0032・0033 は LINQ to SQL、0034〜0037 は System.Drawing の移植、0038 は Linux での生成物のフォルダーの掃除、0039・0040 は System.Web.DataVisualization(グラフ)の移植)。上流の更新は `git subtree pull --prefix=WebFormsForCore https://github.com/webformsforcore/WebFormsForCore.git main` |
 | `experiments/wf4c/casefs` | Linux でファイル名の大文字小文字を区別しない LD_PRELOAD ライブラリ(libfoccase.so) |
 | `tests/FrameworkOnCore.Tests` | テスト(Windows と Linux) |
 | `tests/DataLinqParity` | 移植した System.Data.Linq の全 API の新旧比較のケース(net48 で .NET Framework のゴールデンを採り、テストが移植版と比べる) |
@@ -88,7 +88,7 @@ dotnet test tests\FrameworkOnCore.Tests
 
 ### フォークを変えるとき(開発者向け)
 
-`experiments/wf4c/setup-fork.ps1` で上流を clone して `experiments/wf4c/patches` を当て(`experiments/wf4c/_upstream`)、`experiments/wf4c/pack-fork.ps1 -Build All` で `_feed` にパッケージを作ります(`_feed` にある版は取得されません)。配るときは版を上げ(`pack-fork.ps1 -Version` の既定と `rules/packages.json` の `forkVersion`)、パッチと一緒に push します。GitHub Actions(`.github/workflows/fork.yml`)が同じ手順でビルドし、Linux でテストして、まだ無い版なら GitHub Release に置きます(手で動かすときは Actions の「fork packages」の Run workflow。publish にチェックを入れたときだけ公開)。手元から置くときは `experiments/wf4c/publish-fork.ps1`。
+フォークのソースは `WebFormsForCore/` です。直したら `experiments/wf4c/pack-fork.ps1 -Build All` で `_feed` にパッケージを作ります(`_feed` にある版は取得されません)。配るときは版を上げ(`pack-fork.ps1 -Version` の既定と `rules/packages.json` の `forkVersion`)、push します。GitHub Actions(`.github/workflows/fork.yml`)が同じ手順でビルドし、Linux でテストして、まだ無い版なら GitHub Release に置きます(手で動かすときは Actions の「fork packages」の Run workflow。publish にチェックを入れたときだけ公開)。手元から置くときは `experiments/wf4c/publish-fork.ps1`。
 
 ## 状態
 

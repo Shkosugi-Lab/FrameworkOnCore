@@ -133,7 +133,7 @@ Windows でしか動かないものを検出する。書き換えられるもの
 
 | 対象 | ランタイム | 状態 |
 |---|---|---|
-| Web Forms | WebFormsForCore のフォーク(`experiments/wf4c/patches` 0001–0007)と互換アセンブリ(`shims/`) | Windows で wt・be・サンプルが動作 |
+| Web Forms | WebFormsForCore のフォーク(`WebFormsForCore/`。当時のパッチ 0001–0007)と互換アセンブリ(`shims/`) | Windows で wt・be・サンプルが動作 |
 | Web API 2 | .NET Framework 版の DLL のまま、ポートした System.Web の上で動かす | be でビルドと起動を確認。API の動作は未検証 |
 | MVC 5 | まず .NET Framework 版の DLL のまま試す。動かなければ AspNetWebStack(Apache 2.0)をポートする | 未着手。be の Web Pages(Razor)が DLL のまま動いたので見込みはある |
 | WCF | CoreWCF(MIT)に載せる。.svc は ServiceHost の登録に、system.serviceModel はコードに変換する。対応しないもの(WSDualHttp、メッセージセキュリティ、トランザクション)は報告する | 未着手 |

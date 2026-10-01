@@ -26,7 +26,7 @@
     <ProjectReference Include="..\..\src\FrameworkOnCore.Converter\FrameworkOnCore.Converter.csproj" />
     <ProjectReference Include="..\..\experiments\wf4c\shims\FrameworkOnCore.Compat\FrameworkOnCore.Compat.csproj" />
     <!-- The LINQ to SQL port (the fork's System.Data.Linq): DataLinq\*Tests.cs. -->
-    <ProjectReference Include="..\..\experiments\wf4c\_upstream\src\WebFormsForCore.Data.Linq\WebFormsForCore.Data.Linq.csproj" />
+    <ProjectReference Include="..\..\WebFormsForCore\src\WebFormsForCore.Data.Linq\WebFormsForCore.Data.Linq.csproj" />
   </ItemGroup>
 
   <ItemGroup>

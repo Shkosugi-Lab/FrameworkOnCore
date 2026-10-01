@@ -1,4 +1,4 @@
-# Packs the WebFormsForCore fork (experiments/wf4c/_upstream, local branch w2l/*) into
+# Packs the WebFormsForCore fork (WebFormsForCore/ of this repository: upstream taken in by git subtree, maintained here) into
 # experiments/wf4c/_feed as version $Version, and drops that version from the NuGet cache so the
 # next restore picks the new build up (a package version is cached once and never re-read).
 #
@@ -7,7 +7,7 @@
 #
 # Build order matters upstream (Web.Extensions fails when built before its references), so -Build
 # All builds in dependency order, after src/WebFormsForCore.Build when it was not built yet (it emits the
-# FakeStrongName targets every project imports). The fork: setup-fork.ps1.
+# FakeStrongName targets every project imports).
 param(
     [string]$Version = '1.6.5-w2l.6',
     [ValidateSet('Web', 'All', 'None')][string]$Build = 'Web'
@@ -18,7 +18,8 @@ $ErrorActionPreference = 'Stop'
 # Debug.Assert (about 630 in the packed assemblies), and on .NET a failed Debug.Assert ends the process (found by the
 # System.Data.Linq parity cases: SingleResult's assert, not true for Translate(DbDataReader)).
 $Configuration = 'Release'
-$src = Join-Path $PSScriptRoot '_upstream\src'
+$fork = Join-Path $PSScriptRoot '..\..\WebFormsForCore'
+$src = Join-Path $fork 'src'
 $feed = Join-Path $PSScriptRoot '_feed'
 
 $projects = @(
@@ -51,12 +52,12 @@ $projects = @(
 $net10Only = @('WebFormsForCore.AjaxControlToolkit\AjaxControlToolkit\AjaxControlToolkit.csproj')
 
 if ($Build -eq 'All') {
-    # The build tasks every project imports (lib/WebFormsForCore.Build: FakeStrongName and the rest), once: a fork made
-    # by setup-fork.ps1 has none yet. Not in fork.slnx (built there, its loaded task DLL is copied over: the build fails).
+    # The build tasks every project imports (lib/WebFormsForCore.Build: FakeStrongName and the rest), once: a fresh
+    # checkout has none (build output, not in Git). Not in fork.slnx (built there, its loaded task DLL is copied over: the build fails).
     # A framework at a time, each with its intermediate folder of its own: the project has none per framework (net8.0
     # and net10.0 write the same obj\...\WebFormsForCore.Build.NetCore.dll: together, CS2012; one after the other, the
     # second one's compilation is skipped as up to date).
-    if (-not (Test-Path (Join-Path $PSScriptRoot '_upstream\lib\WebFormsForCore.Build\net10.0\FakeStrongName.targets'))) {
+    if (-not (Test-Path (Join-Path $fork 'lib\WebFormsForCore.Build\net10.0\FakeStrongName.targets'))) {
         foreach ($framework in 'net48', 'net8.0', 'net10.0', 'netstandard2.0') {
             dotnet build (Join-Path $src 'WebFormsForCore.Build\WebFormsForCore.Build.csproj') -c $Configuration -f $framework "-p:IntermediateOutputPath=obj\$Configuration\$framework\" -v q -nologo
             if ($LASTEXITCODE -ne 0) { throw "build failed: WebFormsForCore.Build ($framework)" }

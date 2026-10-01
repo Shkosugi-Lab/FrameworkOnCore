@@ -1,11 +1,11 @@
-# The WebFormsForCore fork's packages, built here instead of on a developer's machine: upstream at the base commit and
-# experiments/wf4c/patches (setup-fork.ps1), built and packed (pack-fork.ps1, Release), tested on Linux against them
-# (the test suite in the .NET SDK's container, as run-tests-linux.ps1 runs it), and published as the GitHub Release
+# The WebFormsForCore fork's packages, built here instead of on a developer's machine: WebFormsForCore/ (upstream taken
+# in by git subtree, maintained in this repository) built and packed (pack-fork.ps1, Release), tested on Linux against
+# them (the test suite in the .NET SDK's container, as run-tests-linux.ps1 runs it), and published as the GitHub Release
 # fork-<forkVersion> (publish-fork.ps1) that the converter, the analysis and Studio fetch.
 #
-# A version is published once. A push that changes the fork (patches, pack-fork.ps1, the rules' forkVersion) publishes
-# its version when there is no release of it yet; with one, the run warns (a changed fork is a new version: raise
-# forkVersion in src/FrameworkOnCore.Converter/rules/packages.json, and pack-fork.ps1's default). Run by hand
+# A version is published once. A push that changes the fork (WebFormsForCore/, pack-fork.ps1, the rules' forkVersion)
+# publishes its version when there is no release of it yet; with one, the run warns (a changed fork is a new version:
+# raise forkVersion in src/FrameworkOnCore.Converter/rules/packages.json, and pack-fork.ps1's default). Run by hand
 # (workflow_dispatch) it builds and tests, and publishes only when asked.
 #
 # The Windows tests are not run here: their goldens are this project's Windows machine's (GDI+ drawing with its fonts,
@@ -16,8 +16,7 @@ on:
   push:
     branches: [main, 'pivot/**']
     paths:
-      - 'experiments/wf4c/patches/**'
-      - 'experiments/wf4c/setup-fork.ps1'
+      - 'WebFormsForCore/**'
       - 'experiments/wf4c/pack-fork.ps1'
       - 'experiments/wf4c/fork.slnx'
       - 'src/FrameworkOnCore.Converter/rules/packages.json'
@@ -54,9 +53,6 @@ jobs:
           $version = [regex]::Match($rules, '"forkVersion"\s*:\s*"([^"]+)"').Groups[1].Value
           if (-not $version) { throw 'no forkVersion in rules/packages.json' }
           "version=$version" >> $env:GITHUB_OUTPUT
-      - name: Make the fork (upstream + patches)
-        shell: powershell
-        run: .\experiments\wf4c\setup-fork.ps1
       - name: Build and pack
         shell: powershell
         run: .\experiments\wf4c\pack-fork.ps1 -Build All -Version ${{ steps.version.outputs.version }}
@@ -69,7 +65,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: fork-build-tasks
-          path: experiments/wf4c/_upstream/lib/WebFormsForCore.Build/
+          path: WebFormsForCore/lib/WebFormsForCore.Build/
           if-no-files-found: error
 
   test-linux:
@@ -82,9 +78,6 @@ jobs:
       - uses: actions/checkout@v4
       - name: libgdiplus and fonts
         run: apt-get update -qq && apt-get install -y -qq --no-install-recommends libgdiplus fonts-liberation2
-      - name: Make the fork (upstream + patches)
-        shell: pwsh
-        run: ./experiments/wf4c/setup-fork.ps1
       - uses: actions/download-artifact@v4
         with:
           name: fork-feed-${{ needs.build.outputs.version }}
@@ -92,7 +85,7 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           name: fork-build-tasks
-          path: experiments/wf4c/_upstream/lib/WebFormsForCore.Build
+          path: WebFormsForCore/lib/WebFormsForCore.Build
       - name: Tests (Linux)
         run: dotnet test tests/FrameworkOnCore.Tests/FrameworkOnCore.Tests.csproj -nologo -v q
 
@@ -104,7 +97,10 @@ jobs:
       GH_TOKEN: ${{ github.token }}
       VERSION: ${{ needs.build.outputs.version }}
     steps:
+      # The whole history: the release names the upstream commit WebFormsForCore/ was taken from (git subtree's record).
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - id: release
         name: Is the version published?
         shell: pwsh
@@ -112,14 +108,10 @@ jobs:
           gh release view "fork-$env:VERSION" --repo $env:GITHUB_REPOSITORY *> $null
           if ($LASTEXITCODE -eq 0) {
             "exists=true" >> $env:GITHUB_OUTPUT
-            # Not published again. If the push changed the patches, its packages are not the published ones.
-            "::warning::fork-$env:VERSION is published already: not published again. If the fork changed (patches), raise forkVersion (src/FrameworkOnCore.Converter/rules/packages.json and pack-fork.ps1)"
+            # Not published again. If the push changed the fork, its packages are not the published ones.
+            "::warning::fork-$env:VERSION is published already: not published again. If the fork changed (WebFormsForCore/), raise forkVersion (src/FrameworkOnCore.Converter/rules/packages.json and pack-fork.ps1)"
           } else { "exists=false" >> $env:GITHUB_OUTPUT }
           exit 0
-      - name: Make the fork (its license and base commit go with the release)
-        if: steps.release.outputs.exists == 'false'
-        shell: powershell
-        run: .\experiments\wf4c\setup-fork.ps1
       - uses: actions/download-artifact@v4
         if: steps.release.outputs.exists == 'false'
         with:

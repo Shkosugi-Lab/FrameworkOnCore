@@ -72,7 +72,8 @@ public sealed class AssemblyRetargeter
             if (!loaded.TryGetValue(name.Name, out var assembly))
             {
                 assembly = owner.assemblies.TryGetValue(name.Name, out var target)
-                    ? AssemblyDefinition.ReadAssembly(target.Path, new ReaderParameters { AssemblyResolver = this })
+                    // In memory: a DLL of the folder rewritten in place is not held open (dnn: "being used by another process").
+                    ? AssemblyDefinition.ReadAssembly(target.Path, new ReaderParameters { AssemblyResolver = this, InMemory = true })
                     : null;
                 loaded[name.Name] = assembly;
             }
@@ -277,8 +278,11 @@ public sealed class AssemblyRetargeter
             }
             var token = definition.PublicKey.IsNil ? [] : Token(reader.GetBlobBytes(definition.PublicKey));
             var assembly = new Target(name, file, definition.Version, token, rank, types, publicTypes, forwards);
-            // Replaces one of lower rank (the application's over .NET's), not one of the same.
-            if (assemblies.TryGetValue(name, out var existing) && existing.Rank <= rank) return;
+            // Replaces one of lower rank (the application's over .NET's), not one of the same. Over .NET's only when not of a
+            // lower version: the host runs the higher of the two. A deployed site's package facades for .NET Framework
+            // (System.Security.AccessControl 6.0.0.1, forwarding to mscorlib, which .NET's forwards back: Cecil's
+            // resolution went round until the stack overflowed) are not what runs (mojo).
+            if (assemblies.TryGetValue(name, out var existing) && (existing.Rank <= rank || existing.Rank == Framework && definition.Version < existing.Version)) return;
             if (existing != null) foreach (var type in existing.PublicTypes) byType[type].Remove(existing);
             assemblies[name] = assembly;
             foreach (var type in publicTypes)
@@ -365,8 +369,19 @@ public sealed class AssemblyRetargeter
             if ((module.Attributes & ModuleAttributes.ILOnly) == 0)
                 return new Result(file, [], unresolved.Concat(retargeted.Select(r => (r.Item1, r.Item2 + " (not IL only: not rewritten)"))).ToList())
                     { MissingMembers = missingMembers.Concat(replaced.Select(r => r.Item1 + " (not IL only: not rewritten)")).ToList() };
+            // Written whole or not at all: the output may be the DLL itself (a site's, in place), which a failed write
+            // left empty. Writing resolves a constant's enum type, which may be in an assembly nothing has (imis:
+            // [WindowsBase]System.IO.Packaging's, which .NET's WindowsBase forwards to System.IO.Packaging, not in .NET):
+            // the DLL stays as it is.
+            var written = new MemoryStream();
+            try { module.Write(written); }
+            catch (AssemblyResolutionException e)
+            {
+                return new Result(file, [], unresolved.Concat(retargeted.Select(r => (r.Item1, $"{r.Item2} (not rewritten: {e.AssemblyReference.Name} is not there)"))).ToList())
+                    { MissingMembers = missingMembers.Concat(replaced.Select(r => $"{r.Item1} (not rewritten: {e.AssemblyReference.Name} is not there)")).ToList() };
+            }
             Directory.CreateDirectory(Path.GetDirectoryName(output)!);
-            module.Write(output);
+            File.WriteAllBytes(output, written.ToArray());
             return new Result(file, retargeted, unresolved) { Replaced = replaced, MissingMembers = missingMembers };
         }
     }

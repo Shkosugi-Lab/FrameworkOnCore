@@ -180,6 +180,104 @@ public sealed class AssemblyRetargeterTests : IDisposable
         Assert.DoesNotContain(results, r => r.File.EndsWith("MyApp.dll"));
     }
 
+    [Fact] // mojo: a package's facade for .NET Framework forwards to mscorlib, which .NET's forwards back (a stack overflow)
+    public void An_older_version_of_an_assembly_NET_has_is_not_what_binds()
+    {
+        using (var facade = AssemblyDefinition.CreateAssembly(new AssemblyNameDefinition("System.Security.AccessControl", new Version(6, 0, 0, 1)), "System.Security.AccessControl", ModuleKind.Dll))
+        {
+            var mscorlib = new AssemblyNameReference("mscorlib", new Version(4, 0, 0, 0));
+            facade.MainModule.AssemblyReferences.Add(mscorlib);
+            facade.MainModule.ExportedTypes.Add(new ExportedType("System.Security.AccessControl", "AccessRule", facade.MainModule, mscorlib) { IsForwarder = true });
+            facade.Write(Path.Combine(Bin, "System.Security.AccessControl.dll"));
+        }
+        Consumer("Security.User", ("System.Security.AccessControl", new Version(4, 0, 0, 0), "System.Security.AccessControl.AccessRule"));
+
+        var result = Assert.Single(AssemblyRetargeter.RetargetFolder(Bin, Path.Combine(directory, "retargeted"), new HashSet<string>(), new HashSet<string>(), new Report()), r => r.File.EndsWith("Security.User.dll"));
+
+        // .NET's System.Security.AccessControl (10.0) has the type: the reference binds as it is.
+        Assert.Empty(result.Unresolved);
+        Assert.Empty(result.Retargeted);
+    }
+
+    [Fact] // dnn: a DLL another one's members were resolved in was held open, and could not be rewritten in place
+    public void A_dll_read_to_resolve_another_ones_members_is_rewritten_in_place()
+    {
+        Provider("System.Web", new Version(4, 0), "System.Runtime.Remoting.Messaging.CallContext");
+        // Lib refers to CallContext in mscorlib (retargeted) and has a method Aaa calls (resolved first: Aaa is before it).
+        using (var lib = AssemblyDefinition.CreateAssembly(new AssemblyNameDefinition("Lib", new Version(1, 0)), "Lib", ModuleKind.Dll))
+        {
+            var module = lib.MainModule;
+            var thing = new TypeDefinition("Lib", "Thing", TypeAttributes.Public | TypeAttributes.Class, module.TypeSystem.Object);
+            var method = new MethodDefinition("Run", MethodAttributes.Public | MethodAttributes.Static, module.TypeSystem.Void);
+            method.Body.GetILProcessor().Emit(Mono.Cecil.Cil.OpCodes.Ret);
+            thing.Methods.Add(method);
+            var mscorlib = new AssemblyNameReference("mscorlib", new Version(4, 0, 0, 0));
+            module.AssemblyReferences.Add(mscorlib);
+            thing.Fields.Add(new FieldDefinition("context", FieldAttributes.Public, new TypeReference("System.Runtime.Remoting.Messaging", "CallContext", module, mscorlib)));
+            module.Types.Add(thing);
+            lib.Write(Path.Combine(Bin, "Lib.dll"));
+        }
+        using (var caller = AssemblyDefinition.CreateAssembly(new AssemblyNameDefinition("Aaa", new Version(1, 0)), "Aaa", ModuleKind.Dll))
+        {
+            var module = caller.MainModule;
+            var libReference = new AssemblyNameReference("Lib", new Version(1, 0));
+            module.AssemblyReferences.Add(libReference);
+            var type = new TypeDefinition("Aaa", "Caller", TypeAttributes.Public | TypeAttributes.Class, module.TypeSystem.Object);
+            var method = new MethodDefinition("Go", MethodAttributes.Public | MethodAttributes.Static, module.TypeSystem.Void);
+            var il = method.Body.GetILProcessor();
+            il.Emit(Mono.Cecil.Cil.OpCodes.Call, new MethodReference("Run", module.TypeSystem.Void, new TypeReference("Lib", "Thing", module, libReference)));
+            il.Emit(Mono.Cecil.Cil.OpCodes.Ret);
+            type.Methods.Add(method);
+            module.Types.Add(type);
+            caller.Write(Path.Combine(Bin, "Aaa.dll"));
+        }
+
+        var results = AssemblyRetargeter.RetargetFolder(Bin, null, new HashSet<string> { "System.Web" }, new HashSet<string>(), new Report());
+
+        Assert.Single(results, r => r.File.EndsWith("Lib.dll") && r.Retargeted.Count == 1);
+        Assert.Contains(("System.Web", "System.Runtime.Remoting.Messaging.CallContext"), References(Path.Combine(Bin, "Lib.dll")));
+    }
+
+    [Fact] // imis: writing resolves a constant's enum type, here in an assembly nothing has
+    public void A_dll_that_cannot_be_written_is_left_as_it_is_and_reported()
+    {
+        Provider("System.Web", new Version(4, 0), "System.Runtime.Remoting.Messaging.CallContext");
+        // The enum's assembly is there to make the DLL, not when it is retargeted.
+        var elsewhere = Directory.CreateDirectory(Path.Combine(directory, "elsewhere")).FullName;
+        using (var enums = AssemblyDefinition.CreateAssembly(new AssemblyNameDefinition("Packaging", new Version(1, 0)), "Packaging", ModuleKind.Dll))
+        {
+            var module = enums.MainModule;
+            var option = new TypeDefinition("Packaging", "Option", TypeAttributes.Public | TypeAttributes.Sealed, module.ImportReference(typeof(Enum)));
+            option.Fields.Add(new FieldDefinition("value__", FieldAttributes.Public | FieldAttributes.SpecialName | FieldAttributes.RTSpecialName, module.TypeSystem.Int32));
+            module.Types.Add(option);
+            enums.Write(Path.Combine(elsewhere, "Packaging.dll"));
+        }
+        using var resolver = new DefaultAssemblyResolver();
+        resolver.AddSearchDirectory(elsewhere);
+        var file = Path.Combine(Bin, "Documents.dll");
+        using (var documents = AssemblyDefinition.CreateAssembly(new AssemblyNameDefinition("Documents", new Version(1, 0)), "Documents", new ModuleParameters { Kind = ModuleKind.Dll, AssemblyResolver = resolver }))
+        {
+            var module = documents.MainModule;
+            var packaging = new AssemblyNameReference("Packaging", new Version(1, 0));
+            var mscorlib = new AssemblyNameReference("mscorlib", new Version(4, 0, 0, 0));
+            module.AssemblyReferences.Add(packaging);
+            module.AssemblyReferences.Add(mscorlib);
+            var type = new TypeDefinition("Documents", "Holder", TypeAttributes.Public | TypeAttributes.Class, module.TypeSystem.Object);
+            type.Fields.Add(new FieldDefinition("Default", FieldAttributes.Public | FieldAttributes.Static | FieldAttributes.Literal | FieldAttributes.HasDefault,
+                new TypeReference("Packaging", "Option", module, packaging, valueType: true)) { Constant = 1 });
+            type.Fields.Add(new FieldDefinition("context", FieldAttributes.Public, new TypeReference("System.Runtime.Remoting.Messaging", "CallContext", module, mscorlib)));
+            module.Types.Add(type);
+            documents.Write(file);
+        }
+        var before = File.ReadAllBytes(file);
+
+        var result = Assert.Single(AssemblyRetargeter.RetargetFolder(Bin, null, new HashSet<string> { "System.Web" }, new HashSet<string>(), new Report()), r => r.File.EndsWith("Documents.dll"));
+
+        Assert.Empty(result.Retargeted);
+        Assert.Contains(result.Unresolved, u => u.Type == "System.Runtime.Remoting.Messaging.CallContext" && u.From.Contains("not rewritten: Packaging"));
+        Assert.Equal(before, File.ReadAllBytes(file));
+    }
+
     [Fact] // System.Web.Mvc.dll references System.Data.Linq while no project does: its package is to be added
     public void A_framework_reference_only_a_dll_makes_is_found()
     {

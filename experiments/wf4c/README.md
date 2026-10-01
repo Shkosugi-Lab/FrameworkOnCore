@@ -290,6 +290,41 @@ Chart コントロール(referencesource の System.Web.DataVisualization、MIT)
 - GitHub Actions(`.github/workflows/frameworkoncore-packages.yml`): `FrameworkOnCore.Runtime/` などを変える push で、Windows でパッケージを作り、.NET SDK のコンテナで Linux のテストを走らせ、版の Release がまだ無ければ置く。Windows のテストはゴールデンがこの開発機のもの(日本語の Windows、GDI+ とフォント、IIS、SQL Server Express)なので Actions では走らせない。
 - 確認: `FrameworkOnCore.Runtime/` から作ったパッケージ 18 個は、それまでの `_feed` のものと DLL の一覧が同じで、大きさの差は 1 KiB 未満(ビルドのパスの長さ)。テスト Windows 2,823 件・Linux 2,804 件(SQL Server の要る 19 件はスキップ)がすべて緑。開発機の `_upstream/` はもう使わない(Git 管理外のまま残っている。消してよい)。
 
+### System.Web.Mobile(モバイル コントロール)の移植(2026-10-01、`1.6.5-w2l.7`)
+
+ASP.NET 1.1 のモバイル コントロール(referencesource の System.Web.Mobile、MIT)。上流にプロジェクト(`src/WebFormsForCore.Web.Mobile`)があり、ビルドはできたが動かなかった。それを直して FrameworkOnCore.Web.Mobile として配る。アセンブリは System.Web.Mobile 10.0.29.0、公開キーは .NET Framework と同じ(b03f5f7f11d50a3a)、net8.0・net10.0。
+
+- **コーパスでの使われ方(必須カバー一覧)**: nop(`System.Web.Mobile` の参照と、管理画面など 11 ファイルの `using System.Web.UI.MobileControls;`)、mojo・dnn・n2(参照だけ)。コントロールや MobileCapabilities を呼ぶ箇所は無い。必要なのは「参照が解決し、名前空間がある」ことで、移植版はそれを満たす(以前は `noAnswer` で参照を外していた)。コーパスに使い手が無いので、機能は新旧比較とサンプルのサイトで確かめた。
+- **見つけて直したこと(`FrameworkOnCore.Runtime/`)**:
+  - すべてのモバイル ページが 500(`Control 'System.Web.UI.Control' is not registered with device`): 上流が `IndividualDeviceConfig` のアダプターの登録(`FactoryGenerator`)を `#if NETFRAMEWORK` で外していた。戻した。
+  - ビュー ステートの MAC で `DllNotFoundException: webengine4.dll`: MobilePage は `LosFormatter(true, macKey)` で旧来の MAC を使い、それが `MachineKeySection` のネイティブ関数(webengine4.dll の内側・外側のキー、HMAC、ハッシュ)を呼ぶ。マネージドで書いた。アルゴリズムは .NET Framework のネイティブを P/Invoke して測った: 出力の長さで決まる(16=MD5、20=SHA1、32=SHA256、48=SHA384、64=SHA512、それ以外は E_INVALIDARG)、HMAC は H(外側 + H(内側 + データ + 修飾子))。最初に SHA1 だけで書いて、HMACSHA256(既定の validation)の MAC が合わなかったので、長さで選ぶようにした。
+  - 同じ webengine4.dll の旧形式のフォーム認証チケット(`CookieAuthConstructTicket`/`ParseTicket`、appSettings `aspnet:UseLegacyFormsAuthenticationTicketCompatibility=true` のとき)もマネージドにした(`WebFormsForCore/Security/LegacyFormsAuthenticationTicket.cs`)。ネイティブと 20,000 件の乱数のチケットで一致(エラーの種類 E_INVALIDARG / E_UNEXPECTED も)。
+  - machine.config の `deviceFilters` が IgnoreSection の宣言のままで、web.config の `<deviceFilters>` が使えなかった(`MobileCapabilities.HasCapability` が InvalidCast)。`mobileControls` と同じく、System.Web.Mobile.dll があるときは `DeviceFiltersSection`(`@Mobile`)。
+  - デザイン モード(要求の外。.NET Framework は Visual Studio のデザイナーの部品を使う): `MobilePage.Device` が NotImplementedException だったのを `DesignerCapabilities` に、Form・Panel の `DesignerAdapter` 属性を戻した。デザイナーの公開 API のうちデザイナー無しで成り立つもの(`IMobileDesigner`、`IMobileWebFormServices`、`MobileResource`)も入れ、API は .NET Framework と完全に一致(1,819 のドキュメント ID、欠け・余分 0)。デザイン時のアダプター(`System.Web.UI.Design.MobileControls.Adapters`。MSHTML でページを表示するデザイナーの一部)は移植しない。
+- **類似の問題の調査で直したこと**:
+  - Web アプリの外(アプリのパスが無い: ライブラリのテスト、System.Web のキャッシュを使うコンソール)で System.Web の構成が `Path.Combine(null, ...)` で失敗していた(`HttpConfigurationSystem.MachineConfigurationDirectory`)。.NET Framework はそこでも machine.config を読むので、クライアント構成の machine.config(`ClientConfigurationHost.MachineConfigFilePath`)のフォルダーにした。ほかの `AppDomainAppPath` の使い方は .NET Framework でもアプリの中だけのもので、該当しない。
+  - Linux でクライアント構成(`ConfigurationManager`)が初期化できなかった: 実行ファイルの URI `file:///app/App.dll` から先頭の `/` を落とし、`/` を `\` にしていた(`ClientConfigPaths`)。Web アプリは HttpConfigurationSystem を使うので影響しなかった。
+  - 古いワーカーが残ってポートを握り、テストが前のビルドに当たっていた(スクリプトがスーパーバイザーだけを止めていた): ワーカーはスーパーバイザーが終わったら終わる(`WebFormsProcess`。Windows はプロセスを待ち、Linux は `getppid` を見る。Linux のコンテナでスーパーバイザーを kill -9 してワーカーが終わるのを確認)。スクリプト(run-sample、probe-requests、probe-corpora、chart-probe、sample-parity)はプロセスの木ごと止める(`taskkill /T`)。
+  - 変換器: 配置が libgdiplus を入れる判定(`DeployWriter.DrawingUsers`)で System.Web.Mobile を描く側に数えていた(System.Drawing の参照は Color などの型。描くのはデザイナーのフォント一覧だけ)。FrameworkOnCore 自身のものに加えた(`DeployWriterTests`)。
+- **変換器**: `rules/packages.json` で System.Web.Mobile → FrameworkOnCore.Web.Mobile(`noAnswer` から外した。部品 `mobile-controls` の選択肢 `port`(既定)/ `none`)。web.config の `<assemblies>`・`<pages><controls>` の登録はそのまま残る。ParityTest は `name` だけを持つ入力(モバイル コントロールは id を出さない)も対象にできるようにした。
+- **全 API の新旧比較**(`tests/MobileParity`): 1,495 ケース・2,293 行。見本はすべてのコントロールを持つモバイル ページと、HTML 3.2 の固定の値の MobileCapabilities。.NET では Web アプリと同じ machine.config を書いて読む(.NET Framework は machine.config に mobileControls・deviceFilters を持つ)。乱数で決まる値(GUID、`__ufps`、WML の短い名前)は形で書く。呼ばないのはデリゲートの BeginInvoke/EndInvoke だけ。
+  - **既知の差**(`known-differences.json`、Windows・Linux 共通の 4 項目): デザイン モードのコントロールのアダプター(.NET Framework はデザイナーのもの)、値型のアンボックスの例外のメッセージ(.NET は型名を書く)、`DesignerAdapterAttribute` の型名の中のアセンブリの版、XHTML のスタイル シートのキャッシュ キー(`String.GetHashCode` を .NET はプロセスごとに乱数化する。キーはプロセスの中だけで使う)。
+- **テスト マトリクス**:
+
+  | 領域 | 正常系 | 境界(null・空・不正な状態) | 異常系 | サイト(IIS と比較) |
+  |---|---|---|---|---|
+  | コントロール(Form、Panel、Label、TextBox、TextView、Command、Link、List、SelectionList、ObjectList、Image、PhoneCall、Calendar、AdRotator、検証、StyleSheet、DeviceSpecific) | 全メンバー | 見本の引数(null・空・"Abc 123")とビュー ステートの型違い | 例外の型(と既知の差以外はメッセージ) | 表示・必須の検証・選択・コマンド・リストの項目のコマンド・フォームの移動・ObjectList の詳細・Panel |
+  | アダプター(HTML、cHTML、WML、UP.Browser、XHTML) | 全メンバー | 同上 | 同上 | HTML のみ(ブラウザーは html32。ほかのマークアップの端末は無いので API のケースだけ) |
+  | MobileCapabilities・デバイス フィルター | 全メンバー | 無いフィルター名 | ArgumentOutOfRange | 値の比較のフィルターとメソッドのフィルター(`deviceFilters`)、DeviceSpecific の Choice |
+  | 構成(mobileControls、deviceFilters) | machine.config の既定 | — | — | 上と同じ |
+  | ビュー ステートの旧来の MAC(LosFormatter) | — | — | — | すべてのポストバック(Windows・Linux) |
+  | MobileFormsAuthentication・CookielessData | 要求の外の動き(例外) | — | 同左 | しない(コーパスが使わない。旧形式のチケットはネイティブとの比較で確認) |
+  | デザイナー | 公開 API の有無 | — | — | 移植しない |
+
+- **サイトでの確認**(`samples/MobileProbe`、`sample-parity.ps1`): 2 つのフォームのモバイル ページ(上の表の機能とデバイス フィルター)。IIS(.NET Framework 4.8)で採った 7 スナップショットと比べる。変換は変換器(既定の選択)、Linux は変換器が書いた Dockerfile のイメージ(libgdiplus なし)。**Windows 7/7・Linux 7/7 一致**。
+- **検証**: テスト Windows 4,324 件・Linux 4,305 件(SQL Server の要る 19 件はスキップ)がすべて緑。be/wt は Windows で変換・ビルドしてトップが 200、Linux で be 5/5・wt 5/8(以前と同じ既知の差のみ)。
+- **残り**: コントロールを使うコーパスが無いので、コーパスでの実地検証はしていない(nop・mojo・dnn・n2 は参照だけ。CLAUDE.md によりコーパスの検証は be/wt のみ)。WML・cHTML・XHTML の端末向けの表示はサイトで確かめていない(API のケースだけ)。デザイン時のアダプターは無い。
+
 ## カルチャのデータ(2026-09-26)
 
 .NET Framework は Windows のカルチャデータ(NLS)を使う。.NET は ICU のデータを使い、両者は異なる。

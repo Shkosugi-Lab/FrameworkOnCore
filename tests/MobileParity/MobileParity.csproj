@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <!-- The unit cases of every System.Web.DataVisualization API (the Chart control), compiled twice: net48 against .NET
+  <!-- The unit cases of every System.Web.Mobile API (the mobile controls), compiled twice: net48 against .NET
        Framework's assembly (the old: record.ps1 writes the goldens from it) and net10.0 against the port, FrameworkOnCore's
-       FrameworkOnCore.Web.DataVisualization package (the new: DataVisualizationParityTests runs this program and compares
+       FrameworkOnCore.Web.Mobile package (the new: MobileParityTests runs this program and compares
        what it writes with the goldens). The port as converted applications get it: the package from FrameworkOnCore's feed,
        with FrameworkOnCore's System.Web over .NET's facade of the same name. -->
   <PropertyGroup>
@@ -12,9 +12,9 @@
     <Prefer32Bit>false</Prefer32Bit>
     <Nullable>disable</Nullable>
     <ImplicitUsings>disable</ImplicitUsings>
-    <RootNamespace>FrameworkOnCore.DataVisualizationParity</RootNamespace>
+    <RootNamespace>FrameworkOnCore.MobileParity</RootNamespace>
     <IsPackable>false</IsPackable>
-    <!-- CA1416: System.Drawing on Linux is the point. CS0618, SYSLIB0011: the API's own obsolete members, called as they are. -->
+    <!-- CA1416: System.Drawing (colors, fonts of the styles) on Linux too. CS0618, SYSLIB0011: the API's own obsolete members (the whole assembly is [Obsolete]), called as they are. -->
     <NoWarn>$(NoWarn);CA1416;CS0618;SYSLIB0011;SYSLIB0051</NoWarn>
     <!-- FrameworkOnCore's version the tests run the port of (rules/packages.json frameworkOnCoreVersion). -->
     <FrameworkOnCoreVersion Condition="'$(FrameworkOnCoreVersion)' == ''">1.6.5-w2l.7</FrameworkOnCoreVersion>
@@ -29,14 +29,13 @@
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net48'">
     <Reference Include="System.Web" />
-    <Reference Include="System.Web.DataVisualization" />
+    <Reference Include="System.Web.Mobile" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Data" />
     <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="all" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net10.0'">
-    <PackageReference Include="FrameworkOnCore.Web.DataVisualization" Version="$(FrameworkOnCoreVersion)" />
+    <PackageReference Include="FrameworkOnCore.Web.Mobile" Version="$(FrameworkOnCoreVersion)" />
     <!-- Windows' culture data (NLS), as converted applications have it (their runtimeconfig; on Linux the deployment's
          ICU data made from the original server's): ICU's differs (en-US percents with 3 decimals). -->
     <RuntimeHostConfigurationOption Include="System.Globalization.UseNls" Value="true" />

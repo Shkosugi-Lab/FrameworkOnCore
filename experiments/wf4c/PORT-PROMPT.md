@@ -11,6 +11,7 @@
 2. ~~System.Web.DataVisualization(グラフ)~~ … **移植済み**(2026-10-01、パッチ 0039・0040。新旧比較は `tests/DataVisualizationParity`、Web Forms のサイトでの確認は `samples/ChartProbe`。experiments/wf4c/README.md の記録。nop での実地検証は未実施)
 3. System.Data.Services.Client … 優先度低。着手前に要否をユーザーに確認
 4. ~~System.Drawing(System.Drawing.Common の Linux 実装)~~ … **移植済み**(2026-09-30、パッチ 0034〜0037。dotnet/runtime 6.0 のソース。新旧比較は `tests/DrawingParity`。experiments/wf4c/README.md の記録)
+5. ~~System.Web.Mobile(モバイル コントロール)~~ … **移植済み**(2026-10-01。新旧比較は `tests/MobileParity`、Web Forms のサイトでの確認は `samples/MobileProbe`。experiments/wf4c/README.md の記録。コントロールを使うコーパスが無いので、コーパスでの実地検証はしていない)
 
 System.ServiceModel(CoreWCF)は「移植」ではなく別の作業なので、このプロンプトの対象外。
 

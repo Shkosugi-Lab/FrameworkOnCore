@@ -1,0 +1,29 @@
+{
+  "about": "Where the port may differ from .NET Framework's System.Web.Mobile, and why. MobileParityTests: in a case matching 'case', the lines matching 'line' (the golden's and the port's) are set aside; what remains must be equal. An entry that sets aside no difference (on its platform: 'all', 'windows' or 'linux') fails the test: it is stale.",
+  "differences": [
+    {
+      "case": "^Api\\.(AdRotator\\.Render|TextView\\.OnRender|Adapters\\.HtmlPanelAdapter\\.Render|ObjectList\\.RaisePostBackEvent|SelectionList\\.LoadPostData)$",
+      "line": "^(AdRotator\\.Render|TextView\\.OnRender|Adapters\\.HtmlPanelAdapter\\.Render|ObjectList\\.RaisePostBackEvent|SelectionList\\.LoadPostData)\\(",
+      "on": "all",
+      "reason": "Outside a request (as these cases run) a control is in design mode, and on .NET Framework its adapter is the designer's (System.Web.UI.Design.MobileControls.Adapters: Visual Studio's designer, which hosts the page in MSHTML; not in the port, which has no designer): rendering casts the writer to the designer's, posted data the designer handles. The port's control, without one, has the empty adapter. In a request (samples/MobileProbe, compared with IIS) the device's adapters render and handle posts on both."
+    },
+    {
+      "case": "^Api\\.(.+\\.LoadAdapterState|Form\\.LoadPrivateViewState)$",
+      "line": "= \"-> System\\.InvalidCastException: (Specified cast is not valid\\.|Unable to cast object of type 'System\\.String' to type 'System\\.Int32'\\.)\"$",
+      "on": "all",
+      "reason": "The message of the exception .NET throws unboxing a value of another type (state not of the shape saved): .NET names the types, .NET Framework does not. The same exception, at the same place."
+    },
+    {
+      "case": "^Api\\.DesignerAdapterAttribute\\.#ctor$",
+      "line": "^DesignerAdapterAttribute\\.#ctor\\(Type\\) = ",
+      "on": "all",
+      "reason": "The attribute holds the adapter type's assembly-qualified name: the port's assembly version is FrameworkOnCore's (10.0.29.0, as every assembly of FrameworkOnCore's WebFormsForCore), .NET Framework's 4.0.0.0. The type it names is loaded alike."
+    },
+    {
+      "case": "^Api\\.Adapters\\.XhtmlAdapters\\.XhtmlMobileTextWriter\\.SetCacheKey$",
+      "line": "^Adapters\\.XhtmlAdapters\\.XhtmlMobileTextWriter\\.SetCacheKey\\(Caching\\.Cache\\) after = ",
+      "on": "all",
+      "reason": "The key under which the page's style sheet is cached is its text's hash code (String.GetHashCode): .NET randomizes it per process, .NET Framework does not. The key is only used within the process (the page writes it into the style sheet's URL, which the same application serves), so any key does."
+    }
+  ]
+}

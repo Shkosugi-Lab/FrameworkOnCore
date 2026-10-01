@@ -71,15 +71,15 @@ public sealed class DeployWriter(Report report, string outRoot, string runtimeDi
 
     /// <summary>
     /// What in the site draws with System.Drawing (GDI+, libgdiplus on Linux): its assemblies that reference System.Drawing
-    /// or System.Drawing.Common, not FrameworkOnCore's own (System.Web's references are its types', Color and the like, not
-    /// drawing) nor .NET's System.Windows.Extensions (in every site, a dependency of the configuration's packages: its
+    /// or System.Drawing.Common, not FrameworkOnCore's own (System.Web's and the mobile controls' references are its types',
+    /// Color and the like, not drawing: the mobile controls draw only the font names a designer's property grid lists) nor .NET's System.Windows.Extensions (in every site, a dependency of the configuration's packages: its
     /// System.Drawing members are Windows' certificate dialogs and sounds), and pages whose markup or App_Code names
     /// System.Drawing (compiled on the server).
     /// </summary>
     public static List<string> DrawingUsers(string site)
     {
         var users = new List<string>();
-        var own = new HashSet<string>(StringComparer.OrdinalIgnoreCase) { "System.Drawing", "System.Drawing.Common", "System.Web", "System.Web.Extensions", "System.Web.DynamicData", "System.Web.Services", "System.Windows.Forms", "System.Windows.Extensions" };
+        var own = new HashSet<string>(StringComparer.OrdinalIgnoreCase) { "System.Drawing", "System.Drawing.Common", "System.Web", "System.Web.Extensions", "System.Web.DynamicData", "System.Web.Mobile", "System.Web.Services", "System.Windows.Forms", "System.Windows.Extensions" };
         var bin = Path.Combine(site, "bin");
         if (Directory.Exists(bin))
         {

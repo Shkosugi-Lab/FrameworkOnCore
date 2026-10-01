@@ -1,0 +1,260 @@
+{
+  "SourceUrl": "http://localhost:5096",
+  "Snapshots": [
+    {
+      "Name": "mobile-first form",
+      "Path": "/",
+      "Title": "Mobile probe",
+      "Text": [
+        "Mobile probe",
+        "Device: HTML 3.2",
+        "Rendering html32; isHtml32=True, isWml11=False, isProbe=True",
+        "The mobile controls of ASP.NET 1.1, as .NET Framework 4.8 still has them.",
+        "Your name:",
+        "Small",
+        "Medium",
+        "Large",
+        "Red",
+        "Green",
+        "Blue",
+        "To the second form"
+      ],
+      "Tables": [
+        [
+          [
+            "Red"
+          ],
+          [
+            "Green"
+          ],
+          [
+            "Blue"
+          ]
+        ]
+      ],
+      "Inputs": {},
+      "Elements": {}
+    },
+    {
+      "Name": "mobile-required field left empty",
+      "Path": "/",
+      "Title": "Mobile probe",
+      "Text": [
+        "Mobile probe",
+        "Device: HTML 3.2",
+        "Rendering html32; isHtml32=True, isWml11=False, isProbe=True",
+        "The mobile controls of ASP.NET 1.1, as .NET Framework 4.8 still has them.",
+        "Your name:",
+        "Enter a name.",
+        "Small",
+        "Medium",
+        "Large",
+        "Red",
+        "Green",
+        "Blue",
+        "To the second form"
+      ],
+      "Tables": [
+        [
+          [
+            "Red"
+          ],
+          [
+            "Green"
+          ],
+          [
+            "Blue"
+          ]
+        ]
+      ],
+      "Inputs": {},
+      "Elements": {}
+    },
+    {
+      "Name": "mobile-greeted",
+      "Path": "/",
+      "Title": "Mobile probe",
+      "Text": [
+        "Mobile probe",
+        "Device: HTML 3.2",
+        "Rendering html32; isHtml32=True, isWml11=False, isProbe=True",
+        "The mobile controls of ASP.NET 1.1, as .NET Framework 4.8 still has them.",
+        "Your name:",
+        "Small",
+        "Medium",
+        "Large",
+        "Hello, Taro (Large, L)",
+        "Red",
+        "Green",
+        "Blue",
+        "To the second form"
+      ],
+      "Tables": [
+        [
+          [
+            "Red"
+          ],
+          [
+            "Green"
+          ],
+          [
+            "Blue"
+          ]
+        ]
+      ],
+      "Inputs": {},
+      "Elements": {}
+    },
+    {
+      "Name": "mobile-list item command",
+      "Path": "/",
+      "Title": "Mobile probe",
+      "Text": [
+        "Mobile probe",
+        "Device: HTML 3.2",
+        "Rendering html32; isHtml32=True, isWml11=False, isProbe=True",
+        "The mobile controls of ASP.NET 1.1, as .NET Framework 4.8 still has them.",
+        "Your name:",
+        "Small",
+        "Medium",
+        "Large",
+        "Hello, Taro (Large, L)",
+        "Red",
+        "Green",
+        "Blue",
+        "Color: Green = #0f0",
+        "To the second form"
+      ],
+      "Tables": [
+        [
+          [
+            "Red"
+          ],
+          [
+            "Green"
+          ],
+          [
+            "Blue"
+          ]
+        ]
+      ],
+      "Inputs": {},
+      "Elements": {}
+    },
+    {
+      "Name": "mobile-second form (object list)",
+      "Path": "/",
+      "Title": "Products",
+      "Text": [
+        "Products",
+        "Name",
+        "Pen",
+        "Notebook",
+        "Bag",
+        "Stock value: $364.97",
+        "Back"
+      ],
+      "Tables": [
+        [
+          [
+            "Name"
+          ],
+          [
+            ""
+          ],
+          [
+            "Pen"
+          ],
+          [
+            "Notebook"
+          ],
+          [
+            "Bag"
+          ],
+          [
+            ""
+          ]
+        ]
+      ],
+      "Inputs": {},
+      "Elements": {}
+    },
+    {
+      "Name": "mobile-object list details",
+      "Path": "/",
+      "Title": "Products",
+      "Text": [
+        "Notebook",
+        "Name Notebook",
+        "Price 3.5",
+        "Stock 40",
+        "[ Back ]"
+      ],
+      "Tables": [
+        [
+          [
+            "Notebook"
+          ],
+          [],
+          [
+            ""
+          ],
+          [
+            "Name",
+            "Notebook"
+          ],
+          [
+            "Price",
+            "3.5"
+          ],
+          [
+            "Stock",
+            "40"
+          ],
+          [
+            ""
+          ],
+          [
+            "[\u00A0Back\u00A0]"
+          ]
+        ]
+      ],
+      "Inputs": {},
+      "Elements": {}
+    },
+    {
+      "Name": "mobile-back to the first form",
+      "Path": "/",
+      "Title": "Mobile probe",
+      "Text": [
+        "Mobile probe",
+        "Device: HTML 3.2",
+        "Rendering html32; isHtml32=True, isWml11=False, isProbe=True",
+        "The mobile controls of ASP.NET 1.1, as .NET Framework 4.8 still has them.",
+        "Your name:",
+        "Small",
+        "Medium",
+        "Large",
+        "Red",
+        "Green",
+        "Blue",
+        "To the second form"
+      ],
+      "Tables": [
+        [
+          [
+            "Red"
+          ],
+          [
+            "Green"
+          ],
+          [
+            "Blue"
+          ]
+        ]
+      ],
+      "Inputs": {},
+      "Elements": {}
+    }
+  ]
+}

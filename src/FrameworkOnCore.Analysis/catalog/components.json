@@ -59,6 +59,10 @@
       { "id": "port", "title": "移植版を使う", "description": "referencesource(MIT)から移植した System.Web.DataVisualization(パッケージ FrameworkOnCore.Web.DataVisualization。描画は移植版の System.Drawing で、Linux でも動く)", "default": true },
       { "id": "none", "title": "対応しない", "description": "スタブ(グラフの画面は例外)" }
     ],
+    "mobile-controls": [
+      { "id": "port", "title": "移植版を使う", "description": "referencesource(MIT)から移植した System.Web.Mobile(パッケージ FrameworkOnCore.Web.Mobile。MobilePage と mobile: のコントロール、端末ごとのアダプター)", "default": true },
+      { "id": "none", "title": "対応しない", "description": "スタブ(モバイルのページは例外)。using だけなら消える" }
+    ],
     "wcf-server": [
       { "id": "none", "title": "対応しない", "description": "スタブ", "default": true },
       { "id": "corewcf", "title": "CoreWCF", "description": "サービスを CoreWCF で動かす", "planned": true }
@@ -128,7 +132,7 @@
     {
       "id": "mobile-controls", "title": "モバイル コントロール(System.Web.Mobile)",
       "match": { "assemblies": [ "System.Web.Mobile" ], "namespaces": [ "System.Web.UI.MobileControls", "System.Web.Mobile" ] },
-      "note": "ASP.NET 4.0 で廃止。.NET に無い"
+      "note": "ASP.NET 4.0 で廃止(.NET Framework 4.8 にはある)。referencesource(MIT)から移植済み: パッケージ FrameworkOnCore.Web.Mobile"
     },
     {
       "id": "wcf-server", "title": "WCF のサービス(ServiceHost、.svc)",

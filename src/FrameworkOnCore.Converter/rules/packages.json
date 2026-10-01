@@ -1,6 +1,6 @@
 {
   "$comment": "Package and reference rules. \"$frameworkoncore\" stands for the version of FrameworkOnCore's packages (frameworkOnCoreVersion).",
-  "frameworkOnCoreVersion": "1.6.5-w2l.6",
+  "frameworkOnCoreVersion": "1.6.5-w2l.7",
 
   "$comment_webPackages": "The web project always gets these (Program.cs uses them; pages reference them at run time).",
   "webPackages": [ "FrameworkOnCore.Web", "FrameworkOnCore.Web.Extensions", "FrameworkOnCore.Configuration", "FrameworkOnCore.Web.DynamicData" ],
@@ -45,6 +45,7 @@
     "System.Web.DynamicData": [ "FrameworkOnCore.Web.DynamicData", "$frameworkoncore" ],
     "System.Data.Linq": [ "FrameworkOnCore.Data.Linq", "$frameworkoncore" ],
     "System.Web.DataVisualization": [ "FrameworkOnCore.Web.DataVisualization", "$frameworkoncore" ],
+    "System.Web.Mobile": [ "FrameworkOnCore.Web.Mobile", "$frameworkoncore" ],
     "System.Web.Abstractions": [ "FrameworkOnCore.Web", "$frameworkoncore" ],
     "System.Web.Routing": [ "FrameworkOnCore.Web", "$frameworkoncore" ],
     "System.Configuration": [ "FrameworkOnCore.Configuration", "$frameworkoncore" ],
@@ -63,9 +64,9 @@
   },
 
   "$comment_noAnswer": "Assemblies .NET has no counterpart for (reported; the code using them is stubbed; left out of web.config's page compilation, where loading them fails every page). Designers' (System.Design, System.Web.Extensions.Design: Visual Studio's) the desktop's (System.Windows.Forms: Windows desktop applications', not a web application's). Also the ported framework assemblies the user chose not to use (frameworkReferenceOptions).",
-  "noAnswer": [ "System.Data.Services.Client", "System.Design", "System.Web.Extensions.Design", "System.Web.Mobile", "System.Windows.Forms" ],
+  "noAnswer": [ "System.Data.Services.Client", "System.Design", "System.Web.Extensions.Design", "System.Windows.Forms" ],
   "$comment_frameworkReferenceOptions": "Framework references that are the user's choice: assembly -> the option that turns its frameworkReferences entry on. Not chosen, the assembly has no answer (noAnswer).",
-  "frameworkReferenceOptions": { "System.Data.Linq": "linq-to-sql:port", "System.Web.DataVisualization": "charts:port" },
+  "frameworkReferenceOptions": { "System.Data.Linq": "linq-to-sql:port", "System.Web.DataVisualization": "charts:port", "System.Web.Mobile": "mobile-controls:port" },
 
   "$comment_sourcePackages": "What .NET Framework had in its own assemblies and .NET ships as packages: added when the sources use it.",
   "sourcePackages": [

@@ -22,7 +22,7 @@ param(
 )
 
 $ErrorActionPreference = 'Stop'
-$FrameworkOnCoreVersion = '1.6.5-w2l.6'
+$FrameworkOnCoreVersion = '1.6.5-w2l.7'
 $msbuildNs = @{ m = 'http://schemas.microsoft.com/developer/msbuild/2003' }
 $msbuildUri = 'http://schemas.microsoft.com/developer/msbuild/2003'
 
@@ -58,6 +58,8 @@ $frameworkReferences = @{
     'System.Configuration'           = @('FrameworkOnCore.Configuration', $FrameworkOnCoreVersion)
     'System.Drawing'                 = @('FrameworkOnCore.Drawing.Common', $FrameworkOnCoreVersion)
     'System.Data.Linq'               = @('FrameworkOnCore.Data.Linq', $FrameworkOnCoreVersion)
+    'System.Web.DataVisualization'   = @('FrameworkOnCore.Web.DataVisualization', $FrameworkOnCoreVersion)
+    'System.Web.Mobile'              = @('FrameworkOnCore.Web.Mobile', $FrameworkOnCoreVersion)
     'System.Runtime.Caching'         = @('System.Runtime.Caching', '10.0.0')
     'System.DirectoryServices'       = @('System.DirectoryServices', '10.0.0')
     'System.DirectoryServices.AccountManagement' = @('System.DirectoryServices.AccountManagement', '10.0.0')
@@ -65,7 +67,7 @@ $frameworkReferences = @{
     'System.ServiceModel'            = @('System.ServiceModel.Http', '10.0.652802')
     'System.ServiceModel.Web'        = @('System.ServiceModel.Http', '10.0.652802')
 }
-$noAnswer = @('System.Data.Services.Client', 'System.Design', 'System.Web.Mobile')
+$noAnswer = @('System.Data.Services.Client', 'System.Design')
 
 # What .NET Framework had in its own assemblies (System.Data, System, System.Security, ...) and .NET
 # ships as packages: added when the project's sources use it (a namespace or a type name).

@@ -57,7 +57,7 @@
   - 置き換えるもの: バンドル / WebGrease / Microsoft.Web.Infrastructure / AjaxControlToolkit → FrameworkOnCore.*。EF6 → 6.5.1。
   - 上げるもの: 依存先が要求する版まで(Newtonsoft.Json 13.0.4。下げると NU1605)。
   - 残すもの: .NET Framework 向けのまま動くもの(Identity 2、OWIN / Katana、Web API 2、SimpleInjector、Elmah、FriendlyUrls)。NU1701 は抑止する。
-- Framework の参照(`<Reference Include="System.Web">` など)→ WebFormsForCore のパッケージ、または .NET のパッケージ(System.Drawing.Common、System.ServiceModel.*、System.Management、System.Runtime.Caching、System.DirectoryServices)。代わりが無いもの(System.Data.Linq、System.Data.Services.Client、System.Design、System.Web.Mobile)は報告する。
+- Framework の参照(`<Reference Include="System.Web">` など)→ WebFormsForCore のパッケージ、または .NET のパッケージ(System.Drawing.Common、System.ServiceModel.*、System.Management、System.Runtime.Caching、System.DirectoryServices)。代わりが無いもの(System.Data.Services.Client、System.Design)は報告する。System.Data.Linq・System.Web.DataVisualization・System.Web.Mobile は `FrameworkOnCore.Runtime/` に移植したパッケージ。
 - web.config の `<compilation><assemblies>` も参照に写す。
 - HintPath の DLL(packages の外)は `_lib` に写して参照する。
 - ProjectReference を辿り、依存するライブラリも変換する。

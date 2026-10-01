@@ -1,0 +1,29 @@
+{
+  "ignorePatterns": [],
+  "steps": [
+    { "action": "goto", "path": "/Default.aspx" },
+    { "action": "snapshot", "name": "mobile-first form" },
+
+    { "action": "click", "target": "cmdGreet" },
+    { "action": "snapshot", "name": "mobile-required field left empty" },
+
+    { "action": "fill", "target": "txtName", "value": "Taro" },
+    { "action": "select", "target": "selSize", "value": "2" },
+    { "action": "click", "target": "cmdGreet" },
+    { "action": "snapshot", "name": "mobile-greeted" },
+
+    { "action": "clicktext", "value": "Green" },
+    { "action": "snapshot", "name": "mobile-list item command" },
+
+    { "action": "clicktext", "value": "To the second form" },
+    { "action": "snapshot", "name": "mobile-second form (object list)" },
+
+    { "action": "clicktext", "value": "Notebook" },
+    { "action": "snapshot", "name": "mobile-object list details" },
+
+    { "action": "goto", "path": "/Default.aspx" },
+    { "action": "clicktext", "value": "To the second form" },
+    { "action": "clicktext", "value": "Back" },
+    { "action": "snapshot", "name": "mobile-back to the first form" }
+  ]
+}

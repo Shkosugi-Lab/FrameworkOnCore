@@ -131,11 +131,11 @@ public sealed class ScenarioRunner(IPage page, string baseUrl, List<Regex> ignor
     /// WebForms app uses Predictable IDs like "MainContent_txtName", so a suffix match
     /// absorbs the difference. Controls inside templates (WebForms appends the row
     /// number: "..._lnkDelete_0") are resolved by partial match; on multiple hits the
-    /// first one is used.
+    /// first one is used. Last, by name: the mobile controls (System.Web.Mobile) write their inputs with a name only.
     /// </summary>
     private async Task<ILocator> ResolveAsync(string target)
     {
-        foreach (var selector in new[] { $"#{target}", $"[id$='_{target}']", $"[id*='_{target}_']", $"[id*='{target}']" })
+        foreach (var selector in new[] { $"#{target}", $"[id$='_{target}']", $"[id*='_{target}_']", $"[id*='{target}']", $"[name='{target}']" })
         {
             var locator = page.Locator(selector);
             if (await locator.CountAsync() > 0)

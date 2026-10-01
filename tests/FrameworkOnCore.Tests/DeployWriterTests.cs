@@ -42,6 +42,17 @@ public class DeployWriterTests : IDisposable
         Assert.True(made > 0 && made < dockerfile.IndexOf("USER app", StringComparison.Ordinal) && made < dockerfile.IndexOf("VOLUME /app/App_Data", StringComparison.Ordinal));
     }
 
+    [Fact] // libgdiplus for what draws: the mobile controls reference System.Drawing for its types (Color), they do not draw
+    public void The_mobile_controls_do_not_need_libgdiplus()
+    {
+        var mobile = Path.Combine(AppContext.BaseDirectory, "MobileParityData", "program", "System.Web.Mobile.dll");
+        var bin = Path.Combine(root, "bin");
+        Directory.CreateDirectory(bin);
+        File.Copy(mobile, Path.Combine(bin, "System.Web.Mobile.dll"));
+        File.Copy(mobile, Path.Combine(bin, "Charts.dll"));   // the same references under another name: an assembly that draws
+        Assert.Equal(["Charts.dll"], DeployWriter.DrawingUsers(root));
+    }
+
     public void Dispose()
     {
         try { Directory.Delete(root, recursive: true); } catch (IOException) { }

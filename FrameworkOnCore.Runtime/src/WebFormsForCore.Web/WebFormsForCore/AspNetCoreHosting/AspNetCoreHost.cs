@@ -12,6 +12,7 @@ using System.Linq;
 using System.IO;
 using System.Web;
 using System.Web.Hosting;
+using System.Web.Util;
 using Core = Microsoft.AspNetCore.Http;
 
 namespace System.Web.Hosting
@@ -152,6 +153,10 @@ namespace System.Web.Hosting
                                                           : virtualPath + "/";
             lowerCasedVirtualPathWithTrailingSlash =
                 CultureInfo.InvariantCulture.TextInfo.ToLower(lowerCasedVirtualPathWithTrailingSlash);
+            // FrameworkOnCore: with a separator at the end, as .NET Framework has the application's path
+            // (Request.PhysicalApplicationPath, HttpRuntime.AppDomainAppPath: "C:\inetpub\app\"); applications add to it
+            // (nopCommerce: PhysicalApplicationPath + "images\\thumbs", which went to "...appimages" otherwise).
+            physicalPath = FileUtil.FixUpPhysicalDirectory(physicalPath);
             this.physicalPath = physicalPath;
 
 			var assembly = GetType().Assembly;

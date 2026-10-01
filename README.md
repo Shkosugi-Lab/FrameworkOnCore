@@ -32,7 +32,7 @@
 |---|---|
 | `src/FrameworkOnCore.Converter` | 変換器(CLI)。古い形式のプロジェクトを .NET 10 の SDK 形式にし、ビルドのエラーをもとにソースを直す。元のビルド(`--build-original`)、配置の出力も行う。`analyze` で解析だけも行える |
 | `src/FrameworkOnCore.Analysis` | 解析エンジン(ライブラリ)。ソースを .NET Framework 4.8 の参照アセンブリでコンパイルし、API ごとの回数と場所、.NET 10 での状態、部品を出す。カタログ(`catalog/components.json`)と選択(`Choices`)もここ |
-| `src/FrameworkOnCore.Studio` | GUI(ローカルの Web 画面)。解析、部品ごとの選択、ソースの表示、変換のコマンド |
+| `src/FrameworkOnCore.Studio` | GUI(ローカルの Web 画面)。分析 → 方針決定 → 変換・ビルド → デプロイのウィザード。元のアプリのテスト起動、変換後のアプリのネイティブ起動・コンテナ起動 |
 | `src/FrameworkOnCore.Analyzers` | 変換のビルドで使う Roslyn アナライザー(Windows のパス、非同期デリゲート、プラットフォームの置き換え) |
 | `experiments/wf4c/shims/FrameworkOnCore.Compat` | 互換アセンブリ。.NET にない、または Windows 専用のものを .NET Framework と同じ動きで補う(EventLog、Encoding.Default、Thread.ResetAbort、VB の My など) |
 | `FrameworkOnCore.Runtime` | 変換後のアプリが動く土台(System.Web など)。FrameworkOnCore で保守している WebFormsForCore で、上流を git subtree で取り込んだもの(中のプロジェクトは上流の名前 `src/WebFormsForCore.*` のまま、パッケージ名は `FrameworkOnCore.*`。Ajax Control Toolkit も `src/WebFormsForCore.AjaxControlToolkit` に同じく取り込み済み)。上流への変更は取り込みの後のコミット(以前のパッチ 0001〜0040 に当たる。0032・0033 は LINQ to SQL、0034〜0037 は System.Drawing の移植、0038 は Linux での生成物のフォルダーの掃除、0039・0040 は System.Web.DataVisualization(グラフ)の移植。その後の System.Web.Mobile の移植はこのリポジトリのコミット)。上流の更新は `git subtree pull --prefix=FrameworkOnCore.Runtime https://github.com/webformsforcore/WebFormsForCore.git main` |
@@ -64,13 +64,23 @@ FrameworkOnCore のパッケージ(`FrameworkOnCore.*`)は、初めて解析や�
 
 ビルドは要りません。GitHub Actions(`.github/workflows/frameworkoncore-tools.yml`)が `src/` の変わるたびに Studio と変換器をビルドしてリリース `frameworkoncore-tools` に置き、`studio.ps1` は手元の `src/` と同じコミットのものを一度だけ取得して(`%LOCALAPPDATA%\FrameworkOnCore\builds`)起動します。`src/` にコミットしていない変更があるとき、そのコミットのビルドがまだ無いとき(push 前、Actions の実行中)、`-Build` を付けたときは、手元でビルドして起動します。
 
-「新しい解析」で .NET Framework の Web プロジェクト(.csproj / .vbproj)を指定すると、解析結果が出ます。部品ごとに対応を選んで保存し、「変換してビルド」を押すと、その選択で変換とビルドを行います。ビルドできたら、Linux に配置できる形(Dockerfile と systemd 用のスクリプト付き、`obj` を除く)を ZIP でダウンロードできます。「Linux(Docker)で起動」で、その Dockerfile からイメージを作り、コンテナを localhost のポートで起動して確かめることもできます(Docker Desktop が要ります。接続文字列などは環境変数で渡します。Studio のコンテナは一度に一つ)。コマンドラインで変換するためのコマンドもコピーできます。
+Studio は 4 つの手順のウィザードです(画面の上の手順から、どこへでも戻れます)。
+
+1. **分析**: 「新しい解析」で .NET Framework の Web プロジェクト(.csproj / .vbproj)を指定すると、解析結果が出ます(数値、状態別の内訳、部品と API)。「元のアプリを起動(テスト起動)」で、変換の前のアプリをこの PC で動かして確かめられます(リポジトリのコピーをそのビルド手順でビルドし、IIS Express、無ければ IIS で起動。IIS は Studio を管理者として起動したときだけ)。
+2. **方針決定**: 選べる対応がある部品ごとに対応を選び(API ごとにも変えられる)、アプリの設定を選び、DLL の参照の付け替えを確かめて保存します。
+3. **変換・ビルド**: 保存した選択で変換とビルドを行います(`--build-original` もここで選ぶ)。変換レポートは節ごとに開いて見られます。
+4. **デプロイ**: Linux に配置できる形(Dockerfile と systemd 用のスクリプト付き、`obj` を除く)の ZIP のダウンロード、この PC の dotnet での起動(ネイティブ起動、Docker 不要)、Dockerfile からイメージを作って localhost のポートでのコンテナ起動(Docker Desktop が要ります。接続文字列などは環境変数で渡します。Studio のコンテナは一度に一つ)。ECR への発行は予定です。コマンドラインで変換するためのコマンドもコピーできます。
+
+Studio が起動したアプリ(元のアプリ、ネイティブ起動)は、Studio を止めると止まります(強制終了でも止まり、IIS に作ったサイトは次の起動で消えます)。
 
 ### コマンドライン
 
 ```powershell
 # 解析だけ(api-analysis.json、API-ANALYSIS.md、既定の選択の foc-choices.json)
 .\converter.ps1 analyze <Web プロジェクト> --out <出力先>
+
+# 元のアプリをそのビルド手順でビルドするだけ(変換しない。最後の行に配置されたサイト "site: <path>")
+.\converter.ps1 build-original <Web プロジェクト> --out <作業フォルダー>
 
 # 変換(選択は省略可。省略すると既定)
 .\converter.ps1 <Web プロジェクト> --out <出力先> --choices foc-choices.json [--build-original] [--culture-profile <file>]

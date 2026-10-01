@@ -48,6 +48,15 @@ public sealed class Conversions(AnalysisStore store, string runtime)
     public string? Zip(string id) => Get(id)?.ZipName is { } name ? Path.Combine(Folder(id), name) : null;
     public string Report(string id) => Path.Combine(Output(id), "CONVERSION-REPORT.md");
 
+    /// <summary>The site in the output: the one the Dockerfile copies to /app ("COPY --chown=app:app &lt;site&gt; /app").</summary>
+    public string? Site(string id)
+    {
+        var dockerfile = Path.Combine(Output(id), "Dockerfile");
+        if (!File.Exists(dockerfile)) return null;
+        var match = Regex.Match(File.ReadAllText(dockerfile), @"^COPY --chown=\S+ (\S+) /app\s*$", RegexOptions.Multiline);
+        return match.Success ? Path.GetFullPath(Path.Combine(Output(id), match.Groups[1].Value.Replace('/', Path.DirectorySeparatorChar))) : null;
+    }
+
     public ConversionEntry? Get(string id)
     {
         if (entries.TryGetValue(id, out var entry)) return entry;
@@ -158,6 +167,7 @@ public sealed class Conversions(AnalysisStore store, string runtime)
         process.OutputDataReceived += (_, e) => { if (e.Data != null) Append(log, e.Data); };
         process.ErrorDataReceived += (_, e) => { if (e.Data != null) Append(log, e.Data); };
         process.Start();
+        Runs.EndWithStudio(process);  // the converter and the builds it starts end with Studio
         process.BeginOutputReadLine();
         process.BeginErrorReadLine();
         try { await process.WaitForExitAsync(cancel); }

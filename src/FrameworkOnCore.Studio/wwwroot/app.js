@@ -1,6 +1,8 @@
-// FrameworkOnCore Studio: the analyses (sidebar), one analysis (its numbers, its components and their options, the APIs
-// of each), and the user's choices, saved through the API (PUT /api/analyses/{id}/choices). Everything comes from the
-// HTTP API: the page holds no data of its own.
+// FrameworkOnCore Studio: the analyses (sidebar), and one analysis as a wizard of four steps: ① the analysis (the
+// original application run here, the numbers, the components and their APIs), ② the decisions (each component's
+// option, the application's settings, the DLLs' references retargeted; saved through PUT /api/analyses/{id}/choices),
+// ③ the conversion and its build (its report), ④ the deployment (the zip, the converted application run here or in a
+// container). Everything comes from the HTTP API: the page holds no data of its own.
 
 // Statuses: the reserved status colors, always with an icon and a label (never the color alone).
 const STATUS = {
@@ -17,8 +19,16 @@ const ROWS = 60;
 const state = {
   analyses: [], catalog: null, id: null, entry: null, result: null, byComponent: new Map(),
   choices: null, saved: null, command: null, errors: [],
-  filter: { q: '', statuses: new Set(ORDER.slice(0, 5)) }, expanded: new Set(), rows: new Map(), poll: null,
+  filter: { q: '', statuses: new Set(ORDER.slice(0, 5)) }, expanded: new Set(), rows: new Map(), poll: null, step: 1,
 };
+
+// The wizard's steps.
+const STEPS = [
+  { title: '分析', sub: '読み込み・テスト起動・結果' },
+  { title: '方針決定', sub: '部品の対応・設定・DLL の参照' },
+  { title: '変換・ビルド', sub: '変換の設定と実行・レポート' },
+  { title: 'デプロイ', sub: 'ZIP・ネイティブ・コンテナ' },
+];
 
 const $ = (s, root = document) => root.querySelector(s);
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -95,9 +105,15 @@ async function select(id) {
   clearTimeout(state.convertPoll);
   clearTimeout(state.containerPoll);
   clearTimeout(state.dockerPoll);
+  clearTimeout(state.originalPoll);
+  clearTimeout(state.nativePoll);
+  // The step of the link (#/a/<analysis>/step/<n>; a component's link is of ②), else the first.
+  const linked = location.hash.startsWith(`#/a/${id}/`) ? location.hash : '';
+  const step = /\/c\//.test(linked) ? 2 : +(linked.match(/\/step\/([1-4])/)?.[1] ?? 1);
   Object.assign(state, {
     id, entry: null, result: null, choices: null, saved: null, command: null, errors: [], conversion: null,
-    container: null, runOpen: false, runEnv: null, docker: null, dockerStarting: false,
+    container: null, runOpen: false, runEnv: null, docker: null, dockerStarting: false, step,
+    original: null, native: null, report: null,
   });
   state.expanded.clear();
   state.rows.clear();
@@ -133,7 +149,7 @@ async function refresh() {
     if (linked) state.expanded.add(linked);
     renderResult();
     if (linked) document.getElementById(`c-${linked}`)?.scrollIntoView({ block: 'start' });
-    await Promise.all([loadAnalyses(), loadConversion()]);
+    await Promise.all([loadAnalyses(), loadConversion(), loadOriginal(), loadNative()]);
   } else {
     renderRunning(entry, log);
     if (entry.state !== 'failed') state.poll = setTimeout(() => refresh().catch(console.error), 1500);
@@ -150,6 +166,7 @@ function renderRunning(entry, log) {
         <div class="sub"><code>${esc(entry.project)}</code><span>構成 ${esc(entry.configuration)}</span></div>
       </div>
       <div class="header-actions"><button class="btn ghost danger" id="delete">${failed ? '削除' : '中止して削除'}</button></div></div>
+      ${stepper(false)}
       <div class="card card-pad">
         <h2>${failed ? '解析できませんでした' : entry.state === 'queued' ? 'ほかの解析が終わるのを待っています' : 'アプリを読み込んで、API を数えています'}</h2>
         <div class="hint">${failed ? esc(entry.error ?? '') : 'ソースを .NET Framework 4.8 の参照アセンブリでコンパイルし、名前を一つずつ .NET 10 と照らし合わせます。大きなアプリでは数十秒かかります。'}</div>
@@ -168,14 +185,6 @@ function renderRunning(entry, log) {
 function renderResult() {
   const r = state.result;
   const e = state.entry;
-  const uses = r.apis.reduce((s, a) => s + a.count, 0);
-  const frameworkUses = r.projects.reduce((s, p) => s + p.frameworkCalls, 0);
-  const unresolved = r.projects.reduce((s, p) => s + p.unresolved, 0);
-  const files = new Set(r.apis.flatMap(a => a.files.map(f => f.file))).size;
-  const attention = r.components.filter(c => c.status !== 'Available');
-  const count = status => attention.filter(c => c.status === status).length;
-  const resolvedRate = frameworkUses + unresolved === 0 ? 100 : (100 * frameworkUses / (frameworkUses + unresolved));
-
   $('#view').innerHTML = `
     <div class="header">
       <div>
@@ -192,48 +201,182 @@ function renderResult() {
         <button class="btn ghost danger" id="delete">削除</button>
       </div>
     </div>
+    <div id="stepper"></div>
+    <div id="step" class="step"></div>`;
+  $('#delete').addEventListener('click', () => removeAnalysis(e.id).catch(err => toast(err.message)));
+  $('#reanalyze').addEventListener('click', () => startAnalysis({ project: e.project, root: e.root, configuration: e.configuration, name: e.name }));
+  renderStepper();
+  renderStep();
+}
 
-    <div class="tiles">
-      ${tile('対応を選ぶ部品', attention.length, '件', `.NET に無い ${count('Missing')} ・ 例外 ${count('Throws') + count('WindowsOnly')} ・ 動きの違い ${count('Behavior')}`)}
-      ${tile('.NET Framework の API', fmt(r.apis.length), '種類', `ソースの ${fmt(r.projects.filter(p => !p.skipped).length)} プロジェクト`)}
-      ${tile('使用回数', fmt(uses), '回', `${fmt(files)} ファイル`)}
-      ${tile('名前の解決率', resolvedRate.toFixed(1), '%', `解決できなかった名前 ${fmt(unresolved)}`)}
-    </div>
+// ---------------------------------------------------------------------------------------------------------------------
+// The wizard: the steps, where each one is
 
-    <div class="card card-pad convert" id="convert"></div>
+// What each step has come to (shown under its title).
+function stepState(n) {
+  const c = state.conversion?.conversion;
+  if (n === 1) return state.original?.original?.state === 'running' ? { text: '元のアプリ実行中', on: true } : { text: '完了', done: true };
+  if (n === 2) {
+    const k = changes();
+    return k > 0 ? { text: `未保存 ${k} 件`, warn: true } : { text: '保存済み', done: !!c };
+  }
+  if (n === 3) return c ? { text: CONVERSION[c.state].label, done: c.state === 'done', warn: c.state === 'failed', on: c.state === 'queued' || c.state === 'running' } : { text: '未実行' };
+  const running = [state.native?.native, state.container?.container].filter(x => x?.state === 'running').length;
+  return running ? { text: `${running} 件実行中`, on: true } : c?.state === 'done' ? { text: '準備完了' } : { text: 'ビルド後' };
+}
 
-    <div class="card card-pad breakdown">
-      <h2>そのまま動かない API の使用(状態別)</h2>
-      <div class="hint" id="breakdown-hint"></div>
-      <div class="stack" id="stack" role="img" aria-label="状態別の使用回数"></div>
-      <div class="legend" id="legend"></div>
-    </div>
+// Which steps can be opened: ① always, ②③ once the analysis is done, ④ once the conversion is built.
+function stepOpen(n) {
+  if (n === 1) return true;
+  if (state.entry?.state !== 'done') return false;
+  return n < 4 || state.conversion?.conversion?.state === 'done';
+}
 
-    ${retargetCard(r)}
+function stepper(withStates = true) {
+  return `<nav class="stepper" aria-label="手順">${STEPS.map((s, i) => {
+    const n = i + 1;
+    const st = withStates ? stepState(n) : n === 1 ? { text: '解析中', on: true } : { text: '' };
+    const open = withStates && stepOpen(n);
+    const current = n === (withStates ? state.step : 1);
+    return `<button class="step-tab ${current ? 'current' : ''} ${st.done ? 'done' : ''}" data-step="${n}" ${open ? '' : 'disabled'} ${current ? 'aria-current="step"' : ''}>
+      <span class="step-no" aria-hidden="true">${st.done && !current ? '✓' : n}</span>
+      <span class="step-text"><span class="step-title">${esc(s.title)}</span><span class="step-sub">${esc(s.sub)}</span>
+        ${st.text ? `<span class="step-state ${st.warn ? 'warn' : ''} ${st.on ? 'on' : ''}">${esc(st.text)}</span>` : ''}</span>
+    </button>`;
+  }).join('<span class="step-line" aria-hidden="true"></span>')}</nav>`;
+}
 
-    <div class="card card-pad settings">
-      <h2>アプリの設定</h2>
-      <div class="hint">API ではなく、アプリ全体に対する選択です。</div>
-      <div id="settings"></div>
-    </div>
+function renderStepper() {
+  const root = $('#stepper');
+  if (!root) return;
+  root.innerHTML = stepper();
+  root.querySelectorAll('.step-tab').forEach(b => b.addEventListener('click', () => goStep(+b.dataset.step).catch(e => toast(e.message))));
+}
 
-    <div class="toolbar">
+// To a step: forward from ② the choices are saved first (what is converted is what is saved).
+async function goStep(n) {
+  if (n === state.step || !stepOpen(n)) return;
+  if (state.step === 2 && n > 2 && isDirty()) {
+    await save();
+    if (state.errors.length) return;
+  }
+  state.step = n;
+  history.replaceState(null, '', `#/a/${state.id}/step/${n}`);
+  renderStepper();
+  renderStep();
+  scrollTo({ top: 0 });
+}
+
+function stepNav(back, next) {
+  return `<div class="step-nav">
+    ${back ? `<button class="btn ghost" data-go="${back}">← ${esc(STEPS[back - 1].title)}に戻る</button>` : '<span></span>'}
+    ${next ? `<button class="btn primary" data-go="${next.step}" ${stepOpen(next.step) ? '' : 'disabled'}>${esc(next.label)} →</button>` : ''}
+  </div>`;
+}
+
+function renderStep() {
+  const root = $('#step');
+  if (!root) return;
+  const r = state.result;
+  state.runOpen = state.step === 4;
+  if (state.step === 1) {
+    const uses = r.apis.reduce((s, a) => s + a.count, 0);
+    const frameworkUses = r.projects.reduce((s, p) => s + p.frameworkCalls, 0);
+    const unresolved = r.projects.reduce((s, p) => s + p.unresolved, 0);
+    const files = new Set(r.apis.flatMap(a => a.files.map(f => f.file))).size;
+    const attention = r.components.filter(c => c.status !== 'Available');
+    const count = status => attention.filter(c => c.status === status).length;
+    const resolvedRate = frameworkUses + unresolved === 0 ? 100 : (100 * frameworkUses / (frameworkUses + unresolved));
+    root.innerHTML = `
+      <p class="step-intro">アプリが使う .NET Framework の API を数え、.NET 10 でどうなるかを調べた結果です。変換の前に、元のアプリをこの PC で動かして確かめることもできます。</p>
+      <div class="card card-pad runner" id="original"></div>
+      <div class="tiles">
+        ${tile('対応を選ぶ部品', attention.length, '件', `.NET に無い ${count('Missing')} ・ 例外 ${count('Throws') + count('WindowsOnly')} ・ 動きの違い ${count('Behavior')}`)}
+        ${tile('.NET Framework の API', fmt(r.apis.length), '種類', `ソースの ${fmt(r.projects.filter(p => !p.skipped).length)} プロジェクト`)}
+        ${tile('使用回数', fmt(uses), '回', `${fmt(files)} ファイル`)}
+        ${tile('名前の解決率', resolvedRate.toFixed(1), '%', `解決できなかった名前 ${fmt(unresolved)}`)}
+      </div>
+      <div class="card card-pad breakdown">
+        <h2>そのまま動かない API の使用(状態別)</h2>
+        <div class="hint" id="breakdown-hint"></div>
+        <div class="stack" id="stack" role="img" aria-label="状態別の使用回数"></div>
+        <div class="legend" id="legend"></div>
+      </div>
+      <h2 class="step-h">部品と API</h2>
+      <div class="hint">部品ごとの対応は、次の「方針決定」で選びます。</div>
+      ${componentList()}
+      ${stepNav(0, { step: 2, label: '次へ: 方針決定' })}`;
+    renderOriginal();
+    renderBreakdown();
+    wireComponentList();
+  } else if (state.step === 2) {
+    root.innerHTML = `
+      <p class="step-intro">変換で使う選択です。既定のままでも変換できます。選んだら保存して、変換に進みます。</p>
+      <h2 class="step-h">部品ごとの対応</h2>
+      <div class="hint">選べる対応がある部品だけを並べています。API ごとに変えることもできます(「API を見る」)。</div>
+      ${componentList()}
+      <div class="card card-pad settings">
+        <h2>アプリの設定</h2>
+        <div class="hint">API ではなく、アプリ全体に対する選択です。</div>
+        <div id="settings"></div>
+      </div>
+      ${retargetCard(r) || '<div class="card card-pad retarget"><h2><span class="retarget-ic" aria-hidden="true">↪</span> DLL の参照の付け替え</h2><div class="hint">付け替えるものはありません(ソースの無い DLL が、.NET 10 で別のアセンブリにある型を参照していません)。</div></div>'}
+      ${stepNav(1, { step: 3, label: 'saveNext' })}`;
+    renderSettings();
+    wireComponentList();
+  } else if (state.step === 3) {
+    root.innerHTML = `
+      <p class="step-intro">保存した選択で .NET 10 のプロジェクトに変換し、そのままビルドします。</p>
+      <div class="card card-pad convert" id="convert"></div>
+      <div id="report"></div>
+      ${stepNav(2, { step: 4, label: '次へ: デプロイ' })}`;
+    renderConversion();
+    renderReport();
+  } else {
+    root.innerHTML = `
+      <p class="step-intro">変換・ビルドしたアプリを、ZIP で持ち出す、この PC で動かす、Linux のコンテナで動かす、のいずれかで確かめます。</p>
+      <div class="deploy">
+        <div class="card card-pad deploy-card" id="zip"></div>
+        <div class="card card-pad deploy-card planned">
+          <h3><span class="deploy-ic" aria-hidden="true">☁</span> ECR 発行 <span class="badge planned">予定</span></h3>
+          <div class="hint">コンテナのイメージを Amazon ECR に発行します(準備中)。</div>
+          <div class="deploy-actions"><button class="btn ghost" disabled>ECR に発行</button></div>
+        </div>
+      </div>
+      <div class="card card-pad runner" id="native"></div>
+      <div class="card card-pad runner" id="run"></div>
+      ${stepNav(3, null)}`;
+    renderZip();
+    renderNative();
+    renderContainer();
+    if (!state.docker?.available) loadDocker().catch(console.error);
+  }
+  root.querySelectorAll('.step-nav [data-go]').forEach(b => b.addEventListener('click', () => goStep(+b.dataset.go).catch(e => toast(e.message))));
+  renderStepNext();
+  renderSavebar();
+}
+
+// ② forward: "save and go on" while there are changes.
+function renderStepNext() {
+  const next = $('#step .step-nav [data-go="3"]');
+  if (next && state.step === 2) next.textContent = `${isDirty() ? '保存して次へ' : '次へ'}: 変換・ビルド →`;
+}
+
+// The components (① to look at them, ② to choose): the search, the statuses, the cards.
+function componentList() {
+  return `<div class="toolbar">
       <label class="search"><span aria-hidden="true">⌕</span>
         <input id="search" placeholder="部品・API を検索(例: Drawing, Encoding.Default)" value="${esc(state.filter.q)}">
       </label>
       <div class="chips" id="chips"></div>
     </div>
     <div class="components" id="components"></div>`;
+}
 
-  $('#delete').addEventListener('click', () => removeAnalysis(e.id).catch(err => toast(err.message)));
-  $('#reanalyze').addEventListener('click', () => startAnalysis({ project: e.project, root: e.root, configuration: e.configuration, name: e.name }));
+function wireComponentList() {
   $('#search').addEventListener('input', ev => { state.filter.q = ev.target.value; renderComponents(); });
-  renderConversion();
-  renderBreakdown();
-  renderSettings();
   renderChips();
   renderComponents();
-  renderSavebar();
 }
 
 function tile(label, value, unit, foot) {
@@ -277,7 +420,7 @@ function showTip(ev, html) {
 function hideTip() { $('#tooltip').hidden = true; }
 
 function renderChips() {
-  const counts = Object.fromEntries(ORDER.map(s => [s, state.result.components.filter(c => c.status === s).length]));
+  const counts = Object.fromEntries(ORDER.map(s => [s, pool().filter(c => c.status === s).length]));
   $('#chips').innerHTML = ORDER.filter(s => counts[s] > 0).map(s => `<button class="chip" data-status="${s}" style="--c:${STATUS[s].color}"
       aria-pressed="${state.filter.statuses.has(s)}"><span class="ic">${STATUS[s].icon}</span>${esc(STATUS[s].label)} ${counts[s]}</button>`).join('');
   $('#chips').querySelectorAll('.chip').forEach(chip => chip.addEventListener('click', () => {
@@ -292,6 +435,15 @@ function renderChips() {
 // Settings and components: the options, chosen or default
 
 function defaultOf(options) { return (options.find(o => o.default) ?? options[0]).id; }
+
+// A component with options to choose from (one only, or one with others planned, is not a decision).
+function choosable(c) {
+  const options = c.options ?? [];
+  return options.filter(o => !o.planned).length > 1 || options.some(o => o.planned);
+}
+
+// The components of the step: in the decisions those to decide, all of them in the analysis.
+const pool = () => state.result.components.filter(c => state.step !== 2 || choosable(c));
 
 function renderSettings() {
   $('#settings').innerHTML = state.result.settings.map(s => {
@@ -327,7 +479,7 @@ function visibleComponents() {
   const q = state.filter.q.trim().toLowerCase();
   const rank = c => [c.attentionCount > 0 || c.status === 'Available' ? 0 : 1, ORDER.indexOf(c.status), -c.attentionCount, -c.binaryReferences];
   const compare = (a, b) => { const x = rank(a), y = rank(b); for (let i = 0; i < x.length; i++) if (x[i] !== y[i]) return x[i] - y[i]; return 0; };
-  return state.result.components.slice().sort(compare).filter(c => {
+  return pool().slice().sort(compare).filter(c => {
     if (!state.filter.statuses.has(c.status)) return false;
     if (!q) return true;
     if (`${c.title} ${c.id} ${c.note ?? ''}`.toLowerCase().includes(q)) return true;
@@ -366,7 +518,7 @@ function componentCard(c) {
   const options = c.options ?? [];
   const chosen = state.choices.components[c.id] ?? defaultOf(options);
   const changed = chosen !== defaultOf(options) || apisOf(c).some(a => state.choices.apis[a.id]);
-  const choosable = options.filter(o => !o.planned).length > 1 || options.some(o => o.planned);
+  const deciding = state.step === 2;  // ① shows what is chosen; it is chosen in ②
   const expanded = state.expanded.has(c.id);
   const attentionApis = apisOf(c);
   return `<article class="card component" id="c-${esc(c.id)}" style="--c:${s.color}">
@@ -382,12 +534,14 @@ function componentCard(c) {
         ${num(c.attentionApis, '要対応 API')}${num(c.attentionCount, '回数')}${num(c.files, 'ファイル')}${c.binaryReferences ? num(c.binaryReferences, 'DLL の参照') : ''}
       </div>
     </div>
-    ${choosable
+    ${deciding && choosable(c)
       ? `<div class="options">${options.map(o => optionCard(`component:${c.id}`, o, chosen)).join('')}</div>`
-      : `<div class="single" title="${esc(options[0]?.description ?? '')}">選べる対応はありません(${esc(options[0]?.title ?? '')})</div>`}
+      : choosable(c)
+        ? `<div class="single">対応: <b>${esc(options.find(o => o.id === chosen)?.title ?? '')}</b>${chosen === defaultOf(options) ? ' <span class="muted">(既定 ・ 「方針決定」で選べます)</span>' : ''}</div>`
+        : `<div class="single" title="${esc(options[0]?.description ?? '')}">選べる対応はありません(${esc(options[0]?.title ?? '')})</div>`}
     <button class="expander" data-id="${esc(c.id)}" aria-expanded="${expanded}"><span class="chev">▸</span>
       API を見る(${fmt(attentionApis.length)} 件)</button>
-    ${expanded ? apiTable(c, attentionApis, options) : ''}
+    ${expanded ? apiTable(c, attentionApis, deciding ? options : []) : ''}
   </article>`;
 }
 
@@ -478,15 +632,25 @@ async function loadConversion() {
   const body = await api(`/analyses/${id}/conversion`);
   if (id !== state.id) return;
   state.conversion = body;
+  // ④ (a link to it) without a built conversion: ③.
+  if (state.step === 4 && !stepOpen(4)) {
+    state.step = 3;
+    history.replaceState(null, '', `#/a/${id}/step/3`);
+    renderStep();
+  }
   renderConversion();
+  renderZip();
+  renderStepper();
+  renderStepNext();
+  $('#step .step-nav [data-go="4"]')?.toggleAttribute('disabled', !stepOpen(4));
   const c = body.conversion;
   if (c && (c.state === 'queued' || c.state === 'running'))
     state.convertPoll = setTimeout(() => loadConversion().catch(console.error), 2000);
-  else if (c) loadAnalyses().catch(console.error);
-  if (c?.state === 'done') {
-    await loadContainer();
-    if (state.runOpen) await loadDocker();
+  else if (c) {
+    loadAnalyses().catch(console.error);
+    await loadReport();
   }
+  if (c?.state === 'done') await loadContainer();
 }
 
 function duration(from, to) {
@@ -525,23 +689,74 @@ function renderConversion() {
         <div class="hint">${esc(new Date(c.finished ?? c.started).toLocaleString('ja-JP'))} ・ ${duration(c.started, c.finished)}${c.buildOriginal ? ' ・ 元のビルドから' : ''}${c.error ? ` ・ ${esc(c.error)}` : ''}</div>
         ${body.stale ? '<div class="stale">⚠ この変換のあとに選択を保存しています。今の選択にするには、もう一度変換してください。</div>' : ''}</div>
         <div class="convert-actions">
-          ${done ? `<a class="btn primary" id="convert-zip" href="/api/analyses/${esc(state.id)}/conversion/zip" download>⤓ ZIP をダウンロード <span class="size">${(c.zipSize / 1048576).toFixed(1)} MB</span></a>` : ''}
-          ${done ? '<button class="btn ghost" id="run-open">▶ Linux(Docker)で起動</button>' : ''}
-          ${c.sections ? '<button class="btn ghost" id="convert-report">レポートを見る</button>' : ''}
+          ${done ? '<button class="btn primary" id="convert-next">次へ: デプロイ →</button>' : ''}
           <button class="btn ghost" id="convert-start">↻ もう一度変換</button>
         </div></div>
-      ${sections}${done ? '' : origin}${logBlock(!done && !c.sections)}
-      ${done ? '<div class="run" id="run"></div>' : ''}`;
+      ${state.report?.text ? '' : sections}${origin}${logBlock(!done && !c.sections)}`;
   }
   root.innerHTML = html;
   root.style.setProperty('--c', c ? CONVERSION[c.state].color : 'var(--accent)');
   $('#convert-start')?.addEventListener('click', () => startConversion().catch(e => toast(e.message)));
   $('#convert-cancel')?.addEventListener('click', () => cancelConversion().catch(e => toast(e.message)));
-  $('#convert-report')?.addEventListener('click', () => showReport().catch(e => toast(e.message)));
-  $('#run-open')?.addEventListener('click', () => { state.runOpen = true; renderContainer(); loadDocker().catch(console.error); });
+  $('#convert-next')?.addEventListener('click', () => goStep(4).catch(e => toast(e.message)));
   const pre = root.querySelector('.log');
   if (pre) pre.scrollTop = pre.scrollHeight;
-  renderContainer();
+}
+
+// The conversion's report (CONVERSION-REPORT.md), in ③ under the conversion: its sections, each one opened on demand.
+async function loadReport() {
+  const c = state.conversion?.conversion;
+  const key = c?.sections ? `${state.id}:${c.finished ?? c.started}` : null;
+  if (!key) { state.report = null; renderReport(); return; }
+  if (state.report?.key === key) return;
+  const response = await fetch(`/api/analyses/${state.id}/conversion/report`);
+  state.report = { key, text: response.ok ? await response.text() : null };
+  renderReport();
+  renderConversion();  // its counts are the report's then
+}
+
+function renderReport() {
+  const root = $('#report');
+  if (!root) return;
+  const text = state.report?.text;
+  if (!text) { root.innerHTML = ''; return; }
+  // "## <title>(<n> 件)" then "- **<subject>**: <text>" lines.
+  const sections = [];
+  for (const line of text.split('\n')) {
+    const heading = line.match(/^## (.+?)\((\d+) 件\)\s*$/);
+    if (heading) sections.push({ title: heading[1], count: +heading[2], items: [] });
+    else if (line.startsWith('- ') && sections.length) sections.at(-1).items.push(line.slice(2));
+  }
+  const LIMIT = 300;
+  const item = s => `<li>${esc(s).replace(/\*\*(.+?)\*\*/, '<b>$1</b>').replace(/`([^`]+)`/g, '<code>$1</code>')}</li>`;
+  root.innerHTML = `<div class="card card-pad report">
+      <div class="convert-head"><div><h2>変換レポート</h2>
+        <div class="hint">変換が変えたところ、変えられなかったところ。「未解決」があれば、ビルドや実行の前に見てください。</div></div>
+        <button class="btn ghost" id="report-full">レポート全体(CONVERSION-REPORT.md)</button></div>
+      ${sections.map((s, i) => `<details class="report-section ${i === 0 && s.count ? 'attention' : ''}" ${i === 0 && s.count ? 'open' : ''}>
+        <summary><b>${fmt(s.count)}</b> ${esc(s.title)}</summary>
+        ${s.items.length ? `<ul>${s.items.slice(0, LIMIT).map(item).join('')}</ul>${s.items.length > LIMIT ? `<div class="muted">ほか ${fmt(s.items.length - LIMIT)} 件(レポート全体で)</div>` : ''}` : '<div class="muted">ありません</div>'}
+      </details>`).join('')}
+    </div>`;
+  $('#report-full').addEventListener('click', () => showReport().catch(e => toast(e.message)));
+}
+
+// ④: the conversion's output to download.
+function renderZip() {
+  const root = $('#zip');
+  if (!root) return;
+  const c = state.conversion?.conversion;
+  root.innerHTML = `<h3><span class="deploy-ic" aria-hidden="true">⤓</span> ZIP ダウンロード</h3>
+    <div class="hint">変換の出力(サイト、Dockerfile、systemd 用のスクリプト)。配置の方法は ZIP の deploy/README.md にあります。</div>
+    ${state.conversion?.stale ? '<div class="stale">⚠ この変換のあとに選択を保存しています。今の選択にするには、もう一度変換してください。</div>' : ''}
+    <div class="deploy-actions">
+      ${c?.state === 'done' ? `<a class="btn primary" href="/api/analyses/${esc(state.id)}/conversion/zip" download>⤓ ダウンロード <span class="size">${(c.zipSize / 1048576).toFixed(1)} MB</span></a>` : ''}
+      ${state.command ? '<button class="btn ghost small" id="copy-command2" title="Studio の外で同じ変換をするコマンド">変換のコマンドをコピー</button>' : ''}
+    </div>`;
+  $('#copy-command2')?.addEventListener('click', async () => {
+    await navigator.clipboard.writeText(state.command);
+    toast('コマンドをコピーしました(--out の出力先を書き換えて実行)');
+  });
 }
 
 // ---------------------------------------------------------------------------------------------------------------------
@@ -562,8 +777,8 @@ async function loadContainer() {
   if (id !== state.id) return;
   state.container = body;
   const k = body.container?.state;
-  if (k) state.runOpen = true;
   renderContainer();
+  renderStepper();
   if (k === 'building' || k === 'starting') state.containerPoll = setTimeout(() => loadContainer().catch(console.error), 2000);
   else if (k === 'running') state.containerPoll = setTimeout(() => loadContainer().catch(console.error), 10000);
 }
@@ -585,11 +800,10 @@ function renderContainer() {
   const root = $('#run');
   if (!root) return;
   const c = state.container?.container;
-  if (!state.runOpen && !c) { root.innerHTML = ''; return; }
   const k = c?.state;
   const busy = k === 'building' || k === 'starting';
   const kind = k ? CONTAINER[k] : null;
-  const head = `<div class="run-head"><h3>Linux(Docker)で起動 ${kind ? `<span class="pill" style="--c:${kind.color}"><span class="ic" aria-hidden="true">${kind.icon}</span>${esc(kind.label)}</span>` : ''}</h3>`;
+  const head = `<div class="run-head"><h3><span class="deploy-ic" aria-hidden="true">⬢</span> コンテナ起動(Linux / Docker) ${kind ? `<span class="pill" style="--c:${kind.color}"><span class="ic" aria-hidden="true">${kind.icon}</span>${esc(kind.label)}</span>` : ''}</h3>`;
   const log = state.container?.log ?? [];
   const logBlock = log.length ? `<details class="convert-log" ${busy || k === 'failed' ? 'open' : ''}><summary>ログ(${fmt(log.length)} 行)</summary><pre class="log">${esc(log.join('\n'))}</pre></details>` : '';
 
@@ -657,6 +871,110 @@ async function showContainerLog() {
   $('#drawer-code').innerHTML = (text || '(出力はありません)').split('\n').map(line => `<span class="ln">${esc(line)}</span>`).join('');
   $('#drawer').classList.add('open');
   $('#drawer').setAttribute('aria-hidden', 'false');
+}
+
+// ---------------------------------------------------------------------------------------------------------------------
+// Running on this machine: the original application (① its test run: IIS Express or IIS) and the converted one (④ with
+// dotnet). Both are drawn by one panel; Studio stops them when it stops.
+
+const RUN = {
+  building: { label: 'ビルド中', icon: '⟳', color: 'var(--accent-2)' },
+  starting: { label: '起動中', icon: '⟳', color: 'var(--accent-2)' },
+  running: { label: '実行中', icon: '●', color: 'var(--status-good)' },
+  stopped: { label: '停止', icon: '■', color: 'var(--status-neutral)' },
+  failed: { label: '失敗', icon: '✕', color: 'var(--status-critical)' },
+};
+const HOST = { iisexpress: 'IIS Express', iis: 'IIS', dotnet: 'dotnet' };
+
+// One panel: what it runs (title, icon), how far it is, its log; idle: the explanation and the buttons to start.
+function runnerPanel(prefix, title, icon, entry, log, idle, busyText) {
+  const k = entry?.state;
+  const busy = k === 'building' || k === 'starting';
+  const kind = k ? RUN[k] : null;
+  const head = `<div class="run-head"><h3><span class="deploy-ic" aria-hidden="true">${icon}</span> ${esc(title)} ${kind ? `<span class="pill" style="--c:${kind.color}"><span class="ic" aria-hidden="true">${kind.icon}</span>${esc(kind.label)}</span>` : ''}</h3>`;
+  const logBlock = log?.length ? `<details class="convert-log" ${busy || k === 'failed' ? 'open' : ''}><summary>ログ(${fmt(log.length)} 行)</summary><pre class="log">${esc(log.join('\n'))}</pre></details>` : '';
+  if (busy) {
+    return `${head}<button class="btn ghost danger" id="${prefix}-stop">中止</button></div>
+      <div class="hint">${busyText(entry)}</div><div class="progress"></div>${logBlock}`;
+  }
+  if (k === 'running') {
+    return `${head}<div class="convert-actions">
+        <a class="btn primary" href="${esc(entry.url)}" target="_blank" rel="noopener">↗ 開く</a>
+        <button class="btn ghost danger" id="${prefix}-stop">停止</button></div></div>
+      <div class="run-url"><code>${esc(entry.url)}</code> <span class="muted">(${esc(HOST[entry.host] ?? entry.host ?? '')} ・ 最初の応答 ${entry.firstStatus} ・ ${esc(entry.site ?? '')})</span></div>
+      ${entry.firstStatus >= 500 ? '<div class="stale">⚠ サイトは動いていますが、エラー(500 番台)を返しています。データベースの接続文字列などを確かめてください(ログに詳細があります)。</div>' : ''}
+      ${logBlock}`;
+  }
+  return `${head}</div>${entry?.error ? `<div class="stale">${esc(entry.error)}</div>` : ''}${idle}${logBlock}`;
+}
+
+function poller(name, load, entryOf) {
+  clearTimeout(state[name]);
+  const k = entryOf()?.state;
+  if (k === 'building' || k === 'starting') state[name] = setTimeout(() => load().catch(console.error), 2000);
+  else if (k === 'running') state[name] = setTimeout(() => load().catch(console.error), 10000);
+}
+
+async function loadOriginal() {
+  const id = state.id;
+  const body = await api(`/analyses/${id}/original`);
+  if (id !== state.id) return;
+  state.original = body;
+  renderOriginal();
+  renderStepper();
+  poller('originalPoll', loadOriginal, () => state.original?.original);
+}
+
+function renderOriginal() {
+  const root = $('#original');
+  if (!root || !state.original) return;
+  const { original, built, host, reason, log } = state.original;
+  const idle = !host
+    ? `<div class="hint">変換の前に、元のアプリ(.NET Framework)をこの PC で動かして、変換前の動きを確かめます。</div>
+       <div class="stale">⚠ ${esc(reason ?? '')}</div>`
+    : `<div class="hint">変換の前に、元のアプリ(.NET Framework)をこの PC で動かして、変換前の動きを確かめます。リポジトリのコピーをそのビルド手順(Visual Studio の MSBuild)でビルドし、${esc(HOST[host])} で起動します(Studio を止めると止まります)。</div>
+       <div class="convert-actions left">
+         <button class="btn primary" id="original-start">▶ ${built ? '起動' : 'ビルドして起動'}</button>
+         ${built ? '<button class="btn ghost" id="original-rebuild">↻ ビルドし直して起動</button>' : ''}
+       </div>`;
+  root.innerHTML = runnerPanel('original', '元のアプリを起動(テスト起動)', '▶', original, log, idle,
+    e => e.state === 'building' ? '元のアプリをビルドしています(初回はパッケージの復元で数分かかります)' : `${esc(HOST[e.host] ?? '')} で起動し、サイトが応答するのを待っています(${esc(e.url ?? '')})`);
+  const start = rebuild => api(`/analyses/${state.id}/original`, { method: 'POST', body: JSON.stringify({ rebuild }) }).then(loadOriginal).catch(e => toast(e.message));
+  $('#original-start')?.addEventListener('click', () => start(false));
+  $('#original-rebuild')?.addEventListener('click', () => start(true));
+  $('#original-stop')?.addEventListener('click', async () => {
+    await api(`/analyses/${state.id}/original`, { method: 'DELETE' }).catch(e => toast(e.message));
+    await loadOriginal();
+  });
+  const pre = root.querySelector('.log');
+  if (pre) pre.scrollTop = pre.scrollHeight;
+}
+
+async function loadNative() {
+  const id = state.id;
+  const body = await api(`/analyses/${id}/native`);
+  if (id !== state.id) return;
+  state.native = body;
+  renderNative();
+  renderStepper();
+  poller('nativePoll', loadNative, () => state.native?.native);
+}
+
+function renderNative() {
+  const root = $('#native');
+  if (!root || !state.native) return;
+  const { native, log } = state.native;
+  const idle = `<div class="hint">変換したアプリを、この PC の .NET 10(dotnet)でそのまま起動します。Docker は使いません。接続文字列は web.config のままです(この PC のデータベースが見えます)。</div>
+    <div class="convert-actions left"><button class="btn primary" id="native-start">▶ 起動</button></div>`;
+  root.innerHTML = runnerPanel('native', 'ネイティブ起動(この Windows)', '◆', native, log, idle,
+    e => `dotnet で起動し、サイトが応答するのを待っています(${esc(e.url ?? '')})`);
+  $('#native-start')?.addEventListener('click', () => api(`/analyses/${state.id}/native`, { method: 'POST' }).then(loadNative).catch(e => toast(e.message)));
+  $('#native-stop')?.addEventListener('click', async () => {
+    await api(`/analyses/${state.id}/native`, { method: 'DELETE' }).catch(e => toast(e.message));
+    await loadNative();
+  });
+  const pre = root.querySelector('.log');
+  if (pre) pre.scrollTop = pre.scrollHeight;
 }
 
 async function startConversion() {
@@ -747,9 +1065,12 @@ function changes() {
 }
 const isDirty = () => changes() > 0;
 
+// The bar of ② (the choices are made there); the steps show what is saved.
 function renderSavebar() {
   const bar = $('#savebar');
-  if (!state.result) { bar.hidden = true; return; }
+  renderStepper();
+  renderStepNext();
+  if (!state.result || state.step !== 2) { bar.hidden = true; return; }
   bar.hidden = false;
   const n = changes();
   const e = effective(state.choices);

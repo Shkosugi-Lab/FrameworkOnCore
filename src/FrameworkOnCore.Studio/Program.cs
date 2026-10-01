@@ -36,11 +36,18 @@ builder.Services.ConfigureHttpJsonOptions(o =>
 var store = new AnalysisStore(data, runtime);
 var conversions = new Conversions(store, runtime);
 var containers = new Containers(store, conversions);
-store.Deleting = id => { containers.Forget(id); conversions.Forget(id); };
+var originals = new Originals(store);
+Originals.RemoveLeftovers();
+var natives = new Natives(store, conversions);
+store.Deleting = id => { containers.Forget(id); originals.Forget(id); natives.Forget(id); conversions.Forget(id); };
 builder.Services.AddSingleton(store);
 builder.Services.AddSingleton(conversions);
 builder.Services.AddSingleton(containers);
+builder.Services.AddSingleton(originals);
+builder.Services.AddSingleton(natives);
 var app = builder.Build();
+// The sites Studio runs on this machine end with it (IIS's sites it added are removed).
+app.Lifetime.ApplicationStopping.Register(() => { originals.StopAll(); natives.StopAll(); });
 app.UseDefaultFiles();
 app.UseStaticFiles();
 
@@ -123,8 +130,9 @@ api.MapGet("/analyses/{id}/command", (string id, AnalysisStore store) =>
 api.MapGet("/analyses/{id}/conversion", (string id, Conversions conversions) =>
     Results.Ok(new { conversion = conversions.Get(id), stale = conversions.Stale(id), log = conversions.Log(id).TakeLast(300) }));
 
-api.MapPost("/analyses/{id}/conversion", (string id, ConversionRequest? request, Conversions conversions) =>
+api.MapPost("/analyses/{id}/conversion", (string id, ConversionRequest? request, Conversions conversions, Natives natives) =>
 {
+    natives.Stop(id);  // the output is replaced: the site running from it stops (its files are not held)
     try { return Results.Ok(conversions.Start(id, request?.BuildOriginal ?? false)); }
     catch (InvalidOperationException e) { return Results.Conflict(new { error = e.Message }); }
 });
@@ -153,6 +161,33 @@ api.MapPost("/analyses/{id}/container", (string id, ContainerRequest? request, C
 api.MapDelete("/analyses/{id}/container", (string id, Containers containers) => containers.Stop(id) ? Results.NoContent() : Results.NotFound());
 
 api.MapGet("/analyses/{id}/container/log", (string id, Containers containers) => Results.Text(containers.ContainerLog(id), "text/plain; charset=utf-8"));
+
+// The original application on this machine (built as its repository builds it, run by IIS Express or IIS), to see
+// what it does before it is converted.
+api.MapGet("/analyses/{id}/original", (string id, Originals originals) =>
+{
+    var (host, reason) = Originals.Hosts();
+    return Results.Ok(new { original = originals.Get(id), built = originals.Built(id), host, reason, log = originals.Log(id).TakeLast(300) });
+});
+
+api.MapPost("/analyses/{id}/original", (string id, OriginalRequest? request, Originals originals) =>
+{
+    try { return Results.Ok(originals.Start(id, request?.Rebuild ?? false)); }
+    catch (InvalidOperationException e) { return Results.Conflict(new { error = e.Message }); }
+});
+
+api.MapDelete("/analyses/{id}/original", (string id, Originals originals) => originals.Stop(id) ? Results.NoContent() : Results.NotFound());
+
+// The converted application on this machine, natively (dotnet).
+api.MapGet("/analyses/{id}/native", (string id, Natives natives) => Results.Ok(new { native = natives.Get(id), log = natives.Log(id).TakeLast(300) }));
+
+api.MapPost("/analyses/{id}/native", (string id, Natives natives) =>
+{
+    try { return Results.Ok(natives.Start(id)); }
+    catch (InvalidOperationException e) { return Results.Conflict(new { error = e.Message }); }
+});
+
+api.MapDelete("/analyses/{id}/native", (string id, Natives natives) => natives.Stop(id) ? Results.NoContent() : Results.NotFound());
 
 Console.WriteLine($"FrameworkOnCore Studio: http://127.0.0.1:{port}/  (data: {data})");
 app.Run();

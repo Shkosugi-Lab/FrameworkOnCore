@@ -1,7 +1,5 @@
 using System.Collections.Concurrent;
 using System.Diagnostics;
-using System.Net;
-using System.Net.Sockets;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
@@ -67,7 +65,7 @@ public sealed class Containers(AnalysisStore store, Conversions conversions)
     {
         if (File.Exists(EnvironmentFile(id))) return File.ReadAllText(EnvironmentFile(id));
         var lines = new List<string> { "# 1 行に 1 つ、名前=値。# で始まる行と、値の無い行は渡しません。" };
-        if (Site(id) is { } site && Directory.EnumerateFiles(site, "web.config", new EnumerationOptions { MatchCasing = MatchCasing.CaseInsensitive }).FirstOrDefault() is { } config)
+        if (conversions.Site(id) is { } site && Directory.EnumerateFiles(site, "web.config", new EnumerationOptions { MatchCasing = MatchCasing.CaseInsensitive }).FirstOrDefault() is { } config)
         {
             try
             {
@@ -86,15 +84,6 @@ public sealed class Containers(AnalysisStore store, Conversions conversions)
         }
         lines.Add("# 例: APPSETTING_<キー>=<値>(appSettings)");
         return string.Join('\n', lines) + '\n';
-    }
-
-    // The site the Dockerfile copies to /app ("COPY --chown=app:app <site> /app").
-    string? Site(string id)
-    {
-        var dockerfile = Path.Combine(conversions.Output(id), "Dockerfile");
-        if (!File.Exists(dockerfile)) return null;
-        var match = Regex.Match(File.ReadAllText(dockerfile), @"^COPY --chown=\S+ (\S+) /app\s*$", RegexOptions.Multiline);
-        return match.Success ? Path.Combine(conversions.Output(id), match.Groups[1].Value.Replace('/', Path.DirectorySeparatorChar)) : null;
     }
 
     /// <summary>
@@ -194,7 +183,7 @@ public sealed class Containers(AnalysisStore store, Conversions conversions)
                 }
                 finally { store.Heavy.Release(); }
 
-                var port = FreePort();
+                var port = Runs.FreePort(8080);
                 File.WriteAllLines(envFile, Variables(environment ?? (File.Exists(EnvironmentFile(id)) ? File.ReadAllText(EnvironmentFile(id)) : "")));
                 Save(id, entry = entry with { State = "starting", Port = port, Url = $"http://localhost:{port}/" });
                 log.Enqueue($"> docker run -d --name {entry.Name} -p 127.0.0.1:{port}:8080 --env-file run.env {entry.Image}");
@@ -275,22 +264,6 @@ public sealed class Containers(AnalysisStore store, Conversions conversions)
         text.Split('\n').Select(l => l.TrimEnd('\r')).Where(l => !l.TrimStart().StartsWith('#'))
             .Where(l => l.IndexOf('=') is var at && at > 0 && at < l.Length - 1);
 
-    static int FreePort()
-    {
-        for (var port = 8080; port < 8200; port++)
-        {
-            try
-            {
-                var listener = new TcpListener(IPAddress.Loopback, port);
-                listener.Start();
-                listener.Stop();
-                return port;
-            }
-            catch (SocketException) { }
-        }
-        throw new InvalidOperationException("8080〜8199 に空いているポートがありません");
-    }
-
     async Task<int> Run(IEnumerable<string> arguments, ConcurrentQueue<string> log, CancellationToken cancel)
     {
         var start = DockerStart();
@@ -299,6 +272,7 @@ public sealed class Containers(AnalysisStore store, Conversions conversions)
         process.OutputDataReceived += (_, e) => { if (e.Data != null) Append(log, e.Data); };
         process.ErrorDataReceived += (_, e) => { if (e.Data != null) Append(log, e.Data); };
         process.Start();
+        Runs.EndWithStudio(process);
         process.BeginOutputReadLine();
         process.BeginErrorReadLine();
         try { await process.WaitForExitAsync(cancel); }

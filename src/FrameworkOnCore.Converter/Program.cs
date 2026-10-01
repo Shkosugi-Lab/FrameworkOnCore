@@ -36,8 +36,13 @@ using FrameworkOnCore.Converter;
 //   FrameworkOnCore.Converter analyze <project> --out <dir> [--root <dir>] [--configuration <name>] [--runtime <dir>]
 //            the .NET Framework APIs the application uses, their counts, and what .NET 10 has of each (AnalyzeCommand):
 //            api-analysis.json and API-ANALYSIS.md, nothing converted.
+//
+//   FrameworkOnCore.Converter build-original <project> --out <dir> [--root <dir>] [--configuration <name>] [--target <name>]
+//            the original application built as --build-original builds it, nothing converted; prints "site: <path>"
+//            (BuildOriginalCommand).
 
 if (args.Length > 0 && args[0] == "analyze") return AnalyzeCommand.Run(args[1..], RuntimeSetup.Find);
+if (args.Length > 0 && args[0] == "build-original") return BuildOriginalCommand.Run(args[1..]);
 
 string? project = null, outDirectory = null, rootDirectory = null, runtimeDirectory = null, cultureProfile = null, site = null, originalTarget = null, configuration = null;
 var build = true;

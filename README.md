@@ -122,4 +122,5 @@ dotnet test tests\FrameworkOnCore.Tests
 | `LINUX-CONVERTER-DESIGN.md` | 変換器の設計 |
 | `experiments/wf4c/README.md` | 実験と検証の記録(WebFormsForCore、コーパス、Linux、解析、Studio) |
 | `experiments/wf4c/FRAMEWORK-ONLY-APIS.md` | .NET Framework にしかない API の一覧と対応 |
+| `experiments/wf4c/PORT-CANDIDATES.md` | 移植版の候補(.NET Framework と .NET で動きや API が違うもの)と、移植済みのもの |
 | `corpora/README.md` | コーパスの取得と記録 |

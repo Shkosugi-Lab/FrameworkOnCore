@@ -943,6 +943,7 @@ DNN のインストール ウィザードがネイティブ起動で 500 にな�
   - 今後の移植版も、ここに書けば同じく選べる。
 - 確認: wt を「.NET 版」で変換すると、`deps.json` には Entity Framework が持ち込む Microsoft の 4.8.6 だけが残った。既定では今までと同じ。
 - 気付いたこと: wt の Elmah.dll は、.NET Framework の `SqlConnectionStringBuilder.AsynchronousProcessing`(.NET Framework 4.5 から無視される)を使う。これは移植版にも .NET 版にも無く、使う所で MissingMethodException になる。移植版に足せる候補。
+- 移植版の候補は `PORT-CANDIDATES.md` で管理する(見つけ方と、2026-10-02 時点の一覧)。
 ## 全コーパスでの検証(2026-09-27)
 
 `verify-corpora.ps1` で 6 本を変換してビルドした(Windows)。正解データがあるのは be と wt だけ。

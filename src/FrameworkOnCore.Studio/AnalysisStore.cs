@@ -145,9 +145,8 @@ public sealed class AnalysisStore
 
     void RemoveFolder(string id)
     {
-        try { if (Directory.Exists(Folder(id))) Directory.Delete(Folder(id), recursive: true); }
+        try { FrameworkOnCore.Analysis.FileTrees.Delete(Folder(id)); }
         catch (IOException) { }  // a file still open: left, not listed (entry.json is read only at start)
-        catch (UnauthorizedAccessException) { }
     }
 
     /// <summary>The choices of an analysis: saved, else the defaults of its result.</summary>

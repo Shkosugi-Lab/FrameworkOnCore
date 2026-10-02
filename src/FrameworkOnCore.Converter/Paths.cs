@@ -41,7 +41,7 @@ public static class Paths
         {
             foreach (var entry in Directory.EnumerateFileSystemEntries(target))
             {
-                if (Directory.Exists(entry)) Directory.Delete(entry, recursive: true); else File.Delete(entry);
+                if (Directory.Exists(entry)) FrameworkOnCore.Analysis.FileTrees.Delete(entry); else File.Delete(entry);
             }
         }
         Copy(new DirectoryInfo(source), target);

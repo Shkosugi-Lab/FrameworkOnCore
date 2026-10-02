@@ -33,7 +33,7 @@ public sealed class DeployWriter(Report report, string outRoot, string runtimeDi
         var app = new string(assembly.ToLowerInvariant().Select(c => char.IsAsciiLetterOrDigit(c) ? c : '-').ToArray()).Trim('-');
         var siteRelative = Path.GetRelativePath(outRoot, site).Replace('\\', '/');
         var deploy = Path.Combine(outRoot, "deploy");
-        if (Directory.Exists(deploy)) Directory.Delete(deploy, recursive: true);
+        FrameworkOnCore.Analysis.FileTrees.Delete(deploy);
         Directory.CreateDirectory(deploy);
 
         string? culture = null;

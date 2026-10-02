@@ -51,7 +51,7 @@ public static class RuntimeSetup
         var staging = feed + ".download";
         try
         {
-            if (Directory.Exists(staging)) Directory.Delete(staging, recursive: true);
+            FrameworkOnCore.Analysis.FileTrees.Delete(staging);
             ZipFile.ExtractToDirectory(zip, staging);
             if (!File.Exists(Path.Combine(staging, $"FrameworkOnCore.Web.{frameworkOnCoreVersion}.nupkg")))
                 throw new InvalidOperationException($"{source}: FrameworkOnCore.Web.{frameworkOnCoreVersion}.nupkg is not in it");
@@ -61,7 +61,7 @@ public static class RuntimeSetup
         }
         finally
         {
-            if (Directory.Exists(staging)) Directory.Delete(staging, recursive: true);
+            FrameworkOnCore.Analysis.FileTrees.Delete(staging);
             if (download) File.Delete(zip);
         }
         log?.Invoke($"  -> {feed}");

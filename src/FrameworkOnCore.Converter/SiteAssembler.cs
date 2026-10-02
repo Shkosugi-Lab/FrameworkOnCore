@@ -27,7 +27,7 @@ public static class SiteAssembler
     public static void Assemble(string deployed, string output, ConvertedProject web, IEnumerable<ConvertedProject> others,
         ProjectConverter converter, Report report, string? cultureProfile)
     {
-        if (Directory.Exists(output)) Directory.Delete(output, recursive: true);
+        FrameworkOnCore.Analysis.FileTrees.Delete(output);
         CopyAll(deployed, output, overwrite: true);
         var bin = Path.Combine(output, "bin");
         Directory.CreateDirectory(bin);

@@ -27,7 +27,16 @@ public sealed partial class OriginalBuild(Report report, string log, string? con
     public string? Run(string repository, string work, string webProject, string? target, IReadOnlyList<(string Project, string Target)> steps)
     {
         Console.WriteLine($"copying {repository} -> {work}");
-        CopyRepository(repository, work);
+        try
+        {
+            CopyRepository(repository, work);
+        }
+        catch (IOException e)
+        {
+            report.Add(Report.Kind.Error, "original build", e.Message);
+            Console.Error.WriteLine(e.Message);
+            return null;
+        }
         var relativeWeb = Path.GetRelativePath(repository, webProject);
 
         // Built through a drive letter mapped to the copy (Windows): deep repositories go past 260
@@ -321,12 +330,8 @@ public sealed partial class OriginalBuild(Report report, string log, string? con
 
     static void CopyRepository(string from, string to)
     {
-        if (Directory.Exists(to))
-        {
-            // Read-only files too (git's objects).
-            foreach (var file in Directory.EnumerateFiles(to, "*", SearchOption.AllDirectories)) File.SetAttributes(file, FileAttributes.Normal);
-            Directory.Delete(to, recursive: true);
-        }
+        // The last build's copy: read-only files (git's objects) and node_modules' links (yarn's workspaces) too.
+        FrameworkOnCore.Analysis.FileTrees.Delete(to);
         Copy(new DirectoryInfo(from), to);
         static void Copy(DirectoryInfo source, string target)
         {

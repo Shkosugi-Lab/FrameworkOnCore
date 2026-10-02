@@ -122,7 +122,7 @@ public static class ReferencePacks
         // FrameworkOnCore's packages are rebuilt with the same version: extracted again when the file changed.
         if (!File.Exists(stamp) || File.ReadAllText(stamp) != written)
         {
-            if (Directory.Exists(folder)) Directory.Delete(folder, recursive: true);
+            FileTrees.Delete(folder);
             using (var stream = File.OpenRead(nupkg)) Extract(stream, folder);
             File.WriteAllText(stamp, written);
         }

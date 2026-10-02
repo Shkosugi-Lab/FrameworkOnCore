@@ -3,7 +3,6 @@ Option Infer On
 
 Imports Microsoft.AspNetCore.Builder
 Imports Microsoft.Extensions.DependencyInjection
-Imports Microsoft.Extensions.FileProviders
 
 ' Outside the project's root namespace: the entry point is Program (StartupObject).
 Namespace Global
@@ -24,15 +23,8 @@ Namespace Global
 
             Dim app = builder.Build()
 
-            ' IIS's default document: "/" (and "/folder/") serves Default.aspx. Kestrel has no such
-            ' feature; the pages live in the content root, not wwwroot, so the provider is set.
-            Dim defaults = New DefaultFilesOptions With {.FileProvider = New PhysicalFileProvider(builder.Environment.ContentRootPath)}
-            defaults.DefaultFileNames.Clear()
-            For Each name In {"Default.aspx", "default.aspx", "Index.aspx", "index.aspx"}
-                defaults.DefaultFileNames.Add(name)
-            Next
-            app.UseDefaultFiles(defaults)
-
+            ' IIS's default documents ("/" and "/folder/" serve default.aspx; web.config's defaultDocument), and its redirect of
+            ' "/folder" to "/folder/": FrameworkOnCore's host, as IIS does them.
             app.UseSession()
             app.UseWebForms(Sub(options) options.UseAspNetCoreSessionProvider())
             app.Run()

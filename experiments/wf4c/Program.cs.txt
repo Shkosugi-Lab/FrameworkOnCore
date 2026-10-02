@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.FileProviders;
 
 public class Program
 {
@@ -12,16 +11,8 @@ public class Program
 
         var app = builder.Build();
 
-        // IIS's default document: "/" (and "/folder/") serves Default.aspx. Kestrel has no such
-        // feature; the pages live in the content root, not wwwroot, so the provider is set.
-        var defaults = new DefaultFilesOptions { FileProvider = new PhysicalFileProvider(builder.Environment.ContentRootPath) };
-        defaults.DefaultFileNames.Clear();
-        foreach (var name in new[] { "Default.aspx", "default.aspx", "Index.aspx", "index.aspx" })
-        {
-            defaults.DefaultFileNames.Add(name);
-        }
-        app.UseDefaultFiles(defaults);
-
+        // IIS's default documents ("/" and "/folder/" serve default.aspx; web.config's defaultDocument), and its redirect of
+        // "/folder" to "/folder/": FrameworkOnCore's host, as IIS does them.
         app.UseSession();
         app.UseWebForms(options => options.UseAspNetCoreSessionProvider());
         app.Run();

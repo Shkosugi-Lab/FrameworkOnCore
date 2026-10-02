@@ -22,7 +22,7 @@ param(
 )
 
 $ErrorActionPreference = 'Stop'
-$FrameworkOnCoreVersion = '1.6.5-w2l.9'
+$FrameworkOnCoreVersion = '1.6.5-w2l.10'
 $msbuildNs = @{ m = 'http://schemas.microsoft.com/developer/msbuild/2003' }
 $msbuildUri = 'http://schemas.microsoft.com/developer/msbuild/2003'
 
@@ -457,15 +457,12 @@ __ALIAS__
     Set-Content $targetPath $text -Encoding UTF8
 
     # Program.cs for the web project. An app that routes (System.Web.Routing, FriendlyUrls)
-    # serves extensionless URLs, which only reach Web Forms when every request is handed to it; it
-    # also answers "/" itself (FriendlyUrls redirects Default.aspx to /Default), so IIS's default
-    # document is not emulated.
+    # serves extensionless URLs, which only reach Web Forms when every request is handed to it.
     if ($isWeb) {
         $program = Get-Content (Join-Path $PSScriptRoot 'Program.cs.txt') -Raw -Encoding UTF8
         $routes = $packages.Contains('Microsoft.AspNet.FriendlyUrls') -or
                   (Get-ChildItem $target -Filter *.cs -Recurse | Select-String -Pattern 'RouteTable\.Routes|RouteCollection' -List -Quiet)
         if ($routes) {
-            $program = $program.Replace('app.UseDefaultFiles(defaults);', '// Routed app: Web Forms answers "/" (see convert-project.ps1).')
             $program = $program.Replace('options => options.UseAspNetCoreSessionProvider()', 'options => options.HandleAllRequestsWithWebForms().UseAspNetCoreSessionProvider()')
         }
         Set-Content (Join-Path $target 'Program.cs') $program -Encoding UTF8

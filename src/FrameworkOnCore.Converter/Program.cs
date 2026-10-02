@@ -265,10 +265,7 @@ void WriteHost(ConvertedProject web)
                      .Any(f => Regex.IsMatch(File.ReadAllText(f), @"RouteTable\.Routes|RouteCollection"));
     if (routes)
     {
-        program = (visualBasic
-                ? program.Replace("app.UseDefaultFiles(defaults)", "' Routed application: Web Forms answers \"/\".")
-                : program.Replace("app.UseDefaultFiles(defaults);", "// Routed application: Web Forms answers \"/\"."))
-            .Replace("options.UseAspNetCoreSessionProvider()", "options.HandleAllRequestsWithWebForms().UseAspNetCoreSessionProvider()");
+        program = program.Replace("options.UseAspNetCoreSessionProvider()", "options.HandleAllRequestsWithWebForms().UseAspNetCoreSessionProvider()");
         report.Add(Report.Kind.Project, web.Name, "routes: every request goes to Web Forms");
     }
     // Managed modules IIS runs for every request (runAllManagedModulesForAllRequests, or a module without the

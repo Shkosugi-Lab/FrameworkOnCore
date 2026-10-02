@@ -16,7 +16,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="FrameworkOnCore.Web" Version="1.6.5-w2l.9" />
+    <PackageReference Include="FrameworkOnCore.Web" Version="1.6.5-w2l.10" />
   </ItemGroup>
 
   <Target Name="ChangeAliasesOfNugetRefs" BeforeTargets="FindReferenceAssembliesForReferences;ResolveReferences">

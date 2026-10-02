@@ -172,6 +172,7 @@ public sealed class Containers(AnalysisStore store, Conversions conversions)
                 // (and may create a database). Waited for by the clock: a request that does not answer counts its time.
                 using var http = new HttpClient { Timeout = TimeSpan.FromSeconds(60) };
                 var until = DateTime.UtcNow.AddMinutes(10);
+                DateTime? restarting = null;
                 while (true)
                 {
                     cancel.Token.ThrowIfCancellationRequested();
@@ -184,6 +185,12 @@ public sealed class Containers(AnalysisStore store, Conversions conversions)
                     {
                         using var response = await http.GetAsync(entry.Url, cancel.Token);
                         log.Enqueue($"{entry.Url} -> {(int)response.StatusCode}");
+                        // The application restarting (start.sh starts it again): asked again, as the native run does.
+                        if (Runs.RestartingAnswer(response, ref restarting) is { } again)
+                        {
+                            await Task.Delay(again, cancel.Token);
+                            continue;
+                        }
                         Save(id, entry with { State = "running", FirstStatus = (int)response.StatusCode });
                         break;
                     }

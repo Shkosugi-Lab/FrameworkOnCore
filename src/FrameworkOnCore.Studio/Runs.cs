@@ -149,6 +149,7 @@ public abstract class Runs
         using var deadline = CancellationTokenSource.CreateLinkedTokenSource(cancel);
         deadline.CancelAfter(TimeSpan.FromMinutes(minutes));
         using var http = new HttpClient { Timeout = Timeout.InfiniteTimeSpan };
+        DateTime? restarting = null;
         while (true)
         {
             cancel.ThrowIfCancellationRequested();
@@ -165,6 +166,11 @@ public abstract class Runs
                 }
                 using var response = await answer;
                 log.Enqueue($"{url} -> {(int)response.StatusCode}");
+                if (RestartingAnswer(response, ref restarting) is { } again)
+                {
+                    await Task.Delay(again, cancel);
+                    continue;
+                }
                 entries[id] = entries[id] with { State = "running", FirstStatus = (int)response.StatusCode };
                 return;
             }
@@ -173,6 +179,20 @@ public abstract class Runs
             if (deadline.IsCancellationRequested) throw new InvalidOperationException($"{minutes} 分待っても応答がありません(ログを見てください。データベースに接続できているか)");
             await Task.Delay(2000, cancel);
         }
+    }
+
+    /// <summary>
+    /// When to ask again, if the answer is the application restarting: a 503 with Retry-After, what FrameworkOnCore's
+    /// runtime answers while it restarts (web.config changed: DNN's install wizard writes it as it starts), until the new
+    /// process answers; not the site's first answer. For two minutes at most: a site whose answer it always is, is that.
+    /// </summary>
+    public static TimeSpan? RestartingAnswer(HttpResponseMessage response, ref DateTime? since)
+    {
+        if (response.StatusCode != HttpStatusCode.ServiceUnavailable || response.Headers.RetryAfter == null) return null;
+        since ??= DateTime.UtcNow;
+        if (DateTime.UtcNow - since > TimeSpan.FromMinutes(2)) return null;
+        var after = response.Headers.RetryAfter.Delta ?? TimeSpan.FromSeconds(1);
+        return after < TimeSpan.FromSeconds(1) ? TimeSpan.FromSeconds(1) : after > TimeSpan.FromSeconds(10) ? TimeSpan.FromSeconds(10) : after;
     }
 
     /// <summary>A port of localhost no one listens on, from <paramref name="first"/> (100 tried).</summary>

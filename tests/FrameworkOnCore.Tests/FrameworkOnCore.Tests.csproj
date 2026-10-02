@@ -24,6 +24,8 @@
     <ProjectReference Include="..\..\src\FrameworkOnCore.Analyzers\FrameworkOnCore.Analyzers.csproj" />
     <!-- The rewrites (SourceEdits, SourceLanguage) and the rules they read (rules\packages.json, copied here). -->
     <ProjectReference Include="..\..\src\FrameworkOnCore.Converter\FrameworkOnCore.Converter.csproj" />
+    <!-- Studio's logic that needs no browser (Runs.RestartingAnswer): StudioRunsTests.cs. -->
+    <ProjectReference Include="..\..\src\FrameworkOnCore.Studio\FrameworkOnCore.Studio.csproj" />
     <ProjectReference Include="..\..\experiments\wf4c\shims\FrameworkOnCore.Compat\FrameworkOnCore.Compat.csproj" />
     <!-- The LINQ to SQL port (FrameworkOnCore's System.Data.Linq): DataLinq\*Tests.cs. -->
     <ProjectReference Include="..\..\FrameworkOnCore.Runtime\src\WebFormsForCore.Data.Linq\WebFormsForCore.Data.Linq.csproj" />

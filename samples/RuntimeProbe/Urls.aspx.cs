@@ -19,6 +19,8 @@ namespace RuntimeProbe
             Write("Request.Url.AbsolutePath", Request.Url.AbsolutePath);
             Write("Request.Url.PathAndQuery", Request.Url.PathAndQuery);
             Write("Request.QueryString[q]", Request.QueryString["q"]);
+            Write("Request.QueryString[a]", Request.QueryString["a"]);
+            Write("RouteData[name]", RouteData.Values["name"] as string);
         }
 
         void Write(string name, string value)

@@ -389,6 +389,86 @@ nopCommerce 1.90 は Ajax Control Toolkit 4.1 の `<ajaxToolkit:ToolkitScriptMan
   - be: Windows 5/5、Linux 5/5
   - wt: Windows 6/8、Linux 5/8(丸めの差 2 件と、Linux の error-page は検証環境の差)
 
+### リンクの巡回、URL の形の試験、ホストの見直し(2026-10-02、`1.6.5-w2l.10`)
+
+上の不具合がテストで見つからなかった理由は 2 つあった。
+
+- ホスト(リクエストを System.Web に渡す部分)を通る試験は、サイトのシナリオだけだった。
+- シナリオの URL は手で書いた数個だけで(wt 8、be 5)、`%` を含む URL は 1 つも無かった。
+
+そこで次の 3 つを入れた。
+
+**1. リンクの巡回**(`tools/FrameworkOnCore.ParityTest`、シナリオの `crawl`)
+
+- シナリオの手順のあと、各ページの `<a href>` を同じサイトの中で 2 段までたどる。リダイレクトは追わず、その応答も 1 件として記録する(最大 150 件)。
+- 元のアプリ(IIS)での各 URL の応答(状態コードとリダイレクト先)を正解データの `Links` に記録する。変換後のアプリでは、同じ URL を同じ形で要求して比べる。
+- 記録はスナップショットを残したままリンクだけ採れる。
+  - コマンド: `record-links`
+  - スクリプト: `record-webforms-golden.ps1 -LinksOnly`、`sample-parity.ps1 -Record -LinksOnly`
+- 対象: be(17 件)、wt(64 件)、サンプル 7 つ。ログオフのリンクは `exclude` で除いた。
+- 巡回をすぐに確かめられた。
+  - **旧版の wt(w2l.8)では、商品ページ 14 件が 400、`/` が 301 になり、差分として出た。**
+  - 新しい差分も 1 つ見つかった。wt の `/` が IIS では 200、変換後は 301 だった(2. の RawUrl)。
+- 検証ツールのビルドは、以前は無いときだけだった(古いツールで検証していた)。毎回(差分)ビルドするようにした。
+- `sample-parity.ps1 -Record` は、Visual Studio の MSBuild があればそれでビルドする。古いサンプルは C# 6 以降で書かれていて、.NET Framework の MSBuild(C# 5)ではビルドできない。サンプル 4 つには `OutputPath` が無かったので足した。
+
+**2. URL の形の試験**(`samples/RuntimeProbe`、IIS で記録して比べる)
+
+- 値を比べるページ:
+  - `Urls.aspx`: Request.Path、FilePath、PathInfo、RawUrl、Url、QueryString、RouteData
+  - `ServerVars.aspx`: GET とポストバックのメソッド、フォームの値、サーバー変数 20 個
+  - `Sub/`・`Docs/`: 既定のドキュメント(`Docs/` は web.config の defaultDocument)
+  - `Global.asax`: ページのルート `Item/{name}`
+- 比べた URL の形: 空白、日本語、大文字、繰り返しのクエリー、既定のドキュメント、ルート、POST。
+- 応答だけを比べる URL(`crawl.urls`、25 個):
+  - `App_Data`・`bin`(小文字も、下のフォルダーも)
+  - `Web.config`・`.csproj`・`.cs`・`.asax`
+  - `/` の無いフォルダー
+  - 無いページ
+  - `%2F`・`%25`・`+`・`:`・`;`・`<`、クエリーの `<script>`
+- 結果: Windows・Linux とも **10/10 スナップショット、34/34 リンクが一致**。
+
+**3. ホストの見直し**(`AspNetCoreWorkerRequest`・`AspNetCoreHost` を IIS の IIS7WorkerRequest と照らし、2. で確かめた)。直したもの:
+
+- **App_Data などが配信されていた(セキュリティ)**
+  - 原因: IIS の隠しセグメントの一覧が、アンダースコアの抜けた名前(`/appdata`)だった。拒否されていたのは bin だけ。
+  - 影響: be の `App_Data/users.xml`(ユーザーとパスワードのハッシュ)と `settings.xml` が 200 で取れた。
+  - 修正: IIS と同じ 7 つ(bin、App_Code、App_Data ほか)を、URL のどのセグメントでも、大文字小文字を区別せずに 404 にした。
+- **IIS が拒否する拡張子のほとんどが配信されていた**
+  - 拒否していたのは一部だけで、`.mdf`・`.ldf`・`.csproj`・`.resources` などは配信されていた。
+  - IIS の既定の拒否一覧(applicationHost.config)を 404 にした。
+- **全リクエストがプロセスの Windows ユーザーで認証済みになっていた**
+  - サーバー変数の名前も、アンダースコアが抜けていた(`ALLRAW`・`SERVERPROTOCOL`・`LOGONUSER`・`AUTHTYPE`)。名前を直すと、隠れていた処理が動いた。その処理は `LOGON_USER`・`AUTH_TYPE` にプロセスのユーザーと NTLM を返していた。
+  - そのため Windows 認証モジュールが、全リクエストをそのユーザーで認証済みにしていた(認証モードは既定で Windows)。
+  - IIS の匿名認証と同じく空にした。
+- **サーバー変数が IIS と違っていた**
+  - 名前の誤りで、ほぼすべてが `""` だった。
+  - `HTTPS` は IIS では `off` で、`HTTPS != "off"` と判定するアプリには、全リクエストが HTTPS に見えていた。
+  - IIS と同じ値にした: `HTTPS`、`SERVER_PROTOCOL`、`REMOTE_PORT`、`GATEWAY_INTERFACE`、`ALL_RAW`、`INSTANCE_ID`・`APPL_MD_PATH`、証明書関係(空)。知らない名前は null にした。
+- **RawUrl が、既定のドキュメントに書き換えたあとのパスになっていた**
+  - IIS では、クライアントが要求した URL(`/`)。
+  - FriendlyUrls は `.aspx` で終わる RawUrl を拡張子なしへリダイレクトするので、wt の `/` が `/Default` への 301 になっていた。
+  - 要求の生のターゲット(`IHttpRequestFeature.RawTarget`)から作るようにした。パスはデコードし、クエリーは送られたまま。
+- **PathInfo の切り方が違っていた**
+  - 最後の `.` のあとの最後の `/` で切っていたので、`/Page.aspx/x/y` が `/Page.aspx/x` の 404 になっていた。
+  - 拡張子でハンドラーが決まる最初のセグメント(またはファイル)で切るようにした。
+- **エスケープされた `/` と、二重のエスケープの扱いが違っていた**
+  - Kestrel は `%2F` を Request.Path に残すので、400 になっていた。IIS はデコードする。
+  - IIS が 404 にする二重のエスケープ(`+`・`%2520`)を配信していた。
+- **既定のドキュメントが IIS と違っていた**
+  - 名前の一覧と順番を IIS と同じにした(`iisstart.htm` が `iistart.htm` だった)。
+  - ファイルは大文字小文字を区別せずに探し、IIS と同じく一覧の名前で出す(Request.Path は `/Sub/default.aspx`)。
+  - web.config の `<defaultDocument>`(enabled、clear・remove・add)を読む。以前は読んでいなかった。足した名前は IIS の一覧より前に来る(IIS で確かめた)。
+  - `/` の無いフォルダーは、IIS と同じく 301 で `/` 付きへリダイレクトする。
+- 変換器の Program.cs は ASP.NET Core の `UseDefaultFiles` を使わず(IIS に無い Index.aspx を含んでいた)、ホストに任せる。
+
+**検証**
+
+- テスト: Windows 4,327 件がすべて緑。
+- サンプル 7 つ: Windows・Linux とも全スナップショットと全リンクが一致。
+- be: Windows・Linux とも 5/5、リンク 17/17。
+- wt: Windows 6/8、Linux 5/8(以前と同じ差)、リンク 64/64。
+
 ## カルチャのデータ(2026-09-26)
 
 .NET Framework は Windows のカルチャデータ(NLS)を使う。.NET は ICU のデータを使い、両者は異なる。

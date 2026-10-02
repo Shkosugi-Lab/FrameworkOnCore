@@ -22,12 +22,19 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Default.aspx" />
     <Content Include="Redirect.aspx" />
     <Content Include="Paths.aspx" />
     <Content Include="Urls.aspx" />
+    <Content Include="ServerVars.aspx" />
+    <Content Include="Global.asax" />
+    <Content Include="Sub\Default.aspx" />
+    <Content Include="Docs\Start.aspx" />
+    <Content Include="Docs\default.aspx" />
+    <Content Include="App_Data\probe.xml" />
     <Content Include="Target.aspx" />
     <Content Include="Encodings.aspx" />
     <Content Include="ShiftJis.aspx" />
@@ -45,6 +52,13 @@
     </Compile>
     <Compile Include="Paths.aspx.cs">
       <DependentUpon>Paths.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="ServerVars.aspx.cs">
+      <DependentUpon>ServerVars.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Urls.aspx.cs">

@@ -7,11 +7,13 @@
 # Toolkit's).
 #
 #   .\experiments\wf4c\sample-parity.ps1 -Name MobileProbe -Record      # IIS (an administrator's shell)
+#   .\experiments\wf4c\sample-parity.ps1 -Name MobileProbe -Record -LinksOnly   # its links (crawl) only, its snapshots kept
 #   .\experiments\wf4c\sample-parity.ps1 -Name MobileProbe -Windows
 #   .\experiments\wf4c\sample-parity.ps1 -Name MobileProbe -Linux       # Docker
 param(
     [Parameter(Mandatory = $true)][string]$Name,
     [switch]$Record,
+    [switch]$LinksOnly,
     [switch]$Windows,
     [switch]$Linux,
     [int]$Port = 5096
@@ -25,7 +27,7 @@ $golden = Join-Path $sample 'golden-webforms.json'
 $work = Join-Path $PSScriptRoot "_samples\$Name"
 New-Item -ItemType Directory $work -Force | Out-Null
 $verifier = Join-Path $repo 'tools\FrameworkOnCore.ParityTest\bin\alt\FrameworkOnCore.ParityTest.dll'
-if (-not (Test-Path $verifier)) {
+& {  # built every time (incremental: quick): the verifier run is the one of this checkout
     dotnet build (Join-Path $repo 'tools\FrameworkOnCore.ParityTest') -o (Split-Path $verifier) --nologo -v q | Out-Null
     if ($LASTEXITCODE -ne 0) { throw 'FrameworkOnCore.ParityTest build failed' }
 }
@@ -65,7 +67,12 @@ if ($Record) {
             [IO.Compression.ZipFile]::ExtractToDirectory($nupkg, $folder)
         }
     }
-    & 'C:\Windows\Microsoft.NET\Framework64\v4.0.30319\MSBuild.exe' (Join-Path $site "$Name.csproj") /nologo /v:q /p:Configuration=Debug
+    # Visual Studio's MSBuild when there is one (its compiler has the C# a .NET Framework 4.8 project is written in: the
+    # older samples' are C# 6 and later), else .NET Framework's own (C# 5).
+    $vswhere = Join-Path ${env:ProgramFiles(x86)} 'Microsoft Visual Studio\Installer\vswhere.exe'
+    $msbuild = if (Test-Path $vswhere) { & $vswhere -latest -products * -requires Microsoft.Component.MSBuild -find 'MSBuild\**\Bin\MSBuild.exe' | Select-Object -First 1 }
+    if (-not $msbuild) { $msbuild = 'C:\Windows\Microsoft.NET\Framework64\v4.0.30319\MSBuild.exe' }
+    & $msbuild (Join-Path $site "$Name.csproj") /nologo /v:q /p:Configuration=Debug
     if ($LASTEXITCODE -ne 0) { throw 'the sample did not build for .NET Framework' }
     $pool = "frameworkoncore-$($Name.ToLowerInvariant())"
     & $appcmd delete site $pool 2>&1 | Out-Null
@@ -78,7 +85,7 @@ if ($Record) {
     & icacls $site /grant "IIS AppPool\${pool}:(OI)(CI)(M)" /T /Q | Out-Null
     try {
         Wait-Site "http://localhost:$Port"
-        & dotnet $verifier record --url "http://localhost:$Port" --scenario $scenario --out $golden
+        & dotnet $verifier $(if ($LinksOnly) { 'record-links' } else { 'record' }) --url "http://localhost:$Port" --scenario $scenario --out $golden
         if ($LASTEXITCODE -ne 0) { throw 'recording failed' }
         Write-Host "-> $golden (look at it: an error page recorded is what every run is compared with)" -ForegroundColor Yellow
     }

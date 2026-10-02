@@ -17,9 +17,12 @@
 # 使い方
 #   .\corpora\record-webforms-golden.ps1 -Only be
 #   .\corpora\record-webforms-golden.ps1 -Only be -KeepSite   # 調査用に残す
+#   .\corpora\record-webforms-golden.ps1 -Only be -LinksOnly  # リンク(シナリオの crawl)だけ採り直す。スナップショットはそのまま
 param(
     [string[]]$Only,
-    [switch]$KeepSite
+    [switch]$KeepSite,
+    # The scenario's links (crawl) only, into the golden as it is (record-links): its snapshots stay.
+    [switch]$LinksOnly
 )
 
 $ErrorActionPreference = 'Continue'
@@ -92,7 +95,7 @@ IIS がありません($appcmd)。
 }
 
 $verifier = Join-Path $repo 'tools\FrameworkOnCore.ParityTest\bin\alt\FrameworkOnCore.ParityTest.dll'
-if (-not (Test-Path $verifier)) {
+& {  # built every time (incremental: quick): the verifier run is the one of this checkout
     Write-Host '=== ParityTest のビルド ==='
     dotnet build (Join-Path $repo 'tools\FrameworkOnCore.ParityTest') `
         -o (Join-Path $repo 'tools\FrameworkOnCore.ParityTest\bin\alt') --nologo -v q | Out-Null
@@ -236,7 +239,7 @@ ALTER SERVER ROLE [sysadmin] ADD MEMBER [$login];
         }
 
         Write-Host "  採取: $golden"
-        & dotnet $verifier record --url $url --scenario $scenario --out $golden
+        & dotnet $verifier $(if ($LinksOnly) { 'record-links' } else { 'record' }) --url $url --scenario $scenario --out $golden
         if ($LASTEXITCODE -ne 0) {
             $failures += "${name}: 採取に失敗"
         }

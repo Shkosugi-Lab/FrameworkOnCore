@@ -1694,5 +1694,49 @@
         }
       }
     }
+  ],
+  "Links": [
+    {
+      "Url": "/",
+      "Status": 200,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/Detail.aspx?id=2",
+      "Status": 200,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/Entry.aspx",
+      "Status": 200,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/Default.aspx",
+      "Status": 200,
+      "Location": null,
+      "From": "/"
+    },
+    {
+      "Url": "/Detail.aspx?id=1",
+      "Status": 200,
+      "Location": null,
+      "From": "/"
+    },
+    {
+      "Url": "/Detail.aspx?id=3",
+      "Status": 200,
+      "Location": null,
+      "From": "/"
+    },
+    {
+      "Url": "/Detail.aspx?id=4",
+      "Status": 200,
+      "Location": null,
+      "From": "/"
+    }
   ]
 }

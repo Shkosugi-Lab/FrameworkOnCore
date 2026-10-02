@@ -9,6 +9,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>OrderAdmin</RootNamespace>
     <AssemblyName>OrderAdmin</AssemblyName>
+    <OutputPath>bin\</OutputPath>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
   </PropertyGroup>
   <ItemGroup>

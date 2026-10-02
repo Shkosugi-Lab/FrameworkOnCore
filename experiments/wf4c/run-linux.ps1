@@ -41,7 +41,7 @@ if (-not $Scenario) { $Scenario = "samples\$name\parity-scenario.json" }
 if (-not $Golden) { $Golden = "samples\$name\golden-webforms.json" }
 $verifier = Join-Path $repo 'tools\FrameworkOnCore.ParityTest\bin\alt\FrameworkOnCore.ParityTest.dll'
 # The parity verifier (Playwright), built once into bin\alt (a separate output: a running copy does not lock the build).
-if (-not (Test-Path $verifier)) {
+& {  # built every time (incremental: quick): the verifier run is the one of this checkout
     dotnet build (Join-Path $repo 'tools\FrameworkOnCore.ParityTest') -o (Split-Path $verifier) --nologo -v q | Out-Null
     if ($LASTEXITCODE -ne 0) { throw 'FrameworkOnCore.ParityTest build failed' }
 }

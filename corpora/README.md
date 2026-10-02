@@ -51,6 +51,9 @@
 ```powershell
 .\corpora\build-original.ps1 -Only be          # Visual Studio 無しでビルド
 .\corpora\record-webforms-golden.ps1 -Only be  # IIS で動かして採る
+.\corpora\record-webforms-golden.ps1 -Only be -LinksOnly  # リンク(シナリオの crawl)だけ採り直す
 ```
+
+正解データには、シナリオの手順のスナップショットに加えて、リンクの応答(`Links`)も入っています。リンクは、手順のあとに各ページのリンクをたどって集めたもので、URL ごとの状態コードとリダイレクト先です。変換後のアプリでは、同じ URL の応答をそれと比べます。シナリオに書いていないページ(wt の商品ページ `/Product/Fast%20Car` など)も、これで確かめられます。
 
 `record-webforms-golden.ps1` を実行するには、IIS と、`wt` では SQL Server Express(`.\SQLEXPRESS`)が必要です。設定の理由はスクリプトのコメントに書いてあります。

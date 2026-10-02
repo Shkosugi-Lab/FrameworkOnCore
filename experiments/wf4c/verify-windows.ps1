@@ -14,7 +14,7 @@ $webProjects = @{
     mvcmovie = 'mvcmovie\MvcMovie\MvcMovie.csproj'
 }
 $verifier = Join-Path $repo 'tools\FrameworkOnCore.ParityTest\bin\alt\FrameworkOnCore.ParityTest.dll'
-if (-not (Test-Path $verifier)) {
+& {  # built every time (incremental: quick): the verifier run is the one of this checkout
     dotnet build (Join-Path $repo 'tools\FrameworkOnCore.ParityTest') -o (Split-Path $verifier) --nologo -v q | Out-Null
     if ($LASTEXITCODE -ne 0) { throw 'FrameworkOnCore.ParityTest build failed' }
 }

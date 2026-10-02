@@ -31,11 +31,465 @@
         "Request.RawUrl: /Urls.aspx/a b?q=x%20y",
         "Request.Url.AbsolutePath: /Urls.aspx/a%20b",
         "Request.Url.PathAndQuery: /Urls.aspx/a%20b?q=x%20y",
-        "Request.QueryString[q]: x y"
+        "Request.QueryString[q]: x y",
+        "Request.QueryString[a]: (null)",
+        "RouteData[name]: (null)"
       ],
       "Tables": [],
       "Inputs": {},
       "Elements": {}
+    },
+    {
+      "Name": "request urls japanese",
+      "Path": "/urls.aspx/%e6%97%a5%e6%9c%ac",
+      "Title": "",
+      "Text": [
+        "Request.Path: /Urls.aspx/日本",
+        "Request.FilePath: /Urls.aspx",
+        "Request.PathInfo: /日本",
+        "Request.CurrentExecutionFilePath: /Urls.aspx",
+        "Request.AppRelativeCurrentExecutionFilePath: ~/Urls.aspx",
+        "Request.RawUrl: /Urls.aspx/日本?q=%E6%97%A5%E6%9C%AC",
+        "Request.Url.AbsolutePath: /Urls.aspx/%E6%97%A5%E6%9C%AC",
+        "Request.Url.PathAndQuery: /Urls.aspx/%E6%97%A5%E6%9C%AC?q=%E6%97%A5%E6%9C%AC",
+        "Request.QueryString[q]: 日本",
+        "Request.QueryString[a]: (null)",
+        "RouteData[name]: (null)"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {}
+    },
+    {
+      "Name": "request urls case and repeated query",
+      "Path": "/urls",
+      "Title": "",
+      "Text": [
+        "Request.Path: /URLS.ASPX",
+        "Request.FilePath: /URLS.ASPX",
+        "Request.PathInfo:",
+        "Request.CurrentExecutionFilePath: /URLS.ASPX",
+        "Request.AppRelativeCurrentExecutionFilePath: ~/URLS.ASPX",
+        "Request.RawUrl: /URLS.ASPX?a=1&a=2&b=",
+        "Request.Url.AbsolutePath: /URLS.ASPX",
+        "Request.Url.PathAndQuery: /URLS.ASPX?a=1&a=2&b=",
+        "Request.QueryString[q]: (null)",
+        "Request.QueryString[a]: 1,2",
+        "RouteData[name]: (null)"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {}
+    },
+    {
+      "Name": "default document",
+      "Path": "/sub",
+      "Title": "",
+      "Text": [
+        "Request.Path: /Sub/default.aspx",
+        "Request.FilePath: /Sub/default.aspx",
+        "Request.PathInfo:",
+        "Request.CurrentExecutionFilePath: /Sub/default.aspx",
+        "Request.AppRelativeCurrentExecutionFilePath: ~/Sub/default.aspx",
+        "Request.RawUrl: /Sub/",
+        "Request.Url.AbsolutePath: /Sub/default.aspx",
+        "Request.Url.PathAndQuery: /Sub/default.aspx",
+        "Request.QueryString[q]: (null)",
+        "Request.QueryString[a]: (null)",
+        "RouteData[name]: (null)"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {}
+    },
+    {
+      "Name": "default document with query",
+      "Path": "/sub",
+      "Title": "",
+      "Text": [
+        "Request.Path: /Sub/default.aspx",
+        "Request.FilePath: /Sub/default.aspx",
+        "Request.PathInfo:",
+        "Request.CurrentExecutionFilePath: /Sub/default.aspx",
+        "Request.AppRelativeCurrentExecutionFilePath: ~/Sub/default.aspx",
+        "Request.RawUrl: /Sub/?q=1",
+        "Request.Url.AbsolutePath: /Sub/default.aspx",
+        "Request.Url.PathAndQuery: /Sub/default.aspx?q=1",
+        "Request.QueryString[q]: 1",
+        "Request.QueryString[a]: (null)",
+        "RouteData[name]: (null)"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {}
+    },
+    {
+      "Name": "default document of web.config",
+      "Path": "/docs",
+      "Title": "",
+      "Text": [
+        "Request.Path: /Docs/Start.aspx",
+        "Request.FilePath: /Docs/Start.aspx",
+        "Request.PathInfo:",
+        "Request.CurrentExecutionFilePath: /Docs/Start.aspx",
+        "Request.AppRelativeCurrentExecutionFilePath: ~/Docs/Start.aspx",
+        "Request.RawUrl: /Docs/",
+        "Request.Url.AbsolutePath: /Docs/Start.aspx",
+        "Request.Url.PathAndQuery: /Docs/Start.aspx",
+        "Request.QueryString[q]: (null)",
+        "Request.QueryString[a]: (null)",
+        "RouteData[name]: (null)"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {}
+    },
+    {
+      "Name": "page route",
+      "Path": "/item/fast%20car",
+      "Title": "",
+      "Text": [
+        "Request.Path: /Item/Fast Car",
+        "Request.FilePath: /Item/Fast Car",
+        "Request.PathInfo:",
+        "Request.CurrentExecutionFilePath: /Item/Fast Car",
+        "Request.AppRelativeCurrentExecutionFilePath: ~/Item/Fast Car",
+        "Request.RawUrl: /Item/Fast Car?q=1",
+        "Request.Url.AbsolutePath: /Item/Fast%20Car",
+        "Request.Url.PathAndQuery: /Item/Fast%20Car?q=1",
+        "Request.QueryString[q]: 1",
+        "Request.QueryString[a]: (null)",
+        "RouteData[name]: Fast Car"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {}
+    },
+    {
+      "Name": "server variables get",
+      "Path": "/servervars",
+      "Title": "ServerVars",
+      "Text": [
+        "Request.HttpMethod: GET",
+        "Request.RequestType: GET",
+        "IsPostBack: False",
+        "Request.ContentType:",
+        "Request.ContentLength > 0: False",
+        "Request.Form[t]: (null)",
+        "Request.ApplicationPath: /",
+        "Request.Url: http://localhost:5096/ServerVars.aspx?x=1",
+        "Request.IsSecureConnection: False",
+        "ServerVariables[REQUEST_METHOD]: GET",
+        "ServerVariables[SERVER_PROTOCOL]: HTTP/1.1",
+        "ServerVariables[QUERY_STRING]: x=1",
+        "ServerVariables[URL]: /ServerVars.aspx",
+        "ServerVariables[PATH_INFO]: /ServerVars.aspx",
+        "ServerVariables[SCRIPT_NAME]: /ServerVars.aspx",
+        "ServerVariables[SERVER_NAME]: localhost",
+        "ServerVariables[SERVER_PORT]: 5096",
+        "ServerVariables[SERVER_PORT_SECURE]: 0",
+        "ServerVariables[HTTPS]: off",
+        "ServerVariables[GATEWAY_INTERFACE]: CGI/1.1",
+        "ServerVariables[CONTENT_TYPE]:",
+        "ServerVariables[AUTH_TYPE]:",
+        "ServerVariables[AUTH_USER]:",
+        "ServerVariables[LOGON_USER]:",
+        "ServerVariables[REMOTE_USER]:",
+        "ServerVariables[AUTH_PASSWORD]:",
+        "ServerVariables[CERT_FLAGS]:",
+        "ServerVariables[HTTPS_KEYSIZE]:",
+        "ServerVariables[HTTP_HOST]: localhost:5096",
+        "ServerVariables[REMOTE_PORT] is a port: True",
+        "ServerVariables[ALL_RAW] has Host: True",
+        "ServerVariables[ALL_HTTP] has HTTP_HOST: True",
+        "ServerVariables[NO_SUCH_VARIABLE]: (null)"
+      ],
+      "Tables": [],
+      "Inputs": {
+        "t": ""
+      },
+      "Elements": {
+        "t": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "send": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "server variables post",
+      "Path": "/servervars",
+      "Title": "ServerVars",
+      "Text": [
+        "Request.HttpMethod: POST",
+        "Request.RequestType: POST",
+        "IsPostBack: True",
+        "Request.ContentType: application/x-www-form-urlencoded",
+        "Request.ContentLength > 0: True",
+        "Request.Form[t]: 日本語 text",
+        "Request.ApplicationPath: /",
+        "Request.Url: http://localhost:5096/ServerVars.aspx?x=1",
+        "Request.IsSecureConnection: False",
+        "ServerVariables[REQUEST_METHOD]: POST",
+        "ServerVariables[SERVER_PROTOCOL]: HTTP/1.1",
+        "ServerVariables[QUERY_STRING]: x=1",
+        "ServerVariables[URL]: /ServerVars.aspx",
+        "ServerVariables[PATH_INFO]: /ServerVars.aspx",
+        "ServerVariables[SCRIPT_NAME]: /ServerVars.aspx",
+        "ServerVariables[SERVER_NAME]: localhost",
+        "ServerVariables[SERVER_PORT]: 5096",
+        "ServerVariables[SERVER_PORT_SECURE]: 0",
+        "ServerVariables[HTTPS]: off",
+        "ServerVariables[GATEWAY_INTERFACE]: CGI/1.1",
+        "ServerVariables[CONTENT_TYPE]: application/x-www-form-urlencoded",
+        "ServerVariables[AUTH_TYPE]:",
+        "ServerVariables[AUTH_USER]:",
+        "ServerVariables[LOGON_USER]:",
+        "ServerVariables[REMOTE_USER]:",
+        "ServerVariables[AUTH_PASSWORD]:",
+        "ServerVariables[CERT_FLAGS]:",
+        "ServerVariables[HTTPS_KEYSIZE]:",
+        "ServerVariables[HTTP_HOST]: localhost:5096",
+        "ServerVariables[REMOTE_PORT] is a port: True",
+        "ServerVariables[ALL_RAW] has Host: True",
+        "ServerVariables[ALL_HTTP] has HTTP_HOST: True",
+        "ServerVariables[NO_SUCH_VARIABLE]: (null)"
+      ],
+      "Tables": [],
+      "Inputs": {
+        "t": "日本語 text"
+      },
+      "Elements": {
+        "t": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "send": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        }
+      }
+    }
+  ],
+  "Links": [
+    {
+      "Url": "/",
+      "Status": 200,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/Sub",
+      "Status": 301,
+      "Location": "/Sub/",
+      "From": null
+    },
+    {
+      "Url": "/Sub?q=1",
+      "Status": 301,
+      "Location": "/Sub/?q=1",
+      "From": null
+    },
+    {
+      "Url": "/App_Data/probe.xml",
+      "Status": 404,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/app_data/probe.xml",
+      "Status": 404,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/App_Data/",
+      "Status": 404,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/bin/RuntimeProbe.dll",
+      "Status": 404,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/Sub/bin/x.dll",
+      "Status": 404,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/Web.config",
+      "Status": 404,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/Sub/Web.config",
+      "Status": 404,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/RuntimeProbe.csproj",
+      "Status": 404,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/Urls.aspx.cs",
+      "Status": 404,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/Global.asax",
+      "Status": 404,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/Missing.aspx",
+      "Status": 404,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/Missing/",
+      "Status": 404,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/Missing.txt",
+      "Status": 404,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/Item/",
+      "Status": 404,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/Item/a%20b",
+      "Status": 200,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/Urls.aspx/a%2Fb",
+      "Status": 200,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/Urls.aspx/a%25b",
+      "Status": 400,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/Urls.aspx/a+b",
+      "Status": 404,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/Urls.aspx/a:b",
+      "Status": 400,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/Urls.aspx/a;b",
+      "Status": 200,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/Urls.aspx/%3Cb%3E",
+      "Status": 400,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/Urls.aspx?q=%3Cscript%3E",
+      "Status": 500,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/Paths.aspx",
+      "Status": 200,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/Urls.aspx/a%20b?q=x%20y",
+      "Status": 200,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/Urls.aspx/%E6%97%A5%E6%9C%AC?q=%E6%97%A5%E6%9C%AC",
+      "Status": 200,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/URLS.ASPX?a=1&a=2&b=",
+      "Status": 200,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/Sub/",
+      "Status": 200,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/Sub/?q=1",
+      "Status": 200,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/Docs/",
+      "Status": 200,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/Item/Fast%20Car?q=1",
+      "Status": 200,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/ServerVars.aspx?x=1",
+      "Status": 200,
+      "Location": null,
+      "From": null
     }
   ]
 }

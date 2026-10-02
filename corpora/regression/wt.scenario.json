@@ -5,6 +5,8 @@
     "\\d{1,2}:\\d{2}(:\\d{2})?",
     "\\b\\d{4}\\b"
   ],
+  "_crawlComment": "After the steps, the application's links from their pages (two links deep, at most 150 URLs): each one's status and redirect target as the original's (the golden's links: record-webforms-golden.ps1 -LinksOnly). The products by route (/Product/Fast%20Car) are among them. Not the links that log off.",
+  "crawl": { "exclude": [ "log ?(off|out)|sign ?out" ] },
   "steps": [
     { "action": "goto", "path": "/" },
     { "action": "snapshot", "name": "home" },

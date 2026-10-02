@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Not to be served: App_Data is one of IIS's hidden segments (404). -->
+<probe secret="App_Data" />

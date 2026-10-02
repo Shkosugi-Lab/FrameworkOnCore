@@ -1717,5 +1717,31 @@
         }
       }
     }
+  ],
+  "Links": [
+    {
+      "Url": "/",
+      "Status": 200,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/Edit.aspx",
+      "Status": 200,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/Catalog.aspx",
+      "Status": 200,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/Default.aspx",
+      "Status": 200,
+      "Location": null,
+      "From": "/"
+    }
   ]
 }

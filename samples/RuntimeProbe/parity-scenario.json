@@ -1,9 +1,57 @@
 {
+  "_comment": "Paths.aspx: the application's physical path. Urls.aspx (and Sub/Default.aspx, the route Item/{name}): the request's URL as a page sees it, asked as URLs of many forms. ServerVars.aspx: the request and its server variables, by GET and by a postback. crawl.urls: URLs whose answer (status, redirect target) is compared (hidden folders, denied extensions, a folder without its '/', escapes IIS refuses).",
   "ignorePatterns": [],
   "steps": [
     { "action": "goto", "path": "/Paths.aspx" },
     { "action": "snapshot", "name": "runtime-application paths" },
     { "action": "goto", "path": "/Urls.aspx/a%20b?q=x%20y" },
-    { "action": "snapshot", "name": "request urls escaped" }
-  ]
+    { "action": "snapshot", "name": "request urls escaped" },
+    { "action": "goto", "path": "/Urls.aspx/%E6%97%A5%E6%9C%AC?q=%E6%97%A5%E6%9C%AC" },
+    { "action": "snapshot", "name": "request urls japanese" },
+    { "action": "goto", "path": "/URLS.ASPX?a=1&a=2&b=" },
+    { "action": "snapshot", "name": "request urls case and repeated query" },
+    { "action": "goto", "path": "/Sub/" },
+    { "action": "snapshot", "name": "default document" },
+    { "action": "goto", "path": "/Sub/?q=1" },
+    { "action": "snapshot", "name": "default document with query" },
+    { "action": "goto", "path": "/Docs/" },
+    { "action": "snapshot", "name": "default document of web.config" },
+    { "action": "goto", "path": "/Item/Fast%20Car?q=1" },
+    { "action": "snapshot", "name": "page route" },
+    { "action": "goto", "path": "/ServerVars.aspx?x=1" },
+    { "action": "snapshot", "name": "server variables get" },
+    { "action": "fill", "target": "t", "value": "日本語 text" },
+    { "action": "click", "target": "send" },
+    { "action": "snapshot", "name": "server variables post" }
+  ],
+  "crawl": {
+    "depth": 0,
+    "urls": [
+      "/",
+      "/Sub",
+      "/Sub?q=1",
+      "/App_Data/probe.xml",
+      "/app_data/probe.xml",
+      "/App_Data/",
+      "/bin/RuntimeProbe.dll",
+      "/Sub/bin/x.dll",
+      "/Web.config",
+      "/Sub/Web.config",
+      "/RuntimeProbe.csproj",
+      "/Urls.aspx.cs",
+      "/Global.asax",
+      "/Missing.aspx",
+      "/Missing/",
+      "/Missing.txt",
+      "/Item/",
+      "/Item/a%20b",
+      "/Urls.aspx/a%2Fb",
+      "/Urls.aspx/a%25b",
+      "/Urls.aspx/a+b",
+      "/Urls.aspx/a:b",
+      "/Urls.aspx/a;b",
+      "/Urls.aspx/%3Cb%3E",
+      "/Urls.aspx?q=%3Cscript%3E"
+    ]
+  }
 }

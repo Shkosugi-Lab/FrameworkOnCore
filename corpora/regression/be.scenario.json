@@ -8,6 +8,8 @@
   "_postComment": "/post.aspx: the post page without a post (it redirects to /error404). The golden was recorded from /post with the recorder opening /post.aspx when IIS answered 404 (it no longer does that: the paths are opened as they are).",
   "_ignoreSelectorsComment": "The BlogRoll widget lists the latest posts of external blogs, fetched live at render time (as the original does). Present or not depending on the network when captured, so neither side compares them.",
   "ignoreSelectors": [ ".widget.blogroll ul.xoxo li ul" ],
+  "_crawlComment": "After the steps, the application's links from their pages (two links deep, at most 150 URLs): each one's status and redirect target as the original's (the golden's links: record-webforms-golden.ps1 -LinksOnly). Not the links that log off.",
+  "crawl": { "exclude": [ "log ?(off|out)|sign ?out" ] },
   "steps": [
     { "action": "goto", "path": "/" },
     { "action": "snapshot", "name": "home" },

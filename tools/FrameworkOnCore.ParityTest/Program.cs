@@ -15,6 +15,8 @@ using FrameworkOnCore.ParityTest;
 //
 // Usage:
 //   record: dotnet run -- record --url <source app URL> --scenario <scenario.json> --out <golden.json>
+//   record-links: dotnet run -- record-links --url <source app URL> --scenario <scenario.json> --golden <golden.json>
+//           (the scenario's crawl into the golden, its snapshots kept)
 //   verify: dotnet run -- verify --url <converted app URL> --scenario <scenario.json> --golden <golden.json> [--report <report.md>]
 //
 // Note: if the scenario mutates data, reset each app to its initial state
@@ -38,11 +40,12 @@ for (var i = 1; i < args.Length; i++)
     }
 }
 
-if (command is not ("record" or "verify") || url is null || scenarioPath is null || goldenPath is null)
+if (command is not ("record" or "record-links" or "verify") || url is null || scenarioPath is null || goldenPath is null)
 {
     Console.Error.WriteLine("""
         使い方:
           record --url <変換前アプリのURL> --scenario <scenario.json> --out <golden.json>
+          record-links --url <変換前アプリのURL> --scenario <scenario.json> --golden <golden.json>
           verify --url <変換後アプリのURL> --scenario <scenario.json> --golden <golden.json> [--report <report.md>]
         """);
     return 2;
@@ -72,12 +75,29 @@ Console.WriteLine($"{command}: {url}(シナリオ: {Path.GetFileName(scenarioPat
 var snapshots = await runner.RunAsync(scenario);
 Console.WriteLine($"スナップショット {snapshots.Count} 点を採取しました。");
 
-if (command == "record")
+
+// The links (the scenario's crawl), after the steps: in the state the steps left (the session, the login).
+var crawler = new LinkCrawler(page.APIRequest, url);
+
+if (command is "record" or "record-links")
 {
-    File.WriteAllText(goldenPath, JsonSerializer.Serialize(new GoldenFile(url, snapshots), jsonOptions));
-    foreach (var snapshot in snapshots)
+    List<LinkResult>? links = null;
+    if (scenario.Crawl != null)
     {
-        Console.WriteLine($"  記録: {snapshot.Name}({snapshot.Path}, 本文 {snapshot.Text.Count} 行)");
+        links = await crawler.CrawlAsync(scenario);
+        Console.WriteLine($"リンク {links.Count} 件を採取しました(" + string.Join(", ", links.GroupBy(l => l.Status).OrderBy(g => g.Key).Select(g => $"{g.Key}: {g.Count()}")) + ")。");
+    }
+    // record-links: the golden's snapshots stay as they were recorded, its links are taken again.
+    var recorded = command == "record-links" && File.Exists(goldenPath)
+        ? (JsonSerializer.Deserialize<GoldenFile>(File.ReadAllText(goldenPath), jsonOptions) ?? throw new InvalidOperationException($"正解データを読み込めません: {goldenPath}")) with { Links = links }
+        : new GoldenFile(url, snapshots, links);
+    File.WriteAllText(goldenPath, JsonSerializer.Serialize(recorded, jsonOptions));
+    if (command == "record")
+    {
+        foreach (var snapshot in snapshots)
+        {
+            Console.WriteLine($"  記録: {snapshot.Name}({snapshot.Path}, 本文 {snapshot.Text.Count} 行)");
+        }
     }
     Console.WriteLine($"正解データ: {goldenPath}");
     return 0;
@@ -121,18 +141,46 @@ for (var i = 0; i < snapshots.Count; i++)
     }
 }
 
-Console.WriteLine();
-if (failedSnapshots == 0)
+// The original's links asked again: each one's answer as the original's.
+var failedLinks = 0;
+if (golden.Links is { Count: > 0 } goldenLinks)
 {
-    Console.WriteLine($"RESULT: OK ({snapshots.Count} スナップショットすべて変換前と一致)");
+    var problems = await crawler.CompareAsync(goldenLinks);
+    failedLinks = problems.Count;
+    if (problems.Count == 0)
+    {
+        Console.WriteLine($"  OK   リンク {goldenLinks.Count} 件");
+        report.AppendLine($"- ✅ リンク {goldenLinks.Count} 件");
+    }
+    else
+    {
+        Console.WriteLine($"  NG   リンク {goldenLinks.Count} 件中 {problems.Count} 件");
+        report.AppendLine($"- ❌ リンク {goldenLinks.Count} 件中 {problems.Count} 件");
+        foreach (var problem in problems)
+        {
+            Console.WriteLine($"       {problem}");
+            report.AppendLine($"  - {problem}");
+        }
+    }
+}
+else if (scenario.Crawl != null)
+{
+    Console.WriteLine("  --   リンク: 正解データにありません(record-links で採ってください)");
+}
+
+var linkSummary = golden.Links is { Count: > 0 } ? $"、リンク {golden.Links.Count} 件中 {failedLinks} 件で差分" : "";
+Console.WriteLine();
+if (failedSnapshots == 0 && failedLinks == 0)
+{
+    Console.WriteLine($"RESULT: OK ({snapshots.Count} スナップショットすべて変換前と一致{(golden.Links is { Count: > 0 } ? $"、リンク {golden.Links.Count} 件も一致" : "")})");
     report.AppendLine();
-    report.AppendLine($"**結果: 一致({snapshots.Count} スナップショット)**");
+    report.AppendLine($"**結果: 一致({snapshots.Count} スナップショット{(golden.Links is { Count: > 0 } ? $"、リンク {golden.Links.Count} 件" : "")})**");
 }
 else
 {
-    Console.WriteLine($"RESULT: FAIL ({snapshots.Count} 中 {failedSnapshots} スナップショットで差分)");
+    Console.WriteLine($"RESULT: FAIL ({snapshots.Count} 中 {failedSnapshots} スナップショットで差分{linkSummary})");
     report.AppendLine();
-    report.AppendLine($"**結果: 差分あり({snapshots.Count} 中 {failedSnapshots})**");
+    report.AppendLine($"**結果: 差分あり({snapshots.Count} 中 {failedSnapshots}{linkSummary})**");
 }
 
 if (reportPath is not null)
@@ -141,4 +189,4 @@ if (reportPath is not null)
     Console.WriteLine($"レポート: {reportPath}");
 }
 
-return failedSnapshots == 0 ? 0 : 1;
+return failedSnapshots == 0 && failedLinks == 0 ? 0 : 1;

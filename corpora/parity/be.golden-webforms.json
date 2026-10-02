@@ -640,5 +640,109 @@
         }
       }
     }
+  ],
+  "Links": [
+    {
+      "Url": "/",
+      "Status": 200,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/archive",
+      "Status": 200,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/search",
+      "Status": 200,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/contact",
+      "Status": 200,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/post.aspx",
+      "Status": 302,
+      "Location": "/error404.aspx",
+      "From": null
+    },
+    {
+      "Url": "/post/welcome-to-blogengine-net",
+      "Status": 200,
+      "Location": null,
+      "From": "/"
+    },
+    {
+      "Url": "/author/Admin",
+      "Status": 200,
+      "Location": null,
+      "From": "/"
+    },
+    {
+      "Url": "/category/BlogEngineNET",
+      "Status": 200,
+      "Location": null,
+      "From": "/"
+    },
+    {
+      "Url": "/page/about",
+      "Status": 200,
+      "Location": null,
+      "From": "/"
+    },
+    {
+      "Url": "/page/example-page",
+      "Status": 200,
+      "Location": null,
+      "From": "/"
+    },
+    {
+      "Url": "/Account/login.aspx?ReturnURL=/admin/",
+      "Status": 200,
+      "Location": null,
+      "From": "/"
+    },
+    {
+      "Url": "/?tag=Blogging",
+      "Status": 200,
+      "Location": null,
+      "From": "/"
+    },
+    {
+      "Url": "/?tag=welcome",
+      "Status": 200,
+      "Location": null,
+      "From": "/"
+    },
+    {
+      "Url": "/opml.axd",
+      "Status": 200,
+      "Location": null,
+      "From": "/"
+    },
+    {
+      "Url": "/category/feed/BlogEngineNET",
+      "Status": 200,
+      "Location": null,
+      "From": "/archive"
+    },
+    {
+      "Url": "/error404.aspx",
+      "Status": 404,
+      "Location": null,
+      "From": "/post.aspx"
+    },
+    {
+      "Url": "/Account/password-retrieval.aspx",
+      "Status": 200,
+      "Location": null,
+      "From": "/Account/login.aspx?ReturnURL=/admin/"
+    }
   ]
 }

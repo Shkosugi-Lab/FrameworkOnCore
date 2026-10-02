@@ -1,5 +1,7 @@
 {
   "ignorePatterns": [],
+  "_crawlComment": "After the steps, the links of the pages (two deep): each one's status and redirect target as the original's (sample-parity.ps1 -Record -LinksOnly).",
+  "crawl": { "exclude": [ "log ?(off|out)|sign ?out" ] },
   "steps": [
     { "action": "goto", "path": "/" },
     { "action": "snapshot", "name": "既定レンダリング-初期表示" },

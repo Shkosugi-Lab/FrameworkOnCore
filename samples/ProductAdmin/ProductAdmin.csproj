@@ -9,6 +9,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>ProductAdmin</RootNamespace>
     <AssemblyName>ProductAdmin</AssemblyName>
+    <OutputPath>bin\</OutputPath>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
   </PropertyGroup>
   <ItemGroup>

@@ -17,7 +17,31 @@ public sealed record ParityScenario(
     List<string>? IgnorePatterns,
     List<ParityStep> Steps,
     bool CompareRawIds = true,
-    List<string>? IgnoreSelectors = null);
+    List<string>? IgnoreSelectors = null,
+    CrawlOptions? Crawl = null);
+
+/// <summary>
+/// The links of the application, after the steps: from the pages the scenario opens (and <paramref name="Urls"/>), the
+/// links of each page of the application followed (same origin) to <paramref name="Depth"/>, at most
+/// <paramref name="Max"/> URLs. Each URL's answer (status, redirect target) is recorded on the original and compared on
+/// the converted application: the pages no step opens are answered too (WingtipToys' products by route,
+/// /Product/Fast%20Car, were 400 and no scenario opened one).
+/// </summary>
+/// <param name="Urls">More URLs to ask (as sent: escaped), before the scenario's.</param>
+/// <param name="Exclude">Regular expressions on a URL (path and query) not to ask: links that change what the
+/// application has (log off, delete) or depend on something outside it.</param>
+public sealed record CrawlOptions(
+    int Max = 150,
+    int Depth = 2,
+    List<string>? Urls = null,
+    List<string>? Exclude = null);
+
+/// <summary>A URL's answer: its status, where it redirects (path and query), the page that linked to it.</summary>
+public sealed record LinkResult(
+    string Url,
+    int Status,
+    string? Location = null,
+    string? From = null);
 
 /// <summary>
 /// One scenario step.
@@ -51,4 +75,5 @@ public sealed record Snapshot(
 /// <summary>Output of the record command (= the golden data).</summary>
 public sealed record GoldenFile(
     string SourceUrl,
-    List<Snapshot> Snapshots);
+    List<Snapshot> Snapshots,
+    List<LinkResult>? Links = null);

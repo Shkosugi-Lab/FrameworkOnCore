@@ -1,0 +1,11 @@
+<Project>
+  <!-- The platform build (FocTargetOS: windows or unix; by default the building machine's, so that a project referencing
+       the port, directly or through another, runs the build of where it is built: tests on Linux run the managed SNI one).
+       pack-fork.ps1 builds both. One restore for both (the same packages: NuGet restores a referenced project without
+       the properties a ProjectReference gives it); the compiled output apart (WebFormsForCore.Data.SqlClient.csproj:
+       BaseOutputPath, IntermediateOutputPath). -->
+  <PropertyGroup>
+    <FocTargetOS Condition="'$(FocTargetOS)' == '' and '$(OS)' == 'Windows_NT'">windows</FocTargetOS>
+    <FocTargetOS Condition="'$(FocTargetOS)' == ''">unix</FocTargetOS>
+  </PropertyGroup>
+</Project>

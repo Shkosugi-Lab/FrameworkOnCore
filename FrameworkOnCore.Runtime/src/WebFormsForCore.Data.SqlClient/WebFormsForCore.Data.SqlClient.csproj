@@ -1,0 +1,87 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- System.Data.SqlClient with |DataDirectory| expanded in AttachDBFilename, as .NET Framework's: dotnet/maintenance-packages'
+       source of the 4.9.0 package (MIT; commit d0c2a5a8), which refuses the token ("Invalid value for key 'attachdbfilename'":
+       DNN's install wizard builds "|DataDirectory|" + file). Built twice, once per platform, as that repository builds it:
+       FocTargetOS=windows (native SNI, runtime.native.System.Data.SqlClient.sni; also the reference assembly) and
+       FocTargetOS=unix (managed SNI); the package has both (runtimes/win, runtimes/unix). The sources are as they were;
+       what the port changes is marked WebFormsForCore. -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <LangVersion>12</LangVersion>
+    <Nullable>disable</Nullable>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <EnableDefaultEmbeddedResourceItems>false</EnableDefaultEmbeddedResourceItems>
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+    <AssemblyName>System.Data.SqlClient</AssemblyName>
+    <RootNamespace>System.Data.SqlClient</RootNamespace>
+    <!-- Above Microsoft's 4.6.1.6 (the 4.9.0 package's): what was built against it binds to this one, and a build that has
+         both (Entity Framework 6 depends on Microsoft's package) takes it. -->
+    <AssemblyVersion>4.6.2.0</AssemblyVersion>
+    <FileVersion>4.900.24.56209</FileVersion>
+    <Company>Estrellas de Esperanza</Company>
+    <Product>WebFormsForCore.Data.SqlClient</Product>
+    <Copyright>Estrellas de Esperanza; .NET Foundation (dotnet/maintenance-packages, MIT)</Copyright>
+    <DefineConstants>$(DefineConstants);WebFormsForCore</DefineConstants>
+    <!-- The sources' own warnings, as their repository's NoWarn has them, and .NET 10's obsoletions. -->
+    <NoWarn>$(NoWarn);CA1001;CA1068;CA1069;CA1309;CA1310;CA1419;CA1510;CA1711;CA1805;CA1806;CA1816;CA1822;CA1830;CA1834;CA1835;CA1836;CA1840;CA1844;CA1852;CA1853;CA1854;CA1859;CA1863;CA2016;CA2020;CA2101;CA2200;CA2201;CA2208;CA2219;CA2249;CA2251;CA5366;CS0168;CS0618;CS0649;CS0672;CS0809;CS8981;CA1416;CA1422;CA2022;SYSLIB0004;SYSLIB0014;SYSLIB0039;SYSLIB0051;SYSLIB0057;SYSLIB1054;SYSLIB1045;IDE0073</NoWarn>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <SignAssembly>True</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\SigningKey\WebFormsForCore.snk</AssemblyOriginatorKeyFile>
+
+    <!-- maintenance-packages' properties the source items use. -->
+    <CommonPath>$(MSBuildThisFileDirectory)Shared\</CommonPath>
+
+    <!-- One output per platform. -->
+    <BaseOutputPath>bin\$(FocTargetOS)\</BaseOutputPath>
+    <IntermediateOutputPath>obj\$(FocTargetOS)\$(Configuration)\</IntermediateOutputPath>
+
+    <PackageId>FrameworkOnCore.Data.SqlClient</PackageId>
+    <Title>FrameworkOnCore.Data.SqlClient</Title>
+    <Authors>simonegli8</Authors>
+    <Description>System.Data.SqlClient for .NET 10 that expands |DataDirectory| in AttachDBFilename as .NET Framework's did: dotnet/maintenance-packages' source of the 4.9.0 package</Description>
+    <PackageProjectUrl>https://github.com/webformsforcore/WebFormsForCore</PackageProjectUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <IncludeSymbols>false</IncludeSymbols>
+  </PropertyGroup>
+
+  <Import Project="System.Data.SqlClient.Sources.props" />
+
+  <ItemGroup>
+    <!-- maintenance-packages' build generated the SR class from the strings (generate-sqlclient-sr.ps1) and ThisAssembly
+         (GenerateThisAssemblyCs.targets, its file version). -->
+    <Compile Include="$(CommonPath)src\System\SR.cs" Link="Common\System\SR.cs" />
+    <Compile Include="Core\*.cs" />
+    <EmbeddedResource Include="Resources\Strings.resx" LogicalName="System.Data.SqlClient.Strings.resources" />
+    <None Include="..\..\README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- The native SNI of Windows (sni.dll), as Microsoft's package depends on it. -->
+    <PackageReference Include="runtime.native.System.Data.SqlClient.sni" Version="4.4.0" />
+  </ItemGroup>
+
+  <Import Project="..\..\lib\WebFormsForCore.Build\netstandard2.0\FakeStrongName.targets" />
+
+  <PropertyGroup>
+    <!-- Microsoft's System.Data.SqlClient identity (b03f5f7f11d50a3a): DLLs built against it bind to this one. -->
+    <StrongNamePublicKey>002400000480000094000000060200000024000052534131000400000100010007d1fa57c4aed9f0a32e84aa0faefd0de9e8fd6aec8f87fb03766c834c99921eb23be79ad9d5dcc1dd9ad236132102900b723cf980957fc4e177108fc607774f29e8320e92ea05ece4e821c0a5efe8f1645c4c0c93c1ab99285d622caa652c1dfad63d745d6f2de5f17e5eaf0fc4963d261c8a12436518206dc093344d5ad293</StrongNamePublicKey>
+    <StrongNamePublicKeyToken>b03f5f7f11d50a3a</StrongNamePublicKeyToken>
+  </PropertyGroup>
+
+  <!-- Without DEBUG in every configuration, as the original was shipped (a failed Debug.Assert ends a .NET process). -->
+  <Target Name="FocWithoutDebugConstant" BeforeTargets="CoreCompile">
+    <PropertyGroup>
+      <DefineConstants>$([System.Text.RegularExpressions.Regex]::Replace(';$(DefineConstants);', ';DEBUG;', ';').Trim(';'))</DefineConstants>
+    </PropertyGroup>
+  </Target>
+
+  <!-- The package: the Windows build as the reference and Windows' implementation, the Unix build (built first with
+       -p:FocTargetOS=unix, pack-frameworkoncore.ps1) as the implementation elsewhere. -->
+  <ItemGroup Condition="'$(FocTargetOS)' == 'windows'">
+    <None Include="bin\windows\$(Configuration)\$(TargetFramework)\System.Data.SqlClient.dll" Pack="true" PackagePath="runtimes\win\lib\$(TargetFramework)" Visible="false" />
+    <None Include="bin\unix\$(Configuration)\$(TargetFramework)\System.Data.SqlClient.dll" Pack="true" PackagePath="runtimes\unix\lib\$(TargetFramework)" Visible="false" />
+  </ItemGroup>
+</Project>

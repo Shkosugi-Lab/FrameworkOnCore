@@ -65,9 +65,9 @@
         <!-- The System.Drawing facade (System.Web references it) has its own ToolboxBitmapAttribute and FontConverter:
              under an alias, System.Drawing.Common's are the ones the sources name. -->
         <ProjectReference Include="..\WebFormsForCore.Drawing\WebFormsForCore.Drawing.csproj" Aliases="DrawingFacade" />
-        <!-- The chart binds to SqlCommand / SqlDataReader data sources: the package the converter gives converted
-             applications for their own System.Data.SqlClient use. -->
-        <PackageReference Include="System.Data.SqlClient" Version="4.9.0" />
+        <!-- The chart binds to SqlCommand / SqlDataReader data sources: the System.Data.SqlClient the converter gives
+             converted applications (FrameworkOnCore's). -->
+        <ProjectReference Include="..\WebFormsForCore.Data.SqlClient\WebFormsForCore.Data.SqlClient.csproj" />
     </ItemGroup>
 
     <ItemGroup>

@@ -60,8 +60,12 @@
         <Compile Include="..\VersionInfo.cs" Link="Properties\VersionInfo.cs" />
     </ItemGroup>
 
-    <ItemGroup>
-        <!-- The same package the converter gives converted applications for their own System.Data.SqlClient use. -->
+    <!-- The same System.Data.SqlClient the converter gives converted applications: FrameworkOnCore's (|DataDirectory| as
+         .NET Framework's) on net10.0, which it is built for; Microsoft's package on net8.0. -->
+    <ItemGroup Condition="'$(TargetFramework)' == 'net10.0'">
+        <ProjectReference Include="..\WebFormsForCore.Data.SqlClient\WebFormsForCore.Data.SqlClient.csproj" />
+    </ItemGroup>
+    <ItemGroup Condition="'$(TargetFramework)' != 'net10.0'">
         <PackageReference Include="System.Data.SqlClient" Version="4.9.0" />
     </ItemGroup>
 

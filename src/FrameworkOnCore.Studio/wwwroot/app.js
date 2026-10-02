@@ -113,7 +113,7 @@ async function select(id) {
   Object.assign(state, {
     id, entry: null, result: null, choices: null, saved: null, command: null, errors: [], conversion: null,
     container: null, runOpen: false, runEnv: null, docker: null, dockerStarting: false, step,
-    original: null, native: null, nativeEnv: null, report: null,
+    original: null, originalEnv: null, native: null, nativeEnv: null, report: null,
   });
   state.expanded.clear();
   state.rows.clear();
@@ -928,18 +928,24 @@ async function loadOriginal() {
 function renderOriginal() {
   const root = $('#original');
   if (!root || !state.original) return;
-  const { original, built, host, reason, log } = state.original;
+  const { original, built, environment, host, reason, log } = state.original;
   const idle = !host
     ? `<div class="hint">変換の前に、元のアプリ(.NET Framework)をこの PC で動かして、変換前の動きを確かめます。</div>
        <div class="stale">⚠ ${esc(reason ?? '')}</div>`
     : `<div class="hint">変換の前に、元のアプリ(.NET Framework)をこの PC で動かして、変換前の動きを確かめます。リポジトリのコピーをそのビルド手順(Visual Studio の MSBuild)でビルドし、${esc(HOST[host])} で起動します(Studio を止めると止まります)。</div>
+       <label class="env"><span>環境変数 <span class="muted">(<code>SQLCONNSTR_&lt;名前&gt;</code> で web.config の接続文字列、<code>APPSETTING_&lt;キー&gt;</code> で appSettings を置き換え)</span></span>
+         <textarea id="original-env" rows="5" spellcheck="false">${esc(state.originalEnv ?? environment ?? '')}</textarea>
+         <span class="muted">.NET Framework は環境変数から設定を読まないので、接続文字列と appSettings はビルドしたサイトの web.config に書き込みます(元の web.config は残し、起動のたびにそこから作り直します)。そのほかの変数はプロセスに渡します。値の無いものは web.config のまま使います。</span>
+       </label>
        <div class="convert-actions left">
          <button class="btn primary" id="original-start">▶ ${built ? '起動' : 'ビルドして起動'}</button>
          ${built ? '<button class="btn ghost" id="original-rebuild">↻ ビルドし直して起動</button>' : ''}
        </div>`;
   root.innerHTML = runnerPanel('original', '元のアプリを起動(テスト起動)', '▶', original, log, idle,
     e => e.state === 'building' ? '元のアプリをビルドしています(初回はパッケージの復元で数分かかります)' : `${esc(HOST[e.host] ?? '')} で起動し、サイトが応答するのを待っています(${esc(e.url ?? '')})`);
-  const start = rebuild => api(`/analyses/${state.id}/original`, { method: 'POST', body: JSON.stringify({ rebuild }) }).then(loadOriginal).catch(e => toast(e.message));
+  $('#original-env')?.addEventListener('input', ev => (state.originalEnv = ev.target.value));
+  const start = rebuild => api(`/analyses/${state.id}/original`, { method: 'POST', body: JSON.stringify({ rebuild, environment: $('#original-env')?.value ?? null }) })
+    .then(() => { state.originalEnv = null; return loadOriginal(); }).catch(e => toast(e.message));
   $('#original-start')?.addEventListener('click', () => start(false));
   $('#original-rebuild')?.addEventListener('click', () => start(true));
   $('#original-stop')?.addEventListener('click', async () => {

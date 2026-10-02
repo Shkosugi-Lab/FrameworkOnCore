@@ -23,7 +23,7 @@ public sealed record RunEntry
     public string? Error { get; init; }
 }
 
-public sealed record OriginalRequest(bool Rebuild);
+public sealed record OriginalRequest(bool Rebuild, string? Environment = null);
 
 /// <summary>The environment the converted application gets natively (NAME=value lines), as a container's.</summary>
 public sealed record NativeRequest(string? Environment);
@@ -305,13 +305,13 @@ public sealed class Originals(AnalysisStore store) : Runs
     static string? IisExpress()
     {
         if (!OperatingSystem.IsWindows()) return null;
-        return new[] { Environment.SpecialFolder.ProgramFiles, Environment.SpecialFolder.ProgramFilesX86 }
-            .Select(f => Path.Combine(Environment.GetFolderPath(f), "IIS Express", "iisexpress.exe")).FirstOrDefault(File.Exists);
+        return new[] { System.Environment.SpecialFolder.ProgramFiles, System.Environment.SpecialFolder.ProgramFilesX86 }
+            .Select(f => Path.Combine(System.Environment.GetFolderPath(f), "IIS Express", "iisexpress.exe")).FirstOrDefault(File.Exists);
     }
 
-    static string AppCmd => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "inetsrv", "appcmd.exe");
+    static string AppCmd => Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.System), "inetsrv", "appcmd.exe");
 
-    static bool Iis => OperatingSystem.IsWindows() && Environment.IsPrivilegedProcess && File.Exists(AppCmd);
+    static bool Iis => OperatingSystem.IsWindows() && System.Environment.IsPrivilegedProcess && File.Exists(AppCmd);
 
     /// <summary>What can run the site here: IIS Express, IIS (installed, and Studio an administrator); null and why not.</summary>
     public static (string? Host, string? Reason) Hosts()
@@ -324,15 +324,31 @@ public sealed class Originals(AnalysisStore store) : Runs
         return (host, reason);
     }
 
-    public RunEntry Start(string id, bool rebuild)
+    string EnvironmentFile(string id) => Path.Combine(Folder(id), "environment.txt");
+
+    /// <summary>The environment given last, or else the connection strings of the site's web.config (the project's before a build).</summary>
+    public string Environment(string id) =>
+        File.Exists(EnvironmentFile(id)) ? File.ReadAllText(EnvironmentFile(id))
+        : RunEnvironment.Template(Built(id) ?? (store.Get(id) is { } analysis ? Path.GetDirectoryName(analysis.Project) : null));
+
+    public RunEntry Start(string id, bool rebuild, string? environment = null)
     {
         if (store.Get(id) is not { State: "done" } analysis) throw new InvalidOperationException("the analysis is not done");
         var iisExpress = IisExpress();
         if (Hosts() is { Host: null, Reason: var reason }) throw new InvalidOperationException(reason);
+        if (environment != null)
+        {
+            Directory.CreateDirectory(Folder(id));
+            File.WriteAllText(EnvironmentFile(id), environment);
+        }
+        var variables = RunEnvironment.Variables(Environment(id)).ToList();
         var built = rebuild ? null : Built(id);
         return Begin(id, new RunEntry { State = built == null ? "building" : "starting", Started = DateTimeOffset.UtcNow, Site = built }, async (log, cancel) =>
         {
             var site = built ?? await Build(id, analysis, log, cancel);
+            // .NET Framework reads its settings from web.config only (SQLCONNSTR_ and APPSETTING_ are FrameworkOnCore's,
+            // and Azure App Service's): those are written into the site's web.config, the others are the process's.
+            var others = ApplyToWebConfig(site, variables, fresh: built == null, log);
             var port = FreePort(8200);
             entries[id] = entries[id] with { State = "starting", Site = site, Port = port, Url = $"http://localhost:{port}/", Host = iisExpress != null ? "iisexpress" : "iis" };
             Func<bool> alive;
@@ -340,6 +356,7 @@ public sealed class Originals(AnalysisStore store) : Runs
             {
                 var start = new ProcessStartInfo(iisExpress);
                 foreach (var argument in new[] { $"/path:{site}", $"/port:{port}", "/clr:v4.0", "/systray:false" }) start.ArgumentList.Add(argument);
+                foreach (var (name, value) in others) start.Environment[name] = value;
                 var process = processes[id] = StartLogged(start, log);
                 EndWithStudio(process);
                 alive = () => !process.HasExited;
@@ -353,12 +370,78 @@ public sealed class Originals(AnalysisStore store) : Runs
                 AppCmdRun($"add site /name:{name} \"/physicalPath:{site}\" /bindings:http/*:{port}:localhost", log);
                 AppCmdRun($"set app \"{name}/\" /applicationPool:{name}", log);
                 AppCmdRun($"set config \"{name}/\" /section:anonymousAuthentication /userName: /commit:apphost", log);
+                // The others, the application pool's environment (IIS 10); a value with a quote cannot be written by appcmd.
+                foreach (var (variable, value) in others)
+                {
+                    if (value.IndexOfAny(['\'', '"']) >= 0) { log.Enqueue($"{variable}: a value with a quote is not given to IIS's application pool"); continue; }
+                    AppCmdRun($"set config -section:system.applicationHost/applicationPools \"/+[name='{name}'].environmentVariables.[name='{variable}',value='{value}']\" /commit:apphost", log);
+                }
                 // The pool's identity reads the site (IIS answers 500.19 otherwise) and writes App_Data.
                 Run("icacls", $"\"{site}\" /grant \"IIS AppPool\\{name}:(OI)(CI)(M)\" /T /Q", log, quiet: true);
                 alive = () => true;
             }
             await WaitForSite(id, alive, log, cancel);
         });
+    }
+
+    static readonly string[] ConnectionPrefixes = ["SQLCONNSTR_", "SQLAZURECONNSTR_", "MYSQLCONNSTR_", "POSTGRESQLCONNSTR_", "CUSTOMCONNSTR_"];
+
+    /// <summary>
+    /// The connection strings (SQLCONNSTR_&lt;name&gt; and the other providers') and app settings (APPSETTING_&lt;key&gt;) of the
+    /// environment written into the site's web.config, over the one the build made (kept beside it, web.config.foc-original:
+    /// each start begins from it, the ones given before do not stay). The other variables are returned, the process's.
+    /// </summary>
+    static List<(string Name, string Value)> ApplyToWebConfig(string site, List<(string Name, string Value)> variables, bool fresh, ConcurrentQueue<string> log)
+    {
+        var others = new List<(string Name, string Value)>();
+        var config = Directory.EnumerateFiles(site, "web.config", new EnumerationOptions { MatchCasing = MatchCasing.CaseInsensitive }).FirstOrDefault();
+        if (config == null) return variables;
+        var original = config + ".foc-original";
+        if (fresh) File.Delete(original);  // built again: its web.config is the build's
+        if (File.Exists(original)) File.Copy(original, config, overwrite: true);
+        else File.Copy(config, original);
+
+        var document = XDocument.Load(config, LoadOptions.PreserveWhitespace);
+        var root = document.Root!;
+        XElement Section(string name)
+        {
+            var section = root.Element(name);
+            if (section == null) root.AddFirst(section = new XElement(name));
+            return section;
+        }
+        var changed = false;
+        foreach (var (name, value) in variables)
+        {
+            if (ConnectionPrefixes.FirstOrDefault(p => name.StartsWith(p, StringComparison.OrdinalIgnoreCase)) is { } prefix && name.Length > prefix.Length)
+            {
+                var key = name[prefix.Length..];
+                var section = Section("connectionStrings");
+                if (section.Attribute("configSource") != null) { log.Enqueue($"web.config: connectionStrings is in {(string?)section.Attribute("configSource")}: {key} not set"); continue; }
+                var add = section.Elements("add").FirstOrDefault(e => string.Equals((string?)e.Attribute("name"), key, StringComparison.OrdinalIgnoreCase));
+                if (add == null)
+                {
+                    section.Add(add = new XElement("add", new XAttribute("name", key)));
+                    if (prefix == "SQLCONNSTR_") add.SetAttributeValue("providerName", "System.Data.SqlClient");
+                }
+                add.SetAttributeValue("connectionString", value);
+                log.Enqueue($"web.config: connection string {key} (from {name})");
+                changed = true;
+            }
+            else if (name.StartsWith("APPSETTING_", StringComparison.OrdinalIgnoreCase) && name.Length > "APPSETTING_".Length)
+            {
+                var key = name["APPSETTING_".Length..];
+                var section = Section("appSettings");
+                if (section.Attribute("configSource") != null) { log.Enqueue($"web.config: appSettings is in {(string?)section.Attribute("configSource")}: {key} not set"); continue; }
+                var add = section.Elements("add").FirstOrDefault(e => string.Equals((string?)e.Attribute("key"), key, StringComparison.Ordinal));
+                if (add == null) section.Add(add = new XElement("add", new XAttribute("key", key)));
+                add.SetAttributeValue("value", value);
+                log.Enqueue($"web.config: app setting {key} (from {name})");
+                changed = true;
+            }
+            else others.Add((name, value));
+        }
+        if (changed) document.Save(config);
+        return others;
     }
 
     async Task<string> Build(string id, AnalysisEntry analysis, ConcurrentQueue<string> log, CancellationToken cancel)

@@ -178,12 +178,12 @@ api.MapGet("/analyses/{id}/container/log", (string id, Containers containers) =>
 api.MapGet("/analyses/{id}/original", (string id, Originals originals) =>
 {
     var (host, reason) = Originals.Hosts();
-    return Results.Ok(new { original = originals.Get(id), built = originals.Built(id), host, reason, log = originals.Log(id).TakeLast(300) });
+    return Results.Ok(new { original = originals.Get(id), built = originals.Built(id), environment = originals.Environment(id), host, reason, log = originals.Log(id).TakeLast(300) });
 });
 
 api.MapPost("/analyses/{id}/original", (string id, OriginalRequest? request, Originals originals) =>
 {
-    try { return Results.Ok(originals.Start(id, request?.Rebuild ?? false)); }
+    try { return Results.Ok(originals.Start(id, request?.Rebuild ?? false, request?.Environment)); }
     catch (InvalidOperationException e) { return Results.Conflict(new { error = e.Message }); }
 });
 

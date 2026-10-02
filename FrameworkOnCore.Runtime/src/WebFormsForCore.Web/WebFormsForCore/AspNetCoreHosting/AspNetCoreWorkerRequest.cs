@@ -215,9 +215,10 @@ namespace System.Web.Hosting
 		public override byte[] GetQueryStringRawBytes() => Encoding.ASCII.GetBytes(GetQueryString());
 		public override string GetRawUrl()
 		{
+			// As IIS's: the path decoded, the query string as it was sent ("/Urls.aspx/a b?q=x%20y").
 			var query = GetQueryString();
-			if (string.IsNullOrEmpty(query)) return path;
-			return $"{path}?{query}";
+			if (string.IsNullOrEmpty(query)) return DecodedPath();
+			return $"{DecodedPath()}?{query}";
 		}
 		public override string GetRemoteAddress() => Context.Connection.RemoteIpAddress.ToString();
 		public override int GetRemotePort() => Context.Connection.RemotePort;
@@ -293,11 +294,15 @@ namespace System.Web.Hosting
 		///////////////////////////////////////////////////////////////////////////////////////////////
 		// Implementation of HttpWorkerRequest
 
-		public override string GetUriPath()
+		// Decoded, as IIS's (Request.Path).
+		public override string GetUriPath() => DecodedPath();
+
+		// The request's path decoded: the application's base and the path in it ("/" when both are empty).
+		string DecodedPath()
 		{
 			var request = Context.Request;
-			if (string.IsNullOrEmpty(request.Path)) return request.PathBase;
-			else return $"{request.PathBase}/{request.Path}";
+			var decoded = (request.PathBase.Value ?? "") + (request.Path.Value ?? "");
+			return decoded.Length == 0 ? "/" : decoded;
 		}
 
 		public override IntPtr GetUserToken()
@@ -772,7 +777,9 @@ namespace System.Web.Hosting
 		{
 			if (!requestParsed)
 			{
-				path = $"{Context.Request.PathBase}{Context.Request.Path}";
+				// Decoded, as IIS gives it (its cooked URL): a PathString in a string is its escaped form (ToUriComponent),
+				// and an escaped "%20" was a bad path (400) where IIS serves "/Product/Fast Car".
+				path = DecodedPath();
 
 				int lastDot = path.LastIndexOf('.');
 				int lastSlh = path.LastIndexOf('/');

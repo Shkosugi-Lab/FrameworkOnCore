@@ -19,7 +19,7 @@
 
 | 対象 | 違い(.NET 版) | 移植版 | 選択 |
 |---|---|---|---|
-| System.Data.SqlClient | 接続文字列の `\|DataDirectory\|` を拒否する | FrameworkOnCore.Data.SqlClient(maintenance-packages 4.9.0)。.NET Framework と同じく展開する | `sql-client`(移植版 / .NET 版) |
+| System.Data.SqlClient | 接続文字列の `\|DataDirectory\|` を拒否する。`Asynchronous Processing`・`Network Library`・`Connection Reset` を拒否し、`SqlConnectionStringBuilder` にそのプロパティが無い | FrameworkOnCore.Data.SqlClient(maintenance-packages 4.9.0)。.NET Framework 4.8 と同じく受け付ける(1.6.5-w2l.12 から。下の「済」) | `sql-client`(移植版 / .NET 版) |
 | System.Drawing.Common | .NET 7 から Windows のみ(Linux は例外) | FrameworkOnCore.Drawing.Common(dotnet/runtime 6.0、libgdiplus) | `system-drawing`(移植版のみ) |
 | System.Data.Linq | .NET に無い | FrameworkOnCore.Data.Linq(referencesource) | `linq-to-sql`(移植版 / 対応しない) |
 | System.Web.DataVisualization | .NET に無い | FrameworkOnCore.Web.DataVisualization(referencesource) | `charts`(移植版 / 対応しない) |
@@ -38,9 +38,9 @@
 
 | 違い | .NET Framework | 移植版・.NET 版 | 見つかった所 | 優先度 |
 |---|---|---|---|---|
-| 接続文字列のキーワード `Asynchronous Processing`(`async`)、`Connection Reset`、`Network Library`(`net`、`network`) | 受け付ける(`Asynchronous Processing` は 4.5 から無視、`Network Library=dbmssocn` は TCP) | 例外(Keyword not supported など)。古いアプリの接続文字列によくある | n2 の接続文字列の例(docs/example.web.config の SQL Server 2000 用: `Network Library=DBMSSOCN`)。コーパスの設定ファイルには無い | 高 |
-| `SqlConnectionStringBuilder.AsynchronousProcessing` | ある(4.5 から無視) | 無い(MissingMethodException) | wt の Elmah.dll | 高 |
-| `SqlConnectionStringBuilder` の `ConnectionReset`、`NetworkLibrary`、`TransparentNetworkIPResolution`、`ContextConnection` | ある | 無い | — | 中 |
+| **済(w2l.12)** 接続文字列のキーワード `Asynchronous Processing`(`async`)、`Connection Reset`、`Network Library`(`net`、`network`) | 受け付ける(`Asynchronous Processing` と `Connection Reset` は 4.5 から無視、`Network Library=dbmssocn` は TCP) | .NET 版は例外(Keyword not supported など)。古いアプリの接続文字列によくある。移植版は .NET Framework と同じく受け付ける。`Context Connection=true`(SQL CLR の中の接続)は、無いので例外のまま | n2 の接続文字列の例(docs/example.web.config の SQL Server 2000 用: `Network Library=DBMSSOCN`)。コーパスの設定ファイルには無い | 高 |
+| **済(w2l.12)** `SqlConnectionStringBuilder` の `AsynchronousProcessing`、`ConnectionReset`、`NetworkLibrary`、`ContextConnection` | ある | .NET 版には無い(MissingMethodException)。移植版にはある | wt の Elmah.dll(`AsynchronousProcessing`)。変換レポートから消えた | 高 |
+| `SqlConnectionStringBuilder.TransparentNetworkIPResolution` と接続文字列のキーワード(.NET Framework 4.6.1 から) | ある | 無い(キーワードは例外) | — | 中 |
 | `SqlParameterCollection.Add(string, object)` | ある(廃止予定) | 無い | — | 中 |
 | `SqlDataSourceEnumerator`、`SqlClientFactory.CreateDataSourceEnumerator` | ある(サーバーの一覧) | 無い | — | 低 |
 | Always Encrypted(`SqlColumnEncryption*`、`ColumnEncryptionSetting` など)、Azure AD 認証(`SqlAuthenticationProvider`、`Authentication`) | ある | 無い(Microsoft.Data.SqlClient にはある) | — | 低 |

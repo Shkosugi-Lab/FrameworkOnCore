@@ -9,7 +9,7 @@
 # All builds in dependency order, after src/WebFormsForCore.Build when it was not built yet (it emits the
 # FakeStrongName targets every project imports).
 param(
-    [string]$Version = '1.6.5-w2l.11',
+    [string]$Version = '1.6.5-w2l.12',
     [ValidateSet('Web', 'All', 'None')][string]$Build = 'Web'
 )
 

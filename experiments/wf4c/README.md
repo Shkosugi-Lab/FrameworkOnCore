@@ -944,6 +944,23 @@ DNN のインストール ウィザードがネイティブ起動で 500 にな�
 - 確認: wt を「.NET 版」で変換すると、`deps.json` には Entity Framework が持ち込む Microsoft の 4.8.6 だけが残った。既定では今までと同じ。
 - 気付いたこと: wt の Elmah.dll は、.NET Framework の `SqlConnectionStringBuilder.AsynchronousProcessing`(.NET Framework 4.5 から無視される)を使う。これは移植版にも .NET 版にも無く、使う所で MissingMethodException になる。移植版に足せる候補。
 - 移植版の候補は `PORT-CANDIDATES.md` で管理する(見つけ方と、2026-10-02 時点の一覧)。
+
+#### .NET が拒否する接続文字列のキーワード(1.6.5-w2l.12)
+
+候補のうち優先度の高い 2 件を、移植版に足した。.NET Framework 4.8(referencesource)と同じ動きにしている。
+
+- 接続文字列: `Asynchronous Processing`(`async`)と `Connection Reset` は、true か false かを確かめるだけで使わない(4.5 からそうだった)。
+  - `Network Library`(`net`、`network`)は、ライブラリの名前(`dbmssocn` など)をプロトコル(`tcp:`、`np:`、`lpc:`)にして、サーバー名に付ける。
+  - どれも、正しくない値は .NET Framework と同じく拒否する。
+  - `Context Connection=true`(SQL CLR の中の接続)は、無いので例外のまま。
+- `SqlConnectionStringBuilder` に `AsynchronousProcessing`・`ConnectionReset`(廃止予定の印も同じ)・`NetworkLibrary`・`ContextConnection` を足した。wt の Elmah.dll が使う `AsynchronousProcessing` は、変換レポートの「無いメンバー」から消えた。
+- テスト: `tests/SqlClientTests/FrameworkOnCore/FrameworkKeywordTests.cs`。
+  - 各キーワードを付けて TDS のテスト サーバーに接続する。`Network Library=DBMSSOCN` は tcp で接続できる。
+  - 正しくない値は拒否する。ビルダーのプロパティも確かめる。
+- 確認:
+  - テスト: Windows では SqlClientTests 208 件と FrameworkOnCore.Tests 4,338 件、Linux では 198 件と 4,319 件。すべて緑。
+  - be: Windows 5/5。
+  - wt: Windows 6/8、Linux 5/8(以前と同じ既知の差だけ)。
 ## 全コーパスでの検証(2026-09-27)
 
 `verify-corpora.ps1` で 6 本を変換してビルドした(Windows)。正解データがあるのは be と wt だけ。

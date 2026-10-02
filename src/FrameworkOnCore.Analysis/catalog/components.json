@@ -56,8 +56,8 @@
       { "id": "none", "title": "対応しない", "description": "スタブ。DLL が参照する場合(System.Web.Mvc のモデルバインドなど)も例外になる" }
     ],
     "sql-client": [
-      { "id": "port", "title": "移植版を使う", "description": "FrameworkOnCore の System.Data.SqlClient(パッケージ FrameworkOnCore.Data.SqlClient。dotnet/maintenance-packages 4.9.0 のソース)。接続文字列の |DataDirectory| を .NET Framework と同じく App_Data に展開する。Web プロジェクトに常に付き、Entity Framework や DLL が開く接続もこれになる", "default": true },
-      { "id": "dotnet", "title": ".NET 版を使う", "description": "Microsoft の System.Data.SqlClient パッケージ(4.9.0)。コードで組み立てた接続文字列の |DataDirectory| は例外になる(構成の接続文字列はランタイムが展開する)" }
+      { "id": "port", "title": "移植版を使う", "description": "FrameworkOnCore の System.Data.SqlClient(パッケージ FrameworkOnCore.Data.SqlClient。dotnet/maintenance-packages 4.9.0 のソース)。接続文字列の |DataDirectory| を .NET Framework と同じく App_Data に展開し、.NET が拒否する Asynchronous Processing・Network Library・Connection Reset も受け付ける(SqlConnectionStringBuilder の同名のプロパティもある)。Web プロジェクトに常に付き、Entity Framework や DLL が開く接続もこれになる", "default": true },
+      { "id": "dotnet", "title": ".NET 版を使う", "description": "Microsoft の System.Data.SqlClient パッケージ(4.9.0)。コードで組み立てた接続文字列の |DataDirectory| は例外になる(構成の接続文字列はランタイムが展開する)。Asynchronous Processing・Network Library・Connection Reset のある接続文字列も例外になる" }
     ],
     "charts": [
       { "id": "port", "title": "移植版を使う", "description": "referencesource(MIT)から移植した System.Web.DataVisualization(パッケージ FrameworkOnCore.Web.DataVisualization。描画は移植版の System.Drawing で、Linux でも動く)", "default": true },

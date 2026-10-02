@@ -23,8 +23,15 @@ public sealed record PlatformReplacement(string Member, string? Then, int? Argum
     public string Line => $"{Member}|{Then}|{Arguments}|{ParameterType}";
 }
 
-/// <summary>What a project's sources do that behaves differently on .NET: reported.</summary>
-public sealed record SourceNote(Regex Pattern, string Note);
+/// <summary>What a project's sources do that behaves differently on .NET: reported. Option: the user's choice it belongs to.</summary>
+public sealed record SourceNote(Regex Pattern, string Note, string? Option = null);
+
+/// <summary>
+/// A FrameworkOnCore port of a package .NET has, behaving as .NET Framework's (FrameworkOnCore.Data.SqlClient: |DataDirectory|):
+/// the user's choice (Option, its "port" option). Not chosen, wherever the rules give the port (webPackages,
+/// replacedPackages, frameworkReferences, sourcePackages), .NET's package (Otherwise) is given instead.
+/// </summary>
+public sealed record PortOption(string Option, Package Otherwise);
 
 /// <summary>A call inside a library's DLL replaced with the compatibility assembly's static method (dllCallReplacements): in the DLL of the
 /// assembly, in the method In (Type::Method), the call of Call (Type::Method) becomes Replacement (Type::Method).</summary>
@@ -51,6 +58,8 @@ public sealed record Rules
     /// <summary>Framework references that are the user's choice (System.Data.Linq: the LINQ to SQL port): assembly ->
     /// the option that turns its frameworkReferences entry on. Not chosen, the assembly has no answer (Choose).</summary>
     public IReadOnlyDictionary<string, string> FrameworkReferenceOptions { get; init; } = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+    /// <summary>FrameworkOnCore's ports that are the user's choice: port package id -> its option and .NET's package (Choose).</summary>
+    public IReadOnlyDictionary<string, PortOption> PortOptions { get; init; } = new Dictionary<string, PortOption>(StringComparer.OrdinalIgnoreCase);
     public required IReadOnlyList<SourcePackage> SourcePackages { get; init; }
     public required IReadOnlyList<SourceNote> SourceNotes { get; init; }
     public required IReadOnlyList<MemberReplacement> MemberReplacements { get; init; }
@@ -115,11 +124,18 @@ public sealed record Rules
             frameworkReferences = references;
             noAnswer = without;
         }
+        // The ports not chosen: .NET's package wherever the rules give the port.
+        var instead = PortOptions.Where(p => !Holds(p.Value.Option)).ToDictionary(p => p.Key, p => p.Value.Otherwise, StringComparer.OrdinalIgnoreCase);
+        Package Instead(Package package) => instead.TryGetValue(package.Id, out var otherwise) ? otherwise : package;
         return this with
         {
-            FrameworkReferences = frameworkReferences,
+            WebPackages = WebPackages.Where(id => !instead.ContainsKey(id)).ToList(),
+            ReplacedPackages = ReplacedPackages.ToDictionary(p => p.Key, p => Instead(p.Value), StringComparer.OrdinalIgnoreCase),
+            FrameworkReferences = frameworkReferences.ToDictionary(p => p.Key, p => Instead(p.Value), StringComparer.OrdinalIgnoreCase),
+            FrameworkCompanions = FrameworkCompanions.ToDictionary(p => p.Key, p => (IReadOnlyList<Package>)p.Value.Select(Instead).ToList(), StringComparer.OrdinalIgnoreCase),
             NoAnswer = noAnswer,
-            SourcePackages = SourcePackages.Where(p => Holds(p.Option)).ToList(),
+            SourcePackages = SourcePackages.Where(p => Holds(p.Option)).Select(p => p with { Package = Instead(p.Package) }).ToList(),
+            SourceNotes = SourceNotes.Where(n => Holds(n.Option)).ToList(),
             MemberReplacements = MemberReplacements.Where(r => Holds(r.Option)).ToList(),
             PlatformReplacements = PlatformReplacements.Where(r => HoldsFor(r.Option, r.Member)).ToList(),
             NamespaceMoves = moves ? NamespaceMoves : new Dictionary<string, string>(),
@@ -182,6 +198,10 @@ public sealed record Rules
             FrameworkReferenceOptions = root.TryGetProperty("frameworkReferenceOptions", out var referenceOptions)
                 ? referenceOptions.EnumerateObject().ToDictionary(p => p.Name, p => p.Value.GetString()!, StringComparer.OrdinalIgnoreCase)
                 : new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase),
+            PortOptions = root.TryGetProperty("portOptions", out var portOptions)
+                ? portOptions.EnumerateObject().Where(p => !p.Name.StartsWith('$')).ToDictionary(p => p.Name,
+                    p => new PortOption(p.Value.GetProperty("option").GetString()!, PackageOf(p.Value.GetProperty("otherwise"))), StringComparer.OrdinalIgnoreCase)
+                : new Dictionary<string, PortOption>(StringComparer.OrdinalIgnoreCase),
             SourcePackages = root.GetProperty("sourcePackages").EnumerateArray().Select(e => new SourcePackage(
                 new Regex(e.GetProperty("pattern").GetString()!, RegexOptions.Compiled),
                 new Package(e.GetProperty("id").GetString()!, Version(e.GetProperty("version").GetString()!)),
@@ -207,7 +227,7 @@ public sealed record Rules
             TypeMoveOrigins = root.GetProperty("typeMoveOrigins").EnumerateArray().Select(e => e.GetString()!).ToList(),
             NamespaceMovesOption = Optional(root, "namespaceMovesOption"),
             SourceNotes = root.GetProperty("sourceNotes").EnumerateArray().Select(e => new SourceNote(
-                new Regex(e.GetProperty("pattern").GetString()!, RegexOptions.Compiled), e.GetProperty("note").GetString()!)).ToList(),
+                new Regex(e.GetProperty("pattern").GetString()!, RegexOptions.Compiled), e.GetProperty("note").GetString()!, Optional(e, "option"))).ToList(),
         };
     }
 }

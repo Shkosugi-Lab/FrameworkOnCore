@@ -2,7 +2,7 @@
   "$comment": "Package and reference rules. \"$frameworkoncore\" stands for the version of FrameworkOnCore's packages (frameworkOnCoreVersion).",
   "frameworkOnCoreVersion": "1.6.5-w2l.11",
 
-  "$comment_webPackages": "The web project always gets these (Program.cs uses them; pages reference them at run time). FrameworkOnCore.Data.SqlClient: whoever opens the connection (the sources, Entity Framework, a DLL), System.Data.SqlClient is the one expanding |DataDirectory| as .NET Framework's (its assembly version is above the package Entity Framework brings).",
+  "$comment_webPackages": "The web project always gets these (Program.cs uses them; pages reference them at run time). FrameworkOnCore.Data.SqlClient: whoever opens the connection (the sources, Entity Framework, a DLL), System.Data.SqlClient is the one expanding |DataDirectory| as .NET Framework's (its assembly version is above the package Entity Framework brings). The user's choice (portOptions): .NET's package, it is not added.",
   "webPackages": [ "FrameworkOnCore.Web", "FrameworkOnCore.Web.Extensions", "FrameworkOnCore.Configuration", "FrameworkOnCore.Web.DynamicData", "FrameworkOnCore.Data.SqlClient" ],
 
   "$comment_replacedPackages": "packages.config / PackageReference ids with a .NET 10 answer: [id, version].",
@@ -70,6 +70,10 @@
   "noAnswer": [ "System.Data.Services.Client", "System.Design", "System.Web.Extensions.Design", "System.Windows.Forms" ],
   "$comment_frameworkReferenceOptions": "Framework references that are the user's choice: assembly -> the option that turns its frameworkReferences entry on. Not chosen, the assembly has no answer (noAnswer).",
   "frameworkReferenceOptions": { "System.Data.Linq": "linq-to-sql:port", "System.Web.DataVisualization": "charts:port", "System.Web.Mobile": "mobile-controls:port" },
+  "$comment_portOptions": "FrameworkOnCore's ports of packages .NET has, behaving as .NET Framework's: the user's choice (option). Not chosen, wherever these rules give the port (webPackages, replacedPackages, frameworkReferences, sourcePackages), .NET's package (otherwise) instead.",
+  "portOptions": {
+    "FrameworkOnCore.Data.SqlClient": { "option": "sql-client:port", "otherwise": [ "System.Data.SqlClient", "4.9.0" ] }
+  },
 
   "$comment_sourcePackages": "What .NET Framework had in its own assemblies and .NET ships as packages: added when the sources use it.",
   "sourcePackages": [
@@ -164,6 +168,7 @@
   ],
   "$comment_sourceNotes": "What the sources do that behaves differently on .NET (reported).",
   "sourceNotes": [
-    { "pattern": "\\|DataDirectory\\|", "note": "|DataDirectory| (AttachDBFilename): expanded by FrameworkOnCore's System.Data.SqlClient as on .NET Framework (App_Data); attached database files (LocalDB, SQL Server Express user instances) are Windows only: use a database server" }
+    { "pattern": "\\|DataDirectory\\|", "note": "|DataDirectory| (AttachDBFilename): expanded by FrameworkOnCore's System.Data.SqlClient as on .NET Framework (App_Data); attached database files (LocalDB, SQL Server Express user instances) are Windows only: use a database server", "option": "sql-client:port" },
+    { "pattern": "\\|DataDirectory\\|", "note": "|DataDirectory| (AttachDBFilename): .NET's System.Data.SqlClient refuses it in a connection string built in code (Invalid value for key 'attachdbfilename'; the configuration's are expanded by the runtime); attached database files (LocalDB, SQL Server Express user instances) are Windows only: use a database server", "option": "sql-client:dotnet" }
   ]
 }

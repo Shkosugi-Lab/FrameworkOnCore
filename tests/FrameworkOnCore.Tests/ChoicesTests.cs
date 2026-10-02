@@ -107,6 +107,27 @@ public sealed class ChoicesTests
         Assert.Contains("System.Data.Linq", none.NoAnswer);
     }
 
+    [Fact] // the System.Data.SqlClient port by default; .NET's chosen, its package wherever the rules gave the port
+    public void A_port_not_chosen_is_dotnets_package_wherever_the_rules_give_the_port()
+    {
+        var port = RewriteHarness.Rules.Choose(new Choices(), catalog);
+        Assert.Contains("FrameworkOnCore.Data.SqlClient", port.WebPackages);
+        Assert.Equal("FrameworkOnCore.Data.SqlClient", port.ReplacedPackages["System.Data.SqlClient"].Id);
+        Assert.Contains(port.SourcePackages, p => p.Package.Id == "FrameworkOnCore.Data.SqlClient");
+        Assert.Contains(port.SourceNotes, n => n.Option == "sql-client:port");
+        Assert.DoesNotContain(port.SourceNotes, n => n.Option == "sql-client:dotnet");
+
+        var dotnet = RewriteHarness.Rules.Choose(Of("""{ "components": { "sql-client": "dotnet" } }"""), catalog);
+        Assert.DoesNotContain("FrameworkOnCore.Data.SqlClient", dotnet.WebPackages);
+        Assert.Equal(new Package("System.Data.SqlClient", "4.9.0"), dotnet.ReplacedPackages["System.Data.SqlClient"]);
+        Assert.DoesNotContain(dotnet.SourcePackages, p => p.Package.Id == "FrameworkOnCore.Data.SqlClient");
+        Assert.Contains(dotnet.SourcePackages, p => p.Package == new Package("System.Data.SqlClient", "4.9.0"));
+        Assert.Contains(dotnet.SourceNotes, n => n.Option == "sql-client:dotnet");
+        Assert.DoesNotContain(dotnet.SourceNotes, n => n.Option == "sql-client:port");
+        // The other ports as they were.
+        Assert.Equal(port.ReplacedPackages["System.Drawing.Common"], dotnet.ReplacedPackages["System.Drawing.Common"]);
+    }
+
     [Fact] // what analyze writes: the components to decide on at their defaults, the settings
     public void The_defaults_of_an_analysis_are_the_choices_to_make()
     {

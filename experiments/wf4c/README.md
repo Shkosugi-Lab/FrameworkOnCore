@@ -927,6 +927,22 @@ DNN のインストール ウィザードがネイティブ起動で 500 にな�
 - テスト: Windows では FrameworkOnCore.Tests 4,337 件と SqlClientTests 195 件。Linux では 4,318 件と 185 件。すべて緑(スキップは SQL Server が要るもの)。
 - be: Windows・Linux とも 5/5。
 - wt: Windows 6/8、Linux 5/8。以前と同じ既知の差だけ。
+
+#### 移植版か .NET 版かの選択
+
+部品ごとの選択に「SQL Server のクライアント(System.Data.SqlClient)」を足した。
+
+- 選択肢は「移植版を使う」(既定)と「.NET 版を使う」(Microsoft の System.Data.SqlClient 4.9.0)。
+- 解析の状態は「動きが違う」。
+  - wt では、Entity Framework の DLL が使う API(21 件)で出る。
+  - be はこの名前空間を使わないので出ない。出ない部品は既定の移植版になる。
+- 変換器の規則 `portOptions`(`rules/packages.json`)は、移植版のパッケージごとに、その選択肢と .NET 版のパッケージを持つ。
+  - 移植版を選ばなければ、規則が移植版を付ける所(`webPackages`、`replacedPackages`、`frameworkReferences`、`sourcePackages`)で .NET 版を付ける。
+  - `webPackages` からは外す。
+  - `|DataDirectory|` の報告(`sourceNotes`)も、選んだ方の文になる。
+  - 今後の移植版も、ここに書けば同じく選べる。
+- 確認: wt を「.NET 版」で変換すると、`deps.json` には Entity Framework が持ち込む Microsoft の 4.8.6 だけが残った。既定では今までと同じ。
+- 気付いたこと: wt の Elmah.dll は、.NET Framework の `SqlConnectionStringBuilder.AsynchronousProcessing`(.NET Framework 4.5 から無視される)を使う。これは移植版にも .NET 版にも無く、使う所で MissingMethodException になる。移植版に足せる候補。
 ## 全コーパスでの検証(2026-09-27)
 
 `verify-corpora.ps1` で 6 本を変換してビルドした(Windows)。正解データがあるのは be と wt だけ。

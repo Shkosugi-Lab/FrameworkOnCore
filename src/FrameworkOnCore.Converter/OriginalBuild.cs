@@ -41,7 +41,7 @@ public sealed partial class OriginalBuild(Report report, string log, string? con
         string kind;
         try
         {
-            if (!Directory.Exists(Path.Combine(repository, ".git"))) MakeRepository(repository, work);
+            MakeRepository(repository, work);
             PrepareTools(root);
             (built, kind) = RunBuild(root, target, Path.Combine(root, relativeWeb), steps);
             if (drive != null) MaterializeLinks(work, drive);
@@ -143,14 +143,25 @@ public sealed partial class OriginalBuild(Report report, string log, string? con
     // builds derive their version from git (GitVersion: DNN) and would otherwise find the repository
     // the copy happens to be in. Tagged with the version the archive's name ends with (GitHub's
     // "<repository>-<tag>"), which GitVersion takes as the version.
+    // The copy (without .git: a clone's history can be large, and a shallow one is refused by GitVersion) made a
+    // repository with one commit, tagged with the version: a clone's tag (git describe), else the archive's name
+    // (Dnn.Platform-9.13.10). It was made one only when the source was no clone: a cloned DNN's copy had no repository,
+    // and its build stopped ("Cannot find the .git directory", GitVersion).
     void MakeRepository(string repository, string work)
     {
         RunProcess("git", "init -q", work, quiet: true);
         RunProcess("git", "add -A", work, quiet: true);
         RunProcess("git", "-c user.name=FrameworkOnCore -c user.email=noreply@localhost -c commit.gpgsign=false commit -q -m original", work, quiet: true);
-        var version = Regex.Match(Path.GetFileName(repository.TrimEnd('\\', '/')), @"[-_]v?(\d+\.\d+(\.\d+)*)$");
-        if (version.Success) RunProcess("git", $"tag v{version.Groups[1].Value}", work, quiet: true);
-        report.Add(Report.Kind.Project, "original build", $"not a git clone: the copy is made a repository with one commit{(version.Success ? $", tagged v{version.Groups[1].Value} (the archive's name)" : "")}; a version the build derives from git history is taken from that");
+        string? tag = null, from = null;
+        if (Directory.Exists(Path.Combine(repository, ".git")))
+        {
+            var described = CaptureProcess("git", "describe --tags --abbrev=0", repository).Trim();
+            if (Regex.IsMatch(described, @"^v?\d+\.\d+(\.\d+)*$")) (tag, from) = (described.StartsWith('v') ? described : "v" + described, "the clone's tag");
+        }
+        if (tag == null && Regex.Match(Path.GetFileName(repository.TrimEnd('\\', '/')), @"[-_]v?(\d+\.\d+(\.\d+)*)$") is { Success: true } version)
+            (tag, from) = ("v" + version.Groups[1].Value, "the archive's name");
+        if (tag != null) RunProcess("git", $"tag {tag}", work, quiet: true);
+        report.Add(Report.Kind.Project, "original build", $"the copy is made a repository with one commit{(tag != null ? $", tagged {tag} ({from})" : "")}; a version the build derives from git history is taken from that");
     }
 
     // ------------------------------------------------------------------------------------------

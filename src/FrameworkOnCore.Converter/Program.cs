@@ -18,7 +18,8 @@ using FrameworkOnCore.Converter;
 //            rebuilt for .NET 10 and the site is assembled in <out>\site (run bin\<web>.dll there).
 // --build-original [target]  get the deployed site by building the repository with its own build
 //            (a Cake build: Cake Frosting or a .cake script; its default target, or the one given)
-//            in a copy (<out>.original); the site it deploys is then --site. Without one, the solution
+//            in a copy (<out>.original-<time>, a new one each time; the earlier ones deleted after the build, those
+//            that cannot be left for the next time); the site it deploys is then --site. Without one, the solution
 //            with the web project, as Visual Studio builds it (Windows, Visual Studio's MSBuild).
 //            --build-original auto: only when the site is made by the build (OriginalBuildAdvice; build-original-advice
 //            prints why). Without --build-original such a site is reported unresolved.

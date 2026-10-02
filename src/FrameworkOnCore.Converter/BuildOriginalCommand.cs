@@ -5,7 +5,7 @@ namespace FrameworkOnCore.Converter;
 /// <summary>
 /// FrameworkOnCore.Converter build-original &lt;project&gt; --out &lt;dir&gt; [--root &lt;dir&gt;] [--configuration &lt;name&gt;]
 /// [--original-step &lt;project;target&gt;] [--target &lt;name&gt;]: the original application built as its repository builds it
-/// (OriginalBuild, as --build-original does), in a copy (&lt;out&gt;), nothing converted; the deployed site it made is the
+/// (OriginalBuild, as --build-original does), in a copy (&lt;out&gt;-&lt;time&gt;, a new one each time), nothing converted; the deployed site it made is the
 /// last line, "site: &lt;path&gt;" (to run it as it is on .NET Framework: Studio's test run). ORIGINAL-BUILD.md beside the copy.
 /// </summary>
 public static class BuildOriginalCommand

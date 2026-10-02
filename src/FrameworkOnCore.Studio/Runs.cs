@@ -287,7 +287,7 @@ public abstract class Runs
 
 /// <summary>
 /// The original application on this machine, as it runs on .NET Framework (to see what it does before it is converted):
-/// built as its repository builds it (the converter's build-original, in the analysis' folder: original/work), its
+/// built as its repository builds it (the converter's build-original, in the analysis' folder: original/work-<time>, a new one each time), its
 /// deployed site run by IIS Express, or else by IIS when Studio runs as an administrator (a site and an application
 /// pool of their own, removed when it stops).
 /// </summary>

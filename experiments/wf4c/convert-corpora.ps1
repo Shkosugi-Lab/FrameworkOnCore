@@ -39,11 +39,14 @@ New-Item -ItemType Directory $logs -Force | Out-Null
 foreach ($name in $Only) {
     $root, $project = $corpora[$name]
     $log = Join-Path $logs "foc-$name.log"
-    # The deployed site of the original build (in <out>.original): the one built before if there is one
-    # (the build takes minutes; -Rebuild runs it again).
+    # The deployed site of the original build (in <out>.original-<time>, the converter's newest; <out>.original before
+    # it built in a new folder each time): the one built before if there is one (the build takes minutes; -Rebuild runs
+    # it again).
     $siteArguments = @()
     if ($originals.ContainsKey($name)) {
-        $deployed = Join-Path $PSScriptRoot "$name.original\$($originals[$name].Site)"
+        $built = @(Get-ChildItem $PSScriptRoot -Directory | Where-Object { $_.Name -match "^$([regex]::Escape($name))\.original(-\d{8}-\d{6}(-\d+)?)?$" } |
+            Sort-Object { if ($_.Name -eq "$name.original") { '' } else { $_.Name } } -Descending)
+        $deployed = Join-Path $(if ($built) { $built[0].FullName } else { Join-Path $PSScriptRoot "$name.original" }) $originals[$name].Site
         $siteArguments = @(if ((Test-Path (Join-Path $deployed 'bin')) -and -not $Rebuild) { '--site', $deployed }
                          else { '--build-original'; $originals[$name].Steps | Where-Object { $_ } | ForEach-Object { '--original-step', $_ } })
     }

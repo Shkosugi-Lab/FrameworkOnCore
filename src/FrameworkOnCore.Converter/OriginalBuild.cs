@@ -23,9 +23,18 @@ public sealed partial class OriginalBuild(Report report, string log, string? con
     readonly Dictionary<string, string> environment = new(StringComparer.OrdinalIgnoreCase);
     readonly List<string> path = new();
 
-    /// <summary>The deployed site, or null when the build did not produce one.</summary>
-    public string? Run(string repository, string work, string webProject, string? target, IReadOnlyList<(string Project, string Target)> steps)
+    /// <summary>The folder the last Run built in.</summary>
+    public string? Work { get; private set; }
+
+    /// <summary>
+    /// The deployed site, or null when the build did not produce one. Built in a new folder each time (&lt;workBase&gt;-&lt;time&gt;,
+    /// Work): an earlier build's folder is not in the way when it cannot be deleted (a file of it still open: the original
+    /// application's test run, a build's process that has not ended). The earlier ones are deleted after the build; one
+    /// that cannot be is left, reported, and tried again the next time.
+    /// </summary>
+    public string? Run(string repository, string workBase, string webProject, string? target, IReadOnlyList<(string Project, string Target)> steps)
     {
+        var work = Work = NewWorkFolder(workBase);
         Console.WriteLine($"copying {repository} -> {work}");
         try
         {
@@ -59,6 +68,7 @@ public sealed partial class OriginalBuild(Report report, string log, string? con
         {
             if (drive != null) RunProcess("subst", $"{drive} /d", work, quiet: true);
         }
+        RemoveEarlierWork(workBase, work);
         if (built == null) return null;
         // A solution build deploys into the web project's folder; a build script elsewhere (DNN's .\Website).
         var site = FindSite(work, Path.Combine(work, relativeWeb), preferProjectFolder: kind == "solution");
@@ -327,6 +337,45 @@ public sealed partial class OriginalBuild(Report report, string log, string? con
     }
 
     // ------------------------------------------------------------------------------------------
+
+    // A short name (the copy is built through a drive letter mapped to its parent: the repository's paths stay short).
+    static string NewWorkFolder(string workBase)
+    {
+        var work = $"{workBase}-{DateTime.Now:yyyyMMdd-HHmmss}";
+        for (var n = 2; Directory.Exists(work) || File.Exists(work); n++) work = $"{workBase}-{DateTime.Now:yyyyMMdd-HHmmss}-{n}";
+        return work;
+    }
+
+    /// <summary>The earlier builds' folders of this base (and the one of a converter that built in the base itself).</summary>
+    internal static IEnumerable<string> EarlierWork(string workBase, string current)
+    {
+        var parent = Path.GetDirectoryName(workBase)!;
+        if (!Directory.Exists(parent)) yield break;
+        var name = Path.GetFileName(workBase);
+        foreach (var directory in Directory.EnumerateDirectories(parent, name + "*"))
+        {
+            var rest = Path.GetFileName(directory).Substring(name.Length);
+            if ((rest.Length == 0 || Regex.IsMatch(rest, @"^-\d{8}-\d{6}(-\d+)?$")) &&
+                !string.Equals(Path.GetFullPath(directory), Path.GetFullPath(current), StringComparison.OrdinalIgnoreCase))
+                yield return directory;
+        }
+    }
+
+    void RemoveEarlierWork(string workBase, string current)
+    {
+        foreach (var directory in EarlierWork(workBase, current).ToList())
+        {
+            try
+            {
+                FrameworkOnCore.Analysis.FileTrees.Delete(directory);
+            }
+            catch (IOException e)
+            {
+                report.Add(Report.Kind.Project, "original build", $"an earlier build's folder is left (deleted the next time): {e.Message}");
+                Console.WriteLine($"left: {directory}");
+            }
+        }
+    }
 
     static void CopyRepository(string from, string to)
     {

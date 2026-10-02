@@ -34,9 +34,9 @@ public class OriginalBuildTests : IDisposable
             Git(source, "-c user.name=t -c user.email=t@localhost -c commit.gpgsign=false commit -q -m source");
             Git(source, "tag v9.13.10");
         }
-        var work = Path.Combine(root, name + ".original");
-        new OriginalBuild(new Report(), Path.Combine(root, name + ".log")).Run(source, work, Path.Combine(source, "Web.csproj"), null, []);
-        return work;
+        var build = new OriginalBuild(new Report(), Path.Combine(root, name + ".log"));
+        build.Run(source, Path.Combine(root, name + ".original"), Path.Combine(source, "Web.csproj"), null, []);
+        return build.Work!;
     }
 
     [Fact] // a clone (DNN cloned): its copy had no repository, and DNN's build stopped ("Cannot find the .git directory")
@@ -54,10 +54,49 @@ public class OriginalBuildTests : IDisposable
         Assert.Equal("v9.13.10", Git(work, "describe --tags"));
     }
 
-    public void Dispose()
+    [Fact] // a new folder each time: an earlier one that cannot be deleted (a file of it open) is not in the way
+    public void Each_build_is_in_a_new_folder_and_the_earlier_ones_are_deleted_or_left()
     {
-        if (!Directory.Exists(root)) return;
-        foreach (var file in Directory.EnumerateFiles(root, "*", SearchOption.AllDirectories)) File.SetAttributes(file, FileAttributes.Normal);
-        Directory.Delete(root, recursive: true);
+        var source = Path.Combine(root, "app");
+        Directory.CreateDirectory(source);
+        File.WriteAllText(Path.Combine(source, "Web.csproj"), "<Project />");
+        var workBase = Path.Combine(root, "out.original");
+        string Build(Report report)
+        {
+            var build = new OriginalBuild(report, Path.Combine(root, "out.original.build.log"));
+            build.Run(source, workBase, Path.Combine(source, "Web.csproj"), null, []);
+            return build.Work!;
+        }
+        Directory.CreateDirectory(Path.Combine(workBase, "node_modules"));  // the converter's before: built in the base itself
+        var other = Directory.CreateDirectory(Path.Combine(root, "out.original-notes")).FullName;  // not a build's
+
+        var first = Build(new Report());
+        Assert.Matches(@"out\.original-\d{8}-\d{6}(-\d+)?$", first);
+        Assert.False(Directory.Exists(workBase));
+        Assert.True(Directory.Exists(other));
+
+        var report = new Report();
+        string second;
+        if (OperatingSystem.IsWindows())
+        {
+            // Open, as the original application's test run keeps its site's files (Linux deletes an open file).
+            using (File.Open(Path.Combine(first, "Web.csproj"), FileMode.Open, FileAccess.Read, FileShare.None))
+                second = Build(report);
+            Assert.NotEqual(first, second);
+            Assert.True(Directory.Exists(first));
+            Assert.Contains("an earlier build's folder is left", report.ToMarkdown("t"));
+            var third = Build(new Report());
+            Assert.False(Directory.Exists(first));
+            Assert.False(Directory.Exists(second));
+            Assert.True(Directory.Exists(third));
+        }
+        else
+        {
+            second = Build(report);
+            Assert.NotEqual(first, second);
+            Assert.False(Directory.Exists(first));
+        }
     }
+
+    public void Dispose() => FrameworkOnCore.Analysis.FileTrees.Delete(root);
 }

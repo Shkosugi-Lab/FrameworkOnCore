@@ -113,7 +113,7 @@ async function select(id) {
   Object.assign(state, {
     id, entry: null, result: null, choices: null, saved: null, command: null, errors: [], conversion: null,
     container: null, runOpen: false, runEnv: null, docker: null, dockerStarting: false, step,
-    original: null, native: null, report: null,
+    original: null, native: null, nativeEnv: null, report: null,
   });
   state.expanded.clear();
   state.rows.clear();
@@ -963,12 +963,19 @@ async function loadNative() {
 function renderNative() {
   const root = $('#native');
   if (!root || !state.native) return;
-  const { native, log } = state.native;
-  const idle = `<div class="hint">変換したアプリを、この PC の .NET 10(dotnet)でそのまま起動します。Docker は使いません。接続文字列は web.config のままです(この PC のデータベースが見えます)。</div>
+  const { native, environment, log } = state.native;
+  const idle = `<div class="hint">変換したアプリを、この PC の .NET 10(dotnet)でそのまま起動します。Docker は使いません。</div>
+    <label class="env"><span>環境変数 <span class="muted">(<code>SQLCONNSTR_&lt;名前&gt;</code> で web.config の接続文字列、<code>APPSETTING_&lt;キー&gt;</code> で appSettings を置き換え)</span></span>
+      <textarea id="native-env" rows="5" spellcheck="false">${esc(state.nativeEnv ?? environment ?? '')}</textarea>
+      <span class="muted">値の無いものは web.config のまま使います。この PC から見えるデータベースを指定します(LocalDB、<code>.\\SQLEXPRESS</code>、Docker の SQL Server なら <code>localhost,&lt;ポート&gt;</code>)。</span>
+    </label>
     <div class="convert-actions left"><button class="btn primary" id="native-start">▶ 起動</button></div>`;
   root.innerHTML = runnerPanel('native', 'ネイティブ起動(この Windows)', '◆', native, log, idle,
     e => `dotnet で起動し、サイトが応答するのを待っています(${esc(e.url ?? '')})`);
-  $('#native-start')?.addEventListener('click', () => api(`/analyses/${state.id}/native`, { method: 'POST' }).then(loadNative).catch(e => toast(e.message)));
+  $('#native-env')?.addEventListener('input', ev => (state.nativeEnv = ev.target.value));
+  $('#native-start')?.addEventListener('click', () =>
+    api(`/analyses/${state.id}/native`, { method: 'POST', body: JSON.stringify({ environment: $('#native-env')?.value ?? null }) })
+      .then(() => { state.nativeEnv = null; return loadNative(); }).catch(e => toast(e.message)));
   $('#native-stop')?.addEventListener('click', async () => {
     await api(`/analyses/${state.id}/native`, { method: 'DELETE' }).catch(e => toast(e.message));
     await loadNative();

@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Net;
 using System.Net.Sockets;
 using System.Text.RegularExpressions;
+using System.Xml.Linq;
 
 namespace FrameworkOnCore.Studio;
 
@@ -23,6 +24,47 @@ public sealed record RunEntry
 }
 
 public sealed record OriginalRequest(bool Rebuild);
+
+/// <summary>The environment the converted application gets natively (NAME=value lines), as a container's.</summary>
+public sealed record NativeRequest(string? Environment);
+
+/// <summary>
+/// The environment a converted application is run with, as its deployment takes it (deploy/README.md: the runtime reads
+/// SQLCONNSTR_&lt;name&gt; for web.config's connection strings, APPSETTING_&lt;key&gt; for appSettings): NAME=value lines.
+/// </summary>
+public static class RunEnvironment
+{
+    /// <summary>To fill in: the connection strings of the site's web.config, each one's variable without a value.</summary>
+    public static string Template(string? site)
+    {
+        var lines = new List<string> { "# 1 行に 1 つ、名前=値。# で始まる行と、値の無い行は渡しません。" };
+        if (site != null && Directory.Exists(site) && Directory.EnumerateFiles(site, "web.config", new EnumerationOptions { MatchCasing = MatchCasing.CaseInsensitive }).FirstOrDefault() is { } config)
+        {
+            try
+            {
+                foreach (var add in XDocument.Load(config).Descendants("connectionStrings").Elements("add"))
+                {
+                    var name = (string?)add.Attribute("name");
+                    if (string.IsNullOrEmpty(name)) continue;
+                    var provider = (string?)add.Attribute("providerName") ?? "";
+                    var prefix = provider is "" or "System.Data.SqlClient" or "Microsoft.Data.SqlClient" ? "SQLCONNSTR_"
+                        : provider.Contains("MySql", StringComparison.OrdinalIgnoreCase) ? "MYSQLCONNSTR_" : "CUSTOMCONNSTR_";
+                    lines.Add($"# web.config の {name}: {(string?)add.Attribute("connectionString")}");
+                    lines.Add($"{prefix}{name}=");
+                }
+            }
+            catch (System.Xml.XmlException) { }
+        }
+        lines.Add("# 例: APPSETTING_<キー>=<値>(appSettings)");
+        return string.Join('\n', lines) + '\n';
+    }
+
+    /// <summary>NAME=value lines; comments and names without a value are left out.</summary>
+    public static IEnumerable<(string Name, string Value)> Variables(string text) =>
+        text.Split('\n').Select(l => l.TrimEnd('\r')).Where(l => !l.TrimStart().StartsWith('#'))
+            .Where(l => l.IndexOf('=') is var at && at > 0 && at < l.Length - 1)
+            .Select(l => (l[..l.IndexOf('=')].Trim(), l[(l.IndexOf('=') + 1)..]));
+}
 
 /// <summary>
 /// What the runners of this machine share: their entries and logs in memory (a site run here ends with Studio: nothing
@@ -403,7 +445,13 @@ public sealed class Natives(AnalysisStore store, Conversions conversions) : Runs
 {
     readonly ConcurrentDictionary<string, Process> processes = new(StringComparer.Ordinal);
 
-    public RunEntry Start(string id)
+    string EnvironmentFile(string id) => Path.Combine(store.Folder(id), "native", "environment.txt");
+
+    /// <summary>The environment given last, or else the connection strings of the site's web.config, to fill in.</summary>
+    public string Environment(string id) =>
+        File.Exists(EnvironmentFile(id)) ? File.ReadAllText(EnvironmentFile(id)) : RunEnvironment.Template(conversions.Site(id));
+
+    public RunEntry Start(string id, string? environment)
     {
         if (store.Get(id) == null) throw new InvalidOperationException("no such analysis");
         if (conversions.Get(id) is not { State: "done" }) throw new InvalidOperationException("the conversion is not built");
@@ -411,6 +459,12 @@ public sealed class Natives(AnalysisStore store, Conversions conversions) : Runs
         var start = Path.Combine(conversions.Output(id), "deploy", "start.sh");
         var dll = File.Exists(start) ? Regex.Match(File.ReadAllText(start), @"exec dotnet ""bin/(.+?)\.dll""") : null;
         if (dll is not { Success: true }) throw new InvalidOperationException("変換の出力に deploy/start.sh がありません");
+        if (environment != null)
+        {
+            Directory.CreateDirectory(Path.GetDirectoryName(EnvironmentFile(id))!);
+            File.WriteAllText(EnvironmentFile(id), environment);
+        }
+        var variables = RunEnvironment.Variables(Environment(id)).ToList();
         var port = FreePort(8100);
         var entry = new RunEntry { State = "starting", Started = DateTimeOffset.UtcNow, Host = "dotnet", Site = site, Port = port, Url = $"http://localhost:{port}/" };
         return Begin(id, entry, async (log, cancel) =>
@@ -419,6 +473,7 @@ public sealed class Natives(AnalysisStore store, Conversions conversions) : Runs
             {
                 var info = new ProcessStartInfo("dotnet") { WorkingDirectory = site };
                 foreach (var argument in new[] { Path.Combine("bin", dll.Groups[1].Value + ".dll"), "--urls", $"http://localhost:{port}" }) info.ArgumentList.Add(argument);
+                foreach (var (name, value) in variables) info.Environment[name] = value;
                 var process = processes[id] = StartLogged(info, log);
                 EndWithStudio(process);
                 // Restarted (exit code 75) as a supervisor does, for as long as it is not stopped.

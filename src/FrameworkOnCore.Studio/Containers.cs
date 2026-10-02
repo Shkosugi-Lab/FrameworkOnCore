@@ -2,7 +2,6 @@ using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.Text.Json;
 using System.Text.RegularExpressions;
-using System.Xml.Linq;
 using FrameworkOnCore.Analysis;
 
 namespace FrameworkOnCore.Studio;
@@ -61,30 +60,8 @@ public sealed class Containers(AnalysisStore store, Conversions conversions)
     public IReadOnlyList<string> Log(string id) => logs.TryGetValue(id, out var log) ? log.ToList() : [];
 
     /// <summary>The environment given last, or else the connection strings of the site's web.config, to fill in.</summary>
-    public string Environment(string id)
-    {
-        if (File.Exists(EnvironmentFile(id))) return File.ReadAllText(EnvironmentFile(id));
-        var lines = new List<string> { "# 1 行に 1 つ、名前=値。# で始まる行と、値の無い行は渡しません。" };
-        if (conversions.Site(id) is { } site && Directory.EnumerateFiles(site, "web.config", new EnumerationOptions { MatchCasing = MatchCasing.CaseInsensitive }).FirstOrDefault() is { } config)
-        {
-            try
-            {
-                foreach (var add in XDocument.Load(config).Descendants("connectionStrings").Elements("add"))
-                {
-                    var name = (string?)add.Attribute("name");
-                    if (string.IsNullOrEmpty(name)) continue;
-                    var provider = (string?)add.Attribute("providerName") ?? "";
-                    var prefix = provider is "" or "System.Data.SqlClient" or "Microsoft.Data.SqlClient" ? "SQLCONNSTR_"
-                        : provider.Contains("MySql", StringComparison.OrdinalIgnoreCase) ? "MYSQLCONNSTR_" : "CUSTOMCONNSTR_";
-                    lines.Add($"# web.config の {name}: {(string?)add.Attribute("connectionString")}");
-                    lines.Add($"{prefix}{name}=");
-                }
-            }
-            catch (System.Xml.XmlException) { }
-        }
-        lines.Add("# 例: APPSETTING_<キー>=<値>(appSettings)");
-        return string.Join('\n', lines) + '\n';
-    }
+    public string Environment(string id) =>
+        File.Exists(EnvironmentFile(id)) ? File.ReadAllText(EnvironmentFile(id)) : RunEnvironment.Template(conversions.Site(id));
 
     /// <summary>
     /// Docker's state: its engine answers; else why not (docker's message, or that the command is not there) and whether
@@ -261,10 +238,7 @@ public sealed class Containers(AnalysisStore store, Conversions conversions)
         logs.TryRemove(id, out _);
     }
 
-    // NAME=value lines; comments and names without a value are left out.
-    static IEnumerable<string> Variables(string text) =>
-        text.Split('\n').Select(l => l.TrimEnd('\r')).Where(l => !l.TrimStart().StartsWith('#'))
-            .Where(l => l.IndexOf('=') is var at && at > 0 && at < l.Length - 1);
+    static IEnumerable<string> Variables(string text) => RunEnvironment.Variables(text).Select(v => $"{v.Name}={v.Value}");
 
     async Task<int> Run(IEnumerable<string> arguments, ConcurrentQueue<string> log, CancellationToken cancel)
     {

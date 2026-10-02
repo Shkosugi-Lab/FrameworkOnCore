@@ -190,11 +190,12 @@ api.MapPost("/analyses/{id}/original", (string id, OriginalRequest? request, Ori
 api.MapDelete("/analyses/{id}/original", (string id, Originals originals) => originals.Stop(id) ? Results.NoContent() : Results.NotFound());
 
 // The converted application on this machine, natively (dotnet).
-api.MapGet("/analyses/{id}/native", (string id, Natives natives) => Results.Ok(new { native = natives.Get(id), log = natives.Log(id).TakeLast(300) }));
+api.MapGet("/analyses/{id}/native", (string id, Natives natives) =>
+    Results.Ok(new { native = natives.Get(id), environment = natives.Environment(id), log = natives.Log(id).TakeLast(300) }));
 
-api.MapPost("/analyses/{id}/native", (string id, Natives natives) =>
+api.MapPost("/analyses/{id}/native", (string id, NativeRequest? request, Natives natives) =>
 {
-    try { return Results.Ok(natives.Start(id)); }
+    try { return Results.Ok(natives.Start(id, request?.Environment)); }
     catch (InvalidOperationException e) { return Results.Conflict(new { error = e.Message }); }
 });
 

@@ -1,0 +1,55 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- dotnet/maintenance-packages' functional tests of System.Data.SqlClient (MIT; the commit of the 4.9.0 package, as the
+       port's source), run against FrameworkOnCore's port (FrameworkOnCore.Runtime/src/WebFormsForCore.Data.SqlClient):
+       its own tests, with the TDS test server they connect to (Tools/TDS) and the UDT one uses, as they were. Their
+       project (System.Data.SqlClient.Tests.csproj) compiled the same files. -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <IsPackable>false</IsPackable>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <LangVersion>12</LangVersion>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <NoWarn>$(NoWarn);CA1001;CA1051;CA1068;CA1069;CA1304;CA1309;CA1310;CA1311;CA1419;CA1507;CA1510;CA1512;CA1513;CA1711;CA1716;CA1805;CA1806;CA1816;CA1822;CA1830;CA1834;CA1835;CA1836;CA1840;CA1844;CA1852;CA1859;CA1861;CA1862;CA1863;CA1866;CA2016;CA2101;CA2200;CA2201;CA2208;CA2211;CA2219;CA2241;CA2249;CA2251;CA5366;CS0168;CS0618;CS0649;IDE0073;SYSLIB0004;SYSLIB0023;SYSLIB0051;xUnit1004;xUnit1013;xUnit2000;xUnit2013</NoWarn>
+    <!-- As dotnet's test runs filter them: [PlatformSpecific] marks a test for the platforms it is not for (named pipes and
+         Windows authentication are Windows only: category=nonlinuxtests), [ActiveIssue] as failing. -->
+    <VSTestTestCaseFilter Condition="$([MSBuild]::IsOSPlatform('Windows'))">category!=nonwindowstests&amp;category!=failing</VSTestTestCaseFilter>
+    <VSTestTestCaseFilter Condition="$([MSBuild]::IsOSPlatform('Linux'))">category!=nonlinuxtests&amp;category!=failing</VSTestTestCaseFilter>
+    <VSTestTestCaseFilter Condition="$([MSBuild]::IsOSPlatform('OSX'))">category!=nonosxtests&amp;category!=failing</VSTestTestCaseFilter>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="FunctionalTests\**\*.cs" />
+    <!-- FrameworkOnCore's: what the port changes. -->
+    <Compile Include="FrameworkOnCore\**\*.cs" />
+    <Compile Include="ManualTests\DataCommon\DataTestUtility.cs" />
+    <!-- What maintenance-packages' Directory.Build.targets gives every test project. -->
+    <Compile Include="Common\**\*.cs" Exclude="Common\Windows\**" />
+    <Compile Include="ManualTests\SQL\UdtTest\UDTs\Address\*.cs" />
+    <Compile Include="Tools\TDS\**\*.cs" Exclude="Tools\TDS\TDS.EndPoint\SSPI\SSPIContext.*.cs;Tools\TDS\TDS.EndPoint\SSPI\SecurityWrapper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- The test server's certificate, beside the tests (TDS.Servers.csproj copied it so). -->
+    <None Include="Tools\TDS\TDS.Servers\TdsServerCertificate.pfx" Link="TdsServerCertificate.pfx" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+  <!-- As TDS.EndPoint.csproj builds them per platform. -->
+  <ItemGroup Condition="'$(OS)' == 'Windows_NT'">
+    <Compile Include="Common\Windows\*.cs" />
+    <Compile Include="Tools\TDS\TDS.EndPoint\SSPI\SSPIContext.Windows.cs" />
+    <Compile Include="Tools\TDS\TDS.EndPoint\SSPI\SecurityWrapper.cs" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(OS)' != 'Windows_NT'">
+    <Compile Include="Tools\TDS\TDS.EndPoint\SSPI\SSPIContext.Unix.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.*" />
+    <PackageReference Include="xunit" Version="2.4.2" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5" />
+    <PackageReference Include="Microsoft.DotNet.XUnitExtensions" Version="8.0.0-beta.24525.2" />
+    <PackageReference Include="Microsoft.DotNet.RemoteExecutor" Version="8.0.0-beta.24525.2" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\FrameworkOnCore.Runtime\src\WebFormsForCore.Data.SqlClient\WebFormsForCore.Data.SqlClient.csproj" />
+  </ItemGroup>
+</Project>

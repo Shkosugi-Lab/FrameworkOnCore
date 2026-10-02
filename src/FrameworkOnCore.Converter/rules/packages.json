@@ -1,9 +1,9 @@
 {
   "$comment": "Package and reference rules. \"$frameworkoncore\" stands for the version of FrameworkOnCore's packages (frameworkOnCoreVersion).",
-  "frameworkOnCoreVersion": "1.6.5-w2l.10",
+  "frameworkOnCoreVersion": "1.6.5-w2l.11",
 
-  "$comment_webPackages": "The web project always gets these (Program.cs uses them; pages reference them at run time).",
-  "webPackages": [ "FrameworkOnCore.Web", "FrameworkOnCore.Web.Extensions", "FrameworkOnCore.Configuration", "FrameworkOnCore.Web.DynamicData" ],
+  "$comment_webPackages": "The web project always gets these (Program.cs uses them; pages reference them at run time). FrameworkOnCore.Data.SqlClient: whoever opens the connection (the sources, Entity Framework, a DLL), System.Data.SqlClient is the one expanding |DataDirectory| as .NET Framework's (its assembly version is above the package Entity Framework brings).",
+  "webPackages": [ "FrameworkOnCore.Web", "FrameworkOnCore.Web.Extensions", "FrameworkOnCore.Configuration", "FrameworkOnCore.Web.DynamicData", "FrameworkOnCore.Data.SqlClient" ],
 
   "$comment_replacedPackages": "packages.config / PackageReference ids with a .NET 10 answer: [id, version].",
   "replacedPackages": {
@@ -15,6 +15,9 @@
     "EntityFramework": [ "EntityFramework", "6.5.1" ],
     // System.Drawing.Common from NuGet (Windows only since .NET 7): FrameworkOnCore's, which has the Linux implementation.
     "System.Drawing.Common": [ "FrameworkOnCore.Drawing.Common", "$frameworkoncore" ],
+    // System.Data.SqlClient from NuGet refuses |DataDirectory| in AttachDBFilename: FrameworkOnCore's expands it, as .NET
+    // Framework's did (the same source, maintenance-packages' 4.9.0; its assembly over the package's Entity Framework brings).
+    "System.Data.SqlClient": [ "FrameworkOnCore.Data.SqlClient", "$frameworkoncore" ],
     "Newtonsoft.Json": [ "Newtonsoft.Json", "13.0.4" ],
     // Before 1.0.116 the native SQLite.Interop.dll is Windows only (x86/x64 folders). 1.0.119 has .NET's
     // runtimes (win, linux-x64, osx-x64); 2.x ships no native library.
@@ -70,7 +73,7 @@
 
   "$comment_sourcePackages": "What .NET Framework had in its own assemblies and .NET ships as packages: added when the sources use it.",
   "sourcePackages": [
-    { "pattern": "\\bSystem\\.Data\\.SqlClient\\b|\\bMicrosoft\\.SqlServer\\.Server\\b", "id": "System.Data.SqlClient", "version": "4.9.0" },
+    { "pattern": "\\bSystem\\.Data\\.SqlClient\\b|\\bMicrosoft\\.SqlServer\\.Server\\b", "id": "FrameworkOnCore.Data.SqlClient", "version": "$frameworkoncore" },
     { "pattern": "\\bSystem\\.Data\\.Odbc\\b", "id": "System.Data.Odbc", "version": "10.0.0" },
     { "pattern": "\\bSystem\\.Data\\.OleDb\\b", "id": "System.Data.OleDb", "version": "10.0.0", "note": "OLE DB is Windows only" },
     { "pattern": "\\bSystem\\.Security\\.Cryptography\\.Xml\\b", "id": "System.Security.Cryptography.Xml", "version": "10.0.0" },
@@ -161,6 +164,6 @@
   ],
   "$comment_sourceNotes": "What the sources do that behaves differently on .NET (reported).",
   "sourceNotes": [
-    { "pattern": "\\|DataDirectory\\|", "note": "a connection string built with |DataDirectory| (AttachDBFilename) in code is rejected by .NET's System.Data.SqlClient (from web.config the runtime expands it); attached database files (LocalDB, SQL Server Express user instances) are Windows only: use a database server" }
+    { "pattern": "\\|DataDirectory\\|", "note": "|DataDirectory| (AttachDBFilename): expanded by FrameworkOnCore's System.Data.SqlClient as on .NET Framework (App_Data); attached database files (LocalDB, SQL Server Express user instances) are Windows only: use a database server" }
   ]
 }

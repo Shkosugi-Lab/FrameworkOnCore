@@ -6,6 +6,7 @@
   <Project Path="../../FrameworkOnCore.Runtime/src/WebFormsForCore.Compilers/WebFormsForCore.Compilers.csproj" />
   <Project Path="../../FrameworkOnCore.Runtime/src/WebFormsForCore.Configuration/WebFormsForCore.Configuration.csproj" />
   <Project Path="../../FrameworkOnCore.Runtime/src/WebFormsForCore.Drawing.Common/WebFormsForCore.Drawing.Common.csproj" />
+  <Project Path="../../FrameworkOnCore.Runtime/src/WebFormsForCore.Data.SqlClient/WebFormsForCore.Data.SqlClient.csproj" />
   <Project Path="../../FrameworkOnCore.Runtime/src/WebFormsForCore.Drawing/WebFormsForCore.Drawing.csproj" />
   <Project Path="../../FrameworkOnCore.Runtime/src/WebFormsForCore.Serialization.Formatters/WebFormsForCore.Serialization.Formatters.csproj" />
   <Project Path="../../FrameworkOnCore.Runtime/src/WebFormsForCore.Data.Linq/WebFormsForCore.Data.Linq.csproj" />

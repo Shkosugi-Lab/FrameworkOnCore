@@ -9,7 +9,7 @@
 # All builds in dependency order, after src/WebFormsForCore.Build when it was not built yet (it emits the
 # FakeStrongName targets every project imports).
 param(
-    [string]$Version = '1.6.5-w2l.10',
+    [string]$Version = '1.6.5-w2l.11',
     [ValidateSet('Web', 'All', 'None')][string]$Build = 'Web'
 )
 
@@ -29,6 +29,9 @@ $projects = @(
     # System.Drawing.Common with its Linux implementation (dotnet/runtime release/6.0, libgdiplus): the Windows build and,
     # built apart below, the Unix one, in one package (runtimes/win, runtimes/unix).
     'WebFormsForCore.Drawing.Common\WebFormsForCore.Drawing.Common.csproj'
+    # System.Data.SqlClient expanding |DataDirectory| as .NET Framework's (dotnet/maintenance-packages' 4.9.0 source): the
+    # Windows build (native SNI) and, built apart below, the Unix one (managed SNI), in one package.
+    'WebFormsForCore.Data.SqlClient\WebFormsForCore.Data.SqlClient.csproj'
     'WebFormsForCore.Serialization.Formatters\WebFormsForCore.Serialization.Formatters.csproj'
     # LINQ to SQL (System.Data.Linq), ported from referencesource (generate-dlinq-resources.ps1 for its resources).
     'WebFormsForCore.Data.Linq\WebFormsForCore.Data.Linq.csproj'
@@ -75,6 +78,9 @@ if ($Build -eq 'All') {
     # The System.Drawing.Common port's Unix build (the solution builds its Windows one; the package takes both).
     dotnet build (Join-Path $src 'WebFormsForCore.Drawing.Common\WebFormsForCore.Drawing.Common.csproj') -c $Configuration -p:FocTargetOS=unix -v q -nologo
     if ($LASTEXITCODE -ne 0) { throw "build failed: FrameworkOnCore.Drawing.Common (unix)" }
+    # The System.Data.SqlClient port's Unix build, likewise.
+    dotnet build (Join-Path $src 'WebFormsForCore.Data.SqlClient\WebFormsForCore.Data.SqlClient.csproj') -c $Configuration -p:FocTargetOS=unix -v q -nologo
+    if ($LASTEXITCODE -ne 0) { throw "build failed: FrameworkOnCore.Data.SqlClient (unix)" }
     foreach ($project in $net10Only) {
         # -f, not the TargetFrameworks property: a global property would restore the projects it references for net10.0 only.
         dotnet build (Join-Path $src $project) -c $Configuration -f net10.0 --no-dependencies -v q -nologo

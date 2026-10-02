@@ -27,8 +27,8 @@ $script = @'
 set -e
 # System.Drawing's Linux implementation (the port) draws with libgdiplus.
 apt-get update -qq >/dev/null 2>&1 && apt-get install -y -qq --no-install-recommends libgdiplus fonts-liberation2 >/dev/null 2>&1
-for d in src/FrameworkOnCore.Analyzers src/FrameworkOnCore.Analysis src/FrameworkOnCore.Converter experiments/wf4c/shims/FrameworkOnCore.Compat tests/FrameworkOnCore.Tests tests/Parity.Core tests/DataLinqParity tests/DrawingParity tests/DataVisualizationParity tests/MobileParity \
-         FrameworkOnCore.Runtime/src/WebFormsForCore.Data.Linq FrameworkOnCore.Runtime/src/WebFormsForCore.Drawing.Common FrameworkOnCore.Runtime/src/SigningKey FrameworkOnCore.Runtime/lib/WebFormsForCore.Build; do
+for d in src/FrameworkOnCore.Analyzers src/FrameworkOnCore.Analysis src/FrameworkOnCore.Converter experiments/wf4c/shims/FrameworkOnCore.Compat tests/FrameworkOnCore.Tests tests/Parity.Core tests/DataLinqParity tests/DrawingParity tests/DataVisualizationParity tests/MobileParity tests/SqlClientTests \
+         FrameworkOnCore.Runtime/src/WebFormsForCore.Data.Linq FrameworkOnCore.Runtime/src/WebFormsForCore.Data.SqlClient FrameworkOnCore.Runtime/src/WebFormsForCore.Drawing.Common FrameworkOnCore.Runtime/src/SigningKey FrameworkOnCore.Runtime/lib/WebFormsForCore.Build; do
   mkdir -p /w/$d
   (cd /repo/$d && find . -type f -not -path './bin/*' -not -path './obj/*' -exec cp --parents {} /w/$d/ \;)
 done
@@ -38,6 +38,10 @@ mkdir -p /w/experiments/wf4c/_feed && cp /repo/experiments/wf4c/_feed/*.nupkg /w
 cp /repo/FrameworkOnCore.Runtime/src/VersionInfo.cs /w/FrameworkOnCore.Runtime/src/
 cd /w
 dotnet test tests/FrameworkOnCore.Tests/FrameworkOnCore.Tests.csproj -nologo -v q __FILTER__
+__SQLCLIENT__
 '@ -replace "`r", ''
 $script = $script.Replace('__FILTER__', $(if ($Filter) { "--filter '$Filter' --logger 'console;verbosity=normal'" } else { '' }))
+# The System.Data.SqlClient port's tests (Microsoft's functional tests and |DataDirectory|'s, with their TDS server) on
+# the managed SNI, Linux's; with -Filter, FrameworkOnCore.Tests' only.
+$script = $script.Replace('__SQLCLIENT__', $(if ($Filter) { '' } else { 'dotnet test tests/SqlClientTests/SqlClientTests.csproj -nologo -v q' }))
 docker run --rm @arguments -v "${repo}:/repo:ro" $Image bash -c $script

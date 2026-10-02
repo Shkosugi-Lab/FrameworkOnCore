@@ -582,6 +582,7 @@ Linux で ICU のデータに表せないもの:
 
 ICU のデータで表せないもの: `AllDateTimePatterns` の 2 番目以降のパターン(5 件)。主な書式(通貨記号、日付・時刻の既定の書式)は元のサーバーと同じ。
 - `|DataDirectory|` をコードで組み立てる接続文字列は、.NET の System.Data.SqlClient が拒否する。変換器はこれを報告する(`rules/packages.json` の `sourceNotes`)。ファイルを接続する DB(LocalDB、ユーザーインスタンス)は Windows 専用なので、DB サーバーを使う。
+  - 2026-10-02 から、System.Data.SqlClient の移植版が .NET Framework と同じく展開する(「System.Data.SqlClient の移植」)。
 
 DNN を動かす過程で変換器に加えた規則:
 - SYSLIB0007(`HashAlgorithm.Create()` などの引数なしの Create): .NET Framework の既定のアルゴリズム(SHA1、HMACSHA1、AES、RSA)に書き換える。型のメンバーは拡張メンバーより先に見つかるので、拡張では補えない。位置はコンパイラーの警告から取る。
@@ -895,6 +896,37 @@ System.Drawing を Linux で動かす試み(`api-probe/drawing`、Ubuntu 24.04 �
   - 元のアプリをビルドして IIS で起動し、200 を返した。止めるとサイトが消えた。
   - 変換、ネイティブ起動も 200 を返した。
   - Studio を強制終了すると、ネイティブのアプリが止まり、IIS のサイトは次の起動で消えた。
+
+### System.Data.SqlClient の移植(`|DataDirectory|`、2026-10-02)
+
+DNN のインストール ウィザードがネイティブ起動で 500 になった(`Invalid value for key 'attachdbfilename'`)。
+
+- 原因: DNN はコードで `"|DataDirectory|" + ファイル名` の接続文字列を組み立てる。.NET の System.Data.SqlClient はこれを拒否する。
+- .NET Framework の System.Data.SqlClient は、先頭の `|DataDirectory|` を AppDomain の "DataDirectory"(ASP.NET では App_Data)、無ければ BaseDirectory に展開していた。
+- 構成の接続文字列は以前からランタイムが展開している(0013)。コードで組み立てたもの、Entity Framework、DLL が開くものには効かない。
+
+対応: System.Data.SqlClient を移植した(`FrameworkOnCore.Runtime/src/WebFormsForCore.Data.SqlClient`、パッケージ `FrameworkOnCore.Data.SqlClient`)。
+
+- ソース: dotnet/maintenance-packages の 4.9.0 パッケージのコミット(MIT)。System.Drawing.Common と同じく、Windows(ネイティブの SNI)と Unix(マネージドの SNI)を別々にビルドし、一つのパッケージ(runtimes/win、runtimes/unix)に入れる。
+- 変更は 1 か所だけ: `SqlConnectionString` が AttachDBFilename の先頭の `|DataDirectory|` を .NET Framework と同じ手順で展開する(`Core/DbConnectionOptions.DataDirectory.cs`)。
+  - `..` でフォルダーの外に出るパスは拒否する。
+  - 先頭以外の `|DataDirectory|` は、.NET Framework と同じく拒否する。
+- アセンブリ: Microsoft の名前と公開鍵(b03f5f7f11d50a3a)、版は 4.6.2.0。Entity Framework 6 が依存で持ち込む Microsoft のパッケージ(4.6.1.6)より上なので、移植版が使われる。
+  - wt のホストのトレースで確かめた: TPA に入るのは移植版の `runtimes/win/lib/net10.0` で、Microsoft の方は使われない。
+- 変換器: Web プロジェクトに常に付ける(`webPackages`)。接続を開くのがソース、Entity Framework、DLL のどれでも、移植版が使われる。
+  - `System.Data.SqlClient` のパッケージ参照とソースの使用(`sourcePackages`)も、移植版に置き換える。
+- LINQ to SQL とグラフの移植も、移植版を参照する。版を 1.6.5-w2l.11 に上げた。
+- テスト: `tests/SqlClientTests`。
+  - maintenance-packages の機能テスト(TDS のテスト サーバーに接続する)を、そのまま移植版に対して動かす。
+  - `|DataDirectory|` のテスト 6 件を足した: DataDirectory への展開、区切りの重複、BaseDirectory、`..` の拒否、普通のパス、先頭以外の拒否。
+  - `[PlatformSpecific]` のテストは、dotnet のテストの実行と同じく、ほかの OS では除外する(名前付きパイプ、Windows 認証)。
+  - Linux のテストは `run-tests-linux.ps1` と packages のワークフローで動かす。
+
+確認:
+- DNN のネイティブ起動: インストール ウィザードが 200 で、IIS と同じ。
+- テスト: Windows では FrameworkOnCore.Tests 4,337 件と SqlClientTests 195 件。Linux では 4,318 件と 185 件。すべて緑(スキップは SQL Server が要るもの)。
+- be: Windows・Linux とも 5/5。
+- wt: Windows 6/8、Linux 5/8。以前と同じ既知の差だけ。
 ## 全コーパスでの検証(2026-09-27)
 
 `verify-corpora.ps1` で 6 本を変換してビルドした(Windows)。正解データがあるのは be と wt だけ。

@@ -22,7 +22,7 @@ param(
 )
 
 $ErrorActionPreference = 'Stop'
-$FrameworkOnCoreVersion = '1.6.5-w2l.10'
+$FrameworkOnCoreVersion = '1.6.5-w2l.11'
 $msbuildNs = @{ m = 'http://schemas.microsoft.com/developer/msbuild/2003' }
 $msbuildUri = 'http://schemas.microsoft.com/developer/msbuild/2003'
 
@@ -36,6 +36,8 @@ $replacedPackages = @{
     'AjaxControlToolkit'                         = @('FrameworkOnCore.AjaxControlToolkit', $FrameworkOnCoreVersion)
     # System.Drawing.Common from NuGet is Windows only since .NET 7: FrameworkOnCore's has the Linux implementation.
     'System.Drawing.Common'                      = @('FrameworkOnCore.Drawing.Common', $FrameworkOnCoreVersion)
+    # System.Data.SqlClient from NuGet refuses |DataDirectory|: FrameworkOnCore's expands it, as .NET Framework's did.
+    'System.Data.SqlClient'                      = @('FrameworkOnCore.Data.SqlClient', $FrameworkOnCoreVersion)
     # First version that runs on .NET (Core).
     'EntityFramework'                            = @('EntityFramework', '6.5.1')
     # Raised to what WebFormsForCore depends on (a downgrade is NU1605); backward compatible.
@@ -72,7 +74,7 @@ $noAnswer = @('System.Data.Services.Client', 'System.Design')
 # What .NET Framework had in its own assemblies (System.Data, System, System.Security, ...) and .NET
 # ships as packages: added when the project's sources use it (a namespace or a type name).
 $sourcePackages = @(
-    @{ Pattern = '\bSystem\.Data\.SqlClient\b|\bMicrosoft\.SqlServer\.Server\b'; Id = 'System.Data.SqlClient'; Version = '4.9.0' }
+    @{ Pattern = '\bSystem\.Data\.SqlClient\b|\bMicrosoft\.SqlServer\.Server\b'; Id = 'FrameworkOnCore.Data.SqlClient'; Version = $FrameworkOnCoreVersion }
     @{ Pattern = '\bSystem\.Data\.Odbc\b'; Id = 'System.Data.Odbc'; Version = '10.0.0' }
     @{ Pattern = '\bSystem\.Data\.OleDb\b'; Id = 'System.Data.OleDb'; Version = '10.0.0'; Note = 'OLE DB is Windows only' }
     @{ Pattern = '\bSystem\.Security\.Cryptography\.Xml\b'; Id = 'System.Security.Cryptography.Xml'; Version = '10.0.0' }
@@ -108,7 +110,7 @@ function Add-SourcePackages($packages, [string[]]$files, [string]$name) {
 # the errors TreatWarningsAsErrors would make them (the original built before they were published).
 $commonProperties = '<NoWarn>$(NoWarn);NU1701;NU1603;NU1608;SYSLIB0011</NoWarn><WarningsNotAsErrors>$(WarningsNotAsErrors);NU1901;NU1902;NU1903;NU1904</WarningsNotAsErrors>'
 # The web project always gets these (Program.cs uses them; pages reference them at run time).
-$webPackages = @('FrameworkOnCore.Web', 'FrameworkOnCore.Web.Extensions', 'FrameworkOnCore.Configuration', 'FrameworkOnCore.Web.DynamicData')
+$webPackages = @('FrameworkOnCore.Web', 'FrameworkOnCore.Web.Extensions', 'FrameworkOnCore.Configuration', 'FrameworkOnCore.Web.DynamicData', 'FrameworkOnCore.Data.SqlClient')
 
 # A path relative to a directory (Windows PowerShell 5.1 has no Path.GetRelativePath). The output
 # is built elsewhere too (a Linux container), so no absolute path goes into a project file.

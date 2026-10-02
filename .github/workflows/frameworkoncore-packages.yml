@@ -20,6 +20,7 @@ on:
       - 'experiments/wf4c/pack-frameworkoncore.ps1'
       - 'experiments/wf4c/frameworkoncore.slnx'
       - 'src/FrameworkOnCore.Converter/rules/packages.json'
+      - 'tests/SqlClientTests/**'
       - '.github/workflows/frameworkoncore-packages.yml'
   workflow_dispatch:
     inputs:
@@ -88,6 +89,9 @@ jobs:
           path: FrameworkOnCore.Runtime/lib/WebFormsForCore.Build
       - name: Tests (Linux)
         run: dotnet test tests/FrameworkOnCore.Tests/FrameworkOnCore.Tests.csproj -nologo -v q
+      # The System.Data.SqlClient port on Linux's managed SNI: Microsoft's functional tests and |DataDirectory|'s.
+      - name: System.Data.SqlClient tests (Linux)
+        run: dotnet test tests/SqlClientTests/SqlClientTests.csproj -nologo -v q
 
   publish:
     needs: [build, test-linux]

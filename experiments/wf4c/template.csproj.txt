@@ -16,7 +16,7 @@
     <StartupObject>Program</StartupObject>
     <EnableDefaultContentItems>false</EnableDefaultContentItems>
     <!-- FrameworkOnCore's WebFormsForCore (FrameworkOnCore.Runtime/ of this repository), packed into ../_feed. -->
-    <WebFormsForCoreVersion>1.6.5-w2l.10</WebFormsForCoreVersion>
+    <WebFormsForCoreVersion>1.6.5-w2l.11</WebFormsForCoreVersion>
     <RestoreAdditionalProjectSources>$(MSBuildThisFileDirectory)..\_feed</RestoreAdditionalProjectSources>
   </PropertyGroup>
 

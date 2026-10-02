@@ -35,7 +35,7 @@
 | `src/FrameworkOnCore.Studio` | GUI(ローカルの Web 画面)。分析 → 方針決定 → 変換・ビルド → デプロイのウィザード。元のアプリのテスト起動、変換後のアプリのネイティブ起動・コンテナ起動 |
 | `src/FrameworkOnCore.Analyzers` | 変換のビルドで使う Roslyn アナライザー(Windows のパス、非同期デリゲート、プラットフォームの置き換え) |
 | `experiments/wf4c/shims/FrameworkOnCore.Compat` | 互換アセンブリ。.NET にない、または Windows 専用のものを .NET Framework と同じ動きで補う(EventLog、Encoding.Default、Thread.ResetAbort、VB の My など) |
-| `FrameworkOnCore.Runtime` | 変換後のアプリが動く土台(System.Web など)。FrameworkOnCore で保守している WebFormsForCore で、上流を git subtree で取り込んだもの(中のプロジェクトは上流の名前 `src/WebFormsForCore.*` のまま、パッケージ名は `FrameworkOnCore.*`。Ajax Control Toolkit も `src/WebFormsForCore.AjaxControlToolkit` に同じく取り込み済み)。上流への変更は取り込みの後のコミット(以前のパッチ 0001〜0040 に当たる。0032・0033 は LINQ to SQL、0034〜0037 は System.Drawing の移植、0038 は Linux での生成物のフォルダーの掃除、0039・0040 は System.Web.DataVisualization(グラフ)の移植。その後の System.Web.Mobile の移植はこのリポジトリのコミット)。上流の更新は `git subtree pull --prefix=FrameworkOnCore.Runtime https://github.com/webformsforcore/WebFormsForCore.git main` |
+| `FrameworkOnCore.Runtime` | 変換後のアプリが動く土台(System.Web など)。FrameworkOnCore で保守している WebFormsForCore で、上流を git subtree で取り込んだもの(中のプロジェクトは上流の名前 `src/WebFormsForCore.*` のまま、パッケージ名は `FrameworkOnCore.*`。Ajax Control Toolkit も `src/WebFormsForCore.AjaxControlToolkit` に同じく取り込み済み)。上流への変更は取り込みの後のコミット(以前のパッチ 0001〜0040 に当たる。0032・0033 は LINQ to SQL、0034〜0037 は System.Drawing の移植、0038 は Linux での生成物のフォルダーの掃除、0039・0040 は System.Web.DataVisualization(グラフ)の移植。その後の System.Web.Mobile、System.Data.SqlClient の移植はこのリポジトリのコミット)。上流の更新は `git subtree pull --prefix=FrameworkOnCore.Runtime https://github.com/webformsforcore/WebFormsForCore.git main` |
 | `experiments/wf4c/casefs` | Linux でファイル名の大文字小文字を区別しない LD_PRELOAD ライブラリ(libfoccase.so) |
 | `tests/FrameworkOnCore.Tests` | テスト(Windows と Linux) |
 | `tests/DataLinqParity` | 移植した System.Data.Linq の全 API の新旧比較のケース(net48 で .NET Framework のゴールデンを採り、テストが移植版と比べる) |
@@ -112,6 +112,7 @@ dotnet test tests\FrameworkOnCore.Tests
 - System.Drawing は dotnet/runtime 6.0 の System.Drawing.Common(Linux 実装を持つ最後の版、MIT)を `FrameworkOnCore.Runtime/` に移植済みで、Windows は GDI+、Linux は libgdiplus で動く。全 API(3,354 のうち .NET にある 3,185 と、.NET が足した 40)を .NET Framework と新旧比較している(`experiments/wf4c/README.md` の記録)。
 - グラフ(System.Web.DataVisualization の Chart コントロール)は referencesource(MIT)から `FrameworkOnCore.Runtime/` に移植済みで、既定で使われる。全 API(1,661)を .NET Framework と新旧比較し、ChartImg.axd を使うサイト(`samples/ChartProbe`)を IIS と Windows・Linux で比べている(`experiments/wf4c/README.md` の記録)。
 - モバイル コントロール(System.Web.Mobile)は referencesource(MIT)から `FrameworkOnCore.Runtime/` に移植済みで、既定で使われる。全 API(1,819)を .NET Framework と新旧比較し、モバイル コントロールのサイト(`samples/MobileProbe`)を IIS と Windows・Linux で比べている(`experiments/wf4c/README.md` の記録)。
+- System.Data.SqlClient は dotnet/maintenance-packages の 4.9.0(MIT)を `FrameworkOnCore.Runtime/` に移植済みで、変換後の Web プロジェクトは常にこれを使う。接続文字列の `|DataDirectory|` を .NET Framework と同じく App_Data に展開する(.NET の System.Data.SqlClient は拒否する)。Microsoft の機能テストを Windows と Linux で動かしている。
 - 予定の選択肢: WCF のサービスを CoreWCF で動かす。
 
 ## ドキュメント

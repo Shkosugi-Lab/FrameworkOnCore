@@ -95,25 +95,40 @@ public abstract class Runs
         return entry;
     }
 
-    /// <summary>The site is up when it answers (any status: a 500 is a site that runs); the first request compiles pages.</summary>
+    /// <summary>
+    /// The site is up when it answers (any status: a 500 is a site that runs). Its first request may take long (pages
+    /// compiled, a database created and seeded): it is waited for, as long as the whole wait (by the clock, not the
+    /// requests: one that does not answer is not a minute of a count) and the site's process last.
+    /// </summary>
     protected async Task WaitForSite(string id, Func<bool> alive, ConcurrentQueue<string> log, CancellationToken cancel)
     {
+        const int minutes = 10;
         var url = entries[id].Url!;
-        using var http = new HttpClient { Timeout = TimeSpan.FromSeconds(60) };
-        for (var attempt = 0; ; attempt++)
+        using var deadline = CancellationTokenSource.CreateLinkedTokenSource(cancel);
+        deadline.CancelAfter(TimeSpan.FromMinutes(minutes));
+        using var http = new HttpClient { Timeout = Timeout.InfiniteTimeSpan };
+        while (true)
         {
             cancel.ThrowIfCancellationRequested();
             if (!alive()) throw new InvalidOperationException("サイトが起動の途中で止まりました(ログを見てください)");
             try
             {
-                using var response = await http.GetAsync(url, cancel);
+                // While it is asked, the process is watched: one that ends does not leave the request waiting.
+                using var request = CancellationTokenSource.CreateLinkedTokenSource(deadline.Token);
+                var answer = http.GetAsync(url, request.Token);
+                while (!answer.IsCompleted)
+                {
+                    await Task.WhenAny(answer, Task.Delay(1000, CancellationToken.None));
+                    if (!answer.IsCompleted && !alive()) request.Cancel();
+                }
+                using var response = await answer;
                 log.Enqueue($"{url} -> {(int)response.StatusCode}");
                 entries[id] = entries[id] with { State = "running", FirstStatus = (int)response.StatusCode };
                 return;
             }
             catch (HttpRequestException) { }
-            catch (TaskCanceledException) when (!cancel.IsCancellationRequested) { }
-            if (attempt > 150) throw new InvalidOperationException("5 分待っても応答がありません(ログを見てください)");
+            catch (OperationCanceledException) when (!cancel.IsCancellationRequested) { }
+            if (deadline.IsCancellationRequested) throw new InvalidOperationException($"{minutes} 分待っても応答がありません(ログを見てください。データベースに接続できているか)");
             await Task.Delay(2000, cancel);
         }
     }

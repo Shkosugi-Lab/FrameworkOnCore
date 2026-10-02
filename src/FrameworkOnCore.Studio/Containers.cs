@@ -191,9 +191,11 @@ public sealed class Containers(AnalysisStore store, Conversions conversions)
                 File.Delete(envFile);
                 if (run != 0) throw new InvalidOperationException($"docker run が失敗しました(終了コード {run})");
 
-                // Up when the site answers (any status: a 500 is a site that runs); the first request compiles pages.
-                using var http = new HttpClient { Timeout = TimeSpan.FromSeconds(30) };
-                for (var attempt = 0; ; attempt++)
+                // Up when the site answers (any status: a 500 is a site that runs); the first request compiles pages
+                // (and may create a database). Waited for by the clock: a request that does not answer counts its time.
+                using var http = new HttpClient { Timeout = TimeSpan.FromSeconds(60) };
+                var until = DateTime.UtcNow.AddMinutes(10);
+                while (true)
                 {
                     cancel.Token.ThrowIfCancellationRequested();
                     if (Docker($"inspect -f {{{{.State.Running}}}} {entry.Name}").Output.Trim() != "true")
@@ -210,7 +212,7 @@ public sealed class Containers(AnalysisStore store, Conversions conversions)
                     }
                     catch (HttpRequestException) { }
                     catch (TaskCanceledException) when (!cancel.IsCancellationRequested) { }
-                    if (attempt > 90) throw new InvalidOperationException("3 分待っても応答がありません(ログを見てください)");
+                    if (DateTime.UtcNow > until) throw new InvalidOperationException("10 分待っても応答がありません(ログを見てください。データベースに接続できているか)");
                     await Task.Delay(2000, cancel.Token);
                 }
             }

@@ -810,7 +810,7 @@ function renderContainer() {
   let html;
   if (busy) {
     html = `${head}<button class="btn ghost danger" id="run-stop">中止</button></div>
-      <div class="hint">${k === 'building' ? 'Dockerfile からイメージを作っています(初回はベースイメージの取得で数分かかります)' : `コンテナを起動し、サイトが応答するのを待っています(${esc(c.url)})`}</div>
+      <div class="hint">${k === 'building' ? 'Dockerfile からイメージを作っています(初回はベースイメージの取得で数分かかります)' : `コンテナを起動し、サイトが応答するのを待っています(${esc(c.url)}) ・ ${duration(c.started)} 経過<br>最初の表示は、ページのコンパイルやデータベースの作成で数分かかることがあります(10 分で打ち切ります)。`}</div>
       <div class="progress"></div>${logBlock}`;
   } else if (k === 'running') {
     const failing = c.firstStatus >= 500;
@@ -895,7 +895,7 @@ function runnerPanel(prefix, title, icon, entry, log, idle, busyText) {
   const logBlock = log?.length ? `<details class="convert-log" ${busy || k === 'failed' ? 'open' : ''}><summary>ログ(${fmt(log.length)} 行)</summary><pre class="log">${esc(log.join('\n'))}</pre></details>` : '';
   if (busy) {
     return `${head}<button class="btn ghost danger" id="${prefix}-stop">中止</button></div>
-      <div class="hint">${busyText(entry)}</div><div class="progress"></div>${logBlock}`;
+      <div class="hint">${busyText(entry)} ・ ${duration(entry.started)} 経過${k === 'starting' ? '<br>最初の表示は、ページのコンパイルやデータベースの作成で数分かかることがあります(10 分で打ち切ります)。' : ''}</div><div class="progress"></div>${logBlock}`;
   }
   if (k === 'running') {
     return `${head}<div class="convert-actions">

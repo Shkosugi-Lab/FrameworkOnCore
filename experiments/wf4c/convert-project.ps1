@@ -22,7 +22,7 @@ param(
 )
 
 $ErrorActionPreference = 'Stop'
-$FrameworkOnCoreVersion = '1.6.5-w2l.8'
+$FrameworkOnCoreVersion = '1.6.5-w2l.9'
 $msbuildNs = @{ m = 'http://schemas.microsoft.com/developer/msbuild/2003' }
 $msbuildUri = 'http://schemas.microsoft.com/developer/msbuild/2003'
 

@@ -27,6 +27,7 @@
     <Content Include="Default.aspx" />
     <Content Include="Redirect.aspx" />
     <Content Include="Paths.aspx" />
+    <Content Include="Urls.aspx" />
     <Content Include="Target.aspx" />
     <Content Include="Encodings.aspx" />
     <Content Include="ShiftJis.aspx" />
@@ -44,6 +45,10 @@
     </Compile>
     <Compile Include="Paths.aspx.cs">
       <DependentUpon>Paths.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Urls.aspx.cs">
+      <DependentUpon>Urls.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Target.aspx.cs">

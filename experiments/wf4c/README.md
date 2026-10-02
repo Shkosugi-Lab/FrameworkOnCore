@@ -372,6 +372,23 @@ nopCommerce 1.90 は Ajax Control Toolkit 4.1 の `<ajaxToolkit:ToolkitScriptMan
 
 残り(以前からのもの): nop の `ToolkitScriptManager`(新しい Ajax Control Toolkit に無い。管理画面のマスター、商品のテンプレート、アカウントなど。**2026-10-02 に対応、下**)。yaf の Web API 2(AspNetWebStack の移植)と ServiceStack のスタブ。wt・mvcmovie の既知の差。
 
+### エスケープされた文字を含む URL(2026-10-02、`1.6.5-w2l.9`)
+
+別の PC の Studio で WingtipToys の商品ページ `/Product/Fast%20Car`(ルーティング)が 400 になった。Windows でも Linux でも、空白などをエスケープした URL はすべて 400 になっていた。
+
+- **原因**: ホストのワーカー要求(`AspNetCoreWorkerRequest`)が、パスを `$"{Request.PathBase}{Request.Path}"` で組み立てていた。ASP.NET Core の `PathString` は、文字列にするとエスケープされた形(`ToUriComponent`)になる。そのため `/Product/Fast%20Car` のまま悪いパスの検査(`%` を含む)に当たり、400 になった。`GetUriPath`(Request.Path)も同じ組み立てで、エスケープされたまま `/` が重なっていた。
+- **修正**: パス、`GetUriPath`、`GetRawUrl` を IIS と同じにした。
+  - パスと `GetUriPath` はデコード済み(`PathString.Value`)。
+  - `GetRawUrl` は、パスがデコード済みで、クエリ文字列は送られたまま。IIS の RawUrl は `/Urls.aspx/a b?q=x%20y` だった。
+- **サイトでの確認**: `samples/RuntimeProbe` に `Urls.aspx` を足し、`/Urls.aspx/a%20b?q=x%20y` で次を IIS と比べた。
+  - 比べた値: Request.Path、FilePath、PathInfo、CurrentExecutionFilePath、AppRelativeCurrentExecutionFilePath、RawUrl、Url.AbsolutePath、Url.PathAndQuery、QueryString。
+  - 直す前の版では 400 になる。**Windows・Linux とも 2/2 一致**。
+- **WingtipToys**: `/Product/Fast%20Car`・`/Product/Paper%20Boat` が 200 になり、その商品を表示した。
+- **類似の問題の調査**: ホストの中で `PathString` を文字列に埋め込んでいるのは、ほかにデバッグ出力だけだった。
+- **検証**(以前と同じ結果):
+  - be: Windows 5/5、Linux 5/5
+  - wt: Windows 6/8、Linux 5/8(丸めの差 2 件と、Linux の error-page は検証環境の差)
+
 ## カルチャのデータ(2026-09-26)
 
 .NET Framework は Windows のカルチャデータ(NLS)を使う。.NET は ICU のデータを使い、両者は異なる。

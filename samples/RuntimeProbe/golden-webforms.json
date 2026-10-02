@@ -17,6 +17,25 @@
       "Tables": [],
       "Inputs": {},
       "Elements": {}
+    },
+    {
+      "Name": "request urls escaped",
+      "Path": "/urls.aspx/a%20b",
+      "Title": "",
+      "Text": [
+        "Request.Path: /Urls.aspx/a b",
+        "Request.FilePath: /Urls.aspx",
+        "Request.PathInfo: /a b",
+        "Request.CurrentExecutionFilePath: /Urls.aspx",
+        "Request.AppRelativeCurrentExecutionFilePath: ~/Urls.aspx",
+        "Request.RawUrl: /Urls.aspx/a b?q=x%20y",
+        "Request.Url.AbsolutePath: /Urls.aspx/a%20b",
+        "Request.Url.PathAndQuery: /Urls.aspx/a%20b?q=x%20y",
+        "Request.QueryString[q]: x y"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {}
     }
   ]
 }

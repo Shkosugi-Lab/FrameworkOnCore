@@ -10,6 +10,27 @@ namespace FrameworkOnCore.Converter;
 /// </summary>
 public static class BuildOriginalCommand
 {
+    /// <summary>build-original-advice &lt;project&gt; [--root &lt;dir&gt;]: whether its site is made by building it, and why (OriginalBuildAdvice).</summary>
+    internal static int Advise(string[] args)
+    {
+        string? project = null, rootDirectory = null;
+        for (var i = 0; i < args.Length; i++)
+        {
+            if (args[i] == "--root") rootDirectory = args[++i];
+            else project = args[i];
+        }
+        if (project == null)
+        {
+            Console.Error.WriteLine("usage: FrameworkOnCore.Converter build-original-advice <web project .csproj|.vbproj> [--root <dir>]");
+            return 2;
+        }
+        project = Path.GetFullPath(project);
+        var advice = OriginalBuildAdvice.Of(project, Path.GetFullPath(rootDirectory ?? Paths.FindRoot(project)));
+        Console.WriteLine(advice.Needed ? "--build-original: needed" : "--build-original: not needed (the web project's folder is the site)");
+        foreach (var reason in advice.Reasons) Console.WriteLine($"  {reason}");
+        return 0;
+    }
+
     internal static int Run(string[] args)
     {
         string? project = null, outDirectory = null, rootDirectory = null, configuration = null, target = null;

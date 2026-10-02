@@ -113,7 +113,7 @@ async function select(id) {
   Object.assign(state, {
     id, entry: null, result: null, choices: null, saved: null, command: null, errors: [], conversion: null,
     container: null, runOpen: false, runEnv: null, docker: null, dockerStarting: false, step,
-    original: null, originalEnv: null, native: null, nativeEnv: null, report: null,
+    original: null, originalEnv: null, native: null, nativeEnv: null, report: null, advice: null, buildOriginalChoice: null,
   });
   state.expanded.clear();
   state.rows.clear();
@@ -149,7 +149,7 @@ async function refresh() {
     if (linked) state.expanded.add(linked);
     renderResult();
     if (linked) document.getElementById(`c-${linked}`)?.scrollIntoView({ block: 'start' });
-    await Promise.all([loadAnalyses(), loadConversion(), loadOriginal(), loadNative()]);
+    await Promise.all([loadAnalyses(), loadConversion(), loadOriginal(), loadNative(), loadAdvice()]);
   } else {
     renderRunning(entry, log);
     if (entry.state !== 'failed') state.poll = setTimeout(() => refresh().catch(console.error), 1500);
@@ -669,8 +669,16 @@ function renderConversion() {
   const sections = c?.sections?.length
     ? `<div class="convert-sections">${c.sections.map(s => `<span class="sec ${s.count ? 'has' : ''}" title="${esc(s.title)}"><b>${fmt(s.count)}</b> ${esc(s.title.replace(/\(.*$/, ''))}</span>`).join('')}</div>`
     : '';
-  const origin = `<label class="check"><input type="checkbox" id="build-original" ${c?.buildOriginal ? 'checked' : ''}>
-      元のアプリをそのビルド手順でビルドし、配置されるサイトから組み立てる <span class="muted">(--build-original。Windows と Visual Studio の MSBuild が必要。DNN など、ビルドでサイトを作るアプリ向け)</span></label>`;
+  // Checked as the repository says (the advice), unless the user chose otherwise.
+  const advice = state.advice;
+  const buildOriginal = state.buildOriginalChoice ?? (advice ? advice.needed : !!c?.buildOriginal);
+  const reasons = advice?.reasons ?? [];
+  const adviceLine = !advice ? ''
+    : advice.needed
+      ? `<div class="advice need">自動判定: <b>必要</b> ・ ${reasons.slice(0, 3).map(esc).join(' ・ ')}${reasons.length > 3 ? ` ・ ほか ${reasons.length - 3} 件` : ''}</div>`
+      : '<div class="advice">自動判定: 不要(ビルドでサイトを組み立てる仕組みは見つかりません。Web プロジェクトのフォルダーがそのままサイトです)</div>';
+  const origin = `<label class="check"><input type="checkbox" id="build-original" ${buildOriginal ? 'checked' : ''}>
+      元のアプリをそのビルド手順でビルドし、配置されるサイトから組み立てる <span class="muted">(--build-original。Windows と Visual Studio の MSBuild が必要。DNN など、ビルドでサイトを作るアプリ向け)</span></label>${adviceLine}`;
   const pill = s => { const k = CONVERSION[s]; return `<span class="pill" style="--c:${k.color}"><span class="ic" aria-hidden="true">${k.icon}</span>${esc(k.label)}</span>`; };
 
   let html;
@@ -696,11 +704,25 @@ function renderConversion() {
   }
   root.innerHTML = html;
   root.style.setProperty('--c', c ? CONVERSION[c.state].color : 'var(--accent)');
+  $('#build-original')?.addEventListener('change', ev => (state.buildOriginalChoice = ev.target.checked));
   $('#convert-start')?.addEventListener('click', () => startConversion().catch(e => toast(e.message)));
   $('#convert-cancel')?.addEventListener('click', () => cancelConversion().catch(e => toast(e.message)));
   $('#convert-next')?.addEventListener('click', () => goStep(4).catch(e => toast(e.message)));
   const pre = root.querySelector('.log');
   if (pre) pre.scrollTop = pre.scrollHeight;
+}
+
+// Whether the site is made by building the application (the "build the original" checkbox's default, and why).
+async function loadAdvice() {
+  const id = state.id;
+  try {
+    const advice = await api(`/analyses/${id}/original-build-advice`);
+    if (id !== state.id) return;
+    state.advice = advice;
+  } catch {
+    return;
+  }
+  renderConversion();
 }
 
 // The conversion's report (CONVERSION-REPORT.md), in ③ under the conversion: its sections, each one opened on demand.

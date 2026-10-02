@@ -137,6 +137,14 @@ api.MapGet("/analyses/{id}/command", (string id, AnalysisStore store) =>
     });
 });
 
+// Whether the application's site is made by building it (the conversion's "--build-original"), and why: read from the
+// repository's files once per analysis.
+var advices = new System.Collections.Concurrent.ConcurrentDictionary<string, FrameworkOnCore.Converter.OriginalBuildAdvice.Advice>();
+api.MapGet("/analyses/{id}/original-build-advice", (string id, AnalysisStore store) =>
+    store.Get(id) is { } entry
+        ? Results.Ok(advices.GetOrAdd(id, _ => FrameworkOnCore.Converter.OriginalBuildAdvice.Of(entry.Project, entry.Root)))
+        : Results.NotFound());
+
 // Converting and building in Studio (the saved choices), and the output as a zip.
 api.MapGet("/analyses/{id}/conversion", (string id, Conversions conversions) =>
     Results.Ok(new { conversion = conversions.Get(id), stale = conversions.Stale(id), log = conversions.Log(id).TakeLast(300) }));

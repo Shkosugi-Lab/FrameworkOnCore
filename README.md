@@ -68,7 +68,7 @@ Studio は 4 つの手順のウィザードです(画面の上の手順から、
 
 1. **分析**: 「新しい解析」で .NET Framework の Web プロジェクト(.csproj / .vbproj)を指定すると、解析結果が出ます(数値、状態別の内訳、部品と API)。「元のアプリを起動(テスト起動)」で、変換の前のアプリをこの PC で動かして確かめられます(リポジトリのコピーをそのビルド手順でビルドし、IIS Express、無ければ IIS で起動。IIS は Studio を管理者として起動したときだけ)。
 2. **方針決定**: 選べる対応がある部品ごとに対応を選び(API ごとにも変えられる)、アプリの設定を選び、DLL の参照の付け替えを確かめて保存します。
-3. **変換・ビルド**: 保存した選択で変換とビルドを行います(`--build-original` もここで選ぶ)。変換レポートは節ごとに開いて見られます。
+3. **変換・ビルド**: 保存した選択で変換とビルドを行います。`--build-original`(元のアプリをそのビルド手順でビルドし、配置されるサイトから組み立てる)の要否は、リポジトリから自動で判定して初期値にし、理由を表示します(Cake のビルド、Web プロジェクトのフォルダーへ出力・コピーするほかのプロジェクト、ビルドで作られる web.config、リポジトリ独自のビルドファイル)。変換レポートは節ごとに開いて見られます。
 4. **デプロイ**: Linux に配置できる形(Dockerfile と systemd 用のスクリプト付き、`obj` を除く)の ZIP のダウンロード、この PC の dotnet での起動(ネイティブ起動、Docker 不要)、Dockerfile からイメージを作って localhost のポートでのコンテナ起動(Docker Desktop が要ります。Studio のコンテナは一度に一つ)。どちらも接続文字列などを環境変数(`SQLCONNSTR_<名前>`、`APPSETTING_<キー>`)で渡せます(それぞれ別に保存。コンテナの中からは LocalDB やこの PC の localhost は見えないので、`host.docker.internal` を使う)。ECR への発行は予定です。コマンドラインで変換するためのコマンドもコピーできます。
 
 Studio が起動したアプリ(元のアプリ、ネイティブ起動)は、Studio を止めると止まります(強制終了でも止まり、IIS に作ったサイトは次の起動で消えます)。
@@ -82,8 +82,11 @@ Studio が起動したアプリ(元のアプリ、ネイティブ起動)は、St
 # 元のアプリをそのビルド手順でビルドするだけ(変換しない。最後の行に配置されたサイト "site: <path>")
 .\converter.ps1 build-original <Web プロジェクト> --out <作業フォルダー>
 
-# 変換(選択は省略可。省略すると既定)
-.\converter.ps1 <Web プロジェクト> --out <出力先> --choices foc-choices.json [--build-original] [--culture-profile <file>]
+# 元のアプリのビルドが要るかどうかと、その理由
+.\converter.ps1 build-original-advice <Web プロジェクト>
+
+# 変換(選択は省略可。省略すると既定。--build-original auto は要るときだけ元のアプリをビルドする)
+.\converter.ps1 <Web プロジェクト> --out <出力先> --choices foc-choices.json [--build-original [auto]] [--culture-profile <file>]
 ```
 
 `converter.ps1` も `studio.ps1` と同じく、Actions のビルドを取得して使います(無ければ手元でビルド)。

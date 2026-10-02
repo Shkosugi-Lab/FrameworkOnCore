@@ -20,6 +20,8 @@ using FrameworkOnCore.Converter;
 //            (a Cake build: Cake Frosting or a .cake script; its default target, or the one given)
 //            in a copy (<out>.original); the site it deploys is then --site. Without one, the solution
 //            with the web project, as Visual Studio builds it (Windows, Visual Studio's MSBuild).
+//            --build-original auto: only when the site is made by the build (OriginalBuildAdvice; build-original-advice
+//            prints why). Without --build-original such a site is reported unresolved.
 // --configuration <name>  the configuration the site is built in: the projects' conditions are read for it
 //            (Debug when not given) and a solution is built in it (Release when not given). openIMIS: DemoRelease,
 //            the one whose web.config transform the repository has; its code under #If DEMO is that build's.
@@ -40,13 +42,18 @@ using FrameworkOnCore.Converter;
 //   FrameworkOnCore.Converter build-original <project> --out <dir> [--root <dir>] [--configuration <name>] [--target <name>]
 //            the original application built as --build-original builds it, nothing converted; prints "site: <path>"
 //            (BuildOriginalCommand).
+//
+//   FrameworkOnCore.Converter build-original-advice <project> [--root <dir>]
+//            whether the site is made by building the application (--build-original), and why.
 
 if (args.Length > 0 && args[0] == "analyze") return AnalyzeCommand.Run(args[1..], RuntimeSetup.Find);
 if (args.Length > 0 && args[0] == "build-original") return BuildOriginalCommand.Run(args[1..]);
+if (args.Length > 0 && args[0] == "build-original-advice") return BuildOriginalCommand.Advise(args[1..]);
 
 string? project = null, outDirectory = null, rootDirectory = null, runtimeDirectory = null, cultureProfile = null, site = null, originalTarget = null, configuration = null;
 var build = true;
 var buildOriginal = false;
+var buildOriginalAuto = false;
 var deployKinds = "both";
 bool? caseInsensitive = null;
 string? choicesFile = null;
@@ -75,7 +82,8 @@ for (var i = 0; i < args.Length; i++)
             break;
         case "--build-original":
             buildOriginal = true;
-            if (i + 1 < args.Length && !args[i + 1].StartsWith("--", StringComparison.Ordinal) && !args[i + 1].EndsWith("proj", StringComparison.OrdinalIgnoreCase)) originalTarget = args[++i];
+            if (i + 1 < args.Length && args[i + 1] == "auto") { buildOriginalAuto = true; i++; }
+            else if (i + 1 < args.Length && !args[i + 1].StartsWith("--", StringComparison.Ordinal) && !args[i + 1].EndsWith("proj", StringComparison.OrdinalIgnoreCase)) originalTarget = args[++i];
             break;
         default: project = args[i]; break;
     }
@@ -111,6 +119,22 @@ foreach (var (api, option) in choices.Apis)
 if (caseInsensitive == null && choices.Settings.TryGetValue("file-name-case", out var nameCase) && nameCase != catalog.Settings.First(s => s.Id == "file-name-case").DefaultOption.Id)
     report.Add(Report.Kind.Project, "choices", $"file-name-case: {nameCase}");
 caseInsensitive ??= choices.SettingOf(catalog, "file-name-case") == "insensitive";
+// Whether the site is made by building the application (OriginalBuildAdvice): --build-original auto builds it when so;
+// without --build-original (or --site) a site that is made by the build is reported unresolved, the web project's
+// folder lacking what the build puts in it.
+if (site == null && (buildOriginalAuto || !buildOriginal))
+{
+    var advice = OriginalBuildAdvice.Of(project, sourceRoot);
+    if (buildOriginalAuto)
+    {
+        buildOriginal = advice.Needed;
+        report.Add(Report.Kind.Project, "original build", advice.Needed
+            ? $"--build-original auto: built ({string.Join("; ", advice.Reasons.Take(3))}{(advice.Reasons.Count > 3 ? "; ..." : "")})"
+            : "--build-original auto: not built (the web project's folder is the site)");
+    }
+    else if (advice.Needed)
+        report.Add(Report.Kind.Error, "original build", $"the site is made by building the application, and it was not built (convert with --build-original): {string.Join("; ", advice.Reasons.Take(3))}{(advice.Reasons.Count > 3 ? $"; and {advice.Reasons.Count - 3} more" : "")}");
+}
 if (buildOriginal)
 {
     var originalWork = outRoot.TrimEnd('\\', '/') + ".original";

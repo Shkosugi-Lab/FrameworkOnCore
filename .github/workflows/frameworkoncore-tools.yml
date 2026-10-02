@@ -46,6 +46,21 @@ jobs:
       - name: Publish Studio (with the converter)
         shell: pwsh
         run: dotnet publish src/FrameworkOnCore.Studio -c Release -o tools-out -nologo
+      # A push that raises FrameworkOnCore's version (the rules' frameworkOnCoreVersion) publishes it in the packages
+      # workflow, which runs with this one and takes longer (its tests): the smoke test's analysis fetches the packages
+      # of that version, so their release is waited for (it failed with a 404 when it was not).
+      - name: Wait for FrameworkOnCore's packages
+        shell: pwsh
+        run: |
+          $rules = Get-Content src/FrameworkOnCore.Converter/rules/packages.json -Raw
+          $version = [regex]::Match($rules, '"frameworkOnCoreVersion"\s*:\s*"([^"]+)"').Groups[1].Value
+          foreach ($i in 1..80) {
+            gh release view "frameworkoncore-$version" --repo $env:GITHUB_REPOSITORY *> $null
+            if ($LASTEXITCODE -eq 0) { "frameworkoncore-$version is published"; exit 0 }
+            if ($i -eq 1) { "waiting for frameworkoncore-$version (the packages workflow)" }
+            Start-Sleep 30
+          }
+          throw "frameworkoncore-$version is not published after 40 minutes (see the packages workflow)"
       - name: Smoke test
         shell: pwsh
         run: |

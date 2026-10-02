@@ -53,8 +53,11 @@ public sealed class Conversions(AnalysisStore store, string runtime)
     {
         var dockerfile = Path.Combine(Output(id), "Dockerfile");
         if (!File.Exists(dockerfile)) return null;
-        var match = Regex.Match(File.ReadAllText(dockerfile), @"^COPY --chown=\S+ (\S+) /app\s*$", RegexOptions.Multiline);
-        return match.Success ? Path.GetFullPath(Path.Combine(Output(id), match.Groups[1].Value.Replace('/', Path.DirectorySeparatorChar))) : null;
+        // Either form: COPY --chown=app:app site /app, or COPY --chown=app:app ["DNN Platform/Website", "/app"] (a space).
+        var match = Regex.Match(File.ReadAllText(dockerfile), @"^COPY --chown=\S+ (?:(?<site>\S+) /app|\[""(?<site>(?:[^""\\]|\\.)*)"", ""/app""\])\s*$", RegexOptions.Multiline);
+        return match.Success
+            ? Path.GetFullPath(Path.Combine(Output(id), Regex.Unescape(match.Groups["site"].Value).Replace('/', Path.DirectorySeparatorChar)))
+            : null;
     }
 
     public ConversionEntry? Get(string id)

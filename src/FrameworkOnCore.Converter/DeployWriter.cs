@@ -252,9 +252,11 @@ public sealed class DeployWriter(Report report, string outRoot, string runtimeDi
                 RUN apt-get update && apt-get install -y --no-install-recommends libgdiplus fonts-liberation2 && rm -rf /var/lib/apt/lists/*
 
                 """);
+        // A path with a space (DNN's "DNN Platform/Website") in the JSON form: in the other one it is two sources.
+        var copy = site.IndexOf(' ') >= 0 ? $"[\"{site.Replace("\\", "\\\\").Replace("\"", "\\\"")}\", \"/app\"]" : $"{site} /app";
         text.Append($"""
             # The site, writable by the application (it writes to App_Data, and some to more: installers).
-            COPY --chown=app:app {site} /app
+            COPY --chown=app:app {copy}
             # App_Data the application's too where the site has none (the volume's folder is made as root otherwise: the
             # runtime's App_Data/machine.config not written, the site not started).
             RUN mkdir -p /app/App_Data && chown app:app /app/App_Data

@@ -33,6 +33,15 @@ public class DeployWriterTests : IDisposable
         Assert.Contains("**/obj", ignore);
     }
 
+    [Fact] // DNN's web project as the site (no --build-original): "COPY DNN Platform/Website /app" was two sources
+    public void A_site_with_a_space_is_copied_in_the_JSON_form()
+    {
+        DockerIgnore("DNN Platform/Website");
+        var dockerfile = File.ReadAllText(Path.Combine(root, "Dockerfile"));
+        Assert.Contains("COPY --chown=app:app [\"DNN Platform/Website\", \"/app\"]", dockerfile);
+        Assert.DoesNotContain("COPY --chown=app:app DNN Platform", dockerfile);
+    }
+
     [Fact] // a site without App_Data: the volume's folder made as root, the runtime could not write its machine.config
     public void App_Data_is_the_applications_in_the_image()
     {

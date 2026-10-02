@@ -125,6 +125,7 @@ namespace Microsoft.AspNetCore.Builder
 				context.Response.Headers["Connection"] = "close";
 				return;
 			}
+			if (host.RedirectToFolder(context)) return;
 			if (IsLegacyRequest(context))
 			{
 				AllowSynchronousIO(context);

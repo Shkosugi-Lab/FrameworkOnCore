@@ -33,8 +33,6 @@ namespace System.Web.Hosting
 
 		private static readonly char[] BadPathChars = new[] { '%', '>', '<', ':', '\\' };
 
-		// TODO read default files from web.config
-		private static readonly string[] DefaultFileNames = new[] { "default.aspx", "default.htm", "default.html" };
 
 		private TaskCompletionSource<bool> Completed = new TaskCompletionSource<bool>();
 
@@ -45,15 +43,18 @@ namespace System.Web.Hosting
 				'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'
 			};
 
-		private static readonly string[] RestrictedDirs = new[]
+		// IIS's hidden segments (request filtering, applicationHost.config): a URL with one of them as any of its segments is
+		// answered 404 (404.8). They were written without their underscores ("/appdata"), so only bin was refused: App_Data
+		// was served (BlogEngine's users.xml, its users and their password hashes).
+		private static readonly string[] HiddenSegments = new[]
 			{
-				"/bin",
-				"/appbrowsers",
-				"/appcode",
-				"/appdata",
-				"/applocalresources",
-				"/appglobalresources",
-				"/appwebreferences"
+				"bin",
+				"App_code",
+				"App_GlobalResources",
+				"App_LocalResources",
+				"App_WebReferences",
+				"App_Data",
+				"App_Browsers"
 			};
 
 		public AspNetCoreHost Host { get; private set; }
@@ -89,7 +90,6 @@ namespace System.Web.Hosting
 
 		private string pathTranslated;
 
-		private string protocol;
 
 		private string queryString;
 		private byte[] queryStringBytes;
@@ -215,10 +215,26 @@ namespace System.Web.Hosting
 		public override byte[] GetQueryStringRawBytes() => Encoding.ASCII.GetBytes(GetQueryString());
 		public override string GetRawUrl()
 		{
-			// As IIS's: the path decoded, the query string as it was sent ("/Urls.aspx/a b?q=x%20y").
-			var query = GetQueryString();
-			if (string.IsNullOrEmpty(query)) return DecodedPath();
-			return $"{DecodedPath()}?{query}";
+			// As IIS's: the URL the client asked for, unaffected by what served it (the default document "/" is served by:
+			// UseDefaultFiles or the host set Request.Path to /Default.aspx), its path decoded and its query string as it was
+			// sent ("/Urls.aspx/a b?q=x%20y"). FriendlyUrls redirects a RawUrl ending in .aspx to the URL without it:
+			// WingtipToys' "/" was a 301 to /Default where IIS answers 200.
+			var target = Context.Features.Get<Core.Features.IHttpRequestFeature>()?.RawTarget;
+			if (!string.IsNullOrEmpty(target) && target[0] != '/' && Uri.TryCreate(target, UriKind.Absolute, out var absolute))
+				target = absolute.PathAndQuery;  // the absolute form (a proxy's request)
+			if (string.IsNullOrEmpty(target) || target[0] != '/')
+			{
+				var query = GetQueryString();
+				return string.IsNullOrEmpty(query) ? DecodedPath() : $"{DecodedPath()}?{query}";
+			}
+			var mark = target.IndexOf('?');
+			return mark < 0 ? DecodeRawPath(target) : DecodeRawPath(target[..mark]) + target[mark..];
+		}
+
+		// A path as sent, decoded as IIS decodes it (every escape, '/' too).
+		static string DecodeRawPath(string raw)
+		{
+			return raw.IndexOf('%') < 0 ? raw : Uri.UnescapeDataString(raw);
 		}
 		public override string GetRemoteAddress() => Context.Connection.RemoteIpAddress.ToString();
 		public override int GetRemotePort() => Context.Connection.RemotePort;
@@ -237,38 +253,60 @@ namespace System.Web.Hosting
 			return localAddress;
 		}
 
+		// The server variables HttpRequest.ServerVariables asks the worker request for (the others it makes itself), as IIS
+		// answers them. The names were without their underscores ("ALLRAW", "SERVERPROTOCOL", "LOGONUSER", "AUTHTYPE"), so
+		// every one was "": HTTPS was "" where IIS says "off" (an application testing HTTPS != "off" took every request as
+		// secure), SERVER_PROTOCOL and REMOTE_PORT were "".
 		public override string GetServerVariable(string name)
 		{
-			string processUser = string.Empty;
-			string str2 = name;
-			if (str2 == null)
+			switch (name)
 			{
-				return processUser;
+				case null:
+					return string.Empty;
+				case "ALL_RAW":
+					return string.Concat(Context.Request.Headers.Select(header => $"{header.Key}: {header.Value}\r\n"));
+				case "SERVER_PROTOCOL":
+					return GetHttpVersion();
+				// Anonymous, as IIS's anonymous authentication (Kestrel has no Windows authentication): empty. With the
+				// process's user here, the Windows authentication module (authentication mode Windows, the default) made
+				// every request authenticated as it (User.Identity.Name, Request.IsAuthenticated).
+				case "LOGON_USER":
+				case "AUTH_TYPE":
+					return string.Empty;
+				case "HTTPS":
+					return IsSecure() ? "on" : "off";
+				case "REMOTE_PORT":
+					return GetRemotePort().ToString(CultureInfo.InvariantCulture);
+				case "GATEWAY_INTERFACE":
+					return "CGI/1.1";
+				case "SERVER_SOFTWARE":
+					return "Kestrel";
+				// IIS's site and application, as IIS names its first site's (no metabase here).
+				case "INSTANCE_ID":
+					return "1";
+				case "INSTANCE_META_PATH":
+					return "/LM/W3SVC/1";
+				case "APPL_MD_PATH":
+					return "/LM/W3SVC/1/ROOT" + (Host.VirtualPath == "/" ? "" : Host.VirtualPath.TrimEnd('/'));
+				// Without TLS (or its client certificate) IIS gives these empty.
+				case "AUTH_PASSWORD":
+				case "CERT_COOKIE":
+				case "CERT_FLAGS":
+				case "CERT_ISSUER":
+				case "CERT_KEYSIZE":
+				case "CERT_SECRETKEYSIZE":
+				case "CERT_SERIALNUMBER":
+				case "CERT_SERVER_ISSUER":
+				case "CERT_SERVER_SUBJECT":
+				case "CERT_SUBJECT":
+				case "HTTPS_KEYSIZE":
+				case "HTTPS_SECRETKEYSIZE":
+				case "HTTPS_SERVER_ISSUER":
+				case "HTTPS_SERVER_SUBJECT":
+					return string.Empty;
+				default:
+					return null;
 			}
-			if (str2 != "ALLRAW")
-			{
-				if (str2 != "SERVERPROTOCOL")
-				{
-					if (str2 == "LOGONUSER")
-					{
-						if (GetUserToken() != IntPtr.Zero)
-						{
-							processUser = Host.GetProcessUser();
-						}
-						return processUser;
-					}
-					if ((str2 == "AUTHTYPE") && (GetUserToken() != IntPtr.Zero))
-					{
-						processUser = "NTLM";
-					}
-					return processUser;
-				}
-			}
-			else
-			{
-				return Context.Request.Headers.ToString();
-			}
-			return protocol;
 		}
 
 		public override string GetUnknownRequestHeader(string name)
@@ -297,12 +335,23 @@ namespace System.Web.Hosting
 		// Decoded, as IIS's (Request.Path).
 		public override string GetUriPath() => DecodedPath();
 
-		// The request's path decoded: the application's base and the path in it ("/" when both are empty).
+		// The request's path decoded: the application's base and the path in it ("/" when both are empty). As IIS decodes
+		// it: an escaped '/' too (Kestrel leaves "%2F" in Request.Path, which was a bad path, 400, where IIS answers
+		// /Urls.aspx/a%2Fb with the path info "/a/b").
 		string DecodedPath()
 		{
 			var request = Context.Request;
 			var decoded = (request.PathBase.Value ?? "") + (request.Path.Value ?? "");
+			if (decoded.IndexOf('%') >= 0) decoded = decoded.Replace("%2F", "/").Replace("%2f", "/");
 			return decoded.Length == 0 ? "/" : decoded;
+		}
+
+		// IIS's request filtering refuses (404.11) a URL whose path is escaped twice (allowDoubleEscaping false): one that
+		// decoded once more is not the same ("%2520", or a '+', a space then). /Urls.aspx/a+b was served.
+		bool IsDoubleEscaped()
+		{
+			try { return Uri.UnescapeDataString(path.Replace('+', ' ')) != path; }
+			catch (UriFormatException) { return true; }
 		}
 
 		public override IntPtr GetUserToken()
@@ -327,6 +376,14 @@ namespace System.Web.Hosting
 
 		public override bool IsClientConnected() => true;
 		public override bool IsEntireEntityBodyIsPreloaded() => false;
+
+		// A virtual path that is a file of the application.
+		bool IsFile(string virtualPath)
+		{
+			try { return File.Exists(MapPath(virtualPath)); }
+			catch (Exception e) when (e is ArgumentException or IOException or NotSupportedException or HttpException) { return false; }
+		}
+
 		public override string MapPath(string path)
 		{
 			string mappedPath;
@@ -395,7 +452,7 @@ namespace System.Web.Hosting
 				// deny access to code, bin, etc.
 				if (IsRequestForRestrictedDirectory())
 				{
-					Context.Response.StatusCode = 403;
+					Context.Response.StatusCode = 404;  // as IIS (404.8)
 					Context.Response.CompleteAsync();
 					return;
 				}
@@ -602,28 +659,12 @@ namespace System.Web.Hosting
 			return false;
 		}
 
-		private bool IsRequestForRestrictedDirectory()
-		{
-			String p = CultureInfo.InvariantCulture.TextInfo.ToLower(path);
+		private bool IsRequestForRestrictedDirectory() => IsHidden(path);
 
-			if (Host.VirtualPath != "/")
-			{
-				p = p.Substring(Host.VirtualPath.Length);
-			}
-
-			foreach (String dir in RestrictedDirs)
-			{
-				if (p.StartsWith(dir, StringComparison.Ordinal))
-				{
-					if (p.Length == dir.Length || p[dir.Length] == '/')
-					{
-						return true;
-					}
-				}
-			}
-
-			return false;
-		}
+		// Any segment of the URL, as IIS matches them (/App_Data/x, /a/bin/x), without regard to case.
+		internal static bool IsHidden(string path) =>
+			path.Split('/', StringSplitOptions.RemoveEmptyEntries)
+				.Any(segment => HiddenSegments.Contains(segment, StringComparer.OrdinalIgnoreCase));
 
 		private void ParseHeaders()
 		{
@@ -781,19 +822,22 @@ namespace System.Web.Hosting
 				// and an escaped "%20" was a bad path (400) where IIS serves "/Product/Fast Car".
 				path = DecodedPath();
 
-				int lastDot = path.LastIndexOf('.');
-				int lastSlh = path.LastIndexOf('/');
-
-				if (lastDot >= 0 && lastSlh >= 0 && lastDot < lastSlh)
+				// The file is the first segment IIS maps to a handler by its extension (*.aspx ...) or that is a file; the
+				// rest is the path info: /Page.aspx/x/y is /Page.aspx and /x/y. It was split at the last '/' after the last
+				// '.', /Page.aspx/x and /y, a 404.
+				filePath = path;
+				pathInfo = String.Empty;
+				for (var slash = path.IndexOf('/', 1); slash > 0; slash = path.IndexOf('/', slash + 1))
 				{
-					int ipi = path.LastIndexOf('/', path.Length-1, path.Length - lastDot - 1); 
-					filePath = path[..ipi];
-					pathInfo = path[ipi..];
-				}
-				else
-				{
-					filePath = path;
-					pathInfo = String.Empty;
+					var candidate = path[..slash];
+					var segment = candidate[(candidate.LastIndexOf('/') + 1)..];
+					if (segment.IndexOf('.') < 0) continue;
+					if (Host.HandleExtensions.Any(extension => segment.EndsWith(extension, StringComparison.OrdinalIgnoreCase)) || IsFile(candidate))
+					{
+						filePath = candidate;
+						pathInfo = path[slash..];
+						break;
+					}
 				}
 
 				pathTranslated = MapPath(filePath);
@@ -819,7 +863,6 @@ namespace System.Web.Hosting
 
 			verb = null;
 			url = null;
-			protocol = null;
 
 			path = null;
 			filePath = null;
@@ -930,6 +973,13 @@ namespace System.Web.Hosting
 			Reset();
 
 			ParseRequest();
+
+			if (IsDoubleEscaped())
+			{
+				Context.Response.StatusCode = 404;  // as IIS (404.11)
+				Context.Response.CompleteAsync();
+				return false;
+			}
 
 			// Check for bad path
 			if (IsBadPath())

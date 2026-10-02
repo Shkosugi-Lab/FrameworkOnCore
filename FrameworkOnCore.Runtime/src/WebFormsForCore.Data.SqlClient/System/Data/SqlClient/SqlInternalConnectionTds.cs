@@ -1528,7 +1528,11 @@ namespace System.Data.SqlClient
                     // Primary server may give us a different failover partner than the connection string indicates.  Update it
                     if (null != ServerProvidedFailOverPartner && failoverServerInfo.ResolvedServerName != ServerProvidedFailOverPartner)
                     {
+#if WebFormsForCore
+                        failoverServerInfo.SetDerivedNames(ConnectionOptions.NetworkLibrary ?? string.Empty, ServerProvidedFailOverPartner);
+#else
                         failoverServerInfo.SetDerivedNames(string.Empty, ServerProvidedFailOverPartner);
+#endif
                     }
                     currentServerInfo = failoverServerInfo;
                     _timeoutErrorInternal.SetInternalSourceType(SqlConnectionInternalSourceType.Failover);
@@ -2063,7 +2067,12 @@ namespace System.Data.SqlClient
             Debug.Assert(serverName != null, "server name should never be null");
             UserServerName = (serverName ?? string.Empty); // ensure user server name is not null
 
+#if WebFormsForCore
+            // WebFormsForCore: the Network Library keyword's protocol, as .NET Framework's ServerInfo took it.
+            UserProtocol = userOptions.NetworkLibrary ?? string.Empty;
+#else
             UserProtocol = string.Empty;
+#endif
             ResolvedDatabaseName = userOptions.InitialCatalog;
             PreRoutingServerName = null;
         }

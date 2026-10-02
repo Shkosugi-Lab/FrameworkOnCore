@@ -34,6 +34,11 @@ namespace System.Data.SqlClient
             MinPoolSize,
             MaxPoolSize,
             PoolBlockingPeriod,
+#if WebFormsForCore
+            // WebFormsForCore: .NET Framework's keywords .NET refuses (SqlConnectionStringBuilder.Framework.cs).
+            AsynchronousProcessing,
+            ConnectionReset,
+#endif
 
             MultipleActiveResultSets,
             Replication,
@@ -42,6 +47,9 @@ namespace System.Data.SqlClient
             Encrypt,
             TrustServerCertificate,
             LoadBalanceTimeout,
+#if WebFormsForCore
+            NetworkLibrary,
+#endif
             PacketSize,
             TypeSystemVersion,
 
@@ -50,6 +58,9 @@ namespace System.Data.SqlClient
             WorkstationID,
 
             UserInstance,
+#if WebFormsForCore
+            ContextConnection,
+#endif
 
             TransactionBinding,
 
@@ -66,7 +77,11 @@ namespace System.Data.SqlClient
         }
 
         internal const int KeywordsCount = (int)Keywords.KeywordsCount;
+#if WebFormsForCore
+        internal const int DeprecatedKeywordsCount = 0;
+#else
         internal const int DeprecatedKeywordsCount = 4;
+#endif
 
         private static readonly string[] s_validKeywords = CreateValidKeywords();
         private static readonly Dictionary<string, Keywords> s_keywords = CreateKeywordsDictionary();
@@ -138,6 +153,12 @@ namespace System.Data.SqlClient
             validKeywords[(int)Keywords.WorkstationID] = DbConnectionStringKeywords.WorkstationID;
             validKeywords[(int)Keywords.ConnectRetryCount] = DbConnectionStringKeywords.ConnectRetryCount;
             validKeywords[(int)Keywords.ConnectRetryInterval] = DbConnectionStringKeywords.ConnectRetryInterval;
+#if WebFormsForCore
+            validKeywords[(int)Keywords.AsynchronousProcessing] = DbConnectionStringKeywords.AsynchronousProcessing;
+            validKeywords[(int)Keywords.ConnectionReset] = DbConnectionStringKeywords.ConnectionReset;
+            validKeywords[(int)Keywords.ContextConnection] = DbConnectionStringKeywords.ContextConnection;
+            validKeywords[(int)Keywords.NetworkLibrary] = DbConnectionStringKeywords.NetworkLibrary;
+#endif
             return validKeywords;
         }
 
@@ -194,7 +215,18 @@ namespace System.Data.SqlClient
             hash.Add(DbConnectionStringSynonyms.UID, Keywords.UserID);
             hash.Add(DbConnectionStringSynonyms.User, Keywords.UserID);
             hash.Add(DbConnectionStringSynonyms.WSID, Keywords.WorkstationID);
+#if WebFormsForCore
+            hash.Add(DbConnectionStringKeywords.AsynchronousProcessing, Keywords.AsynchronousProcessing);
+            hash.Add(DbConnectionStringKeywords.ConnectionReset, Keywords.ConnectionReset);
+            hash.Add(DbConnectionStringKeywords.ContextConnection, Keywords.ContextConnection);
+            hash.Add(DbConnectionStringKeywords.NetworkLibrary, Keywords.NetworkLibrary);
+            hash.Add(DbConnectionStringSynonyms.Async, Keywords.AsynchronousProcessing);
+            hash.Add(DbConnectionStringSynonyms.NET, Keywords.NetworkLibrary);
+            hash.Add(DbConnectionStringSynonyms.NETWORK, Keywords.NetworkLibrary);
+            Debug.Assert((KeywordsCount + SqlConnectionString.SynonymCount + SqlConnectionString.DeprecatedSynonymCount) == hash.Count, "initial expected size is incorrect");
+#else
             Debug.Assert((KeywordsCount + SqlConnectionString.SynonymCount) == hash.Count, "initial expected size is incorrect");
+#endif
             return hash;
         }
 
@@ -257,6 +289,14 @@ namespace System.Data.SqlClient
                         case Keywords.UserInstance: UserInstance = ConvertToBoolean(value); break;
                         case Keywords.ConnectRetryCount: ConnectRetryCount = ConvertToInt32(value); break;
                         case Keywords.ConnectRetryInterval: ConnectRetryInterval = ConvertToInt32(value); break;
+#if WebFormsForCore
+                        case Keywords.AsynchronousProcessing: AsynchronousProcessing = ConvertToBoolean(value); break;
+#pragma warning disable 618 // Obsolete ConnectionReset
+                        case Keywords.ConnectionReset: ConnectionReset = ConvertToBoolean(value); break;
+#pragma warning restore 618
+                        case Keywords.ContextConnection: ContextConnection = ConvertToBoolean(value); break;
+                        case Keywords.NetworkLibrary: NetworkLibrary = ConvertToString(value); break;
+#endif
 
                         default:
                             Debug.Fail("unexpected keyword");
@@ -705,6 +745,14 @@ namespace System.Data.SqlClient
                 case Keywords.WorkstationID: return WorkstationID;
                 case Keywords.ConnectRetryCount: return ConnectRetryCount;
                 case Keywords.ConnectRetryInterval: return ConnectRetryInterval;
+#if WebFormsForCore
+                case Keywords.AsynchronousProcessing: return AsynchronousProcessing;
+#pragma warning disable 618 // Obsolete ConnectionReset
+                case Keywords.ConnectionReset: return ConnectionReset;
+#pragma warning restore 618
+                case Keywords.ContextConnection: return ContextConnection;
+                case Keywords.NetworkLibrary: return NetworkLibrary;
+#endif
 
                 default:
                     Debug.Fail("unexpected keyword");
@@ -836,6 +884,20 @@ namespace System.Data.SqlClient
                 case Keywords.WorkstationID:
                     _workstationID = DbConnectionStringDefaults.WorkstationID;
                     break;
+#if WebFormsForCore
+                case Keywords.AsynchronousProcessing:
+                    _asynchronousProcessing = false;
+                    break;
+                case Keywords.ConnectionReset:
+                    _connectionReset = true;
+                    break;
+                case Keywords.ContextConnection:
+                    _contextConnection = false;
+                    break;
+                case Keywords.NetworkLibrary:
+                    _networkLibrary = string.Empty;
+                    break;
+#endif
                 default:
                     Debug.Fail("unexpected keyword");
                     throw UnsupportedKeyword(s_validKeywords[(int)index]);

@@ -186,6 +186,9 @@ namespace System.Data.SqlClient
         private readonly ApplicationIntent _applicationIntent;
         private readonly string _applicationName;
         private readonly string _attachDBFileName;
+#if WebFormsForCore
+        private readonly string _networkLibrary;
+#endif
         private readonly string _currentLanguage;
         private readonly string _dataSource;
         private readonly string _localDBInstance; // created based on datasource, set to NULL if datasource is not LocalDB 
@@ -205,6 +208,20 @@ namespace System.Data.SqlClient
 
         internal SqlConnectionString(string connectionString) : base(connectionString, GetParseSynonyms())
         {
+#if WebFormsForCore
+            // WebFormsForCore: the keywords as .NET Framework 4.8's SqlClient takes them, not refused: Asynchronous Processing
+            // and Connection Reset checked to be true or false and not used (since 4.5 every connection is asynchronous
+            // capable and reset when drawn from the pool); Network Library (DBMSSOCN...) the protocol of the server name
+            // (tcp:, np:, lpc:), as the Data Source's prefix gives it. Context Connection=true is SQL CLR's in-process
+            // connection: refused, as there is none.
+            ConvertValueToBoolean(KEY.AsynchronousProcessing, false);
+            ConvertValueToBoolean(KEY.Connection_Reset, true);
+            if (ConvertValueToBoolean(KEY.Context_Connection, false))
+            {
+                throw SQL.UnsupportedKeyword(KEY.Context_Connection);
+            }
+            _networkLibrary = NetworkLibraryProtocol(ConvertValueToString(KEY.Network_Library, null));
+#else
             ThrowUnsupportedIfKeywordSet(KEY.AsynchronousProcessing);
             ThrowUnsupportedIfKeywordSet(KEY.Connection_Reset);
             ThrowUnsupportedIfKeywordSet(KEY.Context_Connection);
@@ -214,6 +231,7 @@ namespace System.Data.SqlClient
             {
                 throw SQL.NetworkLibraryKeywordNotSupported();
             }
+#endif
 
             _integratedSecurity = ConvertValueToIntegratedSecurity();
             _poolBlockingPeriod = ConvertValueToPoolBlockingPeriod();
@@ -433,6 +451,9 @@ namespace System.Data.SqlClient
             _packetSize = connectionOptions._packetSize;
             _applicationName = connectionOptions._applicationName;
             _attachDBFileName = connectionOptions._attachDBFileName;
+#if WebFormsForCore
+            _networkLibrary = connectionOptions._networkLibrary;
+#endif
             _currentLanguage = connectionOptions._currentLanguage;
             _dataSource = dataSource;
             _localDBInstance = LocalDBAPI.GetLocalDbInstanceNameFromServerName(_dataSource);

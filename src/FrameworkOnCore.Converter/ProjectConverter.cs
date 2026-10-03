@@ -173,6 +173,25 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
     public static bool IsConvertible(string project) =>
         project.EndsWith(".csproj", StringComparison.OrdinalIgnoreCase) || project.EndsWith(".vbproj", StringComparison.OrdinalIgnoreCase);
 
+    /// <summary>The WCF services of a web project's folder: its .svc files and web.config's serviceActivations (their addresses).</summary>
+    public static List<string> WcfServices(string directory)
+    {
+        var services = Directory.EnumerateFiles(directory, "*.svc", new EnumerationOptions { MatchCasing = MatchCasing.CaseInsensitive, RecurseSubdirectories = true })
+            .Select(f => Path.GetRelativePath(directory, f).Replace('\\', '/'))
+            .Where(f => !Regex.IsMatch(f, @"^(bin|obj)/", RegexOptions.IgnoreCase)).ToList();
+        var config = Directory.EnumerateFiles(directory, "web.config", new EnumerationOptions { MatchCasing = MatchCasing.CaseInsensitive }).FirstOrDefault();
+        if (config != null)
+        {
+            try
+            {
+                services.AddRange(XDocument.Load(config).Root?.Element("system.serviceModel")?.Element("serviceHostingEnvironment")?.Element("serviceActivations")
+                    ?.Elements("add").Select(a => ((string?)a.Attribute("relativeAddress") ?? "").TrimStart('~', '/')).Where(a => a.Length > 0) ?? []);
+            }
+            catch (System.Xml.XmlException) { }
+        }
+        return services.Distinct(StringComparer.OrdinalIgnoreCase).ToList();
+    }
+
     public static bool IsVisualBasic(string project) => project.EndsWith(".vbproj", StringComparison.OrdinalIgnoreCase);
 
     /// <summary>The web project's entry point (the host Program writes): Program.cs, Program.vb.</summary>
@@ -250,6 +269,17 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
             AddListed((string)p.Attribute("Include")!, (string?)p.Attribute("Version") ?? p.Element(msbuild + "Version")?.Value ?? "*");
         }
         if (isWeb) foreach (var id in rules.WebPackages) AddPackage(new Package(id, rules.FrameworkOnCoreVersion));
+        // WCF's services the site has (.svc files, web.config's serviceActivations): served by CoreWCF in the application's host
+        // (FrameworkOnCore.ServiceModel; Program.cs calls it), as IIS's WCF activation served them, when that is the choice.
+        if (isWeb && WcfServices(source) is { Count: > 0 } services)
+        {
+            if (rules.IsChosen("wcf-server:corewcf"))
+            {
+                AddPackage(new Package("FrameworkOnCore.ServiceModel", rules.FrameworkOnCoreVersion));
+                report.Add(Report.Kind.Project, name, $"WCF services ({string.Join(", ", services.Take(6))}{(services.Count > 6 ? ", ..." : "")}): served by CoreWCF (FrameworkOnCore.ServiceModel), as web.config configures them");
+            }
+            else report.Add(Report.Kind.Unsupported, name, $"WCF services ({string.Join(", ", services.Take(6))}{(services.Count > 6 ? ", ..." : "")}): not served (wcf-server: none)");
+        }
 
         var binaryReferences = deployed.Select(d => (d.Assembly, HintPath: Paths.FromProject(target, d.Dll), Aliases: (string?)null)).ToList();
         var builtReferences = new List<string>();

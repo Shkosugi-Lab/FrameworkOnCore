@@ -1,0 +1,149 @@
+{
+  "SourceUrl": "http://localhost:5096",
+  "Snapshots": [
+    {
+      "Name": "wcf-services called by the page",
+      "Path": "/",
+      "Title": "WCF probe",
+      "Text": [
+        "WCF services of this site",
+        "Calculator.svc (SOAP, basicHttpBinding)",
+        "Add(2, 3) = 5",
+        "Divide(7, 2) = 3",
+        "Divide(9, 0): fault \"The divisor is zero.\": division by zero of 9",
+        "Price: #7 NOTEBOOK x3 = 6.75, placed 2026-02-01, notes: gift, priced",
+        "Its WSDL: definitions; operations: Add, Calls, Divide, Price",
+        "Its instances: one for every call (InstanceContextMode.Single)",
+        "+ =",
+        "Greeter.svc (no file: web.config's activation, the default endpoint)",
+        "Hello, Taro!",
+        "Catalog.svc (REST, webHttpBinding)",
+        "GET items/2: {\"Id\":\"2\",\"InStock\":true,\"Name\":\"Pencil\",\"Price\":0.75}",
+        "GET items?max=2: [{\"Id\":\"1\",\"InStock\":true,\"Name\":\"Notebook\",\"Price\":3.5},{\"Id\":\"2\",\"InStock\":true,\"Name\":\"Pencil\",\"Price\":0.75}]",
+        "GET items/3/xml: <Item xmlns=\"http://probe.example/catalog\" xmlns:i=\"http://www.w3.org/2001/XMLSchema-instance\"><Id>3</Id><InStock>false</InStock><Name>Eraser</Name><Price>1.2</Price></Item>",
+        "POST echo: {\"Id\":\"9\",\"InStock\":true,\"Name\":\"Ruler (echoed)\",\"Price\":2.5}"
+      ],
+      "Tables": [],
+      "Inputs": {
+        "txtA": "40",
+        "txtB": "2"
+      },
+      "Elements": {
+        "txtA": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtB": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "cmdAdd": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "wcf-postback calling the service",
+      "Path": "/",
+      "Title": "WCF probe",
+      "Text": [
+        "WCF services of this site",
+        "Calculator.svc (SOAP, basicHttpBinding)",
+        "Add(2, 3) = 5",
+        "Divide(7, 2) = 3",
+        "Divide(9, 0): fault \"The divisor is zero.\": division by zero of 9",
+        "Price: #7 NOTEBOOK x3 = 6.75, placed 2026-02-01, notes: gift, priced",
+        "Its WSDL: definitions; operations: Add, Calls, Divide, Price",
+        "Its instances: one for every call (InstanceContextMode.Single)",
+        "+ = 1234",
+        "Greeter.svc (no file: web.config's activation, the default endpoint)",
+        "Hello, Taro!",
+        "Catalog.svc (REST, webHttpBinding)",
+        "GET items/2: {\"Id\":\"2\",\"InStock\":true,\"Name\":\"Pencil\",\"Price\":0.75}",
+        "GET items?max=2: [{\"Id\":\"1\",\"InStock\":true,\"Name\":\"Notebook\",\"Price\":3.5},{\"Id\":\"2\",\"InStock\":true,\"Name\":\"Pencil\",\"Price\":0.75}]",
+        "GET items/3/xml: <Item xmlns=\"http://probe.example/catalog\" xmlns:i=\"http://www.w3.org/2001/XMLSchema-instance\"><Id>3</Id><InStock>false</InStock><Name>Eraser</Name><Price>1.2</Price></Item>",
+        "POST echo: {\"Id\":\"9\",\"InStock\":true,\"Name\":\"Ruler (echoed)\",\"Price\":2.5}"
+      ],
+      "Tables": [],
+      "Inputs": {
+        "txtA": "1200",
+        "txtB": "34"
+      },
+      "Elements": {
+        "txtA": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtB": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "cmdAdd": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "wcf-rest json",
+      "Path": "/catalog.svc/items/1",
+      "Title": "",
+      "Text": [
+        "{\"Id\":\"1\",\"InStock\":true,\"Name\":\"Notebook\",\"Price\":3.5}"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {}
+    },
+    {
+      "Name": "wcf-rest json list",
+      "Path": "/catalog.svc/items",
+      "Title": "",
+      "Text": [
+        "[{\"Id\":\"1\",\"InStock\":true,\"Name\":\"Notebook\",\"Price\":3.5},{\"Id\":\"2\",\"InStock\":true,\"Name\":\"Pencil\",\"Price\":0.75},{\"Id\":\"3\",\"InStock\":false,\"Name\":\"Eraser\",\"Price\":1.2}]"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {}
+    }
+  ],
+  "Links": [
+    {
+      "Url": "/Default.aspx",
+      "Status": 200,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/Catalog.svc/items/1",
+      "Status": 200,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/Catalog.svc/items?max=3",
+      "Status": 200,
+      "Location": null,
+      "From": null
+    }
+  ]
+}

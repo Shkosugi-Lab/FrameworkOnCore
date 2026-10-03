@@ -22,4 +22,5 @@
   <Project Path="../../FrameworkOnCore.Runtime/src/WebFormsForCore.Web.DynamicData/WebFormsForCore.Web.DynamicData.csproj" />
   <Project Path="../../FrameworkOnCore.Runtime/src/WebFormsForCore.Web.DataVisualization/WebFormsForCore.Web.DataVisualization.csproj" />
   <Project Path="../../FrameworkOnCore.Runtime/src/WebFormsForCore.Web.Mobile/WebFormsForCore.Web.Mobile.csproj" />
+  <Project Path="../../FrameworkOnCore.Runtime/src/WebFormsForCore.ServiceModel/WebFormsForCore.ServiceModel.csproj" />
 </Solution>

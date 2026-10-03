@@ -9,7 +9,7 @@
 # All builds in dependency order, after src/WebFormsForCore.Build when it was not built yet (it emits the
 # FakeStrongName targets every project imports).
 param(
-    [string]$Version = '1.6.5-w2l.13',
+    [string]$Version = '1.6.5-w2l.14',
     [ValidateSet('Web', 'All', 'None')][string]$Build = 'Web'
 )
 
@@ -51,6 +51,9 @@ $projects = @(
     # The mobile controls (System.Web.Mobile), from referencesource (upstream's adaptation to .NET; resources as .NET
     # Framework's assembly has them).
     'WebFormsForCore.Web.Mobile\WebFormsForCore.Web.Mobile.csproj'
+    # WCF's services of the converted applications (.svc, system.serviceModel) served by CoreWCF; System.ServiceModel.Activation's
+    # identity.
+    'WebFormsForCore.ServiceModel\WebFormsForCore.ServiceModel.csproj'
     # A submodule (git submodule update --init src/WebFormsForCore.AjaxControlToolkit): openIMIS uses it. Built and packed
     # for net10.0 only (the converted applications'), after the solution: its net8.0 build fails there (CS7069).
     'WebFormsForCore.AjaxControlToolkit\AjaxControlToolkit\AjaxControlToolkit.csproj'

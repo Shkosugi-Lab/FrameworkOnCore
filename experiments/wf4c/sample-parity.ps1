@@ -124,7 +124,10 @@ if ($Linux) {
     docker build -t $image $converted *> (Join-Path $work 'docker-build.log')
     if ($LASTEXITCODE -ne 0) { throw "docker build failed (see $work\docker-build.log)" }
     cmd /c "docker rm -f $image" 2>&1 | Out-Null
-    docker run -d --name $image -p "${Port}:8080" $image | Out-Null
+    # The sample's settings for its container (samples\<Name>\linux.env: what differs there, the ports behind the mapping).
+    $envFile = Join-Path $sample 'linux.env'
+    $envArguments = if (Test-Path $envFile) { @('--env-file', $envFile) } else { @() }
+    docker run -d --name $image -p "${Port}:8080" @envArguments $image | Out-Null
     try {
         Wait-Site "http://localhost:$Port"
         & dotnet $verifier verify --url "http://localhost:$Port" --scenario $scenario --golden $golden

@@ -68,8 +68,8 @@
       { "id": "none", "title": "対応しない", "description": "スタブ(モバイルのページは例外)。using だけなら消える" }
     ],
     "wcf-server": [
-      { "id": "none", "title": "対応しない", "description": "スタブ", "default": true },
-      { "id": "corewcf", "title": "CoreWCF", "description": "サービスを CoreWCF で動かす", "planned": true }
+      { "id": "corewcf", "title": "CoreWCF で動かす", "description": "サイトの .svc と web.config の system.serviceModel のサービスを、アプリの中の CoreWCF で動かす(パッケージ FrameworkOnCore.ServiceModel)。basicHttpBinding・basicHttpsBinding・wsHttpBinding・webHttpBinding(REST)、WCF 4 の既定のエンドポイントと既定の動作、serviceActivations、WSDL。サービス側だけの型(ServiceBehavior、WebGet など)は CoreWCF の型に書き換える。netTcpBinding、ASP.NET AJAX の enableWebScript、独自の ServiceHostFactory、aspNetCompatibilityEnabled(操作の中の HttpContext.Current)は対応しない", "default": true },
+      { "id": "none", "title": "対応しない", "description": "サービスは動かない(.svc は 404)。サービス側だけの型はスタブ" }
     ]
   },
   "$comment_settings": "Choices that are the application's, not an API's: shown whatever the analysis finds.",
@@ -146,7 +146,7 @@
     {
       "id": "wcf-server", "title": "WCF のサービス(ServiceHost、.svc)",
       "match": { "assemblies": [ "System.ServiceModel.Activation" ], "types": [ "System.ServiceModel.ServiceHost", "System.ServiceModel.ServiceHostBase" ], "namespaces": [ "System.ServiceModel.Activation", "System.ServiceModel.Description" ] },
-      "note": ".NET には無い(クライアントのみ)。CoreWCF で置き換えられる"
+      "note": ".NET の WCF はクライアントのみ。変換器: CoreWCF で動かす(FrameworkOnCore.ServiceModel が .svc と web.config のサービスを CoreWCF に登録する)"
     },
     {
       "id": "wcf-client", "title": "WCF のクライアント(System.ServiceModel)",

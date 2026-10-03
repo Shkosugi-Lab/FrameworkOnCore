@@ -23,6 +23,12 @@ public sealed record PlatformReplacement(string Member, string? Then, int? Argum
     public string Line => $"{Member}|{Then}|{Arguments}|{ParameterType}";
 }
 
+/// <summary>
+/// Namespaces and types a package moved, of a choice (Option): old namespace -> new (NamespaceMoves: CS0234), type name ->
+/// its full name now (TypeMoves: CS0246, CS0103), in a file that imports one of the namespaces they were in (TypeMoveOrigins).
+/// </summary>
+public sealed record MoveGroup(string? Option, string Note, IReadOnlyDictionary<string, string> NamespaceMoves, IReadOnlyDictionary<string, string> TypeMoves, IReadOnlyList<string> TypeMoveOrigins);
+
 /// <summary>What a project's sources do that behaves differently on .NET: reported. Option: the user's choice it belongs to.</summary>
 public sealed record SourceNote(Regex Pattern, string Note, string? Option = null);
 
@@ -67,15 +73,11 @@ public sealed record Rules
     /// <summary>Packages used by their .NET Framework asset (package id -> the DLL in the package, and why).</summary>
     public required IReadOnlyDictionary<string, (string Asset, string Note)> FrameworkAssets { get; init; }
     public IReadOnlyList<DllCallReplacement> DllCallReplacements { get; init; } = [];
-    /// <summary>Namespaces a package moved (Entity Framework 4's System.Data.Objects, EF6's System.Data.Entity.Core.Objects): old -> new.</summary>
-    public required IReadOnlyDictionary<string, string> NamespaceMoves { get; init; }
-    /// <summary>Types a package moved out of a namespace the sources import (System.Data.EntityState): name -> its full name now.</summary>
-    public required IReadOnlyDictionary<string, string> TypeMoves { get; init; }
-    public required string NamespaceMovesNote { get; init; }
-    /// <summary>The namespaces the moved types were in (System.Data): a file that imports one names them unqualified.</summary>
-    public required IReadOnlyList<string> TypeMoveOrigins { get; init; }
-    /// <summary>The choice the namespace and type moves belong to (Entity Framework 4 to EF6).</summary>
-    public string? NamespaceMovesOption { get; init; }
+    /// <summary>
+    /// Namespaces and types a package moved, a group per choice (Entity Framework 4 to EF6; WCF's service side to CoreWCF):
+    /// where the build does not find them, the sources name them where they are now (BuildFixer.Moves).
+    /// </summary>
+    public required IReadOnlyList<MoveGroup> MoveGroups { get; init; }
     /// <summary>The options chosen ("component:option", "setting:option"); null: the catalog's defaults.</summary>
     public IReadOnlySet<string>? Chosen { get; init; }
 
@@ -109,7 +111,6 @@ public sealed record Rules
         var chosen = new HashSet<string>(StringComparer.Ordinal);
         foreach (var component in catalog.Components.Select(c => c.Id)) chosen.Add($"{component}:{choices.OptionOf(catalog, component)}");
         foreach (var setting in catalog.Settings) chosen.Add($"{setting.Id}:{choices.SettingOf(catalog, setting.Id)}");
-        var moves = Holds(NamespaceMovesOption);
         var frameworkReferences = FrameworkReferences;
         var noAnswer = NoAnswer;
         if (FrameworkReferenceOptions.Any(o => !Holds(o.Value)))
@@ -138,8 +139,7 @@ public sealed record Rules
             SourceNotes = SourceNotes.Where(n => Holds(n.Option)).ToList(),
             MemberReplacements = MemberReplacements.Where(r => Holds(r.Option)).ToList(),
             PlatformReplacements = PlatformReplacements.Where(r => HoldsFor(r.Option, r.Member)).ToList(),
-            NamespaceMoves = moves ? NamespaceMoves : new Dictionary<string, string>(),
-            TypeMoves = moves ? TypeMoves : new Dictionary<string, string>(),
+            MoveGroups = MoveGroups.Where(g => Holds(g.Option)).ToList(),
             Chosen = chosen,
         };
     }
@@ -221,11 +221,11 @@ public sealed record Rules
                 e.GetProperty("member").GetString()!, Optional(e, "then"), e.TryGetProperty("arguments", out var count) ? count.GetInt32() : null,
                 Optional(e, "parameterType"), e.GetProperty("replace").GetString()!, e.GetProperty("replacement").GetString()!, e.GetProperty("note").GetString()!,
                 Optional(e, "option"))).ToList(),
-            NamespaceMoves = root.GetProperty("namespaceMoves").EnumerateObject().ToDictionary(p => p.Name, p => p.Value.GetString()!, StringComparer.Ordinal),
-            TypeMoves = root.GetProperty("typeMoves").EnumerateObject().ToDictionary(p => p.Name, p => p.Value.GetString()!, StringComparer.Ordinal),
-            NamespaceMovesNote = root.GetProperty("$comment_namespaceMoves").GetString()!,
-            TypeMoveOrigins = root.GetProperty("typeMoveOrigins").EnumerateArray().Select(e => e.GetString()!).ToList(),
-            NamespaceMovesOption = Optional(root, "namespaceMovesOption"),
+            MoveGroups = root.GetProperty("moveGroups").EnumerateArray().Select(g => new MoveGroup(
+                Optional(g, "option"), g.GetProperty("note").GetString()!,
+                g.TryGetProperty("namespaceMoves", out var namespaces) ? namespaces.EnumerateObject().ToDictionary(p => p.Name, p => p.Value.GetString()!, StringComparer.Ordinal) : new Dictionary<string, string>(),
+                g.TryGetProperty("typeMoves", out var types) ? types.EnumerateObject().ToDictionary(p => p.Name, p => p.Value.GetString()!, StringComparer.Ordinal) : new Dictionary<string, string>(),
+                g.TryGetProperty("typeMoveOrigins", out var origins) ? origins.EnumerateArray().Select(e => e.GetString()!).ToList() : [])).ToList(),
             SourceNotes = root.GetProperty("sourceNotes").EnumerateArray().Select(e => new SourceNote(
                 new Regex(e.GetProperty("pattern").GetString()!, RegexOptions.Compiled), e.GetProperty("note").GetString()!, Optional(e, "option"))).ToList(),
         };

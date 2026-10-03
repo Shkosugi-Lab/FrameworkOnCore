@@ -1,0 +1,20 @@
+{
+  "ignorePatterns": [],
+  "_crawlComment": "After the steps, the links of the pages (two deep): each one's status and redirect target as the original's (sample-parity.ps1 -Record -LinksOnly).",
+  "crawl": { "exclude": [] },
+  "steps": [
+    { "action": "goto", "path": "/Default.aspx" },
+    { "action": "snapshot", "name": "wcf-services called by the page" },
+
+    { "action": "fill", "target": "txtA", "value": "1200" },
+    { "action": "fill", "target": "txtB", "value": "34" },
+    { "action": "click", "target": "cmdAdd" },
+    { "action": "snapshot", "name": "wcf-postback calling the service" },
+
+    { "action": "goto", "path": "/Catalog.svc/items/1" },
+    { "action": "snapshot", "name": "wcf-rest json" },
+
+    { "action": "goto", "path": "/Catalog.svc/items?max=3" },
+    { "action": "snapshot", "name": "wcf-rest json list" }
+  ]
+}

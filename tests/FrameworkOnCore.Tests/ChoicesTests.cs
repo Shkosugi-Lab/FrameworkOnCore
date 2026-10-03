@@ -18,7 +18,7 @@ public sealed class ChoicesTests
     {
         var choices = Of("""
             {
-              "components": { "binary-formatter": "none", "no-such-part": "none", "wcf-server": "corewcf", "thread-abort": "maybe" },
+              "components": { "binary-formatter": "none", "no-such-part": "none", "wcf-server": "remoting", "thread-abort": "maybe" },
               "apis": { "P:System.Text.Encoding.Default": "none", "Encoding.Default": "none" },
               "settings": { "file-name-case": "sensitive", "colour": "blue" }
             }
@@ -28,7 +28,7 @@ public sealed class ChoicesTests
 
         Assert.Equal(5, errors.Count);
         Assert.Contains(errors, e => e.StartsWith("component no-such-part: not in the catalog"));
-        Assert.Contains(errors, e => e.StartsWith("component wcf-server: option corewcf is not there yet"));
+        Assert.Contains(errors, e => e.StartsWith("component wcf-server: no option remoting (corewcf, none)"));
         Assert.Contains(errors, e => e.StartsWith("component thread-abort: no option maybe (compat, none)"));
         Assert.Contains(errors, e => e.StartsWith("api Encoding.Default: not a documentation id"));
         Assert.Contains(errors, e => e.StartsWith("setting colour: not in the catalog"));
@@ -42,7 +42,8 @@ public sealed class ChoicesTests
         Assert.Equal(RewriteHarness.Rules.PlatformReplacements.Count, rules.PlatformReplacements.Count);
         Assert.Equal(RewriteHarness.Rules.SourcePackages.Count, rules.SourcePackages.Count);
         Assert.Equal(RewriteHarness.Rules.MemberReplacements.Count, rules.MemberReplacements.Count);
-        Assert.NotEmpty(rules.NamespaceMoves);
+        Assert.Contains(rules.MoveGroups, g => g.Option == "entity-framework-4:ef6");
+        Assert.Contains(rules.MoveGroups, g => g.Option == "wcf-server:corewcf");
         Assert.True(rules.IsChosen("code-pages:register"));
         Assert.True(rules.IsChosen("file-name-case:insensitive"));
         // Without Choose, the same (the catalog's defaults).
@@ -59,8 +60,7 @@ public sealed class ChoicesTests
 
         Assert.DoesNotContain(rules.SourcePackages, p => p.Package.Id == "System.Runtime.Serialization.Formatters");
         Assert.DoesNotContain(rules.SourcePackages, p => p.Package.Id == "EntityFramework");
-        Assert.Empty(rules.NamespaceMoves);
-        Assert.Empty(rules.TypeMoves);
+        Assert.DoesNotContain(rules.MoveGroups, g => g.Option == "entity-framework-4:ef6");
         Assert.DoesNotContain(rules.MemberReplacements, r => r.Member == "GetAccessControl");
         Assert.DoesNotContain(rules.PlatformReplacements, r => r.Member == "System.Text.Encoding.Default");
         Assert.True(rules.IsChosen("encoding-default:none"));

@@ -24,6 +24,7 @@
 | System.Data.Linq | .NET に無い | FrameworkOnCore.Data.Linq(referencesource) | `linq-to-sql`(移植版 / 対応しない) |
 | System.Web.DataVisualization | .NET に無い | FrameworkOnCore.Web.DataVisualization(referencesource) | `charts`(移植版 / 対応しない) |
 | System.Web.Mobile | .NET に無い | FrameworkOnCore.Web.Mobile(referencesource) | `mobile-controls`(移植版 / 対応しない) |
+| WCF のサーバー側(.svc、system.serviceModel、System.ServiceModel.Activation) | .NET はクライアントのみ | 移植ではなく CoreWCF で動かす: FrameworkOnCore.ServiceModel(System.ServiceModel.Activation の名前。AspNetCompatibilityRequirementsAttribute を持つ)。.svc と serviceActivations、web.config のエンドポイント・バインド・動作、WCF 4 の既定のエンドポイント、WSDL。クライアントの型の FaultException は CoreWCF の障害として返す | `wcf-server`(CoreWCF / 対応しない) |
 
 ## 候補
 
@@ -51,7 +52,7 @@
 | 対象 | 違い | 見つかった所 | ソース | 優先度 |
 |---|---|---|---|---|
 | System.Data.Services.Client(WCF Data Services のクライアント) | .NET に無い | be(ギャラリー)、mojo。nop390 の Microsoft.WindowsAzure.Storage.dll(`DataServiceContext.SaveChanges` など。こちらはパッケージ Microsoft.Data.Services.Client 5.x の、.NET Framework 向けにしかない API) | referencesource には無い。OData/odata.net の maintenance-5.x(`WCFDataService/Client`、MIT。Microsoft.Data.Services.Client 5.x。OData の Microsoft.Data.OData・Edm・System.Spatial に依存) | 中 |
-| System.ServiceModel のサーバー側(`BindingElement.BuildChannelListener` など) | .NET はクライアントのみ | mojo の Microsoft.ApplicationServer.Caching.Core.dll、Microsoft.WindowsFabric.Common.dll | 移植ではなく CoreWCF(部品 `wcf-server` の予定の選択肢) | 中 |
+| WCF のサーバー側の残り: netTcpBinding、enableWebScript(ASP.NET AJAX の .svc/js と {"d":...})、独自の ServiceHostFactory、操作の中の HttpContext.Current(aspNetCompatibilityEnabled)、サービスの中の `OperationContext.Current`(.NET の WCF クライアントの型でコンパイルされ、CoreWCF の中では null) | .NET はクライアントのみ。.svc と web.config のサービスは CoreWCF で動く(w2l.14、上の「移植済み」) | mojo の .svc(独自の ServiceHostFactory)。mojo の Microsoft.ApplicationServer.Caching.Core.dll、Microsoft.WindowsFabric.Common.dll(`BindingElement.BuildChannelListener` など、チャネルの実装) | CoreWCF | 中 |
 
 ## 移植では対応できないもの(参考)
 

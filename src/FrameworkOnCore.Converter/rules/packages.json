@@ -1,6 +1,6 @@
 {
   "$comment": "Package and reference rules. \"$frameworkoncore\" stands for the version of FrameworkOnCore's packages (frameworkOnCoreVersion).",
-  "frameworkOnCoreVersion": "1.6.5-w2l.13",
+  "frameworkOnCoreVersion": "1.6.5-w2l.14",
 
   "$comment_webPackages": "The web project always gets these (Program.cs uses them; pages reference them at run time). FrameworkOnCore.Data.SqlClient: whoever opens the connection (the sources, Entity Framework, a DLL), System.Data.SqlClient is the one expanding |DataDirectory| as .NET Framework's (its assembly version is above the package Entity Framework brings). The user's choice (portOptions): .NET's package, it is not added.",
   "webPackages": [ "FrameworkOnCore.Web", "FrameworkOnCore.Web.Extensions", "FrameworkOnCore.Configuration", "FrameworkOnCore.Web.DynamicData", "FrameworkOnCore.Data.SqlClient" ],
@@ -58,7 +58,9 @@
     "System.DirectoryServices.AccountManagement": [ "System.DirectoryServices.AccountManagement", "10.0.0" ],
     "System.Management": [ "System.Management", "10.0.0" ],
     "System.ServiceModel": [ "System.ServiceModel.Http", "10.0.652802" ],
-    "System.ServiceModel.Web": [ "System.ServiceModel.Http", "10.0.652802" ]
+    "System.ServiceModel.Web": [ "System.ServiceModel.Http", "10.0.652802" ],
+    // IIS's WCF activation (AspNetCompatibilityRequirements, the .svc files' hosting): FrameworkOnCore's, over CoreWCF.
+    "System.ServiceModel.Activation": [ "FrameworkOnCore.ServiceModel", "$frameworkoncore" ]
   },
   "$comment_frameworkCompanions": "Added along with a framework reference: what the .NET Framework assembly also contained.",
   "frameworkCompanions": {
@@ -69,7 +71,7 @@
   "$comment_noAnswer": "Assemblies .NET has no counterpart for (reported; the code using them is stubbed; left out of web.config's page compilation, where loading them fails every page). Designers' (System.Design, System.Web.Extensions.Design: Visual Studio's) the desktop's (System.Windows.Forms: Windows desktop applications', not a web application's). Also the ported framework assemblies the user chose not to use (frameworkReferenceOptions).",
   "noAnswer": [ "System.Data.Services.Client", "System.Design", "System.Web.Extensions.Design", "System.Windows.Forms" ],
   "$comment_frameworkReferenceOptions": "Framework references that are the user's choice: assembly -> the option that turns its frameworkReferences entry on. Not chosen, the assembly has no answer (noAnswer).",
-  "frameworkReferenceOptions": { "System.Data.Linq": "linq-to-sql:port", "System.Web.DataVisualization": "charts:port", "System.Web.Mobile": "mobile-controls:port" },
+  "frameworkReferenceOptions": { "System.Data.Linq": "linq-to-sql:port", "System.Web.DataVisualization": "charts:port", "System.Web.Mobile": "mobile-controls:port", "System.ServiceModel.Activation": "wcf-server:corewcf" },
   "$comment_portOptions": "FrameworkOnCore's ports of packages .NET has, behaving as .NET Framework's: the user's choice (option). Not chosen, wherever these rules give the port (webPackages, replacedPackages, frameworkReferences, sourcePackages), .NET's package (otherwise) instead.",
   "portOptions": {
     "FrameworkOnCore.Data.SqlClient": { "option": "sql-client:port", "otherwise": [ "System.Data.SqlClient", "4.9.0" ] }
@@ -79,6 +81,7 @@
   "sourcePackages": [
     { "pattern": "\\bSystem\\.Data\\.SqlClient\\b|\\bMicrosoft\\.SqlServer\\.Server\\b", "id": "FrameworkOnCore.Data.SqlClient", "version": "$frameworkoncore" },
     { "pattern": "\\bSystem\\.Data\\.Odbc\\b", "id": "System.Data.Odbc", "version": "10.0.0" },
+    { "pattern": "\\b(ServiceBehavior|OperationBehavior|InstanceContextMode|ConcurrencyMode|AspNetCompatibilityRequirements|WebGet|WebInvoke|WebOperationContext|WebFaultException|ServiceHostBase|IServiceBehavior|IErrorHandler|ServiceMetadataBehavior)\\b|\\bSystem\\.ServiceModel\\.(Web|Activation)\\b", "option": "wcf-server:corewcf", "id": "FrameworkOnCore.ServiceModel", "version": "$frameworkoncore" },
     { "pattern": "\\bSystem\\.Data\\.OleDb\\b", "id": "System.Data.OleDb", "version": "10.0.0", "note": "OLE DB is Windows only" },
     { "pattern": "\\bSystem\\.Security\\.Cryptography\\.Xml\\b", "id": "System.Security.Cryptography.Xml", "version": "10.0.0" },
     { "pattern": "\\bSystem\\.Security\\.Cryptography\\.Pkcs\\b", "id": "System.Security.Cryptography.Pkcs", "version": "10.0.0" },
@@ -100,34 +103,64 @@
     { "pattern": "\\bBinaryFormatter\\b", "option": "binary-formatter:compat-package", "id": "System.Runtime.Serialization.Formatters", "version": "10.0.12", "appProperties": { "EnableUnsafeBinaryFormatterSerialization": "true" }, "note": "BinaryFormatter (removed from .NET, which throws): its unsupported compatibility package, allowed in the application (EnableUnsafeBinaryFormatterSerialization); deserializing untrusted data with it is unsafe, as on .NET Framework" },
     { "pattern": "\\bSystem\\.Data\\.(Objects|EntityClient|Metadata\\.Edm)\\b", "option": "entity-framework-4:ef6", "id": "EntityFramework", "version": "6.5.1", "note": "Entity Framework 4 (.NET Framework's System.Data.Entity): EF6, whose namespaces moved (namespaceMoves, typeMoves)" }
   ],
-  "$comment_namespaceMoves": "Namespaces and types a package moved: where the build does not find them (CS0234, CS0246), the sources name them where they are now. Entity Framework 4, .NET Framework's own (System.Data.Entity), is EF6 on .NET (Upgrading to EF6: its core types in System.Data.Entity.Core).",
-  "$comment_namespaceMovesOption": "The choice the moves are of: Entity Framework 4 to EF6.",
-  "namespaceMovesOption": "entity-framework-4:ef6",
-  "namespaceMoves": {
-    "System.Data.Objects": "System.Data.Entity.Core.Objects",
-    "System.Data.Objects.DataClasses": "System.Data.Entity.Core.Objects.DataClasses",
-    "System.Data.Objects.SqlClient": "System.Data.Entity.SqlServer",
-    "System.Data.EntityClient": "System.Data.Entity.Core.EntityClient",
-    "System.Data.Metadata.Edm": "System.Data.Entity.Core.Metadata.Edm",
-    "System.Data.Mapping": "System.Data.Entity.Core.Mapping",
-    "System.Data.Common.CommandTrees": "System.Data.Entity.Core.Common.CommandTrees",
-    "System.Data.Common.EntitySql": "System.Data.Entity.Core.Common.EntitySql"
-  },
-  "typeMoveOrigins": [ "System.Data" ],
-  "typeMoves": {
-    "EntityState": "System.Data.Entity.EntityState",
-    "EntityKey": "System.Data.Entity.Core.EntityKey",
-    "EntityKeyMember": "System.Data.Entity.Core.EntityKeyMember",
-    "EntityException": "System.Data.Entity.Core.EntityException",
-    "EntityCommandExecutionException": "System.Data.Entity.Core.EntityCommandExecutionException",
-    "EntitySqlException": "System.Data.Entity.Core.EntitySqlException",
-    "UpdateException": "System.Data.Entity.Core.UpdateException",
-    "OptimisticConcurrencyException": "System.Data.Entity.Core.OptimisticConcurrencyException",
-    "ObjectNotFoundException": "System.Data.Entity.Core.ObjectNotFoundException",
-    "MappingException": "System.Data.Entity.Core.MappingException",
-    "MetadataException": "System.Data.Entity.Core.MetadataException",
-    "InvalidCommandTreeException": "System.Data.Entity.Core.InvalidCommandTreeException"
-  },
+  "$comment_moveGroups": "Namespaces and types a package moved, a group per choice (option): where the build does not find them (CS0234: namespaceMoves; CS0246, CS0103: typeMoves, in a file that imports one of typeMoveOrigins), the sources name them where they are now (a using directive or a qualified name rewritten, a using alias for a type).",
+  "moveGroups": [
+    {
+      "option": "entity-framework-4:ef6",
+      "note": "Entity Framework 4, .NET Framework's own (System.Data.Entity), is EF6 on .NET (Upgrading to EF6: its core types in System.Data.Entity.Core)",
+      "namespaceMoves": {
+        "System.Data.Objects": "System.Data.Entity.Core.Objects",
+        "System.Data.Objects.DataClasses": "System.Data.Entity.Core.Objects.DataClasses",
+        "System.Data.Objects.SqlClient": "System.Data.Entity.SqlServer",
+        "System.Data.EntityClient": "System.Data.Entity.Core.EntityClient",
+        "System.Data.Metadata.Edm": "System.Data.Entity.Core.Metadata.Edm",
+        "System.Data.Mapping": "System.Data.Entity.Core.Mapping",
+        "System.Data.Common.CommandTrees": "System.Data.Entity.Core.Common.CommandTrees",
+        "System.Data.Common.EntitySql": "System.Data.Entity.Core.Common.EntitySql"
+      },
+      "typeMoveOrigins": [ "System.Data" ],
+      "typeMoves": {
+        "EntityState": "System.Data.Entity.EntityState",
+        "EntityKey": "System.Data.Entity.Core.EntityKey",
+        "EntityKeyMember": "System.Data.Entity.Core.EntityKeyMember",
+        "EntityException": "System.Data.Entity.Core.EntityException",
+        "EntityCommandExecutionException": "System.Data.Entity.Core.EntityCommandExecutionException",
+        "EntitySqlException": "System.Data.Entity.Core.EntitySqlException",
+        "UpdateException": "System.Data.Entity.Core.UpdateException",
+        "OptimisticConcurrencyException": "System.Data.Entity.Core.OptimisticConcurrencyException",
+        "ObjectNotFoundException": "System.Data.Entity.Core.ObjectNotFoundException",
+        "MappingException": "System.Data.Entity.Core.MappingException",
+        "MetadataException": "System.Data.Entity.Core.MetadataException",
+        "InvalidCommandTreeException": "System.Data.Entity.Core.InvalidCommandTreeException"
+      }
+    },
+    {
+      "option": "wcf-server:corewcf",
+      "note": "WCF's service side, which .NET's WCF (the client) has not, is CoreWCF's (its contracts' attributes, ServiceContract and OperationContract, are taken as they are)",
+      "namespaceMoves": {
+        "System.ServiceModel.Web": "CoreWCF.Web"
+      },
+      "typeMoveOrigins": [ "System.ServiceModel", "System.ServiceModel.Description", "System.ServiceModel.Dispatcher" ],
+      "typeMoves": {
+        "ServiceBehavior": "CoreWCF.ServiceBehaviorAttribute",
+        "ServiceBehaviorAttribute": "CoreWCF.ServiceBehaviorAttribute",
+        "OperationBehavior": "CoreWCF.OperationBehaviorAttribute",
+        "OperationBehaviorAttribute": "CoreWCF.OperationBehaviorAttribute",
+        "InstanceContextMode": "CoreWCF.InstanceContextMode",
+        "ConcurrencyMode": "CoreWCF.ConcurrencyMode",
+        "AddressFilterMode": "CoreWCF.AddressFilterMode",
+        "ReleaseInstanceMode": "CoreWCF.ReleaseInstanceMode",
+        "ServiceHostBase": "CoreWCF.ServiceHostBase",
+        "ServiceMetadataBehavior": "CoreWCF.Description.ServiceMetadataBehavior",
+        "ServiceDebugBehavior": "CoreWCF.Description.ServiceDebugBehavior",
+        "IServiceBehavior": "CoreWCF.Description.IServiceBehavior",
+        "ServiceDescription": "CoreWCF.Description.ServiceDescription",
+        "WebHttpBehavior": "CoreWCF.Description.WebHttpBehavior",
+        "IErrorHandler": "CoreWCF.Dispatcher.IErrorHandler",
+        "ChannelDispatcher": "CoreWCF.Dispatcher.ChannelDispatcher"
+      }
+    }
+  ],
 
   "$comment_dllCallReplacements": "Calls inside a library's DLL (no source) where .NET differs from .NET Framework in a way the library did not expect: in the DLL named (assembly), in the method given (in: Type::Method), the call of the member (call: Type::Method) becomes a call of the compatibility assembly's static method of the same parameters and return (replacement). AssemblyRetargeter.",
   "dllCallReplacements": [

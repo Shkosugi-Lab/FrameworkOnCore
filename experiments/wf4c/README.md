@@ -949,6 +949,33 @@ DNN のインストール ウィザードがネイティブ起動で 500 にな�
 - 気付いたこと: wt の Elmah.dll は、.NET Framework の `SqlConnectionStringBuilder.AsynchronousProcessing`(.NET Framework 4.5 から無視される)を使う。これは移植版にも .NET 版にも無く、使う所で MissingMethodException になる。移植版に足せる候補。
 - 移植版の候補は `PORT-CANDIDATES.md` で管理する(見つけ方と、2026-10-02 時点の一覧)。
 
+### WCF のサービスを CoreWCF で動かす(1.6.5-w2l.14、2026-10-03)
+
+.NET の WCF はクライアントだけで、サービス(.svc)は動かなかった。部品 `wcf-server` の選択肢「CoreWCF で動かす」を作り、既定にした。
+
+- ランタイム: パッケージ FrameworkOnCore.ServiceModel(`FrameworkOnCore.Runtime/src/WebFormsForCore.ServiceModel`)。
+  - アセンブリの名前は .NET Framework の System.ServiceModel.Activation(公開鍵トークン 31bf3856ad364e35)。CoreWCF に無い `AspNetCompatibilityRequirementsAttribute` を持つ。
+  - `AddWebFormsServiceModel()` と `UseWebFormsServiceModel()`(Web Forms より前)が、IIS の WCF の起動と同じくサービスを見つけて CoreWCF に登録する。
+    - サイトの .svc(`<%@ ServiceHost Service=... %>`、アドレスはファイルの場所)と、web.config の serviceActivations(ファイルの無いサービス)。
+    - web.config の services のエンドポイント(アドレス、バインド、bindingConfiguration、behaviorConfiguration)。無ければ WCF 4 の既定のエンドポイント(実装している契約ごと、protocolMapping のバインド。既定は basicHttpBinding)。WebServiceHostFactory は webHttpBinding。
+    - バインド: basicHttpBinding、basicHttpsBinding、wsHttpBinding、webHttpBinding。設定の属性(maxReceivedMessageSize など)と readerQuotas、security の mode。
+    - 動作: serviceMetadata(WSDL。CoreWCF では全サービスに一つの設定)、serviceDebug、webHttp。名前の無い動作は既定の動作。
+    - 対応しないもの(起動時のログに出す): netTcpBinding など、mex のエンドポイント、enableWebScript と WebScriptServiceHostFactory、独自の ServiceHostFactory(使わずに web.config のとおりに動かす)、aspNetCompatibilityEnabled(操作の中に ASP.NET の文脈が無い)。
+    - サービスの見つからない .svc は 404(ファイルを返さない)。
+  - サービスの契約は、変換後のソースでは .NET の WCF クライアントの属性(ServiceContract、OperationContract、FaultContract など)のまま。CoreWCF はそれをそのまま受け付ける。
+  - クライアントの型の `FaultException`(`FaultException<T>`)は CoreWCF が知らない型で、内部エラーになっていた。エラーハンドラーで CoreWCF の障害(理由、コード、詳細)に変えて返す。
+- 変換器:
+  - 名前空間と型の移動を、選択ごとのグループ(`moveGroups`)にした。EF4 → EF6 と、WCF のサービス側 → CoreWCF。
+    - `System.ServiceModel.Web` → `CoreWCF.Web`(WebGet、WebInvoke、WebMessageFormat など)。
+    - `ServiceBehavior`、`OperationBehavior`、`InstanceContextMode`、`ConcurrencyMode` など → CoreWCF の型(using の別名)。
+    - 両方にある型(クライアントの `System.ServiceModel.ConcurrencyMode` と CoreWCF の)は、型の不一致(CS0266、CS0029、CS1503)から CoreWCF の方の別名を足す。以前はこの属性ごと消していた。
+  - .svc か serviceActivations のある Web プロジェクトに FrameworkOnCore.ServiceModel を付け、Program.cs で呼ぶ。`System.ServiceModel.Activation` の参照もこのパッケージにする。
+- サンプル `samples/WcfProbe`: SOAP(足し算、FaultContract の障害、DataContract の注文、InstanceContextMode.Single)、ファイルの無いサービスと既定のエンドポイント、REST(JSON と XML、JSON の POST)、WSDL。ページから WCF のクライアントで呼ぶ。
+  - IIS で正解を採った(Windows の機能 WCF-HTTP-Activation45 を有効にした)。Windows・Linux とも 4/4 とリンク 3 件が一致。
+  - Linux のコンテナでは、ページが自分のサービスを呼ぶ先を `APPSETTING_ServiceBase`(`samples/WcfProbe/linux.env`、`sample-parity.ps1` が渡す)で与える。ポートの対応(5096 → 8080)の内側と外側でポートが違うため。
+  - 気付いたこと: ランタイムの `SERVER_PORT` は Host ヘッダーのポート(IIS は接続のポート)。ポートの対応やリバースプロキシの後ろで、古いアプリが SERVER_PORT からリンクを作っても壊れないように、意図して変えたもの(w2l.10)。そのままにした。
+- 確認: テスト Windows 4,348 件・Linux 4,329 件、be Windows 5/5、wt Windows 6/8(既知の差)。
+
 #### SqlClient の残りの小さな違い(1.6.5-w2l.13)
 
 - `TransparentNetworkIPResolution`(.NET Framework 4.6.1 の接続文字列のキーワードとビルダーのプロパティ): 受け付ける。接続の仕方は .NET と同じ(.NET Framework の「最初の IP を短く試す」には SNI の変更が要る)。

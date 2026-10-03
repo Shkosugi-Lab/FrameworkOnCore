@@ -301,6 +301,16 @@ void WriteHost(ConvertedProject web)
         program = program.Replace("options.UseAspNetCoreSessionProvider()", "options.HandleAllRequestsWithWebForms().UseAspNetCoreSessionProvider()");
         report.Add(Report.Kind.Project, web.Name, $"every request goes to Web Forms: {why}");
     }
+    // WCF's services (FrameworkOnCore.ServiceModel: the site has .svc files): CoreWCF before Web Forms, which would take
+    // their requests (a site whose every request goes to Web Forms).
+    if (projectText.Contains("\"FrameworkOnCore.ServiceModel\"", StringComparison.OrdinalIgnoreCase))
+    {
+        program = visualBasic
+            ? program.Replace("builder.Services.AddSession()", "builder.Services.AddSession()\n            builder.Services.AddWebFormsServiceModel()")
+                     .Replace("app.UseWebForms(", "app.UseWebFormsServiceModel()\n            app.UseWebForms(")
+            : program.Replace("builder.Services.AddSession();", "builder.Services.AddSession();\n        builder.Services.AddWebFormsServiceModel();")
+                     .Replace("app.UseWebForms(", "app.UseWebFormsServiceModel();\n        app.UseWebForms(");
+    }
     File.WriteAllText(Path.Combine(directory, ProjectConverter.ProgramFile(web.TargetPath)), program, new UTF8Encoding(false));
 
     if (cultureProfile != null)

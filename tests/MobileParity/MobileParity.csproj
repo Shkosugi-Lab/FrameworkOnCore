@@ -17,7 +17,7 @@
     <!-- CA1416: System.Drawing (colors, fonts of the styles) on Linux too. CS0618, SYSLIB0011: the API's own obsolete members (the whole assembly is [Obsolete]), called as they are. -->
     <NoWarn>$(NoWarn);CA1416;CS0618;SYSLIB0011;SYSLIB0051</NoWarn>
     <!-- FrameworkOnCore's version the tests run the port of (rules/packages.json frameworkOnCoreVersion). -->
-    <FrameworkOnCoreVersion Condition="'$(FrameworkOnCoreVersion)' == ''">1.6.5-w2l.12</FrameworkOnCoreVersion>
+    <FrameworkOnCoreVersion Condition="'$(FrameworkOnCoreVersion)' == ''">1.6.5-w2l.13</FrameworkOnCoreVersion>
     <RestoreAdditionalProjectSources>$(MSBuildThisFileDirectory)..\..\experiments\wf4c\_feed</RestoreAdditionalProjectSources>
   </PropertyGroup>
 

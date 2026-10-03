@@ -949,6 +949,16 @@ DNN のインストール ウィザードがネイティブ起動で 500 にな�
 - 気付いたこと: wt の Elmah.dll は、.NET Framework の `SqlConnectionStringBuilder.AsynchronousProcessing`(.NET Framework 4.5 から無視される)を使う。これは移植版にも .NET 版にも無く、使う所で MissingMethodException になる。移植版に足せる候補。
 - 移植版の候補は `PORT-CANDIDATES.md` で管理する(見つけ方と、2026-10-02 時点の一覧)。
 
+#### SqlClient の残りの小さな違い(1.6.5-w2l.13)
+
+- `TransparentNetworkIPResolution`(.NET Framework 4.6.1 の接続文字列のキーワードとビルダーのプロパティ): 受け付ける。接続の仕方は .NET と同じ(.NET Framework の「最初の IP を短く試す」には SNI の変更が要る)。
+- `SqlParameterCollection.Add(string, object)`(.NET Framework 2.0 から廃止予定。AddWithValue と同じ): 足した。
+- `System.Data.Sql.SqlDataSourceEnumerator` と `SqlClientFactory.CreateDataSourceEnumerator`: 足した。
+  - .NET Framework はネイティブの SNI に問い合わせていた。移植版は、その SNI と同じく SQL Server Browser にブロードキャストで問い合わせる(SSRP、UDP 1434)。表の形は .NET Framework と同じ。
+  - この PC では、.NET Framework の方は 36 秒かけて 0 件、移植版は 2 秒で SQLEXPRESS を返した。
+  - テストは、テストの中の SQL Server Browser の代わりが答える(ポート 1434 が空いているとき。Linux のコンテナで動くことを確かめた)。
+- 確認: テスト Windows(FrameworkOnCore.Tests 4,345、SqlClientTests 214)・Linux(4,326、204)が緑。be Windows 5/5、wt Windows 6/8(既知の差)。
+
 #### .NET が拒否する接続文字列のキーワード(1.6.5-w2l.12)
 
 候補のうち優先度の高い 2 件を、移植版に足した。.NET Framework 4.8(referencesource)と同じ動きにしている。

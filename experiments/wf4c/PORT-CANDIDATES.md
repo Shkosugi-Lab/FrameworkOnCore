@@ -40,9 +40,9 @@
 |---|---|---|---|---|
 | **済(w2l.12)** 接続文字列のキーワード `Asynchronous Processing`(`async`)、`Connection Reset`、`Network Library`(`net`、`network`) | 受け付ける(`Asynchronous Processing` と `Connection Reset` は 4.5 から無視、`Network Library=dbmssocn` は TCP) | .NET 版は例外(Keyword not supported など)。古いアプリの接続文字列によくある。移植版は .NET Framework と同じく受け付ける。`Context Connection=true`(SQL CLR の中の接続)は、無いので例外のまま | n2 の接続文字列の例(docs/example.web.config の SQL Server 2000 用: `Network Library=DBMSSOCN`)。コーパスの設定ファイルには無い | 高 |
 | **済(w2l.12)** `SqlConnectionStringBuilder` の `AsynchronousProcessing`、`ConnectionReset`、`NetworkLibrary`、`ContextConnection` | ある | .NET 版には無い(MissingMethodException)。移植版にはある | wt の Elmah.dll(`AsynchronousProcessing`)。変換レポートから消えた | 高 |
-| `SqlConnectionStringBuilder.TransparentNetworkIPResolution` と接続文字列のキーワード(.NET Framework 4.6.1 から) | ある | 無い(キーワードは例外) | — | 中 |
-| `SqlParameterCollection.Add(string, object)` | ある(廃止予定) | 無い | — | 中 |
-| `SqlDataSourceEnumerator`、`SqlClientFactory.CreateDataSourceEnumerator` | ある(サーバーの一覧) | 無い | — | 低 |
+| **一部済(w2l.13)** `SqlConnectionStringBuilder.TransparentNetworkIPResolution` と接続文字列のキーワード(.NET Framework 4.6.1 から) | ある。最初の IP を短い待ち時間(500 ミリ秒以上)で試し、だめなら並列に試す | 移植版は受け付ける。接続の仕方は .NET 版と同じ(順に試す。並列は MultiSubnetFailover のとき)。同じ試し方には SNI の変更が要る | — | 低 |
+| **済(w2l.13)** `SqlParameterCollection.Add(string, object)` | ある(廃止予定) | .NET 版には無い。移植版にはある | — | 中 |
+| **済(w2l.13)** `SqlDataSourceEnumerator`、`SqlClientFactory.CreateDataSourceEnumerator` | ある(サーバーの一覧。ネイティブの SNI に問い合わせる) | .NET 版には無い。移植版は SQL Server Browser にブロードキャストで問い合わせる(SSRP、UDP 1434。ネイティブの SNI と同じ問い合わせ)。表(列、行)は .NET Framework と同じ。この PC では、.NET Framework の方は 36 秒かけて 0 件、移植版は 2 秒で SQLEXPRESS を返した | — | 低 |
 | Always Encrypted(`SqlColumnEncryption*`、`ColumnEncryptionSetting` など)、Azure AD 認証(`SqlAuthenticationProvider`、`Authentication`) | ある | 無い(Microsoft.Data.SqlClient にはある) | — | 低 |
 | `SqlConnection.EnlistDistributedTransaction`(COM+)、`SqlCommand.NotificationAutoEnlist` | ある | 無い | — | 低 |
 
@@ -50,7 +50,7 @@
 
 | 対象 | 違い | 見つかった所 | ソース | 優先度 |
 |---|---|---|---|---|
-| System.Data.Services.Client(WCF Data Services のクライアント) | .NET に無い | nop390 の Microsoft.WindowsAzure.Storage.dll(`DataServiceContext.SaveChanges` など) | referencesource | 中 |
+| System.Data.Services.Client(WCF Data Services のクライアント) | .NET に無い | be(ギャラリー)、mojo。nop390 の Microsoft.WindowsAzure.Storage.dll(`DataServiceContext.SaveChanges` など。こちらはパッケージ Microsoft.Data.Services.Client 5.x の、.NET Framework 向けにしかない API) | referencesource には無い。OData/odata.net の maintenance-5.x(`WCFDataService/Client`、MIT。Microsoft.Data.Services.Client 5.x。OData の Microsoft.Data.OData・Edm・System.Spatial に依存) | 中 |
 | System.ServiceModel のサーバー側(`BindingElement.BuildChannelListener` など) | .NET はクライアントのみ | mojo の Microsoft.ApplicationServer.Caching.Core.dll、Microsoft.WindowsFabric.Common.dll | 移植ではなく CoreWCF(部品 `wcf-server` の予定の選択肢) | 中 |
 
 ## 移植では対応できないもの(参考)

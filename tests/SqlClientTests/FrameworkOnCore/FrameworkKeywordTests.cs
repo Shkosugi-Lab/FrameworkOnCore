@@ -45,6 +45,37 @@ namespace System.Data.SqlClient.Tests
             Open(keyword);
         }
 
+        [Theory] // .NET Framework 4.6.1's: taken, and a host's addresses tried as .NET's are
+        [InlineData("TransparentNetworkIPResolution=false")]
+        [InlineData("TransparentNetworkIPResolution=true")]
+        public void Transparent_network_ip_resolution_connects(string keyword)
+        {
+            Open(keyword);
+        }
+
+        [Fact]
+        public void The_builder_has_transparent_network_ip_resolution()
+        {
+            var builder = new SqlConnectionStringBuilder("Data Source=srv");
+            Assert.True(builder.TransparentNetworkIPResolution);
+            builder.TransparentNetworkIPResolution = false;
+            Assert.Equal("Data Source=srv;TransparentNetworkIPResolution=False", builder.ConnectionString);
+            Assert.False(new SqlConnectionStringBuilder(builder.ConnectionString).TransparentNetworkIPResolution);
+            Assert.Throws<ArgumentException>(() => new SqlConnection("Data Source=srv;TransparentNetworkIPResolution=maybe"));
+        }
+
+        [Fact] // obsolete since .NET Framework 2.0, AddWithValue's twin; libraries built for .NET Framework call it
+        public void Parameters_add_with_a_value()
+        {
+            var command = new SqlCommand();
+#pragma warning disable 618
+            SqlParameter parameter = command.Parameters.Add("@name", (object)"value");
+#pragma warning restore 618
+            Assert.Equal("@name", parameter.ParameterName);
+            Assert.Equal("value", parameter.Value);
+            Assert.Same(parameter, command.Parameters["@name"]);
+        }
+
         [Theory] // the library names of TCP/IP: the protocol of the server name (tcp:)
         [InlineData("Network Library=DBMSSOCN")]
         [InlineData("Network Library=dbmssocn")]

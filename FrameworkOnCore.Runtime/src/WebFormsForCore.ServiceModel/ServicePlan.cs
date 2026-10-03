@@ -27,6 +27,8 @@ namespace System.ServiceModel.Activation
             /// <summary>webHttpBinding's: its webHttp behavior's settings (null: the default ones).</summary>
             public XElement WebHttp;
             public bool Web;
+            /// <summary>enableWebScript (ASP.NET AJAX's script services): WebScriptEnablingBehavior, its script proxy at /js.</summary>
+            public bool WebScript;
         }
 
         internal sealed class Service
@@ -113,7 +115,7 @@ namespace System.ServiceModel.Activation
                 _log($"{source}: the service type {serviceName} is not found, not served");
                 return;
             }
-            bool webFactory = false;
+            bool webFactory = false, webScriptFactory = false;
             if (!string.IsNullOrEmpty(factory))
             {
                 string factoryName = factory.Split(',')[0].Trim();
@@ -123,8 +125,7 @@ namespace System.ServiceModel.Activation
                 }
                 else if (factoryName == "System.ServiceModel.Activation.WebScriptServiceHostFactory")
                 {
-                    _log($"{source}: WebScriptServiceHostFactory (ASP.NET AJAX's script services: enableWebScript) is not served by CoreWCF");
-                    return;
+                    webScriptFactory = true;
                 }
                 else
                 {
@@ -149,10 +150,10 @@ namespace System.ServiceModel.Activation
             {
                 // WCF 4's default endpoints: each contract the service implements, of the protocol mapping's binding (a
                 // WebServiceHost's: webHttpBinding with webHttp).
-                var (bindingKind, bindingConfiguration) = webFactory ? ("webHttpBinding", null) : _config.ProtocolMapping("http");
+                var (bindingKind, bindingConfiguration) = webFactory || webScriptFactory ? ("webHttpBinding", null) : _config.ProtocolMapping("http");
                 foreach (Type contract in Contracts(type))
                 {
-                    AddEndpoint(service, contract, bindingKind, bindingConfiguration, address, null, source);
+                    AddEndpoint(service, contract, bindingKind, bindingConfiguration, address, null, source, webScriptFactory);
                 }
                 if (!Contracts(type).Any())
                 {
@@ -180,7 +181,7 @@ namespace System.ServiceModel.Activation
             }
         }
 
-        private void AddEndpoint(Service service, Type contract, string bindingKind, string bindingConfiguration, string address, XElement behavior, string source)
+        private void AddEndpoint(Service service, Type contract, string bindingKind, string bindingConfiguration, string address, XElement behavior, string source, bool webScript = false)
         {
             XElement configuration = _config.Binding(bindingKind, bindingConfiguration);
             if (!string.IsNullOrEmpty(bindingConfiguration) && configuration == null)
@@ -192,7 +193,7 @@ namespace System.ServiceModel.Activation
             {
                 return;
             }
-            var endpoint = new Endpoint { Contract = contract, Binding = binding, Address = address, Web = binding is CoreWCF.WebHttpBinding };
+            var endpoint = new Endpoint { Contract = contract, Binding = binding, Address = address, Web = binding is CoreWCF.WebHttpBinding, WebScript = webScript && binding is CoreWCF.WebHttpBinding };
             if (behavior != null)
             {
                 foreach (XElement element in behavior.Elements())
@@ -203,8 +204,13 @@ namespace System.ServiceModel.Activation
                             endpoint.WebHttp = element;
                             break;
                         case "enableWebScript":
-                            _log($"{source}: enableWebScript (ASP.NET AJAX's script services) is not served by CoreWCF, its endpoint {address} left out");
-                            return;
+                            if (binding is not CoreWCF.WebHttpBinding)
+                            {
+                                _log($"{source}: enableWebScript on {bindingKind} (it is webHttpBinding's), its endpoint {address} left out");
+                                return;
+                            }
+                            endpoint.WebScript = true;
+                            break;
                         default:
                             _log($"{source}: the endpoint behavior {element.Name.LocalName} is not applied");
                             break;

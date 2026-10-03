@@ -42,6 +42,8 @@
         <!-- The contracts' attributes and the FaultException the converted services are compiled against (.NET's WCF client:
              CoreWCF takes those contracts; their faults are made CoreWCF's here). -->
         <PackageReference Include="System.ServiceModel.Http" Version="10.0.652802" />
+        <!-- enableWebScript's script proxy: System.Web.Extensions' ClientProxyGenerator (its internals: InternalsVisibleTo). -->
+        <ProjectReference Include="..\WebFormsForCore.Web.Extensions\WebFormsForCore.Web.Extensions.csproj" />
     </ItemGroup>
 
     <Import Project="..\..\lib\WebFormsForCore.Build\netstandard2.0\FakeStrongName.targets" />

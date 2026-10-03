@@ -34,9 +34,10 @@ namespace System.ServiceModel.Activation
 
         public bool HandleError(Exception error) => error is System.ServiceModel.FaultException;
 
+        // A fault another handler gave (enableWebScript's JSON one) is the answer.
         public void ProvideFault(Exception error, MessageVersion version, ref Message fault)
         {
-            if (Convert(error) is not { } converted)
+            if (fault != null || Convert(error) is not { } converted)
             {
                 return;
             }

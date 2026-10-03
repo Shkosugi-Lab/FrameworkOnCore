@@ -38,6 +38,27 @@ namespace Microsoft.AspNetCore.Builder
             ServicePlan plan = ServicePlan.Build(siteRoot, message => Console.WriteLine($"WebFormsForCore: WCF: {message}"));
             if (plan.Services.Any(s => s.Endpoints.Count > 0))
             {
+                // enableWebScript's script proxies (Service.svc/js, /jsdebug), before CoreWCF's endpoint at that address takes them.
+                var proxies = plan.Services.SelectMany(s => s.Endpoints).Where(e => e.WebScript).ToList();
+                if (proxies.Count > 0)
+                {
+                    var started = DateTime.UtcNow;
+                    started = new DateTime(started.Year, started.Month, started.Day, started.Hour, started.Minute, started.Second, DateTimeKind.Utc);
+                    app.Use(async (context, next) =>
+                    {
+                        if (HttpMethods.IsGet(context.Request.Method) && WebScriptProxy(proxies, context.Request.Path.Value ?? "") is { } found)
+                        {
+                            string path = $"{context.Request.Scheme}://{context.Request.Host}{context.Request.PathBase}{found.Endpoint.Address}";
+                            context.Response.ContentType = "application/x-javascript";
+                            context.Response.Headers["Cache-Control"] = "public";
+                            context.Response.Headers["Last-Modified"] = started.ToString("R", System.Globalization.CultureInfo.InvariantCulture);
+                            context.Response.Headers["Expires"] = started.ToString("R", System.Globalization.CultureInfo.InvariantCulture);
+                            await context.Response.WriteAsync(WCFServiceClientProxyGenerator.GetClientProxyScript(found.Endpoint.Contract, path, found.Debug));
+                            return;
+                        }
+                        await next();
+                    });
+                }
                 app.UseServiceModel(builder =>
                 {
                     foreach (ServicePlan.Service service in plan.Services.Where(s => s.Endpoints.Count > 0))
@@ -50,7 +71,12 @@ namespace Microsoft.AspNetCore.Builder
                         foreach (ServicePlan.Endpoint endpoint in service.Endpoints)
                         {
                             var address = new Uri(endpoint.Address, UriKind.Relative);
-                            if (endpoint.Web)
+                            if (endpoint.WebScript)
+                            {
+                                builder.AddServiceEndpoint(service.Type, endpoint.Contract, endpoint.Binding, address, null,
+                                    serviceEndpoint => serviceEndpoint.EndpointBehaviors.Add(new WebScriptEnablingBehavior(app.ApplicationServices)));
+                            }
+                            else if (endpoint.Web)
                             {
                                 builder.AddServiceWebEndpoint(service.Type, endpoint.Contract, (CoreWCF.WebHttpBinding)endpoint.Binding, address, null, behavior =>
                                 {
@@ -85,6 +111,24 @@ namespace Microsoft.AspNetCore.Builder
                 await next();
             });
             return app;
+        }
+
+        // The enableWebScript endpoint whose script proxy a path asks for (its address and /js, or /jsdebug: the debug one).
+        private static (ServicePlan.Endpoint Endpoint, bool Debug)? WebScriptProxy(System.Collections.Generic.List<ServicePlan.Endpoint> endpoints, string path)
+        {
+            foreach (ServicePlan.Endpoint endpoint in endpoints)
+            {
+                string address = endpoint.Address.TrimEnd('/');
+                if (string.Equals(path, address + "/js", StringComparison.OrdinalIgnoreCase))
+                {
+                    return (endpoint, false);
+                }
+                if (string.Equals(path, address + "/jsdebug", StringComparison.OrdinalIgnoreCase))
+                {
+                    return (endpoint, true);
+                }
+            }
+            return null;
         }
 
         private static void ApplyWebHttp(WebHttpBehavior behavior, System.Xml.Linq.XElement configuration)

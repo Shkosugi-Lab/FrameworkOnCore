@@ -39,7 +39,7 @@ public sealed class Conversions(AnalysisStore store, string runtime)
 {
     static readonly JsonSerializerOptions json = new(AnalysisResult.Json);
     readonly ConcurrentDictionary<string, ConversionEntry> entries = new(StringComparer.Ordinal);
-    readonly ConcurrentDictionary<string, ConcurrentQueue<string>> logs = new(StringComparer.Ordinal);
+    readonly ConcurrentDictionary<string, StudioLog> logs = new(StringComparer.Ordinal);
     readonly ConcurrentDictionary<string, CancellationTokenSource> running = new(StringComparer.Ordinal);
 
     string Folder(string id) => Path.Combine(store.Folder(id), "conversion");
@@ -86,7 +86,7 @@ public sealed class Conversions(AnalysisStore store, string runtime)
         running[id] = cancel;
         Directory.CreateDirectory(Folder(id));
         Save(id, entry);
-        var log = logs[id] = new ConcurrentQueue<string>();
+        var log = logs[id] = new StudioLog();
         _ = Task.Run(async () =>
         {
             var gate = false;
@@ -149,7 +149,7 @@ public sealed class Conversions(AnalysisStore store, string runtime)
         logs.TryRemove(id, out _);
     }
 
-    async Task<int> RunConverter(AnalysisEntry analysis, string id, bool buildOriginal, ConcurrentQueue<string> log, CancellationToken cancel)
+    async Task<int> RunConverter(AnalysisEntry analysis, string id, bool buildOriginal, StudioLog log, CancellationToken cancel)
     {
         var converter = Path.Combine(AppContext.BaseDirectory, "FrameworkOnCore.Converter.dll");
         var start = new ProcessStartInfo("dotnet")
@@ -171,11 +171,11 @@ public sealed class Conversions(AnalysisStore store, string runtime)
         var buildLogs = (buildOriginal ? new[] { ".original.build.log", ".build.log" } : [".build.log"]).Select(e => Output(id) + e).ToList();
         foreach (var file in buildLogs) File.Delete(file);
         using var following = new CancellationTokenSource();
-        var tails = buildLogs.Select(file => LogTail.Follow(file, line => Append(log, "  " + line), following.Token)).ToList();
+        var tails = buildLogs.Select(file => LogTail.Follow(file, line => log.Enqueue("  " + line), following.Token)).ToList();
         using var process = new Process { StartInfo = start };
         process.Start();
         Runs.EndWithStudio(process);  // the converter and the builds it starts end with Studio
-        var reading = ProcessOutput.ReadLines(process, line => Append(log, line));
+        var reading = ProcessOutput.ReadLines(process, line => log.Enqueue(line));
         try { await process.WaitForExitAsync(cancel); }
         catch (OperationCanceledException)
         {
@@ -192,12 +192,6 @@ public sealed class Conversions(AnalysisStore store, string runtime)
         return process.ExitCode;
     }
 
-    // The log kept for the page: the last lines (a build of a large application writes many).
-    static void Append(ConcurrentQueue<string> log, string line)
-    {
-        log.Enqueue(line);
-        while (log.Count > 5000) log.TryDequeue(out _);
-    }
 
     // "## <title>(<n> 件)": the report's sections, as the page shows them.
     static List<ReportSection>? Sections(string report) =>

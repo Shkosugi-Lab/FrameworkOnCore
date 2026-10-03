@@ -74,7 +74,7 @@ public static class RunEnvironment
 public abstract class Runs
 {
     protected readonly ConcurrentDictionary<string, RunEntry> entries = new(StringComparer.Ordinal);
-    protected readonly ConcurrentDictionary<string, ConcurrentQueue<string>> logs = new(StringComparer.Ordinal);
+    protected readonly ConcurrentDictionary<string, StudioLog> logs = new(StringComparer.Ordinal);
     protected readonly ConcurrentDictionary<string, CancellationTokenSource> working = new(StringComparer.Ordinal);
 
     public RunEntry? Get(string id) => entries.TryGetValue(id, out var entry) ? entry : null;
@@ -111,14 +111,14 @@ public abstract class Runs
     protected abstract void Release(string id, RunEntry entry);
 
     // The work in the background: stopped when cancelled (what it started released), failed with its message.
-    protected RunEntry Begin(string id, RunEntry entry, Func<ConcurrentQueue<string>, CancellationToken, Task> work)
+    protected RunEntry Begin(string id, RunEntry entry, Func<StudioLog, CancellationToken, Task> work)
     {
         if (working.ContainsKey(id)) throw new InvalidOperationException("起動の途中です");
         if (Get(id) is { State: "running" } before) Release(id, before);
         var cancel = new CancellationTokenSource();
         working[id] = cancel;
         entries[id] = entry;
-        var log = logs[id] = new ConcurrentQueue<string>();
+        var log = logs[id] = new StudioLog();
         _ = Task.Run(async () =>
         {
             try { await work(log, cancel.Token); }
@@ -143,7 +143,7 @@ public abstract class Runs
     /// compiled, a database created and seeded): it is waited for, as long as the whole wait (by the clock, not the
     /// requests: one that does not answer is not a minute of a count) and the site's process last.
     /// </summary>
-    protected async Task WaitForSite(string id, Func<bool> alive, ConcurrentQueue<string> log, CancellationToken cancel)
+    protected async Task WaitForSite(string id, Func<bool> alive, StudioLog log, CancellationToken cancel)
     {
         const int minutes = 10;
         var url = entries[id].Url!;
@@ -214,10 +214,10 @@ public abstract class Runs
     }
 
     /// <summary>A process whose output and errors go to the log.</summary>
-    protected static Process StartLogged(ProcessStartInfo start, ConcurrentQueue<string> log) => StartLogged(start, log, out _);
+    protected static Process StartLogged(ProcessStartInfo start, StudioLog log) => StartLogged(start, log, out _);
 
     /// <summary>A process whose output and errors go to the log; <paramref name="reading"/> ends when they have.</summary>
-    protected static Process StartLogged(ProcessStartInfo start, ConcurrentQueue<string> log, out Task reading)
+    protected static Process StartLogged(ProcessStartInfo start, StudioLog log, out Task reading)
     {
         start.UseShellExecute = false;
         start.RedirectStandardOutput = true;
@@ -225,7 +225,7 @@ public abstract class Runs
         log.Enqueue("> " + Path.GetFileName(start.FileName) + " " + string.Join(' ', start.ArgumentList.Select(a => a.Contains(' ') ? $"\"{a}\"" : a)) + start.Arguments);
         var process = new Process { StartInfo = start };
         process.Start();
-        reading = ProcessOutput.ReadLines(process, line => Append(log, line));
+        reading = ProcessOutput.ReadLines(process, line => log.Enqueue(line));
         return process;
     }
 
@@ -297,11 +297,6 @@ public abstract class Runs
         catch (InvalidOperationException) { }
     }
 
-    protected static void Append(ConcurrentQueue<string> log, string line)
-    {
-        log.Enqueue(line);
-        while (log.Count > 3000) log.TryDequeue(out _);
-    }
 
     protected static string Slug(string id) => Regex.Replace(id, "[^A-Za-z0-9]", "")[^8..].ToLowerInvariant();
 }
@@ -412,7 +407,7 @@ public sealed class Originals(AnalysisStore store) : Runs
     /// environment written into the site's web.config, over the one the build made (kept beside it, web.config.foc-original:
     /// each start begins from it, the ones given before do not stay). The other variables are returned, the process's.
     /// </summary>
-    static List<(string Name, string Value)> ApplyToWebConfig(string site, List<(string Name, string Value)> variables, bool fresh, ConcurrentQueue<string> log)
+    static List<(string Name, string Value)> ApplyToWebConfig(string site, List<(string Name, string Value)> variables, bool fresh, StudioLog log)
     {
         var others = new List<(string Name, string Value)>();
         var config = Directory.EnumerateFiles(site, "web.config", new EnumerationOptions { MatchCasing = MatchCasing.CaseInsensitive }).FirstOrDefault();
@@ -465,7 +460,7 @@ public sealed class Originals(AnalysisStore store) : Runs
         return others;
     }
 
-    async Task<string> Build(string id, AnalysisEntry analysis, ConcurrentQueue<string> log, CancellationToken cancel)
+    async Task<string> Build(string id, AnalysisEntry analysis, StudioLog log, CancellationToken cancel)
     {
         await store.Heavy.WaitAsync(cancel);
         try
@@ -483,7 +478,7 @@ public sealed class Originals(AnalysisStore store) : Runs
             var buildLog = Path.Combine(Folder(id), "work.build.log");
             File.Delete(buildLog);
             using var following = new CancellationTokenSource();
-            var tail = LogTail.Follow(buildLog, line => Append(log, "  " + line), following.Token);
+            var tail = LogTail.Follow(buildLog, line => log.Enqueue("  " + line), following.Token);
             using var process = StartLogged(start, log, out var reading);
             EndWithStudio(process);
             try { await process.WaitForExitAsync(cancel); }
@@ -499,7 +494,7 @@ public sealed class Originals(AnalysisStore store) : Runs
                 await tail;
                 await reading;  // its last lines: the site's
             }
-            var site = log.Reverse().Select(l => Regex.Match(l, "^site: (.+)$")).FirstOrDefault(m => m.Success)?.Groups[1].Value;
+            var site = log.Texts.Reverse().Select(l => Regex.Match(l, "^site: (.+)$")).FirstOrDefault(m => m.Success)?.Groups[1].Value;
             if (process.ExitCode != 0 || site == null)
                 throw new InvalidOperationException($"元のアプリをビルドできませんでした(ログと {buildLog} を見てください)");
             File.WriteAllText(SiteFile(id), site);
@@ -524,21 +519,21 @@ public sealed class Originals(AnalysisStore store) : Runs
     public static void RemoveLeftovers()
     {
         if (!Iis) return;
-        var output = new ConcurrentQueue<string>();
+        var output = new StudioLog();
         Run(AppCmd, "list site /text:name", output, quiet: false);
-        foreach (var name in output.Where(l => l.StartsWith("foc-studio-", StringComparison.Ordinal)))
+        foreach (var name in output.Texts.Where(l => l.StartsWith("foc-studio-", StringComparison.Ordinal)))
         {
             AppCmdRun($"delete site {name}", null, quiet: true);
             AppCmdRun($"delete apppool {name}", null, quiet: true);
         }
     }
 
-    static void AppCmdRun(string arguments, ConcurrentQueue<string>? log, bool quiet = false)
+    static void AppCmdRun(string arguments, StudioLog? log, bool quiet = false)
     {
         if (Run(AppCmd, arguments, log, quiet) != 0 && !quiet) throw new InvalidOperationException($"appcmd {arguments} が失敗しました");
     }
 
-    static int Run(string file, string arguments, ConcurrentQueue<string>? log, bool quiet)
+    static int Run(string file, string arguments, StudioLog? log, bool quiet)
     {
         log?.Enqueue($"> {Path.GetFileName(file)} {arguments}");
         using var process = Process.Start(new ProcessStartInfo(file, arguments) { UseShellExecute = false, RedirectStandardOutput = true, RedirectStandardError = true })!;
@@ -594,7 +589,7 @@ public sealed class Natives(AnalysisStore store, Conversions conversions) : Runs
                 process.EnableRaisingEvents = true;
                 process.Exited += (_, _) =>
                 {
-                    Append(log, $"exited ({process.ExitCode})");
+                    log.Enqueue($"exited ({process.ExitCode})");
                     if (process.ExitCode == 75 && processes.TryGetValue(id, out var current) && current == process && !cancel.IsCancellationRequested) Launch();
                     else if (entries.TryGetValue(id, out var now) && now.State == "running" && processes.TryGetValue(id, out current) && current == process)
                         entries[id] = now with { State = "stopped", Error = $"アプリが終了しました(終了コード {process.ExitCode})" };

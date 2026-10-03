@@ -38,7 +38,7 @@ public sealed class AnalysisStore
     readonly string runtime;
     readonly SemaphoreSlim one = new(1, 1);
     readonly ConcurrentDictionary<string, AnalysisEntry> entries = new(StringComparer.Ordinal);
-    readonly ConcurrentDictionary<string, ConcurrentQueue<string>> logs = new(StringComparer.Ordinal);
+    readonly ConcurrentDictionary<string, StudioLog> logs = new(StringComparer.Ordinal);
     // The analyses deleted while waiting or running: their task ends without keeping anything.
     readonly ConcurrentDictionary<string, bool> cancelled = new(StringComparer.Ordinal);
 
@@ -89,7 +89,7 @@ public sealed class AnalysisStore
             Created = DateTimeOffset.UtcNow, State = "queued",
         };
         Save(entry);
-        var log = logs[id] = new ConcurrentQueue<string>();
+        var log = logs[id] = new StudioLog();
         _ = Task.Run(async () =>
         {
             await one.WaitAsync();

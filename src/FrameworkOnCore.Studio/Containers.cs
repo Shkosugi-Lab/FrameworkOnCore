@@ -35,7 +35,7 @@ public sealed class Containers(AnalysisStore store, Conversions conversions)
     const string Label = "foc.studio";
     static readonly JsonSerializerOptions json = new(AnalysisResult.Json);
     readonly ConcurrentDictionary<string, ContainerEntry> entries = new(StringComparer.Ordinal);
-    readonly ConcurrentDictionary<string, ConcurrentQueue<string>> logs = new(StringComparer.Ordinal);
+    readonly ConcurrentDictionary<string, StudioLog> logs = new(StringComparer.Ordinal);
     readonly ConcurrentDictionary<string, CancellationTokenSource> working = new(StringComparer.Ordinal);
 
     string Folder(string id) => Path.Combine(store.Folder(id), "container");
@@ -139,7 +139,7 @@ public sealed class Containers(AnalysisStore store, Conversions conversions)
         var cancel = new CancellationTokenSource();
         working[id] = cancel;
         Save(id, entry);
-        var log = logs[id] = new ConcurrentQueue<string>();
+        var log = logs[id] = new StudioLog();
         _ = Task.Run(async () =>
         {
             var envFile = Path.Combine(Folder(id), "run.env");
@@ -249,14 +249,14 @@ public sealed class Containers(AnalysisStore store, Conversions conversions)
 
     static IEnumerable<string> Variables(string text) => RunEnvironment.Variables(text).Select(v => $"{v.Name}={v.Value}");
 
-    async Task<int> Run(IEnumerable<string> arguments, ConcurrentQueue<string> log, CancellationToken cancel)
+    async Task<int> Run(IEnumerable<string> arguments, StudioLog log, CancellationToken cancel)
     {
         var start = DockerStart();
         foreach (var argument in arguments) start.ArgumentList.Add(argument);
         using var process = new Process { StartInfo = start };
         process.Start();
         Runs.EndWithStudio(process);
-        var reading = ProcessOutput.ReadLines(process, line => Append(log, line));
+        var reading = ProcessOutput.ReadLines(process, line => log.Enqueue(line));
         try { await process.WaitForExitAsync(cancel); }
         catch (OperationCanceledException)
         {
@@ -268,14 +268,14 @@ public sealed class Containers(AnalysisStore store, Conversions conversions)
     }
 
     // "docker logs -f": the container's output to the log, until it is disposed of (killed) or the container ends.
-    static FollowingLog Follow(string name, ConcurrentQueue<string> log)
+    static FollowingLog Follow(string name, StudioLog log)
     {
         var start = DockerStart();
         foreach (var argument in new[] { "logs", "-f", name }) start.ArgumentList.Add(argument);
         var process = new Process { StartInfo = start };
         process.Start();
         Runs.EndWithStudio(process);
-        var reading = ProcessOutput.ReadLines(process, line => Append(log, "  " + line));
+        var reading = ProcessOutput.ReadLines(process, line => log.Enqueue("  " + line));
         return new FollowingLog(process, reading);
     }
 
@@ -291,11 +291,6 @@ public sealed class Containers(AnalysisStore store, Conversions conversions)
         }
     }
 
-    static void Append(ConcurrentQueue<string> log, string line)
-    {
-        log.Enqueue(line);
-        while (log.Count > 3000) log.TryDequeue(out _);
-    }
 
     static (int Exit, string Output) Docker(string arguments)
     {

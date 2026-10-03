@@ -478,6 +478,11 @@ public sealed class Originals(AnalysisStore store) : Runs
                          "--root", analysis.Root, "--configuration", analysis.Configuration, "--out", Path.Combine(Folder(id), "work"),
                      })
                 start.ArgumentList.Add(argument);
+            // The build's tools write to the build's log, not to the converter's output: its lines while it runs.
+            var buildLog = Path.Combine(Folder(id), "work.build.log");
+            File.Delete(buildLog);
+            using var following = new CancellationTokenSource();
+            var tail = LogTail.Follow(buildLog, line => Append(log, "  " + line), following.Token);
             using var process = StartLogged(start, log);
             EndWithStudio(process);
             try { await process.WaitForExitAsync(cancel); }
@@ -487,9 +492,14 @@ public sealed class Originals(AnalysisStore store) : Runs
                 await process.WaitForExitAsync();
                 throw;
             }
+            finally
+            {
+                following.Cancel();
+                await tail;
+            }
             var site = log.Reverse().Select(l => Regex.Match(l, "^site: (.+)$")).FirstOrDefault(m => m.Success)?.Groups[1].Value;
             if (process.ExitCode != 0 || site == null)
-                throw new InvalidOperationException($"元のアプリをビルドできませんでした(ログと {Path.Combine(Folder(id), "work.build.log")} を見てください)");
+                throw new InvalidOperationException($"元のアプリをビルドできませんでした(ログと {buildLog} を見てください)");
             File.WriteAllText(SiteFile(id), site);
             return site;
         }

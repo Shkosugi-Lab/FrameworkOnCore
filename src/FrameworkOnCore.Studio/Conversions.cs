@@ -166,6 +166,11 @@ public sealed class Conversions(AnalysisStore store, string runtime)
         if (buildOriginal) start.ArgumentList.Add("--build-original");
         log.Enqueue("> dotnet " + string.Join(' ', start.ArgumentList.Select(a => a.Contains(' ') ? $"\"{a}\"" : a)));
 
+        // The original's build writes its tools' output to its log, not to the converter's output: its lines while it runs.
+        var buildLog = Output(id) + ".original.build.log";
+        if (buildOriginal) File.Delete(buildLog);
+        using var following = new CancellationTokenSource();
+        var tail = buildOriginal ? LogTail.Follow(buildLog, line => Append(log, "  " + line), following.Token) : Task.CompletedTask;
         using var process = new Process { StartInfo = start };
         process.OutputDataReceived += (_, e) => { if (e.Data != null) Append(log, e.Data); };
         process.ErrorDataReceived += (_, e) => { if (e.Data != null) Append(log, e.Data); };
@@ -179,6 +184,11 @@ public sealed class Conversions(AnalysisStore store, string runtime)
             try { process.Kill(entireProcessTree: true); } catch (InvalidOperationException) { }
             await process.WaitForExitAsync();
             throw;
+        }
+        finally
+        {
+            following.Cancel();
+            await tail;
         }
         return process.ExitCode;
     }

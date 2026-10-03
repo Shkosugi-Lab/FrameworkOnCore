@@ -427,7 +427,7 @@ public sealed partial class OriginalBuild(Report report, string log, string? con
         foreach (var (key, value) in environment) start.Environment[key] = value;
         if (path.Count > 0) start.Environment["PATH"] = string.Join(Path.PathSeparator, path) + Path.PathSeparator + start.Environment["PATH"];
         if (!quiet) Console.WriteLine($"> {file} {arguments}");
-        using var writer = new StreamWriter(log, append: true, new UTF8Encoding(false));
+        using var writer = new StreamWriter(log, append: true, new UTF8Encoding(false)) { AutoFlush = true };  // read while it runs (Studio)
         writer.WriteLine($"> {file} {arguments}  (in {workingDirectory})");
         using var process = Process.Start(start)!;
         var gate = new object();

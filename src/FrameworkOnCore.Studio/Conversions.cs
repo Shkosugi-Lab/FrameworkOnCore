@@ -173,12 +173,9 @@ public sealed class Conversions(AnalysisStore store, string runtime)
         using var following = new CancellationTokenSource();
         var tails = buildLogs.Select(file => LogTail.Follow(file, line => Append(log, "  " + line), following.Token)).ToList();
         using var process = new Process { StartInfo = start };
-        process.OutputDataReceived += (_, e) => { if (e.Data != null) Append(log, e.Data); };
-        process.ErrorDataReceived += (_, e) => { if (e.Data != null) Append(log, e.Data); };
         process.Start();
         Runs.EndWithStudio(process);  // the converter and the builds it starts end with Studio
-        process.BeginOutputReadLine();
-        process.BeginErrorReadLine();
+        var reading = ProcessOutput.ReadLines(process, line => Append(log, line));
         try { await process.WaitForExitAsync(cancel); }
         catch (OperationCanceledException)
         {
@@ -190,6 +187,7 @@ public sealed class Conversions(AnalysisStore store, string runtime)
         {
             following.Cancel();
             await Task.WhenAll(tails);
+            await reading;
         }
         return process.ExitCode;
     }

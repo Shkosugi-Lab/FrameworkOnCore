@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using System.IO.Compression;
 using System.Text.RegularExpressions;
+using FrameworkOnCore.Analysis;
 
 namespace FrameworkOnCore.Converter;
 
@@ -155,10 +156,9 @@ public static class RuntimeSetup
             log?.Invoke($"building {Path.GetFileNameWithoutExtension(project)}");
             var start = new ProcessStartInfo("dotnet", $"build \"{project}\" -c Debug -nologo -v q") { UseShellExecute = false, RedirectStandardOutput = true, RedirectStandardError = true };
             using var process = Process.Start(start)!;
-            var output = process.StandardOutput.ReadToEndAsync();
-            var error = process.StandardError.ReadToEnd();
+            var (output, error) = ProcessOutput.ReadAll(process);
             process.WaitForExit();
-            if (process.ExitCode != 0) throw new InvalidOperationException($"{project} could not be built: {output.Result} {error}");
+            if (process.ExitCode != 0) throw new InvalidOperationException($"{project} could not be built: {output} {error}");
         }
     }
 }

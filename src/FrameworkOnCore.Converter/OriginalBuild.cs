@@ -3,6 +3,7 @@ using System.Text;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
+using FrameworkOnCore.Analysis;
 
 namespace FrameworkOnCore.Converter;
 
@@ -253,10 +254,8 @@ public sealed partial class OriginalBuild(Report report, string log, string? con
     {
         var start = new ProcessStartInfo(file, arguments) { WorkingDirectory = workingDirectory, RedirectStandardOutput = true, RedirectStandardError = true, UseShellExecute = false };
         using var process = Process.Start(start)!;
-        var error = process.StandardError.ReadToEndAsync();
-        var output = process.StandardOutput.ReadToEnd();
+        var (output, _) = ProcessOutput.ReadAll(process);
         process.WaitForExit();
-        error.Wait();
         return output;
     }
 
@@ -432,11 +431,9 @@ public sealed partial class OriginalBuild(Report report, string log, string? con
         using var process = Process.Start(start)!;
         var gate = new object();
         void Write(string? line) { if (line == null) return; lock (gate) writer.WriteLine(line); }
-        process.OutputDataReceived += (_, e) => Write(e.Data);
-        process.ErrorDataReceived += (_, e) => Write(e.Data);
-        process.BeginOutputReadLine();
-        process.BeginErrorReadLine();
+        var reading = ProcessOutput.ReadLines(process, Write);
         process.WaitForExit();
+        reading.Wait();
         writer.WriteLine($"exit {process.ExitCode}");
         if (!quiet && process.ExitCode != 0) report.Add(Report.Kind.Error, "original build", $"{Path.GetFileName(file)} {arguments} failed ({process.ExitCode}); see {log}");
         return process.ExitCode;

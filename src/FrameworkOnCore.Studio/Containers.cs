@@ -254,18 +254,16 @@ public sealed class Containers(AnalysisStore store, Conversions conversions)
         var start = DockerStart();
         foreach (var argument in arguments) start.ArgumentList.Add(argument);
         using var process = new Process { StartInfo = start };
-        process.OutputDataReceived += (_, e) => { if (e.Data != null) Append(log, e.Data); };
-        process.ErrorDataReceived += (_, e) => { if (e.Data != null) Append(log, e.Data); };
         process.Start();
         Runs.EndWithStudio(process);
-        process.BeginOutputReadLine();
-        process.BeginErrorReadLine();
+        var reading = ProcessOutput.ReadLines(process, line => Append(log, line));
         try { await process.WaitForExitAsync(cancel); }
         catch (OperationCanceledException)
         {
             try { process.Kill(entireProcessTree: true); } catch (InvalidOperationException) { }
             throw;
         }
+        await reading;
         return process.ExitCode;
     }
 
@@ -275,18 +273,15 @@ public sealed class Containers(AnalysisStore store, Conversions conversions)
         var start = DockerStart();
         foreach (var argument in new[] { "logs", "-f", name }) start.ArgumentList.Add(argument);
         var process = new Process { StartInfo = start };
-        process.OutputDataReceived += (_, e) => { if (e.Data != null) Append(log, "  " + e.Data); };
-        process.ErrorDataReceived += (_, e) => { if (e.Data != null) Append(log, "  " + e.Data); };
         process.Start();
         Runs.EndWithStudio(process);
-        process.BeginOutputReadLine();
-        process.BeginErrorReadLine();
-        return new FollowingLog(process);
+        var reading = ProcessOutput.ReadLines(process, line => Append(log, "  " + line));
+        return new FollowingLog(process, reading);
     }
 
-    sealed class FollowingLog(Process process) : IDisposable
+    sealed class FollowingLog(Process process, Task reading) : IDisposable
     {
-        public void WaitForExit(int milliseconds) => process.WaitForExit(milliseconds);
+        public void WaitForExit(int milliseconds) => reading.Wait(milliseconds);
 
         public void Dispose()
         {
@@ -309,10 +304,9 @@ public sealed class Containers(AnalysisStore store, Conversions conversions)
             var start = DockerStart();
             start.Arguments = arguments;
             using var process = Process.Start(start)!;
-            var error = process.StandardError.ReadToEndAsync();
-            var output = process.StandardOutput.ReadToEnd();
+            var (output, error) = ProcessOutput.ReadAll(process);
             process.WaitForExit();
-            return (process.ExitCode, output + error.Result);
+            return (process.ExitCode, output + error);
         }
         catch (System.ComponentModel.Win32Exception) { return (-1, "docker が見つかりません"); }
     }

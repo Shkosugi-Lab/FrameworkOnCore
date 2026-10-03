@@ -2,6 +2,7 @@ using System.Diagnostics;
 using System.Text;
 using System.Text.Json;
 using System.Xml.Linq;
+using FrameworkOnCore.Analysis;
 
 namespace FrameworkOnCore.Converter;
 
@@ -141,10 +142,9 @@ public sealed class DeployWriter(Report report, string outRoot, string runtimeDi
         var project = Path.Combine(runtimeDirectory, "icu", "CultureIcu", "CultureIcu.csproj");
         var start = new ProcessStartInfo("dotnet", $"publish \"{project}\" -c Release -o \"{Path.Combine(directory, "tool")}\" -nologo -v q") { UseShellExecute = false, RedirectStandardOutput = true, RedirectStandardError = true };
         using var process = Process.Start(start)!;
-        var output = process.StandardOutput.ReadToEndAsync();
-        var error = process.StandardError.ReadToEnd();
+        var (output, error) = ProcessOutput.ReadAll(process);
         process.WaitForExit();
-        if (process.ExitCode != 0) report.Add(Report.Kind.Error, "deploy", $"CultureIcu could not be published: {output.Result} {error}");
+        if (process.ExitCode != 0) report.Add(Report.Kind.Error, "deploy", $"CultureIcu could not be published: {output} {error}");
         WriteText(Path.Combine(directory, "build-icu-data.sh"), IcuScript);
     }
 

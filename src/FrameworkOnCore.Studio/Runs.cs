@@ -4,6 +4,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
+using FrameworkOnCore.Analysis;
 
 namespace FrameworkOnCore.Studio;
 
@@ -213,18 +214,18 @@ public abstract class Runs
     }
 
     /// <summary>A process whose output and errors go to the log.</summary>
-    protected static Process StartLogged(ProcessStartInfo start, ConcurrentQueue<string> log)
+    protected static Process StartLogged(ProcessStartInfo start, ConcurrentQueue<string> log) => StartLogged(start, log, out _);
+
+    /// <summary>A process whose output and errors go to the log; <paramref name="reading"/> ends when they have.</summary>
+    protected static Process StartLogged(ProcessStartInfo start, ConcurrentQueue<string> log, out Task reading)
     {
         start.UseShellExecute = false;
         start.RedirectStandardOutput = true;
         start.RedirectStandardError = true;
         log.Enqueue("> " + Path.GetFileName(start.FileName) + " " + string.Join(' ', start.ArgumentList.Select(a => a.Contains(' ') ? $"\"{a}\"" : a)) + start.Arguments);
         var process = new Process { StartInfo = start };
-        process.OutputDataReceived += (_, e) => { if (e.Data != null) Append(log, e.Data); };
-        process.ErrorDataReceived += (_, e) => { if (e.Data != null) Append(log, e.Data); };
         process.Start();
-        process.BeginOutputReadLine();
-        process.BeginErrorReadLine();
+        reading = ProcessOutput.ReadLines(process, line => Append(log, line));
         return process;
     }
 
@@ -483,7 +484,7 @@ public sealed class Originals(AnalysisStore store) : Runs
             File.Delete(buildLog);
             using var following = new CancellationTokenSource();
             var tail = LogTail.Follow(buildLog, line => Append(log, "  " + line), following.Token);
-            using var process = StartLogged(start, log);
+            using var process = StartLogged(start, log, out var reading);
             EndWithStudio(process);
             try { await process.WaitForExitAsync(cancel); }
             catch (OperationCanceledException)
@@ -496,6 +497,7 @@ public sealed class Originals(AnalysisStore store) : Runs
             {
                 following.Cancel();
                 await tail;
+                await reading;  // its last lines: the site's
             }
             var site = log.Reverse().Select(l => Regex.Match(l, "^site: (.+)$")).FirstOrDefault(m => m.Success)?.Groups[1].Value;
             if (process.ExitCode != 0 || site == null)
@@ -540,11 +542,10 @@ public sealed class Originals(AnalysisStore store) : Runs
     {
         log?.Enqueue($"> {Path.GetFileName(file)} {arguments}");
         using var process = Process.Start(new ProcessStartInfo(file, arguments) { UseShellExecute = false, RedirectStandardOutput = true, RedirectStandardError = true })!;
-        var error = process.StandardError.ReadToEndAsync();
-        var output = process.StandardOutput.ReadToEnd();
+        var (output, error) = ProcessOutput.ReadAll(process);
         process.WaitForExit();
         if (!quiet || process.ExitCode != 0)
-            foreach (var line in (output + error.Result).Split('\n').Select(l => l.TrimEnd()).Where(l => l.Length > 0)) log?.Enqueue(line);
+            foreach (var line in (output + error).Split('\n').Select(l => l.TrimEnd()).Where(l => l.Length > 0)) log?.Enqueue(line);
         return process.ExitCode;
     }
 }

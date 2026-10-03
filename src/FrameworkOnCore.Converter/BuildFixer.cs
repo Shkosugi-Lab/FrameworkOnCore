@@ -5,6 +5,7 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Text;
+using FrameworkOnCore.Analysis;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
 namespace FrameworkOnCore.Converter;
@@ -216,11 +217,9 @@ public sealed partial class BuildFixer(Report report, IReadOnlyCollection<Conver
         start.Environment["MSBUILDDISABLENODEREUSE"] = "1";
         using var process = Process.Start(start)!;
         var output = new StringBuilder();
-        process.OutputDataReceived += (_, e) => { if (e.Data != null) lock (output) output.AppendLine(e.Data); };
-        process.ErrorDataReceived += (_, e) => { if (e.Data != null) lock (output) output.AppendLine(e.Data); };
-        process.BeginOutputReadLine();
-        process.BeginErrorReadLine();
+        var reading = ProcessOutput.ReadLines(process, line => { lock (output) output.AppendLine(line); });
         process.WaitForExit();
+        reading.Wait();
         return (process.ExitCode, output.ToString());
     }
 

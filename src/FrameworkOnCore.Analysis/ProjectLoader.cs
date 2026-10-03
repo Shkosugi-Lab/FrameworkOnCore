@@ -228,8 +228,7 @@ public sealed class ProjectLoader(string root, string configuration, string plat
         try
         {
             using var process = System.Diagnostics.Process.Start(start)!;
-            var output = process.StandardOutput.ReadToEnd();
-            process.StandardError.ReadToEnd();
+            var (output, _) = ProcessOutput.ReadAll(process);
             process.WaitForExit();
             if (process.ExitCode != 0) { Warnings.Add($"{System.IO.Path.GetFileName(projectPath)}: MSBuild's evaluation failed (its own items taken)"); return null; }
             using var json = System.Text.Json.JsonDocument.Parse(output);

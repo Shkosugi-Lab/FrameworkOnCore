@@ -244,6 +244,9 @@ namespace System.Data.Common
         internal const int LoadBalanceTimeout = 0; // default of 0 means don't use
         internal const bool MultipleActiveResultSets = false;
         internal const bool MultiSubnetFailover = false;
+#if WebFormsForCore
+        internal const bool TransparentNetworkIPResolution = true;
+#endif
         internal const int MaxPoolSize = 100;
         internal const int MinPoolSize = 0;
         internal const int PacketSize = 8000;
@@ -281,6 +284,9 @@ namespace System.Data.Common
         internal const string InitialCatalog = "Initial Catalog";
         internal const string MultipleActiveResultSets = "MultipleActiveResultSets";
         internal const string MultiSubnetFailover = "MultiSubnetFailover";
+#if WebFormsForCore
+        internal const string TransparentNetworkIPResolution = "TransparentNetworkIPResolution";
+#endif
         internal const string NetworkLibrary = "Network Library";
         internal const string PacketSize = "Packet Size";
         internal const string Replication = "Replication";

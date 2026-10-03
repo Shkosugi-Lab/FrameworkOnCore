@@ -70,6 +70,9 @@ namespace System.Data.SqlClient
             internal const string Max_Pool_Size = "max pool size";
             internal const string Min_Pool_Size = "min pool size";
             internal const string MultiSubnetFailover = "multisubnetfailover";
+#if WebFormsForCore
+            internal const string TransparentNetworkIPResolution = "transparentnetworkipresolution";
+#endif
             internal const string Network_Library = "network library";
             internal const string Packet_Size = "packet size";
             internal const string Password = "password";
@@ -216,6 +219,9 @@ namespace System.Data.SqlClient
             // connection: refused, as there is none.
             ConvertValueToBoolean(KEY.AsynchronousProcessing, false);
             ConvertValueToBoolean(KEY.Connection_Reset, true);
+            // TransparentNetworkIPResolution (.NET Framework 4.6.1): checked to be true or false; a host's addresses are tried as
+            // .NET's are (in turn; in parallel with MultiSubnetFailover), not with .NET Framework's first short attempt.
+            ConvertValueToBoolean(KEY.TransparentNetworkIPResolution, true);
             if (ConvertValueToBoolean(KEY.Context_Connection, false))
             {
                 throw SQL.UnsupportedKeyword(KEY.Context_Connection);
@@ -545,6 +551,9 @@ namespace System.Data.SqlClient
                     { KEY.Max_Pool_Size, KEY.Max_Pool_Size },
                     { KEY.Min_Pool_Size, KEY.Min_Pool_Size },
                     { KEY.MultiSubnetFailover, KEY.MultiSubnetFailover },
+#if WebFormsForCore
+                    { KEY.TransparentNetworkIPResolution, KEY.TransparentNetworkIPResolution },
+#endif
                     { KEY.Network_Library, KEY.Network_Library },
                     { KEY.Packet_Size, KEY.Packet_Size },
                     { KEY.Password, KEY.Password },

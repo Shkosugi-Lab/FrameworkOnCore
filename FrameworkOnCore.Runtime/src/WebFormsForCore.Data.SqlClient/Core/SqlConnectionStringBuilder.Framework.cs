@@ -14,6 +14,7 @@ namespace System.Data.SqlClient
         private bool _connectionReset = true;
         private bool _contextConnection;
         private string _networkLibrary = string.Empty;
+        private bool _transparentNetworkIPResolution = DbConnectionStringDefaults.TransparentNetworkIPResolution;
 
         /// <summary>Asynchronous Processing: kept in the connection string; not used (since .NET Framework 4.5 every connection is capable of asynchronous operations).</summary>
         [DisplayName(DbConnectionStringKeywords.AsynchronousProcessing)]
@@ -67,6 +68,19 @@ namespace System.Data.SqlClient
                 value = SqlConnectionString.NormalizeNetworkLibrary(value);
                 SetValue(DbConnectionStringKeywords.NetworkLibrary, value);
                 _networkLibrary = value;
+            }
+        }
+
+        /// <summary>TransparentNetworkIPResolution (.NET Framework 4.6.1): kept in the connection string; a host's addresses are tried as .NET's are.</summary>
+        [DisplayName(DbConnectionStringKeywords.TransparentNetworkIPResolution)]
+        [RefreshProperties(RefreshProperties.All)]
+        public bool TransparentNetworkIPResolution
+        {
+            get { return _transparentNetworkIPResolution; }
+            set
+            {
+                SetValue(DbConnectionStringKeywords.TransparentNetworkIPResolution, value);
+                _transparentNetworkIPResolution = value;
             }
         }
     }

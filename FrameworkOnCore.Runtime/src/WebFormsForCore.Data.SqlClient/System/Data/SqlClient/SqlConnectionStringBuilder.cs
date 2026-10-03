@@ -67,6 +67,9 @@ namespace System.Data.SqlClient
             ApplicationIntent,
 
             MultiSubnetFailover,
+#if WebFormsForCore
+            TransparentNetworkIPResolution,
+#endif
 
             ConnectRetryCount,
 
@@ -158,6 +161,7 @@ namespace System.Data.SqlClient
             validKeywords[(int)Keywords.ConnectionReset] = DbConnectionStringKeywords.ConnectionReset;
             validKeywords[(int)Keywords.ContextConnection] = DbConnectionStringKeywords.ContextConnection;
             validKeywords[(int)Keywords.NetworkLibrary] = DbConnectionStringKeywords.NetworkLibrary;
+            validKeywords[(int)Keywords.TransparentNetworkIPResolution] = DbConnectionStringKeywords.TransparentNetworkIPResolution;
 #endif
             return validKeywords;
         }
@@ -220,6 +224,7 @@ namespace System.Data.SqlClient
             hash.Add(DbConnectionStringKeywords.ConnectionReset, Keywords.ConnectionReset);
             hash.Add(DbConnectionStringKeywords.ContextConnection, Keywords.ContextConnection);
             hash.Add(DbConnectionStringKeywords.NetworkLibrary, Keywords.NetworkLibrary);
+            hash.Add(DbConnectionStringKeywords.TransparentNetworkIPResolution, Keywords.TransparentNetworkIPResolution);
             hash.Add(DbConnectionStringSynonyms.Async, Keywords.AsynchronousProcessing);
             hash.Add(DbConnectionStringSynonyms.NET, Keywords.NetworkLibrary);
             hash.Add(DbConnectionStringSynonyms.NETWORK, Keywords.NetworkLibrary);
@@ -296,6 +301,7 @@ namespace System.Data.SqlClient
 #pragma warning restore 618
                         case Keywords.ContextConnection: ContextConnection = ConvertToBoolean(value); break;
                         case Keywords.NetworkLibrary: NetworkLibrary = ConvertToString(value); break;
+                        case Keywords.TransparentNetworkIPResolution: TransparentNetworkIPResolution = ConvertToBoolean(value); break;
 #endif
 
                         default:
@@ -752,6 +758,7 @@ namespace System.Data.SqlClient
 #pragma warning restore 618
                 case Keywords.ContextConnection: return ContextConnection;
                 case Keywords.NetworkLibrary: return NetworkLibrary;
+                case Keywords.TransparentNetworkIPResolution: return TransparentNetworkIPResolution;
 #endif
 
                 default:
@@ -896,6 +903,9 @@ namespace System.Data.SqlClient
                     break;
                 case Keywords.NetworkLibrary:
                     _networkLibrary = string.Empty;
+                    break;
+                case Keywords.TransparentNetworkIPResolution:
+                    _transparentNetworkIPResolution = DbConnectionStringDefaults.TransparentNetworkIPResolution;
                     break;
 #endif
                 default:

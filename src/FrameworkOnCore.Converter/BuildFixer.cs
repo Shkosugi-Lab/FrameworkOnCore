@@ -31,6 +31,9 @@ public sealed partial class BuildFixer(Report report, IReadOnlyCollection<Conver
 
     readonly Dictionary<string, int> attempts = new();
 
+    /// <summary>The builds' log (MSBuild's, minimal: each project as it is built), read while they run (Studio); none if null.</summary>
+    public string? Log { get; init; }
+
     // .NET's obsoletions (SYSLIB): members that are there but throw PlatformNotSupportedException, or will
     // go (Thread.Abort, AppDomain.CreateDomain). They compile; the calls fail at run time: reported.
     static readonly Regex obsoletion = new(@"^(?<file>.+?)\((?<line>\d+),(?<col>\d+)\): warning (?<code>SYSLIB\d+): (?<msg>.*?)(?: \[[^\]]+\])?$", RegexOptions.Compiled);
@@ -201,8 +204,13 @@ public sealed partial class BuildFixer(Report report, IReadOnlyCollection<Conver
 
     // ------------------------------------------------------------------------------------------
 
-    internal static (int ExitCode, string Output) Dotnet(string arguments)
+    internal static (int ExitCode, string Output) Dotnet(string arguments, string? log = null)
     {
+        if (log != null)
+        {
+            File.AppendAllText(log, $"> dotnet {arguments}{Environment.NewLine}", new UTF8Encoding(false));
+            arguments += $" \"-flp:LogFile={log};Verbosity=minimal;NoSummary;Append;Encoding=UTF-8\"";
+        }
         var start = new ProcessStartInfo("dotnet", arguments) { RedirectStandardOutput = true, RedirectStandardError = true, UseShellExecute = false };
         start.Environment["DOTNET_CLI_UI_LANGUAGE"] = "en";
         start.Environment["MSBUILDDISABLENODEREUSE"] = "1";
@@ -225,7 +233,7 @@ public sealed partial class BuildFixer(Report report, IReadOnlyCollection<Conver
         var withAnalyzers = AnalyzersTargets() is { } targets
             ? $" \"-p:CustomAfterMicrosoftCommonTargets={targets}\" \"-p:FrameworkOnCoreApplicationAssemblies={application}\" \"-p:FrameworkOnCoreCrossPlatformAssemblies={crossPlatform}\""
             : "";
-        var (exitCode, output) = Dotnet($"build \"{webProject}\" -nologo -v q -clp:NoSummary{withAnalyzers}");
+        var (exitCode, output) = Dotnet($"build \"{webProject}\" -nologo -v q -clp:NoSummary{withAnalyzers}", Log);
         var errors = new List<BuildError>();
         foreach (var line in output.Split('\n').Select(l => l.TrimEnd('\r')))
         {
@@ -264,7 +272,7 @@ public sealed partial class BuildFixer(Report report, IReadOnlyCollection<Conver
         var downgrade = new Regex(@"Detected package downgrade: (\S+) from (\S+?)\.? to (\S+?)\.?\s");
         for (var round = 0; round < 10; round++)
         {
-            var (_, output) = Dotnet($"restore \"{webProject}\" -nologo");
+            var (_, output) = Dotnet($"restore \"{webProject}\" -nologo", Log);
             // The highest version asked for, at once: restore reports the conflicts in the order it meets them, which
             // varies from build to build (2.1.1 -> 8.0.2 -> 10.0.5, or 2.1.1 -> 10.0.5).
             var found = downgrade.Matches(output).Select(m => (Id: m.Groups[1].Value, From: m.Groups[2].Value, To: m.Groups[3].Value))

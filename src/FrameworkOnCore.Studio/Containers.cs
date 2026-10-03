@@ -170,6 +170,8 @@ public sealed class Containers(AnalysisStore store, Conversions conversions)
 
                 // Up when the site answers (any status: a 500 is a site that runs); the first request compiles pages
                 // (and may create a database). Waited for by the clock: a request that does not answer counts its time.
+                // The container's output (start.sh's, the application's) while it starts: its lines as they come.
+                using var following = Follow(entry.Name, log);
                 using var http = new HttpClient { Timeout = TimeSpan.FromSeconds(60) };
                 var until = DateTime.UtcNow.AddMinutes(10);
                 DateTime? restarting = null;
@@ -178,7 +180,7 @@ public sealed class Containers(AnalysisStore store, Conversions conversions)
                     cancel.Token.ThrowIfCancellationRequested();
                     if (Docker($"inspect -f {{{{.State.Running}}}} {entry.Name}").Output.Trim() != "true")
                     {
-                        foreach (var line in Docker($"logs --tail 80 {entry.Name}").Output.Split('\n')) log.Enqueue(line);
+                        following.WaitForExit(5000);  // its last lines: it ends with the container
                         throw new InvalidOperationException("コンテナが起動の途中で止まりました(ログを見てください)");
                     }
                     try
@@ -265,6 +267,33 @@ public sealed class Containers(AnalysisStore store, Conversions conversions)
             throw;
         }
         return process.ExitCode;
+    }
+
+    // "docker logs -f": the container's output to the log, until it is disposed of (killed) or the container ends.
+    static FollowingLog Follow(string name, ConcurrentQueue<string> log)
+    {
+        var start = DockerStart();
+        foreach (var argument in new[] { "logs", "-f", name }) start.ArgumentList.Add(argument);
+        var process = new Process { StartInfo = start };
+        process.OutputDataReceived += (_, e) => { if (e.Data != null) Append(log, "  " + e.Data); };
+        process.ErrorDataReceived += (_, e) => { if (e.Data != null) Append(log, "  " + e.Data); };
+        process.Start();
+        Runs.EndWithStudio(process);
+        process.BeginOutputReadLine();
+        process.BeginErrorReadLine();
+        return new FollowingLog(process);
+    }
+
+    sealed class FollowingLog(Process process) : IDisposable
+    {
+        public void WaitForExit(int milliseconds) => process.WaitForExit(milliseconds);
+
+        public void Dispose()
+        {
+            try { if (!process.HasExited) process.Kill(); }
+            catch (InvalidOperationException) { }
+            process.Dispose();
+        }
     }
 
     static void Append(ConcurrentQueue<string> log, string line)

@@ -184,7 +184,10 @@ File.WriteAllText(buildTarget,
     new UTF8Encoding(false));
 
 var succeeded = true;
-if (build) succeeded = new BuildFixer(report, converter.Converted, outRoot, rules).Run(buildTarget);
+// The builds' log (next to the output, as the original's is): what is being built, while it is (Studio shows it).
+var buildLog = outRoot.TrimEnd('\\', '/') + ".build.log";
+File.Delete(buildLog);
+if (build) succeeded = new BuildFixer(report, converter.Converted, outRoot, rules) { Log = buildLog }.Run(buildTarget);
 // DLLs without source that refer to types where .NET 10 does not have them: retargeted into foc-retargeted, which
 // the projects' build copies in their place (FocUseRetargetedAssemblies); built again to take them.
 var preferred = AssemblyRetargeter.PreferredAssemblies(runtime.Feed, runtime.ShimProjects);
@@ -212,7 +215,7 @@ if (build && succeeded)
                 new System.Xml.Linq.XAttribute("Include", p.Id), new System.Xml.Linq.XAttribute("Version", p.Version)))));
         webProject.Save(web.TargetPath);
         Console.WriteLine("packages for the DLLs' framework references added: building again");
-        var (missingExit, missingOutput) = BuildFixer.Dotnet($"build \"{buildTarget}\" -nologo -v q");
+        var (missingExit, missingOutput) = BuildFixer.Dotnet($"build \"{buildTarget}\" -nologo -v q", buildLog);
         if (missingExit != 0)
         {
             report.Add(Report.Kind.Error, "build", "the build with the DLLs' framework references failed: " + string.Join(" / ", missingOutput.Split('\n').Where(l => l.Contains(" error ")).Take(5)));
@@ -222,7 +225,7 @@ if (build && succeeded)
     if (build && succeeded && Directory.Exists(webBin) && AssemblyRetargeter.RetargetFolder(webBin, retargetedFolder, preferred, ownAssemblies, report, rules.DllCallReplacements).Any(r => r.Retargeted.Count > 0 || r.Replaced.Count > 0))
     {
         Console.WriteLine($"retargeted DLLs in {retargetedFolder}: building again");
-        var (exit, output) = BuildFixer.Dotnet($"build \"{buildTarget}\" -nologo -v q");
+        var (exit, output) = BuildFixer.Dotnet($"build \"{buildTarget}\" -nologo -v q", buildLog);
         if (exit != 0)
         {
             report.Add(Report.Kind.Error, "build", "the build with the retargeted DLLs failed: " + string.Join(" / ", output.Split('\n').Where(l => l.Contains(" error ")).Take(5)));

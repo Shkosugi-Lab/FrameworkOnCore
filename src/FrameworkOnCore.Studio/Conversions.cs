@@ -166,11 +166,12 @@ public sealed class Conversions(AnalysisStore store, string runtime)
         if (buildOriginal) start.ArgumentList.Add("--build-original");
         log.Enqueue("> dotnet " + string.Join(' ', start.ArgumentList.Select(a => a.Contains(' ') ? $"\"{a}\"" : a)));
 
-        // The original's build writes its tools' output to its log, not to the converter's output: its lines while it runs.
-        var buildLog = Output(id) + ".original.build.log";
-        if (buildOriginal) File.Delete(buildLog);
+        // The builds write to their logs, not to the converter's output (the original's: its tools'; the conversion's:
+        // MSBuild's, each project as it is built): their lines while they run.
+        var buildLogs = (buildOriginal ? new[] { ".original.build.log", ".build.log" } : [".build.log"]).Select(e => Output(id) + e).ToList();
+        foreach (var file in buildLogs) File.Delete(file);
         using var following = new CancellationTokenSource();
-        var tail = buildOriginal ? LogTail.Follow(buildLog, line => Append(log, "  " + line), following.Token) : Task.CompletedTask;
+        var tails = buildLogs.Select(file => LogTail.Follow(file, line => Append(log, "  " + line), following.Token)).ToList();
         using var process = new Process { StartInfo = start };
         process.OutputDataReceived += (_, e) => { if (e.Data != null) Append(log, e.Data); };
         process.ErrorDataReceived += (_, e) => { if (e.Data != null) Append(log, e.Data); };
@@ -188,7 +189,7 @@ public sealed class Conversions(AnalysisStore store, string runtime)
         finally
         {
             following.Cancel();
-            await tail;
+            await Task.WhenAll(tails);
         }
         return process.ExitCode;
     }

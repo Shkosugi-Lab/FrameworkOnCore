@@ -15,6 +15,15 @@
     { "action": "snapshot", "name": "wcf-rest json" },
 
     { "action": "goto", "path": "/Catalog.svc/items?max=3" },
-    { "action": "snapshot", "name": "wcf-rest json list" }
+    { "action": "snapshot", "name": "wcf-rest json list" },
+
+    { "action": "goto", "path": "/Ajax.aspx" },
+    { "action": "snapshot", "name": "wcf-ajax page through ScriptManager" },
+
+    { "action": "goto", "path": "/Ajax.svc/js" },
+    { "action": "snapshot", "name": "wcf-ajax script proxy" },
+
+    { "action": "goto", "path": "/Ajax.svc/jsdebug" },
+    { "action": "snapshot", "name": "wcf-ajax debug script proxy" }
   ]
 }

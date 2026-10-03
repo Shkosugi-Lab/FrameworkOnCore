@@ -960,7 +960,7 @@ DNN のインストール ウィザードがネイティブ起動で 500 にな�
     - web.config の services のエンドポイント(アドレス、バインド、bindingConfiguration、behaviorConfiguration)。無ければ WCF 4 の既定のエンドポイント(実装している契約ごと、protocolMapping のバインド。既定は basicHttpBinding)。WebServiceHostFactory は webHttpBinding。
     - バインド: basicHttpBinding、basicHttpsBinding、wsHttpBinding、webHttpBinding。設定の属性(maxReceivedMessageSize など)と readerQuotas、security の mode。
     - 動作: serviceMetadata(WSDL。CoreWCF では全サービスに一つの設定)、serviceDebug、webHttp。名前の無い動作は既定の動作。
-    - 対応しないもの(起動時のログに出す): netTcpBinding など、mex のエンドポイント、enableWebScript と WebScriptServiceHostFactory、独自の ServiceHostFactory(使わずに web.config のとおりに動かす)、aspNetCompatibilityEnabled(操作の中に ASP.NET の文脈が無い)。
+    - 対応しないもの(起動時のログに出す): netTcpBinding など、mex のエンドポイント、独自の ServiceHostFactory(使わずに web.config のとおりに動かす)、aspNetCompatibilityEnabled(操作の中に ASP.NET の文脈が無い)。
     - サービスの見つからない .svc は 404(ファイルを返さない)。
   - サービスの契約は、変換後のソースでは .NET の WCF クライアントの属性(ServiceContract、OperationContract、FaultContract など)のまま。CoreWCF はそれをそのまま受け付ける。
   - クライアントの型の `FaultException`(`FaultException<T>`)は CoreWCF が知らない型で、内部エラーになっていた。エラーハンドラーで CoreWCF の障害(理由、コード、詳細)に変えて返す。
@@ -975,6 +975,22 @@ DNN のインストール ウィザードがネイティブ起動で 500 にな�
   - Linux のコンテナでは、ページが自分のサービスを呼ぶ先を `APPSETTING_ServiceBase`(`samples/WcfProbe/linux.env`、`sample-parity.ps1` が渡す)で与える。ポートの対応(5096 → 8080)の内側と外側でポートが違うため。
   - 気付いたこと: ランタイムの `SERVER_PORT` は Host ヘッダーのポート(IIS は接続のポート)。ポートの対応やリバースプロキシの後ろで、古いアプリが SERVER_PORT からリンクを作っても壊れないように、意図して変えたもの(w2l.10)。そのままにした。
 - 確認: テスト Windows 4,348 件・Linux 4,329 件、be Windows 5/5、wt Windows 6/8(既知の差)。
+
+#### ASP.NET AJAX から呼ぶ WCF のサービス(enableWebScript、1.6.5-w2l.15)
+
+Visual Studio の「AJAX 対応 WCF サービス」(webHttpBinding と `<enableWebScript/>`)を、ScriptManager の ServiceReference から呼べるようにした。Web Forms のアプリでよく使われる形。CoreWCF にはこの動作が無い。
+
+- .NET Framework の System.ServiceModel.Web(referencesource)の WebScriptEnablingBehavior を、CoreWCF の WebHttpBehavior の上に移植した。
+  - 要求は JSON で、引数を名前で包む(WrappedRequest)。GET の引数は JSON の値(JsonQueryStringConverter を移植)。
+  - 応答は `{"d": 結果}` で、オブジェクトには `__type` が付く。void は `{"d":null}`。CoreWCF の JSON の整形には useAspNetAjaxJson があるが、"d" で包む部分が抜けていたので、自前の整形(AspNetAjaxReplyFormatter)で書く。
+  - エラーは 500、`jsonerror: true`、本文は JsonFaultDetail(includeExceptionDetailInFaults のときは例外の型、メッセージ、スタック)。
+  - CoreWCF は webHttpBinding のエンドポイントに WebHttpBehavior も自動で付け、そのエラー処理(400 の HTML)が後から上書きしていた。enableWebScript の動作がそれを外す。
+- スクリプトのプロキシ(`Service.svc/js`、`/jsdebug`): .NET Framework の WCFServiceClientProxyGenerator を移植した。ランタイムの System.Web.Extensions の ClientProxyGenerator(内部の型。System.ServiceModel.Activation に InternalsVisibleTo)で書く。契約は型から読む(ServiceContract の名前と名前空間、操作、引数、WebGet は GET)。
+- WebScriptServiceHostFactory も、enableWebScript の既定のエンドポイントにする。
+- サンプル `samples/WcfProbe` に Ajax.svc(テンプレートと同じく、契約はクラスに付け、名前空間は空)と Ajax.aspx(ScriptManager から全部の操作を呼ぶ。生の応答も表示する)を足した。
+  - IIS の .NET Framework の結果と比べて、Windows・Linux とも 7/7(ページ、`/js` と `/jsdebug` のスクリプトの全文)とリンク 6 件が一致した。
+  - WCF の「内部エラー」のメッセージは、サーバーの OS の言語(この PC では日本語)になる。そのため、このサービスでは includeExceptionDetailInFaults を有効にして、例外のメッセージと型で比べる。スタックはサーバーのパスと行番号なので、比べない。
+- 確認: テスト Windows 4,348 件・Linux 4,329 件と SqlClientTests 204 件、be Windows 5/5、wt Windows 6/8(既知の差)。
 
 #### SqlClient の残りの小さな違い(1.6.5-w2l.13)
 

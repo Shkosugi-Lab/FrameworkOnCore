@@ -68,7 +68,7 @@
       { "id": "none", "title": "対応しない", "description": "スタブ(モバイルのページは例外)。using だけなら消える" }
     ],
     "wcf-server": [
-      { "id": "corewcf", "title": "CoreWCF で動かす", "description": "サイトの .svc と web.config の system.serviceModel のサービスを、アプリの中の CoreWCF で動かす(パッケージ FrameworkOnCore.ServiceModel)。basicHttpBinding・basicHttpsBinding・wsHttpBinding・webHttpBinding(REST)、WCF 4 の既定のエンドポイントと既定の動作、serviceActivations、WSDL。サービス側だけの型(ServiceBehavior、WebGet など)は CoreWCF の型に書き換える。netTcpBinding、ASP.NET AJAX の enableWebScript、独自の ServiceHostFactory、aspNetCompatibilityEnabled(操作の中の HttpContext.Current)は対応しない", "default": true },
+      { "id": "corewcf", "title": "CoreWCF で動かす", "description": "サイトの .svc と web.config の system.serviceModel のサービスを、アプリの中の CoreWCF で動かす(パッケージ FrameworkOnCore.ServiceModel)。basicHttpBinding・basicHttpsBinding・wsHttpBinding・webHttpBinding(REST)、WCF 4 の既定のエンドポイントと既定の動作、serviceActivations、WSDL。サービス側だけの型(ServiceBehavior、WebGet など)は CoreWCF の型に書き換える。ASP.NET AJAX の enableWebScript(ScriptManager の ServiceReference、Service.svc/js)も。netTcpBinding、独自の ServiceHostFactory、aspNetCompatibilityEnabled(操作の中の HttpContext.Current)は対応しない", "default": true },
       { "id": "none", "title": "対応しない", "description": "サービスは動かない(.svc は 404)。サービス側だけの型はスタブ" }
     ]
   },

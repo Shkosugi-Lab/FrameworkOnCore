@@ -32,6 +32,11 @@ namespace FrameworkOnCore.Converter;
 ///   BC30179).
 /// - The repository's own setup steps after it (--original-step project;target: N2 links its management
 ///   pages into the templates site).
+/// - A repository without a solution with the web project (ASP.NET's MvcMovie sample, YAF's projects): one written in the
+///   copy, of the web project and the projects it references, where its packages folder is (its HintPaths' ..\packages),
+///   as Visual Studio makes one when it opens the project.
+/// - A project's AssemblyInfo file listed and not in the repository (MvcMovie: CS2001): an empty one in the copy (it has
+///   only the assembly's attributes; reported).
 /// </summary>
 public sealed partial class OriginalBuild
 {
@@ -44,7 +49,7 @@ public sealed partial class OriginalBuild
             report.Add(Report.Kind.Error, "original build", "a .NET Framework solution is built on Windows (Visual Studio's MSBuild): build it there, or give the deployed site (--site)");
             return null;
         }
-        var solution = FindSolution(root, webProject);
+        var solution = FindSolution(root, webProject) ?? WriteSolution(root, webProject, configuration);
         if (solution == null)
         {
             report.Add(Report.Kind.Error, "original build", $"no build found: no Cake build, and no solution with {Path.GetFileName(webProject)}; give the deployed site (--site)");
@@ -72,6 +77,7 @@ public sealed partial class OriginalBuild
         RepairProjectReferences(root, solution);
         var order = SolutionOrder(solution, configuration);
         UpgradeWebApplicationTargets(root, order, msbuild);
+        WriteMissingAssemblyInfo(root, order);
         report.Add(Report.Kind.Project, "original build", $"{order.Count} project(s) in the solution configuration, built one by one");
         string Arguments(string project) =>
             $"\"{project}\" /restore /p:Configuration={configuration} /p:Platform=AnyCPU \"/p:SolutionDir={solutionDirectory}\\\\\" " +
@@ -97,6 +103,81 @@ public sealed partial class OriginalBuild
             .Select(f => (File: f, Projects: SolutionProjects(f)))
             .Where(s => s.Projects.Any(p => p.Path.Equals(webProject, StringComparison.OrdinalIgnoreCase)))
             .OrderByDescending(s => s.Projects.Count).Select(s => s.File).FirstOrDefault();
+
+    // No solution with the web project: one of it and the projects it references (their closure), in the folder its
+    // packages are restored to (the folder before "packages" in its HintPaths; else the project's parent), as Visual
+    // Studio writes one when it opens a project alone. Null when the web project cannot be read.
+    string? WriteSolution(string root, string webProject, string configuration)
+    {
+        var projects = new List<string>();
+        void Add(string project)
+        {
+            if (projects.Contains(project, StringComparer.OrdinalIgnoreCase) || !File.Exists(project)) return;
+            projects.Add(project);
+            try
+            {
+                foreach (var reference in XDocument.Load(project).Descendants().Where(e => e.Name.LocalName == "ProjectReference"))
+                    Add(Path.GetFullPath(Path.Combine(Path.GetDirectoryName(project)!, (string?)reference.Attribute("Include") ?? "")));
+            }
+            catch (System.Xml.XmlException) { }
+        }
+        Add(Path.GetFullPath(webProject));
+        if (projects.Count == 0) return null;
+
+        string directory;
+        try
+        {
+            var hint = XDocument.Load(webProject).Descendants().Where(e => e.Name.LocalName == "HintPath").Select(e => e.Value.Trim())
+                .Select(h => Regex.Match(h, @"^(?<before>.*?)[\\/]?packages[\\/]", RegexOptions.IgnoreCase)).FirstOrDefault(m => m.Success);
+            directory = hint != null
+                ? Path.GetFullPath(Path.Combine(Path.GetDirectoryName(webProject)!, hint.Groups["before"].Value.Length > 0 ? hint.Groups["before"].Value : "."))
+                : Path.GetDirectoryName(Path.GetDirectoryName(webProject)!)!;
+        }
+        catch (System.Xml.XmlException) { return null; }
+        if (!directory.StartsWith(root.TrimEnd('\\', '/'), StringComparison.OrdinalIgnoreCase)) directory = Path.GetDirectoryName(webProject)!;
+
+        var solution = Path.Combine(directory, "FrameworkOnCore.Original.sln");
+        var text = new System.Text.StringBuilder("Microsoft Visual Studio Solution File, Format Version 12.00\r\n");
+        var guids = new List<string>();
+        foreach (var project in projects)
+        {
+            var guid = XDocument.Load(project).Descendants().FirstOrDefault(e => e.Name.LocalName == "ProjectGuid")?.Value.Trim().ToUpperInvariant() is { Length: > 0 } own
+                ? own : "{" + Guid.NewGuid().ToString().ToUpperInvariant() + "}";
+            guids.Add(guid);
+            var type = project.EndsWith(".vbproj", StringComparison.OrdinalIgnoreCase) ? "{F184B08F-C81C-45F6-A57F-5ABD9991F28F}" : "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}";
+            text.Append($"Project(\"{type}\") = \"{Path.GetFileNameWithoutExtension(project)}\", \"{Path.GetRelativePath(directory, project)}\", \"{guid}\"\r\nEndProject\r\n");
+        }
+        text.Append($"Global\r\n\tGlobalSection(SolutionConfigurationPlatforms) = preSolution\r\n\t\t{configuration}|Any CPU = {configuration}|Any CPU\r\n\tEndGlobalSection\r\n");
+        text.Append("\tGlobalSection(ProjectConfigurationPlatforms) = postSolution\r\n");
+        foreach (var guid in guids)
+            text.Append($"\t\t{guid}.{configuration}|Any CPU.ActiveCfg = {configuration}|Any CPU\r\n\t\t{guid}.{configuration}|Any CPU.Build.0 = {configuration}|Any CPU\r\n");
+        text.Append("\tEndGlobalSection\r\nEndGlobal\r\n");
+        File.WriteAllText(solution, text.ToString());
+        report.Add(Report.Kind.Project, "original build", $"no solution with {Path.GetFileName(webProject)}: {Path.GetRelativePath(root, solution)} written in the copy, of it and the {projects.Count - 1} project(s) it references");
+        return solution;
+    }
+
+    // A project's AssemblyInfo file (Properties\AssemblyInfo.cs, My Project\AssemblyInfo.vb) it lists and the repository has
+    // not: an empty one, which has none of the assembly's attributes (a sample published without it: MvcMovie, CS2001).
+    void WriteMissingAssemblyInfo(string root, IEnumerable<string> projects)
+    {
+        foreach (var project in projects)
+        {
+            try
+            {
+                foreach (var include in XDocument.Load(project).Descendants().Where(e => e.Name.LocalName == "Compile").Select(e => (string?)e.Attribute("Include")))
+                {
+                    if (include == null || !Regex.IsMatch(Path.GetFileName(include), @"^AssemblyInfo\.(cs|vb)$", RegexOptions.IgnoreCase)) continue;
+                    var file = Path.Combine(Path.GetDirectoryName(project)!, include);
+                    if (File.Exists(file)) continue;
+                    Directory.CreateDirectory(Path.GetDirectoryName(file)!);
+                    File.WriteAllText(file, "");
+                    report.Add(Report.Kind.Project, "original build", $"{Path.GetRelativePath(root, file)}: listed by the project and not in the repository; an empty one in the copy (the assembly's attributes only)");
+                }
+            }
+            catch (System.Xml.XmlException) { }
+        }
+    }
 
     static List<(string Name, string Path, string Guid)> SolutionProjects(string solution)
     {

@@ -407,7 +407,7 @@ public sealed class Originals(AnalysisStore store) : Runs
     /// environment written into the site's web.config, over the one the build made (kept beside it, web.config.foc-original:
     /// each start begins from it, the ones given before do not stay). The other variables are returned, the process's.
     /// </summary>
-    static List<(string Name, string Value)> ApplyToWebConfig(string site, List<(string Name, string Value)> variables, bool fresh, StudioLog log)
+    public static List<(string Name, string Value)> ApplyToWebConfig(string site, List<(string Name, string Value)> variables, bool fresh, StudioLog log)
     {
         var others = new List<(string Name, string Value)>();
         var config = Directory.EnumerateFiles(site, "web.config", new EnumerationOptions { MatchCasing = MatchCasing.CaseInsensitive }).FirstOrDefault();
@@ -419,10 +419,15 @@ public sealed class Originals(AnalysisStore store) : Runs
 
         var document = XDocument.Load(config, LoadOptions.PreserveWhitespace);
         var root = document.Root!;
+        // A section the web.config has not: after configSections, which IIS and ASP.NET take only as the first child
+        // (500.19, "<configSections> 要素は 1 つだけ使用できます": mojoPortal's, whose connectionStrings is commented out).
         XElement Section(string name)
         {
             var section = root.Element(name);
-            if (section == null) root.AddFirst(section = new XElement(name));
+            if (section != null) return section;
+            section = new XElement(name);
+            if (root.Element("configSections") is { } sections) sections.AddAfterSelf(section);
+            else root.AddFirst(section);
             return section;
         }
         var changed = false;

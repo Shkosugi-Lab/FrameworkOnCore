@@ -93,8 +93,11 @@ public sealed partial class OriginalBuild(Report report, string log, string? con
     (bool?, string) RunBuild(string root, string? target, string webProject, IReadOnlyList<(string Project, string Target)> steps)
     {
         var (result, kind) = (RunScript(root, target), "cake");
-        // No build script: the solution, as Visual Studio builds it.
-        if (result == null) (result, kind) = (RunSolution(root, webProject, steps), "solution");
+        // No build script: the solution, as Visual Studio builds it. In the configuration given (--configuration: openIMIS's
+        // DemoRelease, whose web.config transform the repository has; Web.Release.config it has not), else Release, as a
+        // deployment builds it: not Debug, the configuration the projects are read in when none is given (Studio's).
+        // The configuration given was not used: always Release.
+        if (result == null) (result, kind) = (RunSolution(root, webProject, steps, configuration is null or "Debug" ? "Release" : configuration), "solution");
         return (result, kind);
     }
 

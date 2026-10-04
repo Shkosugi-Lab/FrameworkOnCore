@@ -144,8 +144,7 @@ try {
                 "  ${run}: $($entry.State) 最初の応答 $($entry.FirstStatus)$(if ($entry.Error) { " - $($entry.Error)" })"
                 if ($entry.State -eq 'running' -and $entry.FirstStatus -ge 500) {
                     # The error page, to see why.
-                    try { Invoke-WebRequest $entry.Url -UseBasicParsing -TimeoutSec 120 | Out-Null }
-                    catch { if ($_.Exception.Response) { $reader = New-Object IO.StreamReader($_.Exception.Response.GetResponseStream()); Set-Content (Join-Path $results "$name.$run.error.html") -Value $reader.ReadToEnd() -Encoding utf8 } }
+                    curl.exe -s --max-time 120 -o (Join-Path $results "$name.$run.error.html") $entry.Url
                 }
                 if ($entry.State -eq 'running' -and ($run -eq 'original' -or (Test-Path $golden))) {
                     $report = Join-Path $results "$name.$run.md"

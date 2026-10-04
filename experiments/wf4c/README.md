@@ -541,6 +541,8 @@ Linux で ICU のデータに表せないもの:
   - 足りない道具は、キャッシュ(`%LOCALAPPDATA%\FrameworkOnCore\tools`)に用意する。global.json の .NET SDK(rollForward を見て、インストール済みのもので足りなければ dotnet-install)、package.json の `packageManager`(corepack。Node.js 25 以降は同梱されない)。Node.js が無ければ、package.json のあるリポジトリには Node.js(.nvmrc・.node-version・package.json の engines.node の版、無ければ最新の LTS。この OS とプロセッサーの nodejs.org のアーカイブ)。
   - git は長いパス(260 文字超)も扱う(`core.longpaths`。コピーのリポジトリにも、ビルドの中の git にも)。コピーのリポジトリは、割り当てたドライブの側で作る。
   - 無い道具(npm など)は、変換器が落ちずに、エラーとして報告する。
+  - キャッシュに用意した道具(dotnet、node、npm など)は、キャッシュのものを起動する(ビルドの PATH の先頭にも置く)。Windows は起動するプログラムを変換器自身の PATH で探すため、マシン全体の dotnet(global.json の SDK を知らない)が使われていた。
+  - 割り当てたドライブは、ビルドが止められて残っていれば(Studio の中止)、次のビルドがそれを使う。
   - git のクローンでないソース(アーカイブ)は、コピーを 1 コミットのリポジトリにし、フォルダー名の版(`Dnn.Platform-9.13.10` → `v9.13.10`)をタグにする。版を git から求めるビルド(GitVersion)のため。
   - 長いパスは親フォルダーにドライブ文字を割り当てて避ける(ドライブのルートにあるリポジトリは GitVersion 5 が見つけられない)。MSBuild の常駐ノードと VBCSCompiler は使わない(コピーのファイルをつかんだまま残る)。
   - 配置済みサイトは「web.config と `bin\<Web プロジェクトのアセンブリ>.dll` があるフォルダー」で探す。Web プロジェクト自身のフォルダーより、ビルドが配置した先を選ぶ。

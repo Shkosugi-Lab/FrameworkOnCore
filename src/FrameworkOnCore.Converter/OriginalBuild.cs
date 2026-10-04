@@ -422,6 +422,14 @@ public sealed partial class OriginalBuild(Report report, string log, string? con
 
     string? MapDrive(string directory)
     {
+        // A drive mapped to it already: one an earlier build left, stopped before it unmapped it (Studio's 中止, a
+        // killed converter), taken again rather than one more letter each time ("W:\: => C:\...").
+        foreach (var line in CaptureProcess("subst", "", directory).Split('\n'))
+        {
+            if (Regex.Match(line.Trim(), @"^([A-Z]):\\: => (.+)$") is { Success: true } mapped &&
+                Path.GetFullPath(mapped.Groups[2].Value).TrimEnd('\\').Equals(Path.GetFullPath(directory).TrimEnd('\\'), StringComparison.OrdinalIgnoreCase))
+                return mapped.Groups[1].Value + ":";
+        }
         foreach (var letter in "WVUTSRQPONMLKJ")
         {
             if (Directory.Exists($"{letter}:\\")) continue;
@@ -440,8 +448,25 @@ public sealed partial class OriginalBuild(Report report, string log, string? con
         catch (System.Xml.XmlException) { return false; }
     }
 
+    /// <summary>
+    /// The program to start: the one of the tools set up in the cache (<paramref name="first"/>: the .NET SDK global.json
+    /// names, Node.js) before this process' PATH's. The build's PATH has them first, but the program itself is looked for
+    /// on this process' PATH (Windows): "dotnet" was Program Files' muxer, which knows only its own SDKs ("A compatible
+    /// .NET SDK was not found", DNN's 9.0.202 installed in the cache).
+    /// </summary>
+    public static string Resolve(string file, IEnumerable<string> first)
+    {
+        if (Path.IsPathRooted(file) || file.Contains(Path.DirectorySeparatorChar) || file.Contains(Path.AltDirectorySeparatorChar)) return file;
+        var extensions = OperatingSystem.IsWindows() && !Path.HasExtension(file) ? new[] { ".exe", ".cmd", ".bat" } : new[] { "" };
+        foreach (var directory in first)
+            foreach (var extension in extensions)
+                if (File.Exists(Path.Combine(directory, file + extension))) return Path.Combine(directory, file + extension);
+        return file;
+    }
+
     int RunProcess(string file, string arguments, string workingDirectory, bool quiet = false)
     {
+        file = Resolve(file, path);
         var start = new ProcessStartInfo(file, arguments)
         {
             WorkingDirectory = workingDirectory,

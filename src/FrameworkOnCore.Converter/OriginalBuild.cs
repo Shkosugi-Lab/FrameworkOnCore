@@ -105,6 +105,18 @@ public sealed partial class OriginalBuild(Report report, string log, string? con
     bool? RunScript(string root, string? target)
     {
         var targetArgument = target != null ? $" --target={target}" : "";
+        // A Cake build of .NET Framework projects runs Visual Studio's MSBuild (vswhere); without it, Cake takes .NET
+        // Framework's own (MSBuild 4.8), which stops at the first switch it does not know (DNN's: "MSB1001: /bl", after
+        // its npm packages' half hour). Said first, with what to install; the build runs anyway (not every Cake build
+        // runs MSBuild).
+        void AdviseMSBuild()
+        {
+            if (!OperatingSystem.IsWindows() || FindMSBuild() != null) return;
+            if (!SourceFiles(root, "*.*proj").Any(p => Regex.IsMatch(File.ReadAllText(p), @"<TargetFramework(Version|s)?>\s*(v4\.|net4)", RegexOptions.IgnoreCase))) return;
+            var message = "Visual Studio (Build Tools) 2022's MSBuild is not installed, and the repository's .NET Framework projects are built with it (else .NET Framework's MSBuild 4.8 is taken, which stops: MSB1001): " + BuildToolsInstall;
+            report.Add(Report.Kind.Error, "original build", message);
+            Console.WriteLine("  " + message);
+        }
 
         // Cake Frosting: a C# project referencing Cake.Frosting, run from the repository's root (its
         // tasks name paths from there, as its bootstrapper runs it).
@@ -112,6 +124,7 @@ public sealed partial class OriginalBuild(Report report, string log, string? con
         if (frosting != null)
         {
             report.Add(Report.Kind.Project, "original build", $"Cake Frosting: {Path.GetRelativePath(root, frosting)}{targetArgument}");
+            AdviseMSBuild();
             return RunProcess("dotnet", $"run --project \"{frosting}\" --{targetArgument}", root) == 0;
         }
 
@@ -121,6 +134,7 @@ public sealed partial class OriginalBuild(Report report, string log, string? con
         if (script != null)
         {
             report.Add(Report.Kind.Project, "original build", $"Cake script: {Path.GetFileName(script)}{targetArgument}");
+            AdviseMSBuild();
             if (File.Exists(Path.Combine(root, ".config", "dotnet-tools.json")) &&
                 File.ReadAllText(Path.Combine(root, ".config", "dotnet-tools.json")).Contains("cake.tool", StringComparison.OrdinalIgnoreCase))
             {

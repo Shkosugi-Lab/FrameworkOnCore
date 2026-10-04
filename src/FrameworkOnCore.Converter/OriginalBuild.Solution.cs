@@ -58,7 +58,7 @@ public sealed partial class OriginalBuild
         var msbuild = FindMSBuild();
         if (msbuild == null)
         {
-            report.Add(Report.Kind.Error, "original build", "Visual Studio (Build Tools) 2022's MSBuild is not installed (old-style projects with PackageReference need its NuGet targets): winget install Microsoft.VisualStudio.2022.BuildTools --override \"--quiet --add Microsoft.VisualStudio.Workload.WebBuildTools --add Microsoft.VisualStudio.Workload.MSBuildTools --includeRecommended\"");
+            report.Add(Report.Kind.Error, "original build", "Visual Studio (Build Tools) 2022's MSBuild is not installed (old-style projects with PackageReference need its NuGet targets): " + BuildToolsInstall);
             return false;
         }
         report.Add(Report.Kind.Project, "original build", $"solution: {Path.GetRelativePath(root, solution)} ({configuration}), MSBuild {msbuild}");
@@ -299,6 +299,10 @@ public sealed partial class OriginalBuild
             """);
         return file;
     }
+
+    // What to install for Visual Studio's MSBuild: the Build Tools with the web projects' targets and .NET Framework 4.8's
+    // targeting pack (a Cake build takes the machine's reference assemblies).
+    const string BuildToolsInstall = "winget install Microsoft.VisualStudio.2022.BuildTools --override \"--quiet --wait --add Microsoft.VisualStudio.Workload.WebBuildTools --add Microsoft.VisualStudio.Workload.MSBuildTools --add Microsoft.Net.Component.4.8.TargetingPack --includeRecommended\" (as an administrator)";
 
     static string? FindMSBuild()
     {

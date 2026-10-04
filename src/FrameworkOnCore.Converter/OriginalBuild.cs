@@ -12,9 +12,9 @@ namespace FrameworkOnCore.Converter;
 /// deployed site: what the application is made of (the input of the conversion, --site). A Cake
 /// build (Cake Frosting, or a build.cake script) is run as it is, with the target given or its
 /// default one. The tools it needs and this machine lacks are set up in a cache (not installed
-/// machine-wide): the .NET SDK global.json names (dotnet-install), the package manager package.json
-/// names (corepack). The deployed site is then found by what it has: a web.config and the web
-/// project's assembly in its bin.
+/// machine-wide): the .NET SDK global.json names (dotnet-install), Node.js for a repository with a
+/// package.json, the package manager package.json names (corepack). The deployed site is then found by
+/// what it has: a web.config and the web project's assembly in its bin.
 /// </summary>
 public sealed partial class OriginalBuild(Report report, string log, string? configuration = null)
 {
@@ -56,11 +56,17 @@ public sealed partial class OriginalBuild(Report report, string log, string? con
         var root = work;
         var drive = OperatingSystem.IsWindows() ? MapDrive(Path.GetDirectoryName(work)!) : null;
         if (drive != null) root = Path.Combine(drive + "\\", Path.GetFileName(work));
+        // Git's paths past 260 characters too (core.longpaths), for the copy's repository and the build's own git (DNN's
+        // backs the working tree up in a commit): a deep repository's files under a long work folder, when it is not
+        // mapped to a drive.
+        environment["GIT_CONFIG_COUNT"] = "1";
+        environment["GIT_CONFIG_KEY_0"] = "core.longpaths";
+        environment["GIT_CONFIG_VALUE_0"] = "true";
         bool? built;
         string kind;
         try
         {
-            MakeRepository(repository, work);
+            MakeRepository(repository, root);
             PrepareTools(root);
             (built, kind) = RunBuild(root, target, Path.Combine(root, relativeWeb), steps);
             if (drive != null) MaterializeLinks(work, drive);
@@ -230,12 +236,28 @@ public sealed partial class OriginalBuild(Report report, string log, string? con
             }
         }
 
+        // Node.js, for the npm packages a build with a package.json makes (DNN's BuildNpmPackages), when this machine
+        // has none: in the cache (NodeSetup).
+        var packageJson = Path.Combine(root, "package.json");
+        if (File.Exists(packageJson) && FindOnPath("node") == null)
+        {
+            try
+            {
+                var (directory, version, installed) = NodeSetup.Ensure(toolsCache, NodeSetup.Wanted(root));
+                report.Add(Report.Kind.Project, "original build", $"package.json and Node.js is not installed: Node.js {version} {(installed ? "installed" : "taken")} in {directory}");
+                path.Insert(0, directory);
+            }
+            catch (Exception e) when (e is HttpRequestException or IOException or InvalidOperationException or InvalidDataException)
+            {
+                report.Add(Report.Kind.Error, "original build", $"Node.js is not installed and could not be installed ({e.Message}): install it (https://nodejs.org)");
+            }
+        }
+
         // The package manager package.json names (packageManager: yarn@4.5.3, pnpm@...): corepack
         // provides it. Node.js 25 and later do not ship corepack: installed in the cache then.
-        var packageJson = Path.Combine(root, "package.json");
         if (File.Exists(packageJson) && File.ReadAllText(packageJson).Contains("\"packageManager\"", StringComparison.Ordinal))
         {
-            if (FindOnPath("corepack") == null)
+            if (FindOnPath("corepack", path) == null)
             {
                 var directory = Path.Combine(toolsCache, "corepack");
                 report.Add(Report.Kind.Project, "original build", $"package.json names a package manager and corepack is not installed: installing it in {directory}");
@@ -253,7 +275,10 @@ public sealed partial class OriginalBuild(Report report, string log, string? con
     static string CaptureProcess(string file, string arguments, string workingDirectory)
     {
         var start = new ProcessStartInfo(file, arguments) { WorkingDirectory = workingDirectory, RedirectStandardOutput = true, RedirectStandardError = true, UseShellExecute = false };
-        using var process = Process.Start(start)!;
+        Process process;
+        try { process = Process.Start(start)!; }
+        catch (System.ComponentModel.Win32Exception) { return ""; }  // not installed (git): the step that runs it reports that
+        using var started = process;
         var (output, _) = ProcessOutput.ReadAll(process);
         process.WaitForExit();
         return output;
@@ -295,10 +320,11 @@ public sealed partial class OriginalBuild(Report report, string log, string? con
         else RunProcess("bash", $"\"{script}\" --version {version} --install-dir \"{directory}\"", toolsCache);
     }
 
-    static string? FindOnPath(string name)
+    // On this process' PATH, after the folders of the tools set up in the cache (first).
+    static string? FindOnPath(string name, IEnumerable<string>? first = null)
     {
         var extensions = OperatingSystem.IsWindows() ? new[] { ".cmd", ".exe", ".ps1", "" } : new[] { "" };
-        foreach (var directory in (Environment.GetEnvironmentVariable("PATH") ?? "").Split(Path.PathSeparator))
+        foreach (var directory in (first ?? []).Concat((Environment.GetEnvironmentVariable("PATH") ?? "").Split(Path.PathSeparator)))
         {
             foreach (var extension in extensions)
             {
@@ -428,7 +454,16 @@ public sealed partial class OriginalBuild(Report report, string log, string? con
         if (!quiet) Console.WriteLine($"> {file} {arguments}");
         using var writer = new StreamWriter(log, append: true, new UTF8Encoding(false)) { AutoFlush = true };  // read while it runs (Studio)
         writer.WriteLine($"> {file} {arguments}  (in {workingDirectory})");
-        using var process = Process.Start(start)!;
+        // A tool this machine does not have (npm without Node.js): reported, as a build step that failed.
+        Process process;
+        try { process = Process.Start(start)!; }
+        catch (System.ComponentModel.Win32Exception e)
+        {
+            writer.WriteLine($"{file} could not be started: {e.Message}");
+            report.Add(Report.Kind.Error, "original build", $"{file} could not be started ({e.Message}): is it installed?");
+            return -1;
+        }
+        using var started = process;
         var gate = new object();
         void Write(string? line) { if (line == null) return; lock (gate) writer.WriteLine(line); }
         var reading = ProcessOutput.ReadLines(process, Write);

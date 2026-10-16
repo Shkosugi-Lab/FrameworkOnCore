@@ -177,7 +177,8 @@ public sealed class Conversions(AnalysisStore store, string runtime)
             var target = parts.Length > 1 ? parts[1].Trim() : "";
             if (project.Length == 0 || parts.Length > 1 && target.Length == 0)
                 throw new ArgumentException($"追加の手順「{step}」: 「プロジェクト;ターゲット」の形で書いてください");
-            var full = Path.GetFullPath(Path.Combine(root, project));
+            // Either separator, as the repository's own build files write it (build\n2.proj), on any system.
+            var full = Path.GetFullPath(Path.Combine(root, project.Replace('\\', '/').Replace('/', Path.DirectorySeparatorChar)));
             if (!full.StartsWith(Path.GetFullPath(root).TrimEnd(Path.DirectorySeparatorChar) + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase) || !File.Exists(full))
                 throw new ArgumentException($"追加の手順「{step}」: {project} がリポジトリ({root})にありません");
             steps.Add(target.Length > 0 ? $"{project};{target}" : project);

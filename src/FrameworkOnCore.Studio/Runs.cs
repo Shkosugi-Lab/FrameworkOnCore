@@ -24,7 +24,7 @@ public sealed record RunEntry
     public string? Error { get; init; }
 }
 
-public sealed record OriginalRequest(bool Rebuild, string? Environment = null);
+public sealed record OriginalRequest(bool Rebuild, string? Environment = null, IReadOnlyList<string>? OriginalSteps = null);
 
 /// <summary>The environment the converted application gets natively (NAME=value lines), as a container's.</summary>
 public sealed record NativeRequest(string? Environment);
@@ -347,11 +347,19 @@ public sealed class Originals(AnalysisStore store) : Runs
         File.Exists(EnvironmentFile(id)) ? File.ReadAllText(EnvironmentFile(id))
         : RunEnvironment.Template(Built(id) ?? (store.Get(id) is { } analysis ? Path.GetDirectoryName(analysis.Project) : null));
 
-    public RunEntry Start(string id, bool rebuild, string? environment = null)
+    /// <param name="originalSteps">The repository's setup steps after its build (the conversion's too); null: the ones
+    /// given last. Others than those of the last build: built again.</param>
+    public RunEntry Start(string id, bool rebuild, string? environment = null, IReadOnlyList<string>? originalSteps = null)
     {
         if (store.Get(id) is not { State: "done" } analysis) throw new InvalidOperationException("the analysis is not done");
         var iisExpress = IisExpress();
         if (Hosts() is { Host: null, Reason: var reason }) throw new InvalidOperationException(reason);
+        if (originalSteps != null)
+        {
+            var steps = Conversions.Steps(analysis.Root, originalSteps);
+            if (!steps.SequenceEqual(store.OriginalSteps(id))) rebuild = true;
+            store.SaveOriginalSteps(id, steps);
+        }
         if (environment != null)
         {
             Directory.CreateDirectory(Folder(id));
@@ -477,7 +485,7 @@ public sealed class Originals(AnalysisStore store) : Runs
                      {
                          Path.Combine(AppContext.BaseDirectory, "FrameworkOnCore.Converter.dll"), "build-original", analysis.Project,
                          "--root", analysis.Root, "--configuration", analysis.Configuration, "--out", Path.Combine(Folder(id), "work"),
-                     })
+                     }.Concat(Conversions.StepArguments(store.OriginalSteps(id))))
                 start.ArgumentList.Add(argument);
             // The build's tools write to the build's log, not to the converter's output: its lines while it runs.
             var buildLog = Path.Combine(Folder(id), "work.build.log");

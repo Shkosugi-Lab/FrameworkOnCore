@@ -113,7 +113,7 @@ async function select(id) {
   Object.assign(state, {
     id, entry: null, result: null, choices: null, saved: null, command: null, errors: [], conversion: null,
     container: null, runOpen: false, runEnv: null, docker: null, dockerStarting: false, step,
-    original: null, originalEnv: null, native: null, nativeEnv: null, report: null, advice: null, buildOriginalChoice: null,
+    original: null, originalEnv: null, native: null, nativeEnv: null, report: null, advice: null, buildOriginalChoice: null, originalSteps: null, savedSteps: null,
   });
   state.expanded.clear();
   state.rows.clear();
@@ -634,6 +634,7 @@ async function loadConversion() {
   const body = await api(`/analyses/${id}/conversion`);
   if (id !== state.id) return;
   state.conversion = body;
+  state.savedSteps = body.originalSteps;
   // ④ (a link to it) without a built conversion: ③.
   if (state.step === 4 && !stepOpen(4)) {
     state.step = 3;
@@ -671,16 +672,17 @@ function renderConversion() {
   const sections = c?.sections?.length
     ? `<div class="convert-sections">${c.sections.map(s => `<span class="sec ${s.count ? 'has' : ''}" title="${esc(s.title)}"><b>${fmt(s.count)}</b> ${esc(s.title.replace(/\(.*$/, ''))}</span>`).join('')}</div>`
     : '';
-  // Checked as the repository says (the advice), unless the user chose otherwise.
   const advice = state.advice;
-  const buildOriginal = state.buildOriginalChoice ?? (advice ? advice.needed : !!c?.buildOriginal);
+  const buildOriginal = buildOriginalChosen();
   const reasons = advice?.reasons ?? [];
   const adviceLine = !advice ? ''
     : advice.needed
       ? `<div class="advice need">自動判定: <b>必要</b> ・ ${reasons.slice(0, 3).map(esc).join(' ・ ')}${reasons.length > 3 ? ` ・ ほか ${reasons.length - 3} 件` : ''}</div>`
       : '<div class="advice">自動判定: 不要(ビルドでサイトを組み立てる仕組みは見つかりません。Web プロジェクトのフォルダーがそのままサイトです)</div>';
   const origin = `<label class="check"><input type="checkbox" id="build-original" ${buildOriginal ? 'checked' : ''}>
-      元のアプリをそのビルド手順でビルドし、配置されるサイトから組み立てる <span class="muted">(--build-original。Windows と Visual Studio の MSBuild が必要。DNN など、ビルドでサイトを作るアプリ向け)</span></label>${adviceLine}`;
+      元のアプリをそのビルド手順でビルドし、配置されるサイトから組み立てる <span class="muted">(--build-original。Windows と Visual Studio の MSBuild が必要。DNN など、ビルドでサイトを作るアプリ向け)</span></label>${adviceLine}
+    <label class="steps">追加の手順 <span class="muted">(--original-step。元のビルドのあとに実行する、リポジトリのセットアップ手順。1 行に 1 つ、<code>プロジェクト;ターゲット</code>。プロジェクトはリポジトリからの相対パス。例: N2 の <code>build\\n2.proj;Templates-PrepareDependencies</code>)</span>
+      <textarea id="original-steps" rows="2" spellcheck="false" ${buildOriginal ? '' : 'disabled'}>${esc(stepsText())}</textarea></label>`;
   const pill = s => { const k = CONVERSION[s]; return `<span class="pill" style="--c:${k.color}"><span class="ic" aria-hidden="true">${k.icon}</span>${esc(k.label)}</span>`; };
 
   let html;
@@ -696,7 +698,7 @@ function renderConversion() {
   } else {
     const done = c.state === 'done';
     html = `<div class="convert-head"><div><h2>変換してビルド ${pill(c.state)}</h2>
-        <div class="hint">${esc(new Date(c.finished ?? c.started).toLocaleString('ja-JP'))} ・ ${duration(c.started, c.finished)}${c.buildOriginal ? ' ・ 元のビルドから' : ''}${c.error ? ` ・ ${esc(c.error)}` : ''}</div>
+        <div class="hint">${esc(new Date(c.finished ?? c.started).toLocaleString('ja-JP'))} ・ ${duration(c.started, c.finished)}${c.buildOriginal ? ' ・ 元のビルドから' : ''}${c.buildOriginal && c.originalSteps?.length ? `(追加の手順 ${c.originalSteps.length})` : ''}${c.error ? ` ・ ${esc(c.error)}` : ''}</div>
         ${body.stale ? '<div class="stale">⚠ この変換のあとに選択を保存しています。今の選択にするには、もう一度変換してください。</div>' : ''}</div>
         <div class="convert-actions">
           ${done ? '<button class="btn primary" id="convert-next">次へ: デプロイ →</button>' : ''}
@@ -706,7 +708,11 @@ function renderConversion() {
   }
   root.innerHTML = html;
   root.style.setProperty('--c', c ? CONVERSION[c.state].color : 'var(--accent)');
-  $('#build-original')?.addEventListener('change', ev => (state.buildOriginalChoice = ev.target.checked));
+  $('#build-original')?.addEventListener('change', ev => {
+    state.buildOriginalChoice = ev.target.checked;
+    $('#original-steps').disabled = !ev.target.checked;
+  });
+  $('#original-steps')?.addEventListener('input', ev => (state.originalSteps = ev.target.value));
   $('#convert-start')?.addEventListener('click', () => startConversion().catch(e => toast(e.message)));
   $('#convert-cancel')?.addEventListener('click', () => cancelConversion().catch(e => toast(e.message)));
   $('#convert-next')?.addEventListener('click', () => goStep(4).catch(e => toast(e.message)));
@@ -715,6 +721,29 @@ function renderConversion() {
 }
 
 // Whether the site is made by building the application (the "build the original" checkbox's default, and why).
+// Whether the site is made by the repository's own build (--build-original): checked as the repository says (the
+// advice), unless the user chose otherwise.
+function buildOriginalChosen() {
+  return state.buildOriginalChoice ?? (state.advice ? state.advice.needed : !!state.conversion?.conversion?.buildOriginal);
+}
+
+// The repository's setup steps after its build (--original-step), one a line: as being written, or else as given last
+// (the conversion and the original application's test run share them).
+function stepsText() {
+  return state.originalSteps ?? (state.savedSteps ?? []).join('\n');
+}
+
+function parseSteps(text) {
+  return text.split('\n').map(s => s.trim()).filter(s => s);
+}
+
+// The conversion as a command line: the one done (conversion), or else the one the page would start.
+function commandLine(conversion) {
+  const buildOriginal = conversion ? conversion.buildOriginal : buildOriginalChosen();
+  const steps = !buildOriginal ? [] : conversion ? conversion.originalSteps ?? [] : parseSteps(stepsText());
+  return state.command + (buildOriginal ? ' --build-original' : '') + steps.map(s => ` --original-step "${s}"`).join('');
+}
+
 async function loadAdvice() {
   const id = state.id;
   try {
@@ -778,7 +807,7 @@ function renderZip() {
       ${state.command ? '<button class="btn ghost small" id="copy-command2" title="Studio の外で同じ変換をするコマンド">変換のコマンドをコピー</button>' : ''}
     </div>`;
   $('#copy-command2')?.addEventListener('click', async () => {
-    await navigator.clipboard.writeText(state.command);
+    await navigator.clipboard.writeText(commandLine(c));
     toast('コマンドをコピーしました(--out の出力先を書き換えて実行)');
   });
 }
@@ -944,6 +973,7 @@ async function loadOriginal() {
   const body = await api(`/analyses/${id}/original`);
   if (id !== state.id) return;
   state.original = body;
+  state.savedSteps = body.originalSteps;
   renderOriginal();
   renderStepper();
   poller('originalPoll', loadOriginal, () => state.original?.original);
@@ -961,6 +991,9 @@ function renderOriginal() {
          <textarea id="original-env" rows="5" spellcheck="false">${esc(state.originalEnv ?? environment ?? '')}</textarea>
          <span class="muted">.NET Framework は環境変数から設定を読まないので、接続文字列と appSettings はビルドしたサイトの web.config に書き込みます(元の web.config は残し、起動のたびにそこから作り直します)。そのほかの変数はプロセスに渡します。値の無いものは web.config のまま使います。</span>
        </label>
+       <label class="env"><span>追加の手順 <span class="muted">(元のビルドのあとに実行する、リポジトリのセットアップ手順。1 行に 1 つ、<code>プロジェクト;ターゲット</code>。変換と共通。変えるとビルドし直します)</span></span>
+         <textarea id="original-run-steps" rows="2" spellcheck="false">${esc(stepsText())}</textarea>
+       </label>
        <div class="convert-actions left">
          <button class="btn primary" id="original-start">▶ ${built ? '起動' : 'ビルドして起動'}</button>
          ${built ? '<button class="btn ghost" id="original-rebuild">↻ ビルドし直して起動</button>' : ''}
@@ -968,8 +1001,9 @@ function renderOriginal() {
   root.innerHTML = runnerPanel('original', '元のアプリを起動(テスト起動)', '▶', original, log, idle,
     e => e.state === 'building' ? '元のアプリをビルドしています(初回はパッケージの復元で数分かかります)' : `${esc(HOST[e.host] ?? '')} で起動し、サイトが応答するのを待っています(${esc(e.url ?? '')})`);
   $('#original-env')?.addEventListener('input', ev => (state.originalEnv = ev.target.value));
-  const start = rebuild => api(`/analyses/${state.id}/original`, { method: 'POST', body: JSON.stringify({ rebuild, environment: $('#original-env')?.value ?? null }) })
-    .then(() => { state.originalEnv = null; return loadOriginal(); }).catch(e => toast(e.message));
+  $('#original-run-steps')?.addEventListener('input', ev => (state.originalSteps = ev.target.value));
+  const start = rebuild => api(`/analyses/${state.id}/original`, { method: 'POST', body: JSON.stringify({ rebuild, environment: $('#original-env')?.value ?? null, originalSteps: parseSteps($('#original-run-steps')?.value ?? stepsText()) }) })
+    .then(() => { state.originalEnv = null; state.originalSteps = null; return loadOriginal(); }).catch(e => toast(e.message));
   $('#original-start')?.addEventListener('click', () => start(false));
   $('#original-rebuild')?.addEventListener('click', () => start(true));
   $('#original-stop')?.addEventListener('click', async () => {
@@ -1021,7 +1055,9 @@ async function startConversion() {
     if (state.errors.length) return;
   }
   const buildOriginal = $('#build-original')?.checked ?? state.conversion?.conversion?.buildOriginal ?? false;
-  await api(`/analyses/${state.id}/conversion`, { method: 'POST', body: JSON.stringify({ buildOriginal }) });
+  const originalSteps = parseSteps($('#original-steps')?.value ?? stepsText());
+  await api(`/analyses/${state.id}/conversion`, { method: 'POST', body: JSON.stringify({ buildOriginal, originalSteps }) });
+  state.originalSteps = null;
   await loadConversion();
   await loadAnalyses();
 }
@@ -1121,7 +1157,7 @@ function renderSavebar() {
   $('#save').textContent = n > 0 ? '選択を保存' : 'この選択で保存';
   $('#discard').disabled = n === 0;
   $('#copy-command')?.addEventListener('click', async () => {
-    await navigator.clipboard.writeText(state.command);
+    await navigator.clipboard.writeText(commandLine());
     toast('コマンドをコピーしました(--out の出力先を書き換えて実行)');
   });
 }

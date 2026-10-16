@@ -15,6 +15,8 @@ public sealed record ConversionEntry
     public required DateTimeOffset Started { get; init; }
     public DateTimeOffset? Finished { get; init; }
     public bool BuildOriginal { get; init; }
+    /// <summary>The repository's setup steps after its build ("project;target", the converter's --original-step), with BuildOriginal.</summary>
+    public IReadOnlyList<string>? OriginalSteps { get; init; }
     public string? Error { get; init; }
     /// <summary>The sections of CONVERSION-REPORT.md and their counts.</summary>
     public IReadOnlyList<ReportSection>? Sections { get; init; }
@@ -25,8 +27,12 @@ public sealed record ConversionEntry
 
 public sealed record ReportSection(string Title, int Count);
 
-/// <summary>A conversion, as the UI asks for it: --build-original (the site from the repository's own build).</summary>
-public sealed record ConversionRequest(bool BuildOriginal);
+/// <summary>
+/// A conversion, as the UI asks for it: --build-original (the site from the repository's own build), and the repository's
+/// setup steps after it (--original-step "project;target", the project relative to the repository: N2's
+/// "build\n2.proj;Templates-PrepareDependencies" links its management pages into the site).
+/// </summary>
+public sealed record ConversionRequest(bool BuildOriginal, IReadOnlyList<string>? OriginalSteps = null);
 
 /// <summary>
 /// Converts and builds an analysed application in Studio: the converter (FrameworkOnCore.Converter.dll beside Studio) in
@@ -77,11 +83,14 @@ public sealed class Conversions(AnalysisStore store, string runtime)
     public bool Stale(string id) =>
         Get(id) is { } entry && File.Exists(store.ChoicesFile(id)) && File.GetLastWriteTimeUtc(store.ChoicesFile(id)) > entry.Started.UtcDateTime;
 
-    public ConversionEntry Start(string id, bool buildOriginal)
+    public ConversionEntry Start(string id, bool buildOriginal, IReadOnlyList<string>? originalSteps = null)
     {
         if (store.Get(id) is not { State: "done" } analysis) throw new InvalidOperationException("the analysis is not done");
         if (running.ContainsKey(id)) throw new InvalidOperationException("a conversion is running");
-        var entry = new ConversionEntry { State = "queued", Started = DateTimeOffset.UtcNow, BuildOriginal = buildOriginal };
+        // The steps given, or else the ones given last (the original application's test run's too).
+        var steps = originalSteps != null ? Steps(analysis.Root, originalSteps) : store.OriginalSteps(id).ToList();
+        if (originalSteps != null) store.SaveOriginalSteps(id, steps);
+        var entry = new ConversionEntry { State = "queued", Started = DateTimeOffset.UtcNow, BuildOriginal = buildOriginal, OriginalSteps = steps.Count > 0 ? steps : null };
         var cancel = new CancellationTokenSource();
         running[id] = cancel;
         Directory.CreateDirectory(Folder(id));
@@ -96,7 +105,7 @@ public sealed class Conversions(AnalysisStore store, string runtime)
                 gate = true;
                 Save(id, entry = entry with { State = "running" });
                 foreach (var old in Directory.GetFiles(Folder(id), "*.zip")) File.Delete(old);
-                var exit = await RunConverter(analysis, id, buildOriginal, log, cancel.Token);
+                var exit = await RunConverter(analysis, id, buildOriginal, buildOriginal ? steps : [], log, cancel.Token);
                 var sections = Sections(Report(id));
                 if (exit != 0)
                 {
@@ -149,7 +158,34 @@ public sealed class Conversions(AnalysisStore store, string runtime)
         logs.TryRemove(id, out _);
     }
 
-    async Task<int> RunConverter(AnalysisEntry analysis, string id, bool buildOriginal, StudioLog log, CancellationToken cancel)
+    /// <summary>The setup steps as the converter takes them (--original-step, each).</summary>
+    public static IEnumerable<string> StepArguments(IEnumerable<string> steps) => steps.SelectMany(step => new[] { "--original-step", step });
+
+    /// <summary>
+    /// The setup steps as given (blank lines dropped): "project;target" (the target Build when none), the project a file
+    /// in the repository. Not so: ArgumentException, its message for the page.
+    /// </summary>
+    public static List<string> Steps(string root, IReadOnlyList<string>? given)
+    {
+        var steps = new List<string>();
+        foreach (var line in given ?? [])
+        {
+            var step = line.Trim();
+            if (step.Length == 0) continue;
+            var parts = step.Split(';', 2);
+            var project = parts[0].Trim();
+            var target = parts.Length > 1 ? parts[1].Trim() : "";
+            if (project.Length == 0 || parts.Length > 1 && target.Length == 0)
+                throw new ArgumentException($"追加の手順「{step}」: 「プロジェクト;ターゲット」の形で書いてください");
+            var full = Path.GetFullPath(Path.Combine(root, project));
+            if (!full.StartsWith(Path.GetFullPath(root).TrimEnd(Path.DirectorySeparatorChar) + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase) || !File.Exists(full))
+                throw new ArgumentException($"追加の手順「{step}」: {project} がリポジトリ({root})にありません");
+            steps.Add(target.Length > 0 ? $"{project};{target}" : project);
+        }
+        return steps;
+    }
+
+    async Task<int> RunConverter(AnalysisEntry analysis, string id, bool buildOriginal, IReadOnlyList<string> steps, StudioLog log, CancellationToken cancel)
     {
         var converter = Path.Combine(AppContext.BaseDirectory, "FrameworkOnCore.Converter.dll");
         var start = new ProcessStartInfo("dotnet")
@@ -164,6 +200,7 @@ public sealed class Conversions(AnalysisStore store, string runtime)
                  })
             start.ArgumentList.Add(argument);
         if (buildOriginal) start.ArgumentList.Add("--build-original");
+        foreach (var argument in StepArguments(steps)) start.ArgumentList.Add(argument);
         log.Enqueue("> dotnet " + string.Join(' ', start.ArgumentList.Select(a => a.Contains(' ') ? $"\"{a}\"" : a)));
 
         // The builds write to their logs, not to the converter's output (the original's: its tools'; the conversion's:

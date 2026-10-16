@@ -210,6 +210,15 @@ body {
 .convert .advice { margin: 4px 0 0 25px; font-size: 12px; color: var(--text-muted); overflow-wrap: anywhere; }
 .convert .advice.need { color: var(--accent-2); }
 .convert .advice b { color: var(--text-primary); }
+.convert .steps { display: flex; flex-direction: column; gap: 6px; margin: 12px 0 0 25px; font-size: 13px; color: var(--text-secondary); }
+.convert .steps .muted { font-size: 12px; }
+.convert .steps code { font-family: var(--mono); font-size: 12px; }
+.convert .steps textarea {
+  background: var(--surface-2); border: 1px solid var(--border-strong); border-radius: 10px; padding: 8px 12px; color: var(--text-primary);
+  font-family: var(--mono); font-size: 12.5px; line-height: 1.55; resize: vertical;
+}
+.convert .steps textarea:disabled { opacity: .5; }
+.convert .steps textarea:focus { outline: 2px solid color-mix(in srgb, var(--accent) 60%, transparent); outline-offset: 1px; }
 .convert-sections { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
 .convert-sections .sec {
   font-size: 12.5px; padding: 5px 11px; border-radius: 999px; border: 1px solid var(--border); color: var(--text-muted); background: var(--surface-1);

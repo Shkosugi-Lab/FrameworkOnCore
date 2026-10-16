@@ -71,6 +71,20 @@ public sealed class AnalysisStore
     public string Folder(string id) => Path.Combine(data, id);
     public string ResultFile(string id) => Path.Combine(Folder(id), "api-analysis.json");
     public string ChoicesFile(string id) => Path.Combine(Folder(id), "foc-choices.json");
+    string OriginalStepsFile(string id) => Path.Combine(Folder(id), "original-steps.txt");
+
+    /// <summary>
+    /// The repository's setup steps after the original build ("project;target", the converter's --original-step) given
+    /// last, for the conversion and the original application's test run alike.
+    /// </summary>
+    public IReadOnlyList<string> OriginalSteps(string id) =>
+        File.Exists(OriginalStepsFile(id)) ? File.ReadAllLines(OriginalStepsFile(id)).Where(l => l.Length > 0).ToList() : [];
+
+    public void SaveOriginalSteps(string id, IReadOnlyList<string> steps)
+    {
+        Directory.CreateDirectory(Folder(id));
+        File.WriteAllLines(OriginalStepsFile(id), steps);
+    }
 
     public IReadOnlyList<string> Log(string id) =>
         logs.TryGetValue(id, out var log) ? log.ToList() : File.Exists(Path.Combine(Folder(id), "log.txt")) ? File.ReadAllLines(Path.Combine(Folder(id), "log.txt")) : [];

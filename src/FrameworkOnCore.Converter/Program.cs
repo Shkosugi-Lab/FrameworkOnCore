@@ -120,8 +120,9 @@ foreach (var (component, option) in choices.Components.Where(c => catalog.Defaul
     report.Add(Report.Kind.Project, "choices", $"{component}: {option} (default {catalog.DefaultOf(component).Id})");
 foreach (var (api, option) in choices.Apis)
     report.Add(Report.Kind.Project, "choices", $"{api}: {option}");
-if (caseInsensitive == null && choices.Settings.TryGetValue("file-name-case", out var nameCase) && nameCase != catalog.Settings.First(s => s.Id == "file-name-case").DefaultOption.Id)
-    report.Add(Report.Kind.Project, "choices", $"file-name-case: {nameCase}");
+foreach (var setting in catalog.Settings)
+    if (choices.Settings.TryGetValue(setting.Id, out var option) && option != setting.DefaultOption.Id && !(setting.Id == "file-name-case" && caseInsensitive != null))
+        report.Add(Report.Kind.Project, "choices", $"{setting.Id}: {option}");
 caseInsensitive ??= choices.SettingOf(catalog, "file-name-case") == "insensitive";
 // Whether the site is made by building the application (OriginalBuildAdvice): --build-original auto builds it when so;
 // without --build-original (or --site) a site that is made by the build is reported unresolved, the web project's
@@ -318,6 +319,10 @@ void WriteHost(ConvertedProject web)
     var serviceModel = projectText.Contains("\"FrameworkOnCore.ServiceModel\"", StringComparison.OrdinalIgnoreCase);
     var program = HostProgram.Write(visualBasic, allRequests, sessionMode, serviceModel, HostProgram.SessionTimeout(directory));
     File.WriteAllText(Path.Combine(directory, ProjectConverter.ProgramFile(web.TargetPath)), program, new UTF8Encoding(false));
+    // The host's modes for IIS's features (the choices' settings): appsettings.json, where the host reads them and where
+    // they can be changed after the conversion (or with environment variables: W3CLogging__Mode ...).
+    HostProgram.WriteSettings(directory, choices.SettingOf(catalog, "w3c-log"), choices.SettingOf(catalog, "url-rewrite"),
+        choices.SettingOf(catalog, "http-errors"), choices.SettingOf(catalog, "compression"));
 
     if (cultureProfile != null)
     {

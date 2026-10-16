@@ -52,6 +52,41 @@ public static class HostProgram
 
     /// <summary>The entry point's text.</summary>
     /// <param name="allRequests">Every request to Web Forms (HandleAllRequestsWithWebForms).</param>
+    /// <summary>
+    /// The host's modes for IIS's features, as the choices' settings have them (iis, aspnetcore, off), into the web project's
+    /// appsettings.json (kept what it has besides): W3CLogging:Mode (off: W3CLogging:Enabled false), UrlRewrite:Mode,
+    /// HttpErrors:Mode, Compression:Mode. The host reads them there; they can be changed after the conversion.
+    /// </summary>
+    public static void WriteSettings(string webDirectory, string w3cLog, string urlRewrite, string httpErrors, string compression)
+    {
+        var file = Path.Combine(webDirectory, "appsettings.json");
+        var options = new System.Text.Json.JsonDocumentOptions { CommentHandling = System.Text.Json.JsonCommentHandling.Skip, AllowTrailingCommas = true };
+        System.Text.Json.Nodes.JsonObject root;
+        try
+        {
+            root = File.Exists(file) ? System.Text.Json.Nodes.JsonNode.Parse(File.ReadAllText(file), documentOptions: options) as System.Text.Json.Nodes.JsonObject ?? new() : new();
+        }
+        catch (System.Text.Json.JsonException)
+        {
+            root = new();
+        }
+        static string Mode(string option) => option switch { "aspnetcore" => "AspNetCore", "off" => "Off", _ => "Iis" };
+        System.Text.Json.Nodes.JsonObject Section(string name)
+        {
+            if (root[name] is System.Text.Json.Nodes.JsonObject section) return section;
+            root[name] = section = new System.Text.Json.Nodes.JsonObject();
+            return section;
+        }
+        var log = Section("W3CLogging");
+        log["Mode"] = w3cLog == "aspnetcore" ? "AspNetCore" : "Iis";
+        if (w3cLog == "off") log["Enabled"] = false;
+        else log.Remove("Enabled");
+        Section("UrlRewrite")["Mode"] = Mode(urlRewrite);
+        Section("HttpErrors")["Mode"] = Mode(httpErrors);
+        Section("Compression")["Mode"] = Mode(compression);
+        File.WriteAllText(file, root.ToJsonString(new System.Text.Json.JsonSerializerOptions { WriteIndented = true }) + Environment.NewLine, new System.Text.UTF8Encoding(false));
+    }
+
     /// <param name="sessionMode">web.config's session state mode (SessionStateMode).</param>
     /// <param name="serviceModel">WCF's services (CoreWCF: FrameworkOnCore.ServiceModel) before Web Forms.</param>
     /// <param name="sessionTimeout">web.config's session timeout (SessionTimeout): ASP.NET Core's session expires the items

@@ -139,4 +139,23 @@ public class HostProgramTests : IDisposable
         Assert.True(add >= 0 && add < build, program);
         Assert.True(use > build && use < webForms, program);
     }
+
+    [Fact] // the choices' settings for IIS's features into appsettings.json, what it had besides kept
+    public void The_hosts_modes_go_to_appsettings()
+    {
+        File.WriteAllText(Path.Combine(root, "appsettings.json"), "{ // the application's\n \"Logging\": { \"LogLevel\": { \"Default\": \"Warning\" } }, \"W3CLogging\": { \"Enabled\": false, \"LogDirectory\": \"/logs\" } }");
+        HostProgram.WriteSettings(root, "iis", "aspnetcore", "off", "iis");
+        var settings = System.Text.Json.Nodes.JsonNode.Parse(File.ReadAllText(Path.Combine(root, "appsettings.json")))!;
+        Assert.Equal("Warning", (string?)settings["Logging"]!["LogLevel"]!["Default"]);
+        Assert.Equal("Iis", (string?)settings["W3CLogging"]!["Mode"]);
+        Assert.Null(settings["W3CLogging"]!["Enabled"]);
+        Assert.Equal("/logs", (string?)settings["W3CLogging"]!["LogDirectory"]);
+        Assert.Equal("AspNetCore", (string?)settings["UrlRewrite"]!["Mode"]);
+        Assert.Equal("Off", (string?)settings["HttpErrors"]!["Mode"]);
+        Assert.Equal("Iis", (string?)settings["Compression"]!["Mode"]);
+        HostProgram.WriteSettings(root, "off", "iis", "iis", "off");
+        settings = System.Text.Json.Nodes.JsonNode.Parse(File.ReadAllText(Path.Combine(root, "appsettings.json")))!;
+        Assert.False((bool)settings["W3CLogging"]!["Enabled"]!);
+        Assert.Equal("Off", (string?)settings["Compression"]!["Mode"]);
+    }
 }

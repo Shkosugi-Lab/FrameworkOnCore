@@ -133,8 +133,10 @@ async function refresh() {
   if (id !== state.id) return;
   state.entry = entry;
   if (entry.state === 'done') {
-    const [result, choices, command] = await Promise.all([api(`/analyses/${id}/result`), api(`/analyses/${id}/choices`), api(`/analyses/${id}/command`)]);
+    const [result, choices, command, catalog] = await Promise.all([api(`/analyses/${id}/result`), api(`/analyses/${id}/choices`), api(`/analyses/${id}/command`), api('/catalog')]);
     if (id !== state.id) return;
+    // The application's settings as the catalog has them now (an analysis made before a setting was added has not got it).
+    result.settings = catalog.settings ?? result.settings;
     state.result = result;
     state.command = command.command;
     state.byComponent = new Map();

@@ -80,6 +80,38 @@
         { "id": "insensitive", "title": "Windows と同じく区別しない", "description": "配置に casefs(libfoccase.so)を含め、start.sh が読み込む", "default": true },
         { "id": "sensitive", "title": "区別する(Linux のまま)", "description": "アプリが違う大文字小文字でファイルを参照していると見つからない" }
       ]
+    },
+    {
+      "id": "w3c-log", "title": "要求のログ(IIS の W3C ログ)",
+      "options": [
+        { "id": "iis", "title": "IIS 互換", "description": "IIS と同じ形式・項目・ファイル名(u_exYYMMDD.log)で書く。書き込みが追いつかない時は要求が待つ(行は捨てない)。元のサーバーの logFile の設定に従う", "default": true },
+        { "id": "aspnetcore", "title": "ASP.NET Core の W3C ログ", "description": "ASP.NET Core 標準の W3CLogger。形式が IIS と少し違い(sc-substatus などが無い)、書き込みに上限がある。ASP.NET Core に書き直した後もそのまま使える" },
+        { "id": "off", "title": "書かない", "description": "要求のログを書かない(前段のロード バランサーなどのログを使う)" }
+      ]
+    },
+    {
+      "id": "url-rewrite", "title": "URL Rewrite(web.config の system.webServer/rewrite)",
+      "options": [
+        { "id": "iis", "title": "IIS 互換", "description": "IIS の URL Rewrite モジュールと同じに規則を動かす(継承、サーバー変数、Wildcard、クエリ文字列の順、リダイレクトの絶対 URL など)。元のサーバーの globalRules も", "default": true },
+        { "id": "aspnetcore", "title": "ASP.NET Core の Rewriter", "description": "ASP.NET Core 標準の書き換え(AddIISUrlRewrite)。ルートの web.config だけ、IIS と動きが違う所があり、読めない規則(subStatusCode、Wildcard、一部のサーバー変数)があるとアプリが起動しない" },
+        { "id": "off", "title": "動かさない", "description": "規則を動かさない" }
+      ]
+    },
+    {
+      "id": "http-errors", "title": "エラー ページ(web.config の system.webServer/httpErrors)",
+      "options": [
+        { "id": "iis", "title": "IIS 互換", "description": "IIS と同じにエラーの応答を置き換える(errorMode、existingResponse、File・ExecuteURL・Redirect)。IIS 自身のページは簡易ページ", "default": true },
+        { "id": "aspnetcore", "title": "ASP.NET Core の状態コード ページ", "description": "本文の無いエラーに短い文字列を返す。アプリの応答は置き換えない" },
+        { "id": "off", "title": "何もしない", "description": "本文の無いエラーは空のまま" }
+      ]
+    },
+    {
+      "id": "compression", "title": "応答の圧縮",
+      "options": [
+        { "id": "iis", "title": "IIS 互換", "description": "元のサーバーの静的・動的圧縮のとおりに圧縮する(取り込んだ設定が無ければ Windows の既定: 静的ファイルを 10 秒に 2 回目から gzip)", "default": true },
+        { "id": "aspnetcore", "title": "ASP.NET Core の ResponseCompression", "description": "対象の型の応答を毎回圧縮する(brotli 優先。HTTPS では既定で圧縮しない)" },
+        { "id": "off", "title": "圧縮しない", "description": "前段のロード バランサーや CDN に任せる" }
+      ]
     }
   ],
   "components": [
